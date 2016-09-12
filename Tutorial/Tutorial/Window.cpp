@@ -15,7 +15,7 @@ Window::Window(WNDPROC messageHandler, LPCTSTR title, int x, int y, int width, i
 	// HCURSOR hCursor - The mouse cursor to show in this window.
 	windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	// HRBUSH hbrBackground - The background colour.
-	windowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	windowClass.hbrBackground = NULL; // *NEW* - Drawing is in OUR hands now.
 	// LPCTSTR lpszMenuName - The menu resource to use.
 	windowClass.lpszMenuName = NULL;
 	// LPCTSTR lpszClassName - What name to define to this new window class.

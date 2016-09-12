@@ -1,12 +1,24 @@
 #include "Window.h"
 #include "D3DManager.h"
+#include "CustomVertexFormats.h" // So we can use our new vertex format.
 //*** Fields ***
 Window* window; // Our crappy little window.
 D3DManager* d3dManager; // Our new Direct3D manager, which we'll use on the window.
+TransformedColouredVertex vertices[] = {
+		{ 300.0f, 75.0f, 0.0f, 1.0f, 0xffff0000 },
+		{ 525.0f, 525.0f, 0.0f, 1.0f, 0xff00ff00 },
+		{ 75.0f, 525.0f, 0.0f, 1.0f, 0xff0000ff }
+};
 //*** Method Declarations ***
 void cleanup();
 void quitWithError(LPCTSTR error);
 void programLoop();
+// This method will prepare for drawing, and when ready call the render method.
+void prepareForDrawing();
+
+// This method will draw our triangle for us.
+void render();
+
 LRESULT CALLBACK messageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // -------------------------------------------------
@@ -23,6 +35,9 @@ int main() {
 		// cleanup gracefully, then quit.
 		quitWithError(error);
 	}
+	// One more important step: Direct3D needs to know what vertex format we've chosen.
+	d3dManager->getDevice().SetFVF(vertices[0].FORMAT);
+
 
 	// Show the window, then begin the program loop.
 	window->show();
@@ -77,6 +92,7 @@ void programLoop() {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+		else prepareForDrawing();
 	}
 }
 //-----------------------------------------------------------------------------
@@ -93,4 +109,45 @@ LRESULT CALLBACK messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPara
 
 	// If we don't catch it, let the default message handler get it. That's this function.
 	return DefWindowProc(hwnd, msg, wParam, lParam);
+}
+
+// -------------------------------------------------
+/* prepareForDrawing */
+// This will clear the background, and prepare for drawing the scene.
+// -------------------------------------------------
+void prepareForDrawing() {
+	d3dManager->getDevice().Clear(
+		// DWORD Count - Number of rectangles to clear.
+		0,
+		// const D3DRECT* pRects - The rectangles to clear.
+		NULL,
+		// DWORD Flags - Special flags to use when clearing.
+		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+		// D3DCOLOR Color - The colour to clear the target back buffer to.
+		0x00000000,
+		// float Z - What value to clear the zbuffer to.
+		1.0f,
+		// DWORD Stencil - What value to clear the stencil buffer to.
+		0);
+	d3dManager->getDevice().BeginScene();
+	render();
+	d3dManager->getDevice().EndScene();
+	d3dManager->getDevice().Present(NULL, NULL, NULL, NULL);
+}
+
+
+// -------------------------------------------------
+/* render */
+// This will render the scene.
+// -------------------------------------------------
+void render() {
+	d3dManager->getDevice().DrawPrimitiveUP(
+		// D3DPRIMITIVETYPE PrimitiveType - What primitive type to use.
+		D3DPT_TRIANGLELIST,
+		// UINT PrimitiveCount - How many primitives to draw.
+		1,
+		// const void* pVertexStreamZeroData - The vertices to use to draw this primitive.
+		vertices,
+		// UINT VertexStreamZeroStride - How large, in bytes, a single vertex is.
+		vertices[0].STRIDE_SIZE);
 }
