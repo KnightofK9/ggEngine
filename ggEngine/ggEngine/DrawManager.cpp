@@ -1,13 +1,15 @@
 #include "DrawManager.h"
 
 namespace ggEngine {
-	DrawManager::DrawManager()
+	DrawManager::DrawManager(IDirect3DDevice9 *device)
 	{
-		/*HRESULT result = D3DXCreateSprite(&game->GetD3DManager()->getDevice(), &this->spriteHandler);
-		if (result != D3D_OK) {
+		this->device = device;
+		HRESULT result = D3DXCreateSprite(this->device, &this->spriteHandler);
+		if (result != D3D_OK) 
+		{
 			this->spriteHandler = NULL;
 			throw ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW;
-		}*/
+		}
 	}
 
 	DrawManager::~DrawManager()
@@ -22,7 +24,8 @@ namespace ggEngine {
 
 	void DrawManager::Render2D()
 	{
-		if (this->spriteHandler->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK) {
+		if (this->spriteHandler->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK) 
+		{
 			Update2D();
 			spriteHandler->End();
 		}

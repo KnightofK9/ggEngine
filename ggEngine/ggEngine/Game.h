@@ -4,6 +4,7 @@
 #include "ConstantEnum.h"
 #include "Debug.h"
 #include "GGObject.h"
+#include "DrawManager.h"
 namespace ggEngine {
 	class Game :public GGObject {
 	public:
@@ -12,7 +13,7 @@ namespace ggEngine {
 		void Destroy();
 		void GameRun();
 		D3DManager *GetD3DManager() { return this->d3dManager; }
-		//DrawManager *GetDrawManager() { return this->drawManager; }
+		DrawManager *GetDrawManager() { return this->drawManager; }
 	private:
 		//
 		// Private Method
@@ -23,7 +24,7 @@ namespace ggEngine {
 		// Private class instance
 		//
 		D3DManager *d3dManager;
-		//DrawManager *drawManager;
+		DrawManager *drawManager;
 		//
 		// Private Field
 		//
