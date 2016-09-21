@@ -1,0 +1,14 @@
+#pragma once
+#include <d3d9.h>
+#define WINDOW_WIDTH ((int)1920)
+#define WINDOW_HEIGHT ((int)1080)
+#define MILISECOND_PER_UPDATE ((int)14)
+#define VECTOR_ZERO (Vector3(0,0,0))
+#define DEFAULT_IMAGE ""
+const int ERROR_CODE_UNKNOWN = 400;
+const int ERROR_CODE_D3DERR_INVALIDCALL = 401;
+const int ERROR_CODE_D3DERR_NOTAVAILABLE = 402;
+const int ERROR_CODE_D3DERR_OUTOFVIDEOMEMORY = 403;
+const int ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW = 404;
+typedef LPCTSTR GGTEXT;
+enum GameMode { GameMode_FullScreen, GameMode_Windowed };
