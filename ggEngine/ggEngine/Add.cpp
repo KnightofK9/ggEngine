@@ -9,6 +9,7 @@ namespace ggEngine{
 	Sprite* Add::Sprite(float x, float y, std::string textureKey, int frameName, ggEngine::Group *group){
 		Texture* texture = this->drawManager->GetTexture(textureKey);
 		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->drawManager->GetDevice(), texture);
+		group->AddSpriteToList(sprite);
 		return sprite;
 	}
 	Group* Add::Group(){
