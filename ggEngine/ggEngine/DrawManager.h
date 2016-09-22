@@ -3,7 +3,7 @@
 #include "d3d9.h"
 #include "d3dx9.h"
 #include "ConstantEnum.h"
-
+#include "Sprite.h"
 namespace ggEngine {
 	class DrawManager:public GGObject{
 	public:
@@ -11,10 +11,11 @@ namespace ggEngine {
 		~DrawManager();
 		void Destroy();
 		void Render2D();
-		LPD3DXSPRITE getSpriteHandler() { return this->spriteHandler; }
+		Sprite* CreateSprite(std::string fileSource);
 	private:
 		void Update2D();
-		LPD3DXSPRITE spriteHandler;
 		IDirect3DDevice9 *device;
+		Sprite *spriteTest;
+		int test;
 	};
 }

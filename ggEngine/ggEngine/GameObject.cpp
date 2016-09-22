@@ -5,30 +5,31 @@ namespace ggEngine {
 	{
 		SetPosition(VECTOR_ZERO);
 		SetVelocity(VECTOR_ZERO);
+		SetScale(1,1);
 		this->alive = true;
 	}
 	GameObject::~GameObject()
 	{
 
 	}
-	Vector3 GameObject::GetPosition()
+	Vector GameObject::GetPosition()
 	{
 		return this->position;
 	}
-	void GameObject::SetPosition(Vector3 vector)
+	void GameObject::SetPosition(Vector vector)
 	{
 		this->position = vector;
 	}
-	void GameObject::SetPosition(double x, double y)
+	void GameObject::SetPosition(float x, float y)
 	{
-		this->position.setX(x);
-		this->position.setY(y);
+		this->position.x = x;
+		this->position.y = y;
 	}
-	void GameObject::SetVelocity(Vector3 vector)
+	void GameObject::SetVelocity(Vector vector)
 	{
 		this->velocity = vector;
 	}
-	Vector3 GameObject::GetVelocity()
+	Vector GameObject::GetVelocity()
 	{
 		return this->velocity;
 	}

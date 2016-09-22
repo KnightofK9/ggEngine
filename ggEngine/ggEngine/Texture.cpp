@@ -4,19 +4,18 @@ namespace ggEngine {
 	{
 		//standard Windows return value
 		HRESULT result;
-		LPCWSTR fileSrc = Helper::StringToLPCWSTR(filename);
 		//get width and height from bitmap file
-		result = D3DXGetImageInfoFromFile(fileSrc, &info);
-		if (result != D3D_OK) {
+		result = D3DXGetImageInfoFromFile(filename.c_str(), &info);
+		if (result != S_OK) {
 			texture = NULL;
-			Debug::Warning("Loading image failed. Src:" + filename);
+			Debug::Warning("Loading image failed. Src:" + (filename));
 			return;
 		}
 
 		////create the new texture by loading a bitmap image file
 		result = D3DXCreateTextureFromFileEx(
 			device, //Direct3D device object
-			fileSrc,				//bitmap filename
+			filename.c_str(),				//bitmap filename
 			info.Width,            //bitmap image width
 			info.Height,           //bitmap image height
 			1,                     //mip-map levels (1 for no chain)

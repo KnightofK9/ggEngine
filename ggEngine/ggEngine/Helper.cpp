@@ -9,5 +9,6 @@ LPCWSTR Helper::StringToLPCWSTR(const std::string & s)
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
 	std::wstring r(buf);
 	delete[] buf;
-	return r.c_str();
+	std::wstring stemp = r;
+	return stemp.c_str();
 }

@@ -19,7 +19,6 @@ namespace ggEngine {
 		d3dpp.BackBufferCount = 1;
 		d3dpp.BackBufferHeight = height;
 		d3dpp.BackBufferWidth = width;
-
 		HRESULT result = d3d->CreateDevice(
 			D3DADAPTER_DEFAULT,
 			D3DDEVTYPE_HAL,
@@ -37,7 +36,7 @@ namespace ggEngine {
 			&surface,
 			NULL);
 		errorCheck(result, TEXT("D3DManager Constructor: Failed to create off screen plain surface!"));
-
+		this->drawManager = NULL;
 	}
 
 	D3DManager::~D3DManager() 
@@ -63,11 +62,10 @@ namespace ggEngine {
 	void D3DManager::update()
 	{
 		clearScene();
-		if (d3ddv->BeginScene()) {
-			//game->GetDrawManager()->Render2D();
-			d3ddv->EndScene();
-		}
-
+		d3ddv->BeginScene();
+		drawManager->Render2D();
+		d3ddv->EndScene();
+		
 		d3ddv->Present(NULL, NULL, NULL, NULL);
 	}
 

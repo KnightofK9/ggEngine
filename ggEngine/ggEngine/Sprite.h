@@ -2,6 +2,7 @@
 #include "DrawObject.h"
 #include "Texture.h"
 #include "ConstantEnum.h"
+#include <d3d9.h>
 #include <string>
 namespace ggEngine {
 	class Sprite :public DrawObject {
@@ -18,8 +19,10 @@ namespace ggEngine {
 		int GetWidth() { return this->width; }
 		void SetHeight(int height) { this->height = height; }
 		int GetHeight() { return this->height; }
+		void Transform();
 	private:
 		Texture *image;
+		LPD3DXSPRITE spriteHandle;
 		int width;
 		int height;
 	};

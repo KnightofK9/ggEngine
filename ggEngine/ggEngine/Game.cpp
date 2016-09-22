@@ -16,6 +16,7 @@ namespace ggEngine {
 		try {
 			d3dManager = new D3DManager(hWnd, width, height, gameColor, isWindowed);
 			drawManager = new DrawManager(&this->d3dManager->getDevice());
+			d3dManager->SetDrawManager(drawManager);
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);

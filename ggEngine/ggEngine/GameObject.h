@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector3.h"
+#include "Vector.h"
 #include "ConstantEnum.h"
 #include "GGObject.h"
 namespace ggEngine {
@@ -7,25 +7,29 @@ namespace ggEngine {
 	public:
 		GameObject();
 		~GameObject();
-		Vector3 GetPosition();
-		void SetPosition(Vector3 vector);
-		void SetPosition(double x, double y);
-		void SetX(double x) { this->position.setX(x); }
-		void SetY(double y) { this->position.setY(y); }
-		double GetX() { return this->position.getX(); }
-		double GetY() { return this->position.getY(); }
-		void SetVelocity(Vector3 vector);
-		Vector3 GetVelocity();
+		Vector GetPosition();
+		void SetPosition(Vector vector);
+		void SetPosition(float x, float y);
+		void SetX(float x) { this->position.x; }
+		void SetY(float y) { this->position.y; }
+		float GetX() { return this->position.x; }
+		float GetY() { return this->position.y; }
+		void SetVelocity(Vector vector);
+		Vector GetVelocity();
 		void SetVisible(bool visible) { this->visible = visible; }
 		bool IsVisible() { return this->visible; }
 		void Destroy();
-		Vector3 GetScale() { return this->scale; }
-		void SetScale(Vector3 vector) { this->scale = vector; }
-	private:
-		Vector3 position;
-		Vector3 velocity;
-		Vector3 scale;
+		Vector GetScale() { return this->scale; }
+		void SetScale(Vector vector) { this->scale = vector; }
+		void SetScale(float x, float y){ this->scale.x = x; this->scale.y = y; }
+		void SetRotate(float angle){ this->rotate = angle; }
+		float GetRotate(){ return this->rotate; }
+	protected:
+		Vector position;
+		Vector velocity;
+		Vector scale;
 		bool alive;
 		bool visible;
+		float rotate;
 	};
 }

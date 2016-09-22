@@ -3,6 +3,7 @@
 #include <d3dx9.h>
 #include "GGObject.h"
 #include "ConstantEnum.h"
+#include "DrawManager.h"
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
 namespace ggEngine {
@@ -14,6 +15,7 @@ namespace ggEngine {
 		void update();
 		IDirect3DDevice9& getDevice() { return *d3ddv; }
 		IDirect3D9 &getContext() { return *d3d; }
+		void SetDrawManager(DrawManager *drawManager){ this->drawManager = drawManager; }
 	protected:
 		void errorCheck(HRESULT result, LPCTSTR debugInfo);
 		void clearScene();
@@ -25,5 +27,6 @@ namespace ggEngine {
 		LPDIRECT3DSURFACE9 surface = NULL;
 		int width;
 		int height;
+		DrawManager *drawManager;
 	};
 }

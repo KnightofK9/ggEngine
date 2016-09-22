@@ -8,6 +8,10 @@ namespace ggEngine {
 	{
 		std::cout << message << "\n";
 	}
+	void Debug::Log(std::wstring message)
+	{
+		std::wcout << message << "\n";
+	}
 	void Debug::Log(int number)
 	{
 		std::cout << number << "\n";
@@ -21,6 +25,10 @@ namespace ggEngine {
 	{
 		std::cout << message << "\n";
 	}
+	void Debug::Warning(std::wstring message)
+	{
+		std::wcout << message << "\n";
+	}
 	void Debug::Warning(int number)
 	{
 		std::cout << number << "\n";
@@ -28,5 +36,9 @@ namespace ggEngine {
 	void Debug::Error(std::string message)
 	{
 		std::cout << message << "\n";
+	}
+	void Debug::Error(std::wstring message)
+	{
+		std::wcout << message << "\n";
 	}
 }
