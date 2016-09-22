@@ -16,6 +16,7 @@ namespace ggEngine {
 		void Destroy();
 		void Render2D();
 		Sprite* CreateSprite(std::string fileSource);
+		void CreateTexture(std::string textureKey, std::string textureName);
 	private:
 		void Update2D();
 		IDirect3DDevice9 *device;

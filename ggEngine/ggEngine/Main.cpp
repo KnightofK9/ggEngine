@@ -16,7 +16,7 @@ void onExit();
 LRESULT CALLBACK messageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 int main() {
 	try {
-		window = new Window(messageHandler, TEXT("Tutorial 1 - My Crappy Window!"), CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT);
+		window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT);
 		game = new Game(window->getHandle(), WINDOW_WIDTH, WINDOW_HEIGHT, GameMode_Windowed, D3DCOLOR_XRGB(177, 177, 177));
 	}
 	catch (LPCTSTR error) {

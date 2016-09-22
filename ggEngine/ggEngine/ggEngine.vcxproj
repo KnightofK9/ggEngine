@@ -158,7 +158,9 @@
     <ClInclude Include="Group.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Preload.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector.h" />
@@ -176,7 +178,9 @@
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Preload.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3.cpp" />

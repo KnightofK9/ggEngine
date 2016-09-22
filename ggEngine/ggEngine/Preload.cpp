@@ -5,7 +5,6 @@ namespace ggEngine{
 	Preload::Preload(DrawManager *drawManager){
 		this->drawManager = drawManager;
 	}
-	Sprite* Preload::Sprite(std::string textureKey, std::string texturePath){
-		return NULL;
+	void Preload::Sprite(std::string textureKey, std::string texturePath){
 	}
 }

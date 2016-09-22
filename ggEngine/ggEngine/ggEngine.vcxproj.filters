@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Helper">
       <UniqueIdentifier>{b6a94d76-3ff2-49fe-95aa-610dd40540b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Test">
+      <UniqueIdentifier>{b0e3e062-f018-430f-aee1-2bc6480a9564}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -67,6 +70,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Preload.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -124,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="Preload.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Header Files\Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
