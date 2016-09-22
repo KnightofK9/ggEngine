@@ -29,11 +29,22 @@ namespace ggEngine {
 	void DrawManager::Update2D()
 	{
 	}
-
+	Texture* DrawManager::GetTexture(std::string textureKey){
+		std::map<std::string, Texture*>::iterator it = this->textureMap.find(textureKey);
+		Texture* tex;
+		if (it != this->textureMap.end())
+		{
+			tex = it->second;
+		}
+		else{
+			Debug::Warning("No texture found with key " + textureKey);
+			return this->textureMap["default"];
+		}
+		return tex;
+	}
 	void DrawManager::CreateTexture(std::string textureKey, std::string textureFile){
 		Texture *tex = new Texture(this->device ,textureFile);
 		if (tex->GetTexture() == NULL){
-			tex = new Texture(this->device, "default.bmp");
 			Debug::Warning("No texture found with path " + textureFile);
 		}
 		else this->textureMap[textureKey] = tex;

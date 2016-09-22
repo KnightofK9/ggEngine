@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Add.h"
+#include "Preload.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
@@ -17,6 +19,8 @@ namespace ggEngine {
 			d3dManager = new D3DManager(hWnd, width, height, gameColor, isWindowed);
 			drawManager = new DrawManager(&this->d3dManager->getDevice());
 			d3dManager->SetDrawManager(drawManager);
+			/*this->preload = new Preload(drawManager);
+			this->add = new Add(drawManager);*/
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);

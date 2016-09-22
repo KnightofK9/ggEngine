@@ -6,6 +6,7 @@
 #include <map>
 #include <list>
 namespace ggEngine {
+	class Scene;
 	class Group;
 	class Sprite;
 	class Texture;
@@ -17,10 +18,12 @@ namespace ggEngine {
 		void Render2D();
 		Sprite* CreateSprite(std::string fileSource);
 		void CreateTexture(std::string textureKey, std::string textureName);
+		Texture* GetTexture(std::string textureKey);
+		IDirect3DDevice9 *GetDevice(){ return this->device; }
 	private:
 		void Update2D();
 		IDirect3DDevice9 *device;
-		std::list<Group*> groupList;
+		std::list<Group*> topGroupList;
 		std::map<std::string, Texture*> textureMap;
 	};
 }

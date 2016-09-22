@@ -6,6 +6,8 @@
 #include "GGObject.h"
 #include "DrawManager.h"
 namespace ggEngine {
+	/*class Add;
+	class Preload;*/
 	class Game :public GGObject {
 	public:
 		Game(HWND hWnd, int width, int height, GameMode mode = GameMode_Windowed, D3DCOLOR gameColor = D3DCOLOR_XRGB(0, 255, 255));
@@ -14,6 +16,8 @@ namespace ggEngine {
 		void GameRun();
 		D3DManager *GetD3DManager() { return this->d3dManager; }
 		DrawManager *GetDrawManager() { return this->drawManager; }
+	/*	Add* add;
+		Preload* preload;*/
 	private:
 		//
 		// Private Method

@@ -8,7 +8,7 @@ namespace ggEngine{
 	class Add:public GGObject  {
 	public:
 		Add(DrawManager *drawManager);
-		Sprite* Sprite(std::string textureKey);
+		Sprite* Sprite(float x, float y, std::string textureKey, int frameName, Group *group);
 		Group* Group();
 	private:
 		DrawManager *drawManager;

@@ -8,8 +8,6 @@ namespace ggEngine {
 		this->height = image->GetHeight();
 		if (image->GetTexture() == NULL) {
 			SetImage(new Texture(device, "default.bmp", transcolor));
-			this->width = image->GetWidth();
-			this->height = image->GetHeight();
 		}
 		HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
 		if (result != D3D_OK)
@@ -21,8 +19,6 @@ namespace ggEngine {
 	Sprite::Sprite(LPDIRECT3DDEVICE9 device, Texture * image)
 	{
 		SetImage(image);
-		this->width = image->GetWidth();
-		this->height = image->GetHeight();
 		HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
 		if (result != D3D_OK)
 		{
