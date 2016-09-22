@@ -4,7 +4,7 @@
 #include "GGObject.h"
 #include "ConstantEnum.h"
 #pragma comment(lib,"d3d9.lib")
-#pragma comment (lib, "d3dx9.lib")
+#pragma comment(lib,"d3dx9.lib")
 namespace ggEngine {
 	class D3DManager :public GGObject{
 	public:

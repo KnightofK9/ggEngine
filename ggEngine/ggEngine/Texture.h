@@ -5,10 +5,11 @@
 #include "Helper.h"
 #include "GGObject.h"
 #include "Debug.h"
+
 namespace ggEngine {
 	class Texture : public GGObject {
 	public:
-		Texture(std::string fileSource, D3DCOLOR transcolor);
+		Texture(LPDIRECT3DDEVICE9 device ,std::string fileSource, D3DCOLOR transcolor);
 		~Texture();
 		int GetWidth();
 		int GetHeight();

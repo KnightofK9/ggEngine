@@ -3,6 +3,7 @@
 #include "d3d9.h"
 #include "d3dx9.h"
 #include "ConstantEnum.h"
+
 namespace ggEngine {
 	class DrawManager:public GGObject{
 	public:

@@ -1,11 +1,11 @@
 #include "Sprite.h"
 
 namespace ggEngine {
-	Sprite::Sprite(std::string filename, D3DCOLOR transcolor)
+	Sprite::Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor)
 	{
-		this->image = new Texture(filename, transcolor);
+		this->image = new Texture(device, filename, transcolor);
 		if (image->GetTexture() == NULL) {
-			SetImage(new Texture("default.bmp", transcolor));
+			SetImage(new Texture(device, "default.bmp", transcolor));
 			this->width = image->GetWidth();
 			this->height = image->GetHeight();
 		}
