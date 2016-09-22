@@ -9,7 +9,7 @@
 namespace ggEngine {
 	class Texture : public GGObject {
 	public:
-		Texture(LPDIRECT3DDEVICE9 device ,std::string fileSource, D3DCOLOR transcolor);
+		Texture(LPDIRECT3DDEVICE9 device, std::string fileSource, D3DCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
 		~Texture();
 		int GetWidth();
 		int GetHeight();

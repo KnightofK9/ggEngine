@@ -8,7 +8,7 @@ namespace ggEngine {
 	class Sprite :public DrawObject {
 	public:
 		Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
-		Sprite(Texture *image);
+		Sprite(LPDIRECT3DDEVICE9 device, Texture *image);
 		~Sprite();
 		void Draw();
 		void Destroy();

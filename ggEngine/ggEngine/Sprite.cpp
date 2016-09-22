@@ -18,11 +18,17 @@ namespace ggEngine {
 			throw ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW;
 		}
 	}
-	Sprite::Sprite(Texture * image)
+	Sprite::Sprite(LPDIRECT3DDEVICE9 device, Texture * image)
 	{
 		SetImage(image);
 		this->width = image->GetWidth();
 		this->height = image->GetHeight();
+		HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
+		if (result != D3D_OK)
+		{
+			this->spriteHandle = NULL;
+			throw ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW;
+		}
 	}
 	Sprite::~Sprite()
 	{
