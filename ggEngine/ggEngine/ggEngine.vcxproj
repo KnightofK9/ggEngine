@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Add.h" />
+    <ClInclude Include="Cache.h" />
     <ClInclude Include="ConstantEnum.h" />
     <ClInclude Include="D3DManager.h" />
     <ClInclude Include="Debug.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="GGObject.h" />
     <ClInclude Include="Group.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="IGetGroup.h" />
     <ClInclude Include="Preload.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
@@ -169,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Add.cpp" />
+    <ClCompile Include="Cache.cpp" />
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DrawManager.cpp" />

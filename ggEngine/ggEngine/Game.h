@@ -5,10 +5,12 @@
 #include "Debug.h"
 #include "GGObject.h"
 #include "DrawManager.h"
+#include "IGetGroup.h"
 namespace ggEngine {
-	/*class Add;
-	class Preload;*/
-	class Game :public GGObject {
+	class Add;
+	class Preload;
+	class Cache;
+	class Game :public GGObject, public IGetGroup {
 	public:
 		Game(HWND hWnd, int width, int height, GameMode mode = GameMode_Windowed, D3DCOLOR gameColor = D3DCOLOR_XRGB(0, 255, 255));
 		~Game();
@@ -16,8 +18,10 @@ namespace ggEngine {
 		void GameRun();
 		D3DManager *GetD3DManager() { return this->d3dManager; }
 		DrawManager *GetDrawManager() { return this->drawManager; }
-	/*	Add* add;
-		Preload* preload;*/
+		std::list<Group*> *GetGroupList() { return &this->topGroupList; }
+		Cache  *cache;
+		Add *add;
+		Preload *preload;
 	private:
 		//
 		// Private Method
@@ -33,6 +37,7 @@ namespace ggEngine {
 		// Private Field
 		//
 		HWND hWnd;
+		std::list<Group*> topGroupList;
 		long frameCountCore; 
 		long frameRateCore;
 		long frameCountReal;

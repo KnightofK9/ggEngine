@@ -4,12 +4,12 @@
 namespace ggEngine{
 	class Sprite;
 	class Group;
-	class DrawManager;
+	class Cache;
 	class Preload :public GGObject  {
 	public:
-		Preload(DrawManager *drawManager);
+		Preload(Cache *cache);
 		void Sprite(std::string textureKey, std::string texturePath);
 	private:
-		DrawManager *drawManager;
+		Cache *cache;
 	};
 }

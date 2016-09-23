@@ -5,9 +5,24 @@ void TestScene::Init(){
 void TestScene::Preload(){
 
 }
-void TestScene::LoadComplete(){
-
+void TestScene::Create()
+{
 }
-void TestScene::Destroy(){
-
+void TestScene::Update()
+{
+}
+void TestScene::PreRender()
+{
+}
+void TestScene::Render()
+{
+}
+void TestScene::Pause()
+{
+}
+void TestScene::Resume()
+{
+}
+void TestScene::ShutDown()
+{
 }

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Add.h"
 #include "Preload.h"
+#include "Cache.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
@@ -19,8 +20,7 @@ namespace ggEngine {
 			d3dManager = new D3DManager(hWnd, width, height, gameColor, isWindowed);
 			drawManager = new DrawManager(&this->d3dManager->getDevice());
 			d3dManager->SetDrawManager(drawManager);
-			/*this->preload = new Preload(drawManager);
-			this->add = new Add(drawManager);*/
+			cache = new Cache(this);
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);
@@ -64,31 +64,30 @@ namespace ggEngine {
 
 	void Game::GameRun()
 	{
-		frameCountReal++;
-		if (realTimer.stopwatch(999)) {
-			frameRateReal = frameCountReal;
-			frameCountReal = 0;
+		frameCountCore++;
+		if (coreTimer.stopwatch(999)) {
+			frameRateCore = frameCountCore;
+			frameCountCore = 0;
 		}
-		//
-		// Render go here
-		//
-		this->d3dManager->update();
-		//
-		// Update game logic here
-		//
 		if (!timeUpdate.stopwatch(MILISECOND_PER_UPDATE)) {
 			if (!this->maximizeProcessor) {
 				Sleep(1);
 			}
 		}
 		else {
-			frameCountCore++;
-			if (coreTimer.stopwatch(999)) {
-				frameRateCore = frameCountCore;
-				frameCountCore = 0;
+			frameCountReal++;
+			if (realTimer.stopwatch(999)) {
+				frameRateReal = frameCountReal;
+				frameCountReal = 0;
 			}
+			//
+			// Update game logic here
+			//
 			gameUpdate();
-			
+			//
+			// Render go here
+			//
+			this->d3dManager->update();
 		}
 	}
 

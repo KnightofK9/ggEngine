@@ -1,23 +1,20 @@
 #include "Scene.h"
 #include "Group.h"
+#include "Add.h"
+#include "Preload.h"
+#include "DrawManager.h"
 namespace ggEngine{
-	Scene::Scene(){
-		Init();
-		Preload();
+	Scene::Scene(DrawManager *drawManager){
+		this->drawManager = drawManager;
 	}
 	Scene::~Scene(){
 		Destroy();
 	}
+	void Scene::Start()
+	{
+		Init();
+	}
 	void Scene::Destroy(){
-
-	}
-	void Scene::Init(){
-
-	}
-	void Scene::Preload(){
-
-	}
-	void Scene::LoadComplete(){
 
 	}
 }
