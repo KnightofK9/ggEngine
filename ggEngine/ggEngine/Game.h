@@ -7,8 +7,7 @@
 #include "DrawManager.h"
 #include "IGetGroup.h"
 namespace ggEngine {
-	class Add;
-	class Preload;
+	class StateManager;
 	class Cache;
 	class Game :public GGObject, public IGetGroup {
 	public:
@@ -20,8 +19,7 @@ namespace ggEngine {
 		DrawManager *GetDrawManager() { return this->drawManager; }
 		std::list<Group*> GetGroupList() { return this->topGroupList; }
 		Cache  *cache;
-		Add *add;
-		Preload *preload;
+		StateManager *stateManager;
 	private:
 		//
 		// Private Method

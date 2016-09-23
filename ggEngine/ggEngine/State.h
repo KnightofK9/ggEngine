@@ -7,11 +7,14 @@ namespace ggEngine{
 	class Add;
 	class Preload;
 	class DrawManager;
+	class Game;
 	class State : public GGObject, public IGetGroup{
 	public:
-		State(DrawManager *drawManager);
+		State(Game *game);
 		~State();
 		void Start();
+		Add *add;
+		Preload *preload;
 		virtual void Destroy();
 		std::list<Group*> GetGroupList() { return this->groupList; }
 		virtual void Init() = 0; //Called after start a State

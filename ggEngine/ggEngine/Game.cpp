@@ -1,7 +1,6 @@
 #include "Game.h"
-#include "Add.h"
-#include "Preload.h"
 #include "Cache.h"
+#include "StateManager.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
@@ -21,6 +20,7 @@ namespace ggEngine {
 			drawManager = new DrawManager(&this->d3dManager->getDevice());
 			d3dManager->SetDrawManager(drawManager);
 			cache = new Cache(this);
+			stateManager = new StateManager(this);
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);

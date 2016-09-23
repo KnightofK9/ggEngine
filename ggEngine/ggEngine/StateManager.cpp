@@ -36,6 +36,7 @@ namespace ggEngine {
 		}
 		if (clearWolrd) {
 			if (this->currentState != NULL) {
+				ClearGroup(this->currentState->GetGroupList());
 				this->currentState->ShutDown();
 			}
 		}
@@ -61,6 +62,7 @@ namespace ggEngine {
 			Debug::Error("No State has been init.");
 			return false;
 		}
+		ClearGroup(this->currentState->GetGroupList());
 		this->currentState->ShutDown();
 		this->currentState->Start();
 		return true;
