@@ -7,14 +7,14 @@ namespace ggEngine{
 	class Add;
 	class Preload;
 	class DrawManager;
-	class Scene : public GGObject, public IGetGroup{
+	class State : public GGObject, public IGetGroup{
 	public:
-		Scene(DrawManager *drawManager);
-		~Scene();
+		State(DrawManager *drawManager);
+		~State();
 		void Start();
 		virtual void Destroy();
-		std::list<Group*> *GetGroupList() { return &this->groupList; }
-		virtual void Init() = 0; //Called after start a scene
+		std::list<Group*> GetGroupList() { return this->groupList; }
+		virtual void Init() = 0; //Called after start a State
 		virtual void Preload() = 0; //Called after init
 		virtual void Create() = 0;//Called after preload complete
 		virtual void Update() = 0;//Called after each game update loop
@@ -22,7 +22,7 @@ namespace ggEngine{
 		virtual void Render() = 0;//Called after render completed
 		virtual void Pause() = 0;//Called when the game is set to paused
 		virtual void Resume() = 0;//Called when the game is resumed
-		virtual void ShutDown() = 0;//Called when start a new scene
+		virtual void ShutDown() = 0;//Called when start a new State
 	private:
 		std::list<Group*> groupList;
 		DrawManager *drawManager;

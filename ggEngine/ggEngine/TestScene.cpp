@@ -1,28 +1,28 @@
-#include "TestScene.h"
-void TestScene::Init(){
+#include "TestState.h"
+void TestState::Init(){
 
 }
-void TestScene::Preload(){
+void TestState::Preload(){
 
 }
-void TestScene::Create()
+void TestState::Create()
 {
 }
-void TestScene::Update()
+void TestState::Update()
 {
 }
-void TestScene::PreRender()
+void TestState::PreRender()
 {
 }
-void TestScene::Render()
+void TestState::Render()
 {
 }
-void TestScene::Pause()
+void TestState::Pause()
 {
 }
-void TestScene::Resume()
+void TestState::Resume()
 {
 }
-void TestScene::ShutDown()
+void TestState::ShutDown()
 {
 }

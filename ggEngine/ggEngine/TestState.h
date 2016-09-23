@@ -1,7 +1,7 @@
 #pragma once
-#include "Scene.h"
+#include "State.h"
 using namespace ggEngine;
-class TestScene : public Scene{
+class TestState : public State{
 public:
 	void Init(); //Called after start a scene
 	void Preload(); //Called after int

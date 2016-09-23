@@ -18,7 +18,7 @@ namespace ggEngine {
 		void GameRun();
 		D3DManager *GetD3DManager() { return this->d3dManager; }
 		DrawManager *GetDrawManager() { return this->drawManager; }
-		std::list<Group*> *GetGroupList() { return &this->topGroupList; }
+		std::list<Group*> GetGroupList() { return this->topGroupList; }
 		Cache  *cache;
 		Add *add;
 		Preload *preload;

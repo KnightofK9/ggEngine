@@ -5,6 +5,6 @@ namespace ggEngine {
 	class IGetGroup {
 	public:
 		~IGetGroup() {}
-		virtual std::list<Group*> *GetGroupList() = 0;
+		virtual std::list<Group*> GetGroupList() = 0;
 	};
 }

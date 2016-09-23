@@ -61,7 +61,7 @@ namespace ggEngine {
 
 	void D3DManager::update()
 	{
-		clearScene();
+		clearBuffer();
 		d3ddv->BeginScene();
 		drawManager->Render2D();
 		d3ddv->EndScene();
@@ -69,7 +69,7 @@ namespace ggEngine {
 		d3ddv->Present(NULL, NULL, NULL, NULL);
 	}
 
-	void D3DManager::clearScene()
+	void D3DManager::clearBuffer()
 	{
 		d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, backgroundColor, 1.0f, 0);
 	}

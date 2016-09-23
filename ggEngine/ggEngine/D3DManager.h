@@ -18,7 +18,7 @@ namespace ggEngine {
 		void SetDrawManager(DrawManager *drawManager){ this->drawManager = drawManager; }
 	protected:
 		void errorCheck(HRESULT result, LPCTSTR debugInfo);
-		void clearScene();
+		void clearBuffer();
 		IDirect3D9* d3d;
 		IDirect3DDevice9* d3ddv;
 		D3DPRESENT_PARAMETERS  d3dpp;

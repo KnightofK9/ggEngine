@@ -6,7 +6,7 @@
 #include <map>
 #include <list>
 namespace ggEngine {
-	class Scene;
+	class State;
 	class Group;
 	class Sprite;
 	class Texture;

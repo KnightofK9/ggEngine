@@ -160,10 +160,10 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IGetGroup.h" />
     <ClInclude Include="Preload.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StateManager.h" />
-    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TestState.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector.h" />

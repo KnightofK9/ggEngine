@@ -11,7 +11,7 @@ namespace ggEngine{
 		~Group();
 		void Destroy();
 		void AddSpriteToList(Sprite* sprite);
-		std::list<Group*> *GetGroupList() { return &this->groupList; }
+		std::list<Group*> GetGroupList() { return this->groupList; }
 	private:
 		std::list<DrawObject*> drawList;
 		std::list<Group*> groupList;
