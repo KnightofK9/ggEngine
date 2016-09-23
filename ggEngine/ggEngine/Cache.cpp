@@ -27,11 +27,16 @@ namespace ggEngine {
 	void Cache::Destroy()
 	{
 	}
-	void Cache::CreateTexture(std::string textureKey, std::string textureFile) {
+	void Cache::ClearAll()
+	{
+	}
+	bool Cache::CreateTexture(std::string textureKey, std::string textureFile) {
 		Texture *tex = new Texture(this->device, textureFile);
 		if (tex->GetTexture() == NULL) {
 			Debug::Warning("No texture found with path " + textureFile);
+			return false;
 		}
 		else this->textureMap[textureKey] = tex;
+		return true;
 	}
 }

@@ -11,7 +11,8 @@ namespace ggEngine {
 		Cache(Game* game);
 		~Cache();
 		void Destroy();
-		void CreateTexture(std::string textureKey, std::string textureName);
+		void ClearAll();
+		bool CreateTexture(std::string textureKey, std::string textureName);
 		Texture* GetTexture(std::string textureKey);
 	private:
 		std::map<std::string, Texture*> textureMap;
