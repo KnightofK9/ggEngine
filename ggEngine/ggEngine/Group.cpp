@@ -11,6 +11,10 @@ namespace ggEngine{
 	void Group::Destroy(){
 
 	}
+	void Group::Update()
+	{
+		if (this->update != nullptr) update();
+	}
 	void Group::AddSpriteToList(Sprite* sprite){
 		drawList.push_back(sprite);
 	}

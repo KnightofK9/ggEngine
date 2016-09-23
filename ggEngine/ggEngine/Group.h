@@ -2,6 +2,7 @@
 #include <list>
 #include "DrawObject.h"
 #include "IGetGroup.h"
+#include <functional>
 namespace ggEngine{
 	class DrawManager;
 	class Sprite;
@@ -10,6 +11,8 @@ namespace ggEngine{
 		Group(DrawManager *drawManager);
 		~Group();
 		void Destroy();
+		void Update();
+		std::function<void(void)> update;
 		void AddSpriteToList(Sprite* sprite);
 		std::list<Group*> GetGroupList() { return this->groupList; }
 	private:

@@ -10,6 +10,7 @@ void TestState::Create()
 }
 void TestState::Update()
 {
+	
 }
 void TestState::PreRender()
 {
