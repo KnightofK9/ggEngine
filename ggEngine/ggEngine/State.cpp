@@ -16,6 +16,8 @@ namespace ggEngine{
 	void State::Start()
 	{
 		Init();
+		Preload();
+		Create();
 	}
 	void State::Destroy(){
 

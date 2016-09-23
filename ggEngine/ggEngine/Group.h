@@ -14,6 +14,7 @@ namespace ggEngine{
 		void Update();
 		std::function<void(void)> update;
 		void AddSpriteToList(Sprite* sprite);
+		std::list<DrawObject*> GetDrawList() { return this->drawList; }
 		std::list<Group*> GetGroupList() { return this->groupList; }
 	private:
 		std::list<DrawObject*> drawList;

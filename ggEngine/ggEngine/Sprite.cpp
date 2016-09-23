@@ -32,6 +32,7 @@ namespace ggEngine {
 	}
 	void Sprite::Draw()
 	{
+		Transform();
 		RECT srcRect = { 0, 0, this->GetWidth(), this->GetHeight() };		
 		if (this->spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{

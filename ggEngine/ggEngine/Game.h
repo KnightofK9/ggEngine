@@ -20,12 +20,15 @@ namespace ggEngine {
 		std::list<Group*> GetGroupList() { return this->topGroupList; }
 		Cache  *cache;
 		StateManager *stateManager;
+		void SetRunning(bool isRunning) { this->isRunning = isRunning; }
+		bool IsRunning() { return this->isRunning; }
 	private:
 		//
 		// Private Method
 		//
 		void ErrorCheck(int errorCode);
 		void gameUpdate();
+		void RunGroupUpdate(std::list<Group*> groupList);
 		//
 		// Private class instance
 		//
@@ -35,6 +38,7 @@ namespace ggEngine {
 		// Private Field
 		//
 		HWND hWnd;
+		bool isRunning;
 		std::list<Group*> topGroupList;
 		long frameCountCore; 
 		long frameRateCore;

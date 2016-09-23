@@ -12,6 +12,7 @@ namespace ggEngine{
 	Sprite* Add::Sprite(float x, float y, std::string textureKey, int frameName, ggEngine::Group *group){
 		Texture* texture = this->cache->GetTexture(textureKey);
 		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->device, texture);
+		sprite->SetPosition(x, y);
 		group->AddSpriteToList(sprite);
 		return sprite;
 	}

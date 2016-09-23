@@ -20,10 +20,13 @@ namespace ggEngine {
 		void SetHeight(int height) { this->height = height; }
 		int GetHeight() { return this->height; }
 		void Transform();
+		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }
+		Vector GetAnchor() { return this->anchor; }
 	private:
 		Texture *image;
 		LPD3DXSPRITE spriteHandle;
 		int width;
 		int height;
+		Vector anchor;
 	};
 }

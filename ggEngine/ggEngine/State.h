@@ -1,6 +1,7 @@
 #pragma once
 #include "GGObject.h"
 #include "IGetGroup.h"
+#include "Sprite.h"
 #include <list>
 namespace ggEngine{
 	class Group;

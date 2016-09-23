@@ -1,17 +1,19 @@
 #include "Window.h"
 #include "Game.h"
+#include "TestState.h"
+#include "StateManager.h"
 #include <iostream>
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 using namespace ggEngine;
 //Field
 Window *window;
-
-//Method declarations
 Game *game;
+//Method declarations
 void cleanup();
 void quitWithError(LPCTSTR error);
 void programLoop();
 void update();
+void initGame();
 void onExit();
 LRESULT CALLBACK messageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 int main() {
@@ -22,8 +24,8 @@ int main() {
 	catch (LPCTSTR error) {
 		quitWithError(error);
 	}
-
 	window->show();
+	initGame();
 	programLoop();
 	cleanup();
 
@@ -31,6 +33,10 @@ int main() {
 }
 void cleanup() {
 	if (window != NULL) { delete window; window = NULL; }
+}
+void initGame() {
+	TestState *testState = new TestState(game);
+	game->stateManager->Add("TestState", testState,true);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

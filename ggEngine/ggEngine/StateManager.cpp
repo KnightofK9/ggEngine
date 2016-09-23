@@ -24,6 +24,7 @@ namespace ggEngine {
 		this->stateMap[key] = State;
 		if (autoStart) {
 			Start(key,false,false);
+			game->SetRunning(true);
 		}
 		return true;
 	}
@@ -45,6 +46,7 @@ namespace ggEngine {
 		}
 		this->currentState = this->stateMap[key];
 		this->currentState->Start();
+		game->SetRunning(true);
 		return true;
 	}
 

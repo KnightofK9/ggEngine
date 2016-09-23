@@ -1,10 +1,13 @@
 #include "Game.h"
 #include "Cache.h"
+#include "Group.h"
 #include "StateManager.h"
+#include "State.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
 		bool isWindowed = false;
+		isRunning = false;
 		switch (mode) {
 		case GameMode_FullScreen:
 			isWindowed = false;
@@ -17,10 +20,10 @@ namespace ggEngine {
 		}
 		try {
 			d3dManager = new D3DManager(hWnd, width, height, gameColor, isWindowed);
-			drawManager = new DrawManager(&this->d3dManager->getDevice());
-			d3dManager->SetDrawManager(drawManager);
 			cache = new Cache(this);
 			stateManager = new StateManager(this);
+			drawManager = new DrawManager(this);
+			d3dManager->SetDrawManager(drawManager);
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);
@@ -100,7 +103,23 @@ namespace ggEngine {
 	void Game::gameUpdate()
 	{
 		//Debug::Log("Frame rate core " + frameRateCore);
-		Debug::Log(frameRateReal);
+		//Debug::Log(frameRateReal);
+		if (isRunning) {
+			State *state = stateManager->GetCurrentState();
+			state->Update();
+			RunGroupUpdate(state->GetGroupList());
+		}
 	}
+
+	void Game::RunGroupUpdate(std::list<Group*> groupList)
+	{
+		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end(); ++it) {
+			std::list<Group*> groupList = (*it)->GetGroupList();
+			(*it)->Update();
+			RunGroupUpdate(groupList);
+		}
+	}
+
+	
 
 }

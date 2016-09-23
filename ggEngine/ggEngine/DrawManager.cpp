@@ -2,10 +2,14 @@
 #include "Group.h"
 #include "Sprite.h"
 #include "Texture.h"
+#include "Game.h"
+#include "State.h"
+#include "StateManager.h"
 namespace ggEngine {
-	DrawManager::DrawManager(IDirect3DDevice9 *device)
+	DrawManager::DrawManager(Game* game)
 	{
-		this->device = device;
+		this->stateManager = game->stateManager;
+		this->device = &game->GetD3DManager()->getDevice();
 	}
 	Sprite* DrawManager::CreateSprite(std::string fileSource){
 		return new Sprite(this->device, fileSource);
@@ -25,8 +29,28 @@ namespace ggEngine {
 		Update2D();
 	}
 
+	void DrawManager::DrawObjectFromGroup(std::list<Group*> groupList)
+	{
+		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end(); ++it) {
+			DrawList((*it)->GetDrawList());
+			DrawObjectFromGroup((*it)->GetGroupList());
+		}
+	}
+
+	void DrawManager::DrawList(std::list<DrawObject*> drawObjectList)
+	{
+		for (std::list<DrawObject*>::iterator it = drawObjectList.begin(); it != drawObjectList.end(); ++it) {
+			(*it)->Draw();
+		}
+	}
+
+
 	void DrawManager::Update2D()
 	{
+		State* state = this->stateManager->GetCurrentState();
+		state->PreRender();
+		DrawObjectFromGroup(state->GetGroupList());
+		DrawObjectFromGroup(this->topGroupList);
 	}
 
 }
