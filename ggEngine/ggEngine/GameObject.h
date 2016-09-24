@@ -24,6 +24,7 @@ namespace ggEngine {
 		void SetScale(float x, float y){ this->scale.x = x; this->scale.y = y; }
 		void SetRotate(float angle){ this->rotate = angle; }
 		float GetRotate(){ return this->rotate; }
+		bool GetAlive() { return this->alive; }
 	protected:
 		Vector position;
 		Vector velocity;

@@ -15,6 +15,7 @@ namespace ggEngine {
 		void Destroy(bool isClearCache);
 		Texture* GetImage() { return this->image; }
 		void SetImage(Texture *image);
+		void SetScale(float x, float y);
 		void SetWidth(int width) { this->width = width; }
 		int GetWidth() { return this->width; }
 		void SetHeight(int height) { this->height = height; }

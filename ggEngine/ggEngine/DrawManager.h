@@ -20,7 +20,7 @@ namespace ggEngine {
 		void Destroy();
 		void Render2D();
 		void DrawObjectFromGroup(std::list<Group*> groupList);
-		void DrawList(std::list<DrawObject*> drawObjectList);
+		void DrawList(std::list<DrawObject*> *drawObjectList);
 		Sprite* CreateSprite(std::string fileSource);
 		IDirect3DDevice9 *GetDevice(){ return this->device; }
 	private:

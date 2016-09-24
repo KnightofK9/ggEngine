@@ -37,10 +37,19 @@ namespace ggEngine {
 		}
 	}
 
-	void DrawManager::DrawList(std::list<DrawObject*> drawObjectList)
+	void DrawManager::DrawList(std::list<DrawObject*> *drawObjectList)
 	{
-		for (std::list<DrawObject*>::iterator it = drawObjectList.begin(); it != drawObjectList.end(); ++it) {
-			(*it)->Draw();
+		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
+			if ((*it)->GetAlive()) {
+				(*it)->Draw();
+				++it;
+			}
+			else {
+				std::list<DrawObject*>::iterator tempIt = it;
+				++it;
+				delete (*tempIt);
+				drawObjectList->erase(tempIt);
+			}
 		}
 	}
 

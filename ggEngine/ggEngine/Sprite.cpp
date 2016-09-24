@@ -28,12 +28,11 @@ namespace ggEngine {
 	}
 	Sprite::~Sprite()
 	{
-		Destroy();
 	}
 	void Sprite::Draw()
 	{
 		Transform();
-		RECT srcRect = { 0, 0, this->GetWidth(), this->GetHeight() };		
+		RECT srcRect = { 0, 0, this->image->GetWidth(), this->image->GetHeight() };
 		if (this->spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
 			this->spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));
@@ -42,6 +41,7 @@ namespace ggEngine {
 	}
 	void Sprite::Destroy()
 	{
+		this->alive = false;
 	}
 	void Sprite::Destroy(bool isClearCache)
 	{
@@ -54,12 +54,20 @@ namespace ggEngine {
 		this->width = image->GetWidth();
 		this->height = image->GetHeight();
 	}
+	void Sprite::SetScale(float x, float y)
+	{
+		GameObject::SetScale(x, y);
+		this->width *= x;
+		this->height *= y;
+	}
 	void Sprite::Transform(){
 		D3DXMATRIX mat;
 		Vector scaleTransform(this->scale.x, this->scale.y);
-		Vector centerTransfrom((this->width*this->scale.x) / 2, (this->height*this->scale.y) / 2);
-		Vector trans(this->position.x, this->position.y);
-		D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &centerTransfrom, this->rotate, &trans);
+		Vector rotateCenter((this->width) / 2, (this->height) / 2);
+		//Vector scaleCenter((this->width) / 2, (this->height) / 2);
+		Vector scaleCenter(0, 0);
+		Vector trans(this->position.x-this->width*(this->anchor.x), this->position.y-this->height*(this->anchor.y));
+		D3DXMatrixTransformation2D(&mat, &scaleCenter, 0, &scale, &rotateCenter, this->rotate, &trans);
 		this->spriteHandle->SetTransform(&mat);
 	}
 }
