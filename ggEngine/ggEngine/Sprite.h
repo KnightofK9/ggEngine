@@ -16,10 +16,10 @@ namespace ggEngine {
 		Texture* GetImage() { return this->image; }
 		void SetImage(Texture *image);
 		void SetScale(float x, float y);
-		void SetWidth(int width) { this->width = width; }
-		int GetWidth() { return this->width; }
-		void SetHeight(int height) { this->height = height; }
-		int GetHeight() { return this->height; }
+		void SetWidth(int width);
+		int GetWidth();
+		void SetHeight(int height);
+		int GetHeight();
 		void Transform();
 		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }
 		Vector GetAnchor() { return this->anchor; }

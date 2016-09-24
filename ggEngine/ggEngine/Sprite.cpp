@@ -60,14 +60,31 @@ namespace ggEngine {
 		this->width *= x;
 		this->height *= y;
 	}
+	void Sprite::SetWidth(int width)
+	{
+		this->scale.x = (float)width / this->image->GetWidth();
+		this->width = width;
+	}
+	int Sprite::GetWidth()
+	{
+		return this->image->GetWidth()*this->scale.x;
+	}
+	void Sprite::SetHeight(int height)
+	{
+		this->scale.y = (float)height / this->image->GetHeight();
+		this->height = height;
+	}
+	int Sprite::GetHeight()
+	{
+		return this->image->GetHeight()*this->scale.y;
+	}
 	void Sprite::Transform(){
 		D3DXMATRIX mat;
 		Vector scaleTransform(this->scale.x, this->scale.y);
 		Vector rotateCenter((this->width) / 2, (this->height) / 2);
 		//Vector scaleCenter((this->width) / 2, (this->height) / 2);
-		Vector scaleCenter(0, 0);
-		Vector trans(this->position.x-this->width*(this->anchor.x), this->position.y-this->height*(this->anchor.y));
-		D3DXMatrixTransformation2D(&mat, &scaleCenter, 0, &scale, &rotateCenter, this->rotate, &trans);
+		Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
+		D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
 		this->spriteHandle->SetTransform(&mat);
 	}
 }
