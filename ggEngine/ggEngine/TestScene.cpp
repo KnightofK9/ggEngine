@@ -16,9 +16,10 @@ void TestState::Preload(){
 void TestState::Create()
 {
 	this->test = 0;
+	Group* group2 = this->add->Group();
 	Group* group = this->add->Group();
+	this->sprite2 = this->add->Sprite(50, 50, "girl", NULL, group2);
 	this->sprite1 = this->add->Sprite(50, 50, "default", NULL, group);
-	this->sprite2 = this->add->Sprite(50, 50, "girl", NULL, group);
 	//this->sprite3 = this->add->Sprite(50, 50, "default", NULL, group);
 	this->sprite1->SetAnchor(0.5, 0.5);
 	this->sprite2->SetAnchor(0.5, 0.5);

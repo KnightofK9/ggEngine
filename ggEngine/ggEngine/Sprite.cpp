@@ -1,6 +1,15 @@
 #include "Sprite.h"
 
 namespace ggEngine {
+	Sprite::Sprite(LPDIRECT3DDEVICE9 device)
+	{
+		HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
+		if (result != D3D_OK)
+		{
+			this->spriteHandle = NULL;
+			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
+		}
+	}
 	Sprite::Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor)
 	{
 		this->image = new Texture(device, filename, transcolor);
@@ -13,7 +22,7 @@ namespace ggEngine {
 		if (result != D3D_OK)
 		{
 			this->spriteHandle = NULL;
-			throw ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW;
+			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
 		}
 	}
 	Sprite::Sprite(LPDIRECT3DDEVICE9 device, Texture * image)
@@ -23,7 +32,7 @@ namespace ggEngine {
 		if (result != D3D_OK)
 		{
 			this->spriteHandle = NULL;
-			throw ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW;
+			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
 		}
 	}
 	Sprite::~Sprite()

@@ -1,8 +1,8 @@
 #include "Add.h"
 #include "Group.h"
-#include "Sprite.h"
 #include "Cache.h"
 #include "DrawManager.h"
+#include "SpriteAnimation.h"
 namespace ggEngine{
 	Add::Add(Cache *cache, LPDIRECT3DDEVICE9 device, std::list<ggEngine::Group*> *groupList){
 		this->cache = cache;
@@ -15,6 +15,12 @@ namespace ggEngine{
 		sprite->SetPosition(x, y);
 		group->AddSpriteToList(sprite);
 		return sprite;
+	}
+	SpriteAnimation* Add::SpriteAnimation(std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame)
+	{
+		Texture* texture = this->cache->GetTexture(textureKey);
+		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->device, texture, frameWidth, frameHeight, defaultFrame, numberOfFrame);
+		return spriteAnimation;
 	}
 	Group* Add::Group(){
 		ggEngine::Group *gr = new ggEngine::Group(NULL);
