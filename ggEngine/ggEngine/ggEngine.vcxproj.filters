@@ -167,6 +167,9 @@
     <ClInclude Include="Animator.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="default.bmp">

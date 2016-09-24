@@ -12,6 +12,7 @@ namespace ggEngine {
 	public:
 		StateManager(Game *game);
 		~StateManager();
+		void Destroy();
 		bool Add(std::string key, State* State, bool autoStart = false);
 		bool Start(std::string key, bool clearWolrd, bool clearCache);
 		bool Restart(bool clearWolrd, bool clearCache);

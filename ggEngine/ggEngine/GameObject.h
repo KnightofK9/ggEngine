@@ -10,12 +10,10 @@ namespace ggEngine {
 		Vector GetPosition();
 		void SetPosition(Vector vector);
 		void SetPosition(float x, float y);
-		void SetX(float x) { this->position.x; }
-		void SetY(float y) { this->position.y; }
+		void SetX(float x) { this->position.x = x; }
+		void SetY(float y) { this->position.y = y; }
 		float GetX() { return this->position.x; }
 		float GetY() { return this->position.y; }
-		void SetVelocity(Vector vector);
-		Vector GetVelocity();
 		void SetVisible(bool visible) { this->visible = visible; }
 		bool IsVisible() { return this->visible; }
 		void Destroy();
@@ -27,7 +25,6 @@ namespace ggEngine {
 		bool GetAlive() { return this->alive; }
 	protected:
 		Vector position;
-		Vector velocity;
 		Vector scale;
 		bool alive;
 		bool visible;

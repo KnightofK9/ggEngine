@@ -13,6 +13,11 @@ namespace ggEngine {
 
 	StateManager::~StateManager()
 	{
+		Destroy();
+	}
+
+	void StateManager::Destroy()
+	{
 	}
 
 	bool StateManager::Add(std::string key, State * State, bool autoStart)

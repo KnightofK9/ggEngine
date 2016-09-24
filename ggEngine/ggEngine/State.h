@@ -2,6 +2,7 @@
 #include "GGObject.h"
 #include "IGetGroup.h"
 #include "Sprite.h"
+#include "SpriteAnimation.h"
 #include <list>
 namespace ggEngine{
 	class Group;

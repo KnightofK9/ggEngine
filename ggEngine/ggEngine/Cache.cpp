@@ -23,12 +23,17 @@ namespace ggEngine {
 	}
 	Cache::~Cache()
 	{
+		Destroy();
 	}
 	void Cache::Destroy()
 	{
+		ClearAll();
 	}
 	void Cache::ClearAll()
 	{
+		for (std::map<std::string, Texture*>::iterator it = this->textureMap.begin(); it != this->textureMap.end(); ++it) {
+			(it->second)->Destroy();
+		};
 	}
 	bool Cache::CreateTexture(std::string textureKey, std::string textureFile, D3DCOLOR transColor) {
 		Texture *tex = new Texture(this->device, textureFile,transColor);

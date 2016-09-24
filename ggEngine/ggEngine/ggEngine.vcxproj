@@ -162,6 +162,7 @@
     <ClInclude Include="Group.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IGetGroup.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="Preload.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="State.h" />

@@ -15,8 +15,7 @@ public:
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 private:
-	Sprite *sprite1;
+	SpriteAnimation *sprite1;
 	Sprite *sprite2;
-	Sprite *sprite3;
 	int test;
 };

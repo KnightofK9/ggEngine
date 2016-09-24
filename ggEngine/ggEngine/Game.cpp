@@ -87,6 +87,7 @@ namespace ggEngine {
 			// Update game logic here
 			//
 			gameUpdate();
+			if(this->isRunning) this->stateManager->GetCurrentState()->PreRender();
 			//
 			// Render go here
 			//
