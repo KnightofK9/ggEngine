@@ -1,6 +1,7 @@
 #include "TestState.h"
 #include "Add.h"
 #include "Preload.h"
+#include "SpriteAnimation.h"
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -11,20 +12,16 @@ void TestState::Init(){
 
 }
 void TestState::Preload(){
-	this->preload->Sprite("girl", "Resource/girl.jpg");
+	this->preload->Texture("kitty", "Resource/kitty.bmp");
 }
 void TestState::Create()
 {
 	this->test = 0;
-	Group* group2 = this->add->Group();
 	Group* group = this->add->Group();
-	this->sprite2 = this->add->Sprite(50, 50, "girl", NULL, group2);
-	this->sprite1 = this->add->Sprite(50, 50, "default", NULL, group);
-	//this->sprite3 = this->add->Sprite(50, 50, "default", NULL, group);
-	this->sprite1->SetAnchor(0.5, 0.5);
-	this->sprite2->SetAnchor(0.5, 0.5);
-	this->sprite2->SetWidth(49);
-	this->sprite2->SetHeight(47);
+	SpriteAnimation *sprite = this->add->SpriteAnimation(40,40,"kitty", 92, 60, group, 0);
+	sprite->CreateAnimation("MoveLeft", 0, 5, true);
+	sprite->CreateAnimation("MoveRight", 6, 11, true);
+	sprite->PlayAnimation("MoveLeft");
 	//this->sprite3->SetAnchor(0, 0);
 	//sprite3->SetScale(2, 2);
 	//sprite1->SetScale(2, 2);

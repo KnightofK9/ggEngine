@@ -16,10 +16,12 @@ namespace ggEngine{
 		group->AddSpriteToList(sprite);
 		return sprite;
 	}
-	SpriteAnimation* Add::SpriteAnimation(std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame)
+	SpriteAnimation* Add::SpriteAnimation(float x, float y, std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame)
 	{
 		Texture* texture = this->cache->GetTexture(textureKey);
 		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->device, texture, frameWidth, frameHeight, defaultFrame, numberOfFrame);
+		spriteAnimation->SetPosition(x, y);
+		group->AddSpriteToList(spriteAnimation);
 		return spriteAnimation;
 	}
 	Group* Add::Group(){

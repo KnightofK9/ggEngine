@@ -31,7 +31,11 @@ namespace ggEngine {
 		}
 		int currentFrameRow = ((this->currentFrame) / this->framePerRow);
 		int currentFrameColumn = (this->currentFrame - ((currentFrameRow)*this->framePerRow));
-		this->srcRect = { currentFrameRow,currentFrameColumn,currentFrameRow + this->frameWidth, currentFrameColumn + this->frameHeight };
+		int top = this->frameHeight*currentFrameRow;
+		int left = this->frameWidth*currentFrameColumn;
+		int right = left + this->frameWidth;
+		int bottom = top + this->frameHeight;
+		this->srcRect = { left,top,right,bottom };
 		this->currentFrame++;
 		if (this->currentFrame > this->endFrame) {
 			if (this->isLoop) {

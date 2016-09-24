@@ -16,7 +16,7 @@ namespace ggEngine {
 	{
 		Transform();
 		RECT srcRect;
-		if (this->isRunningAnimation && !this->currentAnimation->isFinished) this->isRunningAnimation = false;
+		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {
 			srcRect = this->currentAnimation->GetNextRect();
 			this->currentFrame = this->currentAnimation->currentFrame;
@@ -24,7 +24,11 @@ namespace ggEngine {
 		else {
 			int currentFrameRow = ((this->currentFrame) / this->framePerRow);
 			int currentFrameColumn = (this->currentFrame - ((currentFrameRow)*this->framePerRow));
-			srcRect = { currentFrameRow,currentFrameColumn,currentFrameRow + this->frameWidth, currentFrameColumn + this->frameHeight };
+			int top = this->frameHeight*currentFrameRow;
+			int left = this->frameWidth*currentFrameColumn;
+			int right = left + this->frameWidth;
+			int bottom = top + this->frameHeight;
+			srcRect = { left,top,right,bottom };
 		}
 		if (this->spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{

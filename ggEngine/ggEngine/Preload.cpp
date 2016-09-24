@@ -6,7 +6,7 @@ namespace ggEngine{
 	Preload::Preload(Cache *cache){
 		this->cache = cache;
 	}
-	void Preload::Sprite(std::string textureKey, std::string texturePath){
+	void Preload::Texture(std::string textureKey, std::string texturePath){
 		this->cache->CreateTexture(textureKey, texturePath);
 	}
 }

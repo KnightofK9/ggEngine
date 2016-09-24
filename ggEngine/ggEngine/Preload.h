@@ -8,7 +8,7 @@ namespace ggEngine{
 	class Preload :public GGObject  {
 	public:
 		Preload(Cache *cache);
-		void Sprite(std::string textureKey, std::string texturePath);
+		void Texture(std::string textureKey, std::string texturePath);
 	private:
 		Cache *cache;
 	};

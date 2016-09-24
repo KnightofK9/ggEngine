@@ -30,8 +30,8 @@ namespace ggEngine {
 	void Cache::ClearAll()
 	{
 	}
-	bool Cache::CreateTexture(std::string textureKey, std::string textureFile) {
-		Texture *tex = new Texture(this->device, textureFile);
+	bool Cache::CreateTexture(std::string textureKey, std::string textureFile, D3DCOLOR transColor) {
+		Texture *tex = new Texture(this->device, textureFile,transColor);
 		if (tex->GetTexture() == NULL) {
 			Debug::Warning("No texture found with path " + textureFile);
 			return false;
