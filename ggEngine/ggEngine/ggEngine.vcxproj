@@ -165,6 +165,8 @@
     <ClInclude Include="IGetGroup.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Preload.h" />
+    <ClInclude Include="RectangleShape.h" />
+    <ClInclude Include="Shape.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Sprite.h" />
@@ -175,7 +177,7 @@
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="Map.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Add.cpp" />
@@ -192,11 +194,12 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Preload.cpp" />
+    <ClCompile Include="RectangleShape.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StateManager.cpp" />
-    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TestState.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3.cpp" />

@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Test">
       <UniqueIdentifier>{b0e3e062-f018-430f-aee1-2bc6480a9564}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\Shape">
+      <UniqueIdentifier>{6ad30ee2-ab50-4854-baad-b76af595db23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -72,9 +75,6 @@
     <ClCompile Include="Preload.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Cache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -97,6 +97,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,8 +188,14 @@
     <ClInclude Include="Body.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
+    <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Header Files\Core\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleShape.h">
+      <Filter>Header Files\Core\Shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

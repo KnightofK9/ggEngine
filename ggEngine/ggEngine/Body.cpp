@@ -7,6 +7,7 @@ namespace ggEngine {
 		this->sprite = sprite;
 		this->width = sprite->GetWidth();
 		this->height = sprite->GetHeight();
+		this->bodyShape = new RectangleShape(width, height);
 		this->orgWidth = sprite->GetImage()->GetWidth();
 		this->orgHeight = sprite->GetImage()->GetHeight();
 		this->enable = true;
@@ -55,23 +56,20 @@ namespace ggEngine {
 	bool Body::CheckWorldBounds()
 	{
 		blocked.Reset();
+		bool isBlocked = false;
 		if (position.x <= 0) {
-			blocked.left = true;
-			return true;
+			isBlocked = blocked.left = true;
 		}
 		if (position.x + width >= WINDOW_WIDTH) {
-			blocked.right = true;
-			return true;
+			isBlocked = blocked.right = true;
 		}
 		if (position.y + height >= WINDOW_HEIGHT) {
-			blocked.down = true;
-			return true;
+			isBlocked = blocked.down = true;
 		}
 		if (position.y <= 0) {
-			blocked.up = true;
-			return true;
+			isBlocked = blocked.up = true;
 		}
-		return false;
+		return isBlocked;
 	}
 	bool Body::MoveTo(int duration, int distance, int directionAngle)
 	{
@@ -137,6 +135,13 @@ namespace ggEngine {
 		UpdateBounds();
 		PostUpdate();
 	}
+	void Body::AddForce(float force, float angleInRadian)
+	{
+	}
+	void Body::AddForce(float force, Vector angleInVector)
+	{
+		velocity += angleInVector*force;
+	}
 	Vector Body::CalculateAirForce()
 	{
 		float a = -1 * 0.5*airDensity*objectCoeffecient*CalculateArea();
@@ -149,6 +154,6 @@ namespace ggEngine {
 	}
 	float Body::CalculateArea()
 	{
-		return 0.0f;
+		return bodyShape->GetArea()/10000;
 	}
 }

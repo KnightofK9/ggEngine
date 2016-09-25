@@ -5,6 +5,7 @@
 #include <cmath>
 #include "ConstantEnum.h"
 #include <string>
+#include "RectangleShape.h"
 #include <functional>
 namespace ggEngine {
 	struct Direction {
@@ -35,16 +36,17 @@ namespace ggEngine {
 		int orgHeight;
 		float rotation = 0;
 		float preRotation;
+		Shape* bodyShape;
 		//Force modifier
 		/*Air*/
-		float airDensity = 0;
-		float objectCoeffecient = 0;
+		float airDensity = 0.4;
+		float objectCoeffecient = 0.47;
 		bool allowAirResistance;
 		/*Gravity*/
 		float mass = 0.4;
 		float gravity = 9.81;
 		bool allowGravity;
-
+		
 		float bounciness = 0.4;
 		Vector velocity;
 		Vector newVelocity;
@@ -115,6 +117,8 @@ namespace ggEngine {
 		std::string ToString();
 		void Update();
 		bool IsAlive() { return this->isAlive; }
+		void AddForce(float force, float angleInRadian);
+		void AddForce(float force, Vector angleInVector);
 	private:
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
