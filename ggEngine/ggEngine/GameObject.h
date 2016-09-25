@@ -8,6 +8,7 @@ namespace ggEngine {
 		GameObject();
 		~GameObject();
 		Vector GetPosition();
+		Vector* GetPositionAsRef();
 		void SetPosition(Vector vector);
 		void SetPosition(float x, float y);
 		void SetX(float x) { this->position.x = x; }
@@ -22,7 +23,7 @@ namespace ggEngine {
 		void SetScale(float x, float y){ this->scale.x = x; this->scale.y = y; }
 		void SetRotate(float angle){ this->rotate = angle; }
 		float GetRotate(){ return this->rotate; }
-		bool GetAlive() { return this->alive; }
+		bool IsAlive() { return this->alive; }
 	protected:
 		Vector position;
 		Vector scale;

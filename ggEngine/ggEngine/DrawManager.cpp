@@ -40,7 +40,7 @@ namespace ggEngine {
 	void DrawManager::DrawList(std::list<DrawObject*> *drawObjectList)
 	{
 		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
-			if ((*it)->GetAlive()) {
+			if ((*it)->IsAlive()) {
 				(*it)->Draw();
 				++it;
 			}

@@ -18,6 +18,7 @@ namespace ggEngine {
 
 	void StateManager::Destroy()
 	{
+		ClearGroup(this->currentState->GetGroupList());
 	}
 
 	bool StateManager::Add(std::string key, State * State, bool autoStart)

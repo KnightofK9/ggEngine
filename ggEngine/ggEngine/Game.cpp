@@ -3,6 +3,7 @@
 #include "Group.h"
 #include "StateManager.h"
 #include "State.h"
+#include "Physics.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
@@ -24,6 +25,7 @@ namespace ggEngine {
 			stateManager = new StateManager(this);
 			drawManager = new DrawManager(this);
 			d3dManager->SetDrawManager(drawManager);
+			physics = new Physics(this);
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);
@@ -83,6 +85,7 @@ namespace ggEngine {
 				frameRateReal = frameCountReal;
 				frameCountReal = 0;
 			}
+			logicTimer.updateDeltaTime();
 			//
 			// Update game logic here
 			//
@@ -105,19 +108,33 @@ namespace ggEngine {
 	{
 		//Debug::Log("Frame rate core " + frameRateCore);
 		//Debug::Log(frameRateReal);
+		Debug::Log(std::to_string(logicTimer.getDeltaTime()));
 		if (isRunning) {
+			/*State update*/
 			State *state = stateManager->GetCurrentState();
 			state->Update();
+			/*Group update*/
 			RunGroupUpdate(state->GetGroupList());
+			/*Physics update*/
+			physics->UpdatePhysics();
 		}
 	}
 
 	void Game::RunGroupUpdate(std::list<Group*> groupList)
 	{
-		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end(); ++it) {
-			std::list<Group*> groupList = (*it)->GetGroupList();
-			(*it)->Update();
-			RunGroupUpdate(groupList);
+		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end();) {
+			if ((*it)->IsAlive()) {
+				std::list<Group*> groupList = (*it)->GetGroupList();
+				(*it)->Update();
+				RunGroupUpdate(groupList);
+				++it;
+			}
+			else {
+				std::list<Group*>::iterator tempIt = it;
+				++it;
+				delete (*tempIt);
+				groupList.erase(tempIt);
+			}
 		}
 	}
 

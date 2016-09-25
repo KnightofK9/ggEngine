@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Add.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Body.h" />
     <ClInclude Include="Cache.h" />
     <ClInclude Include="ConstantEnum.h" />
     <ClInclude Include="D3DManager.h" />
@@ -174,10 +175,12 @@
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Add.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Body.cpp" />
     <ClCompile Include="Cache.cpp" />
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -187,6 +190,7 @@
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Preload.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="State.cpp" />
@@ -198,6 +202,7 @@
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="default.bmp" />

@@ -7,6 +7,7 @@
 #include "DrawManager.h"
 #include "IGetGroup.h"
 namespace ggEngine {
+	class Physics;
 	class StateManager;
 	class Cache;
 	class Game :public GGObject, public IGetGroup {
@@ -20,8 +21,10 @@ namespace ggEngine {
 		std::list<Group*> GetGroupList() { return this->topGroupList; }
 		Cache  *cache;
 		StateManager *stateManager;
+		Physics *physics;
 		void SetRunning(bool isRunning) { this->isRunning = isRunning; }
 		bool IsRunning() { return this->isRunning; }
+		Timer logicTimer;
 	private:
 		//
 		// Private Method

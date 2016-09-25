@@ -4,6 +4,7 @@ namespace ggEngine {
 	Timer::Timer(void)
 	{
 		timerStart = timeGetTime();
+		timerGetDelta = timerStart;
 		reset();
 	}
 	Timer::~Timer(void)
@@ -30,6 +31,10 @@ namespace ggEngine {
 	{
 		stopwatchStart = getTimer();
 	}
+	void Timer::resetDelta()
+	{
+		timerGetDelta = getTimer();
+	}
 	bool Timer::stopwatch(int ms)
 	{
 		if (timeGetTime() > stopwatchStart + ms) {
@@ -37,5 +42,14 @@ namespace ggEngine {
 			return true;
 		}
 		else return false;
+	}
+	float Timer::getDeltaTime()
+	{
+		return (float)deltaTime/1000;
+	}
+	void Timer::updateDeltaTime()
+	{
+		deltaTime = getTimer() - timerGetDelta;
+		timerGetDelta = getTimer();
 	}
 }

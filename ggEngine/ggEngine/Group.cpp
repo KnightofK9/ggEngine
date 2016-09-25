@@ -6,10 +6,10 @@ namespace ggEngine{
 		this->drawManager = drawManager;
 	}
 	Group::~Group(){
-		Destroy();
+		//TO DO remove all child group and all child sprite here
 	}
 	void Group::Destroy(){
-
+		GameObject::Destroy();
 	}
 	void Group::Update()
 	{

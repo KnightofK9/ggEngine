@@ -13,9 +13,14 @@ namespace ggEngine {
 		DWORD getStartTimeMillis();
 		void sleep(int ms);
 		void reset();
+		void resetDelta();
 		bool stopwatch(int ms);
+		float getDeltaTime();
+		void updateDeltaTime();
 	private:
 		DWORD timerStart;
 		DWORD stopwatchStart;
+		DWORD timerGetDelta;
+		DWORD deltaTime;
 	};
 }

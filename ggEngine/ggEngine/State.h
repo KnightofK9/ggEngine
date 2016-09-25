@@ -5,6 +5,7 @@
 #include "SpriteAnimation.h"
 #include <list>
 namespace ggEngine{
+	class Map;
 	class Group;
 	class Add;
 	class Preload;
@@ -28,8 +29,11 @@ namespace ggEngine{
 		virtual void Pause() = 0;//Called when the game is set to paused
 		virtual void Resume() = 0;//Called when the game is resumed
 		virtual void ShutDown() = 0;//Called when start a new State
+	protected:
+		Game *game;
 	private:
 		std::list<Group*> groupList;
 		DrawManager *drawManager;
+		Map *map;
 	};
 }

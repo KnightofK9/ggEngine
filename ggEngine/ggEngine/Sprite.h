@@ -5,6 +5,7 @@
 #include <d3d9.h>
 #include <string>
 namespace ggEngine {
+	class Body;
 	class Sprite :public DrawObject {
 	public:
 		Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
@@ -23,7 +24,10 @@ namespace ggEngine {
 		void Transform();
 		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }
 		Vector GetAnchor() { return this->anchor; }
+		void SetBody(Body* body) { this->body = body; }
+		Body* GetBody() { return this->body; }
 	protected:
+		Body* body;
 		Sprite(LPDIRECT3DDEVICE9 device);
 		Texture *image;
 		LPD3DXSPRITE spriteHandle;

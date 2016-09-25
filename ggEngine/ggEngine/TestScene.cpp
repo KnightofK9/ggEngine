@@ -1,6 +1,8 @@
 #include "TestState.h"
 #include "Add.h"
 #include "Preload.h"
+#include "Game.h"
+#include "Physics.h"
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -18,26 +20,17 @@ void TestState::Create()
 {
 	this->test = 0;
 	Group* group = this->add->Group();
-	sprite1 = this->add->SpriteAnimation(500,500,"kitty", 92, 60, group, 0);
+	sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH/2.0,20,"kitty", 92, 60, group, 0);
+	//sprite2 = this->add->Sprite(WINDOW_WIDTH / 2.0, 20, "girl", 0, group);
 	sprite1->CreateAnimation("MoveLeft", 0, 5, true);
 	sprite1->CreateAnimation("MoveRight", 6, 11, true);
-	sprite1->PlayAnimation("MoveLeft");
-	sprite2 = this->add->Sprite(400, 500, "girl",0,group);
-	sprite2->SetWidth(40);
-	sprite2->SetHeight(50);
-	//this->sprite3->SetAnchor(0, 0);
-	//sprite3->SetScale(2, 2);
-	//sprite1->SetScale(2, 2);
-	//this->sprite3->Destroy();
+	game->physics->EnablePhysics(sprite1);
+	//sprite1->PlayAnimation("MoveRight");
+	
 }
 void TestState::Update()
 {
-	sprite1->SetX(sprite1->GetX() - 3);
-	sprite2->SetX(sprite2->GetX() - 3);
-	/*test += 10;
-	this->sprite1->SetRotate(test);
-	this->sprite2->SetRotate(test - 4);
-	this->sprite3->SetRotate(test - 7);*/
+	//sprite2->SetY(sprite2->GetY() + 1);
 }
 void TestState::PreRender()
 {

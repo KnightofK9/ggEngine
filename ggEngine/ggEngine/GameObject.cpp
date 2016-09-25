@@ -16,6 +16,10 @@ namespace ggEngine {
 	{
 		return this->position;
 	}
+	Vector * GameObject::GetPositionAsRef()
+	{
+		return &this->position;
+	}
 	void GameObject::SetPosition(Vector vector)
 	{
 		this->position = vector;

@@ -1,5 +1,5 @@
 #include "Sprite.h"
-
+#include "Body.h"
 namespace ggEngine {
 	Sprite::Sprite(LPDIRECT3DDEVICE9 device)
 	{
@@ -37,6 +37,7 @@ namespace ggEngine {
 	}
 	Sprite::~Sprite()
 	{
+		//TO DO remove sprite here
 	}
 	void Sprite::Draw()
 	{

@@ -6,6 +6,7 @@
 #define MILISECOND_PER_UPDATE ((int)14)
 #define VECTOR_ZERO (Vector(0,0))
 #define DEFAULT_IMAGE ""
+#define GRAVITY (float(9.81))
 const int ERROR_CODE_UNKNOWN = 400;
 const int ERROR_CODE_D3DERR_INVALIDCALL = 401;
 const int ERROR_CODE_D3DERR_NOTAVAILABLE = 402;
