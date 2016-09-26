@@ -12,9 +12,12 @@ public:
 	Vector Normalize();
 	float Length();
 	float Distance(const Vector& v);
-	static float Distance(const Vector& vectorA, const Vector& vectorB);
 	float DotProduct(const Vector& v);
-	static float DotProduct(const Vector& vectorA, const Vector& vectorB);
-	static Vector3 CrossProduct(const Vector3& a,const Vector3& b);
 	Vector ProjectionTo(const Vector& v);
+	Vector Rotate(const Vector& p, float angle);
+	static float Distance(const Vector& vectorA, const Vector& vectorB);
+	static float DotProduct(const Vector& vectorA, const Vector& vectorB);
+	Vector CrossProduct(const Vector&v);
+	static Vector3 CrossProduct(const Vector3& a,const Vector3& b);
+
 };

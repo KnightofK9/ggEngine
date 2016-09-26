@@ -33,11 +33,23 @@ float Vector::DotProduct(const Vector& v){
 float Vector::DotProduct(const Vector& vectorA, const Vector& vectorB){
 	return vectorA.x*vectorB.x + vectorA.y*vectorB.y;
 }
+Vector Vector::CrossProduct(const Vector& v){
+	 return Vector(x * v.y - y * v.x);
+}
 Vector3 Vector::CrossProduct(const Vector3& a, const Vector3& b){
 	return Vector3(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.z); //(a2b3-a3b2, a3b1-a1b3, a1b2-a2b1)
 }
 Vector Vector::ProjectionTo(const Vector&){
 	return Vector();
+}
+Vector Vector::Rotate(const Vector& vector, float angle){
+	float x = this->x - vector.x;
+	float y = this->y - vector.y;
+
+	float x_prime = vector.x + ((x * cos(angle)) - (y * sin(angle)));
+	float y_prime = vector.y + ((x * sin(angle)) + (y * cos(angle)));
+
+	return Vector(x_prime, y_prime);
 }
 
 
