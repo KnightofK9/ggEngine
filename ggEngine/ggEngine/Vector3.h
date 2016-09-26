@@ -1,6 +1,5 @@
 #pragma once
 #include <math.h>
-namespace ggEngine {
 	class Vector3 {
 	public:
 		Vector3();
@@ -9,12 +8,6 @@ namespace ggEngine {
 		Vector3(int x, int y, int z);
 		void Set(double x1, double y1, double z1);
 		void Set(const Vector3& v);
-		double getX() { return x; }
-		void setX(double v) { x = v; }
-		double getY() { return y; }
-		void setY(double v) { y = v; }
-		double getZ() { return z; }
-		void setZ(double v) { z = v; }
 		void Move(double mx, double my, double mz);
 		void operator+=(const Vector3& v);
 		void operator-=(const Vector3& v);
@@ -28,7 +21,5 @@ namespace ggEngine {
 		double DotProduct(const Vector3& v);
 		Vector3 CrossProduct(const Vector3& v);
 		Vector3 Normal();
-	private:
 		double x, y, z;
 	};
-}
