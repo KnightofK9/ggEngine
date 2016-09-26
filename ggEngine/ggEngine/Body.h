@@ -50,6 +50,8 @@ namespace ggEngine {
 		float dampingCoeffecient = 0.4;
 		float alphaAngle = 0;
 		bool allowDamping = true;
+		/*Rotation*/
+
 		float bounciness = 0.4;
 		Vector velocity;
 		Vector newVelocity;

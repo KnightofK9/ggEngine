@@ -14,43 +14,24 @@ Vector::Vector() : D3DXVECTOR2(0, 0){
 Vector::~Vector() {
 
 }
-//Vector::operator FLOAT*()
-//{
-//}
-//Vector::operator CONST FLOAT*() const
-//{
-//}
-//Vector & Vector::operator+=(CONST D3DXVECTOR2 &)
-//{
-//	// TODO: insert return statement here
-//}
-//
-//Vector Vector::operator+(CONST D3DXVECTOR2 &) const
-//{
-//	return Vector();
-//}
-//
-//Vector Vector::operator-(CONST D3DXVECTOR2 &) const
-//{
-//	return Vector();
-//}
-//
-//Vector Vector::operator*(FLOAT) const
-//{
-//	return Vector();
-//}
-//
-//Vector Vector::operator/(FLOAT) const
-//{
-//	return Vector();
-//}
-//
-//BOOL Vector::operator==(CONST D3DXVECTOR2 &) const
-//{
-//	return 0;
-//}
-//
-//BOOL Vector::operator!=(CONST D3DXVECTOR2 &) const
-//{
-//	return 0;
-//}
+Vector Vector::Normalize(){
+	float length = this->Length();
+	return Vector(x / length, y / length);
+}
+float Vector::Length(){
+	return sqrt(x*x + y*y);
+}
+float Distance(const Vector& vectorA,const Vector& vectorB){
+	return sqrt((vectorB.x - vectorA.x)*(vectorB.x - vectorA.x) + (vectorB.y - vectorA.y)*(vectorB.y - vectorA.y));
+}
+Vector Vector::DotProduct(const Vector&){
+
+}
+Vector Vector::CrossProduct(const Vector&){
+
+}
+Vector Vector::ProjectionTo(const Vector&){
+
+}
+
+

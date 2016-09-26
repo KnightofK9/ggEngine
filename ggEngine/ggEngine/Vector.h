@@ -1,5 +1,6 @@
 #pragma once
 #include <d3dx9.h>
+#include <cmath>
 class Vector :public D3DXVECTOR2{
 public:
 	Vector(float x, float y);
@@ -7,26 +8,10 @@ public:
 	Vector(const D3DXVECTOR2 &v);
 	Vector();
 	~Vector();
-	//operator FLOAT* ();
-	//operator CONST FLOAT* () const;
-
-	//// assignment operators
-	//Vector& operator += (CONST D3DXVECTOR2&);
-	//Vector& operator -= (CONST D3DXVECTOR2&);
-	//Vector& operator *= (FLOAT);
-	//Vector& operator /= (FLOAT);
-
-	//// unary operators
-	//Vector operator + () const;
-	//Vector operator - () const;
-
-	//// binary operators
-	//Vector operator + (CONST D3DXVECTOR2&) const;
-	//Vector operator - (CONST D3DXVECTOR2&) const;
-	//Vector operator * (FLOAT) const;
-	//Vector operator / (FLOAT) const;
-
-
-	//BOOL operator == (CONST D3DXVECTOR2&) const;
-	//BOOL operator != (CONST D3DXVECTOR2&) const;
+	Vector Normalize();
+	float Length();
+	friend float Distance(const Vector& vectorA, const Vector& vectorB);
+	Vector DotProduct(const Vector&);
+	Vector CrossProduct(const Vector&);
+	Vector ProjectionTo(const Vector&);
 };
