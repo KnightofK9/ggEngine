@@ -14,10 +14,10 @@ namespace ggEngine {
 		void PlayAnimation(std::string animationName);
 		void SetImage(Texture *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
 		int GetNumberOfFrame() { return this->numberOfFrame; }
-		void SetWidth(int width);
-		void SetHeight(int height);
-		int GetWidth();
-		int GetHeight();
+		void SetWidth(float width);
+		void SetHeight(float height);
+		float GetWidth();
+		float GetHeight();
 		int GetFrameWidth() { return this->frameWidth; }
 		int GetFrameHeight() { return this->frameHeight; }
 		int GetFramePerColumn() { return this->framePerColumn; }

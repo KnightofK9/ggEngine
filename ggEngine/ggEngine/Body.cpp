@@ -152,6 +152,10 @@ namespace ggEngine {
 	{
 		return Vector(0,mass*gravity);
 	}
+	Vector Body::CalculateDampingForce()
+	{
+		return Vector();
+	}
 	float Body::CalculateArea()
 	{
 		return bodyShape->GetArea()/10000;

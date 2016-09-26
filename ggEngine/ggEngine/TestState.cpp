@@ -25,6 +25,7 @@ void TestState::Create()
 	//sprite2 = this->add->Sprite(WINDOW_WIDTH / 2.0, 20, "girl", 0, group);
 	sprite1->CreateAnimation("MoveLeft", 0, 5, true);
 	sprite1->CreateAnimation("MoveRight", 6, 11, true);
+	sprite1->SetScale(1.3, 1.4);
 	game->physics->EnablePhysics(sprite1);
 	sprite1->body->AddForce(1, Vector(1, 0));
 	//sprite1->PlayAnimation("MoveRight");

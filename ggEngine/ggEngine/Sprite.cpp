@@ -70,21 +70,21 @@ namespace ggEngine {
 		this->width *= x;
 		this->height *= y;
 	}
-	void Sprite::SetWidth(int width)
+	void Sprite::SetWidth(float width)
 	{
 		this->scale.x = (float)width / this->image->GetWidth();
 		this->width = width;
 	}
-	int Sprite::GetWidth()
+	float Sprite::GetWidth()
 	{
 		return this->image->GetWidth()*this->scale.x;
 	}
-	void Sprite::SetHeight(int height)
+	void Sprite::SetHeight(float height)
 	{
 		this->scale.y = (float)height / this->image->GetHeight();
 		this->height = height;
 	}
-	int Sprite::GetHeight()
+	float Sprite::GetHeight()
 	{
 		return this->image->GetHeight()*this->scale.y;
 	}

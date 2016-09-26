@@ -2,6 +2,9 @@
 Vector::Vector(float x, float y) : D3DXVECTOR2(x,y){
 
 }
+Vector::Vector(float f) : D3DXVECTOR2(f, f){
+
+}
 Vector::Vector(const D3DXVECTOR2 & v) : D3DXVECTOR2(v.x, v.y)
 {
 }

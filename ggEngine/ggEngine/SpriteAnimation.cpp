@@ -81,21 +81,21 @@ namespace ggEngine {
 			this->numberOfFrame = num;
 		}
 	}
-	void SpriteAnimation::SetWidth(int width)
+	void SpriteAnimation::SetWidth(float width)
 	{
 		this->scale.x = ((float)width / this->frameWidth);
 		this->width = width;
 	}
-	void SpriteAnimation::SetHeight(int height)
+	void SpriteAnimation::SetHeight(float height)
 	{
 		this->scale.y = (float)height / this->frameHeight;
 		this->height = height;
 	}
-	int SpriteAnimation::GetWidth()
+	float SpriteAnimation::GetWidth()
 	{
 		return this->frameWidth*this->scale.x;
 	}
-	int SpriteAnimation::GetHeight()
+	float SpriteAnimation::GetHeight()
 	{
 		return this->frameHeight*this->scale.y;
 	}

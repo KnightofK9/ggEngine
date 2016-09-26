@@ -39,14 +39,17 @@ namespace ggEngine {
 		Shape* bodyShape;
 		//Force modifier
 		/*Air*/
-		float airDensity = 0.4;
+		float airDensity = 0.1;
 		float objectCoeffecient = 0.47;
 		bool allowAirResistance;
 		/*Gravity*/
 		float mass = 0.4;
 		float gravity = 9.81;
-		bool allowGravity;
-		
+		bool allowGravity = true;
+		/*Vicious damping*/
+		float dampingCoeffecient = 0.4;
+		float alphaAngle = 0;
+		bool allowDamping = true;
 		float bounciness = 0.4;
 		Vector velocity;
 		Vector newVelocity;
@@ -122,6 +125,7 @@ namespace ggEngine {
 	private:
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
+		Vector CalculateDampingForce();
 		float CalculateArea();
 		void UpdateBounds();
 		void PreUpdate();

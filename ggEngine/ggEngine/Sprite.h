@@ -12,10 +12,10 @@ namespace ggEngine {
 		Sprite(LPDIRECT3DDEVICE9 device, Texture *image);
 		~Sprite();
 		virtual void Draw();
-		virtual void SetWidth(int width);
-		virtual void SetHeight(int height);
-		virtual int GetWidth();
-		virtual int GetHeight();
+		virtual void SetWidth(float width);
+		virtual void SetHeight(float height);
+		virtual float GetWidth();
+		virtual float GetHeight();
 		void SetImage(Texture *image);
 		void Destroy();
 		void Destroy(bool isClearCache);
@@ -30,8 +30,8 @@ namespace ggEngine {
 		Sprite(LPDIRECT3DDEVICE9 device);
 		Texture *image;
 		LPD3DXSPRITE spriteHandle;
-		int width;
-		int height;
+		float width;
+		float height;
 		Vector anchor;
 	};
 }

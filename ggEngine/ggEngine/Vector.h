@@ -3,6 +3,7 @@
 class Vector :public D3DXVECTOR2{
 public:
 	Vector(float x, float y);
+	Vector(float f);
 	Vector(const D3DXVECTOR2 &v);
 	Vector();
 	~Vector();
