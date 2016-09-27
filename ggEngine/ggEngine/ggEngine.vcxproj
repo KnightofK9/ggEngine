@@ -152,6 +152,7 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Cache.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="ConstantEnum.h" />
     <ClInclude Include="D3DManager.h" />
     <ClInclude Include="Debug.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Group.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IGetGroup.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Preload.h" />
     <ClInclude Include="RectangleShape.h" />
@@ -184,6 +186,7 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Cache.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DrawManager.cpp" />
@@ -192,6 +195,7 @@
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Preload.cpp" />
     <ClCompile Include="RectangleShape.cpp" />

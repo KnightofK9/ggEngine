@@ -5,14 +5,16 @@
 #include "Game.h"
 #include "State.h"
 #include "StateManager.h"
+#include "Camera.h"
 namespace ggEngine {
-	DrawManager::DrawManager(Game* game)
+	Sprite* DrawManager::CreateSprite(std::string fileSource){
+		return new Sprite(this->device, fileSource);
+	}
+	DrawManager::DrawManager(Game * game, Camera * camera)
 	{
 		this->stateManager = game->stateManager;
 		this->device = &game->GetD3DManager()->getDevice();
-	}
-	Sprite* DrawManager::CreateSprite(std::string fileSource){
-		return new Sprite(this->device, fileSource);
+		this->camera = camera;
 	}
 	DrawManager::~DrawManager()
 	{
@@ -41,7 +43,7 @@ namespace ggEngine {
 	{
 		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
 			if ((*it)->IsAlive()) {
-				(*it)->Draw();
+				(*it)->Draw(camera->GetTranslatedMatrix());
 				++it;
 			}
 			else {

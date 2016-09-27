@@ -49,6 +49,16 @@ namespace ggEngine {
 			spriteHandle->End();
 		}
 	}
+	void Sprite::Draw(Matrix translatedWorldMatrix)
+	{
+		Transform(translatedWorldMatrix);
+		RECT srcRect = { 0, 0, this->image->GetWidth(), this->image->GetHeight() };
+		if (this->spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
+		{
+			this->spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));
+			spriteHandle->End();
+		}
+	}
 	void Sprite::Destroy()
 	{
 		this->alive = false;
@@ -95,6 +105,17 @@ namespace ggEngine {
 		//Vector scaleCenter((this->width) / 2, (this->height) / 2);
 		Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
 		D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
+		this->spriteHandle->SetTransform(&mat);
+	}
+	void Sprite::Transform(Matrix translatedWorldMatrix)
+	{
+		Matrix mat;
+		Vector scaleTransform(this->scale.x, this->scale.y);
+		Vector rotateCenter((this->width) / 2, (this->height) / 2);
+		//Vector scaleCenter((this->width) / 2, (this->height) / 2);
+		Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
+		D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
+		mat*=translatedWorldMatrix;
 		this->spriteHandle->SetTransform(&mat);
 	}
 }

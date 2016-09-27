@@ -7,6 +7,7 @@
 #include "DrawManager.h"
 #include "IGetGroup.h"
 namespace ggEngine {
+	class Camera;
 	class Physics;
 	class StateManager;
 	class Cache;
@@ -35,6 +36,7 @@ namespace ggEngine {
 		//
 		// Private class instance
 		//
+		Camera *camera;
 		D3DManager *d3dManager;
 		DrawManager *drawManager;
 		//

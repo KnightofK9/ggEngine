@@ -13,9 +13,10 @@ namespace ggEngine {
 	class Game;
 	class StateManager;
 	class DrawObject;
+	class Camera;
 	class DrawManager:public GGObject{
 	public:
-		DrawManager(Game *game);
+		DrawManager(Game *game, Camera* camera);
 		~DrawManager();
 		void Destroy();
 		void Render2D();
@@ -24,6 +25,7 @@ namespace ggEngine {
 		Sprite* CreateSprite(std::string fileSource);
 		IDirect3DDevice9 *GetDevice(){ return this->device; }
 	private:
+		Camera *camera;
 		void Update2D();
 		IDirect3DDevice9 *device;
 		StateManager *stateManager;

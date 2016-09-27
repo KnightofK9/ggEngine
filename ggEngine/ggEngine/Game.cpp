@@ -4,6 +4,7 @@
 #include "StateManager.h"
 #include "State.h"
 #include "Physics.h"
+#include "Camera.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
@@ -23,7 +24,8 @@ namespace ggEngine {
 			d3dManager = new D3DManager(hWnd, width, height, gameColor, isWindowed);
 			cache = new Cache(this);
 			stateManager = new StateManager(this);
-			drawManager = new DrawManager(this);
+			camera = new Camera(this, WINDOW_WIDTH, WINDOW_HEIGHT);
+			drawManager = new DrawManager(this,camera);
 			d3dManager->SetDrawManager(drawManager);
 			physics = new Physics(this);
 		}
@@ -108,7 +110,7 @@ namespace ggEngine {
 	{
 		//Debug::Log("Frame rate core " + frameRateCore);
 		//Debug::Log(frameRateReal);
-		Debug::Log(std::to_string(logicTimer.getDeltaTime()));
+		//Debug::Log(std::to_string(logicTimer.getDeltaTime()));
 		if (isRunning) {
 			/*State update*/
 			State *state = stateManager->GetCurrentState();

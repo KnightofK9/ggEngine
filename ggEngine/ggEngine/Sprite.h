@@ -4,6 +4,7 @@
 #include "ConstantEnum.h"
 #include <d3d9.h>
 #include <string>
+#include "Matrix.h"
 namespace ggEngine {
 	class Body;
 	class Sprite :public DrawObject {
@@ -12,6 +13,7 @@ namespace ggEngine {
 		Sprite(LPDIRECT3DDEVICE9 device, Texture *image);
 		~Sprite();
 		virtual void Draw();
+		virtual void Draw(Matrix translatedWorldMatrix);
 		virtual void SetWidth(float width);
 		virtual void SetHeight(float height);
 		virtual float GetWidth();
@@ -22,6 +24,7 @@ namespace ggEngine {
 		Texture* GetImage() { return this->image; }
 		void SetScale(float x, float y);
 		void Transform();
+		void Transform(Matrix translatedWorldMatrix);
 		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }
 		Vector GetAnchor() { return this->anchor; }
 		void SetBody(Body* body) { this->body = body; }
