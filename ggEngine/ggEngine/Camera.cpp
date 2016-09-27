@@ -20,8 +20,6 @@ namespace ggEngine {
 	{
 		this->point = Vector(x, y);
 		Matrix tranMat = Matrix::CreateTranslateMatrix(this->point.x, this->point.y);
-		Matrix flipMat = Matrix::CreateScaleMatrix(1,-1);
-		Matrix upTranMat = Matrix::CreateTranslateMatrix(0, height);
-		this->translatedMatrix = tranMat*flipMat*upTranMat;
+		this->translatedMatrix = tranMat;
 	}
 }

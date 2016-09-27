@@ -92,3 +92,5 @@ Matrix  Matrix::CreateRotateMatrix(float angle)
 	D3DXMatrixRotationZ(&mat, angle);
 	return mat;
 }
+
+

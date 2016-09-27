@@ -1,5 +1,6 @@
 #pragma once
 #include <d3dx9math.h>
+#include "Vector.h"
 class Matrix :public D3DXMATRIX {
 public:
 	Matrix() {};

@@ -17,5 +17,6 @@ public:
 private:
 	SpriteAnimation *sprite1;
 	Sprite *sprite2;
+	Sprite *sprite3;
 	int test;
 };
