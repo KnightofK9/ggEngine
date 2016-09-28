@@ -22,13 +22,15 @@ namespace ggEngine {
 		void Destroy();
 		void Destroy(bool isClearCache);
 		Texture* GetImage() { return this->image; }
-		void SetScale(float x, float y);
+		virtual void SetScale(float x, float y);
 		void Transform();
 		void Transform(Matrix translatedWorldMatrix);
 		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }
 		Vector GetAnchor() { return this->anchor; }
 		void SetBody(Body* body) { this->body = body; }
+		Body* GetBody() { return this->body; }
 		Body* body;
+		LPD3DXSPRITE GetSpriteHandle() { return this->spriteHandle; }
 	protected:
 		Sprite(LPDIRECT3DDEVICE9 device);
 		Texture *image;

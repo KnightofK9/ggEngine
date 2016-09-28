@@ -1,6 +1,6 @@
 #include "D3DManager.h"
 #include <iostream>
-
+#include "State.h"
 namespace ggEngine {
 	D3DManager::D3DManager(HWND hWnd, int width, int height, D3DCOLOR backgroundColor, bool isWindowed) {
 		this->width = width;
@@ -37,6 +37,7 @@ namespace ggEngine {
 			NULL);
 		errorCheck(result, TEXT("D3DManager Constructor: Failed to create off screen plain surface!"));
 		this->drawManager = NULL;
+
 	}
 
 	D3DManager::~D3DManager() 
@@ -67,8 +68,11 @@ namespace ggEngine {
 	void D3DManager::update()
 	{
 		clearScene();
+		
 		d3ddv->BeginScene();
+		this->stateManager->GetCurrentState()->PreRender();
 		drawManager->Render2D();
+		this->stateManager->GetCurrentState()->Render();
 		d3ddv->EndScene();
 		
 		d3ddv->Present(NULL, NULL, NULL, NULL);

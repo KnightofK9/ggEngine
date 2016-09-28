@@ -7,13 +7,13 @@ namespace ggEngine {
 		this->sprite = sprite;
 		this->width = sprite->GetWidth();
 		this->height = sprite->GetHeight();
-		this->bodyShape = new RectangleShape(width, height);
 		this->orgWidth = sprite->GetImage()->GetWidth();
 		this->orgHeight = sprite->GetImage()->GetHeight();
 		this->enable = true;
 		this->position = sprite->GetPosition();
 		this->game = game;
 		this->isAlive = true;
+		this->rigidBody = NULL;
 	}
 	Body::~Body()
 	{
@@ -123,6 +123,7 @@ namespace ggEngine {
 	}
 	void Body::Render(D3DCOLOR color, bool filled)
 	{
+		this->game->GetDrawManager()->DrawShape(rigidBody);
 	}
 	std::string Body::ToString()
 	{
@@ -142,6 +143,14 @@ namespace ggEngine {
 	{
 		velocity += angleInVector*force;
 	}
+	void Body::CreateCircleRigidBody(float radius)
+	{
+		this->rigidBody = new Circle(radius);
+	}
+	void Body::CreateRectangleRigidBody(float width, float height)
+	{
+		this->rigidBody = new Rectangle(width, height);
+	}
 	Vector Body::CalculateAirForce()
 	{
 		float a = -1 * 0.5*airDensity*objectCoeffecient*CalculateArea();
@@ -158,6 +167,6 @@ namespace ggEngine {
 	}
 	float Body::CalculateArea()
 	{
-		return bodyShape->GetArea()/10000;
+		return rigidBody->GetArea()/10000;
 	}
 }
