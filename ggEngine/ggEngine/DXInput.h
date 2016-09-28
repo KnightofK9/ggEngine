@@ -1,6 +1,8 @@
 #pragma once
 #include <dinput.h>
-#define BUTTON_DOWN(obj, button) (obj.rgbButtons[button] & 0x80)
+#pragma comment (lib, "dinput8.lib")
+#pragma comment (lib, "dxguid.lib")
+
 namespace ggEngine
 {
 	extern LPDIRECTINPUT8 dInput;
@@ -22,5 +24,4 @@ namespace ggEngine
 	int MouseButtonPress(int mouseButton);
 	int GetMouseX();
 	int GetMouseY();
-
 }
