@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Core\Math">
       <UniqueIdentifier>{ad6937b2-66e4-4923-83ea-50c0ea765f84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Umino">
+      <UniqueIdentifier>{0aebe43f-0f50-4b05-bc00-cd7b4e2c83c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -222,7 +225,7 @@
       <Filter>Header Files\Core\Shape</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Umino</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

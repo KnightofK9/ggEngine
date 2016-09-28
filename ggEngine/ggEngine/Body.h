@@ -42,18 +42,21 @@ namespace ggEngine {
 		/*Air*/
 		float airDensity = 0.1;
 		float objectCoeffecient = 0.47;
-		bool allowAirResistance;
+		bool allowAirResistance = false;
 		/*Gravity*/
 		float mass = 0.4;
 		float gravity = 9.81;
-		bool allowGravity = true;
+		bool allowGravity = false;
 		/*Vicious damping*/
 		float dampingCoeffecient = 0.4;
 		float alphaAngle = 0;
 		bool allowDamping = true;
 		/*Rotation*/
 
-		float bounciness = 0.4;
+		/*Vector Force*/
+		float bounciness = 1;
+
+
 		Vector velocity;
 		Vector newVelocity;
 		Vector deltaMax;
