@@ -12,12 +12,13 @@ namespace ggEngine
 	void ShutDown();
 
 	/// Keyboard
+	int InitKeyboard(HWND hWnd);
+	void PollKeyboard();
 	int KeyDown(int keyCode);
-	//void OnKeyDown(int keyCode);
-	//void OnkeyUp(int keyCode);
 
 	/// Mouse
-	void Poll();
+	int InitMouse(HWND hWnd);
+	void PollMouse();
 	int MouseButtonPress(int mouseButton);
 	int GetMouseX();
 	int GetMouseY();

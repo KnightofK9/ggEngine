@@ -65,7 +65,7 @@ void TestState::Update()
 	if (KeyDown(DIK_DOWN))
 		sprite1->SetY(sprite1->GetY() + 1);
 
-	// Test press mouse button
+	// Test press mouse button (right click - understand)
 	MouseButtonPress(VK_LBUTTON);
 
 

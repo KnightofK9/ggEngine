@@ -48,7 +48,11 @@ namespace ggEngine {
 		this->pauseMode = false;
 
 		if (!InitDXInput(hWnd))
-			Debug::Log("cannot init input");
+			Debug::Log("Error initialize dxInput");
+		if (!InitKeyboard(hWnd))
+			Debug::Log("Error initialize Keyboard");
+		if (!InitMouse(hWnd))
+			Debug::Log("Error initialize Mouse");
 	}
 	Game::~Game()
 	{
@@ -78,7 +82,8 @@ namespace ggEngine {
 
 	void Game::GameRun()
 	{
-		Poll();
+		PollKeyboard();
+		PollMouse();
 		frameCountCore++;
 		if (coreTimer.stopwatch(999)) {
 			frameRateCore = frameCountCore;
