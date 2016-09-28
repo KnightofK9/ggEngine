@@ -56,14 +56,17 @@ void TestState::Create()
 void TestState::Update()
 {
 	// Test translate 4 directions
-	if (GetKeyDown(DIK_LEFT))
+	if (KeyDown(DIK_LEFT))
 		sprite1->SetX(sprite1->GetX() - 1);
-	if (GetKeyDown(DIK_RIGHT))
+	if (KeyDown(DIK_RIGHT))
 		sprite1->SetX(sprite1->GetX() + 1);
-	if (GetKeyDown(DIK_UP))
+	if (KeyDown(DIK_UP))
 		sprite1->SetY(sprite1->GetY() - 1);
-	if (GetKeyDown(DIK_DOWN))
+	if (KeyDown(DIK_DOWN))
 		sprite1->SetY(sprite1->GetY() + 1);
+
+	// Test press mouse button
+	MouseButtonPress(VK_LBUTTON);
 
 
 	/*sprite3->SetX(sprite3->GetX() + 1);

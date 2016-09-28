@@ -1,5 +1,6 @@
 #include "DXInput.h"
 #include "Debug.h"
+#include <string>
 #define KEY_BUFFER_SIZE 1024
 
 namespace ggEngine
@@ -56,21 +57,28 @@ namespace ggEngine
 		return 1;
 	}
 
-	int GetKeyDown(int keyCode)
+	int KeyDown(int keyCode)
 	{
 		int keyDown = keyStates[keyCode] & 0x80;
 		if (keyDown != 0)
-			Debug::Log("Virtual key code: " + keyDown);
+			Debug::Log("Virtual key code: " + std::to_string(keyDown));
+
 		return keyStates[keyCode] & 0x80;
 	}
 
 	int GetMouseX() { return mouseState.lX; }
 	int GetMouseY() { return mouseState.lY; }
 
-	int GetMouseButton(int mousebutton)
+	int MouseButtonPress(int mousebutton)
 	{
-		Debug::Log("Virtual key code: " + (mouseState.rgbButtons[mousebutton] & 0x80));
-		//return BUTTON_DOWN(mouseState, button);
+		int button = mouseState.rgbButtons[mousebutton] & 0x80;
+		if (button != 0)
+		{
+			Debug::Log("Mouse button is pressed");
+			Debug::Log("Virtual mouse state: " + std::to_string(button));
+			Debug::Log(std::to_string(GetMouseX()) + ", " + std::to_string(GetMouseY()));
+		}
+
 		return mouseState.rgbButtons[mousebutton] & 0x80;
 	}
 
