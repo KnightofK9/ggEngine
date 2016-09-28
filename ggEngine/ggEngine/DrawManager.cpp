@@ -6,6 +6,8 @@
 #include "State.h"
 #include "StateManager.h"
 #include "Camera.h"
+#include "Circle.h"
+#include "Rectangle.h"
 namespace ggEngine {
 	Sprite* DrawManager::CreateSprite(std::string fileSource){
 		return new Sprite(this->device, fileSource);
@@ -15,10 +17,21 @@ namespace ggEngine {
 		this->stateManager = game->stateManager;
 		this->device = &game->GetD3DManager()->getDevice();
 		this->camera = camera;
+		D3DXCreateLine(this->device, &this->lineManager);
+		this->device->CreateOffscreenPlainSurface(
+			100,
+			100,
+			D3DFMT_X8R8G8B8,
+			D3DPOOL_DEFAULT,
+			&colorSurface,
+			NULL);
+		device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 	}
 	DrawManager::~DrawManager()
 	{
-		Destroy();
+		if (this->lineManager != NULL) {
+			this->lineManager->Release();
+		}
 	}
 
 	void DrawManager::Destroy()
@@ -31,6 +44,84 @@ namespace ggEngine {
 		Update2D();
 	}
 
+	void DrawManager::DrawRectangle(float left, float top, float right, float bottom,D3DCOLOR fillColor)
+	{
+	/*	float width = right - left;
+		float height = bottom - top;
+		D3DTLVERTEX line[4];
+		line[0] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
+		line[1] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
+		line[2] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
+		line[3] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
+		device->SetFVF(D3DFVF_TL);
+		device->SetTexture(0, NULL);
+		device->DrawPrimitiveUP(D3DPT_LINESTRIP, 2, &line[0], sizeof(line[0]));*/
+		device->ColorFill(colorSurface, NULL, fillColor);
+		RECT rect = { left,top,right,bottom };
+		device->StretchRect(
+			colorSurface,			// from 
+			NULL,				// which portion?
+			backBuffer,			// to 
+			&rect,				// which portion?
+			D3DTEXF_NONE);
+	}
+	void DrawManager::DrawShape(Shape* shape){
+		Rectangle *rect = dynamic_cast<Rectangle*>(shape);
+		if (rect != NULL) {
+			DrawLine(rect->p1, rect->p2);
+			DrawLine(rect->p2, rect->p3);
+			DrawLine(rect->p3, rect->p4);
+			DrawLine(rect->p4, rect->p1);
+		}
+		else {
+			Circle *circle = dynamic_cast<Circle*>(shape);
+			DrawCircle(circle->pCenter.x, circle->pCenter.y, circle->radius);
+		}
+	}
+	void DrawManager::DrawCircle(float x, float y, float radius, D3DCOLOR fillCOlor)
+	{
+		const int NUMPOINTS = 24;
+
+		const float PI = 3.14159;
+		Vector pt = Vector(x, y);
+		D3DTLVERTEX Circle[NUMPOINTS + 1];
+		int i;
+		float X;
+		float Y;
+		float Theta; //Size of angle between two points on the circle (single wedge)
+		float WedgeAngle;	
+
+		//Precompute WedgeAngle
+
+		WedgeAngle = (float)((2 * PI) / NUMPOINTS);
+		//Set up vertices for a circle
+
+		//Used <= in the for statement to ensure last point meets first point (closed circle)
+
+		for (i = 0; i <= NUMPOINTS; i++)
+		{
+			//Calculate theta for this vertex
+			Theta = i * WedgeAngle;
+			//Compute X and Y locations
+			X = (float)(pt.x + radius * cos(Theta));
+			Y = (float)(pt.y - radius * sin(Theta));
+			Circle[i] = CreateD3DTLVERTEX(X, Y, 0.0f, 1.0f, fillCOlor, 0.0f, 0.0f);
+		}
+		//Now draw the circle
+		device->SetFVF(D3DFVF_TL);
+		device->SetTexture(0, NULL);
+		device->DrawPrimitiveUP(D3DPT_LINESTRIP, NUMPOINTS, &Circle[0], sizeof(Circle[0]));
+
+	}
+	void DrawManager::DrawLine(const Vector v1, const Vector v2, D3DCOLOR color)
+	{
+		D3DTLVERTEX line[2];
+		line[0] = CreateD3DTLVERTEX(v1.x, v1.y, 0.0f, 1.0f, color, 0.0f, 0.0f);
+		line[1] = CreateD3DTLVERTEX(v2.x, v2.y, 0.0f, 1.0f, color, 0.0f, 0.0f);
+		device->SetFVF(D3DFVF_TL);
+		device->SetTexture(0, NULL);
+		device->DrawPrimitiveUP(D3DPT_LINESTRIP, 2, &line[0], sizeof(line[0]));
+	}
 	void DrawManager::DrawObjectFromGroup(std::list<Group*> groupList)
 	{
 		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end(); ++it) {
@@ -63,5 +154,19 @@ namespace ggEngine {
 		DrawObjectFromGroup(state->GetGroupList());
 		DrawObjectFromGroup(this->topGroupList);
 	}
+	D3DTLVERTEX DrawManager::CreateD3DTLVERTEX(float X, float Y, float Z, float RHW,
+		D3DCOLOR color, float U, float V)
+	{
+		D3DTLVERTEX v;
 
+		v.fX = X;
+		v.fY = Y;
+		v.fZ = Z;
+		v.fRHW = RHW;
+		v.Color = color;
+		v.fU = U;
+		v.fV = V;
+
+		return v;
+	}
 }

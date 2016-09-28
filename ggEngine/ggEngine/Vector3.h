@@ -1,5 +1,7 @@
 #pragma once
 #include <math.h>
+
+namespace ggEngine {
 	class Vector3 {
 	public:
 		Vector3();
@@ -23,3 +25,4 @@
 		Vector3 Normal();
 		double x, y, z;
 	};
+}

@@ -238,11 +238,16 @@ namespace ggEngine
 
 		if (mouseX > screenWidth) { mouseX = screenWidth; }
 		if (mouseY > screenHeight) { mouseY = screenHeight; }
+		//Debug::Log(std::to_string(mouseX) + "-" + (std::to_string(mouseY)));
 	}
 
-	void Input::OnKeyDown(int keyCode){	}
+	void Input::OnKeyDown(int keyCode){
+		Debug::Log("On key down " + std::to_string(keyCode));
+	}
 
-	void Input::OnKeyUp(int keyCode){ }
+	void Input::OnKeyUp(int keyCode){ 
+		Debug::Log("On key up " + std::to_string(keyCode));
+	}
 
 	void Input::GetMouseLocation(int & mouseX, int & mouseY)
 	{

@@ -16,6 +16,7 @@ public:
 	void ShutDown();//Called when start a new scene
 private:
 	SpriteAnimation *sprite1;
+	SpriteAnimation *sprite4;
 	Sprite *sprite2;
 	Sprite *sprite3;
 	int test;

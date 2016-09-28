@@ -11,6 +11,7 @@ namespace ggEngine {
 	class Physics;
 	class StateManager;
 	class Cache;
+	class Input;
 	class Game :public GGObject, public IGetGroup {
 	public:
 		Game(HWND hWnd, int width, int height, GameMode mode = GameMode_Windowed, D3DCOLOR gameColor = D3DCOLOR_XRGB(0, 255, 255));
@@ -26,6 +27,7 @@ namespace ggEngine {
 		void SetRunning(bool isRunning) { this->isRunning = isRunning; }
 		bool IsRunning() { return this->isRunning; }
 		Timer logicTimer;
+
 	private:
 		//
 		// Private Method
@@ -36,6 +38,7 @@ namespace ggEngine {
 		//
 		// Private class instance
 		//
+		Input *input;
 		Camera *camera;
 		D3DManager *d3dManager;
 		DrawManager *drawManager;

@@ -9,6 +9,8 @@ namespace ggEngine {
 			this->spriteHandle = NULL;
 			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
 		}
+		this->anchor = Vector(0.5, 0.5);
+		this->body = NULL;
 	}
 	Sprite::Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor)
 	{
@@ -24,6 +26,8 @@ namespace ggEngine {
 			this->spriteHandle = NULL;
 			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
 		}
+		this->anchor = Vector(0.5, 0.5);
+		this->body = NULL;
 	}
 	Sprite::Sprite(LPDIRECT3DDEVICE9 device, Texture * image)
 	{
@@ -34,6 +38,8 @@ namespace ggEngine {
 			this->spriteHandle = NULL;
 			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
 		}
+		this->anchor = Vector(0.5, 0.5);
+		this->body = NULL;
 	}
 	Sprite::~Sprite()
 	{
@@ -77,8 +83,8 @@ namespace ggEngine {
 	void Sprite::SetScale(float x, float y)
 	{
 		GameObject::SetScale(x, y);
-		this->width *= x;
-		this->height *= y;
+		this->width = this->image->GetWidth()*x;
+		this->height = this->image->GetHeight()*y;
 	}
 	void Sprite::SetWidth(float width)
 	{
@@ -109,14 +115,25 @@ namespace ggEngine {
 	}
 	void Sprite::Transform(Matrix translatedWorldMatrix)
 	{
-		Matrix mat;
-		Vector scaleTransform(this->scale.x, this->scale.y);
-		Vector rotateCenter((this->width) / 2, (this->height) / 2);
-		//Vector scaleCenter((this->width) / 2, (this->height) / 2);
-		Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
-		D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
+		//Scale from 0 0
+		Matrix mat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+		//Move to anchor
+		 mat *= Matrix::CreateTranslateMatrix(-this->GetWidth()*(this->anchor.x), -this->GetHeight()*(this->anchor.y));
+		//Rotate around anchor
+		mat *= Matrix::CreateRotateMatrix(this->rotate);
+		//Translate to exact anchor and position
+		mat *= Matrix::CreateTranslateMatrix(this->position.x , this->position.y );
+		//Tranform to screen view
+		mat *= translatedWorldMatrix;
+
+		//Vector scaleTransform(this->scale.x, this->scale.y);
+		//Vector rotateCenter((this->width) / 2, (this->height) / 2);
+		////Vector scaleCenter((this->width) / 2, (this->height) / 2);
+		//Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
+		//D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
 		//mat *= (Matrix::CreateScaleMatrix(1, -1)*Matrix::CreateTranslateMatrix(0, this->height));
-		mat*=translatedWorldMatrix;
+		if(this->body!=NULL)
+			this->body->rigidBody->Transform(mat);
 		this->spriteHandle->SetTransform(&mat);
 	}
 }

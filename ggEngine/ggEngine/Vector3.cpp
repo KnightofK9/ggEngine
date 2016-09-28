@@ -1,5 +1,6 @@
 #include "Vector3.h"
 
+namespace ggEngine {
 	Vector3::Vector3()
 	{
 		this->x = this->y = this->z = 0;
@@ -103,3 +104,4 @@
 		double nz = z*length;
 		return Vector3(nx, ny, nz);
 	}
+}

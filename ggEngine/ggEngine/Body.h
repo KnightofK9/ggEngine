@@ -5,8 +5,9 @@
 #include <cmath>
 #include "ConstantEnum.h"
 #include <string>
-#include "RectangleShape.h"
+#include "Rectangle.h"
 #include <functional>
+#include "Circle.h"
 namespace ggEngine {
 	struct Direction {
 		bool none = false;
@@ -36,7 +37,7 @@ namespace ggEngine {
 		int orgHeight;
 		float rotation = 0;
 		float preRotation;
-		Shape* bodyShape;
+		Shape* rigidBody;
 		//Force modifier
 		/*Air*/
 		float airDensity = 0.1;
@@ -124,6 +125,8 @@ namespace ggEngine {
 		bool IsAlive() { return this->isAlive; }
 		void AddForce(float force, float angleInRadian);
 		void AddForce(float force, Vector angleInVector);
+		void CreateCircleRigidBody(float radius);
+		void CreateRectangleRigidBody(float width, float height);
 	private:
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();

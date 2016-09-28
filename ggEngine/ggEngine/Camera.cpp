@@ -19,7 +19,7 @@ namespace ggEngine {
 	void Camera::SetPoint(float x, float y)
 	{
 		this->point = Vector(x, y);
-		Matrix tranMat = Matrix::CreateTranslateMatrix(this->point.x, this->point.y);
+		Matrix tranMat = Matrix::CreateTranslateMatrix(-this->point.x, -this->point.y);
 		this->translatedMatrix = tranMat;
 	}
 }

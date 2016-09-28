@@ -115,6 +115,12 @@ namespace ggEngine {
 		this->scale.y = (float)height / this->frameHeight;
 		this->height = height;
 	}
+	void SpriteAnimation::SetScale(float x, float y)
+	{
+		GameObject::SetScale(x, y);
+		this->width = this->frameWidth*x;
+		this->height = this->frameHeight*y;
+	}
 	float SpriteAnimation::GetWidth()
 	{
 		return this->frameWidth*this->scale.x;

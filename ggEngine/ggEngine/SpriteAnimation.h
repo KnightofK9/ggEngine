@@ -17,6 +17,7 @@ namespace ggEngine {
 		int GetNumberOfFrame() { return this->numberOfFrame; }
 		void SetWidth(float width);
 		void SetHeight(float height);
+		void SetScale(float x, float y);
 		float GetWidth();
 		float GetHeight();
 		int GetFrameWidth() { return this->frameWidth; }
