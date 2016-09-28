@@ -1,4 +1,5 @@
 #include "DXInput.h"
+#define KEY_BUFFER_SIZE 1024
 
 namespace ggEngine
 {
@@ -9,7 +10,7 @@ namespace ggEngine
 
 	char keyStates[256]; // keyboard state buffer
 
-	int InitInputs(HWND hWnd)
+	int InitDXInput(HWND hWnd)
 	{
 		HRESULT result = DirectInput8Create
 		(
@@ -38,9 +39,9 @@ namespace ggEngine
 			return 0;
 
 		// Init mouse
-		result = dInput->CreateDevice(GUID_SysMouse, &diKeyboard, NULL);
+		result = dInput->CreateDevice(GUID_SysMouse, &diMouse, NULL);
 		if (FAILED(result))
-			return;
+			return 0;
 		result = diMouse->SetDataFormat(&c_dfDIMouse);
 		if (FAILED(result))
 			return 0;
@@ -54,7 +55,7 @@ namespace ggEngine
 		return 1;
 	}
 
-	int IsKeyDown(int keyCode)
+	int GetKeyDown(int keyCode)
 	{
 		return keyStates[keyCode] & 0x80;
 	}
@@ -62,7 +63,7 @@ namespace ggEngine
 	int GetMouseX() { return mouseState.lX; }
 	int GetMouseY() { return mouseState.lY; }
 
-	int IsMouseButtonPress(int mousebutton)
+	int GetMouseButton(int mousebutton)
 	{
 		//return BUTTON_DOWN(mouseState, button);
 		return mouseState.rgbButtons[mousebutton] & 0x80;
@@ -87,6 +88,35 @@ namespace ggEngine
 			diMouse->GetDeviceState(sizeof(mouseState), (LPVOID)& mouseState);
 		}
 	}
+
+	//void PollKeyboard(HWND hWnd)
+	//{
+	//	HRESULT result;
+	//	/// Poll keyboard
+	//	result = diKeyboard->GetDeviceState(sizeof(keyStates), (LPVOID)& keyStates);
+	//	if (FAILED(result))
+	//	{
+	//		diKeyboard->Acquire();
+	//		diKeyboard->GetDeviceState(sizeof(keyStates), (LPVOID)& keyStates);
+	//	}
+	//	if (IsKeyDown(DIK_ESCAPE))
+	//	{
+	//		PostMessage(hWnd, WM_QUIT, 0, 0);
+	//	}
+
+	//	DWORD dwElements = KEY_BUFFER_SIZE;
+	//	result = diKeyboard->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), keyEvents, &dwElements, 0);
+
+	//	// Scan through all data, check if the key is pressed or released
+	//	/*for (DWORD i = 0; i < dwElements; i++)
+	//	{
+	//		int KeyCode = keyEvents[i].dwOfs;
+	//		int KeyState = _KeyEvents[i].dwData;
+	//		if ((KeyState & 0x80) > 0)
+	//			OnKeyDown(KeyCode);
+	//		else
+	//			OnKeyUp(KeyCode);*/
+	//}
 
 	void ShutDown()
 	{

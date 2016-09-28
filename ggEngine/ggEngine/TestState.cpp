@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Physics.h"
 #include "Body.h"
+#include "DXInput.h"
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -48,10 +49,21 @@ void TestState::Create()
 }
 void TestState::Update()
 {
+	// Test translate 4 directions
+	if (GetKeyDown(DIK_LEFT))
+		sprite1->SetX(sprite1->GetX() - 1);
+	if (GetKeyDown(DIK_RIGHT))
+		sprite1->SetX(sprite1->GetX() + 1);
+	if (GetKeyDown(DIK_UP))
+		sprite1->SetY(sprite1->GetY() - 1);
+	if (GetKeyDown(DIK_DOWN))
+		sprite1->SetY(sprite1->GetY() + 1);
+
+
 	/*sprite3->SetX(sprite3->GetX() + 1);
 	sprite3->SetY(sprite3->GetY() + 1);*/
-	/*sprite1->SetX(sprite1->GetX() + 1);
-	sprite4->SetX(sprite4->GetX() - 1);*/
+	//sprite1->SetX(sprite1->GetX() + 1);
+	/*sprite4->SetX(sprite4->GetX() - 1);*/
 	//Debug::Log(sprite1->GetPosition().ToString());
 	/*sprite1->SetRotate(sprite1->GetRotate() + 0.01*3.14);
 	sprite1->SetScale(sprite1->GetScale().x*1.005, sprite1->GetScale().y*1.005);*/

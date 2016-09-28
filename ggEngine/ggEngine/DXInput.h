@@ -7,17 +7,18 @@ namespace ggEngine
 	extern LPDIRECTINPUTDEVICE8 diKeyboard;
 	extern LPDIRECTINPUTDEVICE8 diMouse;
 	extern DIMOUSESTATE mouseState;
-
-	int InitDXInput(HWND);
+	extern LPDIDEVICEOBJECTDATA keyEvents;
+	int InitDXInput(HWND hWnd);
 	void ShutDown();
 
 	/// Keyboard
-	//void PollKeyBoard();
-	int IsKeyDown(int keyCode);
+	int GetKeyDown(int keyCode);
+	//void OnKeyDown(int keyCode);
+	//void OnkeyUp(int keyCode);
 
 	/// Mouse
 	void Poll();
-	int IsMouseButtonPress(int mouseButton);
+	int GetMouseButton(int mouseButton);
 	int GetMouseX();
 	int GetMouseY();
 

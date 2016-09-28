@@ -5,7 +5,10 @@
 #include "State.h"
 #include "Physics.h"
 #include "Camera.h"
-#include "Input.h"
+#include "DXInput.h"
+//#define KEY_DOWN(keyCode)((GetAsyncKeyState(keyCode)&0x8000)?1:0)
+//#define KEY_UP(keyCode)((GetAsyncKeyState(keyCode)&0x8000)?1:0)
+
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
@@ -30,7 +33,7 @@ namespace ggEngine {
 			d3dManager->SetDrawManager(drawManager);
 			physics = new Physics(this);
 			d3dManager->SetStateManager(stateManager);
-			input = new Input(hWnd, WINDOW_WIDTH, WINDOW_HEIGHT);
+			//input = new Input(hWnd, WINDOW_WIDTH, WINDOW_HEIGHT);
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);
@@ -45,6 +48,9 @@ namespace ggEngine {
 		this->frameRateReal = 0;
 		this->maximizeProcessor = true;
 		this->pauseMode = false;
+
+		if (!InitDXInput(hWnd))
+			Debug::Log("cannot init input");
 	}
 	Game::~Game()
 	{
@@ -74,6 +80,7 @@ namespace ggEngine {
 
 	void Game::GameRun()
 	{
+		Poll();
 		frameCountCore++;
 		if (coreTimer.stopwatch(999)) {
 			frameRateCore = frameCountCore;
@@ -116,7 +123,7 @@ namespace ggEngine {
 		//Debug::Log(std::to_string(logicTimer.getDeltaTime()));
 		if (isRunning) {
 			/*Handle input*/
-			input->Frame();
+			//input->Frame();
 			/*State update*/
 			State *state = stateManager->GetCurrentState();
 			state->Update();
