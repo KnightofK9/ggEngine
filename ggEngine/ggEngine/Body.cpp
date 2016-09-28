@@ -158,6 +158,15 @@ namespace ggEngine {
 		UpdateBounds();
 		PostUpdate();
 	}
+
+	void Body::IncrementForce(float force)
+	{
+		int signX = 1;
+		int signY = 1;
+		if (velocity.x < 0) signX = -1;
+		if (velocity.y < 0) signY = -1;
+		AddForce(force, Vector(signX, signY));
+	}
 	void Body::AddForce(float force, float angleInRadian)
 	{
 	}

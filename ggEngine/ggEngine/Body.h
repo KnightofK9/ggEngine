@@ -101,6 +101,7 @@ namespace ggEngine {
 		int moveTimer = 0;
 		int moveDistance = 0;
 		int moveDuration = 0;
+		void IncrementForce(float force);
 		//TO DO: put a moveTarger here
 		Vector moveEnd;
 		std::function<void()> *onMoveComplete;

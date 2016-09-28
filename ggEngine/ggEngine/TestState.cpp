@@ -26,7 +26,7 @@ void TestState::Create()
 	sprite2 = this->add->Sprite(20, 20, "ball", 0, group);
 	game->physics->EnablePhysics(sprite2);
 	sprite2->body->CreateCircleRigidBody(sprite2->GetWidth());
-	sprite2->body->AddForce(5, Vector(1, 2));
+	sprite2->body->AddForce(5 , Vector(1, 2));
 	//sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0,"kitty", 92, 60, group, 0);
 	//sprite1 = this->add->SpriteAnimation(0, 0, "kitty", 92, 60, group, 0);
 	//sprite4 = this->add->SpriteAnimation(WINDOW_WIDTH - 50, 50, "kitty", 92, 60, group, 0);
@@ -63,6 +63,8 @@ void TestState::Update()
 	sprite1->SetScale(sprite1->GetScale().x*1.005, sprite1->GetScale().y*1.005);*/
 	//sprite2->SetScale(sprite2->GetScale().x*1.005, sprite2->GetScale().y*1.005);
 	//sprite2->SetRotate(sprite2->GetRotate() + 0.01*3.14);
+
+	sprite2->body->IncrementForce(5*game->logicTimer.getDeltaTime());
 }
 void TestState::PreRender()
 {
