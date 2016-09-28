@@ -6,8 +6,6 @@
 #include "Physics.h"
 #include "Camera.h"
 #include "DXInput.h"
-//#define KEY_DOWN(keyCode)((GetAsyncKeyState(keyCode)&0x8000)?1:0)
-//#define KEY_UP(keyCode)((GetAsyncKeyState(keyCode)&0x8000)?1:0)
 
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)

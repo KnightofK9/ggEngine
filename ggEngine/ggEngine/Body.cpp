@@ -21,17 +21,6 @@ namespace ggEngine {
 	void Body::StopMovement(bool stopVelocity)
 	{
 	}
-	void Body::UpdateBounds()
-	{
-		if (CheckWorldBounds()) {
-			if (blocked.down) {
-				if (velocity.y > 0) {
-					velocity.y *= -bounciness;
-					position.y = WINDOW_HEIGHT - height;
-				}
-			}
-		}
-	}
 	void Body::PreUpdate()
 	{
 		position = sprite->GetPosition();
@@ -49,6 +38,39 @@ namespace ggEngine {
 		acceleration = (lastAcceleration + newAcceleration) / 2;
 		velocity += acceleration*timeStep;
 	}
+	void Body::UpdateBounds()
+	{
+		if (CheckWorldBounds()) {
+			if (blocked.down) {
+				if (velocity.y > 0) {
+					velocity.y *= -bounciness;
+					position.y -= 5;
+				}
+				return;
+			}
+			if (blocked.up) {
+				if (velocity.y < 0) {
+					velocity.y *= -bounciness;
+					position.y += 5;
+				}
+				return;
+			}
+			if (blocked.left) {
+				if (velocity.x < 0) {
+					velocity.x *= -bounciness;
+					position.y += 5;
+				}
+				return;
+			}
+			if (blocked.right) {
+				if (velocity.x > 0) {
+					velocity.x *= -bounciness;
+					position.x -= 5;
+				}
+				return;
+			}
+		}
+	}
 	void Body::PostUpdate()
 	{
 		sprite->SetPosition(position);
@@ -57,16 +79,16 @@ namespace ggEngine {
 	{
 		blocked.Reset();
 		bool isBlocked = false;
-		if (position.x <= 0) {
+		if (position.x - width/2 <= 0) {
 			isBlocked = blocked.left = true;
 		}
-		if (position.x + width >= WINDOW_WIDTH) {
+		if (position.x + width/2 >= WINDOW_WIDTH) {
 			isBlocked = blocked.right = true;
 		}
-		if (position.y + height >= WINDOW_HEIGHT) {
+		if (position.y + height/2 >= WINDOW_HEIGHT) {
 			isBlocked = blocked.down = true;
 		}
-		if (position.y <= 0) {
+		if (position.y - height/2 <= 0) {
 			isBlocked = blocked.up = true;
 		}
 		return isBlocked;
@@ -136,12 +158,21 @@ namespace ggEngine {
 		UpdateBounds();
 		PostUpdate();
 	}
+
+	void Body::IncrementForce(float force)
+	{
+		int signX = 1;
+		int signY = 1;
+		if (velocity.x < 0) signX = -1;
+		if (velocity.y < 0) signY = -1;
+		AddForce(force, Vector(signX, signY));
+	}
 	void Body::AddForce(float force, float angleInRadian)
 	{
 	}
 	void Body::AddForce(float force, Vector angleInVector)
 	{
-		velocity += angleInVector*force;
+		velocity += angleInVector.Normalize() *force;
 	}
 	void Body::CreateCircleRigidBody(float radius)
 	{
@@ -153,12 +184,14 @@ namespace ggEngine {
 	}
 	Vector Body::CalculateAirForce()
 	{
+		if (!allowAirResistance) return Vector(0, 0);
 		float a = -1 * 0.5*airDensity*objectCoeffecient*CalculateArea();
 		Vector air(a*velocity.x*velocity.x, a*velocity.y*velocity.y);
 		return air;
 	}
 	Vector Body::CalculateGravityForce()
 	{
+		if (!allowGravity) return Vector(0, 0);
 		return Vector(0,mass*gravity);
 	}
 	Vector Body::CalculateDampingForce()
