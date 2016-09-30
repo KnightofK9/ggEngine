@@ -3,6 +3,7 @@
 #include "ConstantEnum.h"
 #include "GGObject.h"
 namespace ggEngine {
+	class Events;
 	class GameObject :public GGObject {
 	public:
 		GameObject();
@@ -24,6 +25,7 @@ namespace ggEngine {
 		void SetRotate(float angle){ this->rotate = angle; }
 		float GetRotate(){ return this->rotate; }
 		bool IsAlive() { return this->alive; }
+		Events* events;
 	protected:
 		Vector position;
 		Vector scale;

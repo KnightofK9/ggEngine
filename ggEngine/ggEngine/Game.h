@@ -7,6 +7,7 @@
 #include "DrawManager.h"
 #include "IGetGroup.h"
 namespace ggEngine {
+	class EventManager;
 	class Camera;
 	class Physics;
 	class StateManager;
@@ -26,7 +27,7 @@ namespace ggEngine {
 		void SetRunning(bool isRunning) { this->isRunning = isRunning; }
 		bool IsRunning() { return this->isRunning; }
 		Timer logicTimer;
-
+		EventManager *eventManager;
 	private:
 		//
 		// Private Method

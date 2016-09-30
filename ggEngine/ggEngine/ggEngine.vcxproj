@@ -159,6 +159,9 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="DrawObject.h" />
+    <ClInclude Include="EventArg.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GGObject.h" />
@@ -166,7 +169,9 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IGetGroup.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="KeyBoardEventArg.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="MouseEventArg.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Preload.h" />
     <ClInclude Include="Rectangle.h" />
@@ -193,6 +198,8 @@
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DrawManager.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="Events.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Group.cpp" />

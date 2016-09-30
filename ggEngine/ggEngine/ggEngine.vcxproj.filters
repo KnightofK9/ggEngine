@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Umino">
       <UniqueIdentifier>{0aebe43f-0f50-4b05-bc00-cd7b4e2c83c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\Events">
+      <UniqueIdentifier>{c6c11920-1e39-46c9-97a2-bd7d29481998}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -121,6 +124,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Events.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -226,6 +235,21 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Header Files\Umino</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EventArg.h">
+      <Filter>Header Files\Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyBoardEventArg.h">
+      <Filter>Header Files\Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseEventArg.h">
+      <Filter>Header Files\Core\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
