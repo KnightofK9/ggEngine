@@ -1,24 +1,27 @@
 #pragma once
 #include <dinput.h>
-#define BUTTON_DOWN(obj, button) (obj.rgbButtons[button] & 0x80)
+#pragma comment (lib, "dinput8.lib")
+#pragma comment (lib, "dxguid.lib")
+
 namespace ggEngine
 {
 	extern LPDIRECTINPUT8 dInput;
 	extern LPDIRECTINPUTDEVICE8 diKeyboard;
 	extern LPDIRECTINPUTDEVICE8 diMouse;
 	extern DIMOUSESTATE mouseState;
-
-	int InitDXInput(HWND);
+	extern LPDIDEVICEOBJECTDATA keyEvents;
+	int InitDXInput(HWND hWnd);
 	void ShutDown();
 
 	/// Keyboard
-	//void PollKeyBoard();
-	int IsKeyDown(int keyCode);
+	int InitKeyboard(HWND hWnd);
+	void PollKeyboard();
+	int KeyDown(int keyCode);
 
 	/// Mouse
-	void Poll();
-	int IsMouseButtonPress(int mouseButton);
+	int InitMouse(HWND hWnd);
+	void PollMouse();
+	int MouseButtonPress(int mouseButton);
 	int GetMouseX();
 	int GetMouseY();
-
 }

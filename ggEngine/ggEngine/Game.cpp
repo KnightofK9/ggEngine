@@ -6,6 +6,8 @@
 #include "Physics.h"
 #include "Camera.h"
 #include "EventManager.h"
+#include "DXInput.h"
+
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
 	{
@@ -46,6 +48,13 @@ namespace ggEngine {
 		this->frameRateReal = 0;
 		this->maximizeProcessor = true;
 		this->pauseMode = false;
+
+		if (!InitDXInput(hWnd))
+			Debug::Log("Error initialize dxInput");
+		if (!InitKeyboard(hWnd))
+			Debug::Log("Error initialize Keyboard");
+		if (!InitMouse(hWnd))
+			Debug::Log("Error initialize Mouse");
 	}
 	Game::~Game()
 	{
@@ -95,6 +104,8 @@ namespace ggEngine {
 			//
 			// Update game logic here
 			//
+			PollKeyboard();
+			PollMouse();
 			gameUpdate();
 			if(this->isRunning) this->stateManager->GetCurrentState()->PreRender();
 			//
