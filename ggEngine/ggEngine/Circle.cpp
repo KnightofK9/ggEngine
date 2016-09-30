@@ -3,7 +3,7 @@
 ggEngine::Circle::Circle(float radius)
 {
 	this->radius = radius;
-	this->pCenter = Vector(0, 0);
+	this->pCenter = Vector(radius, radius);
 }
 
 ggEngine::Circle::~Circle()

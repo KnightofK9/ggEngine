@@ -132,6 +132,9 @@
     <ClCompile Include="DXInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColliderArg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="DXInput.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderArg.h">
+      <Filter>Header Files\Core\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

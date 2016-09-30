@@ -26,9 +26,14 @@ void TestState::Create()
 	Group* group = this->add->Group();
 	sprite2 = this->add->Sprite(20, 20, "ball", 0, group);
 	game->physics->EnablePhysics(sprite2);
-	sprite2->body->CreateCircleRigidBody(sprite2->GetWidth());
-	sprite2->body->AddForce(5 , Vector(1, 2));
-	sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0,"kitty", 92, 60, group, 0);
+	sprite2->body->CreateCircleRigidBody(sprite2->GetWidth()/2);
+	sprite2->body->AddForce(5 , Vector(3, 4));
+
+	sprite3 = this->add->Sprite(WINDOW_WIDTH / 20.0, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+	game->physics->EnablePhysics(sprite3);
+	sprite3->body->CreateRectangleRigidBody(sprite3->GetWidth(), sprite3->GetHeight());
+
+	//sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0,"kitty", 92, 60, group, 0);
 	//sprite1 = this->add->SpriteAnimation(0, 0, "kitty", 92, 60, group, 0);
 	//sprite4 = this->add->SpriteAnimation(WINDOW_WIDTH - 50, 50, "kitty", 92, 60, group, 0);
 	//sprite2 = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "default", 0, group);
@@ -55,18 +60,18 @@ void TestState::Create()
 }
 void TestState::Update()
 {
-	// Test translate 4 directions
-	if (KeyDown(DIK_LEFT))
-		sprite1->SetX(sprite1->GetX() - 1);
-	if (KeyDown(DIK_RIGHT))
-		sprite1->SetX(sprite1->GetX() + 1);
-	if (KeyDown(DIK_UP))
-		sprite1->SetY(sprite1->GetY() - 1);
-	if (KeyDown(DIK_DOWN))
-		sprite1->SetY(sprite1->GetY() + 1);
+	//// Test translate 4 directions
+	//if (KeyDown(DIK_LEFT))
+	//	sprite1->SetX(sprite1->GetX() - 1);
+	//if (KeyDown(DIK_RIGHT))
+	//	sprite1->SetX(sprite1->GetX() + 1);
+	//if (KeyDown(DIK_UP))
+	//	sprite1->SetY(sprite1->GetY() - 1);
+	//if (KeyDown(DIK_DOWN))
+	//	sprite1->SetY(sprite1->GetY() + 1);
 
-	// Test press mouse button (right click - understand)
-	MouseButtonPress(VK_LBUTTON);
+	//// Test press mouse button (right click - understand)
+	//MouseButtonPress(VK_LBUTTON);
 
 
 	/*sprite3->SetX(sprite3->GetX() + 1);
@@ -79,14 +84,15 @@ void TestState::Update()
 	//sprite2->SetScale(sprite2->GetScale().x*1.005, sprite2->GetScale().y*1.005);
 	//sprite2->SetRotate(sprite2->GetRotate() + 0.01*3.14);
 
-	sprite2->body->IncrementForce(5*game->logicTimer.getDeltaTime());
+	//sprite2->body->IncrementForce(5*game->logicTimer.getDeltaTime());
 }
 void TestState::PreRender()
 {
 }
 void TestState::Render()
 {
-	//game->GetDrawManager()->DrawShape(sprite1->body->rigidBody);
+	sprite2->body->Render();
+	sprite3->body->Render();
 }
 void TestState::Pause()
 {

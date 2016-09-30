@@ -64,9 +64,6 @@ namespace ggEngine {
 		Vector drag;
 		Vector bound;
 		Vector worldBounce;
-		std::function<void()> *onWorldBounds;
-		std::function<void(Body*)> *onCollide;
-		std::function<void(Body*)> *onOverlap;
 		Vector maxVelocity;
 		Vector friction;
 		float offsetX = 0;
@@ -104,8 +101,6 @@ namespace ggEngine {
 		void IncrementForce(float force);
 		//TO DO: put a moveTarger here
 		Vector moveEnd;
-		std::function<void()> *onMoveComplete;
-		std::function<void()> *movementCallback;
 		GGObject *movementCallbackContext;
 		//Public method 
 		void StopMovement(bool stopVelocity);
@@ -123,7 +118,7 @@ namespace ggEngine {
 		float DeltaX();
 		float DeltaY();
 		void Destroy();
-		void Render(D3DCOLOR color, bool filled);
+		void Render(D3DCOLOR color = DEFAULT_COLOR, bool filled = false);
 		std::string ToString();
 		void Update();
 		bool IsAlive() { return this->isAlive; }
