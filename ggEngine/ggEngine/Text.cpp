@@ -1,7 +1,7 @@
 #include "Text.h"
 
 Text::Text(LPDIRECT3DDEVICE9 device, int fontSize, char * fontFamily,
-	int fontWeight = 0, bool isItalic = false)
+	int fontWeight, bool isItalic)
 {
 	D3DXFONT_DESC fontDesc;
 	fontDesc.Height = fontSize;
