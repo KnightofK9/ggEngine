@@ -29,7 +29,6 @@ namespace ggEngine {
 		Vector GetAnchor() { return this->anchor; }
 		void SetBody(Body* body) { this->body = body; }
 		Body* GetBody() { return this->body; }
-		Body* body;
 		LPD3DXSPRITE GetSpriteHandle() { return this->spriteHandle; }
 	protected:
 		Sprite(LPDIRECT3DDEVICE9 device);

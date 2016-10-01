@@ -23,7 +23,7 @@ namespace ggEngine{
 		virtual void Init() = 0; //Called after start a State
 		virtual void Preload() = 0; //Called after init
 		virtual void Create() = 0;//Called after preload complete
-		virtual void Update() = 0;//Called after each game update loop
+		virtual void Update() = 0;//Called before each game update loop
 		virtual void PreRender() = 0;//Called before enter each render
 		virtual void Render() = 0;//Called after render completed
 		virtual void Pause() = 0;//Called when the game is set to paused

@@ -12,14 +12,14 @@ namespace ggEngine {
 		Events(Game *game,GameObject *go);
 		~Events();
 		void Destroy();
-		std::function<void(KeyBoardEventArg)> *onKeyDown;
-		std::function<void(KeyBoardEventArg)> *onKeyUp;
-		std::function<void(MouseEventArg)> *onMousePress;
-		std::function<void(ColliderArg)> *onWorldBounds;
-		std::function<void(ColliderArg)> *onCollide;
-		std::function<void(ColliderArg)> *onOverlap;
-		std::function<void(EventArg)> *onMoveComplete;
-		std::function<void(EventArg)> *movementCallback;
+		std::function<void(GameObject*, KeyBoardEventArg)> onKeyDown;
+		std::function<void(GameObject*, KeyBoardEventArg)> onKeyUp;
+		std::function<void(GameObject*, MouseEventArg)> onMousePress;
+		std::function<void(GameObject*, ColliderArg)> onWorldBounds;
+		std::function<void(GameObject*, ColliderArg)> onCollide;
+		std::function<void(GameObject*, ColliderArg)> onOverlap;
+		std::function<void(GameObject*, EventArg)> onMoveComplete;
+		std::function<void(GameObject*, EventArg)> movementCallback;
 	private:
 		Game *game;
 		GameObject *go;

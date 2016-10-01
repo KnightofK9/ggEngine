@@ -4,6 +4,7 @@
 #include "GGObject.h"
 namespace ggEngine {
 	class Events;
+	class Body;
 	class GameObject :public GGObject {
 	public:
 		GameObject();
@@ -26,8 +27,9 @@ namespace ggEngine {
 		float GetRotate(){ return this->rotate; }
 		bool IsAlive() { return this->alive; }
 		Events* events;
-	protected:
+		Body* body;
 		Vector position;
+	protected:
 		Vector scale;
 		bool alive;
 		bool visible;

@@ -5,6 +5,9 @@
 #include "Physics.h"
 #include "Body.h"
 #include "DXInput.h"
+#include "Events.h"
+#include "ColliderArg.h"
+Sprite *spriteBat2;
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -26,13 +29,30 @@ void TestState::Create()
 	Group* group = this->add->Group();
 	sprite2 = this->add->Sprite(20, 20, "ball", 0, group);
 	game->physics->EnablePhysics(sprite2);
-	sprite2->body->CreateCircleRigidBody(sprite2->GetWidth()/2);
-	sprite2->body->AddForce(5 , Vector(3, 4));
+	sprite2->events->onCollide = [this](GameObject *go, ColliderArg e){
+		if (e.blockDirection.left) go->position.x += 5;
+		else if (e.blockDirection.right) go->position.x -= 5;
+		else if (e.blockDirection.up) go->position.y += 5;
+		else if (e.blockDirection.down) go->position.y -= 5;
+		Vector n = e.normalSurfaceVector;
+		Vector d = go->body->velocity;
+		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+		go->body->velocity = r;
 
+
+	};
+	//sprite2->body->CreateCircleRigidBody(sprite2->GetWidth() / 2);
+	sprite2->body->CreateRectangleRigidBody(sprite2->GetWidth(), sprite2->GetHeight());
+	sprite2->body->AddForce(5 , Vector(3, 4));
 	sprite3 = this->add->Sprite(WINDOW_WIDTH / 20.0, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+	sprite3->position.x = sprite3->GetWidth() / 2;
 	game->physics->EnablePhysics(sprite3);
 	sprite3->body->CreateRectangleRigidBody(sprite3->GetWidth(), sprite3->GetHeight());
 
+	spriteBat2 = this->add->Sprite(WINDOW_WIDTH - sprite3->GetWidth()/2, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+
+	game->physics->EnablePhysics(spriteBat2);
+	spriteBat2->body->CreateRectangleRigidBody(sprite3->GetWidth(), sprite3->GetHeight());
 	//sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0,"kitty", 92, 60, group, 0);
 	//sprite1 = this->add->SpriteAnimation(0, 0, "kitty", 92, 60, group, 0);
 	//sprite4 = this->add->SpriteAnimation(WINDOW_WIDTH - 50, 50, "kitty", 92, 60, group, 0);
@@ -91,8 +111,10 @@ void TestState::PreRender()
 }
 void TestState::Render()
 {
-	sprite2->body->Render();
-	sprite3->body->Render();
+	//sprite2->body->Render();
+	//sprite3->body->Render();
+	game->physics->CheckBound(sprite2, sprite3);
+	game->physics->CheckBound(sprite2, spriteBat2);
 }
 void TestState::Pause()
 {

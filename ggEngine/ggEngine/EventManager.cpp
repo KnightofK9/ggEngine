@@ -17,5 +17,8 @@ void ggEngine::EventManager::Destroy()
 
 void ggEngine::EventManager::EnableInput(GameObject *go)
 {
-	go->events = new Events(game,go);
+
+	if (go->events == NULL){
+		go->events = new Events(game, go);
+	}
 }

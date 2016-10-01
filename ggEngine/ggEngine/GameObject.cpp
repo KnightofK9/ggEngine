@@ -1,5 +1,5 @@
 #include "GameObject.h"
-
+#include "Body.h"
 namespace ggEngine {
 	GameObject::GameObject()
 	{
@@ -7,6 +7,7 @@ namespace ggEngine {
 		SetScale(1,1);
 		this->alive = true;
 		this->rotate = 0;
+		this->events = NULL;
 	}
 	GameObject::~GameObject()
 	{
