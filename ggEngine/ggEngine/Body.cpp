@@ -14,6 +14,7 @@ namespace ggEngine {
 		this->game = game;
 		this->isAlive = true;
 		this->rigidBody = NULL;
+
 	}
 	Body::~Body()
 	{
