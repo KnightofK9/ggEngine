@@ -8,6 +8,7 @@
 #include "Events.h"
 #include "ColliderArg.h"
 Sprite *spriteBat2;
+Sprite *background;
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -27,6 +28,9 @@ void TestState::Create()
 {
 	this->test = 0;
 	Group* group = this->add->Group();
+	background = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "girl", 0, group);
+	background->SetWidth(WINDOW_WIDTH);
+	background->SetHeight(WINDOW_HEIGHT);
 	sprite2 = this->add->Sprite(20, 20, "ball", 0, group);
 	game->physics->EnablePhysics(sprite2);
 	sprite2->events->onCollide = [this](GameObject *go, ColliderArg e){
