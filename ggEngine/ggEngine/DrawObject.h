@@ -5,7 +5,6 @@
 namespace ggEngine {
 	class DrawObject:public GameObject {
 	public:
-		virtual void Draw() = 0;
 		virtual void Draw(Matrix translatedWorldMatrix) = 0;
 	};
 }

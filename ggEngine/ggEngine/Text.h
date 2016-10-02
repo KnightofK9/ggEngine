@@ -2,18 +2,47 @@
 #include <d3dx9core.h>
 #include <tchar.h>
 #include <string>
-
-class Text
-{
-protected:
-	LPD3DXFONT font;
-	LPDIRECT3DDEVICE9 device;
-
-public:
-	Text(LPDIRECT3DDEVICE9 device, int fontSize, char * fontfamily = "Segoe UI",
-		int fontWeight = 0, bool isItalic = false);
-	~Text();
-
-	void Draw(LPTSTR lpString, int posX, int posY, D3DCOLOR color);
-};
+#include "GGObject.h" //All instance of class within engine must derived from GGObject
+#include "DrawObject.h" //Text belong to group and must provide draw for group use for drawing on screen
+namespace ggEngine {
+	//Text use Style to define text style. Re-Define any property of this style default value as you want
+	struct Style {
+		//The font of text
+		std::string font = "Times New Romance"; 
+		//The style of the font (eg. 'italic'). Preserved for future using
+		std::string fontStyle = ""; 
+		//The variant of the font (eg. 'small-caps'). Preserved for future using
+		std::string fontVariant = "";
+		//The weight of the font (eg. 'bold'). Preserved for future using
+		std::string fontWeight = "";
+		//The size of the font (eg. 32 , measure in px).
+		int fontSize = 14;
+		//A canvas fillstyle that will be used as the background for the whole Text object.Set to null to disable. Preserved for future using
+		std::string backgroundColor = NULL;
+		//A canvas fillstyle that will be used on the text eg 'red', '#00FF00'. Preserved for future using
+		std::string fill = NULL;
+		//Horizontal alignment of each line in multiline text.Can be : 'left', 'center' or 'right'.Does not affect single lines of text. Preserved for future using
+		std::string align = "left";
+		//A canvas stroke style that will be used on the text stroke eg 'blue', '#FCFF00'. Preserved for future using
+		std::string stroke;
+		//A number that represents the thickness of the stroke. Default is 0 (no stroke). Preserved for future using
+		int strokeThickness = 0;
+	};
+	//All instance of class inside engine must have namespace ggEngine
+	//Important, DrawObject derived from GameObject, GameObject already have position, scale, width, height. Just use position for this time
+	//Text is add via class Add. There should be a preload for font too, but forget it for now. Use default system font
+	class Text :public DrawObject {
+	public:
+		//Modify the constructor as you want, but must have those properties
+		Text(LPDIRECT3DDEVICE9 device, float x, float y, std::string text, Style style);
+		//Release the font here
+		~Text();
+		//You MUST call the base GameObject::Destroy() in here. Destroy just set alive to false for collector take care
+		void Destroy();
+		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
+		void Draw(Matrix translatedWorldMatrix);
+	private:
+		
+	};
+}
 

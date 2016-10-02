@@ -13,7 +13,7 @@ namespace ggEngine{
 		Texture* texture = this->cache->GetTexture(textureKey);
 		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->device, texture);
 		sprite->SetPosition(x, y);
-		group->AddSpriteToList(sprite);
+		group->AddDrawObjectToList(sprite);
 		return sprite;
 	}
 	SpriteAnimation* Add::SpriteAnimation(float x, float y, std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame)
@@ -21,12 +21,18 @@ namespace ggEngine{
 		Texture* texture = this->cache->GetTexture(textureKey);
 		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->device, texture, frameWidth, frameHeight, defaultFrame, numberOfFrame);
 		spriteAnimation->SetPosition(x, y);
-		group->AddSpriteToList(spriteAnimation);
+		group->AddDrawObjectToList(spriteAnimation);
 		return spriteAnimation;
 	}
 	Group* Add::Group(){
 		ggEngine::Group *gr = new ggEngine::Group(NULL);
 		this->groupList->push_back(gr);
 		return gr;
+	}
+	Text* Add::Text(float x, float y, std::string text, Style style, ggEngine::Group  *group)
+	{
+		ggEngine::Text *textObject = new ggEngine::Text(this->device, x, y, text, style);
+		group->AddDrawObjectToList(textObject);
+		return textObject;
 	}
 }
