@@ -5,6 +5,8 @@ namespace ggEngine {
 	Vector::Vector(float x, float y) : D3DXVECTOR2(x, y) {
 		orgX = x;
 		orgY = y;
+		this->x = x;
+		this->y = y;
 	}
 	Vector::Vector(float f) : D3DXVECTOR2(f, f) {
 

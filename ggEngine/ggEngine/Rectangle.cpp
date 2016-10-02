@@ -31,6 +31,6 @@ void ggEngine::Rectangle::Transform(Matrix transformMatrix)
 	p2.SetTransform(transformMatrix);
 	p3.SetTransform(transformMatrix);
 	p4.SetTransform(transformMatrix);
-	pCenter = p3 / 2;
+	pCenter.SetTransform(transformMatrix);
 }
 

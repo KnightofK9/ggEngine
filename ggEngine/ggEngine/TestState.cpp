@@ -7,8 +7,20 @@
 #include "DXInput.h"
 #include "Events.h"
 #include "ColliderArg.h"
+#include "EventManager.h"
+#include "Timer.h"
+SpriteAnimation *sprite1;
+SpriteAnimation *sprite4;
+Sprite *sprite2;
+Sprite *sprite3;
+float test = 0.01f;
 Sprite *spriteBat2;
 Sprite *background;
+float MoveSpeedPerSec = 100.0f;
+Timer shootTimer;
+Group* group;
+std::list<Sprite*> ballList;
+float shootTime = 1000.0f;
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -26,37 +38,67 @@ void TestState::Preload(){
 }
 void TestState::Create()
 {
-	this->test = 0;
-	Group* group = this->add->Group();
+	group = this->add->Group();
 	background = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "girl", 0, group);
 	background->SetWidth(WINDOW_WIDTH);
 	background->SetHeight(WINDOW_HEIGHT);
-	sprite2 = this->add->Sprite(20, 20, "ball", 0, group);
-	game->physics->EnablePhysics(sprite2);
-	sprite2->events->onCollide = [this](GameObject *go, ColliderArg e){
-		if (e.blockDirection.left) go->position.x += 5;
-		else if (e.blockDirection.right) go->position.x -= 5;
-		else if (e.blockDirection.up) go->position.y += 5;
-		else if (e.blockDirection.down) go->position.y -= 5;
-		Vector n = e.normalSurfaceVector;
-		Vector d = go->body->velocity;
-		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
-		go->body->velocity = r;
+	CreateBall(Vector(50,50) , Vector(3, 4));
+	//sprite2 = this->add->Sprite(20, 20, "ball", 0, group);
+	//game->physics->EnablePhysics(sprite2);
+	//sprite2->events->onCollide = [this](GameObject *go, ColliderArg e){
+	//	if (e.blockDirection.left) go->position.x += 5;
+	//	else if (e.blockDirection.right) go->position.x -= 5;
+	//	else if (e.blockDirection.up) go->position.y += 5;
+	//	else if (e.blockDirection.down) go->position.y -= 5;
+	//	Vector n = e.normalSurfaceVector;
+	//	Vector d = go->body->velocity;
+	//	Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+	//	go->body->velocity = r;
 
 
-	};
-	//sprite2->body->CreateCircleRigidBody(sprite2->GetWidth() / 2);
-	sprite2->body->CreateRectangleRigidBody(sprite2->GetWidth(), sprite2->GetHeight());
-	sprite2->body->AddForce(5 , Vector(3, 4));
+	//};
+	////sprite2->body->CreateCircleRigidBody(sprite2->GetWidth() / 2);
+	//sprite2->body->CreateRectangleRigidBody(sprite2->GetWidth(), sprite2->GetHeight());
+	//sprite2->body->AddForce(5 , Vector(3, 4));
+	/*Sprite3*/
 	sprite3 = this->add->Sprite(WINDOW_WIDTH / 20.0, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+	sprite3->name = "Left Bat";
 	sprite3->position.x = sprite3->GetWidth() / 2;
 	game->physics->EnablePhysics(sprite3);
+	sprite3->body->allowBounciness = false;
 	sprite3->body->CreateRectangleRigidBody(sprite3->GetWidth(), sprite3->GetHeight());
+	game->eventManager->EnableKeyBoardInput(sprite3);
+	sprite3->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
+		float height = dynamic_cast<Sprite*>(go)->GetHeight();
+		if (e.isPress(DIK_UPARROW)) {
+			if(!go->body->blocked.up)
+				go->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		}
+		if (e.isPress(DIK_DOWNARROW)) {
+			if (!go->body->blocked.down)
+			go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		}
+		if (e.isPress(DIK_SPACE)) {
+			if (shootTimer.stopwatch(shootTime)) {
+				Vector position = go->position;
+				position.x += 50;
+				CreateBall(position);
+			}
+		}
+	};
+
+
+	sprite3->SetScale(1, 0.5);
 
 	spriteBat2 = this->add->Sprite(WINDOW_WIDTH - sprite3->GetWidth()/2, WINDOW_HEIGHT / 2.0, "bat", 0, group);
-
+	spriteBat2->name = "Right Bat";
 	game->physics->EnablePhysics(spriteBat2);
-	spriteBat2->body->CreateRectangleRigidBody(sprite3->GetWidth(), sprite3->GetHeight());
+	spriteBat2->body->CreateRectangleRigidBody(spriteBat2->GetWidth(), spriteBat2->GetHeight());
+	spriteBat2->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
+		if (e.blockDirection.up || e.blockDirection.down) {
+			test *= -1;
+		}
+	};
 	//sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0,"kitty", 92, 60, group, 0);
 	//sprite1 = this->add->SpriteAnimation(0, 0, "kitty", 92, 60, group, 0);
 	//sprite4 = this->add->SpriteAnimation(WINDOW_WIDTH - 50, 50, "kitty", 92, 60, group, 0);
@@ -109,6 +151,11 @@ void TestState::Update()
 	//sprite2->SetRotate(sprite2->GetRotate() + 0.01*3.14);
 
 	//sprite2->body->IncrementForce(5*game->logicTimer.getDeltaTime());
+	Vector scale = spriteBat2->GetScale();
+	if (scale.y < 0) {
+		test *= -1;
+	}
+	spriteBat2->SetScale(scale.x, scale.y + test);
 }
 void TestState::PreRender()
 {
@@ -116,9 +163,15 @@ void TestState::PreRender()
 void TestState::Render()
 {
 	//sprite2->body->Render();
-	//sprite3->body->Render();
-	game->physics->CheckBound(sprite2, sprite3);
-	game->physics->CheckBound(sprite2, spriteBat2);
+	sprite3->body->Render();
+	spriteBat2->body->Render();
+	//game->physics->CheckBound(sprite2, sprite3);
+	//game->physics->CheckBound(sprite2, spriteBat2);
+	for (std::list<Sprite*>::iterator it = ballList.begin(); it != ballList.end(); ++it) {
+		game->physics->CheckBound(sprite3, (*it));
+		game->physics->CheckBound(spriteBat2, (*it));
+	}
+	Debug::Log(game->frameRateReal);
 }
 void TestState::Pause()
 {
@@ -128,4 +181,26 @@ void TestState::Resume()
 }
 void TestState::ShutDown()
 {
+}
+
+void TestState::CreateBall(Vector position, Vector direction)
+{
+	Sprite *sprite = this->add->Sprite(position.x, position.y, "ball", 0, group);
+	game->physics->EnablePhysics(sprite);
+	sprite->events->onCollide = [this](GameObject *go, ColliderArg e) {
+		if (e.blockDirection.left) go->position.x += 5;
+		else if (e.blockDirection.right) go->position.x -= 5;
+		else if (e.blockDirection.up) go->position.y += 5;
+		else if (e.blockDirection.down) go->position.y -= 5;
+		Vector n = e.normalSurfaceVector;
+		Vector d = go->body->velocity;
+		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+		go->body->velocity = r;
+
+
+	};
+	//sprite2->body->CreateCircleRigidBody(sprite2->GetWidth() / 2);
+	sprite->body->CreateRectangleRigidBody(sprite->GetWidth(), sprite->GetHeight());
+	sprite->body->AddForce(5, direction);
+	ballList.push_back(sprite);
 }

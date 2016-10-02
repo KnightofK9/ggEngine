@@ -1,6 +1,5 @@
 #pragma once
 #include <dsound.h>
-
 #pragma comment (lib, "dsound.lib")
 
 class Sound

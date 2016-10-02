@@ -1,6 +1,8 @@
 #include "Body.h"
 #include "Sprite.h"
 #include "Game.h"
+#include "Events.h"
+#include "ColliderArg.h"
 namespace ggEngine {
 	Body::Body(Game* game,Sprite * sprite)
 	{
@@ -42,33 +44,42 @@ namespace ggEngine {
 	void Body::UpdateBounds()
 	{
 		if (CheckWorldBounds()) {
+			Rectangle* rect = dynamic_cast<Rectangle*>(rigidBody);
+			float width, height;
+			width = height = 0;
+			if (rect != NULL) {
+				width = rect->width;
+				height = rect->height;
+			}
 			if (blocked.down) {
 				if (velocity.y > 0) {
-					velocity.y *= -bounciness;
-					position.y -= 5;
+					if(allowBounciness) velocity.y *= -bounciness;
+					position.y = WINDOW_HEIGHT - height / 2;
 				}
-				return;
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
-					velocity.y *= -bounciness;
-					position.y += 5;
+					if (allowBounciness) velocity.y *= -bounciness;
+					position.y = height /2;
 				}
-				return;
 			}
 			if (blocked.left) {
 				if (velocity.x < 0) {
-					velocity.x *= -bounciness;
-					position.y += 5;
+					if (allowBounciness) velocity.x *= -bounciness;
+					position.x = width/2;
 				}
-				return;
 			}
 			if (blocked.right) {
 				if (velocity.x > 0) {
-					velocity.x *= -bounciness;
-					position.x -= 5;
+					if (allowBounciness) velocity.x *= -bounciness;
+					position.x = WINDOW_WIDTH - width/2;
 				}
-				return;
+			}
+			if (this->sprite->events->onWorldBounds != nullptr)
+			{
+				ColliderArg e;
+				e.blockDirection = blocked;
+				this->sprite->events->onWorldBounds(sprite, e);
 			}
 		}
 	}

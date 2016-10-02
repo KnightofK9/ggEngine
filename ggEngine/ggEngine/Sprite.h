@@ -23,6 +23,7 @@ namespace ggEngine {
 		void Destroy(bool isClearCache);
 		Texture* GetImage() { return this->image; }
 		virtual void SetScale(float x, float y);
+		virtual void SetScale(Vector vector);
 		void Transform();
 		void Transform(Matrix translatedWorldMatrix);
 		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }

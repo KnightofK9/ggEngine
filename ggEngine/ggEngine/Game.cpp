@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "EventManager.h"
 #include "DXInput.h"
+#include "Input.h"
 
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
@@ -33,7 +34,10 @@ namespace ggEngine {
 			physics = new Physics(this);
 			d3dManager->SetStateManager(stateManager);
 			eventManager = new EventManager(this);
-			//input = new Input(hWnd, WINDOW_WIDTH, WINDOW_HEIGHT);
+			input = new Input(&hWnd);
+			input->InitKeyboard();
+			input->InitMouse();
+
 		}
 		catch (int errorCode) {
 			ErrorCheck(errorCode);
@@ -49,12 +53,6 @@ namespace ggEngine {
 		this->maximizeProcessor = true;
 		this->pauseMode = false;
 
-		if (!InitDXInput(hWnd))
-			Debug::Log("Error initialize dxInput");
-		if (!InitKeyboard(hWnd))
-			Debug::Log("Error initialize Keyboard");
-		if (!InitMouse(hWnd))
-			Debug::Log("Error initialize Mouse");
 	}
 	Game::~Game()
 	{
@@ -104,8 +102,6 @@ namespace ggEngine {
 			//
 			// Update game logic here
 			//
-			PollKeyboard();
-			PollMouse();
 			gameUpdate();
 			if(this->isRunning) this->stateManager->GetCurrentState()->PreRender();
 			//
@@ -128,8 +124,10 @@ namespace ggEngine {
 		//Debug::Log(std::to_string(logicTimer.getDeltaTime()));
 		if (isRunning) {
 			/*Handle input*/
-			//input->Frame();
+			input->PollKeyboard();
+			eventManager->DispatchKeyBoardEvent(input->keyStates);
 			/*State update*/
+			
 			State *state = stateManager->GetCurrentState();
 			state->Update();
 			/*Group update*/

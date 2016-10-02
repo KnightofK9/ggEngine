@@ -23,6 +23,7 @@ namespace ggEngine {
 		float rotation = 0;
 		float preRotation;
 		Shape* rigidBody;
+		bool syncBounce = true;
 		//Force modifier
 		/*Air*/
 		float airDensity = 0.1;
@@ -40,7 +41,7 @@ namespace ggEngine {
 
 		/*Vector Force*/
 		float bounciness = 1;
-
+		bool allowBounciness = true;
 
 		Vector velocity;
 		Vector newVelocity;

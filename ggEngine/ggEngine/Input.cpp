@@ -3,7 +3,7 @@
 
 namespace ggEngine
 {
-	Input::Input(HWND hWnd)
+	Input::Input(HWND *hWnd)
 	{
 		HRESULT result = DirectInput8Create
 		(
@@ -15,6 +15,7 @@ namespace ggEngine
 		);
 		if (FAILED(result))
 			Debug::Log("Error initialize Input");
+		this->hWnd = hWnd;
 		return;
 	}
 
@@ -35,7 +36,7 @@ namespace ggEngine
 	}
 
 #pragma region keyBoard
-	int Input::InitKeyboard(HWND hWnd)
+	int Input::InitKeyboard()
 	{
 		HRESULT result;
 		result = dInput->CreateDevice(GUID_SysKeyboard, &diKeyboard, NULL);
@@ -44,7 +45,7 @@ namespace ggEngine
 		result = diKeyboard->SetDataFormat(&c_dfDIKeyboard);
 		if (FAILED(result))
 			return 0;
-		result = diKeyboard->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+		result = diKeyboard->SetCooperativeLevel((*hWnd), DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 		if (FAILED(result))
 			return 0;
 		result = diKeyboard->Acquire();
@@ -78,7 +79,7 @@ namespace ggEngine
 #pragma endregion Keyboard
 
 #pragma region Mouse
-	int Input::InitMouse(HWND hWnd)
+	int Input::InitMouse()
 	{
 		HRESULT result;
 		result = dInput->CreateDevice(GUID_SysMouse, &diMouse, NULL);
@@ -87,7 +88,7 @@ namespace ggEngine
 		result = diMouse->SetDataFormat(&c_dfDIMouse);
 		if (FAILED(result))
 			return 0;
-		result = diMouse->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+		result = diMouse->SetCooperativeLevel((*hWnd), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		if (FAILED(result))
 			return 0;
 		result = diMouse->Acquire();

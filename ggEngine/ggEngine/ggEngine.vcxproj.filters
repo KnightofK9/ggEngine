@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Core\Events">
       <UniqueIdentifier>{c6c11920-1e39-46c9-97a2-bd7d29481998}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Component">
+      <UniqueIdentifier>{dcdfb5fc-921d-40a2-a67b-3f92f6712e66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -133,6 +136,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColliderArg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -236,12 +248,6 @@
     <ClInclude Include="Circle.h">
       <Filter>Header Files\Core\Shape</Filter>
     </ClInclude>
-    <ClInclude Include="EventManager.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Events.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="EventArg.h">
       <Filter>Header Files\Core\Events</Filter>
     </ClInclude>
@@ -251,14 +257,29 @@
     <ClInclude Include="MouseEventArg.h">
       <Filter>Header Files\Core\Events</Filter>
     </ClInclude>
-    <ClInclude Include="DXInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ColliderArg.h">
       <Filter>Header Files\Core\Events</Filter>
     </ClInclude>
     <ClInclude Include="Direction.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="DXInput.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Header Files\Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>Header Files\Core\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

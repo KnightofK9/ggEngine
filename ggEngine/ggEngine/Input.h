@@ -15,18 +15,19 @@ namespace ggEngine
 		LPDIRECTINPUTDEVICE8 diMouse;
 		DIMOUSESTATE mouseState;
 		LPDIDEVICEOBJECTDATA keyEvents;
-		char keyStates[256]; // keyboard state buffer
 
 	public:
-		Input(HWND hWnd);
+		char keyStates[256]; // keyboard state buffer
+		Input(HWND *hWnd);
+		HWND *hWnd;
 		~Input();
 		/// Keyboard
-		int InitKeyboard(HWND hWnd);
+		int InitKeyboard();
 		void PollKeyboard();
 		int KeyDown(int keyCode);
 
 		/// Mouse
-		int InitMouse(HWND hWnd);
+		int InitMouse();
 		void PollMouse();
 		int MouseButtonPress(int mouseButton);
 		int GetMouseX() { return mouseState.lX; }
