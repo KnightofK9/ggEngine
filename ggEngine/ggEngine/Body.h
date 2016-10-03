@@ -71,7 +71,7 @@ namespace ggEngine {
 		bool collideWorldBounds = false;
 		Game* game;
 		Sprite* sprite;
-		Vector position;
+		Vector *position;
 		Direction checkCollision;
 		Direction touching ;
 		Direction wasTouching;

@@ -12,7 +12,7 @@ namespace ggEngine {
 		this->orgWidth = sprite->GetImage()->GetWidth();
 		this->orgHeight = sprite->GetImage()->GetHeight();
 		this->enable = true;
-		this->position = sprite->GetPosition();
+		this->position = &sprite->position;
 		this->game = game;
 		this->isAlive = true;
 		this->rigidBody = NULL;
@@ -26,7 +26,7 @@ namespace ggEngine {
 	}
 	void Body::PreUpdate()
 	{
-		position = sprite->GetPosition();
+		//position = sprite->GetPosition();
 		width = sprite->GetWidth();
 		height = sprite->GetHeight();
 	}
@@ -36,7 +36,7 @@ namespace ggEngine {
 		Vector lastAcceleration = acceleration;
 		Vector force = (CalculateAirForce() + CalculateGravityForce());
 		Vector temp = (velocity*timeStep + (0.5*lastAcceleration*timeStep*timeStep));
-		position += temp * 100;
+		(*position) += temp * 100;
 		Vector newAcceleration = force / mass;
 		acceleration = (lastAcceleration + newAcceleration) / 2;
 		velocity += acceleration*timeStep;
@@ -54,25 +54,25 @@ namespace ggEngine {
 			if (blocked.down) {
 				if (velocity.y > 0) {
 					if(allowBounciness) velocity.y *= -bounciness;
-					position.y = WINDOW_HEIGHT - height / 2;
+					position->y = WINDOW_HEIGHT - height / 2;
 				}
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
 					if (allowBounciness) velocity.y *= -bounciness;
-					position.y = height /2;
+					position->y = height /2;
 				}
 			}
 			if (blocked.left) {
 				if (velocity.x < 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
-					position.x = width/2;
+					position->x = width/2;
 				}
 			}
 			if (blocked.right) {
 				if (velocity.x > 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
-					position.x = WINDOW_WIDTH - width/2;
+					position->x = WINDOW_WIDTH - width/2;
 				}
 			}
 			if (this->sprite->events->onWorldBounds != nullptr)
@@ -85,22 +85,22 @@ namespace ggEngine {
 	}
 	void Body::PostUpdate()
 	{
-		sprite->SetPosition(position);
+		//sprite->SetPosition(position);
 	}
 	bool Body::CheckWorldBounds()
 	{
 		blocked.Reset();
 		bool isBlocked = false;
-		if (position.x - width/2 <= 0) {
+		if (position->x - width/2 <= 0) {
 			isBlocked = blocked.left = true;
 		}
-		if (position.x + width/2 >= WINDOW_WIDTH) {
+		if (position->x + width/2 >= WINDOW_WIDTH) {
 			isBlocked = blocked.right = true;
 		}
-		if (position.y + height/2 >= WINDOW_HEIGHT) {
+		if (position->y + height/2 >= WINDOW_HEIGHT) {
 			isBlocked = blocked.down = true;
 		}
-		if (position.y - height/2 <= 0) {
+		if (position->y - height/2 <= 0) {
 			isBlocked = blocked.up = true;
 		}
 		return isBlocked;
