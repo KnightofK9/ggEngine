@@ -21,8 +21,6 @@ void PingPongState::Init() {
 	score1 = score2 = 0;
 }
 void PingPongState::Preload() {
-	this->preload->Texture("kitty", "Resource/kitty.bmp");
-	this->preload->Texture("girl", "Resource/girl.jpg");
 	this->preload->Texture("bat", "Resource/bat.png");
 	this->preload->Texture("ball", "Resource/ball.png");
 }
@@ -31,27 +29,26 @@ void PingPongState::Create()
 	group = this->add->Group();
 
 #pragma region Ball
-	ball = this->add->Sprite(50, 50, "ball",0, group);
+	ball = this->add->Sprite(0, 0, "ball",0, group);
 	game->physics->EnablePhysics(ball);
 	ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
-		if (!e.blockDirection.up && !e.blockDirection.down)
+		/*if (!e.blockDirection.up && !e.blockDirection.down)
 		{
 			srand(time(NULL));
-			Vector velocity = { (rand() % 100)*1.0f, (rand() % 100)*1.0f };
+			Vector velocity = { (rand() % 50)*1.0f, (rand() % 50)*1.0f };
 			go->body->velocity = velocity;
-		}
+		}*/
 		if (e.blockDirection.left)
 		{
 			score2++;
-			go->position.y = leftBat->GetPosition().x + leftBat->GetWidth();
-			go->position.x = WINDOW_HEIGHT / 2;
-
+			go->position.x = leftBat->GetPosition().x + leftBat->GetWidth() / 2;
+			go->position.y = WINDOW_HEIGHT / 2;
 		}
 		else if (e.blockDirection.right)
 		{
 			score1++;
-			go->position.y = rightBat->GetPosition().x - rightBat->GetWidth();
-			go->position.x = WINDOW_HEIGHT / 2;
+			go->position.x = rightBat->GetPosition().x - rightBat->GetWidth() / 2;
+			go->position.y = WINDOW_HEIGHT / 2;
 		}
 	};
 
