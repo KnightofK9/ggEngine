@@ -211,6 +211,7 @@ void TestState::CreateBall(Vector position, Vector direction)
 		Vector d = go->body->velocity;
 		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
 		go->body->velocity = r;
+		go->SetPosition(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0);
 
 
 	};
