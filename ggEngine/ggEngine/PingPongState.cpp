@@ -41,14 +41,14 @@ void PingPongState::Create()
 		if (e.blockDirection.left)
 		{
 			score2++;
-			go->position.x = leftBat->GetPosition().x + leftBat->GetWidth() / 2;
-			go->position.y = WINDOW_HEIGHT / 2;
+			go->position.x = leftBat->GetPosition().x + leftBat->GetWidth();
+			go->position.y = leftBat->GetPosition().y;
 		}
 		else if (e.blockDirection.right)
 		{
 			score1++;
-			go->position.x = rightBat->GetPosition().x - rightBat->GetWidth() / 2;
-			go->position.y = WINDOW_HEIGHT / 2;
+			go->position.x = rightBat->GetPosition().x - rightBat->GetWidth();
+			go->position.y = rightBat->GetPosition().y;
 		}
 	};
 
