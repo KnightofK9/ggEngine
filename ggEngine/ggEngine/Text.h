@@ -42,6 +42,7 @@ namespace ggEngine {
 		void Destroy();
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
 		void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
+		void SetText(std::string text);
 	private:
 		LPD3DXFONT font;
 		Style style;

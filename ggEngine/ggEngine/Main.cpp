@@ -1,6 +1,7 @@
 #include "Window.h"
 #include "Game.h"
 #include "TestState.h"
+#include "PingPongState.h"
 #include "StateManager.h"
 #include <iostream>
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
@@ -35,8 +36,10 @@ void cleanup() {
 	if (window != NULL) { delete window; window = NULL; }
 }
 void initGame() {
-	TestState *testState = new TestState(game);
-	game->stateManager->Add("TestState", testState,true);
+	//TestState *testState = new TestState(game);
+	//game->stateManager->Add("TestState", testState,true);
+	PingPongState *pingPongState = new PingPongState(game);
+	game->stateManager->Add("PingPongState", pingPongState, true);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

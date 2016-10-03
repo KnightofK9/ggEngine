@@ -73,4 +73,7 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandl
 	}
 }
 
-
+void ggEngine::Text::SetText(std::string text)
+{
+	this->text = text;
+}
