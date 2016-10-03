@@ -130,9 +130,9 @@ namespace ggEngine {
 		device->SetTexture(0, NULL);
 		device->DrawPrimitiveUP(D3DPT_LINESTRIP, 2, &line[0], sizeof(line[0]));
 	}
-	void DrawManager::DrawObjectFromGroup(std::list<Group*> groupList)
+	void DrawManager::DrawObjectFromGroup(std::list<Group*> *groupList)
 	{
-		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end(); ++it) {
+		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end(); ++it) {
 			DrawList((*it)->GetDrawList());
 			DrawObjectFromGroup((*it)->GetGroupList());
 		}
@@ -142,7 +142,8 @@ namespace ggEngine {
 	{
 		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
 			if ((*it)->IsAlive()) {
-				(*it)->Draw(camera->GetTranslatedMatrix(),this->spriteHandle);
+				
+					(*it)->Draw(camera->GetTranslatedMatrix(), this->spriteHandle);
 				++it;
 			}
 			else {
@@ -160,7 +161,7 @@ namespace ggEngine {
 		State* state = this->stateManager->GetCurrentState();
 		state->PreRender();
 		DrawObjectFromGroup(state->GetGroupList());
-		DrawObjectFromGroup(this->topGroupList);
+		DrawObjectFromGroup(&this->topGroupList);
 	}
 	D3DTLVERTEX DrawManager::CreateD3DTLVERTEX(float X, float Y, float Z, float RHW,
 		D3DCOLOR color, float U, float V)

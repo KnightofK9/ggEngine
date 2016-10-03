@@ -10,6 +10,7 @@
 #include "EventManager.h"
 #include "Timer.h"
 #include "Text.h"
+#include "Input.h"
 SpriteAnimation *sprite1;
 SpriteAnimation *sprite4;
 Sprite *sprite2;
@@ -22,6 +23,7 @@ Timer shootTimer;
 Group* group;
 std::list<Sprite*> ballList;
 float shootTime = 1000.0f;
+Sprite *ball;
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -79,14 +81,15 @@ void TestState::Create()
 			if (!go->body->blocked.down)
 			go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		}
-		if (e.isPress(DIK_SPACE)) {
+	/*	if (e.isPress(DIK_SPACE)) {
 			if (shootTimer.stopwatch(shootTime)) {
 				Vector position = go->position;
 				position.x += 50;
 				CreateBall(position);
 			}
-		}
+		}*/
 	};
+	//sprite3->SetVisible(false);
 
 
 	sprite3->SetScale(1, 0.5);
@@ -155,11 +158,18 @@ void TestState::Update()
 	//sprite2->SetRotate(sprite2->GetRotate() + 0.01*3.14);
 
 	//sprite2->body->IncrementForce(5*game->logicTimer.getDeltaTime());
-	Vector scale = spriteBat2->GetScale();
-	if (scale.y < 0) {
-		test *= -1;
+	//Vector scale = spriteBat2->GetScale();
+	//if (scale.y < 0) {
+	//	test *= -1;
+	//}
+	//spriteBat2->SetScale(scale.x, scale.y + test);
+	if(ball->position.y<spriteBat2->position.y) spriteBat2->position.y-= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+	else if(ball->position.y>spriteBat2->position.y) {
+		spriteBat2->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 	}
-	spriteBat2->SetScale(scale.x, scale.y + test);
+	if (game->GetInput()->KeyDown(DIK_Q)) {
+		game->stateManager->Start("MenuState", true, true);
+	}
 }
 void TestState::PreRender()
 {
@@ -190,6 +200,7 @@ void TestState::ShutDown()
 void TestState::CreateBall(Vector position, Vector direction)
 {
 	Sprite *sprite = this->add->Sprite(position.x, position.y, "ball", 0, group);
+	ball = sprite;
 	game->physics->EnablePhysics(sprite);
 	sprite->events->onCollide = [this](GameObject *go, ColliderArg e) {
 		if (e.blockDirection.left) go->position.x += 5;

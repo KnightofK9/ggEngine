@@ -19,7 +19,7 @@ namespace ggEngine{
 		Add *add;
 		Preload *preload;
 		virtual void Destroy();
-		std::list<Group*> GetGroupList() { return this->groupList; }
+		std::list<Group*>* GetGroupList() { return &this->groupList; }
 		virtual void Init() = 0; //Called after start a State
 		virtual void Preload() = 0; //Called after init
 		virtual void Create() = 0;//Called after preload complete

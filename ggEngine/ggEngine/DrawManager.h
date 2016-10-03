@@ -33,7 +33,7 @@ namespace ggEngine {
 		void Render2D();
 		void DrawRectangle(float left, float top, float right, float bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
 		void DrawCircle(float x, float y, float radius, D3DCOLOR fillCOlor = DEFAULT_COLOR);
-		void DrawObjectFromGroup(std::list<Group*> groupList);
+		void DrawObjectFromGroup(std::list<Group*> *groupList);
 		void DrawList(std::list<DrawObject*> *drawObjectList);
 		void DrawLine(const Vector Point1, const Vector Point2, D3DCOLOR color = DEFAULT_COLOR);
 		Sprite* CreateSprite(std::string fileSource);

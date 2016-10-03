@@ -21,7 +21,7 @@ namespace ggEngine {
 		void GameRun();
 		D3DManager *GetD3DManager() { return this->d3dManager; }
 		DrawManager *GetDrawManager() { return this->drawManager; }
-		std::list<Group*> GetGroupList() { return this->topGroupList; }
+		std::list<Group*> *GetGroupList() { return &this->topGroupList; }
 		Cache  *cache;
 		StateManager *stateManager;
 		Physics *physics;
@@ -31,13 +31,14 @@ namespace ggEngine {
 		EventManager *eventManager;
 		long frameRateReal;
 		long frameRateCore;
+		Input* GetInput() { return this->input; }
 	private:
 		//
 		// Private Method
 		//
 		void ErrorCheck(int errorCode);
 		void gameUpdate();
-		void RunGroupUpdate(std::list<Group*> groupList);
+		void RunGroupUpdate(std::list<Group*> *groupList);
 		//
 		// Private class instance
 		//

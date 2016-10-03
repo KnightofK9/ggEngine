@@ -4,6 +4,7 @@
 #include "PingPongState.h"
 #include "StateManager.h"
 #include <iostream>
+#include "MenuState.h"
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 using namespace ggEngine;
 //Field
@@ -36,10 +37,13 @@ void cleanup() {
 	if (window != NULL) { delete window; window = NULL; }
 }
 void initGame() {
-	//TestState *testState = new TestState(game);
-	//game->stateManager->Add("TestState", testState,true);
+	TestState *testState = new TestState(game);
+	game->stateManager->Add("TestState", testState,false);
 	PingPongState *pingPongState = new PingPongState(game);
-	game->stateManager->Add("PingPongState", pingPongState, true);
+	game->stateManager->Add("PingPongState", pingPongState, false);
+	MenuState *menuState = new MenuState(game);
+	game->stateManager->Add("MenuState", menuState, false);
+	game->stateManager->Start("MenuState",false,false);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

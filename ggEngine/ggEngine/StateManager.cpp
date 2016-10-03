@@ -101,13 +101,13 @@ namespace ggEngine {
 		return false;
 	}
 
-	void StateManager::ClearGroup(std::list<Group*> groupList)
+	void StateManager::ClearGroup(std::list<Group*> *groupList)
 	{
-		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end(); ++it) {
-			std::list<Group*> groupList = (*it)->GetGroupList();
+		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end(); ++it) {
+			std::list<Group*> *groupList = (*it)->GetGroupList();
 			ClearGroup(groupList);
-			(*it)->Destroy();
 		}
+		groupList->clear();
 	}
 
 }
