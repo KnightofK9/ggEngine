@@ -65,7 +65,7 @@ void MenuState::Create()
 	style.fontColor = D3DCOLOR_XRGB(30, 30, 30);
 	style.font = "Segoe UI";
 	style.fontWeight = 1;
-	this->add->Text(WINDOW_WIDTH / 2.0 - 180, WINDOW_HEIGHT - 50, "Esc: Exit          Q: Enter", style, groupMenu);
+	this->add->Text(WINDOW_WIDTH / 2.0 - 150, WINDOW_HEIGHT - 50, "Esc: Exit          Q: Enter", style, groupMenu);
 }
 
 void MenuState::Update()
