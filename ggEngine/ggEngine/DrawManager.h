@@ -41,6 +41,7 @@ namespace ggEngine {
 		IDirect3DDevice9 *GetDevice(){ return this->device; }
 		D3DTLVERTEX CreateD3DTLVERTEX(float X, float Y, float Z, float RHW, D3DCOLOR color, float U, float V);
 	private:
+		LPD3DXSPRITE spriteHandle;
 		LPDIRECT3DSURFACE9 colorSurface;
 		LPDIRECT3DSURFACE9 backBuffer;
 		LPD3DXLINE lineManager;

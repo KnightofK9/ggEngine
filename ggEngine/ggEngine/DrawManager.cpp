@@ -26,6 +26,12 @@ namespace ggEngine {
 			&colorSurface,
 			NULL);
 		device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
+		HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
+		if (result != D3D_OK)
+		{
+			this->spriteHandle = NULL;
+			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
+		}
 	}
 	DrawManager::~DrawManager()
 	{
@@ -136,7 +142,7 @@ namespace ggEngine {
 	{
 		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
 			if ((*it)->IsAlive()) {
-				(*it)->Draw(camera->GetTranslatedMatrix());
+				(*it)->Draw(camera->GetTranslatedMatrix(),this->spriteHandle);
 				++it;
 			}
 			else {

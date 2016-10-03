@@ -12,9 +12,9 @@ namespace ggEngine {
 	{
 		Destroy();
 	}
-	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
+	void SpriteAnimation::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
 	{
-		Transform(translatedWorldMatrix);
+		Transform(translatedWorldMatrix,spriteHandle);
 		RECT srcRect;
 		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {
@@ -30,11 +30,15 @@ namespace ggEngine {
 			int bottom = top + this->frameHeight;
 			srcRect = { left,top,right,bottom };
 		}
-		if (this->spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
+		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
-			this->spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));
+			spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));
 			spriteHandle->End();
 		}
+	}
+	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
+	{
+		Draw(translatedWorldMatrix, this->spriteHandle);
 	}
 	void SpriteAnimation::Draw()
 	{

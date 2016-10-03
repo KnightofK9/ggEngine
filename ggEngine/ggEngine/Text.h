@@ -8,7 +8,7 @@ namespace ggEngine {
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
 	struct Style {
 		//The font of text
-		std::string font = "Times New Romance"; 
+		std::string font = "Arial"; 
 		//The style of the font (eg. 'italic'). Preserved for future using
 		std::string fontStyle = ""; 
 		//The variant of the font (eg. 'small-caps'). Preserved for future using
@@ -18,15 +18,16 @@ namespace ggEngine {
 		//The size of the font (eg. 32 , measure in px).
 		int fontSize = 14;
 		//A canvas fillstyle that will be used as the background for the whole Text object.Set to null to disable. Preserved for future using
-		std::string backgroundColor = NULL;
+		D3DCOLOR backgroundColor = NULL;
 		//A canvas fillstyle that will be used on the text eg 'red', '#00FF00'. Preserved for future using
-		std::string fill = NULL;
+		std::string fill = "";
 		//Horizontal alignment of each line in multiline text.Can be : 'left', 'center' or 'right'.Does not affect single lines of text. Preserved for future using
 		std::string align = "left";
 		//A canvas stroke style that will be used on the text stroke eg 'blue', '#FCFF00'. Preserved for future using
-		std::string stroke;
+		std::string stroke ="";
 		//A number that represents the thickness of the stroke. Default is 0 (no stroke). Preserved for future using
 		int strokeThickness = 0;
+		D3DCOLOR fontColor = D3DCOLOR_ARGB(255, 0, 0, 0);
 	};
 	//All instance of class inside engine must have namespace ggEngine
 	//Important, DrawObject derived from GameObject, GameObject already have position, scale, width, height. Just use position for this time
@@ -40,9 +41,11 @@ namespace ggEngine {
 		//You MUST call the base GameObject::Destroy() in here. Destroy just set alive to false for collector take care
 		void Destroy();
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
-		void Draw(Matrix translatedWorldMatrix);
+		void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 	private:
-		
+		LPD3DXFONT font;
+		Style style;
+		std::string text;
 	};
 }
 

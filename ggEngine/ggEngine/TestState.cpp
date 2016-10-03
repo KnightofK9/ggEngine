@@ -9,6 +9,7 @@
 #include "ColliderArg.h"
 #include "EventManager.h"
 #include "Timer.h"
+#include "Text.h"
 SpriteAnimation *sprite1;
 SpriteAnimation *sprite4;
 Sprite *sprite2;
@@ -39,9 +40,9 @@ void TestState::Preload(){
 void TestState::Create()
 {
 	group = this->add->Group();
-	background = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "girl", 0, group);
-	background->SetWidth(WINDOW_WIDTH);
-	background->SetHeight(WINDOW_HEIGHT);
+	//background = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "girl", 0, group);
+	//background->SetWidth(WINDOW_WIDTH);
+	//background->SetHeight(WINDOW_HEIGHT);
 	CreateBall(Vector(50,50) , Vector(3, 4));
 	//sprite2 = this->add->Sprite(20, 20, "ball", 0, group);
 	//game->physics->EnablePhysics(sprite2);
@@ -99,6 +100,9 @@ void TestState::Create()
 			test *= -1;
 		}
 	};
+	Style style;
+	Text *text = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0, "Diem so", style, group);
+
 	//sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0,"kitty", 92, 60, group, 0);
 	//sprite1 = this->add->SpriteAnimation(0, 0, "kitty", 92, 60, group, 0);
 	//sprite4 = this->add->SpriteAnimation(WINDOW_WIDTH - 50, 50, "kitty", 92, 60, group, 0);

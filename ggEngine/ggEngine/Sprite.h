@@ -14,6 +14,7 @@ namespace ggEngine {
 		~Sprite();
 		virtual void Draw();
 		virtual void Draw(Matrix translatedWorldMatrix);
+		virtual void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 		virtual void SetWidth(float width);
 		virtual void SetHeight(float height);
 		virtual float GetWidth();
@@ -26,6 +27,7 @@ namespace ggEngine {
 		virtual void SetScale(Vector vector);
 		void Transform();
 		void Transform(Matrix translatedWorldMatrix);
+		void Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }
 		Vector GetAnchor() { return this->anchor; }
 		void SetBody(Body* body) { this->body = body; }

@@ -33,17 +33,44 @@
 
 ggEngine::Text::Text(LPDIRECT3DDEVICE9 device, float x, float y, std::string text, Style style)
 {
+	bool isItalic = style.fontStyle.find("italic") != std::string::npos;
+	SetPosition(x, y);
+	this->text = text;
+	HRESULT hr = D3DXCreateFont(device,     //D3D Device
+		style.fontSize,               //Font height
+		0,                //Font width
+		FW_NORMAL,        //Font Weight
+		1,                //MipLevels
+		isItalic,            //Italic
+		DEFAULT_CHARSET,  //CharSet
+		OUT_DEFAULT_PRECIS, //OutputPrecision
+		ANTIALIASED_QUALITY, //Quality
+		DEFAULT_PITCH | FF_DONTCARE,//PitchAndFamily
+		style.font.c_str(),          //pFacename,
+		&font);         //ppFont
 }
 
 ggEngine::Text::~Text()
 {
+	if (font != NULL) {
+		font->Release();
+		font = NULL;
+	}
 }
 
 void ggEngine::Text::Destroy()
 {
+	GameObject::Destroy();
 }
 
-void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
+void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
 {
+	RECT rect = { position.x,position.y,0,0}; 
+	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
+	{
+		font->DrawTextA(NULL, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
+		spriteHandle->End();
+	}
 }
+
 
