@@ -61,7 +61,7 @@ void MenuState::Update()
 		Switch(false);
 	}
 	else if (game->GetInput()->KeyDown(DIK_RETURN)) {
-		game->stateManager->Start("TestState", true, true);
+		game->stateManager->Start("PingPongState", true, true);
 	}
 }
 

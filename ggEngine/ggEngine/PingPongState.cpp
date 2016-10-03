@@ -9,7 +9,8 @@
 #include "ColliderArg.h"
 #include "EventManager.h"
 #include "Text.h"
-
+#include "Input.h"
+extern bool isSingle;
 PingPongState::PingPongState(Game *game) :State(game)
 {
 }
@@ -90,17 +91,19 @@ void PingPongState::Create()
 	rightBat->name = "Right Bat";
 	game->physics->EnablePhysics(rightBat);
 	rightBat->body->CreateRectangleRigidBody(rightBat->GetWidth(), rightBat->GetHeight());
-	game->eventManager->EnableKeyBoardInput(rightBat);
-	rightBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		if (e.isPress(DIK_UPARROW)) {
-			if (!go->body->blocked.up)
-				go->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-		}
-		if (e.isPress(DIK_DOWNARROW)) {
-			if (!go->body->blocked.down)
-				go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-		}
-	};
+	if (!isSingle) {
+		game->eventManager->EnableKeyBoardInput(rightBat);
+		rightBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
+			if (e.isPress(DIK_UPARROW)) {
+				if (!go->body->blocked.up)
+					go->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+			}
+			if (e.isPress(DIK_DOWNARROW)) {
+				if (!go->body->blocked.down)
+					go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+			}
+		};
+	}
 #pragma endregion Bat
 
 
@@ -117,6 +120,15 @@ void PingPongState::Update()
 {
 	textScore1->SetText(std::to_string(score1));
 	textScore2->SetText(std::to_string(score2));
+	if (isSingle) {
+		if (ball->position.y<rightBat->position.y) rightBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		else if (ball->position.y>rightBat->position.y) {
+			rightBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		}
+	}
+	if (game->GetInput()->KeyDown(DIK_Q)) {
+		game->stateManager->Start("MenuState", true, true);
+	}
 }
 void PingPongState::PreRender()
 {
