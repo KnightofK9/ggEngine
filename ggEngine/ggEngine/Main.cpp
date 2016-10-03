@@ -39,8 +39,8 @@ void cleanup() {
 void initGame() {
 	TestState *testState = new TestState(game);
 	game->stateManager->Add("TestState", testState,false);
-	//PingPongState *pingPongState = new PingPongState(game);
-	//game->stateManager->Add("PingPongState", pingPongState, false);
+	PingPongState *pingPongState = new PingPongState(game);
+	game->stateManager->Add("PingPongState", pingPongState, false);
 	MenuState *menuState = new MenuState(game);
 	game->stateManager->Add("MenuState", menuState, false);
 	game->stateManager->Start("MenuState",false,false);

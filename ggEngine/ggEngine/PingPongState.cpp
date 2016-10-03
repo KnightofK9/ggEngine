@@ -30,7 +30,7 @@ void PingPongState::Create()
 	group = this->add->Group();
 
 #pragma region Ball
-	ball = this->add->Sprite(0, 0, "ball",0, group);
+	ball = this->add->Sprite(WINDOW_WIDTH /2.0, WINDOW_HEIGHT / 2.0, "ball",0, group);
 	game->physics->EnablePhysics(ball);
 	ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		/*if (!e.blockDirection.up && !e.blockDirection.down)
@@ -114,12 +114,21 @@ void PingPongState::Create()
 #pragma region Others
 	// Text
 	Style style;
-	style.fontSize = 30;
-	style.fontColor = D3DCOLOR_ARGB(0,255,255,255);//D3DCOLOR_XRGB(120, 180, 210);
-	style.font = "Segoe UI";
-	style.fontWeight = 3;
-	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 50, WINDOW_HEIGHT / 2.0, std::to_string(score1), style, group);
-	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 50, WINDOW_HEIGHT / 2.0, std::to_string(score2), style, group);
+	style.fontSize = 80;
+	style.fontColor = D3DCOLOR_XRGB(120, 180, 210);
+	style.font = "Segoe UI Black";
+	style.fontVariant = "bold";
+	style.fontWeight = 1;
+	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 80, WINDOW_HEIGHT/2.0 - 30.0, std::to_string(score1), style, group);
+	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 80, WINDOW_HEIGHT/2.0 - 30.0, std::to_string(score2), style, group);
+
+	Style style2;
+	style.fontSize = 36;
+	style.fontColor = D3DCOLOR_XRGB(30, 30, 30);
+	style.font = "Segoe UI Black";
+	style.fontWeight = 1;
+	this->add->Text(10, 50, "W-S", style, group);
+	this->add->Text(WINDOW_WIDTH - 150, 50, "Up-Down", style, group);
 
 #pragma endregion Others
 }
