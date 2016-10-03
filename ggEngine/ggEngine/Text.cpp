@@ -65,6 +65,7 @@ void ggEngine::Text::Destroy()
 
 void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
 {
+	if (!visible) return;
 	RECT rect = { position.x,position.y,0,0}; 
 	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 	{

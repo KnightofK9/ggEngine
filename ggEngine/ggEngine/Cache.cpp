@@ -34,6 +34,7 @@ namespace ggEngine {
 		for (std::map<std::string, Texture*>::iterator it = this->textureMap.begin(); it != this->textureMap.end(); ++it) {
 			(it->second)->Destroy();
 		};
+		this->textureMap.clear();
 	}
 	bool Cache::CreateTexture(std::string textureKey, std::string textureFile, D3DCOLOR transColor) {
 		Texture *tex = new Texture(this->device, textureFile,transColor);

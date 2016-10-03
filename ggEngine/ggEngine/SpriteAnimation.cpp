@@ -16,6 +16,7 @@ namespace ggEngine {
 	{
 		Transform(translatedWorldMatrix,spriteHandle);
 		RECT srcRect;
+		if (!visible) return;
 		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {
 			srcRect = this->currentAnimation->GetNextRect();

@@ -137,11 +137,11 @@ namespace ggEngine {
 		}
 	}
 
-	void Game::RunGroupUpdate(std::list<Group*> groupList)
+	void Game::RunGroupUpdate(std::list<Group*> *groupList)
 	{
-		for (std::list<Group*>::iterator it = groupList.begin(); it != groupList.end();) {
+		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end();) {
 			if ((*it)->IsAlive()) {
-				std::list<Group*> groupList = (*it)->GetGroupList();
+				std::list<Group*> *groupList = (*it)->GetGroupList();
 				(*it)->Update();
 				RunGroupUpdate(groupList);
 				++it;
@@ -149,8 +149,8 @@ namespace ggEngine {
 			else {
 				std::list<Group*>::iterator tempIt = it;
 				++it;
-				delete (*tempIt);
-				groupList.erase(tempIt);
+				//delete (*tempIt);
+				groupList->remove((*tempIt));
 			}
 		}
 	}

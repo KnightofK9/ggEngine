@@ -69,6 +69,7 @@ namespace ggEngine {
 	{
 		Transform(translatedWorldMatrix, spriteHandle);
 		RECT srcRect = { 0, 0, this->image->GetWidth(), this->image->GetHeight() };
+		if (!visible) return;
 		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
 			spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));

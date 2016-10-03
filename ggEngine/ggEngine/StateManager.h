@@ -21,7 +21,7 @@ namespace ggEngine {
 		bool CheckState(std::string key);
 		State* GetCurrentState(){ return this->currentState; }
 	private:
-		void ClearGroup(std::list<Group*> groupList);
+		void ClearGroup(std::list<Group*> *groupList);
 		State *currentState;
 		Game *game;
 		Cache *cache;

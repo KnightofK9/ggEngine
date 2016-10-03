@@ -15,7 +15,7 @@ namespace ggEngine{
 		std::function<void(void)> update;
 		void AddDrawObjectToList(DrawObject* drawObject);
 		std::list<DrawObject*> *GetDrawList() { return &this->drawList; }
-		std::list<Group*> GetGroupList() { return this->groupList; }
+		std::list<Group*> *GetGroupList() { return &this->groupList; }
 	private:
 		std::list<DrawObject*> drawList;
 		std::list<Group*> groupList;
