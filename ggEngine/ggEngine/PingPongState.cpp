@@ -54,12 +54,14 @@ void PingPongState::Create()
 
 	ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
 		Vector velocity = go->body->velocity;
-		if (e.blockDirection.left) velocity.x*= -1;
-		else if (e.blockDirection.right) velocity.x*= -1;
-		else if (e.blockDirection.up) velocity.y *= -1;
-		else if (e.blockDirection.down) velocity.y *= -1;
+		if (e.blockDirection.left) go->position.x += 5;
+		else if (e.blockDirection.right) go->position.x -= 5;
+		else if (e.blockDirection.up) go->position.y += 5;
+		else if (e.blockDirection.down) go->position.y -= 5;
 		Vector n = e.normalSurfaceVector;
-		go->body->velocity = velocity;
+		Vector d = go->body->velocity;
+		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+		go->body->velocity = r;
 	};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
 	ball->body->AddForce(5, Vector(50,50));
@@ -68,7 +70,8 @@ void PingPongState::Create()
 	
 
 #pragma region Bat
-	leftBat = this->add->Sprite(WINDOW_WIDTH / 20.0, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+	int distant = 100;
+	leftBat = this->add->Sprite(WINDOW_WIDTH/2.0, WINDOW_HEIGHT / 2.0, "bat", 0, group);
 	leftBat->name = "Left Bat";
 	leftBat->position.x = leftBat->GetWidth() / 2;
 	game->physics->EnablePhysics(leftBat);
@@ -108,6 +111,10 @@ void PingPongState::Create()
 #pragma region Others
 	// Text
 	Style style;
+	style.fontSize = 30;
+	style.fontColor = D3DCOLOR_ARGB(0,255,255,255);//D3DCOLOR_XRGB(120, 180, 210);
+	style.font = "Segoe UI";
+	style.fontWeight = 3;
 	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 50, WINDOW_HEIGHT / 2.0, std::to_string(score1), style, group);
 	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 50, WINDOW_HEIGHT / 2.0, std::to_string(score2), style, group);
 
