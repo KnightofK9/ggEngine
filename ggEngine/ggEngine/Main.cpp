@@ -21,7 +21,7 @@ LRESULT CALLBACK messageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 int main() {
 	try {
 		window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT);
-		game = new Game(window->getHandle(), WINDOW_WIDTH, WINDOW_HEIGHT, GameMode_Windowed, D3DCOLOR_XRGB(177, 177, 177));
+		game = new Game(window->getHandle(), WINDOW_WIDTH, WINDOW_HEIGHT, GameMode_Windowed, D3DCOLOR_XRGB(0,0,0));
 	}
 	catch (LPCTSTR error) {
 		quitWithError(error);
@@ -39,8 +39,8 @@ void cleanup() {
 void initGame() {
 	TestState *testState = new TestState(game);
 	game->stateManager->Add("TestState", testState,false);
-	PingPongState *pingPongState = new PingPongState(game);
-	game->stateManager->Add("PingPongState", pingPongState, false);
+	//PingPongState *pingPongState = new PingPongState(game);
+	//game->stateManager->Add("PingPongState", pingPongState, false);
 	MenuState *menuState = new MenuState(game);
 	game->stateManager->Add("MenuState", menuState, false);
 	game->stateManager->Start("MenuState",false,false);

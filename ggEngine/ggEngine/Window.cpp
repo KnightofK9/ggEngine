@@ -9,15 +9,15 @@
 		windowClass.hInstance = GetModuleHandle(NULL);
 		windowClass.hIcon = NULL;
 		windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-		windowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+		windowClass.hbrBackground = (HBRUSH)BLACK_BRUSH;
 		windowClass.lpszMenuName = NULL;
 		windowClass.lpszClassName = title;
 		RegisterClass(&windowClass);
 		window = CreateWindow(
 			windowClass.lpszClassName,
 			title,
-			//WS_OVERLAPPEDWINDOW,
-			WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
+			WS_OVERLAPPEDWINDOW,
+			//WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
 			x, y,
 			width, height,
 			GetDesktopWindow(),
