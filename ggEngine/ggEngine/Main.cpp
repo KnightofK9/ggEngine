@@ -21,7 +21,8 @@ LRESULT CALLBACK messageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 int main() {
 	try {
 		window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT);
-		game = new Game(window->getHandle(), WINDOW_WIDTH, WINDOW_HEIGHT, GameMode_Windowed, D3DCOLOR_XRGB(0,0,0));
+		//game = new Game(window->getHandle(), WINDOW_WIDTH, WINDOW_HEIGHT, GameMode_Windowed, D3DCOLOR_XRGB(0,0,0));
+		game = new Game(window->getHandle(), WINDOW_WIDTH, WINDOW_HEIGHT, GameMode_Windowed, PhysicsMode_AABB , D3DCOLOR_XRGB(177, 177, 177));
 	}
 	catch (LPCTSTR error) {
 		quitWithError(error);

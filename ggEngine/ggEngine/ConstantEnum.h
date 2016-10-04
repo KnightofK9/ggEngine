@@ -18,3 +18,4 @@ const int ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW = 404;
 const int ERROR_CODE_FAIL_INIT_SPRITE_HANDLER = 405;
 typedef LPCTSTR GGTEXT;
 enum GameMode { GameMode_FullScreen, GameMode_Windowed };
+enum PhysicsMode { PhysicsMode_AABB, PhysicsMode_AABBSwept, PhysicsMode_None };

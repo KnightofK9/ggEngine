@@ -9,6 +9,8 @@ ggEngine::EventManager::EventManager(Game * game)
 
 ggEngine::EventManager::~EventManager()
 {
+	this->receivedKeyBoardList.clear();
+	this->receivedMouseList.clear();
 }
 
 void ggEngine::EventManager::Destroy()

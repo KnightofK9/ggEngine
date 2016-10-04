@@ -9,12 +9,15 @@ namespace ggEngine {
 	class Body;
 	class Physics:public GGObject {
 	public:
-		Physics(Game *game);
+		Physics(Game *game,PhysicsMode physicsMode);
 		~Physics();
 		void UpdatePhysics();
 		void EnablePhysics(Sprite *sprite);
 		void CheckBound(GameObject *go1, GameObject *go2);
 	private:
+		void CheckBoundAABB(GameObject *go1, GameObject *go2);
+		void CheckBoundSweptAABB(GameObject *go1, GameObject *go2);
+		PhysicsMode physicsMode;
 		Game *game;
 		std::list<Body*> bodyList;
 	};

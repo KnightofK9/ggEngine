@@ -10,7 +10,7 @@
 #include "Input.h"
 
 namespace ggEngine {
-	Game::Game(HWND hWnd ,int width, int height, GameMode mode, D3DCOLOR gameColor)
+	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
 		bool isWindowed = false;
 		isRunning = false;
@@ -31,7 +31,7 @@ namespace ggEngine {
 			camera = new Camera(this, WINDOW_WIDTH, WINDOW_HEIGHT);
 			drawManager = new DrawManager(this,camera);
 			d3dManager->SetDrawManager(drawManager);
-			physics = new Physics(this);
+			physics = new Physics(this, physicsMode);
 			d3dManager->SetStateManager(stateManager);
 			eventManager = new EventManager(this);
 			input = new Input(&hWnd);

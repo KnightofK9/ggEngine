@@ -11,7 +11,8 @@ namespace ggEngine {
 	}
 	GameObject::~GameObject()
 	{
-
+		delete body;
+		delete events;
 	}
 	Vector GameObject::GetPosition()
 	{

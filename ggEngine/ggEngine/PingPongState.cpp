@@ -65,7 +65,7 @@ void PingPongState::Create()
 		go->body->velocity = r;
 	};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(5, Vector(50,50));
+	ball->body->AddForce(5, Vector(1,1));
 #pragma endregion Ball
 
 	
@@ -79,16 +79,18 @@ void PingPongState::Create()
 	leftBat->body->allowBounciness = false;
 	leftBat->body->CreateRectangleRigidBody(leftBat->GetWidth(), leftBat->GetHeight());
 	game->eventManager->EnableKeyBoardInput(leftBat);
-	leftBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		if (e.isPress(DIK_W)) {
-			if (!go->body->blocked.up)
-				go->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-		}
-		if (e.isPress(DIK_S)) {
-			if (!go->body->blocked.down)
-				go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-		}
-	};
+	if (!isSingle) {
+		leftBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
+			if (e.isPress(DIK_W)) {
+				if (!go->body->blocked.up)
+					go->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+			}
+			if (e.isPress(DIK_S)) {
+				if (!go->body->blocked.down)
+					go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+			}
+		};
+	}
 
 	rightBat = this->add->Sprite(WINDOW_WIDTH - leftBat->GetWidth() / 2, WINDOW_HEIGHT / 2.0, "bat", 0, group);
 	rightBat->name = "Right Bat";
@@ -107,6 +109,8 @@ void PingPongState::Create()
 			}
 		};
 	}
+	leftBat->SetScale(1, 0.5);
+	rightBat->SetScale(1, 0.5);
 #pragma endregion Bat
 
 
@@ -141,6 +145,10 @@ void PingPongState::Update()
 		else if (ball->position.y>rightBat->position.y) {
 			rightBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		}
+		if (ball->position.y<leftBat->position.y) leftBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		else if (ball->position.y>leftBat->position.y) {
+			leftBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		}
 	}
 	if (game->GetInput()->KeyDown(DIK_Q)) {
 		game->stateManager->Start("MenuState", true, true);
@@ -153,7 +161,10 @@ void PingPongState::Render()
 {
 	game->physics->CheckBound(leftBat, ball);
 	game->physics->CheckBound(rightBat, ball);
-	Debug::Log(game->frameRateReal);
+	ball->body->Render();
+	leftBat->body->Render();
+	rightBat->body->Render();
+	//Debug::Log(game->frameRateReal);
 }
 void PingPongState::Pause()
 {

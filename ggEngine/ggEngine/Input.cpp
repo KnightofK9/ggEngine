@@ -58,8 +58,8 @@ namespace ggEngine
 	{
 		// Log
 		int keyDown = keyStates[keyCode] & 0x80;
-		if (keyDown != 0)
-			Debug::Log("Virtual key code: " + std::to_string(keyDown));
+	/*	if (keyDown != 0)
+			Debug::Log("Virtual key code: " + std::to_string(keyDown));*/
 		//
 
 		return keyStates[keyCode] & 0x80;
