@@ -100,6 +100,12 @@ namespace ggEngine {
 			}
 			logicTimer.updateDeltaTime();
 			//
+			// Check for state
+			//
+
+			stateManager->LateStart();
+
+			//
 			// Update game logic here
 			//
 			gameUpdate();

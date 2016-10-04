@@ -30,6 +30,7 @@ namespace ggEngine {
 		this->stateMap[key] = State;
 		if (autoStart) {
 			Start(key,false,false);
+			LateStart();
 			game->SetRunning(true);
 		}
 		return true;
@@ -37,22 +38,12 @@ namespace ggEngine {
 
 	bool StateManager::Start(std::string key, bool clearWolrd, bool clearCache)
 	{
-		if (!CheckState(key)) {
-			Debug::Error("No State found with key " + key);
-			return false;
+		if (!isSwitchState) {
+			isSwitchState = true;
+			this->stateKey = key;
+			this->clearWorld = clearWolrd;
+			this->clearCache = clearCache;
 		}
-		if (clearWolrd) {
-			if (this->currentState != NULL) {
-				ClearGroup(this->currentState->GetGroupList());
-				this->currentState->ShutDown();
-			}
-		}
-		if (clearCache) {
-			this->cache->ClearAll();
-		}
-		this->currentState = this->stateMap[key];
-		this->currentState->Start();
-		game->SetRunning(true);
 		return true;
 	}
 
@@ -99,6 +90,31 @@ namespace ggEngine {
 			return true;
 		}
 		return false;
+	}
+
+	void StateManager::LateStart()
+	{
+		if (!isSwitchState) return;
+		isSwitchState = false;
+		if (!CheckState(stateKey)) {
+			Debug::Error("No State found with key " + stateKey);
+			return;
+		}
+		if (this->clearWorld) {
+			if (this->currentState != NULL) {
+				ClearGroup(this->currentState->GetGroupList());
+				//TO DO shut down physics body here
+				//TO DO delete game object here
+				//TO DO remove all event here
+				this->currentState->ShutDown();
+			}
+		}
+		if (clearCache) {
+			this->cache->ClearAll();
+		}
+		this->currentState = this->stateMap[stateKey];
+		this->currentState->Start();
+		game->SetRunning(true);
 	}
 
 	void StateManager::ClearGroup(std::list<Group*> *groupList)

@@ -19,6 +19,7 @@ namespace ggEngine {
 		bool Remove(std::string key);
 		void ClearCurrentState();
 		bool CheckState(std::string key);
+		void LateStart();
 		State* GetCurrentState(){ return this->currentState; }
 	private:
 		void ClearGroup(std::list<Group*> *groupList);
@@ -26,5 +27,9 @@ namespace ggEngine {
 		Game *game;
 		Cache *cache;
 		std::map<std::string, State*> stateMap;
+		bool isSwitchState = false;
+		bool clearWorld = false;
+		bool clearCache = false;
+		std::string stateKey = "";
 	};
 }
