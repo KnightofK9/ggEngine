@@ -6,6 +6,7 @@
 #include "DrawObject.h" //Text belong to group and must provide draw for group use for drawing on screen
 namespace ggEngine {
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
+	enum Allign { Allign_Left, Allign_Middle, Allign_Right};
 	struct Style {
 		//The font of text
 		std::string font = "Arial"; 
@@ -28,6 +29,8 @@ namespace ggEngine {
 		//A number that represents the thickness of the stroke. Default is 0 (no stroke). Preserved for future using
 		int strokeThickness = 0;
 		D3DCOLOR fontColor = D3DCOLOR_ARGB(255, 0, 0, 0);
+		Allign horizontalAllign = Allign_Left;
+		Allign verticalAllign = Allign_Left;
 	};
 	//All instance of class inside engine must have namespace ggEngine
 	//Important, DrawObject derived from GameObject, GameObject already have position, scale, width, height. Just use position for this time

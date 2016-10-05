@@ -45,30 +45,6 @@ namespace ggEngine {
 	{
 		Draw(translatedWorldMatrix, this->spriteHandle);
 	}
-	void SpriteAnimation::Draw()
-	{
-		Transform();
-		RECT srcRect;
-		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
-		if (this->isRunningAnimation) {
-			srcRect = this->currentAnimation->GetNextRect();
-			this->currentFrame = this->currentAnimation->currentFrame;
-		}
-		else {
-			int currentFrameRow = ((this->currentFrame) / this->framePerRow);
-			int currentFrameColumn = (this->currentFrame - ((currentFrameRow)*this->framePerRow));
-			int top = this->frameHeight*currentFrameRow;
-			int left = this->frameWidth*currentFrameColumn;
-			int right = left + this->frameWidth;
-			int bottom = top + this->frameHeight;
-			srcRect = { left,top,right,bottom };
-		}
-		if (this->spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
-		{
-			this->spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));
-			spriteHandle->End();
-		}
-	}
 	void SpriteAnimation::Destroy()
 	{
 		GameObject::Destroy();

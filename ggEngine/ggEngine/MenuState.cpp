@@ -51,6 +51,7 @@ void MenuState::Create()
 	multiBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnHover", 0, groupMenu);
 	multiBtnHover->SetVisible(false);
 
+
 	//Other
 	Style style;
 	style.fontSize = 100;
@@ -58,7 +59,7 @@ void MenuState::Create()
 	style.font = "Segoe UI Black";
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
-	this->add->Text(WINDOW_WIDTH/2.0 - 230, WINDOW_HEIGHT/2.0 - 50, "PING PONG", style, groupMenu);
+	Text *title = this->add->Text(WINDOW_WIDTH/2.0 - 230, WINDOW_HEIGHT/2.0 - 50, "PING PONG", style, groupMenu);
 
 	Style style2;
 	style2.fontSize = 36;

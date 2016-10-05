@@ -10,7 +10,6 @@ namespace ggEngine {
 		~SpriteAnimation();
 		void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 		void Draw(Matrix translatedWorldMatrix);
-		void Draw();
 		void Destroy();
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
 		void PlayAnimation(std::string animationName);

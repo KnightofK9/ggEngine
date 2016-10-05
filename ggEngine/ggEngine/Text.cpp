@@ -35,6 +35,7 @@ ggEngine::Text::Text(LPDIRECT3DDEVICE9 device, float x, float y, std::string tex
 {
 	bool isItalic = style.fontStyle.find("italic") != std::string::npos;
 	SetPosition(x, y);
+	SetAnchor(0, 0);
 	this->text = text;
 	this->style = style;
 	HRESULT hr = D3DXCreateFont(device,     //D3D Device
@@ -67,13 +68,14 @@ void ggEngine::Text::Destroy()
 void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
 {
 	if (!visible) return;
-	RECT rect = { position.x,position.y,0,0}; 
-	font->DrawTextA(nullptr, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
-	//if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
-	//{
-	//	
-	//	spriteHandle->End();
-	//}
+	Transform(translatedWorldMatrix, spriteHandle);
+	RECT rect{ 0, 0, position.x, position.y };
+	//font->DrawTextA(nullptr, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
+	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
+	{
+		font->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
+		spriteHandle->End();
+	}
 }
 
 void ggEngine::Text::SetText(std::string text)

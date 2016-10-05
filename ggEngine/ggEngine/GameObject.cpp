@@ -36,4 +36,28 @@ namespace ggEngine {
 	{
 		this->alive = false;
 	}
+	void GameObject::Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+	{
+		//Scale from 0 0
+		Matrix mat;
+		mat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+		//Move to anchor
+		mat *= Matrix::CreateTranslateMatrix(-this->GetWidth()*(this->GetAnchor().x), -this->GetHeight()*(this->GetAnchor().y));
+		//Rotate around anchor
+		mat *= Matrix::CreateRotateMatrix(this->rotate);
+		//Translate to exact anchor and position
+		mat *= Matrix::CreateTranslateMatrix(this->position.x, this->position.y);
+		//Tranform to screen view
+		mat *= translatedWorldMatrix;
+
+		//Vector scaleTransform(this->scale.x, this->scale.y);
+		//Vector rotateCenter((this->width) / 2, (this->height) / 2);
+		////Vector scaleCenter((this->width) / 2, (this->height) / 2);
+		//Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
+		//D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
+		//mat *= (Matrix::CreateScaleMatrix(1, -1)*Matrix::CreateTranslateMatrix(0, this->height));
+		if (this->body != NULL)
+			this->body->rigidBody->Transform(mat);
+		spriteHandle->SetTransform(&mat);
+	}
 }
