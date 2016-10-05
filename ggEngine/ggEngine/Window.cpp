@@ -16,8 +16,8 @@
 		window = CreateWindow(
 			windowClass.lpszClassName,
 			title,
-			WS_OVERLAPPEDWINDOW,
-			//WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
+			//WS_OVERLAPPEDWINDOW,
+			WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
 			x, y,
 			width, height,
 			GetDesktopWindow(),

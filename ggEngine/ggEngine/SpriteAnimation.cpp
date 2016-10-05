@@ -1,7 +1,7 @@
 #include "SpriteAnimation.h"
 #include "Animator.h"
 namespace ggEngine {
-	SpriteAnimation::SpriteAnimation(LPDIRECT3DDEVICE9 device, Texture * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame) :Sprite(device)
+	SpriteAnimation::SpriteAnimation(DrawManager *drawManager, Texture * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame) :Sprite(drawManager)
 	{
 		this->spriteAnimationType = SA_RectangleSheet;
 		this->currentFrame = defaultFrame;
@@ -10,9 +10,13 @@ namespace ggEngine {
 	}
 	SpriteAnimation::~SpriteAnimation()
 	{
-		Destroy();
+		for (std::map<std::string, Animator*>::iterator it = this->animatorMap.begin(); it != this->animatorMap.end(); ++it) {
+			delete (it->second);
+		};
+		animatorMap.clear();
+		if(currentAnimation!=NULL) delete currentAnimation;
 	}
-	void SpriteAnimation::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
 	{
 		Transform(translatedWorldMatrix,spriteHandle);
 		RECT srcRect;
@@ -37,39 +41,9 @@ namespace ggEngine {
 			spriteHandle->End();
 		}
 	}
-	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
-	{
-		Draw(translatedWorldMatrix, this->spriteHandle);
-	}
-	void SpriteAnimation::Draw()
-	{
-		Transform();
-		RECT srcRect;
-		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
-		if (this->isRunningAnimation) {
-			srcRect = this->currentAnimation->GetNextRect();
-			this->currentFrame = this->currentAnimation->currentFrame;
-		}
-		else {
-			int currentFrameRow = ((this->currentFrame) / this->framePerRow);
-			int currentFrameColumn = (this->currentFrame - ((currentFrameRow)*this->framePerRow));
-			int top = this->frameHeight*currentFrameRow;
-			int left = this->frameWidth*currentFrameColumn;
-			int right = left + this->frameWidth;
-			int bottom = top + this->frameHeight;
-			srcRect = { left,top,right,bottom };
-		}
-		if (this->spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
-		{
-			this->spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));
-			spriteHandle->End();
-		}
-	}
 	void SpriteAnimation::Destroy()
 	{
-		for (std::map<std::string, Animator*>::iterator it = this->animatorMap.begin(); it != this->animatorMap.end(); ++it) {
-			(it->second)->Destroy();
-		};
+		GameObject::Destroy();
 	}
 	void SpriteAnimation::CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop)
 	{
@@ -98,8 +72,8 @@ namespace ggEngine {
 	void SpriteAnimation::SetImage(Texture * image, int frameWidth, int frameHeight, int numberOfFrame)
 	{
 		this->image = image;
-		this->frameHeight = frameHeight;
-		this->frameWidth = frameWidth;
+		this->height = this->frameHeight = frameHeight;
+		this->width = this->frameWidth = frameWidth;
 		this->framePerRow = this->image->GetWidth() / frameWidth;
 		this->framePerColumn = this->image->GetHeight() / frameHeight;
 		int num = this->framePerRow*this->framePerColumn;
@@ -128,10 +102,12 @@ namespace ggEngine {
 	}
 	float SpriteAnimation::GetWidth()
 	{
-		return this->frameWidth*this->scale.x;
+		//return this->frameWidth*this->scale.x;
+		return this->width;
 	}
 	float SpriteAnimation::GetHeight()
 	{
-		return this->frameHeight*this->scale.y;
+		//return this->frameHeight*this->scale.y;
+		return this->height;
 	}
 }

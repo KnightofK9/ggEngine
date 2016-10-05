@@ -11,6 +11,9 @@ namespace ggEngine {
 		ZeroMemory(&d3dpp, sizeof(d3dpp));
 		//d3dpp.Windowed = TRUE;
 		//d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		D3DDISPLAYMODE dm;
+		d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &dm);
+
 		d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 		if(isWindowed) d3dpp.Windowed = TRUE;
 		else d3dpp.Windowed = FALSE;
@@ -19,6 +22,7 @@ namespace ggEngine {
 		d3dpp.BackBufferCount = 1;
 		d3dpp.BackBufferHeight = height;
 		d3dpp.BackBufferWidth = width;
+
 		HRESULT result = d3d->CreateDevice(
 			D3DADAPTER_DEFAULT,
 			D3DDEVTYPE_HAL,

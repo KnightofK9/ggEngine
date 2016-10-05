@@ -2,9 +2,15 @@
 #include "GameObject.h"
 #include <d3dx9.h>
 #include "Matrix.h"
+#include "DrawManager.h"
 namespace ggEngine {
 	class DrawObject:public GameObject {
 	public:
-		virtual void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle) = 0;
+		DrawObject(DrawManager *DrawManager);
+		~DrawObject();
+		virtual void Draw(Matrix translatedWorldMatrix) = 0;
+	protected:
+		DrawManager *drawManager;
+		LPD3DXSPRITE spriteHandle;
 	};
 }

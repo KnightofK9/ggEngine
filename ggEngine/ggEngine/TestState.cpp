@@ -104,7 +104,7 @@ void TestState::Create()
 		}
 	};
 	Style style;
-	Text *text = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0, "Diem so", style, group);
+	Text *text = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,200,200, "Diem so", style, group);
 
 	//sprite1 = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0,"kitty", 92, 60, group, 0);
 	//sprite1 = this->add->SpriteAnimation(0, 0, "kitty", 92, 60, group, 0);
@@ -195,6 +195,7 @@ void TestState::Resume()
 }
 void TestState::ShutDown()
 {
+	ballList.clear();
 }
 
 void TestState::CreateBall(Vector position, Vector direction)

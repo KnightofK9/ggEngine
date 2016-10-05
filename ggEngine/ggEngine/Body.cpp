@@ -20,6 +20,7 @@ namespace ggEngine {
 	}
 	Body::~Body()
 	{
+		delete rigidBody;
 	}
 	void Body::StopMovement(bool stopVelocity)
 	{

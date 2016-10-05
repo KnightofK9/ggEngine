@@ -3,6 +3,8 @@
 #include "Cache.h"
 #include "Game.h"
 #include "Group.h"
+#include "EventManager.h"
+#include "Physics.h"
 namespace ggEngine {
 	StateManager::StateManager(Game * game)
 	{
@@ -30,6 +32,7 @@ namespace ggEngine {
 		this->stateMap[key] = State;
 		if (autoStart) {
 			Start(key,false,false);
+			LateStart();
 			game->SetRunning(true);
 		}
 		return true;
@@ -37,22 +40,12 @@ namespace ggEngine {
 
 	bool StateManager::Start(std::string key, bool clearWolrd, bool clearCache)
 	{
-		if (!CheckState(key)) {
-			Debug::Error("No State found with key " + key);
-			return false;
+		if (!isSwitchState) {
+			isSwitchState = true;
+			this->stateKey = key;
+			this->clearWorld = clearWolrd;
+			this->clearCache = clearCache;
 		}
-		if (clearWolrd) {
-			if (this->currentState != NULL) {
-				ClearGroup(this->currentState->GetGroupList());
-				this->currentState->ShutDown();
-			}
-		}
-		if (clearCache) {
-			this->cache->ClearAll();
-		}
-		this->currentState = this->stateMap[key];
-		this->currentState->Start();
-		game->SetRunning(true);
 		return true;
 	}
 
@@ -101,11 +94,46 @@ namespace ggEngine {
 		return false;
 	}
 
+	void StateManager::LateStart()
+	{
+		if (!isSwitchState) return;
+		isSwitchState = false;
+		if (!CheckState(stateKey)) {
+			Debug::Error("No State found with key " + stateKey);
+			return;
+		}
+		if (this->clearWorld) {
+			if (this->currentState != NULL) {
+				ClearGroup(this->currentState->GetGroupList());
+				game->physics->Reset();
+				game->eventManager->Reset();
+				this->currentState->ShutDown();
+			}
+		}
+		if (clearCache) {
+			this->cache->ClearAll();
+		}
+		this->currentState = this->stateMap[stateKey];
+		this->currentState->Start();
+		game->SetRunning(true);
+	}
+
+	void StateManager::ClearSprite(Group* group)
+	{
+		std::list<DrawObject*> *drawList = group->GetDrawList();
+		for (std::list<DrawObject*>::const_iterator it = drawList->begin(); it != drawList->end(); it++)
+		{
+			delete *it;
+		}
+		drawList->clear();
+	}
 	void StateManager::ClearGroup(std::list<Group*> *groupList)
 	{
 		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end(); ++it) {
 			std::list<Group*> *groupList = (*it)->GetGroupList();
 			ClearGroup(groupList);
+			(*it)->Reset();
+			delete (*it);
 		}
 		groupList->clear();
 	}

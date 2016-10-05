@@ -16,6 +16,7 @@ namespace ggEngine {
 		void DispatchKeyBoardEvent(char *keyStates);
 		void DispatchMouseEvent(float mouseX, float mouseY, bool isPress); 
 		char ScanToChar(DWORD scanCode) const;
+		void Reset();
 	private:
 		void InitEvents(GameObject *go);
 		Game *game;

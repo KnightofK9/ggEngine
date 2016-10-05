@@ -6,11 +6,9 @@ namespace ggEngine {
 	class Animator;
 	class SpriteAnimation : public Sprite {
 	public:
-		SpriteAnimation(LPDIRECT3DDEVICE9 device, Texture *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0);
+		SpriteAnimation(DrawManager *drawManager, Texture *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0);
 		~SpriteAnimation();
-		void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 		void Draw(Matrix translatedWorldMatrix);
-		void Draw();
 		void Destroy();
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
 		void PlayAnimation(std::string animationName);
@@ -32,7 +30,7 @@ namespace ggEngine {
 		int frameHeight;
 		int currentFrame;
 		bool isRunningAnimation;
-		Animator *currentAnimation;
+		Animator *currentAnimation = NULL;
 		int numberOfFrame;
 		std::map<std::string, Animator*> animatorMap;
 		SpriteAnimationType spriteAnimationType;

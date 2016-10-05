@@ -31,12 +31,17 @@
 //		font->DrawTextA(0, lpString, -1, &R, DT_NOCLIP, color);
 //}
 
-ggEngine::Text::Text(LPDIRECT3DDEVICE9 device, float x, float y, std::string text, Style style)
+ggEngine::Text::Text(DrawManager *drawManager, float x, float y, float width, float height, std::string text, Style style):DrawObject(drawManager)
 {
 	bool isItalic = style.fontStyle.find("italic") != std::string::npos;
 	SetPosition(x, y);
+	this->orgWidth = width;
+	this->orgHeight = height;
+	this->width = width;
+	this->height = height;
 	this->text = text;
-	HRESULT hr = D3DXCreateFont(device,     //D3D Device
+	this->style = style;
+	HRESULT hr = D3DXCreateFont(drawManager->GetDevice(),     //D3D Device
 		style.fontSize,               //Font height
 		0,                //Font width
 		FW_NORMAL,        //Font Weight
@@ -63,13 +68,15 @@ void ggEngine::Text::Destroy()
 	GameObject::Destroy();
 }
 
-void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 {
 	if (!visible) return;
-	RECT rect = { position.x,position.y,0,0}; 
+	Transform(translatedWorldMatrix, spriteHandle);
+	RECT rect{ 0, 0, position.x, position.y };
+	//font->DrawTextA(nullptr, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
 	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 	{
-		font->DrawTextA(NULL, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
+		font->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
 		spriteHandle->End();
 	}
 }
@@ -77,4 +84,38 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandl
 void ggEngine::Text::SetText(std::string text)
 {
 	this->text = text;
+}
+
+void ggEngine::Text::SetWidth(float width)
+{
+	this->scale.x = (float)width / this->orgWidth;
+	this->width = width;
+}
+
+void ggEngine::Text::SetHeight(float height)
+{
+	this->scale.y = (float)height / this->orgHeight;
+	this->height = height;
+}
+
+float ggEngine::Text::GetWidth()
+{
+	return this->width;
+}
+
+float ggEngine::Text::GetHeight()
+{
+	return this->height;
+}
+
+void ggEngine::Text::SetScale(float x, float y)
+{
+	this->scale = Vector(x, y);
+	this->width = this->orgWidth*x;
+	this->height = this->orgHeight*y;
+}
+
+void ggEngine::Text::SetScale(Vector vector)
+{
+	Text::SetScale(vector.x, vector.y); 
 }

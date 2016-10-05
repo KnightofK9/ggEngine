@@ -10,7 +10,7 @@
 #include "Rectangle.h"
 namespace ggEngine {
 	Sprite* DrawManager::CreateSprite(std::string fileSource){
-		return new Sprite(this->device, fileSource);
+		return new Sprite(this, fileSource);
 	}
 	DrawManager::DrawManager(Game * game, Camera * camera)
 	{
@@ -133,8 +133,10 @@ namespace ggEngine {
 	void DrawManager::DrawObjectFromGroup(std::list<Group*> *groupList)
 	{
 		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end(); ++it) {
-			DrawList((*it)->GetDrawList());
-			DrawObjectFromGroup((*it)->GetGroupList());
+			if ((*it)->IsVisible()) {
+				DrawList((*it)->GetDrawList());
+				DrawObjectFromGroup((*it)->GetGroupList());
+			}
 		}
 	}
 
@@ -142,8 +144,7 @@ namespace ggEngine {
 	{
 		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
 			if ((*it)->IsAlive()) {
-				
-					(*it)->Draw(camera->GetTranslatedMatrix(), this->spriteHandle);
+					(*it)->Draw(camera->GetTranslatedMatrix());
 				++it;
 			}
 			else {

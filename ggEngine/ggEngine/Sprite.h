@@ -9,12 +9,11 @@ namespace ggEngine {
 	class Body;
 	class Sprite :public DrawObject {
 	public:
-		Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
-		Sprite(LPDIRECT3DDEVICE9 device, Texture *image);
+		Sprite(DrawManager *drawManager, std::string filename, D3DCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
+		Sprite(DrawManager *drawManager,Texture *image);
+		Sprite(DrawManager *drawManager);
 		~Sprite();
-		virtual void Draw();
 		virtual void Draw(Matrix translatedWorldMatrix);
-		virtual void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 		virtual void SetWidth(float width);
 		virtual void SetHeight(float height);
 		virtual float GetWidth();
@@ -25,20 +24,9 @@ namespace ggEngine {
 		Texture* GetImage() { return this->image; }
 		virtual void SetScale(float x, float y);
 		virtual void SetScale(Vector vector);
-		void Transform();
-		void Transform(Matrix translatedWorldMatrix);
-		void Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
-		void SetAnchor(float x, float y) { this->anchor.x = x;this->anchor.y = y; }
-		Vector GetAnchor() { return this->anchor; }
 		void SetBody(Body* body) { this->body = body; }
 		Body* GetBody() { return this->body; }
-		LPD3DXSPRITE GetSpriteHandle() { return this->spriteHandle; }
 	protected:
-		Sprite(LPDIRECT3DDEVICE9 device);
-		Texture *image;
-		LPD3DXSPRITE spriteHandle;
-		float width;
-		float height;
-		Vector anchor;
+		Texture *image = nullptr;
 	};
 }
