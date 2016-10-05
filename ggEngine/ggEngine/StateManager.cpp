@@ -121,6 +121,10 @@ namespace ggEngine {
 	void StateManager::ClearSprite(Group* group)
 	{
 		std::list<DrawObject*> *drawList = group->GetDrawList();
+		for (std::list<DrawObject*>::const_iterator it = drawList->begin(); it != drawList->end(); it++)
+		{
+			delete *it;
+		}
 		drawList->clear();
 	}
 	void StateManager::ClearGroup(std::list<Group*> *groupList)
@@ -129,6 +133,7 @@ namespace ggEngine {
 			std::list<Group*> *groupList = (*it)->GetGroupList();
 			ClearGroup(groupList);
 			(*it)->Reset();
+			delete (*it);
 		}
 		groupList->clear();
 	}

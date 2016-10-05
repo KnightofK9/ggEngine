@@ -119,7 +119,7 @@ void PingPongState::Create()
 	// Text
 	Style style;
 	style.fontSize = 80;
-	style.fontColor = D3DCOLOR_XRGB(120, 180, 210);
+	style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
 	style.font = "Segoe UI Black";
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
@@ -128,7 +128,7 @@ void PingPongState::Create()
 
 	Style style2;
 	style.fontSize = 36;
-	style.fontColor = D3DCOLOR_XRGB(30, 30, 30);
+	style.fontColor = D3DCOLOR_ARGB(255, 30, 30, 30);
 	style.font = "Segoe UI Black";
 	style.fontWeight = 1;
 	this->add->Text(10, 50, "W-S", style, group);

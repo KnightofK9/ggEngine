@@ -28,7 +28,7 @@ public:
 	void Update();//Called before each game update loop
 	void PreRender();//Called before enter each render
 	void Render();//Called after render completed
-	void Pause();//Called when the scene is set to paused
+	void Pause();//Called when the scene is set to pausde
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 };

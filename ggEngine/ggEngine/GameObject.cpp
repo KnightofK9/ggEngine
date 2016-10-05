@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Body.h"
+#include "Events.h"
 namespace ggEngine {
 	GameObject::GameObject()
 	{
@@ -11,8 +12,8 @@ namespace ggEngine {
 	}
 	GameObject::~GameObject()
 	{
-		delete body;
-		delete events;
+		if (body!=NULL) delete body;
+		if (events != NULL) delete events;
 	}
 	Vector GameObject::GetPosition()
 	{

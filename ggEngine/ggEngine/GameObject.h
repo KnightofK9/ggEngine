@@ -27,8 +27,8 @@ namespace ggEngine {
 		virtual void SetRotate(float angle){ this->rotate = angle; }
 		float GetRotate(){ return this->rotate; }
 		bool IsAlive() { return this->alive; }
-		Events* events;
-		Body* body;
+		Events* events = NULL;
+		Body* body = NULL;
 		Vector position;
 		std::string name = "";
 	protected:

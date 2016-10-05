@@ -14,7 +14,7 @@ namespace ggEngine {
 	}
 	Animator::~Animator()
 	{
-		Destroy();
+		
 	}
 	void Animator::Destroy()
 	{

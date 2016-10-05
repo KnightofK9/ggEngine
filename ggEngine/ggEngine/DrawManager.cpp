@@ -133,8 +133,10 @@ namespace ggEngine {
 	void DrawManager::DrawObjectFromGroup(std::list<Group*> *groupList)
 	{
 		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end(); ++it) {
-			DrawList((*it)->GetDrawList());
-			DrawObjectFromGroup((*it)->GetGroupList());
+			if ((*it)->IsVisible()) {
+				DrawList((*it)->GetDrawList());
+				DrawObjectFromGroup((*it)->GetGroupList());
+			}
 		}
 	}
 
@@ -142,7 +144,6 @@ namespace ggEngine {
 	{
 		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
 			if ((*it)->IsAlive()) {
-				
 					(*it)->Draw(camera->GetTranslatedMatrix(), this->spriteHandle);
 				++it;
 			}

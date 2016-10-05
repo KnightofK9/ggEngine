@@ -19,6 +19,11 @@ namespace ggEngine{
 		drawList.push_back(drawObject);
 	}
 	void Group::Reset(){
+
+		for (std::list<DrawObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
+		{
+			delete *it;
+		}
 		drawList.clear();
 	}
 }

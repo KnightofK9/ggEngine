@@ -35,7 +35,7 @@ namespace ggEngine {
 		LPD3DXSPRITE GetSpriteHandle() { return this->spriteHandle; }
 	protected:
 		Sprite(LPDIRECT3DDEVICE9 device);
-		Texture *image;
+		Texture *image = nullptr;
 		LPD3DXSPRITE spriteHandle;
 		float width;
 		float height;

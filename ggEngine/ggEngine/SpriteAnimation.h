@@ -32,7 +32,7 @@ namespace ggEngine {
 		int frameHeight;
 		int currentFrame;
 		bool isRunningAnimation;
-		Animator *currentAnimation;
+		Animator *currentAnimation = NULL;
 		int numberOfFrame;
 		std::map<std::string, Animator*> animatorMap;
 		SpriteAnimationType spriteAnimationType;

@@ -10,7 +10,11 @@ namespace ggEngine {
 	}
 	SpriteAnimation::~SpriteAnimation()
 	{
-		Destroy();
+		for (std::map<std::string, Animator*>::iterator it = this->animatorMap.begin(); it != this->animatorMap.end(); ++it) {
+			delete (it->second);
+		};
+		animatorMap.clear();
+		if(currentAnimation!=NULL) delete currentAnimation;
 	}
 	void SpriteAnimation::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
 	{
@@ -67,9 +71,7 @@ namespace ggEngine {
 	}
 	void SpriteAnimation::Destroy()
 	{
-		for (std::map<std::string, Animator*>::iterator it = this->animatorMap.begin(); it != this->animatorMap.end(); ++it) {
-			(it->second)->Destroy();
-		};
+		GameObject::Destroy();
 	}
 	void SpriteAnimation::CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop)
 	{

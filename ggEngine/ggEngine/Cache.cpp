@@ -32,7 +32,7 @@ namespace ggEngine {
 	void Cache::ClearAll()
 	{
 		for (std::map<std::string, Texture*>::iterator it = this->textureMap.begin(); it != this->textureMap.end(); ++it) {
-			(it->second)->Destroy();
+			delete (it->second);
 		};
 		this->textureMap.clear();
 	}
