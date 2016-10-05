@@ -50,20 +50,25 @@ namespace ggEngine {
 		Update2D();
 	}
 
+	void DrawManager::DrawRectangleToWorld(float left, float top, float right, float bottom, D3DCOLOR fillColor)
+	{
+		device->ColorFill(colorSurface, NULL, fillColor);
+		RECT rect = { left, top, right, bottom };
+		device->StretchRect(
+			colorSurface,			// from 
+			NULL,				// which portion?
+			backBuffer,			// to 
+			&rect,				// which portion?
+			D3DTEXF_NONE);
+	}
 	void DrawManager::DrawRectangle(float left, float top, float right, float bottom,D3DCOLOR fillColor)
 	{
-	/*	float width = right - left;
-		float height = bottom - top;
-		D3DTLVERTEX line[4];
-		line[0] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
-		line[1] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
-		line[2] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
-		line[3] = CreateD3DTLVERTEX(left, top, 0.0f, 1.0f, fillColor, 0.0f, 0.0f);
-		device->SetFVF(D3DFVF_TL);
-		device->SetTexture(0, NULL);
-		device->DrawPrimitiveUP(D3DPT_LINESTRIP, 2, &line[0], sizeof(line[0]));*/
 		device->ColorFill(colorSurface, NULL, fillColor);
-		RECT rect = { left,top,right,bottom };
+		Vector leftTop = Vector(left, top);
+		Vector rightBottom = Vector(right, bottom);
+		leftTop.TransformCord(camera->GetTranslatedMatrix());
+		rightBottom.TransformCord(camera->GetTranslatedMatrix());
+		RECT rect = { leftTop.x, leftTop.y, rightBottom.x, rightBottom.y };
 		device->StretchRect(
 			colorSurface,			// from 
 			NULL,				// which portion?

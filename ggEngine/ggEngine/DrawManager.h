@@ -31,6 +31,7 @@ namespace ggEngine {
 		~DrawManager();
 		void Destroy();
 		void Render2D();
+		void DrawRectangleToWorld(float left, float top, float right, float bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
 		void DrawRectangle(float left, float top, float right, float bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
 		void DrawCircle(float x, float y, float radius, D3DCOLOR fillCOlor = DEFAULT_COLOR);
 		void DrawObjectFromGroup(std::list<Group*> *groupList);
@@ -41,6 +42,7 @@ namespace ggEngine {
 		IDirect3DDevice9 *GetDevice(){ return this->device; }
 		D3DTLVERTEX CreateD3DTLVERTEX(float X, float Y, float Z, float RHW, D3DCOLOR color, float U, float V);
 		LPD3DXSPRITE GetSpriteHandle(){ return this->spriteHandle; }
+		LPDIRECT3DSURFACE9 GetColorSurface(){ return this->colorSurface; }
 	private:
 		LPD3DXSPRITE spriteHandle;
 		LPDIRECT3DSURFACE9 colorSurface;

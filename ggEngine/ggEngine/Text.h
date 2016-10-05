@@ -52,6 +52,7 @@ namespace ggEngine {
 		virtual float GetHeight(); 
 		virtual void SetScale(float x, float y);
 		virtual void SetScale(Vector vector);
+		virtual void SetRotate(float rotate);
 	private:
 		LPD3DXFONT font;
 		Style style;
