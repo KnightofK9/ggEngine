@@ -1,5 +1,5 @@
 #include "Text.h"
-
+#include "Debug.h"
 //Text::Text(LPDIRECT3DDEVICE9 device, int fontSize, char * fontFamily,
 //	int fontWeight, bool isItalic)
 //{
@@ -121,4 +121,9 @@ void ggEngine::Text::SetScale(float x, float y)
 void ggEngine::Text::SetScale(Vector vector)
 {
 	Text::SetScale(vector.x, vector.y); 
+}
+
+void ggEngine::Text::SetRotate(float rotate)
+{
+	Debug::Warning("Text can not be rotated in this version.");
 }
