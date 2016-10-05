@@ -74,7 +74,7 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 	Transform(translatedWorldMatrix, spriteHandle);
 	float width = GetWidth();
 	float height = GetHeight();
-	RECT worldRect{ position.x - width*(anchor.x), position.y - height*(anchor.y), position.x + width - width*(anchor.x), position.y + height - height*(anchor.y) };
+	RECT worldRect{ position.x - width*(anchor.x), position.y - height*(anchor.y), position.x + width*(1- anchor.x), position.y + height*(1 - anchor.y) };
 	RECT rect{ 0 , 0 , width, height };
 	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 	{
