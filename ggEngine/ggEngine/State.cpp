@@ -8,7 +8,7 @@ namespace ggEngine{
 	State::State(Game *game){
 		this->drawManager = game->GetDrawManager();
 		this->game = game;
-		add = new ggEngine::Add(game->cache, &game->GetD3DManager()->getDevice(), &this->groupList);
+		add = new ggEngine::Add(game->cache, game->GetDrawManager(), &this->groupList);
 		preload = new ggEngine::Preload(game->cache);
 	}
 	State::~State(){

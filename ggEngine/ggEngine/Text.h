@@ -38,13 +38,13 @@ namespace ggEngine {
 	class Text :public DrawObject {
 	public:
 		//Modify the constructor as you want, but must have those properties
-		Text(LPDIRECT3DDEVICE9 device, float x, float width, float height, float y, std::string text, Style style);
+		Text(DrawManager *drawManager, float x, float width, float height, float y, std::string text, Style style);
 		//Release the font here
 		~Text();
 		//You MUST call the base GameObject::Destroy() in here. Destroy just set alive to false for collector take care
 		void Destroy();
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
-		void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
+		void Draw(Matrix translatedWorldMatrix);
 		void SetText(std::string text); 
 		virtual void SetWidth(float width);
 		virtual void SetHeight(float height);

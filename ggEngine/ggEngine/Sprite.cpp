@@ -1,24 +1,13 @@
 #include "Sprite.h"
 #include "Body.h"
 namespace ggEngine {
-	Sprite::Sprite(LPDIRECT3DDEVICE9 device)
+	Sprite::Sprite(DrawManager *drawManager, std::string filename, D3DCOLOR transcolor) : DrawObject(drawManager)
 	{
-		/*HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
-		if (result != D3D_OK)
-		{
-			this->spriteHandle = NULL;
-			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
-		}*/
-		this->anchor = Vector(0.5, 0.5);
-		this->body = NULL;
-	}
-	Sprite::Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor)
-	{
-		this->image = new Texture(device, filename, transcolor);
+		this->image = new Texture(drawManager->GetDevice(), filename, transcolor);
 		this->width = image->GetWidth();
 		this->height = image->GetHeight();
 		if (image->GetTexture() == NULL) {
-			SetImage(new Texture(device, "default.bmp", transcolor));
+			SetImage(new Texture(drawManager->GetDevice(), "default.bmp", transcolor));
 		}
 		/*HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
 		if (result != D3D_OK)
@@ -29,23 +18,22 @@ namespace ggEngine {
 		this->anchor = Vector(0.5, 0.5);
 		this->body = NULL;
 	}
-	Sprite::Sprite(LPDIRECT3DDEVICE9 device, Texture * image)
+	Sprite::Sprite(DrawManager *drawManager, Texture * image) : DrawObject(drawManager)
 	{
 		SetImage(image);
-		HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
-		if (result != D3D_OK)
-		{
-			this->spriteHandle = NULL;
-			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
-		}
 		this->anchor = Vector(0.5, 0.5);
 		this->body = NULL;
 	}
+
+	Sprite::Sprite(DrawManager* drawManager) : DrawObject(drawManager)
+	{
+	}
+
 	Sprite::~Sprite()
 	{
 		//TO DO remove sprite here
 	}
-	void Sprite::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+	void Sprite::Draw(Matrix translatedWorldMatrix)
 	{
 		Transform(translatedWorldMatrix, spriteHandle);
 		RECT srcRect = { 0, 0, this->image->GetWidth(), this->image->GetHeight() };

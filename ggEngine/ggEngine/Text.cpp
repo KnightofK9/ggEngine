@@ -31,7 +31,7 @@
 //		font->DrawTextA(0, lpString, -1, &R, DT_NOCLIP, color);
 //}
 
-ggEngine::Text::Text(LPDIRECT3DDEVICE9 device, float x, float y, float width, float height, std::string text, Style style)
+ggEngine::Text::Text(DrawManager *drawManager, float x, float y, float width, float height, std::string text, Style style):DrawObject(drawManager)
 {
 	bool isItalic = style.fontStyle.find("italic") != std::string::npos;
 	SetPosition(x, y);
@@ -41,7 +41,7 @@ ggEngine::Text::Text(LPDIRECT3DDEVICE9 device, float x, float y, float width, fl
 	this->height = height;
 	this->text = text;
 	this->style = style;
-	HRESULT hr = D3DXCreateFont(device,     //D3D Device
+	HRESULT hr = D3DXCreateFont(drawManager->GetDevice(),     //D3D Device
 		style.fontSize,               //Font height
 		0,                //Font width
 		FW_NORMAL,        //Font Weight
@@ -68,7 +68,7 @@ void ggEngine::Text::Destroy()
 	GameObject::Destroy();
 }
 
-void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 {
 	if (!visible) return;
 	Transform(translatedWorldMatrix, spriteHandle);

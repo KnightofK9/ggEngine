@@ -206,6 +206,7 @@
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DrawManager.cpp" />
+    <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="DXInput.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Events.cpp" />

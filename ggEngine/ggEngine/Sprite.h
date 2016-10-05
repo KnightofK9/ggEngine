@@ -9,10 +9,11 @@ namespace ggEngine {
 	class Body;
 	class Sprite :public DrawObject {
 	public:
-		Sprite(LPDIRECT3DDEVICE9 device, std::string filename, D3DCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
-		Sprite(LPDIRECT3DDEVICE9 device, Texture *image);
+		Sprite(DrawManager *drawManager, std::string filename, D3DCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
+		Sprite(DrawManager *drawManager,Texture *image);
+		Sprite(DrawManager *drawManager);
 		~Sprite();
-		virtual void Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
+		virtual void Draw(Matrix translatedWorldMatrix);
 		virtual void SetWidth(float width);
 		virtual void SetHeight(float height);
 		virtual float GetWidth();
@@ -25,10 +26,7 @@ namespace ggEngine {
 		virtual void SetScale(Vector vector);
 		void SetBody(Body* body) { this->body = body; }
 		Body* GetBody() { return this->body; }
-		LPD3DXSPRITE GetSpriteHandle() { return this->spriteHandle; }
 	protected:
-		Sprite(LPDIRECT3DDEVICE9 device);
 		Texture *image = nullptr;
-		LPD3DXSPRITE spriteHandle;
 	};
 }

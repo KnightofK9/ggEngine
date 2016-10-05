@@ -1,7 +1,7 @@
 #include "SpriteAnimation.h"
 #include "Animator.h"
 namespace ggEngine {
-	SpriteAnimation::SpriteAnimation(LPDIRECT3DDEVICE9 device, Texture * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame) :Sprite(device)
+	SpriteAnimation::SpriteAnimation(DrawManager *drawManager, Texture * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame) :Sprite(drawManager)
 	{
 		this->spriteAnimationType = SA_RectangleSheet;
 		this->currentFrame = defaultFrame;
@@ -16,7 +16,7 @@ namespace ggEngine {
 		animatorMap.clear();
 		if(currentAnimation!=NULL) delete currentAnimation;
 	}
-	void SpriteAnimation::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
 	{
 		Transform(translatedWorldMatrix,spriteHandle);
 		RECT srcRect;
@@ -40,10 +40,6 @@ namespace ggEngine {
 			spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, 255));
 			spriteHandle->End();
 		}
-	}
-	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
-	{
-		Draw(translatedWorldMatrix, this->spriteHandle);
 	}
 	void SpriteAnimation::Destroy()
 	{
