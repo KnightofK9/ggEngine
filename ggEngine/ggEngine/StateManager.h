@@ -22,6 +22,7 @@ namespace ggEngine {
 		void LateStart();
 		State* GetCurrentState(){ return this->currentState; }
 	private:
+		void ClearSprite(Group* group);
 		void ClearGroup(std::list<Group*> *groupList);
 		State *currentState;
 		Game *game;

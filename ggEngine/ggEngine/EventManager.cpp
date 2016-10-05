@@ -9,12 +9,12 @@ ggEngine::EventManager::EventManager(Game * game)
 
 ggEngine::EventManager::~EventManager()
 {
-	this->receivedKeyBoardList.clear();
-	this->receivedMouseList.clear();
+	Destroy();
 }
 
 void ggEngine::EventManager::Destroy()
 {
+	Reset();
 }
 
 void ggEngine::EventManager::EnableKeyBoardInput(GameObject * go)
@@ -91,4 +91,9 @@ char ggEngine::EventManager::ScanToChar(DWORD scanCode) const
 	ToAscii(vk, scanCode, keyboardState, &asciiValue, 0);
 
 	return static_cast<char>(asciiValue);
+}
+
+void ggEngine::EventManager::Reset(){
+	this->receivedKeyBoardList.clear();
+	this->receivedMouseList.clear();
 }

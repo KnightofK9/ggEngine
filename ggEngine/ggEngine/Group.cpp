@@ -18,4 +18,7 @@ namespace ggEngine{
 	void Group::AddDrawObjectToList(DrawObject* drawObject){
 		drawList.push_back(drawObject);
 	}
+	void Group::Reset(){
+		drawList.clear();
+	}
 }

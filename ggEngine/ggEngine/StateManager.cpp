@@ -3,6 +3,8 @@
 #include "Cache.h"
 #include "Game.h"
 #include "Group.h"
+#include "EventManager.h"
+#include "Physics.h"
 namespace ggEngine {
 	StateManager::StateManager(Game * game)
 	{
@@ -103,9 +105,8 @@ namespace ggEngine {
 		if (this->clearWorld) {
 			if (this->currentState != NULL) {
 				ClearGroup(this->currentState->GetGroupList());
-				//TO DO shut down physics body here
-				//TO DO delete game object here
-				//TO DO remove all event here
+				game->physics->Reset();
+				game->eventManager->Reset();
 				this->currentState->ShutDown();
 			}
 		}
@@ -117,11 +118,17 @@ namespace ggEngine {
 		game->SetRunning(true);
 	}
 
+	void StateManager::ClearSprite(Group* group)
+	{
+		std::list<DrawObject*> *drawList = group->GetDrawList();
+		drawList->clear();
+	}
 	void StateManager::ClearGroup(std::list<Group*> *groupList)
 	{
 		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end(); ++it) {
 			std::list<Group*> *groupList = (*it)->GetGroupList();
 			ClearGroup(groupList);
+			(*it)->Reset();
 		}
 		groupList->clear();
 	}

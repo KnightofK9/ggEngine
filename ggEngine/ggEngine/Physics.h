@@ -14,6 +14,7 @@ namespace ggEngine {
 		void UpdatePhysics();
 		void EnablePhysics(Sprite *sprite);
 		void CheckBound(GameObject *go1, GameObject *go2);
+		void Reset();
 	private:
 		void CheckBoundAABB(GameObject *go1, GameObject *go2);
 		void CheckBoundSweptAABB(GameObject *go1, GameObject *go2);

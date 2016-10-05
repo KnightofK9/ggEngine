@@ -103,4 +103,7 @@ namespace ggEngine {
 	{
 	}
 
+	void Physics::Reset(){
+		bodyList.clear();
+	}
 }

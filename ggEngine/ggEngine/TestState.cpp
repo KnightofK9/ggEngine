@@ -195,6 +195,7 @@ void TestState::Resume()
 }
 void TestState::ShutDown()
 {
+	ballList.clear();
 }
 
 void TestState::CreateBall(Vector position, Vector direction)
