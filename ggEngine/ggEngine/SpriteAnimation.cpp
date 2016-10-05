@@ -76,8 +76,8 @@ namespace ggEngine {
 	void SpriteAnimation::SetImage(Texture * image, int frameWidth, int frameHeight, int numberOfFrame)
 	{
 		this->image = image;
-		this->frameHeight = frameHeight;
-		this->frameWidth = frameWidth;
+		this->height = this->frameHeight = frameHeight;
+		this->width = this->frameWidth = frameWidth;
 		this->framePerRow = this->image->GetWidth() / frameWidth;
 		this->framePerColumn = this->image->GetHeight() / frameHeight;
 		int num = this->framePerRow*this->framePerColumn;
@@ -106,10 +106,12 @@ namespace ggEngine {
 	}
 	float SpriteAnimation::GetWidth()
 	{
-		return this->frameWidth*this->scale.x;
+		//return this->frameWidth*this->scale.x;
+		return this->width;
 	}
 	float SpriteAnimation::GetHeight()
 	{
-		return this->frameHeight*this->scale.y;
+		//return this->frameHeight*this->scale.y;
+		return this->height;
 	}
 }

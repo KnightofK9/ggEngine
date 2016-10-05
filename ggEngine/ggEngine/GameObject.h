@@ -18,8 +18,10 @@ namespace ggEngine {
 		virtual void SetY(float y) { this->position.y = y; }
 		virtual float GetX() { return this->position.x; }
 		virtual float GetY() { return this->position.y; }
-		virtual float GetWidth(){ return 0; }
-		virtual float GetHeight(){ return 0; }
+		virtual void SetWidth(float width){ this->width = width; }
+		virtual void SetHeight(float height){ this->height = height; }
+		virtual float GetWidth(){ return this->width; }
+		virtual float GetHeight(){ return this->height; }
 		void SetAnchor(float x, float y) { this->anchor.x = x; this->anchor.y = y; }
 		Vector GetAnchor() { return this->anchor; }
 		void SetVisible(bool visible) { this->visible = visible; }
@@ -37,6 +39,8 @@ namespace ggEngine {
 		Vector position;
 		std::string name = "";
 	protected:
+		float width;
+		float height;
 		Vector anchor;
 		Vector scale;
 		bool alive;

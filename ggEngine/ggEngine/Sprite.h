@@ -30,7 +30,5 @@ namespace ggEngine {
 		Sprite(LPDIRECT3DDEVICE9 device);
 		Texture *image = nullptr;
 		LPD3DXSPRITE spriteHandle;
-		float width;
-		float height;
 	};
 }

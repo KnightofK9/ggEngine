@@ -29,9 +29,9 @@ namespace ggEngine{
 		this->groupList->push_back(gr);
 		return gr;
 	}
-	Text* Add::Text(float x, float y, std::string text, Style style, ggEngine::Group  *group)
+	Text* Add::Text(float x, float y,float width, float height, std::string text, Style style, ggEngine::Group  *group)
 	{
-		ggEngine::Text *textObject = new ggEngine::Text(this->device, x, y, text, style);
+		ggEngine::Text *textObject = new ggEngine::Text(this->device, x, y, width, height, text, style);
 		group->AddDrawObjectToList(textObject);
 		return textObject;
 	}

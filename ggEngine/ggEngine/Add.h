@@ -16,7 +16,7 @@ namespace ggEngine{
 		SpriteAnimation* SpriteAnimation(float x, float y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0);
 		Group* Group();
 		//Here how a text is added, it must be added to a group created via add->Group()
-		Text* Text(float x, float y, std::string text, Style style, ggEngine::Group *group);
+		Text* Text(float x, float y, float width, float height, std::string text, Style style, ggEngine::Group *group);
 	private:
 		std::list<ggEngine::Group*> *groupList;
 		Cache *cache;

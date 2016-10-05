@@ -31,11 +31,14 @@
 //		font->DrawTextA(0, lpString, -1, &R, DT_NOCLIP, color);
 //}
 
-ggEngine::Text::Text(LPDIRECT3DDEVICE9 device, float x, float y, std::string text, Style style)
+ggEngine::Text::Text(LPDIRECT3DDEVICE9 device, float x, float y, float width, float height, std::string text, Style style)
 {
 	bool isItalic = style.fontStyle.find("italic") != std::string::npos;
 	SetPosition(x, y);
-	SetAnchor(0, 0);
+	this->orgWidth = width;
+	this->orgHeight = height;
+	this->width = width;
+	this->height = height;
 	this->text = text;
 	this->style = style;
 	HRESULT hr = D3DXCreateFont(device,     //D3D Device
@@ -81,4 +84,38 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandl
 void ggEngine::Text::SetText(std::string text)
 {
 	this->text = text;
+}
+
+void ggEngine::Text::SetWidth(float width)
+{
+	this->scale.x = (float)width / this->orgWidth;
+	this->width = width;
+}
+
+void ggEngine::Text::SetHeight(float height)
+{
+	this->scale.y = (float)height / this->orgHeight;
+	this->height = height;
+}
+
+float ggEngine::Text::GetWidth()
+{
+	return this->width;
+}
+
+float ggEngine::Text::GetHeight()
+{
+	return this->height;
+}
+
+void ggEngine::Text::SetScale(float x, float y)
+{
+	this->scale = Vector(x, y);
+	this->width = this->orgWidth*x;
+	this->height = this->orgHeight*y;
+}
+
+void ggEngine::Text::SetScale(Vector vector)
+{
+	Text::SetScale(vector.x, vector.y); 
 }

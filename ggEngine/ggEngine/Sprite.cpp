@@ -73,7 +73,7 @@ namespace ggEngine {
 	}
 	void Sprite::SetScale(float x, float y)
 	{
-		GameObject::SetScale(x, y);
+		this->scale = Vector(x, y);
 		this->width = this->image->GetWidth()*x;
 		this->height = this->image->GetHeight()*y;
 	}
@@ -88,7 +88,8 @@ namespace ggEngine {
 	}
 	float Sprite::GetWidth()
 	{
-		return this->image->GetWidth()*this->scale.x;
+		//return this->image->GetWidth()*this->scale.x;
+		return this->width;
 	}
 	void Sprite::SetHeight(float height)
 	{
@@ -97,7 +98,8 @@ namespace ggEngine {
 	}
 	float Sprite::GetHeight()
 	{
-		return this->image->GetHeight()*this->scale.y;
+		//return this->image->GetHeight()*this->scale.y;
+		return this->height;
 	}
 	
 }
