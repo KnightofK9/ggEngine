@@ -14,7 +14,6 @@ private:
 	SpriteAnimation *sprite1;
 	SpriteAnimation *sprite4;
 	float test = 0.01f;
-	Sprite *background;
 	float MoveSpeedPerSec = 100.0f;
 	Timer shootTimer;
 	float shootTime = 1000.0f;
