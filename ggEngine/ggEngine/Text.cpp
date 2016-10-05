@@ -72,11 +72,14 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 {
 	if (!visible) return;
 	Transform(translatedWorldMatrix, spriteHandle);
-	RECT rect{ 0, 0, position.x, position.y };
-	//font->DrawTextA(nullptr, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
+	float width = GetWidth();
+	float height = GetHeight();
+	RECT worldRect{ position.x - width*(anchor.x), position.y - height*(anchor.y), position.x + width - width*(anchor.x), position.y + height - height*(anchor.y) };
+	RECT rect{ 0 , 0 , width, height };
 	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 	{
-		font->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, style.fontColor);
+		drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
+		font->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_CENTER | DT_VCENTER | DT_NOCLIP, style.fontColor);
 		spriteHandle->End();
 	}
 }

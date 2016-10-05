@@ -54,19 +54,21 @@ void MenuState::Create()
 
 	//Other
 	Style style;
-	style.fontSize = 100;
-	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	style.fontSize = 50;
+	style.fontColor = D3DCOLOR_ARGB(255, 120, 30, 255);
 	style.font = "Segoe UI Black";
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
-	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,200,200, "PING PONG", style, groupMenu);
+	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,105, "PING", style, groupMenu);
+	title->SetAnchor(0.5, 0.5);
 
 	Style style2;
 	style2.fontSize = 36;
 	style2.fontColor = D3DCOLOR_ARGB(255, 30, 130, 30);
 	style2.font = "Segoe UI";
 	style2.fontWeight = 1;
-	this->add->Text(WINDOW_WIDTH / 2.0 - 150, WINDOW_HEIGHT - 50,200,200, "Esc: Exit          Q: Enter", style2, groupMenu);
+	Text *description =  this->add->Text(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT - 50,500,50, "Esc: Exit          Q: Enter", style2, groupMenu);
+	description->SetAnchor(0.5, 0.5);
 }
 
 void MenuState::Update()
