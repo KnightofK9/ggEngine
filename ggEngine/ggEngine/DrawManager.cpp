@@ -149,6 +149,7 @@ namespace ggEngine {
 	{
 		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
 			if ((*it)->IsAlive()) {
+				(*it)->UpdateWorldPosition();
 					(*it)->Draw(camera->GetTranslatedMatrix());
 				++it;
 			}

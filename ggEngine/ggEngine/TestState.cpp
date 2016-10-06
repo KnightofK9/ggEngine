@@ -42,6 +42,10 @@ void TestState::Preload(){
 void TestState::Create()
 {
 	group = this->add->Group();
+	Sprite *background = this->add->Sprite(0, 0, "bat", 0, group);
+	background->SetAnchor(0, 0);
+	background->SetWidth(WINDOW_WIDTH);
+	background->SetHeight(WINDOW_HEIGHT);
 	//background = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "girl", 0, group);
 	//background->SetWidth(WINDOW_WIDTH);
 	//background->SetHeight(WINDOW_HEIGHT);

@@ -32,6 +32,7 @@ namespace ggEngine {
 		long frameRateReal;
 		long frameRateCore;
 		Input* GetInput() { return this->input; }
+		void RemoveGroupList(std::list<Group*> *groupList);
 	private:
 		//
 		// Private Method

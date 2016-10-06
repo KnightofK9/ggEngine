@@ -142,7 +142,7 @@ namespace ggEngine {
 			physics->UpdatePhysics();
 		}
 	}
-
+	
 	void Game::RunGroupUpdate(std::list<Group*> *groupList)
 	{
 		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end();) {
@@ -155,10 +155,20 @@ namespace ggEngine {
 			else {
 				std::list<Group*>::iterator tempIt = it;
 				++it;
-				//delete (*tempIt);
+				RemoveGroupList((*tempIt)->GetGroupList());
+				delete ((*tempIt));
 				groupList->remove((*tempIt));
 			}
 		}
+	}
+	void Game::RemoveGroupList(std::list<Group*> *groupList){
+		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end(); ++it) {
+			std::list<Group*> *groupList = (*it)->GetGroupList();
+			RemoveGroupList(groupList);
+			(*it)->Reset();
+			delete (*it);
+		}
+		groupList->clear();
 	}
 
 	

@@ -60,4 +60,8 @@ namespace ggEngine {
 			this->body->rigidBody->Transform(mat);
 		spriteHandle->SetTransform(&mat);
 	}
+
+	void GameObject::UpdateWorldPosition(){
+		this->worldPosition = this->position + this->parentObject->worldPosition;
+	}
 }

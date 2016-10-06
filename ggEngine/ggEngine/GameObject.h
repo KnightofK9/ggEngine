@@ -23,6 +23,7 @@ namespace ggEngine {
 		virtual float GetWidth(){ return this->width; }
 		virtual float GetHeight(){ return this->height; }
 		void SetAnchor(float x, float y) { this->anchor.x = x; this->anchor.y = y; }
+		void UpdateWorldPosition();
 		Vector GetAnchor() { return this->anchor; }
 		void SetVisible(bool visible) { this->visible = visible; }
 		bool IsVisible() { return this->visible; }
@@ -37,8 +38,12 @@ namespace ggEngine {
 		Events* events = NULL;
 		Body* body = NULL;
 		Vector position;
+		Vector worldPosition;
 		std::string name = "";
+		void SetParentObject(GameObject *parentObject){this->parentObject = parentObject;}
+		GameObject *GetParentObject(){ return this->parentObject; }
 	protected:
+		GameObject* parentObject = NULL;
 		float width;
 		float height;
 		Vector anchor;

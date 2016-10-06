@@ -13,6 +13,7 @@ namespace ggEngine{
 	Sprite* Add::Sprite(float x, float y, std::string textureKey, int frameName, ggEngine::Group *group){
 		Texture* texture = this->cache->GetTexture(textureKey);
 		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->drawManager, texture);
+		sprite->SetParentObject(group);
 		sprite->SetPosition(x, y);
 		group->AddDrawObjectToList(sprite);
 		return sprite;
@@ -21,6 +22,7 @@ namespace ggEngine{
 	{
 		Texture* texture = this->cache->GetTexture(textureKey);
 		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->drawManager, texture, frameWidth, frameHeight, defaultFrame, numberOfFrame);
+		spriteAnimation->SetParentObject(group);
 		spriteAnimation->SetPosition(x, y);
 		group->AddDrawObjectToList(spriteAnimation);
 		return spriteAnimation;
@@ -33,6 +35,7 @@ namespace ggEngine{
 	Text* Add::Text(float x, float y,float width, float height, std::string text, Style style, ggEngine::Group  *group)
 	{
 		ggEngine::Text *textObject = new ggEngine::Text(this->drawManager, x, y, width, height, text, style);
+		textObject->SetParentObject(group);
 		group->AddDrawObjectToList(textObject);
 		return textObject;
 	}
