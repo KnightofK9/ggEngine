@@ -34,6 +34,7 @@
 ggEngine::Text::Text(DrawManager *drawManager, float x, float y, float width, float height, std::string text, Style style):DrawObject(drawManager)
 {
 	bool isItalic = style.fontStyle.find("italic") != std::string::npos;
+	SetAnchor(0.5, 0.5);
 	SetPosition(x, y);
 	this->orgWidth = width;
 	this->orgHeight = height;
