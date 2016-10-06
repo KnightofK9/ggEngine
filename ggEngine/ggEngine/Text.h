@@ -19,7 +19,7 @@ namespace ggEngine {
 		//The size of the font (eg. 32 , measure in px).
 		int fontSize = 14;
 		//A canvas fillstyle that will be used as the background for the whole Text object.Set to null to disable. Preserved for future using
-		D3DCOLOR backgroundColor = D3DCOLOR_ARGB(255, 255, 255, 255);;
+		D3DCOLOR backgroundColor = D3DCOLOR_ARGB(0, 255, 255, 255);;
 		//A canvas fillstyle that will be used on the text eg 'red', '#00FF00'. Preserved for future using
 		std::string fill = "";
 		//Horizontal alignment of each line in multiline text.Can be : 'left', 'center' or 'right'.Does not affect single lines of text. Preserved for future using
@@ -55,6 +55,7 @@ namespace ggEngine {
 		virtual void SetRotate(float rotate); 
 		int GetOpacity() { return this->opacity; }
 		void SetOpacity(int opacity) { this->opacity = opacity % 256; }
+		void Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 	private:
 		LPD3DXFONT font;
 		Style style;
