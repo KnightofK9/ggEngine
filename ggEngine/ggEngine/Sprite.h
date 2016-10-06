@@ -26,7 +26,10 @@ namespace ggEngine {
 		virtual void SetScale(Vector vector);
 		void SetBody(Body* body) { this->body = body; }
 		Body* GetBody() { return this->body; }
+		int GetOpacity() { return this->opacity; }
+		void SetOpacity(int opacity) { this->opacity = opacity%256; }
 	protected:
 		Texture *image = nullptr;
+		int opacity = 255;
 	};
 }

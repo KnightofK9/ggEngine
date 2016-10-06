@@ -59,9 +59,9 @@ void MenuState::Create()
 	style.font = "Segoe UI Black";
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
-	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,200, "PING PONG", style, groupMenu);
-	title->SetAnchor(0.5, 0.5);
-	title->SetScale(2, 1);
+	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,105, "PING", style, groupMenu);
+	//title->SetScale(2, 2);
+	title->SetAnchor(0, 0);
 
 	Style style2;
 	style2.fontSize = 36;
