@@ -46,7 +46,8 @@ namespace ggEngine {
 		//Rotate around anchor
 		mat *= Matrix::CreateRotateMatrix(this->rotate);
 		//Translate to exact anchor and position
-		mat *= Matrix::CreateTranslateMatrix(this->position.x, this->position.y);
+		//mat *= Matrix::CreateTranslateMatrix(this->position.x, this->position.y);
+		mat *= Matrix::CreateTranslateMatrix(this->worldPosition.x, this->worldPosition.y);
 		//Tranform to screen view
 		mat *= translatedWorldMatrix;
 
