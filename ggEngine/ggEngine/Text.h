@@ -53,6 +53,7 @@ namespace ggEngine {
 		virtual void SetScale(float x, float y);
 		virtual void SetScale(Vector vector);
 		virtual void SetRotate(float rotate);
+		void Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 	private:
 		LPD3DXFONT font;
 		Style style;

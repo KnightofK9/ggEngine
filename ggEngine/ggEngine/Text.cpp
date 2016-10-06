@@ -71,10 +71,19 @@ void ggEngine::Text::Destroy()
 void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 {
 	if (!visible) return;
-	Transform(translatedWorldMatrix, spriteHandle);
-	float width = GetWidth();
-	float height = GetHeight();
-	RECT worldRect{ position.x - width*(anchor.x), position.y - height*(anchor.y), position.x + width*(1- anchor.x), position.y + height*(1 - anchor.y) };
+	this->Transform(translatedWorldMatrix, spriteHandle);
+	//float width = GetWidth();
+	//float height = GetHeight();
+	RECT worldRect{ position.x - width*anchor.x, position.y - height*anchor.y, position.x + width*(1- anchor.x), position.y + height*(1 - anchor.y) };
+	if (worldRect.left < 0)
+		worldRect.left = 0;
+	if (worldRect.top < 0)
+		worldRect.top = 0;
+	if (worldRect.right > WINDOW_WIDTH)
+		worldRect.right = WINDOW_WIDTH;
+	if (worldRect.bottom > WINDOW_HEIGHT)
+		worldRect.bottom = WINDOW_HEIGHT;
+
 	RECT rect{ 0 , 0 , width, height };
 	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 	{
@@ -126,4 +135,30 @@ void ggEngine::Text::SetScale(Vector vector)
 void ggEngine::Text::SetRotate(float rotate)
 {
 	Debug::Warning("Text can not be rotated in this version.");
+}
+
+void ggEngine::Text::Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+{
+	//Scale from 0 0
+	Matrix mat;
+	mat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+	//Move to anchor
+	mat *= Matrix::CreateTranslateMatrix((1-scale.x)*width*anchor.x, (1-scale.y)*height*anchor.y);
+	//Rotate around anchor
+	mat *= Matrix::CreateRotateMatrix(this->rotate);
+	//Translate to exact anchor and position
+	mat *= Matrix::CreateTranslateMatrix(this->position.x - this->GetWidth()/2, this->position.y - this->GetHeight()/2);
+	//Tranform to screen view
+	mat *= translatedWorldMatrix;
+
+	//Vector scaleTransform(this->scale.x, this->scale.y);
+	//Vector rotateCenter((this->width) / 2, (this->height) / 2);
+	////Vector scaleCenter((this->width) / 2, (this->height) / 2);
+	//Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
+	//D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
+	//mat *= (Matrix::CreateScaleMatrix(1, -1)*Matrix::CreateTranslateMatrix(0, this->height));
+
+	//if (this->body != NULL)
+	//	this->body->rigidBody->Transform(mat);
+	spriteHandle->SetTransform(&mat);
 }
