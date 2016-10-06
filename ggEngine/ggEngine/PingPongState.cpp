@@ -65,7 +65,7 @@ void PingPongState::Create()
 		go->body->velocity = r;
 	};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(5, Vector(1,1));
+	ball->body->AddForce(3, Vector(1,1));
 #pragma endregion Ball
 
 	
@@ -123,15 +123,17 @@ void PingPongState::Create()
 	style.font = "Segoe UI Black";
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
-	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 80, WINDOW_HEIGHT/2.0 - 30.0,200,200, std::to_string(score1), style, group);
-	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 80, WINDOW_HEIGHT/2.0 - 30.0,200,200, std::to_string(score2), style, group);
+	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 80, WINDOW_HEIGHT/2.0,200,200, std::to_string(score1), style, group);
+	textScore1->SetAnchor(0.5, 0.5);
+	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 80, WINDOW_HEIGHT/2.0,200,200, std::to_string(score2), style, group);
+	textScore2->SetAnchor(0.5, 0.5);
 
 	Style style2;
 	style.fontSize = 36;
 	style.fontColor = D3DCOLOR_ARGB(255, 30, 30, 30);
 	style.font = "Segoe UI Black";
 	style.fontWeight = 1;
-	this->add->Text(10, 50,200,200, "W-S", style, group);
+	this->add->Text(150, 50,200,200, "W-S", style, group);
 	this->add->Text(WINDOW_WIDTH - 150, 50,200,200, "Up-Down", style, group);
 
 #pragma endregion Others

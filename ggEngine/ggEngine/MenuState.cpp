@@ -51,22 +51,26 @@ void MenuState::Create()
 	multiBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnHover", 0, groupMenu);
 	multiBtnHover->SetVisible(false);
 
+
 	//Other
 	Style style;
-	style.fontSize = 50;
-	style.fontColor = D3DCOLOR_ARGB(255, 120, 30, 255);
+	style.fontSize = 100;
+	style.fontColor = D3DCOLOR_ARGB(255, 100, 100, 100);
 	style.font = "Segoe UI Black";
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
-	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,105, "PING", style, groupMenu);
+	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,200, "PING PONG", style, groupMenu);
+	title->SetAnchor(0.5, 0.5);
+	title->SetScale(2, 1);
 
 	Style style2;
 	style2.fontSize = 36;
 	style2.fontColor = D3DCOLOR_ARGB(255, 30, 130, 30);
 	style2.font = "Segoe UI";
+	style2.backgroundColor = D3DCOLOR_ARGB(255, 255, 255, 100);
 	style2.fontWeight = 1;
-	Text *description =  this->add->Text(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT - 50,500,50, "Esc: Exit          Q: Enter", style2, groupMenu);
-	description->SetAnchor(0.5, 0.5);
+	Text *subText = this->add->Text(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT - 50,500,100, "Esc: Exit          Q: Enter", style2, groupMenu);
+	subText->SetAnchor(0.5, 0.5);
 }
 
 void MenuState::Update()
