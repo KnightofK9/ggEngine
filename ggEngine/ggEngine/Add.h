@@ -10,9 +10,10 @@ namespace ggEngine{
 	class SpriteAnimation;
 	class Cache;
 	class DrawManager;
+	class World;
 	class Add:public GGObject  {
 	public:
-		Add(Cache *Cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList);
+		Add(World *world,Cache *Cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList);
 		Sprite* Sprite(float x, float y, std::string textureKey, int frameName, Group *group);
 		SpriteAnimation* SpriteAnimation(float x, float y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0);
 		Group* Group();
@@ -23,5 +24,6 @@ namespace ggEngine{
 		Cache *cache;
 		DrawManager *drawManager;
 		LPDIRECT3DDEVICE9 device;
+		World *world;
 	};
 }

@@ -8,7 +8,7 @@
 #include "EventManager.h"
 #include "DXInput.h"
 #include "Input.h"
-
+#include "World.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
@@ -34,6 +34,7 @@ namespace ggEngine {
 			physics = new Physics(this, physicsMode);
 			d3dManager->SetStateManager(stateManager);
 			eventManager = new EventManager(this);
+			world = new World();
 			input = new Input(&hWnd);
 			input->InitKeyboard();
 			input->InitMouse();

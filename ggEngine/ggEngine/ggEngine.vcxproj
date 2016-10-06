@@ -194,6 +194,7 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Add.cpp" />

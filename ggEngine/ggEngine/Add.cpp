@@ -3,12 +3,14 @@
 #include "Cache.h"
 #include "DrawManager.h"
 #include "SpriteAnimation.h"
+#include "World.h"
 namespace ggEngine{
-	Add::Add(Cache *cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList){
+	Add::Add(World *world, Cache *cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList){
 		this->cache = cache;
 		this->groupList = groupList;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
+		this->world = world;
 	}
 	Sprite* Add::Sprite(float x, float y, std::string textureKey, int frameName, ggEngine::Group *group){
 		Texture* texture = this->cache->GetTexture(textureKey);
@@ -29,6 +31,7 @@ namespace ggEngine{
 	}
 	Group* Add::Group(){
 		ggEngine::Group *gr = new ggEngine::Group(NULL);
+		gr->SetParentObject(world);
 		this->groupList->push_back(gr);
 		return gr;
 	}
