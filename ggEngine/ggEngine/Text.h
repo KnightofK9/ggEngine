@@ -52,13 +52,16 @@ namespace ggEngine {
 		virtual float GetHeight(); 
 		virtual void SetScale(float x, float y);
 		virtual void SetScale(Vector vector);
-		virtual void SetRotate(float rotate);
+		virtual void SetRotate(float rotate); 
+		int GetOpacity() { return this->opacity; }
+		void SetOpacity(int opacity) { this->opacity = opacity % 256; }
 	private:
 		LPD3DXFONT font;
 		Style style;
 		std::string text;
 		float orgWidth;
 		float orgHeight;
+		int opacity = 255;
 	};
 }
 
