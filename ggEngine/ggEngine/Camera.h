@@ -3,7 +3,7 @@
 #include "Vector.h"
 #include "Matrix.h"
 namespace ggEngine {
-	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown};
+	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_Reset, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown};
 	class Game;
 	class Camera : public GGObject {
 	public:
@@ -18,6 +18,7 @@ namespace ggEngine {
 		void RegisterControl(CameraControl controlKeyCode, DWORD key);
 		void EnableManualMove();
 		void DisableManualMove();
+		void ResetView();
 	private:
 		void SetUpKeyControl();
 		bool enableManualMove;
@@ -25,7 +26,7 @@ namespace ggEngine {
 		Vector scale;
 		Matrix translatedMatrix;
 		Game *game;
-		DWORD controlKey[6];
+		DWORD controlKey[7];
 		float width;
 		float height;
 		float orgWidth;

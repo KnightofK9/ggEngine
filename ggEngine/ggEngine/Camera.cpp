@@ -54,6 +54,9 @@ namespace ggEngine {
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveDown])) {
 				point.y += MOVE_SPEED/scale.x;
 			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_Reset])) {
+				ResetView();
+			}
 		}
 		Transform();
 	}
@@ -82,6 +85,11 @@ namespace ggEngine {
 	{
 		this->enableManualMove = false;
 	}
+	void Camera::ResetView()
+	{
+		SetScale(1, 1);
+		point = Vector(0, 0);
+	}
 	void Camera::SetUpKeyControl()
 	{
 		controlKey[CameraControl_ZoomIn] = DIK_NUMPAD7;
@@ -90,5 +98,6 @@ namespace ggEngine {
 		controlKey[CameraControl_MoveRight] = DIK_NUMPAD6;
 		controlKey[CameraControl_MoveUp] = DIK_NUMPAD8;
 		controlKey[CameraControl_MoveDown] = DIK_NUMPAD2;
+		controlKey[CameraControl_Reset] = DIK_NUMPAD9;
 	}
 }
