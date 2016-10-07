@@ -46,8 +46,13 @@ namespace ggEngine {
 		else this->textureMap[textureKey] = tex;
 		return true;
 	}
-	bool Cache::CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath)
+	bool Cache::CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath, D3DCOLOR transColor)
 	{
+		Texture *atlas = new Texture(this->device, atlatPath, transColor);
+		if (atlas->GetTexture() == NULL) {
+			Debug::Warning("No atlas found with path " + atlatPath);
+			return false;
+		}
 
 		return false;
 	}
