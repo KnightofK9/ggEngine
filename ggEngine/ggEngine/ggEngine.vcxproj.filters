@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Component">
       <UniqueIdentifier>{dcdfb5fc-921d-40a2-a67b-3f92f6712e66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interface">
+      <UniqueIdentifier>{ff5b5fbb-2c4b-43b3-895e-42177b0118eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IEvents.h">
+      <Filter>Header Files\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

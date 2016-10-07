@@ -1,25 +1,92 @@
 #include "Camera.h"
 #include "Game.h"
+#include "Input.h"
 namespace ggEngine {
-	Camera::Camera(Game * game, int width, int height, float x , float y )
+	Camera::Camera(Game * game, int width, int height, float x , float y , bool enableManualMove)
 	{
 		this->game = game;
 		this->width = width;
 		this->height = height;
+		this->orgWidth = width;
+		this->orgHeight = height;
+		SetUpKeyControl();
+		if (enableManualMove) EnableManualMove();
 		SetPoint(x, y);
+		SetScale(1, 1);
 	}
 	Camera::~Camera()
 	{
-		if (this->point != NULL) delete point;
-		if (this->translatedMatrix != NULL)delete translatedMatrix;
+	}
+	void Camera::Transform()
+	{
+		Matrix tranMat;
+		tranMat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+		tranMat *= Matrix::CreateTranslateMatrix(-(width-orgWidth)/2,-(height-orgHeight)/2);
+		tranMat *= Matrix::CreateTranslateMatrix(-this->point.x*scale.x, -this->point.y*scale.y);
+		this->translatedMatrix = tranMat;
+	}
+	void Camera::Update()
+	{
+		if (enableManualMove) {
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomIn])) {
+				scale.x += SCALE_SPEED;
+				scale.y += SCALE_SPEED;
+				this->width = orgWidth*scale.x;
+				this->height = orgHeight*scale.y;
+			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomOut])) {
+				scale.x -= SCALE_SPEED;
+				scale.y -= SCALE_SPEED;
+				this->width = orgWidth*scale.x;
+				this->height = orgHeight*scale.y;
+			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveLeft])) {
+				point.x -= MOVE_SPEED;
+			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveRight])) {
+				point.x += MOVE_SPEED;
+			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveUp])) {
+				point.y -= MOVE_SPEED;
+			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveDown])) {
+				point.y += MOVE_SPEED;
+			}
+		}
+		Transform();
 	}
 	void Camera::Destroy()
 	{
 	}
+	void Camera::SetScale(float x, float y)
+	{
+		this->scale = Vector(x, y);
+		this->width = orgWidth*x;
+		this->height = orgHeight*y;
+	}
 	void Camera::SetPoint(float x, float y)
 	{
 		this->point = Vector(x, y);
-		Matrix tranMat = Matrix::CreateTranslateMatrix(-this->point.x, -this->point.y);
-		this->translatedMatrix = tranMat;
+	}
+	void Camera::RegisterControl(CameraControl controlKeyCode, DWORD key)
+	{
+		controlKey[controlKeyCode] = key;
+	}
+	void Camera::EnableManualMove()
+	{
+		this->enableManualMove = true;
+	}
+	void Camera::DisableManualMove()
+	{
+		this->enableManualMove = false;
+	}
+	void Camera::SetUpKeyControl()
+	{
+		controlKey[CameraControl_ZoomIn] = DIK_NUMPAD7;
+		controlKey[CameraControl_ZoomOut] = DIK_NUMPAD1;
+		controlKey[CameraControl_MoveLeft] = DIK_NUMPAD4;
+		controlKey[CameraControl_MoveRight] = DIK_NUMPAD6;
+		controlKey[CameraControl_MoveUp] = DIK_NUMPAD8;
+		controlKey[CameraControl_MoveDown] = DIK_NUMPAD2;
 	}
 }

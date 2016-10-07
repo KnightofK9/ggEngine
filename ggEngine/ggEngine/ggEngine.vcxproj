@@ -170,6 +170,7 @@
     <ClInclude Include="GGObject.h" />
     <ClInclude Include="Group.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="IEvents.h" />
     <ClInclude Include="IGetGroup.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="KeyBoardEventArg.h" />

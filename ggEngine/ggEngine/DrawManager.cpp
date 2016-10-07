@@ -49,6 +49,7 @@ namespace ggEngine {
 
 	void DrawManager::Render2D()
 	{
+		camera->Update();
 		Update2D();
 	}
 

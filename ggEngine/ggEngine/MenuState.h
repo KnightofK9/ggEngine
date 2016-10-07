@@ -5,7 +5,7 @@
 using namespace ggEngine;
 class MenuState : public State {
 private:
-
+	Group* groupText;
 public:
 	MenuState(Game *game);
 	~MenuState();
