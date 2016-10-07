@@ -158,11 +158,19 @@ namespace ggEngine {
 
 		if (timeEntry > timeExit || xTimeToEntry < 0.0 && yTimeToEntry < 0.0 || xTimeToEntry > 1.0 || yTimeToEntry > 1.0)
 		{
+			Debug::Log("======================");
+			Debug::Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
+			Debug::Log("time entry x: " + std::to_string(xTimeToEntry));
+			Debug::Log("time entry y: " + std::to_string(yTimeToEntry));
+			Debug::Log("entry x: " + std::to_string(xEntry));
+			Debug::Log("entry y: " + std::to_string(yEntry));
+			Debug::Log("rect 1 top: " + std::to_string(r1.top));
+			Debug::Log("rect 1 bottom: " + std::to_string(r1.bottom));
+			Debug::Log("rect 2 top: " + std::to_string(r2.top));
+			Debug::Log("rect 2 bottom: " + std::to_string(r2.bottom));
 			return;
 		}
-		Debug::Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
-		Debug::Log("time entry x: " + std::to_string(xTimeToEntry));
-		Debug::Log("time entry y: " + std::to_string(yTimeToEntry));
+
 		ColliderArg arg1;
 		ColliderArg arg2;
 		Vector normalVector1;

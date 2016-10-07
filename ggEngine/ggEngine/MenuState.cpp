@@ -63,9 +63,8 @@ void MenuState::Create()
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
 	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,105, "PING", style, groupText);
-	//title->SetScale(2, 2);
-	title->SetAnchor(0, 0);
-	title->SetScale(1, 2);
+	title->SetAnchor(0.7, 0.3);
+	title->SetScale(1,3);
 
 	Style style2;
 	style2.fontSize = 36;

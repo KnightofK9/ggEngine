@@ -65,7 +65,7 @@ void PingPongState::Create()
 		go->body->velocity = r;
 	};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(4, Vector(1,1));
+	ball->body->AddForce(30, Vector(1,0));
 #pragma endregion Ball
 
 	
@@ -74,7 +74,7 @@ void PingPongState::Create()
 	int distant = 100;
 	leftBat = this->add->Sprite(WINDOW_WIDTH/2.0, WINDOW_HEIGHT / 2.0, "bat", 0, group);
 	leftBat->name = "Left Bat";
-	leftBat->position.x = leftBat->GetWidth() / 2;
+	leftBat->position.x = leftBat->GetWidth() / 2 + 50;
 	game->physics->EnablePhysics(leftBat);
 	leftBat->body->allowBounciness = false;
 	leftBat->body->CreateRectangleRigidBody(leftBat->GetWidth(), leftBat->GetHeight());
@@ -92,7 +92,7 @@ void PingPongState::Create()
 		};
 	}
 
-	rightBat = this->add->Sprite(WINDOW_WIDTH - leftBat->GetWidth() / 2, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+	rightBat = this->add->Sprite(WINDOW_WIDTH - leftBat->GetWidth() / 2 - 50, WINDOW_HEIGHT / 2.0, "bat", 0, group);
 	rightBat->name = "Right Bat";
 	game->physics->EnablePhysics(rightBat);
 	rightBat->body->CreateRectangleRigidBody(rightBat->GetWidth(), rightBat->GetHeight());

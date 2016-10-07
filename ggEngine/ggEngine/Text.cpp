@@ -146,12 +146,12 @@ void ggEngine::Text::Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE sprite
 	//Scale from 0 0
 	Matrix mat;
 	mat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
-	//Move to anchor
-	mat *= Matrix::CreateTranslateMatrix((1-scale.x)*width*anchor.x, (1-scale.y)*height*anchor.y);
+	//Move to position
+	mat *= Matrix::CreateTranslateMatrix(worldPosition.x - GetWidth()*scale.x / 2, worldPosition.y - GetHeight()*scale.y / 2);
+	//Move anchor to position
+	mat *= Matrix::CreateTranslateMatrix(GetWidth()*(0.5 - anchor.x), GetHeight()*(0.5 - anchor.y));
 	//Rotate around anchor
 	mat *= Matrix::CreateRotateMatrix(this->rotate);
-	//Translate to exact anchor and position
-	mat *= Matrix::CreateTranslateMatrix(worldPosition.x - width*anchor.x, worldPosition.y - height*anchor.y);
 	//Tranform to screen view
 	mat *= translatedWorldMatrix;
 
