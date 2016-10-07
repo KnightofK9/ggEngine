@@ -1,0 +1,8 @@
+<TextureAtlas imagePath="sprites.png">
+	<SubTexture name="1p.png" x="0" y="172" width="174" height="84"/>
+	<SubTexture name="1p_b.png" x="0" y="258" width="174" height="84"/>
+	<SubTexture name="2p.png" x="0" y="86" width="174" height="84"/>
+	<SubTexture name="2p_b.png" x="0" y="0" width="174" height="84"/>
+	<SubTexture name="ball.png" x="0" y="344" width="36" height="36"/>
+	<SubTexture name="bat.png" x="176" y="0" width="62" height="283"/>
+</TextureAtlas>

@@ -11,7 +11,7 @@ namespace ggEngine {
 		}
 		else {
 			Debug::Warning("No texture found with key " + textureKey);
-			return this->textureMap["default"];
+			return defaultTexture;
 		}
 		return tex;
 	}
@@ -19,7 +19,7 @@ namespace ggEngine {
 	{
 		this->game = game;
 		this->device = &game->GetD3DManager()->getDevice();
-		this->textureMap["default"] = new Texture(this->device, "default.bmp");
+		this->defaultTexture = new Texture(this->device, "default.bmp");
 	}
 	Cache::~Cache()
 	{
@@ -28,6 +28,7 @@ namespace ggEngine {
 	void Cache::Destroy()
 	{
 		ClearAll();
+		delete defaultTexture;
 	}
 	void Cache::ClearAll()
 	{
@@ -44,5 +45,10 @@ namespace ggEngine {
 		}
 		else this->textureMap[textureKey] = tex;
 		return true;
+	}
+	bool Cache::CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath)
+	{
+
+		return false;
 	}
 }

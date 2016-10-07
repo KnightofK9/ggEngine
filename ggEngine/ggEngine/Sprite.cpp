@@ -3,9 +3,10 @@
 namespace ggEngine {
 	Sprite::Sprite(DrawManager *drawManager, std::string filename, D3DCOLOR transcolor) : DrawObject(drawManager)
 	{
+		this->type = SpriteType_Texture;
 		this->image = new Texture(drawManager->GetDevice(), filename, transcolor);
-		this->width = image->GetWidth();
-		this->height = image->GetHeight();
+		this->width = this->orgWidth = image->GetWidth();
+		this->height = this->orgHeight = image->GetHeight();
 		if (image->GetTexture() == NULL) {
 			SetImage(new Texture(drawManager->GetDevice(), "default.bmp", transcolor));
 		}
@@ -18,8 +19,17 @@ namespace ggEngine {
 		this->anchor = Vector(0.5, 0.5);
 		this->body = NULL;
 	}
+	Sprite::Sprite(DrawManager * drawManager, Texture * atlas, RECT atlasRect) : DrawObject(drawManager)
+	{
+		this->type = SpriteType_Atlas;
+		this->image = atlas;
+		this->atlasRect = atlasRect;
+		this->width = this->orgWidth = atlasRect.right - atlasRect.left;
+		this->height = this->orgHeight = atlasRect.bottom - atlasRect.top;
+	}
 	Sprite::Sprite(DrawManager *drawManager, Texture * image) : DrawObject(drawManager)
 	{
+		this->type = SpriteType_Texture;
 		SetImage(image);
 		this->anchor = Vector(0.5, 0.5);
 		this->body = NULL;
@@ -35,7 +45,14 @@ namespace ggEngine {
 	void Sprite::Draw(Matrix translatedWorldMatrix)
 	{
 		Transform(translatedWorldMatrix, spriteHandle);
-		RECT srcRect = { 0, 0, this->image->GetWidth(), this->image->GetHeight() };
+		RECT srcRect;
+		if (type == SpriteType_Texture)
+		{
+			srcRect = { 0, 0, this->orgWidth, this->orgHeight };
+		}
+		else {
+			srcRect = atlasRect;
+		}
 		if (!visible) return;
 		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
@@ -54,15 +71,16 @@ namespace ggEngine {
 	}
 	void Sprite::SetImage(Texture *image)
 	{
+		this->type = SpriteType_Texture;
 		this->image = image;
-		this->width = image->GetWidth();
-		this->height = image->GetHeight();
+		this->width = this->orgWidth = image->GetWidth();
+		this->height = this->orgHeight = image->GetHeight();
 	}
 	void Sprite::SetScale(float x, float y)
 	{
 		this->scale = Vector(x, y);
-		this->width = this->image->GetWidth()*x;
-		this->height = this->image->GetHeight()*y;
+		this->width = this->orgWidth*x;
+		this->height = this->orgHeight*y;
 	}
 	void Sprite::SetScale(Vector vector)
 	{
@@ -70,7 +88,7 @@ namespace ggEngine {
 	}
 	void Sprite::SetWidth(float width)
 	{
-		this->scale.x = (float)width / this->image->GetWidth();
+		this->scale.x = (float)width / this->orgWidth;
 		this->width = width;
 	}
 	float Sprite::GetWidth()
@@ -80,7 +98,7 @@ namespace ggEngine {
 	}
 	void Sprite::SetHeight(float height)
 	{
-		this->scale.y = (float)height / this->image->GetHeight();
+		this->scale.y = (float)height / this->orgHeight;
 		this->height = height;
 	}
 	float Sprite::GetHeight()

@@ -40,6 +40,9 @@
     <Filter Include="Header Files\Interface">
       <UniqueIdentifier>{ff5b5fbb-2c4b-43b3-895e-42177b0118eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{ad9ceb5d-793a-422b-8698-0b58c91510f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
