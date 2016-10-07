@@ -29,28 +29,30 @@ namespace ggEngine {
 	{
 		if (enableManualMove) {
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomIn])) {
-				scale.x += SCALE_SPEED;
-				scale.y += SCALE_SPEED;
+				scale.x += SCALE_SPEED*scale.x;
+				scale.y += SCALE_SPEED*scale.y;
 				this->width = orgWidth*scale.x;
 				this->height = orgHeight*scale.y;
 			}
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomOut])) {
-				scale.x -= SCALE_SPEED;
-				scale.y -= SCALE_SPEED;
-				this->width = orgWidth*scale.x;
-				this->height = orgHeight*scale.y;
+				if (!(scale.x < 0 || scale.y < 0)) {
+					scale.x -= SCALE_SPEED*scale.x;
+					scale.y -= SCALE_SPEED*scale.y;
+					this->width = orgWidth*scale.x;
+					this->height = orgHeight*scale.y;
+				}
 			}
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveLeft])) {
-				point.x -= MOVE_SPEED;
+				point.x -= MOVE_SPEED/scale.x;
 			}
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveRight])) {
-				point.x += MOVE_SPEED;
+				point.x += MOVE_SPEED/scale.x;
 			}
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveUp])) {
-				point.y -= MOVE_SPEED;
+				point.y -= MOVE_SPEED/scale.x;
 			}
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveDown])) {
-				point.y += MOVE_SPEED;
+				point.y += MOVE_SPEED/scale.x;
 			}
 		}
 		Transform();
