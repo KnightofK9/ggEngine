@@ -1,11 +1,20 @@
-#include "Map.h"
 
-	Map::Map()
-	{
-		this->width = WINDOW_WIDTH;
-		this->height = WINDOW_HEIGHT;
-	}
-	Map::~Map()
+#include "World.h"
+
+
+	ggEngine::World::World()
 	{
 	}
 
+	ggEngine::World::~World()
+	{
+	}
+
+	void ggEngine::World::Reset()
+	{
+		for (std::list<Group*>::const_iterator it = groupList.begin(); it != groupList.end(); it++)
+		{
+			delete *it;
+		}
+		groupList.clear();
+	}

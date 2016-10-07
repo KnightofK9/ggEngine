@@ -233,9 +233,6 @@
     <ClInclude Include="Body.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shape.h">
       <Filter>Header Files\Core\Shape</Filter>
     </ClInclude>

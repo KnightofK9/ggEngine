@@ -1,8 +1,9 @@
-#include "GameObject.h"
+#include "Group.h"
 namespace ggEngine{
-	class World : public GameObject{
+	class World : public Group{
 	public:
-		World() {}
-		~World(){}
+		World();
+		~World();
+		void Reset();
 	};
 }
