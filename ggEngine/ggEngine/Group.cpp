@@ -2,14 +2,30 @@
 #include "DrawManager.h"
 #include "Sprite.h"
 namespace ggEngine{
-	Group::Group(DrawManager *drawManager){
-		this->drawManager = drawManager;
+	Group::Group()
+	{
 	}
 	Group::~Group(){
-		//TO DO remove all child group and all child sprite here
+		for (std::list<Group*>::const_iterator it = groupList.begin(); it != groupList.end(); it++)
+		{
+			delete *it;
+		}
+		groupList.clear();
+		for (std::list<DrawObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
+		{
+			delete *it;
+		}
+		drawList.clear();
 	}
 	void Group::Destroy(){
 		GameObject::Destroy();
+	}
+	void Group::AddGroup(Group * group)
+	{
+		Group* parentGroup = dynamic_cast<Group*>(group->GetParentObject());
+		if (parentGroup != NULL) parentGroup->GetGroupList()->remove(group);
+		groupList.push_back(group);
+		group->SetParentObject(this);
 	}
 	void Group::Update()
 	{

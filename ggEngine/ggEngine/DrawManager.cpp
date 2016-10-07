@@ -8,12 +8,14 @@
 #include "Camera.h"
 #include "Circle.h"
 #include "Rectangle.h"
+#include "World.h"
 namespace ggEngine {
 	Sprite* DrawManager::CreateSprite(std::string fileSource){
 		return new Sprite(this, fileSource);
 	}
 	DrawManager::DrawManager(Game * game, Camera * camera)
 	{
+		this->game = game;
 		this->stateManager = game->stateManager;
 		this->device = &game->GetD3DManager()->getDevice();
 		this->camera = camera;
@@ -47,6 +49,7 @@ namespace ggEngine {
 
 	void DrawManager::Render2D()
 	{
+		camera->Update();
 		Update2D();
 	}
 
@@ -168,8 +171,8 @@ namespace ggEngine {
 	{
 		State* state = this->stateManager->GetCurrentState();
 		state->PreRender();
-		DrawObjectFromGroup(state->GetGroupList());
-		DrawObjectFromGroup(&this->topGroupList);
+		DrawObjectFromGroup(game->world->GetGroupList());
+		//DrawObjectFromGroup(&this->topGroupList);
 	}
 	D3DTLVERTEX DrawManager::CreateD3DTLVERTEX(float X, float Y, float Z, float RHW,
 		D3DCOLOR color, float U, float V)

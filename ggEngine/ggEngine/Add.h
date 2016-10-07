@@ -20,7 +20,6 @@ namespace ggEngine{
 		//Here how a text is added, it must be added to a group created via add->Group()
 		Text* Text(float x, float y, float width, float height, std::string text, Style style, ggEngine::Group *group);
 	private:
-		std::list<ggEngine::Group*> *groupList;
 		Cache *cache;
 		DrawManager *drawManager;
 		LPDIRECT3DDEVICE9 device;

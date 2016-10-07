@@ -53,5 +53,6 @@ namespace ggEngine {
 		IDirect3DDevice9 *device;
 		StateManager *stateManager;
 		std::list<Group*> topGroupList;
+		Game *game;
 	};
 }

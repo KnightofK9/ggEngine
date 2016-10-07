@@ -3,12 +3,13 @@
 #include "Add.h"
 #include "Preload.h"
 #include "DrawManager.h"
-#include "Game.h"
 #include "World.h"
+#include "Game.h"
 namespace ggEngine{
 	State::State(Game *game){
 		this->drawManager = game->GetDrawManager();
 		this->game = game;
+		this->world = game->world;
 		add = new ggEngine::Add( game->world ,game->cache, game->GetDrawManager(), &this->groupList);
 		preload = new ggEngine::Preload(game->cache);
 	}

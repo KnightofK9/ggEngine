@@ -5,6 +5,7 @@
 #include "Group.h"
 #include "EventManager.h"
 #include "Physics.h"
+#include "World.h"
 namespace ggEngine {
 	StateManager::StateManager(Game * game)
 	{
@@ -20,7 +21,7 @@ namespace ggEngine {
 
 	void StateManager::Destroy()
 	{
-		ClearGroup(this->currentState->GetGroupList());
+		
 	}
 
 	bool StateManager::Add(std::string key, State * State, bool autoStart)
@@ -63,7 +64,6 @@ namespace ggEngine {
 			Debug::Error("No State has been init.");
 			return false;
 		}
-		ClearGroup(this->currentState->GetGroupList());
 		this->currentState->ShutDown();
 		this->currentState->Start();
 		return true;
@@ -104,7 +104,7 @@ namespace ggEngine {
 		}
 		if (this->clearWorld) {
 			if (this->currentState != NULL) {
-				ClearGroup(this->currentState->GetGroupList());
+				game->world->Reset();
 				game->physics->Reset();
 				game->eventManager->Reset();
 				this->currentState->ShutDown();
@@ -118,18 +118,5 @@ namespace ggEngine {
 		game->SetRunning(true);
 	}
 
-	void StateManager::ClearSprite(Group* group)
-	{
-		std::list<DrawObject*> *drawList = group->GetDrawList();
-		for (std::list<DrawObject*>::const_iterator it = drawList->begin(); it != drawList->end(); it++)
-		{
-			delete *it;
-		}
-		drawList->clear();
-	}
-	void StateManager::ClearGroup(std::list<Group*> *groupList)
-	{
-		game->RemoveGroupList(groupList);
-	}
 
 }

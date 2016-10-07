@@ -3,8 +3,8 @@
 #include "ConstantEnum.h"
 #include "GGObject.h"
 #include <string>
+#include "Events.h"
 namespace ggEngine {
-	class Events;
 	class Body;
 	class GameObject :public GGObject {
 	public:
@@ -35,8 +35,8 @@ namespace ggEngine {
 		virtual void SetRotate(float angle){ this->rotate = angle; }
 		float GetRotate(){ return this->rotate; }
 		bool IsAlive() { return this->alive; }
-		Events* events = NULL;
 		Body* body = NULL;
+		Events* events = NULL;
 		Vector position;
 		Vector worldPosition;
 		std::string name = "";

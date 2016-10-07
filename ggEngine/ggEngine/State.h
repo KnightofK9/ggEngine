@@ -10,6 +10,7 @@ namespace ggEngine{
 	class Add;
 	class Preload;
 	class DrawManager;
+	class World;
 	class Game;
 	class State : public GGObject, public IGetGroup{
 	public:
@@ -35,5 +36,6 @@ namespace ggEngine{
 		std::list<Group*> groupList;
 		DrawManager *drawManager;
 		Map *map;
+		World *world;
 	};
 }

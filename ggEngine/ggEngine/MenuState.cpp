@@ -10,7 +10,9 @@
 #include "EventManager.h"
 #include "Timer.h"
 #include "Text.h"
+#include "Group.h"
 #include "Input.h"
+#include "Vector"
 Sprite* singleBtnNormal;
 Sprite* singleBtnHover;
 Sprite* multiBtnNormal;
@@ -51,7 +53,8 @@ void MenuState::Create()
 	multiBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnHover", 0, groupMenu);
 	multiBtnHover->SetVisible(false);
 
-
+	Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", 0, groupMenu);
+	groupText = this->add->Group();
 	//Other
 	Style style;
 	style.fontSize = 100;
@@ -59,7 +62,7 @@ void MenuState::Create()
 	style.font = "Segoe UI Black";
 	style.fontVariant = "bold";
 	style.fontWeight = 1;
-	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,105, "PING", style, groupMenu);
+	Text *title = this->add->Text(WINDOW_WIDTH/2.0, WINDOW_HEIGHT/2.0,500,105, "PING", style, groupText);
 	//title->SetScale(2, 2);
 	title->SetAnchor(0, 0);
 	title->SetScale(1, 2);
@@ -70,7 +73,7 @@ void MenuState::Create()
 	style2.font = "Segoe UI";
 	style2.backgroundColor = D3DCOLOR_ARGB(255, 255, 255, 100);
 	style2.fontWeight = 1;
-	Text *subText = this->add->Text(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT - 50,500,100, "Esc: Exit          Q: Enter", style2, groupMenu);
+	Text *subText = this->add->Text(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT - 50,500,100, "Esc: Exit          Q: Enter", style2, groupText);
 	subText->SetAnchor(0.5, 0.5);
 }
 

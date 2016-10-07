@@ -170,6 +170,7 @@
     <ClInclude Include="GGObject.h" />
     <ClInclude Include="Group.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="IEvents.h" />
     <ClInclude Include="IGetGroup.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="KeyBoardEventArg.h" />
@@ -193,8 +194,8 @@
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="XML.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Add.cpp" />
@@ -236,6 +237,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="XML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="default.bmp" />

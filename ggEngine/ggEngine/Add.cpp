@@ -7,7 +7,6 @@
 namespace ggEngine{
 	Add::Add(World *world, Cache *cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList){
 		this->cache = cache;
-		this->groupList = groupList;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
 		this->world = world;
@@ -30,9 +29,8 @@ namespace ggEngine{
 		return spriteAnimation;
 	}
 	Group* Add::Group(){
-		ggEngine::Group *gr = new ggEngine::Group(NULL);
-		gr->SetParentObject(world);
-		this->groupList->push_back(gr);
+		ggEngine::Group *gr = new ggEngine::Group();
+		world->AddGroup(gr);
 		return gr;
 	}
 	Text* Add::Text(float x, float y,float width, float height, std::string text, Style style, ggEngine::Group  *group)
