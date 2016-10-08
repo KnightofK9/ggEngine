@@ -3,6 +3,7 @@
 #define CHKHR(stmt)             do { hr = (stmt); if (FAILED(hr)) {SafeRelease(pFileStream);SafeRelease(pReader); } while(0)
 #define HR(stmt)                do { hr = (stmt); {SafeRelease(pFileStream);SafeRelease(pReader); } } while(0)
 #include "Helper.h"
+#include "ConstantEnum.h"
 namespace ggEngine {
 	XML::XML(std::string path)
 	{
@@ -14,7 +15,7 @@ namespace ggEngine {
 		//Open read-only input stream
 		if (FAILED(hr = SHCreateStreamOnFile(file, STGM_READ, &pFileStream)))
 		{
-			wprintf(L"Error creating file reader, error is %08.8lx", hr);
+			 wprintf(L"Error creating file reader, error is %08.8lx", hr);
 			fileNotFound = true;
 			HR(hr);
 		}
@@ -27,13 +28,13 @@ namespace ggEngine {
 
 		if (FAILED(hr = pReader->SetProperty(XmlReaderProperty_DtdProcessing, DtdProcessing_Prohibit)))
 		{
-			wprintf(L"Error setting XmlReaderProperty_DtdProcessing, error is %08.8lx", hr);
+			 wprintf(L"Error setting XmlReaderProperty_DtdProcessing, error is %08.8lx", hr);
 			HR(hr);
 		}
 
 		if (FAILED(hr = pReader->SetInput(pFileStream)))
 		{
-			wprintf(L"Error setting input for reader, error is %08.8lx", hr);
+			 wprintf(L"Error setting input for reader, error is %08.8lx", hr);
 			HR(hr);
 		}
 		ConstructAtlasSpriteInfo(pReader, pFileStream);
@@ -75,7 +76,7 @@ namespace ggEngine {
 			switch (nodeType)
 			{
 			case XmlNodeType_XmlDeclaration:
-				wprintf(L"XmlDeclaration\n");
+				if(PRINT_DETAIL) wprintf(L"XmlDeclaration\n");
 				if (FAILED(hr = WriteAttributes(pReader,NULL)))
 				{
 					wprintf(L"Error writing attributes, error is %08.8lx", hr);
@@ -94,9 +95,9 @@ namespace ggEngine {
 					HR(hr);
 				}
 				if (cwchPrefix > 0)
-					wprintf(L"Element: %s:%s\n", pwszPrefix, pwszLocalName);
+					if(PRINT_DETAIL) wprintf(L"Element: %s:%s\n", pwszPrefix, pwszLocalName);
 				else
-					wprintf(L"Element: %s\n", pwszLocalName);
+					if(PRINT_DETAIL) wprintf(L"Element: %s\n", pwszLocalName);
 				if (FAILED(hr = WriteAttributes(pReader,&atlasSpriteInfo)))
 				{
 					wprintf(L"Error writing attributes, error is %08.8lx", hr);
@@ -107,7 +108,7 @@ namespace ggEngine {
 				}
 
 				if (pReader->IsEmptyElement())
-					wprintf(L" (empty)");
+					if(PRINT_DETAIL) wprintf(L" (empty)");
 				break;
 			case XmlNodeType_EndElement:
 				if (FAILED(hr = pReader->GetPrefix(&pwszPrefix, &cwchPrefix)))
@@ -121,9 +122,9 @@ namespace ggEngine {
 					HR(hr);
 				}
 				if (cwchPrefix > 0)
-					wprintf(L"End Element: %s:%s\n", pwszPrefix, pwszLocalName);
+					if (PRINT_DETAIL) wprintf(L"End Element: %s:%s\n", pwszPrefix, pwszLocalName);
 				else
-					wprintf(L"End Element: %s\n", pwszLocalName);
+					if (PRINT_DETAIL) wprintf(L"End Element: %s\n", pwszLocalName);
 				break;
 			case XmlNodeType_Text:
 			case XmlNodeType_Whitespace:
@@ -132,7 +133,7 @@ namespace ggEngine {
 					wprintf(L"Error getting value, error is %08.8lx", hr);
 					HR(hr);
 				}
-				wprintf(L"Text: >%s<\n", pwszValue);
+				if(PRINT_DETAIL) wprintf(L"Text: >%s<\n", pwszValue);
 				break;
 			case XmlNodeType_CDATA:
 				if (FAILED(hr = pReader->GetValue(&pwszValue, NULL)))
@@ -140,12 +141,12 @@ namespace ggEngine {
 					wprintf(L"Error getting value, error is %08.8lx", hr);
 					HR(hr);
 				}
-				wprintf(L"CDATA: %s\n", pwszValue);
+				if(PRINT_DETAIL) wprintf(L"CDATA: %s\n", pwszValue);
 				break;
 			case XmlNodeType_ProcessingInstruction:
 				if (FAILED(hr = pReader->GetLocalName(&pwszLocalName, NULL)))
 				{
-					wprintf(L"Error getting name, error is %08.8lx", hr);
+					 wprintf(L"Error getting name, error is %08.8lx", hr);
 					HR(hr);
 				}
 				if (FAILED(hr = pReader->GetValue(&pwszValue, NULL)))
@@ -153,7 +154,7 @@ namespace ggEngine {
 					wprintf(L"Error getting value, error is %08.8lx", hr);
 					HR(hr);
 				}
-				wprintf(L"Processing Instruction name:%s value:%s\n", pwszLocalName, pwszValue);
+				if(PRINT_DETAIL) wprintf(L"Processing Instruction name:%s value:%s\n", pwszLocalName, pwszValue);
 				break;
 			case XmlNodeType_Comment:
 				if (FAILED(hr = pReader->GetValue(&pwszValue, NULL)))
@@ -161,10 +162,10 @@ namespace ggEngine {
 					wprintf(L"Error getting value, error is %08.8lx", hr);
 					HR(hr);
 				}
-				wprintf(L"Comment: %s\n", pwszValue);
+				if(PRINT_DETAIL) wprintf(L"Comment: %s\n", pwszValue);
 				break;
 			case XmlNodeType_DocumentType:
-				wprintf(L"DOCTYPE is not printed\n");
+				if(PRINT_DETAIL) wprintf(L"DOCTYPE is not printed\n");
 				break;
 			}
 		}
@@ -193,7 +194,7 @@ namespace ggEngine {
 					UINT cwchPrefix;
 					if (FAILED(hr = pReader->GetPrefix(&pwszPrefix, &cwchPrefix)))
 					{
-						wprintf(L"Error getting prefix, error is %08.8lx", hr);
+						 wprintf(L"Error getting prefix, error is %08.8lx", hr);
 						return hr;
 					}
 					if (FAILED(hr = pReader->GetLocalName(&pwszLocalName, NULL)))
@@ -207,9 +208,9 @@ namespace ggEngine {
 						return hr;
 					}
 					if (cwchPrefix > 0)
-						wprintf(L"Attr: %s:%s=\"%s\" \n", pwszPrefix, pwszLocalName, pwszValue);
+						if(PRINT_DETAIL) wprintf(L"Attr: %s:%s=\"%s\" \n", pwszPrefix, pwszLocalName, pwszValue);
 					else
-						wprintf(L"Attr: %s=\"%s\" \n", pwszLocalName, pwszValue);
+						if(PRINT_DETAIL) wprintf(L"Attr: %s=\"%s\" \n", pwszLocalName, pwszValue);
 					std::string key = Helper::WCharToString(pwszLocalName);
 					std::string value = Helper::WCharToString(pwszValue);
 					if (atlasSpriteInfo != NULL) {
