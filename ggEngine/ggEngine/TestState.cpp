@@ -14,7 +14,7 @@
 SpriteAnimation *character;
 Group *group;
 const float charMoveSpeed = 10.0f;
-const float jumpForce = 10.0f;
+const float jumpForce = 5.0f;
 const float jumpTime = 500;
 
 Timer jumpTimer;
@@ -60,7 +60,10 @@ void TestState::Create()
 				character->body->velocity.x += charMoveSpeed*time;
 			}
 			if (e.isPress(DIK_SPACE)) {
-				if(jumpTimer.stopwatch(jumpTime)) character->body->AddForce(jumpForce, Vector(0, -1));
+				if (jumpTimer.stopwatch(jumpTime)) {
+					character->body->velocity.y = 0;
+					character->body->AddForce(jumpForce, Vector(0, -1));
+				}
 				
 			}
 		}
