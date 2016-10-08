@@ -19,6 +19,7 @@ namespace ggEngine {
 	private:
 		bool SetValueIfNotExists(std::string key, SpriteInfo* inf);
 		std::map<std::string, SpriteInfo*> spriteInfoMap;
+		std::map<std::string, Texture*> atlasMap;
 		SpriteInfo* defaultSpriteInfo;
 		Game *game;
 		LPDIRECT3DDEVICE9 device;

@@ -11,6 +11,7 @@ namespace ggEngine {
 		void Draw(Matrix translatedWorldMatrix);
 		void Destroy();
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
+		void NextAnimationFrame(std::string animationName);
 		void PlayAnimation(std::string animationName);
 		void SetImage(SpriteInfo *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
 		int GetNumberOfFrame() { return this->numberOfFrame; }
@@ -24,6 +25,10 @@ namespace ggEngine {
 		int GetFramePerColumn() { return this->framePerColumn; }
 		int GetFramePerRow() { return this->framePerRow; }
 	private:
+		void InitFrameList();
+		void SetCurrentSrcRect();
+		RECT *frameList = NULL;
+		RECT srcRect;
 		int framePerRow;
 		int framePerColumn;
 		int frameWidth;

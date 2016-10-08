@@ -9,6 +9,10 @@ namespace ggEngine {
 		this->currentFrame = defaultFrame;
 		this->isRunningAnimation = false;
 		SetImage(image, frameWidth, frameHeight, numberOfFrame);
+		InitFrameList();
+		srcRect = frameList[defaultFrame];
+		SetAnchor(0.5, 0.5);
+		//SetCurrentSrcRect();
 	}
 	SpriteAnimation::~SpriteAnimation()
 	{
@@ -16,26 +20,20 @@ namespace ggEngine {
 			delete (it->second);
 		};
 		animatorMap.clear();
-		if(currentAnimation!=NULL) delete currentAnimation;
+		//if(currentAnimation!=NULL) delete currentAnimation;
+		if (frameList != NULL) delete frameList;
 	}
 	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
 	{
 		Transform(translatedWorldMatrix,spriteHandle);
-		RECT srcRect;
 		if (!visible) return;
 		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {
-			srcRect = this->currentAnimation->GetNextRect();
-			this->currentFrame = this->currentAnimation->currentFrame;
+			int frameIndex = this->currentAnimation->GetNextFrameIndex();
+			srcRect = frameList[frameIndex];
 		}
 		else {
-			int currentFrameRow = ((this->currentFrame) / this->framePerRow);
-			int currentFrameColumn = (this->currentFrame - ((currentFrameRow)*this->framePerRow));
-			int top = this->frameHeight*currentFrameRow;
-			int left = this->frameWidth*currentFrameColumn;
-			int right = left + this->frameWidth;
-			int bottom = top + this->frameHeight;
-			srcRect = { left,top,right,bottom };
+			
 		}
 		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
@@ -60,11 +58,31 @@ namespace ggEngine {
 		}
 		animatorMap[animationName] = new Animator(startFrame, endFrame, this, isLoop);
 	}
+	void SpriteAnimation::NextAnimationFrame(std::string animationName)
+	{
+		std::map<std::string, Animator*>::iterator it = this->animatorMap.find(animationName);
+		if (it != this->animatorMap.end())
+		{
+			if (this->currentAnimation == (it->second)) {
+				this->srcRect = frameList[this->currentAnimation->GetNextFrameIndex(true)];
+				return;
+			}
+
+			this->currentAnimation = (it->second);
+			this->isRunningAnimation = false;
+		}
+		else {
+			Debug::Warning("No animation found  with key " + animationName);
+		}
+	}
 	void SpriteAnimation::PlayAnimation(std::string animationName)
 	{
 		std::map<std::string, Animator*>::iterator it = this->animatorMap.find(animationName);
 		if (it != this->animatorMap.end())
 		{
+			if (this->currentAnimation == (it->second) ){
+				return;
+			}
 			this->currentAnimation = (it->second);
 			this->isRunningAnimation = true;
 		}
@@ -112,5 +130,41 @@ namespace ggEngine {
 	{
 		//return this->frameHeight*this->scale.y;
 		return this->height;
+	}
+	void SpriteAnimation::InitFrameList()
+	{
+		frameList = new RECT[numberOfFrame];
+		RECT atlasRect = this->image->GetRect();
+		for (int frameIndex = 0; frameIndex < this->numberOfFrame; frameIndex++) {
+			RECT frame;
+			int currentFrameRow = ((frameIndex) / this->framePerRow);
+			int currentFrameColumn = (frameIndex - ((currentFrameRow)*this->framePerRow));
+			int top = this->frameHeight*currentFrameRow;
+			int left = this->frameWidth*currentFrameColumn;
+			int right = left + this->frameWidth;
+			int bottom = top + this->frameHeight;
+			frame = { left,top,right,bottom };
+			frame.left += atlasRect.left;
+			frame.right += atlasRect.left;
+			frame.top += atlasRect.top;
+			frame.bottom += atlasRect.top;
+			frameList[frameIndex] = frame;
+		}
+	}
+	void SpriteAnimation::SetCurrentSrcRect()
+	{
+		int currentFrameRow = ((this->currentFrame) / this->framePerRow);
+		int currentFrameColumn = (this->currentFrame - ((currentFrameRow)*this->framePerRow));
+		int top = this->frameHeight*currentFrameRow;
+		int left = this->frameWidth*currentFrameColumn;
+		int right = left + this->frameWidth;
+		int bottom = top + this->frameHeight;
+		srcRect = { left,top,right,bottom };
+
+		RECT atlasRect = this->image->GetRect();
+		srcRect.left += atlasRect.left;
+		srcRect.right += atlasRect.right;
+		srcRect.top += atlasRect.top;
+		srcRect.bottom += atlasRect.bottom;
 	}
 }

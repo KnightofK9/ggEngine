@@ -33,6 +33,7 @@ namespace ggEngine {
 	}
 	void Body::UpdateMovement()
 	{
+		Debug::Log("Current position :" + std::to_string(position->y));
 		float timeStep = game->logicTimer.getDeltaTime();
 		Vector lastAcceleration = acceleration;
 		Vector force = (CalculateAirForce() + CalculateGravityForce());
@@ -40,6 +41,8 @@ namespace ggEngine {
 		(*position) += temp * 100;
 		Vector newAcceleration = force / mass;
 		acceleration = (lastAcceleration + newAcceleration) / 2;
+		if (blocked.down && allowWorldBlock) acceleration.y = 0;
+		Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
 		velocity += acceleration*timeStep;
 	}
 	void Body::UpdateBounds()
@@ -53,28 +56,35 @@ namespace ggEngine {
 				height = rect->height;
 			}
 			if (blocked.down) {
+				Debug::Log("Meet world with " + std::to_string(velocity.y));
 				if (velocity.y > 0) {
-					if(allowBounciness) velocity.y *= -bounciness;
-					position->y = WINDOW_HEIGHT - height / 2;
+					if (allowBounciness) {
+						velocity.y *= -bounciness;
+					}
+					else if (allowWorldBlock) {
+						velocity.y = 0;
+						acceleration.y = 0;
+					}
 				}
+				position->y = WINDOW_HEIGHT - height / 2;
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
 					if (allowBounciness) velocity.y *= -bounciness;
-					position->y = height /2;
 				}
+				position->y = height / 2;
 			}
 			if (blocked.left) {
 				if (velocity.x < 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
-					position->x = width/2;
 				}
+				position->x = width / 2;
 			}
 			if (blocked.right) {
 				if (velocity.x > 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
-					position->x = WINDOW_WIDTH - width/2;
 				}
+				position->x = WINDOW_WIDTH - width / 2;
 			}
 			if (this->sprite->events->onWorldBounds != nullptr)
 			{
