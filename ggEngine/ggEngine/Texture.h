@@ -14,7 +14,7 @@ namespace ggEngine {
 		int GetWidth();
 		int GetHeight();
 		void Destroy();
-		LPDIRECT3DTEXTURE9 GetTexture() { return this->texture; }
+		LPDIRECT3DTEXTURE9 GetDxTexture() { return this->texture; }
 	private:
 		LPDIRECT3DTEXTURE9 texture;
 		D3DXIMAGE_INFO info;

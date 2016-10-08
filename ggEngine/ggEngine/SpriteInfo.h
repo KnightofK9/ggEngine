@@ -13,6 +13,8 @@ namespace ggEngine {
 		float GetHeight() { return this->height; }
 		RECT GetRect() { return this->srcRect; }
 		Texture *GetTexture() { return this->texture; }
+		void Release();
+		SpriteType GetType() { return this->type; }
 	private:
 		float width;
 		float height;

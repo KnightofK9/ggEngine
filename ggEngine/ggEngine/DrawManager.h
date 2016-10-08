@@ -37,7 +37,6 @@ namespace ggEngine {
 		void DrawObjectFromGroup(std::list<Group*> *groupList);
 		void DrawList(std::list<DrawObject*> *drawObjectList);
 		void DrawLine(const Vector Point1, const Vector Point2, D3DCOLOR color = DEFAULT_COLOR);
-		Sprite* CreateSprite(std::string fileSource);
 		void DrawShape(Shape *shape);
 		IDirect3DDevice9 *GetDevice(){ return this->device; }
 		D3DTLVERTEX CreateD3DTLVERTEX(float X, float Y, float Z, float RHW, D3DCOLOR color, float U, float V);

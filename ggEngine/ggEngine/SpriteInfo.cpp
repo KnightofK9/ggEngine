@@ -20,4 +20,10 @@ ggEngine::SpriteInfo::SpriteInfo(Texture * atlas, float x, float y, float width,
 
 ggEngine::SpriteInfo::~SpriteInfo()
 {
+	Release();
+}
+
+void ggEngine::SpriteInfo::Release()
+{
+	this->texture->Destroy();
 }

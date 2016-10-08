@@ -6,13 +6,13 @@ namespace ggEngine {
 	class Animator;
 	class SpriteAnimation : public Sprite {
 	public:
-		SpriteAnimation(DrawManager *drawManager, Texture *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0);
+		SpriteAnimation(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0);
 		~SpriteAnimation();
 		void Draw(Matrix translatedWorldMatrix);
 		void Destroy();
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
 		void PlayAnimation(std::string animationName);
-		void SetImage(Texture *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
+		void SetImage(SpriteInfo *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
 		int GetNumberOfFrame() { return this->numberOfFrame; }
 		void SetWidth(float width);
 		void SetHeight(float height);

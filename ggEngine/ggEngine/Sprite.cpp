@@ -1,35 +1,9 @@
 #include "Sprite.h"
 #include "Body.h"
+#include "Texture.h"
 namespace ggEngine {
-	Sprite::Sprite(DrawManager *drawManager, std::string filename, D3DCOLOR transcolor) : DrawObject(drawManager)
+	Sprite::Sprite(DrawManager *drawManager, SpriteInfo * image) : DrawObject(drawManager)
 	{
-		this->type = SpriteType_Texture;
-		this->image = new Texture(drawManager->GetDevice(), filename, transcolor);
-		this->width = this->orgWidth = image->GetWidth();
-		this->height = this->orgHeight = image->GetHeight();
-		if (image->GetTexture() == NULL) {
-			SetImage(new Texture(drawManager->GetDevice(), "default.bmp", transcolor));
-		}
-		/*HRESULT result = D3DXCreateSprite(device, &this->spriteHandle);
-		if (result != D3D_OK)
-		{
-			this->spriteHandle = NULL;
-			throw ERROR_CODE_FAIL_INIT_SPRITE_HANDLER;
-		}*/
-		this->anchor = Vector(0.5, 0.5);
-		this->body = NULL;
-	}
-	Sprite::Sprite(DrawManager * drawManager, Texture * atlas, RECT atlasRect) : DrawObject(drawManager)
-	{
-		this->type = SpriteType_Atlas;
-		this->image = atlas;
-		this->atlasRect = atlasRect;
-		this->width = this->orgWidth = atlasRect.right - atlasRect.left;
-		this->height = this->orgHeight = atlasRect.bottom - atlasRect.top;
-	}
-	Sprite::Sprite(DrawManager *drawManager, Texture * image) : DrawObject(drawManager)
-	{
-		this->type = SpriteType_Texture;
 		SetImage(image);
 		this->anchor = Vector(0.5, 0.5);
 		this->body = NULL;
@@ -45,18 +19,11 @@ namespace ggEngine {
 	void Sprite::Draw(Matrix translatedWorldMatrix)
 	{
 		Transform(translatedWorldMatrix, spriteHandle);
-		RECT srcRect;
-		if (type == SpriteType_Texture)
-		{
-			srcRect = { 0, 0, this->orgWidth, this->orgHeight };
-		}
-		else {
-			srcRect = atlasRect;
-		}
+		RECT srcRect = image->GetRect();
 		if (!visible) return;
 		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
-			spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DCOLOR_RGBA(255, 255, 255, opacity));
+			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, D3DCOLOR_RGBA(255, 255, 255, opacity));
 			spriteHandle->End();
 		}
 	}
@@ -69,18 +36,17 @@ namespace ggEngine {
 		this->image->Destroy();
 		Destroy();
 	}
-	void Sprite::SetImage(Texture *image)
+	void Sprite::SetImage(SpriteInfo *image)
 	{
-		this->type = SpriteType_Texture;
 		this->image = image;
-		this->width = this->orgWidth = image->GetWidth();
-		this->height = this->orgHeight = image->GetHeight();
+		this->width =  image->GetWidth();
+		this->height =  image->GetHeight();
 	}
 	void Sprite::SetScale(float x, float y)
 	{
 		this->scale = Vector(x, y);
-		this->width = this->orgWidth*x;
-		this->height = this->orgHeight*y;
+		this->width = this->image->GetWidth()*x;
+		this->height = this->image->GetHeight()*y;
 	}
 	void Sprite::SetScale(Vector vector)
 	{
@@ -88,7 +54,7 @@ namespace ggEngine {
 	}
 	void Sprite::SetWidth(float width)
 	{
-		this->scale.x = (float)width / this->orgWidth;
+		this->scale.x = (float)width / this->image->GetWidth();
 		this->width = width;
 	}
 	float Sprite::GetWidth()
@@ -98,7 +64,7 @@ namespace ggEngine {
 	}
 	void Sprite::SetHeight(float height)
 	{
-		this->scale.y = (float)height / this->orgHeight;
+		this->scale.y = (float)height / this->image->GetHeight();
 		this->height = height;
 	}
 	float Sprite::GetHeight()
