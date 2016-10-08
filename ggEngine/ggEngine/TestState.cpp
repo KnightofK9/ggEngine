@@ -172,7 +172,7 @@ void TestState::Update()
 		spriteBat2->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 	}
 	if (game->GetInput()->KeyDown(DIK_Q)) {
-		game->stateManager->Start("MenuState", true, true);
+		game->stateManager->Start("MenuState", true, false);
 	}
 }
 void TestState::PreRender()

@@ -11,7 +11,7 @@ ggEngine::SpriteInfo::SpriteInfo(Texture * texture)
 
 ggEngine::SpriteInfo::SpriteInfo(Texture * atlas, float x, float y, float width, float height)
 {
-	this->texture = texture;
+	this->texture = atlas;
 	this->width = width;
 	this->height = height;
 	this->srcRect = { x,y,x + width,y + height };
@@ -25,5 +25,8 @@ ggEngine::SpriteInfo::~SpriteInfo()
 
 void ggEngine::SpriteInfo::Release()
 {
-	this->texture->Destroy();
+	if (this->texture != NULL) {
+		this->texture->Destroy();
+		this->texture = NULL;
+	}
 }

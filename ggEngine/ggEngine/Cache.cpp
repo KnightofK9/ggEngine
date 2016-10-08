@@ -2,6 +2,8 @@
 #include "Texture.h"
 #include "Game.h"
 #include "SpriteInfo.h"
+#include "XML.h"
+#include <vector>
 namespace ggEngine {
 	SpriteInfo* Cache::GetSpriteInfo(std::string key) {
 		std::map<std::string, SpriteInfo*>::iterator it = this->spriteInfoMap.find(key);
@@ -66,7 +68,20 @@ namespace ggEngine {
 			Debug::Warning("No atlas found with path " + atlatPath);
 			return false;
 		}
-
-		return false;
+		XML xml("Resource/sprites.xml");
+		if (xml.IsLoaded()) {
+			bool isAllLoadSucceed = false;
+			std::vector<AtlasSpriteInfo> spriteList = xml.GetSpriteList();
+			for (std::vector<AtlasSpriteInfo>::iterator it = spriteList.begin(); it != spriteList.end(); ++it) {
+				isAllLoadSucceed = SetValueIfNotExists(it->name, new SpriteInfo(atlas,it->x,it->y,it->width,it->height)) || isAllLoadSucceed;
+			}
+			if (!isAllLoadSucceed) {
+				Debug::Warning("All key has been created, atlas load failed.");
+				atlas->Destroy();
+				return false;
+			}
+			return true;
+		}
+		else return false;
 	}
 }

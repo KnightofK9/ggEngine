@@ -1,5 +1,4 @@
 #include "Helper.h"
-
 LPCWSTR Helper::StringToLPCWSTR(const std::string & s)
 {
 	int len;
@@ -11,4 +10,11 @@ LPCWSTR Helper::StringToLPCWSTR(const std::string & s)
 	delete[] buf;
 	std::wstring stemp = r;
 	return stemp.c_str();
+}
+
+std::string Helper::WCharToString(const LPCWSTR  s)
+{
+	std::wstring ws(s);
+	std::string test(ws.begin(), ws.end());
+	return test;
 }
