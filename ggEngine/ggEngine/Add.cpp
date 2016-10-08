@@ -12,8 +12,8 @@ namespace ggEngine{
 		this->world = world;
 	}
 	Sprite* Add::Sprite(float x, float y, std::string textureKey, int frameName, ggEngine::Group *group){
-		Texture* texture = this->cache->GetTexture(textureKey);
-		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->drawManager, texture);
+		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
+		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->drawManager, inf);
 		sprite->SetParentObject(group);
 		sprite->SetPosition(x, y);
 		group->AddDrawObjectToList(sprite);
@@ -21,8 +21,8 @@ namespace ggEngine{
 	}
 	SpriteAnimation* Add::SpriteAnimation(float x, float y, std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame)
 	{
-		Texture* texture = this->cache->GetTexture(textureKey);
-		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->drawManager, texture, frameWidth, frameHeight, defaultFrame, numberOfFrame);
+		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
+		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->drawManager, inf, frameWidth, frameHeight, defaultFrame, numberOfFrame);
 		spriteAnimation->SetParentObject(group);
 		spriteAnimation->SetPosition(x, y);
 		group->AddDrawObjectToList(spriteAnimation);

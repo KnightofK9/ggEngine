@@ -36,8 +36,8 @@ void TestState::Init(){
 void TestState::Preload(){
 	this->preload->Texture("kitty", "Resource/kitty.bmp");
 	this->preload->Texture("girl", "Resource/girl.jpg");
-	this->preload->Texture("bat", "Resource/bat.png");
-	this->preload->Texture("ball", "Resource/ball.png");
+	/*this->preload->Texture("bat", "Resource/bat.png");
+	this->preload->Texture("ball", "Resource/ball.png");*/
 }
 void TestState::Create()
 {
@@ -172,7 +172,7 @@ void TestState::Update()
 		spriteBat2->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 	}
 	if (game->GetInput()->KeyDown(DIK_Q)) {
-		game->stateManager->Start("MenuState", true, true);
+		game->stateManager->Start("MenuState", true, false);
 	}
 }
 void TestState::PreRender()

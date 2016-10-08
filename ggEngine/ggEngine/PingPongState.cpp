@@ -22,8 +22,8 @@ void PingPongState::Init() {
 	score1 = score2 = 0;
 }
 void PingPongState::Preload() {
-	this->preload->Texture("bat", "Resource/bat.png");
-	this->preload->Texture("ball", "Resource/ball.png");
+	/*this->preload->Texture("bat", "Resource/bat.png");
+	this->preload->Texture("ball", "Resource/ball.png");*/
 }
 void PingPongState::Create()
 {
@@ -153,7 +153,7 @@ void PingPongState::Update()
 		}
 	}
 	if (game->GetInput()->KeyDown(DIK_Q)) {
-		game->stateManager->Start("MenuState", true, true);
+		game->stateManager->Start("MenuState", true, false);
 	}
 }
 void PingPongState::PreRender()

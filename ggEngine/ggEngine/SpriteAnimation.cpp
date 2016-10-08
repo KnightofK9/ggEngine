@@ -1,7 +1,9 @@
 #include "SpriteAnimation.h"
 #include "Animator.h"
+#include "Texture.h"
+#include "Debug.h"
 namespace ggEngine {
-	SpriteAnimation::SpriteAnimation(DrawManager *drawManager, Texture * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame) :Sprite(drawManager)
+	SpriteAnimation::SpriteAnimation(DrawManager *drawManager, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame) :Sprite(drawManager)
 	{
 		this->spriteAnimationType = SA_RectangleSheet;
 		this->currentFrame = defaultFrame;
@@ -37,7 +39,8 @@ namespace ggEngine {
 		}
 		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
-			spriteHandle->Draw(this->GetImage()->GetTexture(), &srcRect, NULL, NULL, D3DXCOLOR(255, 255, 255, opacity));
+			color = (color & 0x00FFFFFF) | (opacity << 24);
+			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, color);
 			spriteHandle->End();
 		}
 	}
@@ -69,7 +72,7 @@ namespace ggEngine {
 			Debug::Warning("No animation found  with key " + animationName);
 		}
 	}
-	void SpriteAnimation::SetImage(Texture * image, int frameWidth, int frameHeight, int numberOfFrame)
+	void SpriteAnimation::SetImage(SpriteInfo * image, int frameWidth, int frameHeight, int numberOfFrame)
 	{
 		this->image = image;
 		this->height = this->frameHeight = frameHeight;

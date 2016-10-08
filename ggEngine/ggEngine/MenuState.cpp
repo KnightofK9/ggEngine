@@ -13,6 +13,7 @@
 #include "Group.h"
 #include "Input.h"
 #include "Vector"
+#include "XML.h"
 Sprite* singleBtnNormal;
 Sprite* singleBtnHover;
 Sprite* multiBtnNormal;
@@ -33,10 +34,13 @@ void MenuState::Init()
 
 void MenuState::Preload()
 {
-	this->preload->Texture("singleBtnNormal", "Resource/1p.png");
-	this->preload->Texture("singleBtnHolver", "Resource/1p_b.png");
-	this->preload->Texture("multiBtnNormal", "Resource/2p.png");
-	this->preload->Texture("multiBtnHover", "Resource/2p_b.png");
+	//this->preload->Texture("singleBtnNormal", "Resource/1p.png");
+	//this->preload->Texture("singleBtnHolver", "Resource/1p_b.png");
+	//this->preload->Texture("multiBtnNormal", "Resource/2p.png");
+	//this->preload->Texture("multiBtnHover", "Resource/2p_b.png");
+
+	/*Load atas*/
+	this->preload->Atlas("GameAtlas", "Resource/sprites.png", "Resource/sprites.xml");
 }
 void Switch(bool isSwitchToSingle) {
 	isSingle = isSwitchToSingle;
@@ -52,6 +56,8 @@ void MenuState::Create()
 	multiBtnNormal = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnNormal", 0, groupMenu);
 	multiBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnHover", 0, groupMenu);
 	multiBtnHover->SetVisible(false);
+
+
 
 	Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", 0, groupMenu);
 	groupText = this->add->Group();
@@ -74,6 +80,7 @@ void MenuState::Create()
 	style2.fontWeight = 1;
 	Text *subText = this->add->Text(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT - 50,500,100, "Esc: Exit          Q: Enter", style2, groupText);
 	subText->SetAnchor(0.5, 0.5);
+
 }
 
 void MenuState::Update()
@@ -85,7 +92,7 @@ void MenuState::Update()
 		Switch(false);
 	}
 	else if (game->GetInput()->KeyDown(DIK_RETURN)) {
-		game->stateManager->Start("PingPongState", true, true);
+		game->stateManager->Start("PingPongState", true, false);
 	}
 }
 

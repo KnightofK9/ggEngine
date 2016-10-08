@@ -1,25 +1,40 @@
 #include "Cache.h"
 #include "Texture.h"
 #include "Game.h"
+#include "SpriteInfo.h"
+#include "XML.h"
+#include <vector>
 namespace ggEngine {
-	Texture* Cache::GetTexture(std::string textureKey) {
-		std::map<std::string, Texture*>::iterator it = this->textureMap.find(textureKey);
-		Texture* tex;
-		if (it != this->textureMap.end())
+	SpriteInfo* Cache::GetSpriteInfo(std::string key) {
+		std::map<std::string, SpriteInfo*>::iterator it = this->spriteInfoMap.find(key);
+		SpriteInfo* inf;
+		if (it != this->spriteInfoMap.end())
 		{
-			tex = it->second;
+			inf = it->second;
 		}
 		else {
-			Debug::Warning("No texture found with key " + textureKey);
-			return defaultTexture;
+			Debug::Warning("No texture found with key " + key);
+			return defaultSpriteInfo;
 		}
-		return tex;
+		return inf;
+	}
+	bool Cache::SetValueIfNotExists(std::string key,SpriteInfo * inf)
+	{
+		std::map<std::string, SpriteInfo*>::iterator it = spriteInfoMap.find(key);
+		if (it != spriteInfoMap.end() && (it->second)!=NULL)
+		{
+			Debug::Warning("Sprite with key " + key + " has exists!");
+			return false;
+		}
+		spriteInfoMap[key] = inf;
+		return true;
 	}
 	Cache::Cache(Game * game)
 	{
 		this->game = game;
 		this->device = &game->GetD3DManager()->getDevice();
-		this->defaultTexture = new Texture(this->device, "default.bmp");
+		Texture* defaultTexture = new Texture(this->device, "default.bmp");
+		defaultSpriteInfo = new SpriteInfo(defaultTexture);
 	}
 	Cache::~Cache()
 	{
@@ -28,32 +43,45 @@ namespace ggEngine {
 	void Cache::Destroy()
 	{
 		ClearAll();
-		delete defaultTexture;
+		delete defaultSpriteInfo;
 	}
 	void Cache::ClearAll()
 	{
-		for (std::map<std::string, Texture*>::iterator it = this->textureMap.begin(); it != this->textureMap.end(); ++it) {
+		for (std::map<std::string, SpriteInfo*>::iterator it = this->spriteInfoMap.begin(); it != this->spriteInfoMap.end(); ++it) {
 			delete (it->second);
 		};
-		this->textureMap.clear();
+		this->spriteInfoMap.clear();
 	}
-	bool Cache::CreateTexture(std::string textureKey, std::string textureFile, D3DCOLOR transColor) {
+	bool Cache::CreateTexture(std::string key, std::string textureFile, D3DCOLOR transColor) {
 		Texture *tex = new Texture(this->device, textureFile,transColor);
-		if (tex->GetTexture() == NULL) {
+		if (tex->GetDxTexture() == NULL) {
 			Debug::Warning("No texture found with path " + textureFile);
 			return false;
 		}
-		else this->textureMap[textureKey] = tex;
+		SetValueIfNotExists(key, new SpriteInfo(tex));
 		return true;
 	}
 	bool Cache::CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath, D3DCOLOR transColor)
 	{
 		Texture *atlas = new Texture(this->device, atlatPath, transColor);
-		if (atlas->GetTexture() == NULL) {
+		if (atlas->GetDxTexture() == NULL) {
 			Debug::Warning("No atlas found with path " + atlatPath);
 			return false;
 		}
-
-		return false;
+		XML xml("Resource/sprites.xml");
+		if (xml.IsLoaded()) {
+			bool isAllLoadSucceed = false;
+			std::vector<AtlasSpriteInfo> spriteList = xml.GetSpriteList();
+			for (std::vector<AtlasSpriteInfo>::iterator it = spriteList.begin(); it != spriteList.end(); ++it) {
+				isAllLoadSucceed = SetValueIfNotExists(it->name, new SpriteInfo(atlas,it->x,it->y,it->width,it->height)) || isAllLoadSucceed;
+			}
+			if (!isAllLoadSucceed) {
+				Debug::Warning("All key has been created, atlas load failed.");
+				atlas->Destroy();
+				return false;
+			}
+			return true;
+		}
+		else return false;
 	}
 }

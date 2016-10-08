@@ -10,9 +10,6 @@
 #include "Rectangle.h"
 #include "World.h"
 namespace ggEngine {
-	Sprite* DrawManager::CreateSprite(std::string fileSource){
-		return new Sprite(this, fileSource);
-	}
 	DrawManager::DrawManager(Game * game, Camera * camera)
 	{
 		this->game = game;
