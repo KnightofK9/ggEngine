@@ -57,6 +57,8 @@ void MenuState::Create()
 	multiBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnHover", 0, groupMenu);
 	multiBtnHover->SetVisible(false);
 
+
+
 	Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", 0, groupMenu);
 	groupText = this->add->Group();
 	//Other

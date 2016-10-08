@@ -28,7 +28,11 @@ namespace ggEngine {
 		Body* GetBody() { return this->body; }
 		int GetOpacity() { return this->opacity; }
 		void SetOpacity(int opacity) { this->opacity = opacity%256; }
+		void SetColorTint(int r, int g, int b) { this->color = D3DCOLOR_XRGB(r, g, b); }
+		void SetColorTint(D3DCOLOR color) { this->color = color; }
+		D3DCOLOR GetColorTint() { return this->color; }
 	protected:
+		D3DCOLOR color;
 		SpriteInfo *image = nullptr;
 		int opacity = 255;
 	};

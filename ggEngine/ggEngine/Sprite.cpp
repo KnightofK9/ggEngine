@@ -7,10 +7,12 @@ namespace ggEngine {
 		SetImage(image);
 		this->anchor = Vector(0.5, 0.5);
 		this->body = NULL;
+		this->color = D3DCOLOR_XRGB(255, 255, 255);
 	}
 
 	Sprite::Sprite(DrawManager* drawManager) : DrawObject(drawManager)
 	{
+		this->color = D3DCOLOR_XRGB(255, 255, 255);
 	}
 
 	Sprite::~Sprite()
@@ -21,9 +23,10 @@ namespace ggEngine {
 		Transform(translatedWorldMatrix, spriteHandle);
 		RECT srcRect = image->GetRect();
 		if (!visible) return;
+		color = (color & 0x00FFFFFF) | (opacity << 24);
 		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
 		{
-			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, D3DCOLOR_RGBA(255, 255, 255, opacity));
+			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, color);
 			spriteHandle->End();
 		}
 	}
