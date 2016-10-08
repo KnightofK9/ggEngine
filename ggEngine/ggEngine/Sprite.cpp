@@ -48,7 +48,7 @@ namespace ggEngine {
 		RECT srcRect;
 		if (type == SpriteType_Texture)
 		{
-			srcRect = { 0, 0, this->orgWidth, this->orgHeight };
+			srcRect = { 0, 0, (long)this->orgWidth, (long)this->orgHeight };
 		}
 		else {
 			srcRect = atlasRect;
