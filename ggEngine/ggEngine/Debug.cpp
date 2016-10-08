@@ -41,4 +41,7 @@ namespace ggEngine {
 	{
 		std::wcout << message << "\n";
 	}
+	void Debug::DebugToScreen(Game * game, float x, float y, std::string text)
+	{
+	}
 }

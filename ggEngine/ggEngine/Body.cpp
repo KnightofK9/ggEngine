@@ -33,7 +33,7 @@ namespace ggEngine {
 	}
 	void Body::UpdateMovement()
 	{
-		Debug::Log("Current position :" + std::to_string(position->y));
+		//Debug::Log("Current position :" + std::to_string(position->y));
 		float timeStep = game->logicTimer.getDeltaTime();
 		Vector lastAcceleration = acceleration;
 		Vector force = (CalculateAirForce() + CalculateGravityForce());
@@ -42,7 +42,7 @@ namespace ggEngine {
 		Vector newAcceleration = force / mass;
 		acceleration = (lastAcceleration + newAcceleration) / 2;
 		if (blocked.down && allowWorldBlock) acceleration.y = 0;
-		Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
+		//Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
 		velocity += acceleration*timeStep;
 	}
 	void Body::UpdateBounds()
@@ -56,7 +56,7 @@ namespace ggEngine {
 				height = rect->height;
 			}
 			if (blocked.down) {
-				Debug::Log("Meet world with " + std::to_string(velocity.y));
+				//Debug::Log("Meet world with " + std::to_string(velocity.y));
 				if (velocity.y > 0) {
 					if (allowBounciness) {
 						velocity.y *= -bounciness;
