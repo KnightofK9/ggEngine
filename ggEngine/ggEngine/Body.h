@@ -42,6 +42,8 @@ namespace ggEngine {
 		/*Vector Force*/
 		float bounciness = 1;
 		bool allowBounciness = true;
+		bool allowWorldBlock = true;
+
 
 		Vector velocity;
 		Vector newVelocity;

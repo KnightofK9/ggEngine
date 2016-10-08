@@ -15,5 +15,4 @@ public:
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 private:
-	void CreateBall(Vector position,Vector direction = Vector(1,0));
 };

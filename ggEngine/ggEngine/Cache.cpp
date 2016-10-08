@@ -51,6 +51,7 @@ namespace ggEngine {
 			delete (it->second);
 		};
 		this->spriteInfoMap.clear();
+		this->atlasMap.clear();
 	}
 	bool Cache::CreateTexture(std::string key, std::string textureFile, D3DCOLOR transColor) {
 		Texture *tex = new Texture(this->device, textureFile,transColor);
@@ -63,6 +64,12 @@ namespace ggEngine {
 	}
 	bool Cache::CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath, D3DCOLOR transColor)
 	{
+		std::map<std::string, Texture*>::iterator it = atlasMap.find(atlasName);
+		if (it != atlasMap.end() && (it->second) != NULL)
+		{
+			Debug::Warning("Atlas "+ atlasName +" has been loaded already!");
+			return false;
+		}
 		Texture *atlas = new Texture(this->device, atlatPath, transColor);
 		if (atlas->GetDxTexture() == NULL) {
 			Debug::Warning("No atlas found with path " + atlatPath);
@@ -80,6 +87,7 @@ namespace ggEngine {
 				atlas->Destroy();
 				return false;
 			}
+			atlasMap[atlasName] = atlas;
 			return true;
 		}
 		else return false;

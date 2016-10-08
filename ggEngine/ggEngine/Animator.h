@@ -9,8 +9,7 @@ namespace ggEngine {
 		~Animator();
 		void Destroy();
 		void Reset();
-		RECT GetNextRect();
-		RECT srcRect;
+		int GetNextFrameIndex(bool forceGetNextFrame = false);
 		bool isFinished;
 		int frameWidth;
 		int frameHeight;
@@ -20,5 +19,7 @@ namespace ggEngine {
 		bool isLoop;
 		int framePerRow;
 		int framePerColumn;
+	private:
+		RECT *frameList;
 	};
 }

@@ -2,7 +2,9 @@
 #include <iostream>
 #include <string>
 #include "ConstantEnum.h"
+#include "Text.h"
 namespace ggEngine {
+	class Game;
 	class Debug {
 	public:
 		static void Log(GGTEXT message);
@@ -15,6 +17,7 @@ namespace ggEngine {
 		static void Warning(int number);
 		static void Error(std::string message);
 		static void Error(std::wstring message);
+		static void DebugToScreen(Game *game, float x, float y, std::string text);
 	private:
 		Debug() {}
 	};

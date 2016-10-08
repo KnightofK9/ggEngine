@@ -14,7 +14,6 @@ namespace ggEngine {
 	}
 	Animator::~Animator()
 	{
-		
 	}
 	void Animator::Destroy()
 	{
@@ -24,18 +23,16 @@ namespace ggEngine {
 		this->currentFrame = this->startFrame;
 		this->isFinished = false;
 	}
-	RECT Animator::GetNextRect()
+	int Animator::GetNextFrameIndex(bool forceGetNextFrame)
 	{
-		if (isFinished) {
-			return RECT();
+		if (forceGetNextFrame) {
+			this->currentFrame++;
+			if (this->currentFrame > this->endFrame) this->currentFrame = this->startFrame;
+			return currentFrame;
 		}
-		int currentFrameRow = ((this->currentFrame) / this->framePerRow);
-		int currentFrameColumn = (this->currentFrame - ((currentFrameRow)*this->framePerRow));
-		int top = this->frameHeight*currentFrameRow;
-		int left = this->frameWidth*currentFrameColumn;
-		int right = left + this->frameWidth;
-		int bottom = top + this->frameHeight;
-		this->srcRect = { left,top,right,bottom };
+		if (isFinished) {
+			return startFrame;
+		}
 		this->currentFrame++;
 		if (this->currentFrame > this->endFrame) {
 			if (this->isLoop) {
@@ -45,6 +42,6 @@ namespace ggEngine {
 				this->isFinished = true;
 			}
 		}
-		return this->srcRect;
+		return currentFrame;
 	}
 }
