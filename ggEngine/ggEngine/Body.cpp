@@ -57,8 +57,8 @@ namespace ggEngine {
 		b1.y = rect1->p1.y;
 		b1.w = rect1->p3.x-rect1->p1.x;
 		b1.h = rect1->p3.y-rect1->p1.y;
-		b1.vx = velocity.x*game->logicTimer.getDeltaTime()*100;
-		b1.vy = velocity.y*game->logicTimer.getDeltaTime()*100;
+		b1.vx = velocity.x;
+		b1.vy = velocity.y;
 		Box b2;
 		b2.x = rect2->p1.x;
 		b2.y = rect2->p1.y;
@@ -110,7 +110,7 @@ namespace ggEngine {
 		}
 		float entryTime = std::max(xEntry, yEntry);
 		float exitTime = std::min(xExit, yExit);
-		if (entryTime > exitTime|| xEntry<0.0f&&yEntry<0.0f || xEntry>1.0f || yEntry>1.0f) {
+		if (entryTime > exitTime || xEntry>1.0f || yEntry>1.0f) {
 			//g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) + "|yEntry:" + std::to_string(yEntry));
 			normalVector.x = 0.0f;
 			normalVector.y = 0.0f;
@@ -204,7 +204,7 @@ namespace ggEngine {
 						acceleration.y = 0;
 					}
 				}
-				position->y = WINDOW_HEIGHT  - sprite->GetHeight()*sprite->GetAnchor().y;
+				position->y = WINDOW_HEIGHT - sprite->GetHeight()*sprite->GetAnchor().y;
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
