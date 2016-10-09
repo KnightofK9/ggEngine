@@ -185,7 +185,6 @@
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SpriteAnimation.h" />
-    <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StateManager.h" />
@@ -229,7 +228,6 @@
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
-    <ClCompile Include="SpriteInfo.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StateManager.cpp" />
