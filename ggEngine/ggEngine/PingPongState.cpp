@@ -112,8 +112,18 @@ void PingPongState::Create()
 	ball->body->CheckCollisionTo(leftBat);
 	ball->body->CheckCollisionTo(rightBat);
 #pragma endregion Bat
+	rightBat->body->allowBounciness = false;
+	leftBat->body->allowBounciness = false;
+	rightBat->body->allowWorldBlock = true;
+	leftBat->body->allowWorldBlock = true;
+
 
 	ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
+		g_debug.Log("Collided found with " + e.colliderObject->name);
+		if (e.colliderObject->name == rightBat->name) {
+			ggEngine::Rectangle *rect = dynamic_cast<ggEngine::Rectangle*>(e.colliderObject->body->rigidBody);
+			g_debug.Log(rect->p1.ToString());
+		}
 		Vector velocity = go->body->velocity;
 		float movePosition = 5;
 		if (e.blockDirection.left) go->position.x += 5;
@@ -178,8 +188,6 @@ void PingPongState::PreRender()
 }
 void PingPongState::Render()
 {
-	//game->physics->CheckBound(leftBat, ball);
-	//game->physics->CheckBound(rightBat, ball);
 	ball->body->Render();
 	leftBat->body->Render();
 	rightBat->body->Render();

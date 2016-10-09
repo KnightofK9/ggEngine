@@ -55,15 +55,15 @@ namespace ggEngine {
 		Box b1;
 		b1.x = rect1->p1.x;
 		b1.y = rect1->p1.y;
-		b1.w = rect1->width;;
-		b1.h = rect1->height;
+		b1.w = rect1->p3.x-rect1->p1.x;
+		b1.h = rect1->p3.y-rect1->p1.y;
 		b1.vx = velocity.x;
 		b1.vy = velocity.y;
 		Box b2;
 		b2.x = rect2->p1.x;
 		b2.y = rect2->p1.y;
-		b2.w = rect2->width;
-		b2.h = rect2->height;
+		b2.w = rect2->p3.x-rect2->p1.x;
+		b2.h = rect2->p3.y-rect2->p1.y;
 		b2.vx = b2.vy = 0;
 		//b1 is moving right
 		if (b1.vx > 0.0f) { 
@@ -77,15 +77,14 @@ namespace ggEngine {
 		}
 		//b1 is moving down
 		if (b1.vy > 0.0f) { 
-			yInvEntry = b2.y - (b1.x + b1.h);
-			yInvExit = (b2.y + b2.h) - b1.y;
+			yInvEntry = (b2.y - (b1.y + b1.h));
+			yInvExit = ((b2.y + b2.h) - b1.y);
 		}
 		//b1 is moving up
 		else {
 			yInvEntry = (b2.y + b2.h) - b1.y;
 			yInvExit = b2.y - (b1.y + b1.h);
 		}
-
 		float xEntry, yEntry;
 		float xExit, yExit;
 
@@ -147,12 +146,24 @@ namespace ggEngine {
 
 		float remainingTime = 1 - entryTime;
 		e.remainingTime = remainingTime;
+		e.colliderObject = staticGo;
 		if (this->sprite->events->onCollide != nullptr) this->sprite->events->onCollide(this->sprite, e);
 
 		return entryTime;
 	}
 	void Body::CheckCollisionAndUpdateMovement()
 	{
+	
+		//Debug::Log("Current position :" + std::to_string(position->y));
+		float timeStep = game->logicTimer.getDeltaTime();
+		Vector lastAcceleration = acceleration;
+		Vector force = (CalculateAirForce() + CalculateGravityForce());
+		Vector temp = (velocity*timeStep + (0.5*lastAcceleration*timeStep*timeStep));
+		Vector newAcceleration = force / mass;
+		acceleration = (lastAcceleration + newAcceleration) / 2;
+		if (blocked.down && allowWorldBlock) acceleration.y = 0;
+		//Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
+		velocity += acceleration*timeStep;
 		bool isCollided = false;
 		for (std::vector<GameObject*>::iterator it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
 			float collideTime = PerformCollisionSweptAABB((*it));
@@ -164,17 +175,8 @@ namespace ggEngine {
 		if (isCollided) {
 			return;
 		}
-		//Debug::Log("Current position :" + std::to_string(position->y));
-		float timeStep = game->logicTimer.getDeltaTime();
-		Vector lastAcceleration = acceleration;
-		Vector force = (CalculateAirForce() + CalculateGravityForce());
-		Vector temp = (velocity*timeStep + (0.5*lastAcceleration*timeStep*timeStep));
+
 		(*position) += temp * 100;
-		Vector newAcceleration = force / mass;
-		acceleration = (lastAcceleration + newAcceleration) / 2;
-		if (blocked.down && allowWorldBlock) acceleration.y = 0;
-		//Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
-		velocity += acceleration*timeStep;
 	}
 	void Body::UpdateBounds()
 	{
@@ -197,25 +199,25 @@ namespace ggEngine {
 						acceleration.y = 0;
 					}
 				}
-				position->y = WINDOW_HEIGHT - height / 2;
+				position->y = WINDOW_HEIGHT  - sprite->GetHeight()*sprite->GetAnchor().y;
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
 					if (allowBounciness) velocity.y *= -bounciness;
 				}
-				position->y = height / 2;
+				position->y = sprite->GetHeight()*sprite->GetAnchor().y;
 			}
 			if (blocked.left) {
 				if (velocity.x < 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
 				}
-				position->x = width / 2;
+				position->x = sprite->GetWidth()*sprite->GetAnchor().x;
 			}
 			if (blocked.right) {
 				if (velocity.x > 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
 				}
-				position->x = WINDOW_WIDTH - width / 2;
+				position->x = WINDOW_WIDTH - sprite->GetWidth()*sprite->GetAnchor().x;
 			}
 			if (this->sprite->events->onWorldBounds != nullptr)
 			{

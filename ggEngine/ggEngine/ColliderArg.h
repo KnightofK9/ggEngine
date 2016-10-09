@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "Direction.h"
 namespace ggEngine {
+	class GameObject;
 	class ColliderArg :public EventArg {
 	public:
 		ColliderArg();
@@ -12,5 +13,6 @@ namespace ggEngine {
 		float remainingTime = 0;
 		Vector normalSurfaceVector;
 		Direction blockDirection;
+		GameObject *colliderObject;
 	};
 }
