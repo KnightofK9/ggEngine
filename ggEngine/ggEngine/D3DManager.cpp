@@ -1,8 +1,10 @@
 #include "D3DManager.h"
 #include <iostream>
 #include "State.h"
+#include "Game.h"
 namespace ggEngine {
-	D3DManager::D3DManager(HWND hWnd, int width, int height, D3DCOLOR backgroundColor, bool isWindowed) {
+	D3DManager::D3DManager(Game *game,HWND hWnd, int width, int height, D3DCOLOR backgroundColor, bool isWindowed) {
+		this->game = game;
 		this->width = width;
 		this->height = height;
 		d3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -77,6 +79,7 @@ namespace ggEngine {
 		this->stateManager->GetCurrentState()->PreRender();
 		drawManager->Render2D();
 		this->stateManager->GetCurrentState()->Render();
+		this->game->GameCustomRender();
 		d3ddv->EndScene();
 		
 		d3ddv->Present(NULL, NULL, NULL, NULL);

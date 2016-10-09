@@ -25,17 +25,18 @@ namespace ggEngine {
 			break;
 		}
 		try {
-			d3dManager = new D3DManager(hWnd, width, height, gameColor, isWindowed);
-			cache = new Cache(this);
+			d3dManager = new D3DManager(this,hWnd, width, height, gameColor, isWindowed);
 			stateManager = new StateManager(this);
 			camera = new Camera(this, WINDOW_WIDTH, WINDOW_HEIGHT,true);
 			drawManager = new DrawManager(this,camera);
+			cache = new Cache(this);
 			d3dManager->SetDrawManager(drawManager);
 			physics = new Physics(this, physicsMode);
 			d3dManager->SetStateManager(stateManager);
 			eventManager = new EventManager(this);
 			world = new World();
 			input = new Input(&hWnd);
+			g_debug.Init(this);
 			input->InitKeyboard();
 			input->InitMouse();
 
@@ -64,19 +65,19 @@ namespace ggEngine {
 	{
 		switch (errorCode) {
 		case ERROR_CODE_D3DERR_INVALIDCALL:
-			Debug::Error("Failed to init D3DManager, D3DERR_INVALIDCALL: Invalid Call or Parameter!");
+			g_debug.Error("Failed to init D3DManager, D3DERR_INVALIDCALL: Invalid Call or Parameter!");
 			break;
 		case ERROR_CODE_D3DERR_NOTAVAILABLE:
-			Debug::Error("Failed to init D3DManager, D3DERR_NOTAVAILABLE: Parameter not supported!");
+			g_debug.Error("Failed to init D3DManager, D3DERR_NOTAVAILABLE: Parameter not supported!");
 			break;
 		case ERROR_CODE_D3DERR_OUTOFVIDEOMEMORY:
-			Debug::Error("Failed to init D3DManager, D3DERR_OUTOFVIDEOMEMORY: Out of Video Memory!");
+			g_debug.Error("Failed to init D3DManager, D3DERR_OUTOFVIDEOMEMORY: Out of Video Memory!");
 			break;
 		case ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW:
-			Debug::Error("Failed to init draw manager. Error unknow.");
+			g_debug.Error("Failed to init draw manager. Error unknow.");
 			break;
 		default:
-			Debug::Error("Unknow error " + errorCode);
+			g_debug.Error("Unknow error " + errorCode);
 			break;
 		}
 	}
@@ -111,6 +112,7 @@ namespace ggEngine {
 			//
 			gameUpdate();
 			if(this->isRunning) this->stateManager->GetCurrentState()->PreRender();
+
 			//
 			// Render go here
 			//
@@ -122,6 +124,11 @@ namespace ggEngine {
 	{
 		d3dManager->Destroy();
 		d3dManager = NULL;
+	}
+
+	void Game::GameCustomRender()
+	{
+		g_debug.DebugToScreen(0, 0, std::to_string(frameRateReal));
 	}
 
 	void Game::gameUpdate()

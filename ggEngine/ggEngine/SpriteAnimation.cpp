@@ -49,11 +49,11 @@ namespace ggEngine {
 	void SpriteAnimation::CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop)
 	{
 		if (endFrame > this->numberOfFrame) {
-			Debug::Warning("End frame is bigger than number of frame.");
+			g_debug.Warning("End frame is bigger than number of frame.");
 			endFrame = this->numberOfFrame;
 		}
 		if (startFrame < 0) {
-			Debug::Warning("Start frame must not be negative.");
+			g_debug.Warning("Start frame must not be negative.");
 			startFrame = 0;
 		}
 		animatorMap[animationName] = new Animator(startFrame, endFrame, this, isLoop);
@@ -72,7 +72,7 @@ namespace ggEngine {
 			this->isRunningAnimation = false;
 		}
 		else {
-			Debug::Warning("No animation found  with key " + animationName);
+			g_debug.Warning("No animation found  with key " + animationName);
 		}
 	}
 	void SpriteAnimation::PlayAnimation(std::string animationName)
@@ -87,7 +87,7 @@ namespace ggEngine {
 			this->isRunningAnimation = true;
 		}
 		else {
-			Debug::Warning("No animation found  with key " + animationName);
+			g_debug.Warning("No animation found  with key " + animationName);
 		}
 	}
 	void SpriteAnimation::SetImage(SpriteInfo * image, int frameWidth, int frameHeight, int numberOfFrame)
@@ -137,7 +137,7 @@ namespace ggEngine {
 			this->isRunningAnimation = false;
 		}
 		if(frameIndex<numberOfFrame) this->srcRect = frameList[frameIndex];
-		else Debug::Warning("Frame index exceed number of frame.");
+		else g_debug.Warning("Frame index exceed number of frame.");
 	}
 	void SpriteAnimation::InitFrameList()
 	{

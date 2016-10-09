@@ -8,7 +8,7 @@ namespace ggEngine {
 		result = D3DXGetImageInfoFromFile(filename.c_str(), &info);
 		if (result != S_OK) {
 			texture = NULL;
-			Debug::Warning("Loading image failed. Src:" + (filename));
+			g_debug.Warning("Loading image failed. Src:" + (filename));
 			return;
 		}
 
@@ -32,7 +32,7 @@ namespace ggEngine {
 		//						  //make sure the bitmap textre was loaded correctly
 		if (result != S_OK) {
 			texture = NULL;
-			Debug::Warning("Creating image failed. Src:" + filename);
+			g_debug.Warning("Creating image failed. Src:" + filename);
 			return;
 		}
 

@@ -4,20 +4,11 @@
 #include <string>
 #include "GGObject.h" //All instance of class within engine must derived from GGObject
 #include "DrawObject.h" //Text belong to group and must provide draw for group use for drawing on screen
+#include "Font.h"
 namespace ggEngine {
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
 	enum Allign { Allign_Left, Allign_Middle, Allign_Right};
 	struct Style {
-		//The font of text
-		std::string font = "Arial"; 
-		//The style of the font (eg. 'italic'). Preserved for future using
-		std::string fontStyle = ""; 
-		//The variant of the font (eg. 'small-caps'). Preserved for future using
-		std::string fontVariant = "";
-		//The weight of the font (eg. 'bold'). Preserved for future using
-		std::string fontWeight = "";
-		//The size of the font (eg. 32 , measure in px).
-		int fontSize = 14;
 		//A canvas fillstyle that will be used as the background for the whole Text object.Set to null to disable. Preserved for future using
 		D3DCOLOR backgroundColor = D3DCOLOR_ARGB(0, 255, 255, 255);;
 		//A canvas fillstyle that will be used on the text eg 'red', '#00FF00'. Preserved for future using
@@ -38,11 +29,12 @@ namespace ggEngine {
 	class Text :public DrawObject {
 	public:
 		//Modify the constructor as you want, but must have those properties
-		Text(DrawManager *drawManager, float x, float width, float height, float y, std::string text, Style style);
+		Text(DrawManager *drawManager,Font *font, float x, float width, float height, float y, std::string text, Style style);
 		//Release the font here
 		~Text();
 		//You MUST call the base GameObject::Destroy() in here. Destroy just set alive to false for collector take care
 		void Destroy();
+		void SetFont(Font *font) { this->font = font; }
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
 		void Draw(Matrix translatedWorldMatrix);
 		void SetText(std::string text); 
@@ -57,7 +49,7 @@ namespace ggEngine {
 		void SetOpacity(int opacity) { this->opacity = opacity % 256; }
 		void Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
 	private:
-		LPD3DXFONT font;
+		Font *font;
 		Style style;
 		std::string text;
 		float orgWidth;

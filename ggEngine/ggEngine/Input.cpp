@@ -14,7 +14,7 @@ namespace ggEngine
 			NULL
 		);
 		if (FAILED(result))
-			Debug::Log("Error initialize Input");
+			g_debug.Log("Error initialize Input");
 		this->hWnd = hWnd;
 		return;
 	}
@@ -103,9 +103,9 @@ namespace ggEngine
 		int button = mouseState.rgbButtons[mousebutton] & 0x80;
 		if (button != 0)
 		{
-			Debug::Log("Mouse button is pressed");
-			Debug::Log("Virtual mouse state: " + std::to_string(button));
-			Debug::Log(std::to_string(GetMouseX()) + ", " + std::to_string(GetMouseY()));
+			g_debug.Log("Mouse button is pressed");
+			g_debug.Log("Virtual mouse state: " + std::to_string(button));
+			g_debug.Log(std::to_string(GetMouseX()) + ", " + std::to_string(GetMouseY()));
 		}
 		//
 

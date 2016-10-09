@@ -6,9 +6,12 @@ namespace ggEngine{
 	Preload::Preload(Cache *cache){
 		this->cache = cache;
 	}
+	void Preload::Font(std::string fontKey, std::string fontName, int fontSize, bool isItalic, int fontWeight)
+	{
+		this->cache->CreateFontToCache(fontKey, fontName, fontSize, isItalic, fontWeight);
+	}
 	void Preload::Texture(std::string textureKey, std::string texturePath){
 		this->cache->CreateTexture(textureKey, texturePath);
-		
 	}
 	void Preload::Atlas(std::string atlasName, std::string atlasPath, std::string atlasDefPath, AtlasDefType type)
 	{

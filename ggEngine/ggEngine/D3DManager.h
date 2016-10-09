@@ -8,9 +8,10 @@
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
 namespace ggEngine {
+	class Game;
 	class D3DManager :public GGObject{
 	public:
-		D3DManager(HWND window, int width, int height, D3DCOLOR backgroundColor, bool isWindowed);
+		D3DManager(Game *game, HWND window, int width, int height, D3DCOLOR backgroundColor, bool isWindowed);
 		~D3DManager();
 		void Destroy();
 		void update();
@@ -31,5 +32,6 @@ namespace ggEngine {
 		int width;
 		int height;
 		DrawManager *drawManager;
+		Game *game;
 	};
 }

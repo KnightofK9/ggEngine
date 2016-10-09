@@ -30,10 +30,8 @@
 //		RECT R = { posX, posY, 0, 0 };
 //		font->DrawTextA(0, lpString, -1, &R, DT_NOCLIP, color);
 //}
-
-ggEngine::Text::Text(DrawManager *drawManager, float x, float y, float width, float height, std::string text, Style style):DrawObject(drawManager)
+ggEngine::Text::Text(DrawManager *drawManager,Font *font, float x, float y, float width, float height, std::string text, Style style):DrawObject(drawManager)
 {
-	bool isItalic = style.fontStyle.find("italic") != std::string::npos;
 	SetAnchor(0.5, 0.5);
 	SetPosition(x, y);
 	this->orgWidth = width;
@@ -42,26 +40,12 @@ ggEngine::Text::Text(DrawManager *drawManager, float x, float y, float width, fl
 	this->height = height;
 	this->text = text;
 	this->style = style;
-	HRESULT hr = D3DXCreateFont(drawManager->GetDevice(),     //D3D Device
-		style.fontSize,               //Font height
-		0,                //Font width
-		FW_NORMAL,        //Font Weight
-		1,                //MipLevels
-		isItalic,            //Italic
-		DEFAULT_CHARSET,  //CharSet
-		OUT_DEFAULT_PRECIS, //OutputPrecision
-		ANTIALIASED_QUALITY, //Quality
-		DEFAULT_PITCH | FF_DONTCARE,//PitchAndFamily
-		style.font.c_str(),          //pFacename,
-		&font);         //ppFont
+	this->font = font;
 }
 
 ggEngine::Text::~Text()
 {
-	if (font != NULL) {
-		font->Release();
-		font = NULL;
-	}
+	
 }
 
 void ggEngine::Text::Destroy()
@@ -92,7 +76,7 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);
 		style.fontColor = (style.fontColor & 0x00FFFFFF) | (opacity << 24);
 		drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
-		font->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_CENTER | DT_VCENTER | DT_NOCLIP, style.fontColor);
+		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_CENTER | DT_VCENTER | DT_NOCLIP, style.fontColor);
 		spriteHandle->End();
 	}
 }
@@ -138,7 +122,7 @@ void ggEngine::Text::SetScale(Vector vector)
 
 void ggEngine::Text::SetRotate(float rotate)
 {
-	Debug::Warning("Text can not be rotated in this version.");
+	g_debug.Warning("Text can not be rotated in this version.");
 }
 
 void ggEngine::Text::Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)

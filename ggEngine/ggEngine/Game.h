@@ -19,6 +19,7 @@ namespace ggEngine {
 		Game(HWND hWnd, int width, int height, GameMode mode = GameMode_Windowed, PhysicsMode physicsMode = PhysicsMode_AABB,D3DCOLOR gameColor = D3DCOLOR_XRGB(0, 255, 255));
 		~Game();
 		void Destroy();
+		void GameCustomRender();
 		void GameRun();
 		D3DManager *GetD3DManager() { return this->d3dManager; }
 		DrawManager *GetDrawManager() { return this->drawManager; }

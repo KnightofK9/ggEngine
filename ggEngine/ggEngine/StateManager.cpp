@@ -27,7 +27,7 @@ namespace ggEngine {
 	bool StateManager::Add(std::string key, State * State, bool autoStart)
 	{
 		if (State == NULL) {
-			Debug::Error("Parsing NULL State error");
+			g_debug.Error("Parsing NULL State error");
 			return false;
 		}
 		this->stateMap[key] = State;
@@ -61,7 +61,7 @@ namespace ggEngine {
 			this->cache->ClearAll();
 		}
 		if (this->currentState == NULL) {
-			Debug::Error("No State has been init.");
+			g_debug.Error("No State has been init.");
 			return false;
 		}
 		this->currentState->ShutDown();
@@ -72,7 +72,7 @@ namespace ggEngine {
 	bool StateManager::Remove(std::string key)
 	{
 		if (!CheckState(key)) {
-			Debug::Warning("No State found with key when trying to remove " + key);
+			g_debug.Warning("No State found with key when trying to remove " + key);
 			return true;
 		}
 		this->stateMap.erase(key);
@@ -99,7 +99,7 @@ namespace ggEngine {
 		if (!isSwitchState) return;
 		isSwitchState = false;
 		if (!CheckState(stateKey)) {
-			Debug::Error("No State found with key " + stateKey);
+			g_debug.Error("No State found with key " + stateKey);
 			return;
 		}
 		if (this->clearWorld) {

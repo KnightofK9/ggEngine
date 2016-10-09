@@ -1,5 +1,23 @@
 #include "Debug.h"
+#include "Game.h"
+#include "Cache.h"
 namespace ggEngine {
+	Debug g_debug;
+	Debug::Debug()
+	{
+	}
+	void Debug::Init(Game * game)
+	{
+		Debug::game = game;
+		Debug::defaultFont = new Font(game->GetDrawManager(), "Arial", 24, false, FW_BOLD);
+	}
+	Debug::~Debug()
+	{
+		if (Debug::defaultFont != NULL) {
+			delete Debug::defaultFont;
+			Debug::defaultFont = NULL;
+		}
+	}
 	void Debug::Log(GGTEXT message)
 	{
 		std::wcout << message << "\n";
@@ -41,7 +59,8 @@ namespace ggEngine {
 	{
 		std::wcout << message << "\n";
 	}
-	void Debug::DebugToScreen(Game * game, float x, float y, std::string text)
+	void Debug::DebugToScreen(float x, float y, std::string text)
 	{
+		Debug::defaultFont->Draw(x, y, text);
 	}
 }

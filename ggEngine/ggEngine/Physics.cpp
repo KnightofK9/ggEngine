@@ -6,7 +6,6 @@
 #include <cmath>
 namespace ggEngine {
 	float timeEntrySAABB;
-
 	Physics::Physics(Game * game, PhysicsMode physicsMode)
 	{
 		this->game = game;
@@ -161,12 +160,12 @@ namespace ggEngine {
 		if (timeEntry > timeExit || xTimeToEntry < 0.0 && yTimeToEntry < 0.0 || xTimeToEntry > 1.0 || yTimeToEntry > 1.0)
 		{
 			timeEntrySAABB = 1.0;
-			Debug::Log("*======================");
-			Debug::Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
-			Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
-			Debug::Log("time entry x: " + std::to_string(xTimeToEntry));
-			Debug::Log("time entry y: " + std::to_string(yTimeToEntry));
-			Debug::Log("pos x: " + std::to_string(go2->GetPosition().x));
+			g_debug.Log("*======================");
+			g_debug.Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
+			g_debug.Log("time entry : " + std::to_string(timeEntrySAABB));
+			g_debug.Log("time entry x: " + std::to_string(xTimeToEntry));
+			g_debug.Log("time entry y: " + std::to_string(yTimeToEntry));
+			g_debug.Log("pos x: " + std::to_string(go2->GetPosition().x));
 
 			return;
 		}
@@ -219,11 +218,11 @@ namespace ggEngine {
 		//go2->body->position->x += (go2->body->velocity * timeEntry).x;
 		//go2->body->position->y += (go2->body->velocity * timeEntry).y;
 		timeEntrySAABB = timeEntry;
-		Debug::Log("======================");
-		Debug::Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
-		Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
-		Debug::Log("time entry x: " + std::to_string(xTimeToEntry));
-		Debug::Log("time entry y: " + std::to_string(yTimeToEntry));
+		g_debug.Log("======================");
+		g_debug.Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
+		g_debug.Log("time entry : " + std::to_string(timeEntrySAABB));
+		g_debug.Log("time entry x: " + std::to_string(xTimeToEntry));
+		g_debug.Log("time entry y: " + std::to_string(yTimeToEntry));
 
 	}
 

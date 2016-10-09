@@ -33,9 +33,10 @@ namespace ggEngine{
 		world->AddGroup(gr);
 		return gr;
 	}
-	Text* Add::Text(float x, float y,float width, float height, std::string text, Style style, ggEngine::Group  *group)
+	Text* Add::Text(float x, float y, std::string fontKey, float width, float height, std::string text, Style style, ggEngine::Group  *group)
 	{
-		ggEngine::Text *textObject = new ggEngine::Text(this->drawManager, x, y, width, height, text, style);
+		Font* font = this->cache->GetFont(fontKey);
+		ggEngine::Text *textObject = new ggEngine::Text(this->drawManager,font, x, y, width, height, text, style);
 		textObject->SetParentObject(group);
 		group->AddDrawObjectToList(textObject);
 		return textObject;

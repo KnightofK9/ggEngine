@@ -7,18 +7,23 @@ namespace ggEngine {
 	class Game;
 	class Debug {
 	public:
-		static void Log(GGTEXT message);
-		static void Log(std::string message);
-		static void Log(std::wstring message);
-		static void Log(int number);
-		static void Warning(GGTEXT message);
-		static void Warning(std::string message);
-		static void Warning(std::wstring message);
-		static void Warning(int number);
-		static void Error(std::string message);
-		static void Error(std::wstring message);
-		static void DebugToScreen(Game *game, float x, float y, std::string text);
+		Debug();
+		void Init(Game *game);
+		~Debug();
+		void Log(GGTEXT message);
+		void Log(std::string message);
+		void Log(std::wstring message);
+		void Log(int number);
+		void Warning(GGTEXT message);
+		void Warning(std::string message);
+		void Warning(std::wstring message);
+		void Warning(int number);
+		void Error(std::string message);
+		void Error(std::wstring message);
+		void DebugToScreen(float x, float y,std::string text);
 	private:
-		Debug() {}
+		Font *defaultFont;
+		Game* game;
 	};
+	extern Debug g_debug;
 }
