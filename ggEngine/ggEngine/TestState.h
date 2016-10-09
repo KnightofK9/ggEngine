@@ -1,5 +1,5 @@
 #pragma once
-#include "State.h"
+#include "ggEngine.h"
 using namespace ggEngine;
 class TestState : public State{
 public:

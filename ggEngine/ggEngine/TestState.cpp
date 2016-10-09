@@ -1,16 +1,4 @@
 #include "TestState.h"
-#include "Add.h"
-#include "Preload.h"
-#include "Game.h"
-#include "Physics.h"
-#include "Body.h"
-#include "DXInput.h"
-#include "Events.h"
-#include "ColliderArg.h"
-#include "EventManager.h"
-#include "Timer.h"
-#include "Text.h"
-#include "Input.h"
 SpriteAnimation *character;
 Group *group;
 const float charMoveSpeed = 10.0f;

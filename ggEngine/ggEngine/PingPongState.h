@@ -1,7 +1,6 @@
 #pragma once
-#include "State.h"
-#include "Timer.h"
-#include "Text.h"
+
+#include "ggEngine.h"
 
 using namespace ggEngine;
 class PingPongState : public State {

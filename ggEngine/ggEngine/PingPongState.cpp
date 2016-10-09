@@ -1,15 +1,4 @@
 #include "PingPongState.h"
-#include "Add.h"
-#include "Preload.h"
-#include "Game.h"
-#include "Physics.h"
-#include "Body.h"
-#include "DXInput.h"
-#include "Events.h"
-#include "ColliderArg.h"
-#include "EventManager.h"
-#include "Text.h"
-#include "Input.h"
 extern bool isSingle;
 PingPongState::PingPongState(Game *game) :State(game)
 {
@@ -30,7 +19,7 @@ void PingPongState::Create()
 	group = this->add->Group();
 
 #pragma region Ball
-	ball = this->add->Sprite(WINDOW_WIDTH /2.0, WINDOW_HEIGHT / 2.0, "ball",0, group);
+	ball = this->add->Sprite(WINDOW_WIDTH /2.0, WINDOW_HEIGHT / 2.0, "ball", group);
 	game->physics->EnablePhysics(ball);
 	ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		/*if (!e.blockDirection.up && !e.blockDirection.down)
@@ -92,7 +81,7 @@ void PingPongState::Create()
 
 #pragma region Bat
 	int distant = 100;
-	leftBat = this->add->Sprite(WINDOW_WIDTH/2.0, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+	leftBat = this->add->Sprite(WINDOW_WIDTH/2.0, WINDOW_HEIGHT / 2.0, "bat",group);
 	leftBat->name = "Left Bat";
 	leftBat->position.x = leftBat->GetWidth() / 2 + 50;
 	game->physics->EnablePhysics(leftBat);
@@ -112,7 +101,7 @@ void PingPongState::Create()
 		};
 	}
 
-	rightBat = this->add->Sprite(WINDOW_WIDTH - leftBat->GetWidth() / 2, WINDOW_HEIGHT / 2.0, "bat", 0, group);
+	rightBat = this->add->Sprite(WINDOW_WIDTH - leftBat->GetWidth() / 2, WINDOW_HEIGHT / 2.0, "bat", group);
 	rightBat->name = "Right Bat";
 	game->physics->EnablePhysics(rightBat);
 	rightBat->body->CreateRectangleRigidBody(rightBat->GetWidth(), rightBat->GetHeight());

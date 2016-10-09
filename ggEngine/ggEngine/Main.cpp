@@ -1,10 +1,8 @@
-#include "Window.h"
-#include "Game.h"
 #include "TestState.h"
 #include "PingPongState.h"
-#include "StateManager.h"
 #include <iostream>
 #include "MenuState.h"
+#include "ggEngine.h"
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 using namespace ggEngine;
 //Field

@@ -1,6 +1,5 @@
 #pragma once
-#include "State.h"
-#include "Text.h"
+#include "ggEngine.h"
 
 using namespace ggEngine;
 class MenuState : public State {
