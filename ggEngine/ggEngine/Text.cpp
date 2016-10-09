@@ -75,7 +75,7 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 		
 		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);
 		style.fontColor = (style.fontColor & 0x00FFFFFF) | (opacity << 24);
-		drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
+		if (style.enableBackgroundColor) drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
 		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_CENTER | DT_VCENTER | DT_NOCLIP, style.fontColor);
 		spriteHandle->End();
 	}

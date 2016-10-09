@@ -3,6 +3,8 @@
 using namespace ggEngine;
 class MenuState : public State {
 private:
+	Sprite* background;
+	Group* menuGroup;
 public:
 	MenuState(Game *game);
 	~MenuState();

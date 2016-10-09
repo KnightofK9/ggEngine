@@ -24,7 +24,7 @@ namespace ggEngine {
 			D3DPOOL_DEFAULT,       //memory class for the texture
 			D3DX_DEFAULT,          //image filter
 			D3DX_DEFAULT,          //mip filter
-			transcolor,            //color key for transparency
+			NULL,            //color key for transparency
 			&info,                 //bitmap file info (from loaded file)
 			NULL,                  //color palette
 			&texture);            //destination texture

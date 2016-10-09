@@ -9,6 +9,7 @@ namespace ggEngine {
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
 	enum Allign { Allign_Left, Allign_Middle, Allign_Right};
 	struct Style {
+		bool enableBackgroundColor = false;
 		//A canvas fillstyle that will be used as the background for the whole Text object.Set to null to disable. Preserved for future using
 		D3DCOLOR backgroundColor = D3DCOLOR_ARGB(0, 255, 255, 255);;
 		//A canvas fillstyle that will be used on the text eg 'red', '#00FF00'. Preserved for future using

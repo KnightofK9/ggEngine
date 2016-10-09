@@ -83,7 +83,7 @@ void PingPongState::Create()
 	int distant = 100;
 	leftBat = this->add->Sprite(WINDOW_WIDTH/2.0, WINDOW_HEIGHT / 2.0, "bat",group);
 	leftBat->name = "Left Bat";
-	leftBat->position.x = leftBat->GetWidth() / 2 + 50;
+	leftBat->position.x = leftBat->GetWidth() / 2 ;
 	game->physics->EnablePhysics(leftBat);
 	leftBat->body->allowBounciness = false;
 	leftBat->body->CreateRectangleRigidBody(leftBat->GetWidth(), leftBat->GetHeight());
