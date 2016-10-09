@@ -24,6 +24,7 @@ namespace ggEngine {
 		int GetFrameHeight() { return this->frameHeight; }
 		int GetFramePerColumn() { return this->framePerColumn; }
 		int GetFramePerRow() { return this->framePerRow; }
+		void SetFrame(int frameIndex,bool isStopAnimation = true);
 	private:
 		void InitFrameList();
 		void SetCurrentSrcRect();

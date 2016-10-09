@@ -131,6 +131,14 @@ namespace ggEngine {
 		//return this->frameHeight*this->scale.y;
 		return this->height;
 	}
+	void SpriteAnimation::SetFrame(int frameIndex,bool isStopAnimation)
+	{
+		if (isStopAnimation) {
+			this->isRunningAnimation = false;
+		}
+		if(frameIndex<numberOfFrame) this->srcRect = frameList[frameIndex];
+		else Debug::Warning("Frame index exceed number of frame.");
+	}
 	void SpriteAnimation::InitFrameList()
 	{
 		frameList = new RECT[numberOfFrame];

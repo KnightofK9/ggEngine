@@ -51,15 +51,15 @@ void Switch(bool isSwitchToSingle) {
 void MenuState::Create()
 {
 	groupMenu = this->add->Group();
-	singleBtnNormal = this->add->Sprite(WINDOW_WIDTH / 2.0f - 300, WINDOW_HEIGHT / 2.0f + 200, "singleBtnNormal", 0, groupMenu);
-	singleBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f - 300, WINDOW_HEIGHT / 2.0f + 200, "singleBtnHolver", 0, groupMenu);
-	multiBtnNormal = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnNormal", 0, groupMenu);
-	multiBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnHover", 0, groupMenu);
+	singleBtnNormal = this->add->Sprite(WINDOW_WIDTH / 2.0f - 300, WINDOW_HEIGHT / 2.0f + 200, "singleBtnNormal", groupMenu);
+	singleBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f - 300, WINDOW_HEIGHT / 2.0f + 200, "singleBtnHolver", groupMenu);
+	multiBtnNormal = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnNormal", groupMenu);
+	multiBtnHover = this->add->Sprite(WINDOW_WIDTH / 2.0f + 300, WINDOW_HEIGHT / 2.0f + 200, "multiBtnHover", groupMenu);
 	multiBtnHover->SetVisible(false);
 
 
 
-	Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", 0, groupMenu);
+	Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", groupMenu);
 	groupText = this->add->Group();
 	//Other
 	Style style;
