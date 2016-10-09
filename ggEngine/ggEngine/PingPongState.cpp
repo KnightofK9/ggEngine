@@ -11,14 +11,17 @@ void PingPongState::Init() {
 	score1 = score2 = 0;
 }
 void PingPongState::Preload() {
-	/*this->preload->Texture("bat", "Resource/bat.png");
-	this->preload->Texture("ball", "Resource/ball.png");*/
+	this->preload->Texture("bat", "Resource/PingPong/bat.png");
+	this->preload->Texture("ball", "Resource/PingPong/ball.png");
+	this->preload->Texture("background", "Resource/PingPong/bg_2.png");
 }
 void PingPongState::Create()
 {
 	group = this->add->Group();
 
 #pragma region Ball
+	Sprite *background = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "background", group);
+	background->SetScale(Vector(0.8, 0.8));
 	ball = this->add->Sprite(WINDOW_WIDTH /2.0, WINDOW_HEIGHT / 2.0, "ball", group);
 	game->physics->EnablePhysics(ball);
 	ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
@@ -33,18 +36,12 @@ void PingPongState::Create()
 			score2++;
 			go->position.x = leftBat->GetPosition().x + leftBat->GetWidth();
 			go->position.y = leftBat->GetPosition().y;
-			//Debug::Log("*******************");
-			//Debug::Log("velocity: " + std::to_string(ball->body->velocity.x) + " ," + std::to_string(ball->body->velocity.y));
-			//Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
 		}
 		else if (e.blockDirection.right)
 		{
 			score1++;
 			go->position.x = rightBat->GetPosition().x - rightBat->GetWidth();
 			go->position.y = rightBat->GetPosition().y;
-			//Debug::Log("*******************");
-			//Debug::Log("velocity: " + std::to_string(ball->body->velocity.x) + " ," + std::to_string(ball->body->velocity.y));
-			//Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
 		}
 	};
 
@@ -143,21 +140,14 @@ void PingPongState::Create()
 #pragma region Others
 	// Text
 	Style style;
-	//style.fontSize = 80;
 	style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
-	//style.font = "Segoe UI Black";
-	//style.fontVariant = "bold";
-	//style.fontWeight = 1;
 	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 80, WINDOW_HEIGHT/2.0, "default",200,200, std::to_string(score1), style, group);
 	textScore1->SetAnchor(0.5, 0.5);
 	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 80, WINDOW_HEIGHT/2.0, "default",200,200, std::to_string(score2), style, group);
 	textScore2->SetAnchor(0.5, 0.5);
 
 	Style style2;
-	//style.fontSize = 36;
 	style.fontColor = D3DCOLOR_ARGB(255, 30, 30, 30);
-	//style.font = "Segoe UI Black";
-	//style.fontWeight = 1;
 	this->add->Text(150, 50, "default",200,200, "W-S", style, group);
 	this->add->Text(WINDOW_WIDTH - 150, 50, "default",200,200, "Up-Down", style, group);
 
