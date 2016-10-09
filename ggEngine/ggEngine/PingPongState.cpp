@@ -44,12 +44,18 @@ void PingPongState::Create()
 			score2++;
 			go->position.x = leftBat->GetPosition().x + leftBat->GetWidth();
 			go->position.y = leftBat->GetPosition().y;
+			//Debug::Log("*******************");
+			//Debug::Log("velocity: " + std::to_string(ball->body->velocity.x) + " ," + std::to_string(ball->body->velocity.y));
+			//Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
 		}
 		else if (e.blockDirection.right)
 		{
 			score1++;
 			go->position.x = rightBat->GetPosition().x - rightBat->GetWidth();
 			go->position.y = rightBat->GetPosition().y;
+			//Debug::Log("*******************");
+			//Debug::Log("velocity: " + std::to_string(ball->body->velocity.x) + " ," + std::to_string(ball->body->velocity.y));
+			//Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
 		}
 	};
 
@@ -64,8 +70,22 @@ void PingPongState::Create()
 		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
 		go->body->velocity = r;
 	};
+
+	//ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
+	//Vector velocity = go->body->velocity;
+	//if (e.blockDirection.left || e.blockDirection.right)
+	//	go->position.x += go->body->velocity.x * timeEntrySAABB;
+	//else if (e.blockDirection.up || e.blockDirection.down)
+	//	go->position.y += go->body->velocity.y * timeEntrySAABB;
+
+	////float remainingTime = 1.1f - timeEntrySAABB;
+	//Vector n = e.normalSurfaceVector;
+	//Vector d = go->body->velocity;
+	//Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+	//go->body->velocity = 0;
+	//};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(30, Vector(1,0));
+	ball->body->AddForce(10, Vector(1,0));
 #pragma endregion Ball
 
 	
@@ -143,11 +163,13 @@ void PingPongState::Update()
 	textScore1->SetText(std::to_string(score1));
 	textScore2->SetText(std::to_string(score2));
 	if (isSingle) {
-		if (ball->position.y<rightBat->position.y) rightBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		if (ball->position.y<rightBat->position.y)
+			rightBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		else if (ball->position.y>rightBat->position.y) {
 			rightBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		}
-		if (ball->position.y<leftBat->position.y) leftBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		if (ball->position.y<leftBat->position.y)
+			leftBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		else if (ball->position.y>leftBat->position.y) {
 			leftBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		}
