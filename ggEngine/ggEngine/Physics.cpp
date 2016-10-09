@@ -5,6 +5,8 @@
 #include "Events.h"
 #include <cmath>
 namespace ggEngine {
+	float timeEntrySAABB;
+
 	Physics::Physics(Game * game, PhysicsMode physicsMode)
 	{
 		this->game = game;
@@ -158,19 +160,16 @@ namespace ggEngine {
 
 		if (timeEntry > timeExit || xTimeToEntry < 0.0 && yTimeToEntry < 0.0 || xTimeToEntry > 1.0 || yTimeToEntry > 1.0)
 		{
-			Debug::Log("======================");
+			timeEntrySAABB = 1.0;
+			Debug::Log("*======================");
 			Debug::Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
+			Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
 			Debug::Log("time entry x: " + std::to_string(xTimeToEntry));
 			Debug::Log("time entry y: " + std::to_string(yTimeToEntry));
-			Debug::Log("entry x: " + std::to_string(xEntry));
-			Debug::Log("entry y: " + std::to_string(yEntry));
-			Debug::Log("rect 1 top: " + std::to_string(r1.top));
-			Debug::Log("rect 1 bottom: " + std::to_string(r1.bottom));
-			Debug::Log("rect 2 top: " + std::to_string(r2.top));
-			Debug::Log("rect 2 bottom: " + std::to_string(r2.bottom));
+			Debug::Log("pos x: " + std::to_string(go2->GetPosition().x));
+
 			return;
 		}
-
 		ColliderArg arg1;
 		ColliderArg arg2;
 		Vector normalVector1;
@@ -213,6 +212,19 @@ namespace ggEngine {
 		arg2.normalSurfaceVector = normalVector2;
 		if (go1->events->onCollide != nullptr)  go1->events->onCollide(go1, arg1);
 		if (go2->events->onCollide != nullptr)  go2->events->onCollide(go2, arg2);
+
+		// update 
+		//go1->body->position->x += (go1->body->velocity * timeEntry).x;
+		//go1->body->position->y += (go1->body->velocity * timeEntry).y;
+		//go2->body->position->x += (go2->body->velocity * timeEntry).x;
+		//go2->body->position->y += (go2->body->velocity * timeEntry).y;
+		timeEntrySAABB = timeEntry;
+		Debug::Log("======================");
+		Debug::Log("velocity: " + std::to_string(relativeVelocity.x) + " ," + std::to_string(relativeVelocity.y));
+		Debug::Log("time entry : " + std::to_string(timeEntrySAABB));
+		Debug::Log("time entry x: " + std::to_string(xTimeToEntry));
+		Debug::Log("time entry y: " + std::to_string(yTimeToEntry));
+
 	}
 
 	void Physics::Reset(){
