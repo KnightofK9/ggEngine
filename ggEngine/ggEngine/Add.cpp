@@ -11,7 +11,7 @@ namespace ggEngine{
 		this->device = drawManager->GetDevice();
 		this->world = world;
 	}
-	Sprite* Add::Sprite(float x, float y, std::string textureKey, int frameName, ggEngine::Group *group){
+	Sprite* Add::Sprite(float x, float y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
 		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->drawManager, inf);
 		sprite->SetParentObject(group);

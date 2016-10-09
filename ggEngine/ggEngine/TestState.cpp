@@ -79,6 +79,7 @@ void TestState::PreRender()
 void TestState::Render()
 {
 	//character->body->Render();
+	Debug::Log(std::to_string(game->frameRateReal));
 }
 void TestState::Pause()
 {

@@ -14,7 +14,7 @@ namespace ggEngine{
 	class Add:public GGObject  {
 	public:
 		Add(World *world,Cache *Cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList);
-		Sprite* Sprite(float x, float y, std::string textureKey, int frameName, Group *group);
+		Sprite* Sprite(float x, float y, std::string textureKey, Group *group);
 		SpriteAnimation* SpriteAnimation(float x, float y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0);
 		Group* Group();
 		//Here how a text is added, it must be added to a group created via add->Group()
