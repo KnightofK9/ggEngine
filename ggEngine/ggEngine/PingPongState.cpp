@@ -48,17 +48,6 @@ void PingPongState::Create()
 		}
 	};
 
-	ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
-		Vector velocity = go->body->velocity;
-		if (e.blockDirection.left) go->position.x += 5;
-		else if (e.blockDirection.right) go->position.x -= 5;
-		else if (e.blockDirection.up) go->position.y += 5;
-		else if (e.blockDirection.down) go->position.y -= 5;
-		Vector n = e.normalSurfaceVector;
-		Vector d = go->body->velocity;
-		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
-		go->body->velocity = r;
-	};
 
 	//ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
 	//Vector velocity = go->body->velocity;
@@ -74,7 +63,7 @@ void PingPongState::Create()
 	//go->body->velocity = 0;
 	//};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(10, Vector(1,0));
+	ball->body->AddForce(10, Vector(3,4));
 #pragma endregion Ball
 
 	
@@ -120,9 +109,26 @@ void PingPongState::Create()
 	}
 	leftBat->SetScale(1, 0.5);
 	rightBat->SetScale(1, 0.5);
+	ball->body->CheckCollisionTo(leftBat);
+	ball->body->CheckCollisionTo(rightBat);
 #pragma endregion Bat
 
-
+	ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
+		Vector velocity = go->body->velocity;
+		float movePosition = 5;
+		if (e.blockDirection.left) go->position.x += 5;
+		else if (e.blockDirection.right) go->position.x -= 5;
+		else if (e.blockDirection.up) go->position.y += 5;
+		else if (e.blockDirection.down) go->position.y -= 5;
+		Vector n = e.normalSurfaceVector;
+		Vector d = velocity;
+		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+		go->body->velocity = r;
+		if (e.remainingTime > 0.0f) {
+			go->position.x += r.x*e.remainingTime;
+			go->position.y += r.y*e.remainingTime;
+		}
+	};
 
 #pragma region Others
 	// Text
@@ -172,8 +178,8 @@ void PingPongState::PreRender()
 }
 void PingPongState::Render()
 {
-	game->physics->CheckBound(leftBat, ball);
-	game->physics->CheckBound(rightBat, ball);
+	//game->physics->CheckBound(leftBat, ball);
+	//game->physics->CheckBound(rightBat, ball);
 	ball->body->Render();
 	leftBat->body->Render();
 	rightBat->body->Render();

@@ -151,6 +151,7 @@
     <ClInclude Include="Add.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Body.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Cache.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Circle.h" />

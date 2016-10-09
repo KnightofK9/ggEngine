@@ -9,6 +9,7 @@ ggEngine::Rectangle::Rectangle(float width, float height)
 	p3 = Vector(0 + width, 0 + height);
 	p4 = Vector(0, 0 + height);
 	pCenter = p3 / 2;
+	isReady = false;
 }
 
 ggEngine::Rectangle::~Rectangle()
@@ -32,5 +33,6 @@ void ggEngine::Rectangle::Transform(Matrix transformMatrix)
 	p3.SetTransform(transformMatrix);
 	p4.SetTransform(transformMatrix);
 	pCenter.SetTransform(transformMatrix);
+	isReady = true;
 }
 

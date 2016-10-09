@@ -1,8 +1,11 @@
+#define NOMINMAX
 #include "Body.h"
 #include "Sprite.h"
 #include "Game.h"
 #include "Events.h"
 #include "ColliderArg.h"
+#include "Box.h"
+#include <Windows.h>
 namespace ggEngine {
 	Body::Body(Game* game,Sprite * sprite)
 	{
@@ -22,6 +25,14 @@ namespace ggEngine {
 	{
 		delete rigidBody;
 	}
+	void Body::CheckCollisionTo(GameObject * staticGo)
+	{
+		collisionObjectList.push_back(staticGo);
+	}
+	void Body::RemoveCheckCollisionWith(GameObject * staticGo)
+	{
+		collisionObjectList.erase(std::remove(collisionObjectList.begin(), collisionObjectList.end(), staticGo), collisionObjectList.end());
+	}
 	void Body::StopMovement(bool stopVelocity)
 	{
 	}
@@ -31,8 +42,128 @@ namespace ggEngine {
 		width = sprite->GetWidth();
 		height = sprite->GetHeight();
 	}
-	void Body::UpdateMovement()
+
+	float Body::PerformCollisionSweptAABB(GameObject * staticGo)
 	{
+		Rectangle *rect1 = dynamic_cast<Rectangle*>(this->rigidBody);
+		Rectangle *rect2 = dynamic_cast<Rectangle*>(staticGo->body->rigidBody);
+		if (!rect1->isReady || !rect2->isReady) return 1.0f;
+		float xInvEntry, yInvEntry;
+		float xInvExit, yInvExit;
+		Vector normalVector;
+		ColliderArg e;
+		Box b1;
+		b1.x = rect1->p1.x;
+		b1.y = rect1->p1.y;
+		b1.w = rect1->width;;
+		b1.h = rect1->height;
+		b1.vx = velocity.x;
+		b1.vy = velocity.y;
+		Box b2;
+		b2.x = rect2->p1.x;
+		b2.y = rect2->p1.y;
+		b2.w = rect2->width;
+		b2.h = rect2->height;
+		b2.vx = b2.vy = 0;
+		//b1 is moving right
+		if (b1.vx > 0.0f) { 
+			xInvEntry = b2.x - (b1.x + b1.w); //Shortest x distance
+			xInvExit = (b2.x + b2.w) - b1.x; //Longest x distance
+		}
+		//b1 is moving left
+		else { 
+			xInvEntry = (b2.x + b2.w) - b1.x;
+			xInvExit = b2.x - (b1.x + b1.w);
+		}
+		//b1 is moving down
+		if (b1.vy > 0.0f) { 
+			yInvEntry = b2.y - (b1.x + b1.h);
+			yInvExit = (b2.y + b2.h) - b1.y;
+		}
+		//b1 is moving up
+		else {
+			yInvEntry = (b2.y + b2.h) - b1.y;
+			yInvExit = b2.y - (b1.y + b1.h);
+		}
+
+		float xEntry, yEntry;
+		float xExit, yExit;
+
+		if (b1.vx == 0.0f) {
+			xEntry = -std::numeric_limits<float>::infinity();
+			xExit = std::numeric_limits<float>::infinity();
+		}
+		else {
+			xEntry = xInvEntry / b1.vx;
+			xExit = xInvExit / b1.vx;
+		}
+		if (b1.vy == 0.0f) {
+			yEntry = -std::numeric_limits<float>::infinity();
+			yExit = std::numeric_limits<float>::infinity();
+		}
+		else {
+			yEntry = yInvEntry / b1.vy;
+			yExit = yInvExit / b1.vy;
+		}
+		float entryTime = std::max(xEntry, yEntry);
+		float exitTime = std::min(xExit, yExit);
+		if (entryTime > exitTime || xEntry<0.0f&&yEntry<0.0f || xEntry>1.0f || yEntry>1.0f) {
+			normalVector.x = 0.0f;
+			normalVector.y = 0.0f;
+			// No collision found
+			return 1.0f;
+		}
+		else {
+			if (xEntry > yEntry) { //Get the max because object can collide with other axis already but not collided with box yet
+				if (xInvEntry < 0.0f) { // b2 | b1
+					e.blockDirection.left = true;
+					normalVector.x = 1.0f;
+					normalVector.y = 0.0f;
+				}
+				else { // b1 | b2
+					e.blockDirection.right = true;
+					normalVector.x = -1.0f;
+					normalVector.y = 0.0f;
+				}
+			}
+			else {
+				if (yInvEntry < 0.0f) { // b2/b1
+					e.blockDirection.up = true;
+					normalVector.x = 0.0f;
+					normalVector.y = 1.0f;
+				}
+				else { // b1/b2
+					e.blockDirection.down = true;
+					normalVector.x = 0.0f;
+					normalVector.y = -1.0f;
+				}
+			}
+		}
+		e.bound = true;
+		e.normalSurfaceVector = normalVector;
+		//Handle when collision happened
+		position->x += velocity.x*entryTime;
+		position->y += velocity.y*entryTime;
+
+		float remainingTime = 1 - entryTime;
+		e.remainingTime = remainingTime;
+		if (this->sprite->events->onCollide != nullptr) this->sprite->events->onCollide(this->sprite, e);
+
+		return entryTime;
+	}
+	void Body::CheckCollisionAndUpdateMovement()
+	{
+		bool isCollided = false;
+		for (std::vector<GameObject*>::iterator it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+			float collideTime = PerformCollisionSweptAABB((*it));
+			if (collideTime < 1.0f) {
+				isCollided = true;
+				break;
+			}
+		}
+		if (isCollided) {
+			return;
+		}
 		//Debug::Log("Current position :" + std::to_string(position->y));
 		float timeStep = game->logicTimer.getDeltaTime();
 		Vector lastAcceleration = acceleration;
@@ -146,22 +277,6 @@ namespace ggEngine {
 	{
 		return false;
 	}
-	float Body::DeltaAbsX()
-	{
-		return 0.0f;
-	}
-	float Body::DeltaAbsY()
-	{
-		return 0.0f;
-	}
-	float Body::DeltaX()
-	{
-		return 0.0f;
-	}
-	float Body::DeltaY()
-	{
-		return 0.0f;
-	}
 	void Body::Destroy()
 	{
 		isAlive = false;
@@ -177,11 +292,11 @@ namespace ggEngine {
 	void Body::Update()
 	{
 		PreUpdate();
-		UpdateMovement();
+		CheckCollisionAndUpdateMovement();
 		UpdateBounds();
 		PostUpdate();
 	}
-
+	//Wrong, try to re-implemented it
 	void Body::IncrementForce(float force)
 	{
 		int signX = 1;
@@ -217,6 +332,7 @@ namespace ggEngine {
 		if (!allowGravity) return Vector(0, 0);
 		return Vector(0,mass*gravity);
 	}
+	//The damping need to be calculated
 	Vector Body::CalculateDampingForce()
 	{
 		return Vector();

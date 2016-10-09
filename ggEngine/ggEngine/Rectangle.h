@@ -8,6 +8,7 @@ namespace ggEngine {
 		~Rectangle();
 		float GetArea();
 		void Destroy();
+		bool isReady;
 		void Transform(Matrix transformMatrix);
 		Vector p1, p2, p3, p4, pCenter;
 		float width, height;

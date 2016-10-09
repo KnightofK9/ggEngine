@@ -9,6 +9,9 @@
 #include <functional>
 #include "Circle.h"
 #include "Direction.h"
+#include <vector>
+#include "GameObject.h"
+#include <algorithm>
 namespace ggEngine {
 	class Sprite;
 	class Game;
@@ -16,6 +19,8 @@ namespace ggEngine {
 	public:
 		Body(Game *game,Sprite *sprite);
 		~Body();
+		void CheckCollisionTo(GameObject *staticGo);
+		void RemoveCheckCollisionWith(GameObject *staticGo);
 		int width;
 		int height;
 		int orgWidth;
@@ -66,9 +71,6 @@ namespace ggEngine {
 		bool moves = true;
 		bool customSeperateX = false;
 		bool customeSeperateY = false;
-		float overlapX = 0;
-		float overlapY = 0;
-		float overlapR = 0;
 		bool embedded = false;
 		bool collideWorldBounds = false;
 		Game* game;
@@ -101,10 +103,6 @@ namespace ggEngine {
 		bool OnFloor();
 		bool OnCeiling();
 		bool OnWall();
-		float DeltaAbsX();
-		float DeltaAbsY();
-		float DeltaX();
-		float DeltaY();
 		void Destroy();
 		void Render(D3DCOLOR color = DEFAULT_COLOR, bool filled = false);
 		std::string ToString();
@@ -115,13 +113,15 @@ namespace ggEngine {
 		void CreateCircleRigidBody(float radius);
 		void CreateRectangleRigidBody(float width, float height);
 	private:
+		std::vector<GameObject*> collisionObjectList;
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
 		Vector CalculateDampingForce();
 		float CalculateArea();
+		float PerformCollisionSweptAABB(GameObject *staticGo);
 		void UpdateBounds();
 		void PreUpdate();
-		void UpdateMovement();
+		void CheckCollisionAndUpdateMovement();
 		void PostUpdate();
 		bool isAlive;
 	};
