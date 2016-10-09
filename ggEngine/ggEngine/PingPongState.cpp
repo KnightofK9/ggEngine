@@ -119,11 +119,11 @@ void PingPongState::Create()
 
 
 	ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
-		g_debug.Log("Collided found with " + e.colliderObject->name);
-		if (e.colliderObject->name == rightBat->name) {
-			ggEngine::Rectangle *rect = dynamic_cast<ggEngine::Rectangle*>(e.colliderObject->body->rigidBody);
-			g_debug.Log(rect->p1.ToString());
-		}
+		//g_debug.Log("Collided found with " + e.colliderObject->name);
+		//if (e.colliderObject->name == rightBat->name) {
+		//	ggEngine::Rectangle *rect = dynamic_cast<ggEngine::Rectangle*>(e.colliderObject->body->rigidBody);
+		//	g_debug.Log(rect->p1.ToString());
+		//}
 		Vector velocity = go->body->velocity;
 		float movePosition = 5;
 		if (e.blockDirection.left) go->position.x += 5;
