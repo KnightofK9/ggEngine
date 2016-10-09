@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "ConstantEnum.h"
+namespace ggEngine {
 	class Window {
 	public:
 		Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height);
@@ -12,3 +13,4 @@
 		WNDCLASS windowClass;
 		HWND window;
 	};
+}

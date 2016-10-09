@@ -1,5 +1,5 @@
 #include "Window.h"
-
+namespace ggEngine {
 	Window::Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height)
 	{
 		windowClass.style = NULL;
@@ -30,5 +30,6 @@
 	Window::~Window()
 	{
 		UnregisterClass(windowClass.lpszClassName, windowClass.hInstance);
-		if (window != NULL) { DestroyWindow(window);window = NULL; }
+		if (window != NULL) { DestroyWindow(window); window = NULL; }
 	}
+}
