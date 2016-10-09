@@ -65,6 +65,10 @@ namespace ggEngine {
 		b2.w = rect2->p3.x-rect2->p1.x;
 		b2.h = rect2->p3.y-rect2->p1.y;
 		b2.vx = b2.vy = 0;
+		if (b1.vx > 0.0f && ((b2.x + b2.w) < b1.x)) return 1.0f;
+		if (b1.vx < 0.0f && (b2.x>(b1.x + b1.w))) return 1.0f;
+		if (b1.vy > 0 && ((b2.y + b2.h) < b1.y)) return 1.0f;
+		if (b1.vy < 0 && (b2.y > (b1.y+b1.h))) return 1.0f;
 		//b1 is moving right
 		if (b1.vx > 0.0f) { 
 			xInvEntry = b2.x - (b1.x + b1.w); //Shortest x distance
@@ -106,7 +110,8 @@ namespace ggEngine {
 		}
 		float entryTime = std::max(xEntry, yEntry);
 		float exitTime = std::min(xExit, yExit);
-		if (entryTime > exitTime || xEntry<0.0f&&yEntry<0.0f || xEntry>1.0f || yEntry>1.0f) {
+		if (entryTime > exitTime || xEntry>1.0f || yEntry>1.0f) {
+			//g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) + "|yEntry:" + std::to_string(yEntry));
 			normalVector.x = 0.0f;
 			normalVector.y = 0.0f;
 			// No collision found
