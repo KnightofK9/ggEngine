@@ -5,6 +5,7 @@
 using namespace ggEngine;
 class PingPongState : public State {
 private:
+	float currentSpeed = 10;
 	Sprite *ball, *leftBat, *rightBat;
 	Group* group;
 	long score1, score2;

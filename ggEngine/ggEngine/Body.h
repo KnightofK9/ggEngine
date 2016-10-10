@@ -118,7 +118,7 @@ namespace ggEngine {
 		Vector CalculateGravityForce();
 		Vector CalculateDampingForce();
 		float CalculateArea();
-		float PerformCollisionSweptAABB(GameObject *staticGo);
+		float PerformCollisionSweptAABB(GameObject *staticGo,Vector currentVelocity);
 		void UpdateBounds();
 		void PreUpdate();
 		void CheckCollisionAndUpdateMovement();

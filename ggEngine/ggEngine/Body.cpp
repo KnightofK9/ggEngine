@@ -44,7 +44,7 @@ namespace ggEngine {
 		height = sprite->GetHeight();
 	}
 
-	float Body::PerformCollisionSweptAABB(GameObject * staticGo)
+	float Body::PerformCollisionSweptAABB(GameObject * staticGo, Vector currentVelocity)
 	{
 		Rectangle *rect1 = dynamic_cast<Rectangle*>(this->rigidBody);
 		Rectangle *rect2 = dynamic_cast<Rectangle*>(staticGo->body->rigidBody);
@@ -58,8 +58,8 @@ namespace ggEngine {
 		b1.y = rect1->p1.y;
 		b1.w = rect1->p3.x-rect1->p1.x;
 		b1.h = rect1->p3.y-rect1->p1.y;
-		b1.vx = velocity.x*game->logicTimer.getDeltaTime()*PIXEL_PER_CENTIMETER;
-		b1.vy = velocity.y*game->logicTimer.getDeltaTime()*PIXEL_PER_CENTIMETER;
+		b1.vx = currentVelocity.x*PIXEL_PER_CENTIMETER;
+		b1.vy = currentVelocity.y*PIXEL_PER_CENTIMETER;
 		Box b2;
 		b2.x = rect2->p1.x;
 		b2.y = rect2->p1.y;
@@ -68,8 +68,8 @@ namespace ggEngine {
 		b2.vx = b2.vy = 0;
 		if (b1.vx > 0.0f && ((b2.x + b2.w) < b1.x)) return 1.0f;
 		if (b1.vx < 0.0f && (b2.x>(b1.x + b1.w))) return 1.0f;
-		if (b1.vy > 0 && ((b2.y + b2.h) < b1.y)) return 1.0f;
-		if (b1.vy < 0 && (b2.y > (b1.y+b1.h))) return 1.0f;
+		if (b1.vy > 0.0f && ((b2.y + b2.h) < b1.y)) return 1.0f;
+		if (b1.vy < 0.0f && (b2.y > (b1.y+b1.h))) return 1.0f;
 		//BroadPhase check
 		Box broadPhaseBox = Physics::CreateSweptBroadPhaseBox(b1);
 		if (!Physics::AABBCheck(broadPhaseBox, b2)) {
@@ -128,6 +128,8 @@ namespace ggEngine {
 			return 1.0f;
 		}
 		else {
+			g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) );
+
 			if (xEntry > yEntry) { //Get the max because object can collide with other axis already but not collided with box yet
 				if (xInvEntry < 0.0f) { // b2 | b1
 					e.blockDirection.left = true;
@@ -156,8 +158,8 @@ namespace ggEngine {
 		e.bound = true;
 		e.normalSurfaceVector = normalVector;
 		//Handle when collision happened
-		position->x += velocity.x*entryTime;
-		position->y += velocity.y*entryTime;
+		position->x += b1.vx*entryTime;
+		position->y += b1.vy*entryTime;
 
 		float remainingTime = 1 - entryTime;
 		e.remainingTime = remainingTime;
@@ -181,7 +183,7 @@ namespace ggEngine {
 		velocity += acceleration*timeStep;
 		bool isCollided = false;
 		for (std::vector<GameObject*>::iterator it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
-			float collideTime = PerformCollisionSweptAABB((*it));
+			float collideTime = PerformCollisionSweptAABB((*it),temp);
 			if (collideTime < 1.0f) {
 				isCollided = true;
 				break;
