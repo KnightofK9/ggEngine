@@ -229,4 +229,20 @@ namespace ggEngine {
 	void Physics::Reset(){
 		bodyList.clear();
 	}
+	Box Physics::CreateSweptBroadPhaseBox(Box b)
+	{
+		Box broadPhaseBox;
+		broadPhaseBox.x = b.vx > 0 ? b.x : b.x + b.vx;
+		broadPhaseBox.y = b.vy > 0 ? b.y : b.y + b.vy;
+		broadPhaseBox.w = b.vx > 0 ? b.vx + b.w : b.w;
+		broadPhaseBox.h = b.vy > 0 ? b.vy + b.h : b.h;
+		return broadPhaseBox;
+	}
+	bool Physics::AABBCheck(Box b1, Box b2)
+	{
+		RECT r1 = b1.GetRect();
+		RECT r2 = b2.GetRect();
+		RECT rI;
+		return IntersectRect(&rI, &r1, &r2);
+	}
 }

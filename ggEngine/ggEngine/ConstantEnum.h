@@ -10,6 +10,7 @@
 #define GRAVITY (float(9.81))
 #define MATH_PI (float(3.41))
 #define DEFAULT_COLOR D3DCOLOR_RGBA(170, 255, 0, 150)
+#define PIXEL_PER_CENTIMETER 100
 const bool PRINT_DETAIL = false;
 const int ERROR_CODE_UNKNOWN = 400;
 const int ERROR_CODE_D3DERR_INVALIDCALL = 401;

@@ -3,6 +3,7 @@
 #include <list>
 #include "ColliderArg.h"
 #include "GameObject.h"
+#include "Box.h"
 namespace ggEngine {
 	extern float timeEntrySAABB; // For using Swept AABB
 
@@ -16,7 +17,8 @@ namespace ggEngine {
 		void UpdatePhysics();
 		void EnablePhysics(Sprite *sprite);
 		void Reset();
-
+		static Box CreateSweptBroadPhaseBox(Box b);
+		static bool AABBCheck(Box b1, Box b2);
 	private:
 		PhysicsMode physicsMode;
 		Game *game;

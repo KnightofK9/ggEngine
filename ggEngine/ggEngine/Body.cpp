@@ -6,6 +6,7 @@
 #include "ColliderArg.h"
 #include "Box.h"
 #include <Windows.h>
+#include "Physics.h"
 namespace ggEngine {
 	Body::Body(Game* game,Sprite * sprite)
 	{
@@ -57,8 +58,8 @@ namespace ggEngine {
 		b1.y = rect1->p1.y;
 		b1.w = rect1->p3.x-rect1->p1.x;
 		b1.h = rect1->p3.y-rect1->p1.y;
-		b1.vx = velocity.x*game->logicTimer.getDeltaTime()*100;
-		b1.vy = velocity.y*game->logicTimer.getDeltaTime()*100;
+		b1.vx = velocity.x*game->logicTimer.getDeltaTime()*PIXEL_PER_CENTIMETER;
+		b1.vy = velocity.y*game->logicTimer.getDeltaTime()*PIXEL_PER_CENTIMETER;
 		Box b2;
 		b2.x = rect2->p1.x;
 		b2.y = rect2->p1.y;
@@ -69,6 +70,15 @@ namespace ggEngine {
 		if (b1.vx < 0.0f && (b2.x>(b1.x + b1.w))) return 1.0f;
 		if (b1.vy > 0 && ((b2.y + b2.h) < b1.y)) return 1.0f;
 		if (b1.vy < 0 && (b2.y > (b1.y+b1.h))) return 1.0f;
+		//BroadPhase check
+		Box broadPhaseBox = Physics::CreateSweptBroadPhaseBox(b1);
+		if (!Physics::AABBCheck(broadPhaseBox, b2)) {
+			//g_debug.Log("BroadPhaseCheck success");
+			return 1.0f;
+		}
+
+
+
 		//b1 is moving right
 		if (b1.vx > 0.0f) { 
 			xInvEntry = b2.x - (b1.x + b1.w); //Shortest x distance
@@ -181,7 +191,7 @@ namespace ggEngine {
 			return;
 		}
 
-		(*position) += temp * 100;
+		(*position) += temp * PIXEL_PER_CENTIMETER;
 	}
 	void Body::UpdateBounds()
 	{
