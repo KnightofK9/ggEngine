@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\application\claw\include\claw;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
+    <IncludePath>E:\application\boost_1_62_0;E:\application\boost_1_62_0\libs;E:\application\boost-tweener-rc1\include;E:\application\claw\include\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\application\claw\lib;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
