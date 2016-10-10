@@ -1,8 +1,8 @@
 #pragma once
 #include <d3d9.h>
 #include "Vector.h"
-#define WINDOW_WIDTH ((int)1024) //(int)650 //((int)800)
-#define WINDOW_HEIGHT ((int)768)) //((int)600)
+#define WINDOW_WIDTH ((int)1366) //(int)650 //((int)800)
+#define WINDOW_HEIGHT ((int)768) //((int)600)
 #define MILISECOND_PER_UPDATE ((int)14)
 #define VECTOR_ZERO (Vector(0,0))
 #define DEFAULT_IMAGE ""

@@ -74,18 +74,16 @@ void PingPongState::Create()
 	leftBat->body->allowBounciness = false;
 	leftBat->body->CreateRectangleRigidBody(leftBat->GetWidth(), leftBat->GetHeight());
 	game->eventManager->EnableKeyBoardInput(leftBat);
-	if (!isSingle) {
-		leftBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-			if (e.isPress(DIK_W)) {
-				if (!go->body->blocked.up)
-					go->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-			}
-			if (e.isPress(DIK_S)) {
-				if (!go->body->blocked.down)
-					go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-			}
-		};
-	}
+	leftBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
+		if (e.isPress(DIK_W)) {
+			if (!go->body->blocked.up)
+				go->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		}
+		if (e.isPress(DIK_S)) {
+			if (!go->body->blocked.down)
+				go->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		}
+	};
 
 	rightBat = this->add->Sprite(WINDOW_WIDTH - leftBat->GetWidth() / 2, WINDOW_HEIGHT / 2.0, "bat", group);
 	rightBat->name = "Right Bat";
@@ -158,16 +156,17 @@ void PingPongState::Update()
 	textScore1->SetText(std::to_string(score1));
 	textScore2->SetText(std::to_string(score2));
 	if (isSingle) {
+	/*	if (ball->position.y<leftBat->position.y)
+			leftBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		else if (ball->position.y>leftBat->position.y) {
+			leftBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
+		}*/
 		if (ball->position.y<rightBat->position.y)
 			rightBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		else if (ball->position.y>rightBat->position.y) {
 			rightBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		}
-		if (ball->position.y<leftBat->position.y)
-			leftBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-		else if (ball->position.y>leftBat->position.y) {
-			leftBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-		}
+	
 	}
 	if (game->GetInput()->KeyDown(DIK_Q)) {
 		game->stateManager->Start("MenuState", true, false);
@@ -178,9 +177,9 @@ void PingPongState::PreRender()
 }
 void PingPongState::Render()
 {
-	ball->body->Render();
-	leftBat->body->Render();
-	rightBat->body->Render();
+	//ball->body->Render();
+	//leftBat->body->Render();
+	//rightBat->body->Render();
 	//Debug::Log(game->frameRateReal);
 }
 void PingPongState::Pause()
