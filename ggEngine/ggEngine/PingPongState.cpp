@@ -138,11 +138,14 @@ void PingPongState::Create()
 #pragma region Others
 	// Text
 	Style style;
-	style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
+	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
 	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 80, WINDOW_HEIGHT/2.0, "default",200,200, std::to_string(score1), style, group);
 	textScore1->SetAnchor(0.5, 0.5);
 	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 80, WINDOW_HEIGHT/2.0, "default",200,200, std::to_string(score2), style, group);
 	textScore2->SetAnchor(0.5, 0.5);
+	textScore1->SetScale(Vector(3, 3));
+	textScore2->SetScale(Vector(3, 3));
 
 	Style style2;
 	style.fontColor = D3DCOLOR_ARGB(255, 30, 30, 30);
