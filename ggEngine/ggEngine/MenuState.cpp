@@ -37,6 +37,10 @@ void Switch(bool isSwitchToSingle) {
 
 void MenuState::Create()
 {
+	sound = new Sound(game->hWnd, "sound.wav");
+	sound->SetLooping(true);
+	sound->Start();
+
 	groupMenu = this->add->Group();
 	menuBackground = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "menuBackground", groupMenu);
 	menuBackground->SetScale(Vector(0.8, 0.8));
@@ -96,4 +100,9 @@ void MenuState::Resume()
 
 void MenuState::ShutDown()
 {
+	if (sound != NULL)
+	{
+		delete sound;
+		sound = NULL;
+	}
 }

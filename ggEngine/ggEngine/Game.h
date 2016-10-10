@@ -35,6 +35,7 @@ namespace ggEngine {
 		long frameRateCore;
 		Input* GetInput() { return this->input; }
 		World *world;
+		HWND hWnd; //Temp
 	private:
 		//
 		// Private Method
@@ -52,7 +53,7 @@ namespace ggEngine {
 		//
 		// Private Field
 		//
-		HWND hWnd;
+		//HWND hWnd;
 		bool isRunning;
 		std::list<Group*> topGroupList;
 		long frameCountCore; 

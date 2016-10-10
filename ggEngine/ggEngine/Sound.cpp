@@ -3,21 +3,30 @@
 #include <mmsystem.h>
 #include <dsound.h>
 #include <stdio.h>
+#include <string>
 
 
 
 
 Sound::Sound()
 {
-	dSound = 0;
-	primaryBuffer = 0;
-	secondBuffer = 0;
 }
 
-Sound::Sound(HWND hWnd)
+Sound::Sound(HWND hWnd, const char * fileName)
 {
-	HRESULT result;
-	InitializeDirectSound(hWnd);
+	volume = 80;
+	isLooping = false;
+	soundType = SoundEffect;
+
+
+	bool result = InitializeDirectSound(hWnd);
+	if (!result)
+		MessageBox(hWnd, "Could not initialize Direct Sound", "Error", MB_OK);
+	std::string filePath(fileName);
+	filePath = "Resource/Sound/" + filePath;
+	result = LoadWaveFile(filePath.c_str(), &secondBuffer);
+	if (!result)
+		MessageBox(hWnd, "Could not load wav resouce", "Error", MB_OK);
 }
 
 Sound::~Sound()
@@ -73,7 +82,7 @@ bool Sound::InitializeDirectSound(HWND hWnd)
 	waveFormat.nSamplesPerSec = 44100;
 	waveFormat.wBitsPerSample = 16;
 	waveFormat.nChannels = 2;
-	waveFormat.nBlockAlign = (waveFormat.wBitsPerSample / 8)*waveFormat.nChannels;
+	waveFormat.nBlockAlign = (waveFormat.wBitsPerSample / 8) * waveFormat.nChannels;
 	waveFormat.nAvgBytesPerSec = waveFormat.nSamplesPerSec * waveFormat.nBlockAlign;
 	waveFormat.cbSize = 0;
 	
@@ -83,16 +92,15 @@ bool Sound::InitializeDirectSound(HWND hWnd)
 	return true;
 }
 
-bool Sound::LoadWaveFile(char * fileName, LPDIRECTSOUNDBUFFER8 * soundBuffer)
+bool Sound::LoadWaveFile(const char * fileName, LPDIRECTSOUNDBUFFER8 * secondBuffer)
 {
 	int error;
 	FILE *file;
-	
+	unsigned int count;
 	WaveHeaderType waveFileHeader;
 	WAVEFORMATEX waveFormat;
 	DSBUFFERDESC bufferDesc;
 	HRESULT result;
-	unsigned int count;
 	LPDIRECTSOUNDBUFFER tempBuffer;
 	unsigned char *waveData;
 	unsigned char *buffer;
@@ -102,10 +110,11 @@ bool Sound::LoadWaveFile(char * fileName, LPDIRECTSOUNDBUFFER8 * soundBuffer)
 	if (error != 0)
 		return false;
 
-	count = fread(&waveFileHeader, sizeof(waveFileHeader), 1, file);
+	count = fread(&waveFileHeader, sizeof(WaveHeaderType), 1, file);
 	if (count != 1)
 		return false;
 
+	// Check if valid Standard (stereo CD 44.1KB/s, 2 channels)
 	if (!CheckWaveFile(waveFileHeader))
 		return false;
 
@@ -129,7 +138,7 @@ bool Sound::LoadWaveFile(char * fileName, LPDIRECTSOUNDBUFFER8 * soundBuffer)
 	result = dSound->CreateSoundBuffer(&bufferDesc, &tempBuffer, NULL);
 	if (FAILED(result))
 		return false;
-	result = tempBuffer->QueryInterface(IID_IDirectSound, (void**)&*secondBuffer);
+	result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, (void**)&*secondBuffer);
 	if (FAILED(result))
 		return false;
 
@@ -137,8 +146,7 @@ bool Sound::LoadWaveFile(char * fileName, LPDIRECTSOUNDBUFFER8 * soundBuffer)
 	tempBuffer = NULL;
 
 	//Move to begin the wave, starts at the end of data chunk header
-	fseek(file, sizeof(waveFileHeader), SEEK_SET);
-	// hold wave data
+	fseek(file, sizeof(WaveHeaderType), SEEK_SET);
 	waveData = new unsigned char[waveFileHeader.dataSize];
 	if (waveData == NULL)
 		return false;
@@ -147,11 +155,12 @@ bool Sound::LoadWaveFile(char * fileName, LPDIRECTSOUNDBUFFER8 * soundBuffer)
 	if (count != waveFileHeader.dataSize)
 		return false;
 
-	if (!fclose(file))
+	error = fclose(file);
+	if (error != 0)
 		return false;
 
 	// Lock secondary buffer
-	result = (secondBuffer)->Lock
+	result = (*secondBuffer)->Lock
 	(
 		0,
 		waveFileHeader.dataSize,
@@ -166,7 +175,7 @@ bool Sound::LoadWaveFile(char * fileName, LPDIRECTSOUNDBUFFER8 * soundBuffer)
 	memcpy(buffer, waveData, waveFileHeader.dataSize);
 
 	// Unlock
-	result = (secondBuffer)->Unlock(buffer, bufferSize, NULL, 0);
+	result = (*secondBuffer)->Unlock((void*)buffer, bufferSize, NULL, 0);
 	if (FAILED(result))
 		return false;
 
@@ -186,17 +195,17 @@ bool Sound::CheckWaveFile(WaveHeaderType waveFileHeader)
 		return false;
 
 	//WAVE format
-	if ((waveFileHeader.chunkId[0] != 'W')
-		|| (waveFileHeader.chunkId[1] != 'A')
-		|| (waveFileHeader.chunkId[2] != 'V')
-		|| (waveFileHeader.chunkId[3] != 'E'))
+	if ((waveFileHeader.format[0] != 'W')
+		|| (waveFileHeader.format[1] != 'A')
+		|| (waveFileHeader.format[2] != 'V')
+		|| (waveFileHeader.format[3] != 'E'))
 		return false;
 
 	//fmt format
-	if ((waveFileHeader.chunkId[0] != 'f')
-		|| (waveFileHeader.chunkId[1] != 'm')
-		|| (waveFileHeader.chunkId[2] != 't')
-		|| (waveFileHeader.chunkId[3] != ' '))
+	if ((waveFileHeader.subChunkId[0] != 'f')
+		|| (waveFileHeader.subChunkId[1] != 'm')
+		|| (waveFileHeader.subChunkId[2] != 't')
+		|| (waveFileHeader.subChunkId[3] != ' '))
 		return false;
 
 	if (waveFileHeader.audioFormat != WAVE_FORMAT_PCM)
@@ -218,23 +227,38 @@ bool Sound::CheckWaveFile(WaveHeaderType waveFileHeader)
 	return true;
 }
 
-bool Sound::PlaySound(int volume)
+void Sound::Start() //volume level 100
 {
-	HRESULT result;
-	result = secondBuffer->SetCurrentPosition(0);
-	if (FAILED(result))
-		return false;
-	result = secondBuffer->SetVolume(volume - 10000);
-	if (FAILED(result))
-		return false;
-	result = secondBuffer->Play(0, 0, 0);
-	if (FAILED(result))
-		return false;
-	
-	return true;
+	secondBuffer->SetCurrentPosition(0);
+	secondBuffer->SetVolume(volume*100 - 10000);
+	secondBuffer->Play(0, 0, isLooping);
 }
 
-bool Sound::StopSound()
+void Sound::Pause()
 {
-	return false;
+	secondBuffer->Stop();
+}
+
+void Sound::Stop()
+{
+	secondBuffer->Stop();
+	secondBuffer->SetCurrentPosition(0);
+}
+
+void Sound::Resume()
+{
+	secondBuffer->Play(0, 0, isLooping);
+}
+
+void Sound::SetLooping(bool mode)
+{
+	if (mode)
+		isLooping = DSBPLAY_LOOPING;
+	else
+		isLooping = 0;
+}
+
+void Sound::SetVolume(int volume)
+{
+	secondBuffer->SetVolume(volume * 100 - 10000);
 }
