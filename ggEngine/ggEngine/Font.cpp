@@ -26,7 +26,7 @@ ggEngine::Font::~Font()
 	font = NULL;
 }
 
-void ggEngine::Font::Draw(float worldX, float worldY,std::string text, D3DCOLOR fontColor)
+void ggEngine::Font::Draw(double worldX, double worldY,std::string text, D3DCOLOR fontColor)
 {
 	RECT rect = { 0,0,worldX,worldY };
 	font->DrawTextA(NULL, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, fontColor);

@@ -20,7 +20,7 @@ namespace ggEngine {
 		void Warning(int number);
 		void Error(std::string message);
 		void Error(std::wstring message);
-		void DebugToScreen(float x, float y,std::string text);
+		void DebugToScreen(double x, double y,std::string text);
 	private:
 		Font *defaultFont;
 		Game* game;

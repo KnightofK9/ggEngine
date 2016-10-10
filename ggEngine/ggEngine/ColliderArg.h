@@ -10,7 +10,7 @@ namespace ggEngine {
 		~ColliderArg();
 		bool overLapped = false;
 		bool bound = false;
-		float remainingTime = 0;
+		double remainingTime = 0;
 		Vector normalSurfaceVector;
 		Direction blockDirection;
 		GameObject *colliderObject;

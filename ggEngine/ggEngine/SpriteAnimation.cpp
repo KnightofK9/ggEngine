@@ -105,28 +105,28 @@ namespace ggEngine {
 			this->numberOfFrame = num;
 		}
 	}
-	void SpriteAnimation::SetWidth(float width)
+	void SpriteAnimation::SetWidth(double width)
 	{
-		this->scale.x = ((float)width / this->frameWidth);
+		this->scale.x = ((double)width / this->frameWidth);
 		this->width = width;
 	}
-	void SpriteAnimation::SetHeight(float height)
+	void SpriteAnimation::SetHeight(double height)
 	{
-		this->scale.y = (float)height / this->frameHeight;
+		this->scale.y = (double)height / this->frameHeight;
 		this->height = height;
 	}
-	void SpriteAnimation::SetScale(float x, float y)
+	void SpriteAnimation::SetScale(double x, double y)
 	{
 		GameObject::SetScale(x, y);
 		this->width = this->frameWidth*x;
 		this->height = this->frameHeight*y;
 	}
-	float SpriteAnimation::GetWidth()
+	double SpriteAnimation::GetWidth()
 	{
 		//return this->frameWidth*this->scale.x;
 		return this->width;
 	}
-	float SpriteAnimation::GetHeight()
+	double SpriteAnimation::GetHeight()
 	{
 		//return this->frameHeight*this->scale.y;
 		return this->height;

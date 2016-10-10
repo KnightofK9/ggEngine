@@ -27,7 +27,7 @@ namespace ggEngine {
 	{
 		this->position = vector;
 	}
-	void GameObject::SetPosition(float x, float y)
+	void GameObject::SetPosition(double x, double y)
 	{
 		this->position.x = x;
 		this->position.y = y;

@@ -1,8 +1,0 @@
-<TextureAtlas imagePath="sprites.png">
-	<SubTexture name="singleBtnNormal" x="0" y="172" width="174" height="84"/>
-	<SubTexture name="singleBtnHolver" x="0" y="258" width="174" height="84"/>
-	<SubTexture name="multiBtnNormal" x="0" y="86" width="174" height="84"/>
-	<SubTexture name="multiBtnHover" x="0" y="0" width="174" height="84"/>
-	<SubTexture name="ball" x="0" y="344" width="36" height="36"/>
-	<SubTexture name="bat" x="176" y="0" width="62" height="283"/>
-</TextureAtlas>

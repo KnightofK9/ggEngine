@@ -73,21 +73,21 @@ namespace ggEngine {
 		return  Matrix(D3DXMATRIX::operator/(value));
 	}
 
-	Matrix  Matrix::CreateTranslateMatrix(float x, float y)
+	Matrix  Matrix::CreateTranslateMatrix(double x, double y)
 	{
 		Matrix mat;
 		D3DXMatrixTranslation(&mat, x, y, 0);
 		return mat;
 	}
 
-	Matrix  Matrix::CreateScaleMatrix(float x, float y)
+	Matrix  Matrix::CreateScaleMatrix(double x, double y)
 	{
 		Matrix mat;
 		D3DXMatrixScaling(&mat, x, y, 0);
 		return mat;
 	}
 
-	Matrix  Matrix::CreateRotateMatrix(float angle)
+	Matrix  Matrix::CreateRotateMatrix(double angle)
 	{
 		Matrix mat;
 		D3DXMatrixRotationZ(&mat, angle);

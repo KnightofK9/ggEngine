@@ -31,9 +31,9 @@ namespace ggEngine {
 
 
 
-		static Matrix CreateTranslateMatrix(float x, float y);
-		static Matrix CreateScaleMatrix(float x, float y);
-		static Matrix CreateRotateMatrix(float angle);
+		static Matrix CreateTranslateMatrix(double x, double y);
+		static Matrix CreateScaleMatrix(double x, double y);
+		static Matrix CreateRotateMatrix(double angle);
 
 		std::string ToString() const;
 	};

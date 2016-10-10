@@ -15,7 +15,7 @@ namespace ggEngine {
 		void reset();
 		void resetDelta();
 		bool stopwatch(int ms);
-		float getDeltaTime();
+		double getDeltaTime();
 		void updateDeltaTime();
 	private:
 		DWORD timerStart;

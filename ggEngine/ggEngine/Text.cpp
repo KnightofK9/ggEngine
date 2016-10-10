@@ -30,7 +30,7 @@
 //		RECT R = { posX, posY, 0, 0 };
 //		font->DrawTextA(0, lpString, -1, &R, DT_NOCLIP, color);
 //}
-ggEngine::Text::Text(DrawManager *drawManager,Font *font, float x, float y, float width, float height, std::string text, Style style):DrawObject(drawManager)
+ggEngine::Text::Text(DrawManager *drawManager,Font *font, double x, double y, double width, double height, std::string text, Style style):DrawObject(drawManager)
 {
 	SetAnchor(0.5, 0.5);
 	SetPosition(x, y);
@@ -57,8 +57,8 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 {
 	if (!visible) return;
 	this->Transform(translatedWorldMatrix, spriteHandle);
-	//float width = GetWidth();
-	//float height = GetHeight();
+	//double width = GetWidth();
+	//double height = GetHeight();
 	RECT worldRect{ position.x - width*anchor.x, position.y - height*anchor.y, position.x + width*(1- anchor.x), position.y + height*(1 - anchor.y) };
 	if (worldRect.left < 0)
 		worldRect.left = 0;
@@ -86,29 +86,29 @@ void ggEngine::Text::SetText(std::string text)
 	this->text = text;
 }
 
-void ggEngine::Text::SetWidth(float width)
+void ggEngine::Text::SetWidth(double width)
 {
-	this->scale.x = (float)width / this->orgWidth;
+	this->scale.x = (double)width / this->orgWidth;
 	this->width = width;
 }
 
-void ggEngine::Text::SetHeight(float height)
+void ggEngine::Text::SetHeight(double height)
 {
-	this->scale.y = (float)height / this->orgHeight;
+	this->scale.y = (double)height / this->orgHeight;
 	this->height = height;
 }
 
-float ggEngine::Text::GetWidth()
+double ggEngine::Text::GetWidth()
 {
 	return this->width;
 }
 
-float ggEngine::Text::GetHeight()
+double ggEngine::Text::GetHeight()
 {
 	return this->height;
 }
 
-void ggEngine::Text::SetScale(float x, float y)
+void ggEngine::Text::SetScale(double x, double y)
 {
 	this->scale = Vector(x, y);
 	this->width = this->orgWidth*x;
@@ -120,7 +120,7 @@ void ggEngine::Text::SetScale(Vector vector)
 	Text::SetScale(vector.x, vector.y); 
 }
 
-void ggEngine::Text::SetRotate(float rotate)
+void ggEngine::Text::SetRotate(double rotate)
 {
 	g_debug.Warning("Text can not be rotated in this version.");
 }

@@ -59,7 +59,7 @@ namespace ggEngine {
 	{
 		std::wcout << message << "\n";
 	}
-	void Debug::DebugToScreen(float x, float y, std::string text)
+	void Debug::DebugToScreen(double x, double y, std::string text)
 	{
 		Debug::defaultFont->Draw(x, y, text);
 	}

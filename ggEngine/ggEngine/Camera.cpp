@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Input.h"
 namespace ggEngine {
-	Camera::Camera(Game * game, int width, int height, float x , float y , bool enableManualMove)
+	Camera::Camera(Game * game, int width, int height, double x , double y , bool enableManualMove)
 	{
 		this->game = game;
 		this->width = width;
@@ -63,13 +63,13 @@ namespace ggEngine {
 	void Camera::Destroy()
 	{
 	}
-	void Camera::SetScale(float x, float y)
+	void Camera::SetScale(double x, double y)
 	{
 		this->scale = Vector(x, y);
 		this->width = orgWidth*x;
 		this->height = orgHeight*y;
 	}
-	void Camera::SetPoint(float x, float y)
+	void Camera::SetPoint(double x, double y)
 	{
 		this->point = Vector(x, y);
 	}

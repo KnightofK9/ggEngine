@@ -1,6 +1,6 @@
 #include "Rectangle.h"
 #include "Matrix.h"
-ggEngine::Rectangle::Rectangle(float width, float height)
+ggEngine::Rectangle::Rectangle(double width, double height)
 {
 	this->width = width;
 	this->height = height;
@@ -16,7 +16,7 @@ ggEngine::Rectangle::~Rectangle()
 {
 }
 
-float ggEngine::Rectangle::GetArea()
+double ggEngine::Rectangle::GetArea()
 {
 	return Vector::Distance(p1, p2)*Vector::Distance(p2, p3);
 }

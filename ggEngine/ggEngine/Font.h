@@ -10,7 +10,7 @@ namespace ggEngine {
 		Font(DrawManager *drawManager, std::string fontName, int fontSize, bool isItalic, int fontWeight = FW_NORMAL);
 		~Font();
 		LPD3DXFONT GetDxFont() { return this->font; }
-		void Draw(float worldX, float worldY, std::string text, D3DCOLOR fontColor = DEFAULT_COLOR);
+		void Draw(double worldX, double worldY, std::string text, D3DCOLOR fontColor = DEFAULT_COLOR);
 		void Destroy();
 	private:
 		LPD3DXFONT font;

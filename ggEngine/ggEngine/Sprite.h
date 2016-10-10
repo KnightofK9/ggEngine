@@ -14,15 +14,15 @@ namespace ggEngine {
 		Sprite(DrawManager *drawManager);
 		~Sprite();
 		virtual void Draw(Matrix translatedWorldMatrix);
-		virtual void SetWidth(float width);
-		virtual void SetHeight(float height);
-		virtual float GetWidth();
-		virtual float GetHeight();
+		virtual void SetWidth(double width);
+		virtual void SetHeight(double height);
+		virtual double GetWidth();
+		virtual double GetHeight();
 		void SetImage(SpriteInfo *image);
 		void Destroy();
 		void Destroy(bool isClearCache);
 		SpriteInfo* GetImage() { return this->image; }
-		virtual void SetScale(float x, float y);
+		virtual void SetScale(double x, double y);
 		virtual void SetScale(Vector vector);
 		void SetBody(Body* body) { this->body = body; }
 		Body* GetBody() { return this->body; }
