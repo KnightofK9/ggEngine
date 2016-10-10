@@ -14,7 +14,7 @@ namespace ggEngine {
 		void EnableMouseInput(GameObject *go);
 		void DisableMouseInput(GameObject *go, bool isClearEvent = false);
 		void DispatchKeyBoardEvent(char *keyStates);
-		void DispatchMouseEvent(float mouseX, float mouseY, bool isPress); 
+		void DispatchMouseEvent(double mouseX, double mouseY, bool isPress); 
 		char ScanToChar(DWORD scanCode) const;
 		void Reset();
 	private:

@@ -44,13 +44,13 @@ namespace ggEngine {
 		height = sprite->GetHeight();
 	}
 
-	float Body::PerformCollisionSweptAABB(GameObject * staticGo, Vector currentVelocity)
+	double Body::PerformCollisionSweptAABB(GameObject * staticGo, Vector currentVelocity)
 	{
 		Rectangle *rect1 = dynamic_cast<Rectangle*>(this->rigidBody);
 		Rectangle *rect2 = dynamic_cast<Rectangle*>(staticGo->body->rigidBody);
 		if (!rect1->isReady || !rect2->isReady) return 1.0f;
-		float xInvEntry, yInvEntry;
-		float xInvExit, yInvExit;
+		double xInvEntry, yInvEntry;
+		double xInvExit, yInvExit;
 		Vector normalVector;
 		ColliderArg e;
 		Box b1;
@@ -99,27 +99,27 @@ namespace ggEngine {
 			yInvEntry = (b2.y + b2.h) - b1.y;
 			yInvExit = b2.y - (b1.y + b1.h);
 		}
-		float xEntry, yEntry;
-		float xExit, yExit;
+		double xEntry, yEntry;
+		double xExit, yExit;
 
 		if (b1.vx == 0.0f) {
-			xEntry = -std::numeric_limits<float>::infinity();
-			xExit = std::numeric_limits<float>::infinity();
+			xEntry = -std::numeric_limits<double>::infinity();
+			xExit = std::numeric_limits<double>::infinity();
 		}
 		else {
 			xEntry = xInvEntry / b1.vx;
 			xExit = xInvExit / b1.vx;
 		}
 		if (b1.vy == 0.0f) {
-			yEntry = -std::numeric_limits<float>::infinity();
-			yExit = std::numeric_limits<float>::infinity();
+			yEntry = -std::numeric_limits<double>::infinity();
+			yExit = std::numeric_limits<double>::infinity();
 		}
 		else {
 			yEntry = yInvEntry / b1.vy;
 			yExit = yInvExit / b1.vy;
 		}
-		float entryTime = std::max(xEntry, yEntry);
-		float exitTime = std::min(xExit, yExit);
+		double entryTime = std::max(xEntry, yEntry);
+		double exitTime = std::min(xExit, yExit);
 		if (entryTime > exitTime|| xEntry<0.0f&&yEntry<0.0f || xEntry>1.0f || yEntry>1.0f) {
 			//g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) + "|yEntry:" + std::to_string(yEntry));
 			normalVector.x = 0.0f;
@@ -161,7 +161,7 @@ namespace ggEngine {
 		position->x += b1.vx*entryTime;
 		position->y += b1.vy*entryTime;
 
-		float remainingTime = 1 - entryTime;
+		double remainingTime = 1 - entryTime;
 		e.remainingTime = remainingTime;
 		e.colliderObject = staticGo;
 		if (this->sprite->events->onCollide != nullptr) this->sprite->events->onCollide(this->sprite, e);
@@ -172,7 +172,7 @@ namespace ggEngine {
 	{
 	
 		//Debug::Log("Current position :" + std::to_string(position->y));
-		float timeStep = game->logicTimer.getDeltaTime();
+		double timeStep = game->logicTimer.getDeltaTime();
 		Vector lastAcceleration = acceleration;
 		Vector force = (CalculateAirForce() + CalculateGravityForce());
 		Vector temp = (velocity*timeStep + (0.5*lastAcceleration*timeStep*timeStep));
@@ -183,7 +183,7 @@ namespace ggEngine {
 		velocity += acceleration*timeStep;
 		bool isCollided = false;
 		for (std::vector<GameObject*>::iterator it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
-			float collideTime = PerformCollisionSweptAABB((*it),temp);
+			double collideTime = PerformCollisionSweptAABB((*it),temp);
 			if (collideTime < 1.0f) {
 				isCollided = true;
 				break;
@@ -199,7 +199,7 @@ namespace ggEngine {
 	{
 		if (CheckWorldBounds()) {
 			Rectangle* rect = dynamic_cast<Rectangle*>(rigidBody);
-			float width, height;
+			double width, height;
 			width = height = 0;
 			if (rect != NULL) {
 				width = rect->width;
@@ -316,7 +316,7 @@ namespace ggEngine {
 		PostUpdate();
 	}
 	//Wrong, try to re-implemented it
-	void Body::IncrementForce(float force)
+	void Body::IncrementForce(double force)
 	{
 		int signX = 1;
 		int signY = 1;
@@ -324,25 +324,25 @@ namespace ggEngine {
 		if (velocity.y < 0) signY = -1;
 		AddForce(force, Vector(signX, signY));
 	}
-	void Body::AddForce(float force, float angleInRadian)
+	void Body::AddForce(double force, double angleInRadian)
 	{
 	}
-	void Body::AddForce(float force, Vector angleInVector)
+	void Body::AddForce(double force, Vector angleInVector)
 	{
 		velocity += angleInVector.Normalize() *force;
 	}
-	void Body::CreateCircleRigidBody(float radius)
+	void Body::CreateCircleRigidBody(double radius)
 	{
 		this->rigidBody = new Circle(radius);
 	}
-	void Body::CreateRectangleRigidBody(float width, float height)
+	void Body::CreateRectangleRigidBody(double width, double height)
 	{
 		this->rigidBody = new Rectangle(width, height);
 	}
 	Vector Body::CalculateAirForce()
 	{
 		if (!allowAirResistance) return Vector(0, 0);
-		float a = -1 * 0.5*airDensity*objectCoeffecient*CalculateArea();
+		double a = -1 * 0.5*airDensity*objectCoeffecient*CalculateArea();
 		Vector air(a*velocity.x*velocity.x, a*velocity.y*velocity.y);
 		return air;
 	}
@@ -356,7 +356,7 @@ namespace ggEngine {
 	{
 		return Vector();
 	}
-	float Body::CalculateArea()
+	double Body::CalculateArea()
 	{
 		return rigidBody->GetArea()/10000;
 	}

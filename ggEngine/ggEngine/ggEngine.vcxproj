@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\application\claw\include\claw;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\application\claw\lib;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -195,6 +195,8 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Tween.h" />
+    <ClInclude Include="TweenManager.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Window.h" />
@@ -238,6 +240,7 @@
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TweenManager.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Timer.cpp" />

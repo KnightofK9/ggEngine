@@ -3,12 +3,12 @@
 namespace ggEngine {
 	class Circle: public Shape {
 	public:
-		Circle(float radius);
+		Circle(double radius);
 		~Circle();
-		float GetArea();
+		double GetArea();
 		void Destroy();
 		void Transform(Matrix transformMatrix);
 		Vector pCenter;
-		float radius;
+		double radius;
 	};
 }

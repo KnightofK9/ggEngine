@@ -5,7 +5,7 @@
 using namespace ggEngine;
 class PingPongState : public State {
 private:
-	float currentSpeed = 10;
+	double currentSpeed = 10;
 	Sprite *ball, *leftBat, *rightBat;
 	Group* group;
 	long score1, score2;
@@ -13,10 +13,10 @@ private:
 
 	SpriteAnimation *sprite1;
 	SpriteAnimation *sprite4;
-	float test = 0.01f;
-	float MoveSpeedPerSec = 400.0f;
+	double test = 0.01f;
+	double MoveSpeedPerSec = 400.0f;
 	Timer shootTimer;
-	float shootTime = 1000.0f;
+	double shootTime = 1000.0f;
 
 public:
 	PingPongState(Game *game);

@@ -13,7 +13,7 @@
 namespace ggEngine {
 	struct AtlasSpriteInfo {
 		std::string name;
-		float x, y, width, height;
+		double x, y, width, height;
 	};
 	class XML : public GGObject {
 	public:

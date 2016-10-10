@@ -15,11 +15,11 @@ namespace ggEngine {
 		void PlayAnimation(std::string animationName);
 		void SetImage(SpriteInfo *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
 		int GetNumberOfFrame() { return this->numberOfFrame; }
-		void SetWidth(float width);
-		void SetHeight(float height);
-		void SetScale(float x, float y);
-		float GetWidth();
-		float GetHeight();
+		void SetWidth(double width);
+		void SetHeight(double height);
+		void SetScale(double x, double y);
+		double GetWidth();
+		double GetHeight();
 		int GetFrameWidth() { return this->frameWidth; }
 		int GetFrameHeight() { return this->frameHeight; }
 		int GetFramePerColumn() { return this->framePerColumn; }

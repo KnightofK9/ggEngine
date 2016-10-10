@@ -4,13 +4,13 @@
 namespace ggEngine {
 	class Rectangle : public Shape {
 	public:
-		Rectangle(float width, float height);
+		Rectangle(double width, double height);
 		~Rectangle();
-		float GetArea();
+		double GetArea();
 		void Destroy();
 		bool isReady;
 		void Transform(Matrix transformMatrix);
 		Vector p1, p2, p3, p4, pCenter;
-		float width, height;
+		double width, height;
 	};
 }

@@ -30,7 +30,7 @@ namespace ggEngine {
 	class Text :public DrawObject {
 	public:
 		//Modify the constructor as you want, but must have those properties
-		Text(DrawManager *drawManager,Font *font, float x, float width, float height, float y, std::string text, Style style);
+		Text(DrawManager *drawManager,Font *font, double x, double width, double height, double y, std::string text, Style style);
 		//Release the font here
 		~Text();
 		//You MUST call the base GameObject::Destroy() in here. Destroy just set alive to false for collector take care
@@ -39,13 +39,13 @@ namespace ggEngine {
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
 		void Draw(Matrix translatedWorldMatrix);
 		void SetText(std::string text); 
-		virtual void SetWidth(float width);
-		virtual void SetHeight(float height);
-		virtual float GetWidth();
-		virtual float GetHeight(); 
-		virtual void SetScale(float x, float y);
+		virtual void SetWidth(double width);
+		virtual void SetHeight(double height);
+		virtual double GetWidth();
+		virtual double GetHeight(); 
+		virtual void SetScale(double x, double y);
 		virtual void SetScale(Vector vector);
-		virtual void SetRotate(float rotate); 
+		virtual void SetRotate(double rotate); 
 		int GetOpacity() { return this->opacity; }
 		void SetOpacity(int opacity) { this->opacity = opacity % 256; }
 		void Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
@@ -53,8 +53,8 @@ namespace ggEngine {
 		Font *font;
 		Style style;
 		std::string text;
-		float orgWidth;
-		float orgHeight;
+		double orgWidth;
+		double orgHeight;
 		int opacity = 255;
 	};
 }

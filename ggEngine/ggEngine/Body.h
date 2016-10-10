@@ -25,27 +25,27 @@ namespace ggEngine {
 		int height;
 		int orgWidth;
 		int orgHeight;
-		float rotation = 0;
-		float preRotation;
+		double rotation = 0;
+		double preRotation;
 		Shape* rigidBody;
 		bool syncBounce = true;
 		//Force modifier
 		/*Air*/
-		float airDensity = 0.1;
-		float objectCoeffecient = 0.47;
+		double airDensity = 0.1;
+		double objectCoeffecient = 0.47;
 		bool allowAirResistance = false;
 		/*Gravity*/
-		float mass = 0.4;
-		float gravity = 9.81;
+		double mass = 0.4;
+		double gravity = 9.81;
 		bool allowGravity = false;
 		/*Vicious damping*/
-		float dampingCoeffecient = 0.4;
-		float alphaAngle = 0;
+		double dampingCoeffecient = 0.4;
+		double alphaAngle = 0;
 		bool allowDamping = true;
 		/*Rotation*/
 
 		/*Vector Force*/
-		float bounciness = 1;
+		double bounciness = 1;
 		bool allowBounciness = true;
 		bool allowWorldBlock = true;
 
@@ -59,14 +59,14 @@ namespace ggEngine {
 		Vector worldBounce;
 		Vector maxVelocity;
 		Vector friction;
-		float offsetX = 0;
-		float offsetY = 0;
-		float angularVelocity = 0;
-		float angularAcceleration = 0;
-		float angularDrag = 0;
-		float maxAngular = 0;
-		float angle = 0;
-		float speed = 0;
+		double offsetX = 0;
+		double offsetY = 0;
+		double angularVelocity = 0;
+		double angularAcceleration = 0;
+		double angularDrag = 0;
+		double maxAngular = 0;
+		double angle = 0;
+		double speed = 0;
 		bool immovable = false;
 		bool moves = true;
 		bool customSeperateX = false;
@@ -88,7 +88,7 @@ namespace ggEngine {
 		int moveTimer = 0;
 		int moveDistance = 0;
 		int moveDuration = 0;
-		void IncrementForce(float force);
+		void IncrementForce(double force);
 		//TO DO: put a moveTarger here
 		Vector moveEnd;
 		GGObject *movementCallbackContext;
@@ -108,17 +108,17 @@ namespace ggEngine {
 		std::string ToString();
 		void Update();
 		bool IsAlive() { return this->isAlive; }
-		void AddForce(float force, float angleInRadian);
-		void AddForce(float force, Vector angleInVector);
-		void CreateCircleRigidBody(float radius);
-		void CreateRectangleRigidBody(float width, float height);
+		void AddForce(double force, double angleInRadian);
+		void AddForce(double force, Vector angleInVector);
+		void CreateCircleRigidBody(double radius);
+		void CreateRectangleRigidBody(double width, double height);
 	private:
 		std::vector<GameObject*> collisionObjectList;
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
 		Vector CalculateDampingForce();
-		float CalculateArea();
-		float PerformCollisionSweptAABB(GameObject *staticGo,Vector currentVelocity);
+		double CalculateArea();
+		double PerformCollisionSweptAABB(GameObject *staticGo,Vector currentVelocity);
 		void UpdateBounds();
 		void PreUpdate();
 		void CheckCollisionAndUpdateMovement();

@@ -45,7 +45,7 @@ namespace ggEngine {
 		this->width =  image->GetWidth();
 		this->height =  image->GetHeight();
 	}
-	void Sprite::SetScale(float x, float y)
+	void Sprite::SetScale(double x, double y)
 	{
 		this->scale = Vector(x, y);
 		this->width = this->image->GetWidth()*x;
@@ -55,22 +55,22 @@ namespace ggEngine {
 	{
 		SetScale(vector.x, vector.y);
 	}
-	void Sprite::SetWidth(float width)
+	void Sprite::SetWidth(double width)
 	{
-		this->scale.x = (float)width / this->image->GetWidth();
+		this->scale.x = (double)width / this->image->GetWidth();
 		this->width = width;
 	}
-	float Sprite::GetWidth()
+	double Sprite::GetWidth()
 	{
 		//return this->image->GetWidth()*this->scale.x;
 		return this->width;
 	}
-	void Sprite::SetHeight(float height)
+	void Sprite::SetHeight(double height)
 	{
-		this->scale.y = (float)height / this->image->GetHeight();
+		this->scale.y = (double)height / this->image->GetHeight();
 		this->height = height;
 	}
-	float Sprite::GetHeight()
+	double Sprite::GetHeight()
 	{
 		//return this->image->GetHeight()*this->scale.y;
 		return this->height;

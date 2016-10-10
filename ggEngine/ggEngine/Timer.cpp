@@ -43,9 +43,9 @@ namespace ggEngine {
 		}
 		else return false;
 	}
-	float Timer::getDeltaTime()
+	double Timer::getDeltaTime()
 	{
-		return (float)deltaTime/1000;
+		return (double)deltaTime/1000;
 	}
 	void Timer::updateDeltaTime()
 	{

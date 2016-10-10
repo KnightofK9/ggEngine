@@ -60,7 +60,7 @@ void ggEngine::EventManager::DispatchKeyBoardEvent(char * keyStates)
 
 }
 
-void ggEngine::EventManager::DispatchMouseEvent(float mouseX, float mouseY, bool isPress)
+void ggEngine::EventManager::DispatchMouseEvent(double mouseX, double mouseY, bool isPress)
 {
 	MouseEventArg arg;
 	for (std::list<GameObject*>::iterator it = receivedMouseList.begin(); it != receivedMouseList.end();) {

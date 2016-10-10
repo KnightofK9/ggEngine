@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "Box.h"
 namespace ggEngine {
-	extern float timeEntrySAABB; // For using Swept AABB
+	extern double timeEntrySAABB; // For using Swept AABB
 
 	class Game;
 	class Sprite;

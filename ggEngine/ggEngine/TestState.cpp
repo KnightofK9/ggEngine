@@ -1,9 +1,9 @@
 #include "TestState.h"
 SpriteAnimation *character;
 Group *group;
-const float charMoveSpeed = 10.0f;
-const float jumpForce = 5.0f;
-const float jumpTime = 500;
+const double charMoveSpeed = 10.0f;
+const double jumpForce = 5.0f;
+const double jumpTime = 500;
 
 Timer jumpTimer;
 TestState::TestState(Game *game):State(game)
@@ -36,7 +36,7 @@ void TestState::Create()
 	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {
-			float time = game->logicTimer.getDeltaTime();
+			double time = game->logicTimer.getDeltaTime();
 			if (e.isPress(DIK_A)) {
 				character->NextAnimationFrame("left");
 				if (character->body->velocity.x > 0) character->body->velocity.x = 0;

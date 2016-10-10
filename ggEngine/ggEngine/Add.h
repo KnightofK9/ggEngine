@@ -15,10 +15,10 @@ namespace ggEngine{
 	class Add:public GGObject  {
 	public:
 		Add(World *world,Cache *Cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList);
-		Sprite* Sprite(float x, float y, std::string textureKey, Group *group);
-		SpriteAnimation* SpriteAnimation(float x, float y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0);
+		Sprite* Sprite(double x, double y, std::string textureKey, Group *group);
+		SpriteAnimation* SpriteAnimation(double x, double y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0);
 		Group* Group();
-		Text* Text(float x, float y, std::string fontKey , float width, float height, std::string text, Style style, ggEngine::Group *group);
+		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
 	private:
 		Cache *cache;
 		DrawManager *drawManager;

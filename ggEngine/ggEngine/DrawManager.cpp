@@ -50,7 +50,7 @@ namespace ggEngine {
 		Update2D();
 	}
 
-	void DrawManager::DrawRectangleToWorld(float left, float top, float right, float bottom, D3DCOLOR fillColor)
+	void DrawManager::DrawRectangleToWorld(double left, double top, double right, double bottom, D3DCOLOR fillColor)
 	{
 		device->ColorFill(colorSurface, NULL, fillColor);
 		RECT rect = { left, top, right, bottom };
@@ -61,7 +61,7 @@ namespace ggEngine {
 			&rect,				// which portion?
 			D3DTEXF_NONE);
 	}
-	void DrawManager::DrawRectangle(float left, float top, float right, float bottom,D3DCOLOR fillColor)
+	void DrawManager::DrawRectangle(double left, double top, double right, double bottom,D3DCOLOR fillColor)
 	{
 		device->ColorFill(colorSurface, NULL, fillColor);
 		Vector leftTop = Vector(left, top);
@@ -91,22 +91,22 @@ namespace ggEngine {
 			DrawCircle(circle->pCenter.x, circle->pCenter.y, circle->radius);
 		}
 	}
-	void DrawManager::DrawCircle(float x, float y, float radius, D3DCOLOR fillCOlor)
+	void DrawManager::DrawCircle(double x, double y, double radius, D3DCOLOR fillCOlor)
 	{
 		const int NUMPOINTS = 24;
 
-		const float PI = 3.14159;
+		const double PI = 3.14159;
 		Vector pt = Vector(x, y);
 		D3DTLVERTEX Circle[NUMPOINTS + 1];
 		int i;
-		float X;
-		float Y;
-		float Theta; //Size of angle between two points on the circle (single wedge)
-		float WedgeAngle;	
+		double X;
+		double Y;
+		double Theta; //Size of angle between two points on the circle (single wedge)
+		double WedgeAngle;	
 
 		//Precompute WedgeAngle
 
-		WedgeAngle = (float)((2 * PI) / NUMPOINTS);
+		WedgeAngle = (double)((2 * PI) / NUMPOINTS);
 		//Set up vertices for a circle
 
 		//Used <= in the for statement to ensure last point meets first point (closed circle)
@@ -116,8 +116,8 @@ namespace ggEngine {
 			//Calculate theta for this vertex
 			Theta = i * WedgeAngle;
 			//Compute X and Y locations
-			X = (float)(pt.x + radius * cos(Theta));
-			Y = (float)(pt.y - radius * sin(Theta));
+			X = (double)(pt.x + radius * cos(Theta));
+			Y = (double)(pt.y - radius * sin(Theta));
 			Circle[i] = CreateD3DTLVERTEX(X, Y, 0.0f, 1.0f, fillCOlor, 0.0f, 0.0f);
 		}
 		//Now draw the circle
@@ -171,8 +171,8 @@ namespace ggEngine {
 		DrawObjectFromGroup(game->world->GetGroupList());
 		//DrawObjectFromGroup(&this->topGroupList);
 	}
-	D3DTLVERTEX DrawManager::CreateD3DTLVERTEX(float X, float Y, float Z, float RHW,
-		D3DCOLOR color, float U, float V)
+	D3DTLVERTEX DrawManager::CreateD3DTLVERTEX(double X, double Y, double Z, double RHW,
+		D3DCOLOR color, double U, double V)
 	{
 		D3DTLVERTEX v;
 

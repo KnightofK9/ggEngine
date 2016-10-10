@@ -53,7 +53,7 @@ void PingPongState::Create()
 	//else if (e.blockDirection.up || e.blockDirection.down)
 	//	go->position.y += go->body->velocity.y * timeEntrySAABB;
 
-	////float remainingTime = 1.1f - timeEntrySAABB;
+	////double remainingTime = 1.1f - timeEntrySAABB;
 	//Vector n = e.normalSurfaceVector;
 	//Vector d = go->body->velocity;
 	//Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
@@ -120,7 +120,7 @@ void PingPongState::Create()
 		//	g_debug.Log(rect->p1.ToString());
 		//}
 		Vector velocity = go->body->velocity;
-		float movePosition = 5;
+		double movePosition = 5;
 		if (e.blockDirection.left) go->position.x += 5;
 		else if (e.blockDirection.right) go->position.x -= 5;
 		else if (e.blockDirection.up) go->position.y += 5;

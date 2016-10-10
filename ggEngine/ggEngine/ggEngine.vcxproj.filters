@@ -168,6 +168,9 @@
     <ClCompile Include="SpriteInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TweenManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -325,6 +328,12 @@
     </ClInclude>
     <ClInclude Include="Box.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TweenManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tween.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

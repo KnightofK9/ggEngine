@@ -2,13 +2,13 @@
 #include "Matrix.h"
 #include "Debug.h"
 namespace ggEngine {
-	Vector::Vector(float x, float y) : D3DXVECTOR2(x, y) {
+	Vector::Vector(double x, double y) : D3DXVECTOR2(x, y) {
 		orgX = x;
 		orgY = y;
 		this->x = x;
 		this->y = y;
 	}
-	Vector::Vector(float f) : D3DXVECTOR2(f, f) {
+	Vector::Vector(double f) : D3DXVECTOR2(f, f) {
 
 	}
 	Vector::Vector(const D3DXVECTOR2 & v) : D3DXVECTOR2(v.x, v.y)
@@ -21,7 +21,7 @@ namespace ggEngine {
 
 	}
 	Vector Vector::Normalize() {
-		float length = this->Length();
+		double length = this->Length();
 		return Vector(x / length, y / length);
 	}
 	void Vector::TransformNormal(Matrix  mat)
@@ -32,13 +32,13 @@ namespace ggEngine {
 	{
 		D3DXVec2TransformCoord(this, this, &mat);
 	}
-	float Vector::Length() {
+	double Vector::Length() {
 		return sqrt(x*x + y*y);
 	}
-	float Vector::Distance(const Vector& vectorA, const Vector& vectorB) {
+	double Vector::Distance(const Vector& vectorA, const Vector& vectorB) {
 		return sqrt((vectorB.x - vectorA.x)*(vectorB.x - vectorA.x) + (vectorB.y - vectorA.y)*(vectorB.y - vectorA.y));
 	}
-	float Vector::DotProduct(const Vector& vectorA, const Vector& vectorB) {
+	double Vector::DotProduct(const Vector& vectorA, const Vector& vectorB) {
 		return vectorA.x*vectorB.x + vectorA.y*vectorB.y;
 	}
 	Vector3 Vector::CrossProduct(const Vector3& a, const Vector3& b) {
@@ -48,12 +48,12 @@ namespace ggEngine {
 	{
 		return std::to_string(this->x) + "-" + std::to_string(this->y);
 	}
-	Vector Vector::Rotate(const Vector& vector, float angle) {
-		float x = this->x - vector.x;
-		float y = this->y - vector.y;
+	Vector Vector::Rotate(const Vector& vector, double angle) {
+		double x = this->x - vector.x;
+		double y = this->y - vector.y;
 
-		float x_prime = vector.x + ((x * cos(angle)) - (y * sin(angle)));
-		float y_prime = vector.y + ((x * sin(angle)) + (y * cos(angle)));
+		double x_prime = vector.x + ((x * cos(angle)) - (y * sin(angle)));
+		double y_prime = vector.y + ((x * sin(angle)) + (y * cos(angle)));
 
 		return Vector(x_prime, y_prime);
 	}

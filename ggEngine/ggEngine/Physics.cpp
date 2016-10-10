@@ -5,7 +5,7 @@
 #include "Events.h"
 #include <cmath>
 namespace ggEngine {
-	float timeEntrySAABB;
+	double timeEntrySAABB;
 	Physics::Physics(Game * game, PhysicsMode physicsMode)
 	{
 		this->game = game;
@@ -65,8 +65,8 @@ namespace ggEngine {
 	//		ColliderArg arg2;
 	//		Vector normalVector1;
 	//		Vector normalVector2;
-	//		float width = abs(intersectRect.right) - abs(intersectRect.left);
-	//		float height = abs(intersectRect.bottom) - abs(intersectRect.top);
+	//		double width = abs(intersectRect.right) - abs(intersectRect.left);
+	//		double height = abs(intersectRect.bottom) - abs(intersectRect.top);
 	//		if (width < height) {
 	//			if (rect1->p1.x < rect2->p1.x) {
 	//				normalVector1 = Vector(-1, 0);
@@ -108,8 +108,8 @@ namespace ggEngine {
 	//	RECT r2 = { rect2->p1.x, rect2->p1.y, rect2->p3.x, rect2->p3.y };
 
 	//	Vector relativeVelocity = go1->body->velocity - go2->body->velocity;
-	//	float xEntry, xExit;
-	//	float yEntry, yExit;
+	//	double xEntry, xExit;
+	//	double yEntry, yExit;
 	//	if (relativeVelocity.x > 0.0f)
 	//	{
 	//		xEntry = r2.left - r1.right;
@@ -130,12 +130,12 @@ namespace ggEngine {
 	//		yEntry = r2.bottom - r1.top;
 	//		yExit = r2.top - r1.bottom;
 	//	}
-	//	float xTimeToEntry, xTimeToExit;
-	//	float yTimeToEntry, yTimeToExit;
+	//	double xTimeToEntry, xTimeToExit;
+	//	double yTimeToEntry, yTimeToExit;
 	//	if (relativeVelocity.x == 0)
 	//	{
-	//		xTimeToEntry = -std::numeric_limits<float>::infinity();
-	//		xTimeToExit = std::numeric_limits<float>::infinity();
+	//		xTimeToEntry = -std::numeric_limits<double>::infinity();
+	//		xTimeToExit = std::numeric_limits<double>::infinity();
 	//	}
 	//	else
 	//	{
@@ -145,8 +145,8 @@ namespace ggEngine {
 
 	//	if (relativeVelocity.y == 0)
 	//	{
-	//		yTimeToEntry = -std::numeric_limits<float>::infinity();
-	//		yTimeToExit = std::numeric_limits<float>::infinity();
+	//		yTimeToEntry = -std::numeric_limits<double>::infinity();
+	//		yTimeToExit = std::numeric_limits<double>::infinity();
 	//	}
 	//	else
 	//	{
@@ -154,8 +154,8 @@ namespace ggEngine {
 	//		yTimeToExit = yExit / relativeVelocity.y;
 	//	}
 
-	//	float timeEntry = max(xTimeToEntry, yTimeToEntry);
-	//	float timeExit = min(xTimeToExit, yTimeToExit);
+	//	double timeEntry = max(xTimeToEntry, yTimeToEntry);
+	//	double timeExit = min(xTimeToExit, yTimeToExit);
 
 	//	if (timeEntry > timeExit || xTimeToEntry < 0.0 && yTimeToEntry < 0.0 || xTimeToEntry > 1.0 || yTimeToEntry > 1.0)
 	//	{

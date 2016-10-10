@@ -8,13 +8,13 @@
 namespace ggEngine {
 	struct D3DTLVERTEX
 	{
-		float fX;
-		float fY;
-		float fZ;
-		float fRHW;
+		double fX;
+		double fY;
+		double fZ;
+		double fRHW;
 		D3DCOLOR Color;
-		float fU;
-		float fV;
+		double fU;
+		double fV;
 	};
 	class State;
 	class Group;
@@ -31,15 +31,15 @@ namespace ggEngine {
 		~DrawManager();
 		void Destroy();
 		void Render2D();
-		void DrawRectangleToWorld(float left, float top, float right, float bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
-		void DrawRectangle(float left, float top, float right, float bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
-		void DrawCircle(float x, float y, float radius, D3DCOLOR fillCOlor = DEFAULT_COLOR);
+		void DrawRectangleToWorld(double left, double top, double right, double bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
+		void DrawRectangle(double left, double top, double right, double bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
+		void DrawCircle(double x, double y, double radius, D3DCOLOR fillCOlor = DEFAULT_COLOR);
 		void DrawObjectFromGroup(std::list<Group*> *groupList);
 		void DrawList(std::list<DrawObject*> *drawObjectList);
 		void DrawLine(const Vector Point1, const Vector Point2, D3DCOLOR color = DEFAULT_COLOR);
 		void DrawShape(Shape *shape);
 		IDirect3DDevice9 *GetDevice(){ return this->device; }
-		D3DTLVERTEX CreateD3DTLVERTEX(float X, float Y, float Z, float RHW, D3DCOLOR color, float U, float V);
+		D3DTLVERTEX CreateD3DTLVERTEX(double X, double Y, double Z, double RHW, D3DCOLOR color, double U, double V);
 		LPD3DXSPRITE GetSpriteHandle(){ return this->spriteHandle; }
 		LPDIRECT3DSURFACE9 GetColorSurface(){ return this->colorSurface; }
 	private:
