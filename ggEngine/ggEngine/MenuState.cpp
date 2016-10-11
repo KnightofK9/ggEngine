@@ -37,8 +37,7 @@ void Switch(bool isSwitchToSingle) {
 
 void MenuState::Create()
 {
-	sound = new Sound(game->hWnd, "sound.wav");
-	sound->SetLooping(true);
+	sound = new Sound(game->hWnd, "Resource/Sound/start.wav", SoundType_Sound, true);
 	sound->Start();
 
 	groupMenu = this->add->Group();
@@ -78,6 +77,8 @@ void MenuState::Update()
 		Switch(false);
 	}
 	else if (game->GetInput()->KeyDown(DIK_RETURN)) {
+		Sound *enterKeySound = new Sound(game->hWnd, "Resource/Sound/ping.wav");
+		enterKeySound->Start();
 		game->stateManager->Start("PingPongState", true, false);
 	}
 }

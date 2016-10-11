@@ -22,3 +22,4 @@ typedef LPCTSTR GGTEXT;
 enum GameMode { GameMode_FullScreen, GameMode_Windowed };
 enum PhysicsMode { PhysicsMode_AABB, PhysicsMode_AABBSwept, PhysicsMode_None };
 enum SoundMode {SoundMode_Enable, SoundMode_Disable};
+enum SoundType { SoundType_Sound, SoundType_Music };

@@ -5,6 +5,6 @@ namespace ggEngine {
 		double x, y;
 		double w, h;
 		double vx, vy;
-		RECT GetRect() { return RECT{x,y,x+w,y+h}; }
+		RECT GetRect() { return RECT{ (long)x,(long)y,(long)(x + w),(long)(y + h) }; }
 	};
 }
