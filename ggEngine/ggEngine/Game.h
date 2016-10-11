@@ -7,6 +7,7 @@
 #include "DrawManager.h"
 #include "IGetGroup.h"
 namespace ggEngine {
+	class TweenManager;
 	class EventManager;
 	class Camera;
 	class Physics;
@@ -35,6 +36,7 @@ namespace ggEngine {
 		long frameRateCore;
 		Input* GetInput() { return this->input; }
 		World *world;
+		TweenManager *tweenManager;
 	private:
 		//
 		// Private Method

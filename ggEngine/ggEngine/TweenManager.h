@@ -1,16 +1,20 @@
 #pragma once
 #include "GGObject.h"
+#include <vector>
 #include <claw/tween/easing/easing_linear.hpp>
 #include <claw/tween/single_tweener.hpp>
 #include <claw/tween/tweener_group.hpp>
 namespace ggEngine {
+	class Tween;
 	class Game;
 	class TweenManager : public GGObject {
 	public:
 		TweenManager(Game *game);
-		void Update();
 		~TweenManager();
+		void Update(double deltaTime);
+		void AddTween(Tween* tween);
 	private:
 		Game *game;
+		std::vector<Tween*> tweenerList;
 	};
 }

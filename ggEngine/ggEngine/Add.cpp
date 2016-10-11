@@ -4,12 +4,15 @@
 #include "DrawManager.h"
 #include "SpriteAnimation.h"
 #include "World.h"
+#include "Tween.h"
+#include "TweenManager.h"
 namespace ggEngine{
-	Add::Add(World *world, Cache *cache, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList){
+	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList){
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
 		this->world = world;
+		this->tweenManager = tweenManager;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
@@ -40,5 +43,15 @@ namespace ggEngine{
 		textObject->SetParentObject(group);
 		group->AddDrawObjectToList(textObject);
 		return textObject;
+	}
+	ggEngine::Tween * Add::Tween(double & val, double end, double duration, boost::function<double(double)> easingFunction)
+	{
+		ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, val, end, duration, easingFunction);
+		return tween;
+	}
+	ggEngine::Tween * Add::Tween(double init, double end, double duration, std::function<void(double)> update, boost::function<double(double)> easingFunction)
+	{
+		ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, init, end, duration, update, easingFunction);
+		return tween;
 	}
 }

@@ -9,6 +9,7 @@
 #include "DXInput.h"
 #include "Input.h"
 #include "World.h"
+#include "TweenManager.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
@@ -34,6 +35,7 @@ namespace ggEngine {
 			physics = new Physics(this, physicsMode);
 			d3dManager->SetStateManager(stateManager);
 			eventManager = new EventManager(this);
+			tweenManager = new TweenManager(this);
 			world = new World();
 			input = new Input(&hWnd);
 			g_debug.Init(this);
@@ -146,6 +148,7 @@ namespace ggEngine {
 			state->Update();
 			/*Group update*/
 			RunGroupUpdate(state->GetGroupList());
+			tweenManager->Update(logicTimer.getDeltaTime());
 			/*Physics update*/
 			physics->UpdatePhysics();
 		}

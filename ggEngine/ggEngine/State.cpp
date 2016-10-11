@@ -10,7 +10,7 @@ namespace ggEngine{
 		this->drawManager = game->GetDrawManager();
 		this->game = game;
 		this->world = game->world;
-		add = new ggEngine::Add( game->world ,game->cache, game->GetDrawManager(), &this->groupList);
+		add = new ggEngine::Add( game->world ,game->cache,game->tweenManager , game->GetDrawManager(), &this->groupList);
 		preload = new ggEngine::Preload(game->cache);
 	}
 	State::~State(){
