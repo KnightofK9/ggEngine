@@ -1,10 +1,12 @@
 #pragma once
 #include "ggEngine.h"
+#include "Sound.h"
 
 using namespace ggEngine;
 class MenuState : public State {
 private:
 	Group* groupText;
+	Sound* sound;
 public:
 	MenuState(Game *game);
 	~MenuState();

@@ -37,6 +37,8 @@ namespace ggEngine {
 		Input* GetInput() { return this->input; }
 		World *world;
 		TweenManager *tweenManager;
+
+		HWND hWnd;
 	private:
 		//
 		// Private Method
@@ -54,7 +56,6 @@ namespace ggEngine {
 		//
 		// Private Field
 		//
-		HWND hWnd;
 		bool isRunning;
 		std::list<Group*> topGroupList;
 		long frameCountCore; 
