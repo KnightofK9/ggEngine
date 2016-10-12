@@ -148,7 +148,7 @@ namespace ggEngine {
 			state->Update();
 			/*Group update*/
 			RunGroupUpdate(state->GetGroupList());
-			tweenManager->Update(logicTimer.getDeltaTime());
+			tweenManager->Update(logicTimer.getDeltaTimeInMilisecond());
 			/*Physics update*/
 			physics->UpdatePhysics();
 		}

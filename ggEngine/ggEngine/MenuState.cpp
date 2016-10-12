@@ -48,13 +48,16 @@ void MenuState::Create()
 	multiBtnNormal = this->add->Sprite(300, WINDOW_HEIGHT / 2.0f + 50, "multiBtnNormal", groupMenu);
 	multiBtnHover = this->add->Sprite(300, WINDOW_HEIGHT / 2.0f + 50, "multiBtnHover", groupMenu);
 	multiBtnHover->SetVisible(false);
-
-	Tween* tween = this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x + 500, 1000, Easing::linearTween);
-	tween->SetOnFinish([this]() {
-		Tween* tween2 = this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x - 500, 10000, Easing::linearTween);
-		tween2->Start();
-	});
-	tween->Start();
+	this->add->Tween(singleBtnNormal->position.y, singleBtnNormal->position.y - 200, 1000, Easing::linearTween)->Start();
+	this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x + 500, 1000, Easing::linearTween)->SetOnFinish([this]() {
+		this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x - 500, 2000, Easing::linearTween)->Start();
+		this->add->Tween(singleBtnNormal->position.y, singleBtnNormal->position.y + 200, 2000, Easing::linearTween)->Start();
+	})->Start();
+	this->add->Tween(singleBtnHover->position.y, singleBtnHover->position.y + 200, 1000, Easing::linearTween)->Start();
+	this->add->Tween(singleBtnHover->position.x, singleBtnHover->position.x - 500, 1000, Easing::linearTween)->SetOnFinish([this]() {
+		this->add->Tween(singleBtnHover->position.x, singleBtnHover->position.x + 500, 2000, Easing::linearTween)->Start();
+		this->add->Tween(singleBtnHover->position.y, singleBtnHover->position.y - 200, 2000, Easing::linearTween)->Start();
+	})->Start();
 	//Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", groupMenu);
 	//groupText = this->add->Group();
 	////Other

@@ -6,9 +6,11 @@ ggEngine::Tween::Tween(TweenManager* tweenManager, float &val, double end, unsig
 	this->tweenManager = tweenManager;
 	this->isAlive = true;
 	this->isFinished = false;
+	this->isPlaying = false;
 	this->easingFunction = easingFunction;
 	this->startValue = (double)val;
 	this->changeInValue = end - val;
+	this->currentTime = 0;
 }
 //Not ready to use yet
 //ggEngine::Tween::Tween(TweenManager* tweenManager, double init, double end, unsigned int duration, std::function<void(double)> update, std::function<double(double)> easingFunction) : val(val)
@@ -24,9 +26,10 @@ ggEngine::Tween::~Tween()
 	
 }
 
-void ggEngine::Tween::SetOnFinish(std::function<void()> onFinish)
+ggEngine::Tween* ggEngine::Tween::SetOnFinish(std::function<void()> onFinish)
 {
 	this->onFinish = onFinish;
+	return this;
 }
 
 bool ggEngine::Tween::IsPlaying()
@@ -48,7 +51,7 @@ void ggEngine::Tween::Destroy()
 double ggEngine::Tween::Update(double deltaTime)
 {
 	this->val = easingFunction(this->currentTime, this->startValue, this->changeInValue, this->duration);
-	currentTime += deltaTime*1000;
+	currentTime += deltaTime;
 	if (currentTime > duration) {
 		this->isFinished = true;
 		this->isPlaying = false;
@@ -57,20 +60,24 @@ double ggEngine::Tween::Update(double deltaTime)
 	return this->val;
 }
 
-void ggEngine::Tween::Start()
+ggEngine::Tween* ggEngine::Tween::Start()
 {
 	this->currentTime = 0;
 	this->isPlaying = true;
+	return this;
 }
 
-void ggEngine::Tween::Pause()
+ggEngine::Tween* ggEngine::Tween::Pause()
 {
 	this->isPlaying = false;
+	return this;
 }
 
-void ggEngine::Tween::CallFinish()
+ggEngine::Tween* ggEngine::Tween::CallFinish()
 {
 	this->isPlaying = false;
 	this->isFinished = true;
+	this->val = end;
 	if (this->onFinish != nullptr) onFinish();
+	return this;
 }

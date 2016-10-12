@@ -47,6 +47,10 @@ namespace ggEngine {
 	{
 		return (double)deltaTime/1000;
 	}
+	double Timer::getDeltaTimeInMilisecond()
+	{
+		return (double)deltaTime;
+	}
 	void Timer::updateDeltaTime()
 	{
 		deltaTime = getTimer() - timerGetDelta;

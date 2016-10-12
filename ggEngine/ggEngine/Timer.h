@@ -17,6 +17,7 @@ namespace ggEngine {
 		bool stopwatch(int ms);
 		double getDeltaTime();
 		void updateDeltaTime();
+		double Timer::getDeltaTimeInMilisecond();
 	private:
 		DWORD timerStart;
 		DWORD stopwatchStart;
