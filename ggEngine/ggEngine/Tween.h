@@ -1,36 +1,39 @@
 #pragma once
 #include "GGObject.h"
-#include <claw/tween/single_tweener.hpp>
-#include <boost\function.hpp>
-#pragma comment(lib,"libclaw_application.lib")
-#pragma comment(lib,"libclaw_configuration_file.lib")
-#pragma comment(lib,"libclaw_dynamic_library.lib")
-#pragma comment(lib,"libclaw_graphic.lib")
-#pragma comment(lib,"libclaw_logger.lib")
-#pragma comment(lib,"libclaw_net.lib")
-#pragma comment(lib,"libclaw_tween.lib")
+#include <functional>
+//#include <claw/tween/single_tweener.hpp>
+//#pragma comment(lib,"libclaw_tween.lib")
 
 namespace ggEngine {
 	class TweenManager;
 	class Tween :public GGObject {
 	public:
-		Tween(TweenManager* tweenManager,double &val, double end, double duration , boost::function<double(double)> easingFunction);
-		Tween(TweenManager* tweenManager,double init, double end, double duration, std::function<void(double)> update, boost::function<double(double)> easingFunction);
+		Tween(TweenManager* tweenManager, float &val, double end, unsigned int duration, std::function<double(int, double, double, int)> easingFunction);
 		~Tween();
 		void SetOnFinish(std::function<void()> onFinish);
 		bool IsPlaying();
 		bool IsFinished();
 		void Destroy();
+		double Update(double deltaTime);
 		void Start();
 		void Pause();
 		bool IsAlive() { return this->isAlive; }
-		claw::tween::single_tweener* GetClawTweener() { return this->tweener; }
+		//claw::tween::single_tweener* GetClawTweener() { return this->tweener; }
 		void CallFinish();
 	private:
-		claw::tween::single_tweener *tweener = nullptr;
+		//Tween(TweenManager* tweenManager, double init, double end, unsigned int duration, std::function<void(double)> update, std::function<double(double)> easingFunction);
+		//claw::tween::single_tweener *tweener = nullptr;
 		std::function<void()> onFinish = nullptr;
 		TweenManager* tweenManager;
+		std::function<double(int, double, double, int)> easingFunction;
 		bool isPlaying;
 		bool isAlive;
+		bool isFinished;
+		double startValue;
+		unsigned int currentTime;
+		float &val;
+		double end;
+		unsigned int duration;
+		double changeInValue;
 	};
 }

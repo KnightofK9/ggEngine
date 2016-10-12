@@ -44,14 +44,16 @@ namespace ggEngine{
 		group->AddDrawObjectToList(textObject);
 		return textObject;
 	}
-	ggEngine::Tween * Add::Tween(double & val, double end, double duration, boost::function<double(double)> easingFunction)
+	ggEngine::Tween * Add::Tween(float & val, double end, double duration, std::function<double(int,double,double,int)> easingFunction)
 	{
 		ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, val, end, duration, easingFunction);
+		this->tweenManager->AddTween(tween);
 		return tween;
 	}
-	ggEngine::Tween * Add::Tween(double init, double end, double duration, std::function<void(double)> update, boost::function<double(double)> easingFunction)
-	{
-		ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, init, end, duration, update, easingFunction);
-		return tween;
-	}
+	//ggEngine::Tween * Add::Tween(double init, double end, double duration, std::function<void(double)> update, std::function<double(double)> easingFunction)
+	//{
+	//	return NULL;
+	//	/*ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, init, end, duration, update, easingFunction);
+	//	return tween;*/
+	//}
 }

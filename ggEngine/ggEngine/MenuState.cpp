@@ -49,8 +49,17 @@ void MenuState::Create()
 	multiBtnHover = this->add->Sprite(300, WINDOW_HEIGHT / 2.0f + 50, "multiBtnHover", groupMenu);
 	multiBtnHover->SetVisible(false);
 
+	Tween* tween = this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x + 500, 10000, [](int currentTimeInMili, double startValue, double changeInValue, int durationInMili) {
+		return changeInValue*currentTimeInMili / durationInMili + startValue;
+	});
+	tween->SetOnFinish([this]() {
+		Tween* tween2 = this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x - 500, 10000, [](int currentTimeInMili, double startValue, double changeInValue, int durationInMili) {
+			return changeInValue*currentTimeInMili / durationInMili + startValue;
+		});
 
-
+		tween2->Start();
+	});
+	tween->Start();
 	//Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", groupMenu);
 	//groupText = this->add->Group();
 	////Other

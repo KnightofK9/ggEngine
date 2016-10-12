@@ -60,7 +60,7 @@ void PingPongState::Create()
 	//go->body->velocity = 0;
 	//};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(10, Vector(3,4));
+	ball->body->AddForce(50, Vector(3,4));
 #pragma endregion Ball
 
 	

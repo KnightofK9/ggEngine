@@ -15,3 +15,6 @@
 #include "State.h"
 #include "Sprite.h"
 #include "SpriteAnimation.h"
+#include "TweenManager.h"
+#include "Tween.h"
+#include "Easing.h"

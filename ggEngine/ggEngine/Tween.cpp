@@ -1,31 +1,27 @@
 #include "Tween.h"
-
-ggEngine::Tween::Tween(TweenManager* tweenManager,double & val, double end, double duration, boost::function<double(double)> easingFunction)
+ggEngine::Tween::Tween(TweenManager* tweenManager, float &val, double end, unsigned int duration, std::function<double(int, double, double, int)> easingFunction) : val(val)
 {
+	this->end = end;
+	this->duration = duration;
 	this->tweenManager = tweenManager;
-	this->tweener = new claw::tween::single_tweener(val, end, duration, easingFunction);
-	this->tweener->on_finished([this]() {
-		this->CallFinish();
-	});
 	this->isAlive = true;
+	this->isFinished = false;
+	this->easingFunction = easingFunction;
+	this->startValue = (double)val;
+	this->changeInValue = end - val;
 }
-
-ggEngine::Tween::Tween(TweenManager* tweenManager, double init, double end, double duration, std::function<void(double)> update, boost::function<double(double)> easingFunction)
-{
-	this->tweenManager = tweenManager;
-	this->tweener = new claw::tween::single_tweener(init, end, duration, update, easingFunction);
-	this->tweener->on_finished([this]() {
-		this->CallFinish();
-	});
-	this->isAlive = true;
-}
+//Not ready to use yet
+//ggEngine::Tween::Tween(TweenManager* tweenManager, double init, double end, unsigned int duration, std::function<void(double)> update, std::function<double(double)> easingFunction) : val(val)
+//{
+//	this->val = NULL;
+//	this->tweenManager = tweenManager;
+//	this->isAlive = true;
+//	this->isFinished = false;
+//}
 
 ggEngine::Tween::~Tween()
 {
-	if (this->tweener != nullptr) {
-		delete this->tweener;
-		this->tweener = nullptr;
-	}
+	
 }
 
 void ggEngine::Tween::SetOnFinish(std::function<void()> onFinish)
@@ -40,7 +36,7 @@ bool ggEngine::Tween::IsPlaying()
 
 bool ggEngine::Tween::IsFinished()
 {
-	return this->tweener->is_finished();
+	return this->isFinished;
 }
 
 void ggEngine::Tween::Destroy()
@@ -49,8 +45,21 @@ void ggEngine::Tween::Destroy()
 	this->isPlaying = false;
 }
 
+double ggEngine::Tween::Update(double deltaTime)
+{
+	this->val = easingFunction(this->currentTime, this->startValue, this->changeInValue, this->duration);
+	currentTime += deltaTime*1000;
+	if (currentTime > duration) {
+		this->isFinished = true;
+		this->isPlaying = false;
+		CallFinish();
+	}
+	return this->val;
+}
+
 void ggEngine::Tween::Start()
 {
+	this->currentTime = 0;
 	this->isPlaying = true;
 }
 
@@ -62,5 +71,6 @@ void ggEngine::Tween::Pause()
 void ggEngine::Tween::CallFinish()
 {
 	this->isPlaying = false;
+	this->isFinished = true;
 	if (this->onFinish != nullptr) onFinish();
 }

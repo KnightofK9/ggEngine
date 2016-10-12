@@ -338,6 +338,9 @@
     <ClInclude Include="Tween.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="default.bmp">

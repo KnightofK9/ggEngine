@@ -1,9 +1,9 @@
 #pragma once
 #include "GGObject.h"
 #include <vector>
-#include <claw/tween/easing/easing_linear.hpp>
-#include <claw/tween/single_tweener.hpp>
-#include <claw/tween/tweener_group.hpp>
+//#include <claw/tween/easing/easing_linear.hpp>
+//#include <claw/tween/single_tweener.hpp>
+//#include <claw/tween/tweener_group.hpp>
 namespace ggEngine {
 	class Tween;
 	class Game;

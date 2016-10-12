@@ -10,10 +10,11 @@ ggEngine::TweenManager::TweenManager(Game * game)
 void ggEngine::TweenManager::Update(double deltaTime)
 {
 	for (int i = 0; i < tweenerList.size(); i++) {
+		if (tweenerList[i] == nullptr) continue;
 		Tween * tween = tweenerList[i];
 		if (tween->IsAlive()) {
 			if (tween->IsPlaying()) {
-				tween->GetClawTweener()->update(deltaTime);
+				tween->Update(deltaTime);
 			}else if(tween->IsFinished()){
 				delete tween;
 				tweenerList[i] = nullptr;
@@ -32,6 +33,7 @@ void ggEngine::TweenManager::AddTween(Tween *tween)
 	for ( i = 0; i < tweenerList.size(); i++) {
 		if (tweenerList[i] == nullptr) {
 			tweenerList[i] = (tween);
+			break;
 		}
 	}
 	if (i == tweenerList.size()) {
