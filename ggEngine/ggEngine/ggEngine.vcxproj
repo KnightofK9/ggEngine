@@ -218,6 +218,7 @@
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="DrawObject.cpp" />
     <ClCompile Include="DXInput.cpp" />
+    <ClCompile Include="Easing.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="Font.cpp" />
