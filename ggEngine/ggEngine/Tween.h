@@ -25,15 +25,15 @@ namespace ggEngine {
 		//claw::tween::single_tweener *tweener = nullptr;
 		std::function<void()> onFinish = nullptr;
 		TweenManager* tweenManager;
-		std::function<double(int, double, double, int)> easingFunction;
+		std::function<double(double, double, double, double)> easingFunction;
 		bool isPlaying;
 		bool isAlive;
 		bool isFinished;
 		double startValue;
-		unsigned int currentTime;
+		double currentTime;
 		float &val;
 		double end;
-		unsigned int duration;
+		double duration;
 		double changeInValue;
 	};
 }

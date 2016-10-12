@@ -48,15 +48,26 @@ void MenuState::Create()
 	multiBtnNormal = this->add->Sprite(300, WINDOW_HEIGHT / 2.0f + 50, "multiBtnNormal", groupMenu);
 	multiBtnHover = this->add->Sprite(300, WINDOW_HEIGHT / 2.0f + 50, "multiBtnHover", groupMenu);
 	multiBtnHover->SetVisible(false);
-	this->add->Tween(singleBtnNormal->position.y, singleBtnNormal->position.y - 200, 1000, Easing::linearTween)->Start();
-	this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x + 500, 1000, Easing::linearTween)->SetOnFinish([this]() {
-		this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x - 500, 2000, Easing::linearTween)->Start();
-		this->add->Tween(singleBtnNormal->position.y, singleBtnNormal->position.y + 200, 2000, Easing::linearTween)->Start();
+	this->add->Tween(singleBtnNormal->position.y, singleBtnNormal->position.y - 200, 5000, Easing::easeOutQudouble)->Start();
+	this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x + 500, 5000, Easing::easeOutCirc)->SetOnFinish([this]() {
+		this->add->Tween(singleBtnNormal->position.x, singleBtnNormal->position.x - 500, 5000, Easing::easeInCubic)->Start();
+		this->add->Tween(singleBtnNormal->position.y, singleBtnNormal->position.y + 200, 5000, Easing::easeInOutCubic)->Start();
 	})->Start();
 	this->add->Tween(singleBtnHover->position.y, singleBtnHover->position.y + 200, 1000, Easing::linearTween)->Start();
 	this->add->Tween(singleBtnHover->position.x, singleBtnHover->position.x - 500, 1000, Easing::linearTween)->SetOnFinish([this]() {
 		this->add->Tween(singleBtnHover->position.x, singleBtnHover->position.x + 500, 2000, Easing::linearTween)->Start();
 		this->add->Tween(singleBtnHover->position.y, singleBtnHover->position.y - 200, 2000, Easing::linearTween)->Start();
+	})->Start();
+
+	this->add->Tween(multiBtnNormal->position.y, multiBtnNormal->position.y - 200, 5000, Easing::easeInExpo)->Start();
+	this->add->Tween(multiBtnNormal->position.x, multiBtnNormal->position.x + 500, 5000, Easing::easeInOutCubic)->SetOnFinish([this]() {
+		this->add->Tween(multiBtnNormal->position.x, multiBtnNormal->position.x - 500, 5000, Easing::easeInOutQuart)->Start();
+		this->add->Tween(multiBtnNormal->position.y, multiBtnNormal->position.y + 200, 5000, Easing::easeOutSine)->Start();
+	})->Start();
+	this->add->Tween(multiBtnHover->position.y, multiBtnHover->position.y + 200, 1000, Easing::linearTween)->Start();
+	this->add->Tween(multiBtnHover->position.x, multiBtnHover->position.x - 500, 1000, Easing::linearTween)->SetOnFinish([this]() {
+		this->add->Tween(multiBtnHover->position.x, multiBtnHover->position.x + 500, 2000, Easing::linearTween)->Start();
+		this->add->Tween(multiBtnHover->position.y, multiBtnHover->position.y - 200, 2000, Easing::linearTween)->Start();
 	})->Start();
 	//Sprite* a = this->add->Sprite(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f, "abc", groupMenu);
 	//groupText = this->add->Group();
