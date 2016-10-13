@@ -4,41 +4,36 @@
 ggEngine::TweenManager::TweenManager(Game * game)
 {
 	this->game = game;
-	this->tweenerList.reserve(40);
 }
 
 void ggEngine::TweenManager::Update(double deltaTime)
 {
-	for (int i = 0; i < tweenerList.size(); i++) {
-		if (tweenerList[i] == nullptr) continue;
-		Tween * tween = tweenerList[i];
+	for (auto it = tweenerList.begin(); it != tweenerList.end(); ) {
+		Tween * tween = (*it);
 		if (tween->IsAlive()) {
 			if (tween->IsPlaying()) {
 				tween->Update(deltaTime);
+				++it;
 			}else if(tween->IsFinished()){
-				delete tween;
-				tweenerList[i] = nullptr;
+				auto tempIt = it;
+				++it;
+				delete (*tempIt);
+				tweenerList.erase(tempIt);
 			}
+			
 		}
 		else {
-			delete tween;
-			tweenerList[i] = nullptr;
+			auto tempIt = it;
+			++it;
+			delete (*tempIt);
+			tweenerList.erase(tempIt);
 		}
 	}
 }
 
 void ggEngine::TweenManager::AddTween(Tween *tween)
 {
-	int i;
-	for ( i = 0; i < tweenerList.size(); i++) {
-		if (tweenerList[i] == nullptr) {
-			tweenerList[i] = (tween);
-			break;
-		}
-	}
-	if (i == tweenerList.size()) {
-		tweenerList.push_back(tween);
-	}
+	tweenerList.push_back(tween);
 }
 
 ggEngine::TweenManager::~TweenManager()
