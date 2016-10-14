@@ -60,7 +60,7 @@ void PingPongState::Create()
 	//go->body->velocity = 0;
 	//};
 	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(50, Vector(3,4));
+	ball->body->AddForce(100000, Vector(1,0));
 #pragma endregion Ball
 
 	
@@ -114,7 +114,7 @@ void PingPongState::Create()
 
 
 	ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
-		g_debug.Log("Collided found with " + e.colliderObject->name);
+		//g_debug.Log("Collided found with " + e.colliderObject->name);
 		//if (e.colliderObject->name == rightBat->name) {
 		//	ggEngine::Rectangle *rect = dynamic_cast<ggEngine::Rectangle*>(e.colliderObject->body->rigidBody);
 		//	g_debug.Log(rect->p1.ToString());
@@ -129,10 +129,10 @@ void PingPongState::Create()
 		Vector d = velocity;
 		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
 		go->body->velocity = r;
-		if (e.remainingTime > 0.0f) {
+		/*if (e.remainingTime > 0.0f) {
 			go->position.x += r.x*e.remainingTime;
 			go->position.y += r.y*e.remainingTime;
-		}
+		}*/
 	};
 
 #pragma region Others
@@ -156,6 +156,7 @@ void PingPongState::Create()
 }
 void PingPongState::Update()
 {
+	//Sleep(1000);
 	textScore1->SetText(std::to_string(score1));
 	textScore2->SetText(std::to_string(score2));
 	if (isSingle) {

@@ -13,6 +13,7 @@ namespace ggEngine {
 		~TweenManager();
 		void Update(double deltaTime);
 		void AddTween(Tween* tween);
+		void Reset();
 	private:
 		Game *game;
 		std::list<Tween*> tweenerList;

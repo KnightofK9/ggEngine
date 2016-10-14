@@ -36,6 +36,14 @@ void ggEngine::TweenManager::AddTween(Tween *tween)
 	tweenerList.push_back(tween);
 }
 
+void ggEngine::TweenManager::Reset()
+{
+	for (auto it = tweenerList.begin(); it != tweenerList.end(); ++it) {
+		delete (*it);
+	}
+	tweenerList.clear();
+}
+
 ggEngine::TweenManager::~TweenManager()
 {
 }

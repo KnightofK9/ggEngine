@@ -6,6 +6,7 @@
 #include "EventManager.h"
 #include "Physics.h"
 #include "World.h"
+#include "TweenManager.h"
 namespace ggEngine {
 	StateManager::StateManager(Game * game)
 	{
@@ -107,6 +108,7 @@ namespace ggEngine {
 				game->world->Reset();
 				game->physics->Reset();
 				game->eventManager->Reset();
+				game->tweenManager->Reset();
 				this->currentState->ShutDown();
 			}
 		}

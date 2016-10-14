@@ -17,8 +17,8 @@ namespace ggEngine {
 		void UpdatePhysics();
 		void EnablePhysics(Sprite *sprite);
 		void Reset();
-		static Box CreateSweptBroadPhaseBox(Box b);
-		static bool AABBCheck(Box b1, Box b2);
+		static RECT CreateSweptBroadPhaseRect(Box b);
+		static bool AABBCheck(RECT b1, RECT b2);
 	private:
 		PhysicsMode physicsMode;
 		Game *game;

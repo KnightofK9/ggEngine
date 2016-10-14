@@ -10,8 +10,19 @@ namespace ggEngine {
 		double w, h;
 		double vx, vy;
 		RECT GetRect() { return RECT{ (long)x,(long)y,(long)(x + w),(long)(y + h) }; }
-	private:
-		template < class Archive >
+
+		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version);
+	private:
 	};
+	template<class Archive>
+	inline void Box::serialize(Archive & ar, const unsigned int version)
+	{
+		ar & x;
+		ar & y;
+		ar & w;
+		ar & h;
+		ar & vx;
+		ar & vy;
+	}
 }

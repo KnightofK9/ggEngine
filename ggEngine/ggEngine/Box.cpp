@@ -17,13 +17,4 @@ namespace ggEngine{
 		this->vx = 0;
 		this->vy = 0;
 	}
-	template < class Archive >
-	void Box::serialize(Archive & ar, const unsigned int version){
-		ar & x;
-		ar & y;
-		ar & w;
-		ar & h;
-		ar & vx;
-		ar & vy;
-	}
 }

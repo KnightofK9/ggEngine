@@ -4,7 +4,6 @@
 #include "Game.h"
 #include "Events.h"
 #include "ColliderArg.h"
-#include "Box.h"
 #include <Windows.h>
 #include "Physics.h"
 namespace ggEngine {
@@ -46,8 +45,10 @@ namespace ggEngine {
 
 	double Body::PerformCollisionSweptAABB(GameObject * staticGo, Vector currentVelocity)
 	{
+		
 		Rectangle *rect1 = dynamic_cast<Rectangle*>(this->rigidBody);
 		Rectangle *rect2 = dynamic_cast<Rectangle*>(staticGo->body->rigidBody);
+		//THIS CAUSE THE FIRST POINT PROBLEM HAPPEN, TRY TO RESOLVER IT
 		if (!rect1->isReady || !rect2->isReady) return 1.0f;
 		double xInvEntry, yInvEntry;
 		double xInvExit, yInvExit;
@@ -66,39 +67,63 @@ namespace ggEngine {
 		b2.w = rect2->p3.x-rect2->p1.x;
 		b2.h = rect2->p3.y-rect2->p1.y;
 		b2.vx = b2.vy = 0;
-		if (b1.vx > 0.0f && ((b2.x + b2.w) < b1.x)) return 1.0f;
-		if (b1.vx < 0.0f && (b2.x>(b1.x + b1.w))) return 1.0f;
-		if (b1.vy > 0.0f && ((b2.y + b2.h) < b1.y)) return 1.0f;
-		if (b1.vy < 0.0f && (b2.y > (b1.y+b1.h))) return 1.0f;
+		if (b1.vx > 0.0f) {
+			if ((b2.x + b2.w) < b1.x) return 1.0f;
+			else {
+				xInvEntry = b2.x - (b1.x + b1.w);
+				xInvExit = (b2.x + b2.w) - b1.x;
+			}
+		}
+		if (b1.vx < 0.0f) {
+			if(b2.x > (b1.x + b1.w)) return 1.0f;
+			else {
+				xInvEntry = b1.x - (b2.x + b2.w);
+				xInvExit = (b1.x + b1.w) - b2.x;
+			}
+		}
+		if (b1.vy > 0.0f) {
+			if((b2.y + b2.h) < b1.y) return 1.0f;
+			else {
+				yInvEntry = (b2.y - (b1.y + b1.h));
+				yInvExit = ((b2.y + b2.h) - b1.y);
+			}
+		}
+		if (b1.vy < 0.0f) {
+			if(b2.y >(b1.y + b1.h)) return 1.0f;
+			else {
+				yInvEntry = (b1.y - (b2.y + b2.h));
+				yInvExit = ((b1.y + b1.h) - b2.y);
+			}
+		}
 		//BroadPhase check
-		Box broadPhaseBox = Physics::CreateSweptBroadPhaseBox(b1);
-		if (!Physics::AABBCheck(broadPhaseBox, b2)) {
-			//g_debug.Log("BroadPhaseCheck success");
+		RECT broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
+		RECT r2 = b2.GetRect();
+		if (!Physics::AABBCheck(broadPhaseRect, r2)) {
+			g_debug.Log("BroadPhaseCheck success");
 			return 1.0f;
 		}
 
 
-
 		//b1 is moving right
-		if (b1.vx > 0.0f) { 
-			xInvEntry = b2.x - (b1.x + b1.w); //Shortest x distance
-			xInvExit = (b2.x + b2.w) - b1.x; //Longest x distance
-		}
-		//b1 is moving left
-		else { 
-			xInvEntry = (b2.x + b2.w) - b1.x;
-			xInvExit = b2.x - (b1.x + b1.w);
-		}
-		//b1 is moving down
-		if (b1.vy > 0.0f) { 
-			yInvEntry = (b2.y - (b1.y + b1.h));
-			yInvExit = ((b2.y + b2.h) - b1.y);
-		}
-		//b1 is moving up
-		else {
-			yInvEntry = (b2.y + b2.h) - b1.y;
-			yInvExit = b2.y - (b1.y + b1.h);
-		}
+		//if (b1.vx > 0.0f) { 
+		//	xInvEntry = b2.x - (b1.x + b1.w); //Shortest x distance
+		//	xInvExit = (b2.x + b2.w) - b1.x; //Longest x distance
+		//}
+		////b1 is moving left
+		//else { 
+		//	xInvEntry = (b2.x + b2.w) - b1.x;
+		//	xInvExit = b2.x - (b1.x + b1.w);
+		//}
+		////b1 is moving down
+		//if (b1.vy > 0.0f) { 
+		//	yInvEntry = (b2.y - (b1.y + b1.h));
+		//	yInvExit = ((b2.y + b2.h) - b1.y);
+		//}
+		////b1 is moving up
+		//else {
+		//	yInvEntry = (b2.y + b2.h) - b1.y;
+		//	yInvExit = b2.y - (b1.y + b1.h);
+		//}
 		double xEntry, yEntry;
 		double xExit, yExit;
 
@@ -107,52 +132,57 @@ namespace ggEngine {
 			xExit = std::numeric_limits<double>::infinity();
 		}
 		else {
-			xEntry = xInvEntry / b1.vx;
-			xExit = xInvExit / b1.vx;
+			xEntry = xInvEntry / abs(b1.vx);
+			xExit = xInvExit / abs(b1.vx);
 		}
 		if (b1.vy == 0.0f) {
 			yEntry = -std::numeric_limits<double>::infinity();
 			yExit = std::numeric_limits<double>::infinity();
 		}
 		else {
-			yEntry = yInvEntry / b1.vy;
-			yExit = yInvExit / b1.vy;
+			yEntry = yInvEntry / abs(b1.vy);
+			yExit = yInvExit / abs(b1.vy);
 		}
 		double entryTime = std::max(xEntry, yEntry);
 		double exitTime = std::min(xExit, yExit);
 		if (entryTime > exitTime|| xEntry<0.0f&&yEntry<0.0f || xEntry>1.0f || yEntry>1.0f) {
-			//g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) + "|yEntry:" + std::to_string(yEntry));
+			g_debug.Log("No collider with " + staticGo->name);
+		//if(xEntry>1.0f || yEntry>1.0f){
+			/*if (staticGo->name == "Left Bat") {
+				g_debug.Log("b1" + std::to_string(b1.x) + "-" + std::to_string(b1.y) + "-" + std::to_string(b1.vx) + "-" + std::to_string(b1.vy));
+				g_debug.Log("b2" + std::to_string(b2.x) + "-" + std::to_string(b2.y) + "-" + std::to_string(b2.vx) + "-" + std::to_string(b2.vy));
+			}
+			g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) + "|yEntry:" + std::to_string(yEntry));
+			*/
 			normalVector.x = 0.0f;
 			normalVector.y = 0.0f;
 			// No collision found
 			return 1.0f;
 		}
-		else {
-			g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) );
+		//g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) );
 
-			if (xEntry > yEntry) { //Get the max because object can collide with other axis already but not collided with box yet
-				if (xInvEntry < 0.0f) { // b2 | b1
-					e.blockDirection.left = true;
-					normalVector.x = 1.0f;
-					normalVector.y = 0.0f;
-				}
-				else { // b1 | b2
-					e.blockDirection.right = true;
-					normalVector.x = -1.0f;
-					normalVector.y = 0.0f;
-				}
+		if (xEntry > yEntry) { //Get the max because object can collide with other axis already but not collided with box yet
+			if (b1.vx < 0.0f) { // b2 | b1
+				e.blockDirection.left = true;
+				normalVector.x = 1.0f;
+				normalVector.y = 0.0f;
 			}
-			else {
-				if (yInvEntry < 0.0f) { // b2/b1
-					e.blockDirection.up = true;
-					normalVector.x = 0.0f;
-					normalVector.y = 1.0f;
-				}
-				else { // b1/b2
-					e.blockDirection.down = true;
-					normalVector.x = 0.0f;
-					normalVector.y = -1.0f;
-				}
+			else { // b1 | b2
+				e.blockDirection.right = true;
+				normalVector.x = -1.0f;
+				normalVector.y = 0.0f;
+			}
+		}
+		else {
+			if (b1.vy < 0.0f) { // b2/b1
+				e.blockDirection.up = true;
+				normalVector.x = 0.0f;
+				normalVector.y = 1.0f;
+			}
+			else { // b1/b2
+				e.blockDirection.down = true;
+				normalVector.x = 0.0f;
+				normalVector.y = -1.0f;
 			}
 		}
 		e.bound = true;

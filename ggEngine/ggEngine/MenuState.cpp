@@ -1,4 +1,5 @@
 #include "MenuState.h"
+#include <fstream>
 Sprite* singleBtnNormal;
 Sprite* singleBtnHover;
 Sprite* multiBtnNormal;
@@ -83,7 +84,24 @@ void MenuState::Create()
 	//style2.backgroundColor = D3DCOLOR_ARGB(255, 255, 255, 100);
 	//Text *subText = this->add->Text(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT - 50, "default",500,100, "Esc: Exit          Q: Enter", style2, groupText);
 	//subText->SetAnchor(0.5, 0.5);
+	Box *box = new Box(1, 2, 3, 4, 5, 6);
+	std::ofstream ofs("box_backup");
+	{
+		boost::archive::text_oarchive oa(ofs);
+		// write class instance to archive
+		oa << box;
+		// archive and stream closed when destructors are called
+	}
 
+	box = new Box(0, 0, 0, 0, 0, 0);
+	{
+		// create and open an archive for input
+		std::ifstream ifs("box_backup");
+		boost::archive::text_iarchive ia(ifs);
+		// read class state from archive
+		ia >> box;
+		// archive and stream closed when destructors are called
+	}
 }
 
 void MenuState::Update()
