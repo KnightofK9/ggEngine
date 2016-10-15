@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector.h"
+#include "NiseVector.h"
 #include "Shape.h"
 namespace ggEngine {
 	class Rectangle : public Shape {
@@ -8,9 +8,11 @@ namespace ggEngine {
 		~Rectangle();
 		double GetArea();
 		void Destroy();
-		bool isReady;
 		void Transform(Matrix transformMatrix);
-		Vector p1, p2, p3, p4, pCenter;
+		NiseVector p1, p2, p3, p4, pCenter;
 		double width, height;
+		bool IsReady() { return this->isReady; }
+	private:
+		bool isReady;
 	};
 }

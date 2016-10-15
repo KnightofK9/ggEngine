@@ -13,6 +13,7 @@ namespace ggEngine {
 		if (enableManualMove) EnableManualMove();
 		SetPoint(x, y);
 		SetScale(1, 1);
+		this->rotate = 0;
 	}
 	Camera::~Camera()
 	{
@@ -20,7 +21,10 @@ namespace ggEngine {
 	void Camera::Transform()
 	{
 		Matrix tranMat;
-		tranMat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+		tranMat = Matrix::CreateTranslateMatrix(-width / 2, -height / 2);
+		tranMat *= Matrix::CreateRotateMatrix(this->rotate);
+		tranMat *= Matrix::CreateTranslateMatrix(width / 2, height / 2);
+		tranMat *= Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
 		tranMat *= Matrix::CreateTranslateMatrix(-(width-orgWidth)/2,-(height-orgHeight)/2);
 		tranMat *= Matrix::CreateTranslateMatrix(-this->point.x*scale.x, -this->point.y*scale.y);
 		this->translatedMatrix = tranMat;
@@ -57,6 +61,12 @@ namespace ggEngine {
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_Reset])) {
 				ResetView();
 			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_RotateLeft])) {
+				rotate -= ROTATE_SPEED;
+			}
+			if (game->GetInput()->KeyDown(controlKey[CameraControl_RotateRight])) {
+				rotate += ROTATE_SPEED;
+			}
 		}
 		Transform();
 	}
@@ -89,15 +99,18 @@ namespace ggEngine {
 	{
 		SetScale(1, 1);
 		point = Vector(0, 0);
+		rotate = 0;
 	}
 	void Camera::SetUpKeyControl()
 	{
-		controlKey[CameraControl_ZoomIn] = DIK_NUMPAD7;
+		controlKey[CameraControl_ZoomIn] = DIK_NUMPAD3;
 		controlKey[CameraControl_ZoomOut] = DIK_NUMPAD1;
 		controlKey[CameraControl_MoveLeft] = DIK_NUMPAD4;
 		controlKey[CameraControl_MoveRight] = DIK_NUMPAD6;
 		controlKey[CameraControl_MoveUp] = DIK_NUMPAD8;
 		controlKey[CameraControl_MoveDown] = DIK_NUMPAD2;
-		controlKey[CameraControl_Reset] = DIK_NUMPAD9;
+		controlKey[CameraControl_Reset] = DIK_NUMPAD0;
+		controlKey[CameraControl_RotateLeft] = DIK_NUMPAD7;
+		controlKey[CameraControl_RotateRight] = DIK_NUMPAD9;
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Shape.h"
+#include "NiseVector.h"
 namespace ggEngine {
 	class Circle: public Shape {
 	public:
@@ -8,7 +9,10 @@ namespace ggEngine {
 		double GetArea();
 		void Destroy();
 		void Transform(Matrix transformMatrix);
-		Vector pCenter;
+		NiseVector pCenter;
 		double radius;
+		bool IsReady(){ return this->isReady; }
+	private:
+		bool isReady;
 	};
 }

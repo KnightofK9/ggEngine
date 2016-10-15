@@ -17,12 +17,10 @@ namespace ggEngine {
 		void TransformCord(Matrix mat);
 		double Length();
 		Vector Rotate(const Vector& p, double angle);
-		void SetTransform(Matrix mat);
 		static double Distance(const Vector& vectorA, const Vector& vectorB);
 		static double DotProduct(const Vector& vectorA, const Vector& vectorB);
 		static Vector3 CrossProduct(const Vector3& a, const Vector3& b);
 		std::string ToString();
 	private:
-		double orgX, orgY;
 	};
 }

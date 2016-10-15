@@ -7,5 +7,6 @@ namespace ggEngine {
 	public:
 		virtual double GetArea() = 0;
 		virtual void Transform(Matrix transformMatrix) = 0;
+		virtual bool IsReady() = 0;
 	};
 }

@@ -22,5 +22,7 @@ void ggEngine::Circle::Destroy()
 void ggEngine::Circle::Transform(Matrix transformMatrix)
 {
 	pCenter.SetTransform(transformMatrix);
+	this->isReady = true;
 }
+
 

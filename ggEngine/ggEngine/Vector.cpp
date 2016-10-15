@@ -3,8 +3,6 @@
 #include "Debug.h"
 namespace ggEngine {
 	Vector::Vector(double x, double y) : D3DXVECTOR2(x, y) {
-		orgX = x;
-		orgY = y;
 		this->x = x;
 		this->y = y;
 	}
@@ -56,10 +54,6 @@ namespace ggEngine {
 		double y_prime = vector.y + ((x * sin(angle)) + (y * cos(angle)));
 
 		return Vector(x_prime, y_prime);
-	}
-	void Vector::SetTransform(Matrix mat)
-	{
-		D3DXVec2TransformCoord(this, &Vector(orgX,orgY), &mat);
 	}
 }
 

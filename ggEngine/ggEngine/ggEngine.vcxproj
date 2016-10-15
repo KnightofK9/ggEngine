@@ -183,6 +183,7 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MouseEventArg.h" />
+    <ClInclude Include="NiseVector.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PingPongState.h" />
     <ClInclude Include="Preload.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="NiseVector.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PingPongState.cpp" />
     <ClCompile Include="Preload.cpp" />
