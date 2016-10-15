@@ -70,7 +70,7 @@ void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
 		worldRect.bottom = WINDOW_HEIGHT;
 
 	RECT rect{ 0 , 0 , width, height };
-	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
+	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE) == D3D_OK)
 	{
 		
 		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);
@@ -137,7 +137,7 @@ void ggEngine::Text::Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE sprite
 	//Rotate around anchor
 	mat *= Matrix::CreateRotateMatrix(this->rotate);
 	//Tranform to screen view
-	mat *= translatedWorldMatrix;
+	//mat *= translatedWorldMatrix;
 
 	//Vector scaleTransform(this->scale.x, this->scale.y);
 	//Vector rotateCenter((this->width) / 2, (this->height) / 2);

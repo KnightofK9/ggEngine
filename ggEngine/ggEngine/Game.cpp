@@ -28,7 +28,7 @@ namespace ggEngine {
 		try {
 			d3dManager = new D3DManager(this,hWnd, width, height, gameColor, isWindowed);
 			stateManager = new StateManager(this);
-			camera = new Camera(this, WINDOW_WIDTH, WINDOW_HEIGHT,true);
+			camera = new Camera(this, WINDOW_WIDTH, WINDOW_HEIGHT,0,0,true);
 			drawManager = new DrawManager(this,camera);
 			cache = new Cache(this);
 			d3dManager->SetDrawManager(drawManager);
@@ -131,6 +131,7 @@ namespace ggEngine {
 	void Game::GameCustomRender()
 	{
 		g_debug.DebugToScreen(0, 0, std::to_string(frameRateReal));
+
 	}
 
 	void Game::gameUpdate()

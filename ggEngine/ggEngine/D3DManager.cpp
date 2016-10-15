@@ -2,6 +2,7 @@
 #include <iostream>
 #include "State.h"
 #include "Game.h"
+#include "Camera.h"
 namespace ggEngine {
 	D3DManager::D3DManager(Game *game,HWND hWnd, int width, int height, D3DCOLOR backgroundColor, bool isWindowed) {
 		this->game = game;
@@ -77,6 +78,7 @@ namespace ggEngine {
 		
 		d3ddv->BeginScene();
 		this->stateManager->GetCurrentState()->PreRender();
+	
 		drawManager->Render2D();
 		this->stateManager->GetCurrentState()->Render();
 		this->game->GameCustomRender();

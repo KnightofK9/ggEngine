@@ -2,6 +2,7 @@
 #include "GGObject.h"
 #include "Vector.h"
 #include "Matrix.h"
+#include <d3d9.h>
 namespace ggEngine {
 	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_RotateRight, CameraControl_RotateLeft, CameraControl_Reset, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown};
 	class Game;
@@ -9,7 +10,7 @@ namespace ggEngine {
 	public:
 		Camera(Game *game, int width, int height,double x = 0, double y = 0, bool enableManualMove = false);
 		~Camera();
-		void Transform();
+		void Draw();
 		void Update();
 		void Destroy();
 		void SetScale(double x, double y);
@@ -20,6 +21,7 @@ namespace ggEngine {
 		void DisableManualMove();
 		void ResetView();
 	private:
+		LPDIRECT3DDEVICE9 device;
 		void SetUpKeyControl();
 		bool enableManualMove;
 		double rotate;
@@ -35,5 +37,8 @@ namespace ggEngine {
 		const double SCALE_SPEED = 0.01f;
 		const double MOVE_SPEED = 25.0f;
 		const double ROTATE_SPEED = 3.14 / 60;
+		D3DXMATRIX orthographicMatrix;
+		D3DXMATRIX identityMatrix;
+		D3DXMATRIX viewMatrix;
 	};
 }

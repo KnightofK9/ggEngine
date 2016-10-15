@@ -46,8 +46,9 @@ namespace ggEngine {
 
 	void DrawManager::Render2D()
 	{
-		camera->Update();
 		Update2D();
+		camera->Update();
+		camera->Draw();
 	}
 
 	void DrawManager::DrawRectangleToWorld(double left, double top, double right, double bottom, D3DCOLOR fillColor)

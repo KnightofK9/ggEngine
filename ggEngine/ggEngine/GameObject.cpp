@@ -49,7 +49,7 @@ namespace ggEngine {
 		//mat *= Matrix::CreateTranslateMatrix(this->position.x, this->position.y);
 		mat *= Matrix::CreateTranslateMatrix(this->worldPosition.x, this->worldPosition.y);
 		//Tranform to screen view
-		mat *= translatedWorldMatrix;
+		//mat *= translatedWorldMatrix;
 
 		//Vector scaleTransform(this->scale.x, this->scale.y);
 		//Vector rotateCenter((this->width) / 2, (this->height) / 2);

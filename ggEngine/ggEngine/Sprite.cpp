@@ -24,7 +24,7 @@ namespace ggEngine {
 		RECT srcRect = image->GetRect();
 		if (!visible) return;
 		color = (color & 0x00FFFFFF) | (opacity << 24);
-		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
+		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE) == D3D_OK)
 		{
 			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, color);
 			spriteHandle->End();

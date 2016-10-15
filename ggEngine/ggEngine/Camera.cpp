@@ -1,33 +1,50 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Input.h"
+
 namespace ggEngine {
 	Camera::Camera(Game * game, int width, int height, double x , double y , bool enableManualMove)
 	{
 		this->game = game;
+		this->device = &game->GetD3DManager()->getDevice();
 		this->width = width;
 		this->height = height;
 		this->orgWidth = width;
 		this->orgHeight = height;
 		SetUpKeyControl();
 		if (enableManualMove) EnableManualMove();
-		SetPoint(x, y);
+		SetPoint(width/2, height/2);
 		SetScale(1, 1);
 		this->rotate = 0;
+		D3DXMatrixOrthoLH(&this->orthographicMatrix,width,-height,0.0f,1.0f);
+		D3DXMatrixIdentity(&this->identityMatrix);
 	}
 	Camera::~Camera()
 	{
 	}
-	void Camera::Transform()
+	void Camera::Draw()
 	{
 		Matrix tranMat;
-		tranMat = Matrix::CreateTranslateMatrix(-width / 2, -height / 2);
-		tranMat *= Matrix::CreateRotateMatrix(this->rotate);
-		tranMat *= Matrix::CreateTranslateMatrix(width / 2, height / 2);
-		tranMat *= Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
-		tranMat *= Matrix::CreateTranslateMatrix(-(width-orgWidth)/2,-(height-orgHeight)/2);
+		//tranMat = Matrix::CreateTranslateMatrix(-width / 2 - (this->point.x-width/2)*scale.x, -height / 2 - (this->point.y-height/2)*scale.x);
+		////tranMat = Matrix::CreateTranslateMatrix(point.x-width / 2, point.y-height / 2);
+		////tranMat *= Matrix::CreateTranslateMatrix(-(point.x - width / 2), -(point.y - height / 2));
+		tranMat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+		//tranMat *= Matrix::CreateTranslateMatrix(width / 2 + (this->point.x - width / 2)*scale.x, height / 2 + (this->point.y - height / 2)*scale.x);
+		////tranMat *= Matrix::CreateTranslateMatrix(-(width-orgWidth)/2,-(height-orgHeight)/2);
 		tranMat *= Matrix::CreateTranslateMatrix(-this->point.x*scale.x, -this->point.y*scale.y);
-		this->translatedMatrix = tranMat;
+
+		tranMat *= Matrix::CreateRotateMatrix(this->rotate);
+
+		this->viewMatrix = tranMat;
+		/*this->viewMatrix = D3DXMATRIX(
+			scale.x*cos(rotate), scale.y*sin(rotate), 0, 0,
+			-scale.y*sin(rotate), scale.y*cos(rotate), 0, 0,
+			0, 0, 1, 0,
+			-point.x*scale.x*cos(rotate) + point.y*scale.y*sin(rotate), -point.x*scale.y*sin(rotate) - point.y*scale.y*cos(rotate), 0, 1);
+	*/	this->device->SetTransform(D3DTS_PROJECTION, &orthographicMatrix);
+		this->device->SetTransform(D3DTS_WORLD, &identityMatrix);
+		this->device->SetTransform(D3DTS_VIEW, &viewMatrix);
+		
 	}
 	void Camera::Update()
 	{
@@ -68,7 +85,6 @@ namespace ggEngine {
 				rotate += ROTATE_SPEED;
 			}
 		}
-		Transform();
 	}
 	void Camera::Destroy()
 	{
@@ -98,8 +114,8 @@ namespace ggEngine {
 	void Camera::ResetView()
 	{
 		SetScale(1, 1);
-		point = Vector(0, 0);
 		rotate = 0;
+		point = Vector(width/2, height/2);
 	}
 	void Camera::SetUpKeyControl()
 	{
