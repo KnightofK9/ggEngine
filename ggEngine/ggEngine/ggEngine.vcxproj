@@ -187,6 +187,8 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PingPongState.h" />
     <ClInclude Include="Preload.h" />
+    <ClInclude Include="QuadNode.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Sound.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="TestState.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TilesMap.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Tween.h" />
     <ClInclude Include="TweenManager.h" />
@@ -237,6 +240,8 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PingPongState.cpp" />
     <ClCompile Include="Preload.cpp" />
+    <ClCompile Include="QuadNode.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />

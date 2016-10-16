@@ -25,9 +25,5 @@ namespace ggEngine {
 		static const std::function<double(double, double, double, double)> easeInCirc;
 		static const std::function<double(double, double, double, double)> easeOutCirc;
 		static const std::function<double(double, double, double, double)> easeInOutCirc;
-		
-		//static double linearTween(double currentTimeInMili, double startValue, double changeInValue, double durationInMili) {
-		//	return changeInValue*currentTimeInMili / durationInMili + startValue;
-		//};
 	};
 }
