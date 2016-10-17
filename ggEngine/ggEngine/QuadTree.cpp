@@ -19,7 +19,7 @@ namespace ggEngine {
 		this->rootNode = rootNode;
 	}
 	template<class T>
-	T QuadTree<T>::GetRootNode()
+	QuadNode<T> QuadTree<T>::GetRootNode()
 	{
 		return this->rootNode;
 	}
