@@ -36,7 +36,7 @@ namespace ggEngine {
 	{
 		this->alive = false;
 	}
-	void GameObject::Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+	void GameObject::Transform(LPD3DXSPRITE spriteHandle)
 	{
 		//Scale from 0 0
 		Matrix mat;

@@ -18,9 +18,9 @@ namespace ggEngine {
 	Sprite::~Sprite()
 	{
 	}
-	void Sprite::Draw(Matrix translatedWorldMatrix)
+	void Sprite::Draw()
 	{
-		Transform(translatedWorldMatrix, spriteHandle);
+		Transform(spriteHandle);
 		RECT srcRect = image->GetRect();
 		if (!visible) return;
 		color = (color & 0x00FFFFFF) | (opacity << 24);

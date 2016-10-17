@@ -13,7 +13,7 @@ namespace ggEngine {
 		Sprite(DrawManager *drawManager, SpriteInfo *image);
 		Sprite(DrawManager *drawManager);
 		~Sprite();
-		virtual void Draw(Matrix translatedWorldMatrix);
+		virtual void Draw();
 		virtual void SetWidth(double width);
 		virtual void SetHeight(double height);
 		virtual double GetWidth();

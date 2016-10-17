@@ -53,10 +53,10 @@ void ggEngine::Text::Destroy()
 	GameObject::Destroy();
 }
 
-void ggEngine::Text::Draw(Matrix translatedWorldMatrix)
+void ggEngine::Text::Draw()
 {
 	if (!visible) return;
-	this->Transform(translatedWorldMatrix, spriteHandle);
+	this->Transform(spriteHandle);
 	//double width = GetWidth();
 	//double height = GetHeight();
 	RECT worldRect{ position.x - width*anchor.x, position.y - height*anchor.y, position.x + width*(1- anchor.x), position.y + height*(1 - anchor.y) };
@@ -125,7 +125,7 @@ void ggEngine::Text::SetRotate(double rotate)
 	g_debug.Warning("Text can not be rotated in this version.");
 }
 
-void ggEngine::Text::Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle)
+void ggEngine::Text::Transform(LPD3DXSPRITE spriteHandle)
 {
 	//Scale from 0 0
 	Matrix mat;

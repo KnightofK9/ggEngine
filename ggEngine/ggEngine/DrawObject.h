@@ -8,7 +8,7 @@ namespace ggEngine {
 	public:
 		DrawObject(DrawManager *DrawManager);
 		~DrawObject();
-		virtual void Draw(Matrix translatedWorldMatrix) = 0;
+		virtual void Draw() = 0;
 	protected:
 		DrawManager *drawManager;
 		LPD3DXSPRITE spriteHandle;

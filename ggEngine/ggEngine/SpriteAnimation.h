@@ -8,7 +8,7 @@ namespace ggEngine {
 	public:
 		SpriteAnimation(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0);
 		~SpriteAnimation();
-		void Draw(Matrix translatedWorldMatrix);
+		void Draw();
 		void Destroy();
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
 		void NextAnimationFrame(std::string animationName);

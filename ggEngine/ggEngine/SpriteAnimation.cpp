@@ -23,9 +23,9 @@ namespace ggEngine {
 		//if(currentAnimation!=NULL) delete currentAnimation;
 		if (frameList != NULL) delete frameList;
 	}
-	void SpriteAnimation::Draw(Matrix translatedWorldMatrix)
+	void SpriteAnimation::Draw()
 	{
-		Transform(translatedWorldMatrix,spriteHandle);
+		Transform(spriteHandle);
 		if (!visible) return;
 		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {

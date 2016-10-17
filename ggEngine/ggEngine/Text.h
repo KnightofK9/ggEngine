@@ -37,7 +37,7 @@ namespace ggEngine {
 		void Destroy();
 		void SetFont(Font *font) { this->font = font; }
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
-		void Draw(Matrix translatedWorldMatrix);
+		void Draw();
 		void SetText(std::string text); 
 		virtual void SetWidth(double width);
 		virtual void SetHeight(double height);
@@ -48,7 +48,7 @@ namespace ggEngine {
 		virtual void SetRotate(double rotate); 
 		int GetOpacity() { return this->opacity; }
 		void SetOpacity(int opacity) { this->opacity = opacity % 256; }
-		void Transform(Matrix translatedWorldMatrix, LPD3DXSPRITE spriteHandle);
+		void Transform(LPD3DXSPRITE spriteHandle);
 	private:
 		Font *font;
 		Style style;

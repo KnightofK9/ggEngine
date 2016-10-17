@@ -65,33 +65,21 @@ namespace ggEngine {
 		b2.h = rect2->p3.y-rect2->p1.y;
 		b2.vx = b2.vy = 0;
 		if (b1.vx > 0.0f) {
-			if ((b2.x + b2.w) < b1.x) return 1.0f;
-			else {
-				xInvEntry = b2.x - (b1.x + b1.w);
-				xInvExit = (b2.x + b2.w) - b1.x;
-			}
+			xInvEntry = b2.x - (b1.x + b1.w);
+			xInvExit = (b2.x + b2.w) - b1.x;
 		}
 		if (b1.vx < 0.0f) {
 			if(b2.x > (b1.x + b1.w)) return 1.0f;
-			else {
-				xInvEntry =   (b2.x + b2.w) - b1.x;
-				xInvExit = b2.x - (b1.x + b1.w);
-
-			}
+			xInvEntry = (b2.x + b2.w) - b1.x;
+			xInvExit = b2.x - (b1.x + b1.w);
 		}
 		if (b1.vy > 0.0f) {
-			if((b2.y + b2.h) < b1.y) return 1.0f;
-			else {
-				yInvEntry = (b2.y - (b1.y + b1.h));
-				yInvExit = ((b2.y + b2.h) - b1.y);
-			}
+			yInvEntry = (b2.y - (b1.y + b1.h));
+			yInvExit = ((b2.y + b2.h) - b1.y);
 		}
 		if (b1.vy < 0.0f) {
-			if(b2.y >(b1.y + b1.h)) return 1.0f;
-			else {
-				yInvEntry = b1.y -(b2.y + b2.h) ;
-				yInvExit =  (b1.y + b1.h) - b2.y;
-			}
+			yInvEntry = b1.y - (b2.y + b2.h);
+			yInvExit = (b1.y + b1.h) - b2.y;
 		}
 		//BroadPhase check
 		RECT broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
@@ -124,14 +112,6 @@ namespace ggEngine {
 		double entryTime = std::max(xEntry, yEntry);
 		double exitTime = std::min(xExit, yExit);
 		if (entryTime > exitTime|| xEntry<0.0f&&yEntry<0.0f || xEntry>1.0f || yEntry>1.0f) {
-			//g_debug.Log("No collider with " + staticGo->name);
-		//if(xEntry>1.0f || yEntry>1.0f){
-			/*if (staticGo->name == "Left Bat") {
-				g_debug.Log("b1" + std::to_string(b1.x) + "-" + std::to_string(b1.y) + "-" + std::to_string(b1.vx) + "-" + std::to_string(b1.vy));
-				g_debug.Log("b2" + std::to_string(b2.x) + "-" + std::to_string(b2.y) + "-" + std::to_string(b2.vx) + "-" + std::to_string(b2.vy));
-			}
-			g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) + "|yEntry:" + std::to_string(yEntry));
-			*/
 			normalVector.x = 0.0f;
 			normalVector.y = 0.0f;
 			// No collision found
