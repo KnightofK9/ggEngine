@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
+    <IncludePath>E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\application\boost_1_62_0\libs;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -177,8 +177,11 @@
     <ClInclude Include="Group.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IGetGroup.h" />
+    <ClInclude Include="IJsonable.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="ISerializable.h" />
+    <ClInclude Include="IValueable.h" />
+    <ClInclude Include="Json.h" />
     <ClInclude Include="KeyBoardEventArg.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MenuState.h" />
@@ -233,6 +236,7 @@
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Json.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MenuState.cpp" />

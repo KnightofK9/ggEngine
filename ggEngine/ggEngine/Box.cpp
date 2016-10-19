@@ -17,4 +17,25 @@ namespace ggEngine{
 		this->vx = 0;
 		this->vy = 0;
 	}
+	void Box::CreateJson(std::string location)
+	{
+		Json json;
+		json.AddMember("x", x, json.GetAllocator());
+		json.AddMember("y", y, json.GetAllocator());
+		json.AddMember("w", w, json.GetAllocator());
+		json.AddMember("h", h, json.GetAllocator());
+		json.AddMember("vx", vx, json.GetAllocator());
+		json.AddMember("vy", vy, json.GetAllocator());
+		json.SaveTo(location);
+	}
+	void Box::ParseJson(std::string location)
+	{
+		Json json(location);
+		x = json["x"].GetDouble();
+		y = json["y"].GetDouble();
+		w = json["w"].GetDouble();
+		h = json["h"].GetDouble();
+		vx = json["vx"].GetDouble();
+		vy = json["vy"].GetDouble();
+	}
 }

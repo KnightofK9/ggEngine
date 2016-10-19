@@ -1,8 +1,9 @@
 #pragma once
 #include <d3d9.h>
 #include "ISerializable.h"
+#include "IJsonable.h"
 namespace ggEngine {
-	class Box : public ISerializable {
+	class Box : public ISerializable, public IJsonable {
 	public:
 		Box(double x, double y, double w, double h, double vx, double vy);
 		Box();
@@ -20,6 +21,10 @@ namespace ggEngine {
 			ar & vx;
 			ar & vy;
 		}
+		// Inherited via IJsonable
+		virtual void CreateJson(std::string location) override;
+		virtual void ParseJson(std::string location) override;
 	private:
+
 	};
 }

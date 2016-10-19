@@ -43,6 +43,9 @@
     <Filter Include="Header Files\Manager">
       <UniqueIdentifier>{e91604cb-a265-464f-bf48-9da7ca176964}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TileMap">
+      <UniqueIdentifier>{80242a86-a19b-49b3-87b2-43a8fb8d3f28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -190,6 +193,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Json.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -370,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="TilesMap.h">
       <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IJsonable.h">
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Json.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="IValueable.h">
+      <Filter>Header Files\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
