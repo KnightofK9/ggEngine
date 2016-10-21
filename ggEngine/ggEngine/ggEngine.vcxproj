@@ -204,7 +204,9 @@
     <ClInclude Include="TestState.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="TilesMap.h" />
+    <ClInclude Include="TilesSetSprite.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Tween.h" />
     <ClInclude Include="TweenManager.h" />
