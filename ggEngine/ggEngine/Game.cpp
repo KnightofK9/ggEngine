@@ -28,7 +28,7 @@ namespace ggEngine {
 		try {
 			d3dManager = new D3DManager(this,hWnd, width, height, gameColor, isWindowed);
 			stateManager = new StateManager(this);
-			camera = new Camera(this, WINDOW_WIDTH, WINDOW_HEIGHT,0,0,true);
+			camera = new Camera(this, GAME_WIDTH, GAME_HEIGHT,0,0,true);
 			drawManager = new DrawManager(this,camera);
 			cache = new Cache(this);
 			d3dManager->SetDrawManager(drawManager);
@@ -54,7 +54,7 @@ namespace ggEngine {
 		this->frameCountReal = 0;
 		this->frameRateCore = 0;
 		this->frameRateReal = 0;
-		this->maximizeProcessor = true;
+		this->maximizeProcessor = false;
 		this->pauseMode = false;
 
 	}
@@ -86,6 +86,29 @@ namespace ggEngine {
 
 	void Game::GameRun()
 	{
+		frameCountReal++;
+		if (realTimer.stopwatch(999)) {
+			frameRateReal = frameCountReal;
+			frameCountReal = 0;
+		}
+		logicTimer.updateDeltaTime();
+		//
+		// Check for state
+		//
+
+		stateManager->LateStart();
+
+		//
+		// Update game logic here
+		//
+		gameUpdate();
+		if (this->isRunning) this->stateManager->GetCurrentState()->PreRender();
+
+		//
+		// Render go here
+		//
+		this->d3dManager->update();
+		return;
 		frameCountCore++;
 		if (coreTimer.stopwatch(999)) {
 			frameRateCore = frameCountCore;

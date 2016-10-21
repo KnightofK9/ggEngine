@@ -20,54 +20,56 @@ void PingPongState::Create()
 	group = this->add->Group();
 
 #pragma region Ball
-	Sprite *background = this->add->Sprite(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "background", group);
+	Sprite *background = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "background", group);
 	background->SetScale(Vector(0.8, 0.8));
-	ball = this->add->Sprite(WINDOW_WIDTH /2.0, WINDOW_HEIGHT / 2.0, "ball", group);
-	game->physics->EnablePhysics(ball);
-	ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
-		/*if (!e.blockDirection.up && !e.blockDirection.down)
-		{
+	for (int i = 0; i < 1000; ++i){
+		ball = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "ball", group);
+		game->physics->EnablePhysics(ball);
+		ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
+			/*if (!e.blockDirection.up && !e.blockDirection.down)
+			{
 			srand(time(NULL));
 			Vector velocity = { (rand() % 50)*1.0f, (rand() % 50)*1.0f };
 			go->body->velocity = velocity;
-		}*/
-		if (e.blockDirection.left)
-		{
-			score2++;
-			go->position.x = leftBat->GetPosition().x + leftBat->GetWidth();
-			go->position.y = leftBat->GetPosition().y;
-		}
-		else if (e.blockDirection.right)
-		{
-			score1++;
-			go->position.x = rightBat->GetPosition().x - rightBat->GetWidth();
-			go->position.y = rightBat->GetPosition().y;
-		}
-	};
+			}*/
+			if (e.blockDirection.left)
+			{
+				score2++;
+				go->position.x = leftBat->GetPosition().x + leftBat->GetWidth();
+				go->position.y = leftBat->GetPosition().y;
+			}
+			else if (e.blockDirection.right)
+			{
+				score1++;
+				go->position.x = rightBat->GetPosition().x - rightBat->GetWidth();
+				go->position.y = rightBat->GetPosition().y;
+			}
+		};
 
 
-	//ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
-	//Vector velocity = go->body->velocity;
-	//if (e.blockDirection.left || e.blockDirection.right)
-	//	go->position.x += go->body->velocity.x * timeEntrySAABB;
-	//else if (e.blockDirection.up || e.blockDirection.down)
-	//	go->position.y += go->body->velocity.y * timeEntrySAABB;
+		//ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
+		//Vector velocity = go->body->velocity;
+		//if (e.blockDirection.left || e.blockDirection.right)
+		//	go->position.x += go->body->velocity.x * timeEntrySAABB;
+		//else if (e.blockDirection.up || e.blockDirection.down)
+		//	go->position.y += go->body->velocity.y * timeEntrySAABB;
 
-	////double remainingTime = 1.1f - timeEntrySAABB;
-	//Vector n = e.normalSurfaceVector;
-	//Vector d = go->body->velocity;
-	//Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
-	//go->body->velocity = 0;
-	//};
-	ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-	ball->body->AddForce(100000, Vector(1,0));
+		////double remainingTime = 1.1f - timeEntrySAABB;
+		//Vector n = e.normalSurfaceVector;
+		//Vector d = go->body->velocity;
+		//Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+		//go->body->velocity = 0;
+		//};
+		ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
+		ball->body->AddForce(i/10, Vector(i, i));
+	}
 #pragma endregion Ball
 
 	
 
 #pragma region Bat
 	int distant = 100;
-	leftBat = this->add->Sprite(WINDOW_WIDTH/2.0, WINDOW_HEIGHT / 2.0, "bat",group);
+	leftBat = this->add->Sprite(GAME_WIDTH/2.0, GAME_HEIGHT / 2.0, "bat",group);
 	leftBat->name = "Left Bat";
 	leftBat->position.x = leftBat->GetWidth() / 2 ;
 	game->physics->EnablePhysics(leftBat);
@@ -85,7 +87,7 @@ void PingPongState::Create()
 		}
 	};
 
-	rightBat = this->add->Sprite(WINDOW_WIDTH - leftBat->GetWidth() / 2, WINDOW_HEIGHT / 2.0, "bat", group);
+	rightBat = this->add->Sprite(GAME_WIDTH - leftBat->GetWidth() / 2, GAME_HEIGHT / 2.0, "bat", group);
 	rightBat->name = "Right Bat";
 	game->physics->EnablePhysics(rightBat);
 	rightBat->body->CreateRectangleRigidBody(rightBat->GetWidth(), rightBat->GetHeight());
@@ -104,8 +106,8 @@ void PingPongState::Create()
 	}
 	leftBat->SetScale(1, 0.5);
 	rightBat->SetScale(1, 0.5);
-	ball->body->CheckCollisionTo(leftBat);
-	ball->body->CheckCollisionTo(rightBat);
+	//ball->body->CheckCollisionTo(leftBat);
+	//ball->body->CheckCollisionTo(rightBat);
 #pragma endregion Bat
 	rightBat->body->allowBounciness = false;
 	leftBat->body->allowBounciness = false;
@@ -113,36 +115,36 @@ void PingPongState::Create()
 	leftBat->body->allowWorldBlock = true;
 
 
-	ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
-		//g_debug.Log("Collided found with " + e.colliderObject->name);
-		//if (e.colliderObject->name == rightBat->name) {
-		//	ggEngine::Rectangle *rect = dynamic_cast<ggEngine::Rectangle*>(e.colliderObject->body->rigidBody);
-		//	g_debug.Log(rect->p1.ToString());
-		//}
-		Vector velocity = go->body->velocity;
-		double movePosition = 5;
-		if (e.blockDirection.left) go->position.x += 5;
-		else if (e.blockDirection.right) go->position.x -= 5;
-		else if (e.blockDirection.up) go->position.y += 5;
-		else if (e.blockDirection.down) go->position.y -= 5;
-		Vector n = e.normalSurfaceVector;
-		Vector d = velocity;
-		Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
-		go->body->velocity = r;
-		/*if (e.remainingTime > 0.0f) {
-			go->position.x += r.x*e.remainingTime;
-			go->position.y += r.y*e.remainingTime;
-		}*/
-	};
+	//ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
+	//	//g_debug.Log("Collided found with " + e.colliderObject->name);
+	//	//if (e.colliderObject->name == rightBat->name) {
+	//	//	ggEngine::Rectangle *rect = dynamic_cast<ggEngine::Rectangle*>(e.colliderObject->body->rigidBody);
+	//	//	g_debug.Log(rect->p1.ToString());
+	//	//}
+	//	Vector velocity = go->body->velocity;
+	//	double movePosition = 5;
+	//	if (e.blockDirection.left) go->position.x += 5;
+	//	else if (e.blockDirection.right) go->position.x -= 5;
+	//	else if (e.blockDirection.up) go->position.y += 5;
+	//	else if (e.blockDirection.down) go->position.y -= 5;
+	//	Vector n = e.normalSurfaceVector;
+	//	Vector d = velocity;
+	//	Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+	//	go->body->velocity = r;
+	//	/*if (e.remainingTime > 0.0f) {
+	//		go->position.x += r.x*e.remainingTime;
+	//		go->position.y += r.y*e.remainingTime;
+	//	}*/
+	//};
 
 #pragma region Others
 	// Text
 	Style style;
 	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
-	textScore1 = this->add->Text(WINDOW_WIDTH / 2.0 - 80, WINDOW_HEIGHT/2.0, "default",200,200, std::to_string(score1), style, group);
+	textScore1 = this->add->Text(GAME_WIDTH / 2.0 - 80, GAME_HEIGHT/2.0, "default",200,200, std::to_string(score1), style, group);
 	textScore1->SetAnchor(0.5, 0.5);
-	textScore2 = this->add->Text(WINDOW_WIDTH / 2.0 + 80, WINDOW_HEIGHT/2.0, "default",200,200, std::to_string(score2), style, group);
+	textScore2 = this->add->Text(GAME_WIDTH / 2.0 + 80, GAME_HEIGHT/2.0, "default",200,200, std::to_string(score2), style, group);
 	textScore2->SetAnchor(0.5, 0.5);
 	textScore1->SetScale(Vector(3, 3));
 	textScore2->SetScale(Vector(3, 3));
@@ -150,7 +152,7 @@ void PingPongState::Create()
 	Style style2;
 	style.fontColor = D3DCOLOR_ARGB(255, 30, 30, 30);
 	this->add->Text(150, 50, "default",200,200, "W-S", style, group);
-	this->add->Text(WINDOW_WIDTH - 150, 50, "default",200,200, "Up-Down", style, group);
+	this->add->Text(GAME_WIDTH - 150, 50, "default",200,200, "Up-Down", style, group);
 
 #pragma endregion Others
 }
@@ -165,11 +167,11 @@ void PingPongState::Update()
 		else if (ball->position.y>leftBat->position.y) {
 			leftBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		}*/
-		if (ball->position.y<rightBat->position.y)
+		/*if (ball->position.y<rightBat->position.y)
 			rightBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		else if (ball->position.y>rightBat->position.y) {
 			rightBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
-		}
+		}*/
 	
 	}
 	if (game->GetInput()->KeyDown(DIK_Q)) {

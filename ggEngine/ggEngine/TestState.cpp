@@ -21,41 +21,43 @@ void TestState::Preload(){
 void TestState::Create()
 {
 	group = this->add->Group();
-	character = this->add->SpriteAnimation(WINDOW_WIDTH / 2.0, WINDOW_HEIGHT / 2.0, "character", 32, 48, group);
-	character->CreateAnimation("down", 0, 3, false);
-	character->CreateAnimation("left", 4, 7, false);
-	character->CreateAnimation("right", 8, 11, false);
-	character->CreateAnimation("up", 12, 15, false);
-	game->physics->EnablePhysics(character);
-	character->body->CreateRectangleRigidBody(32, 48);
-	character->body->allowGravity = true;
-	character->body->allowBounciness = false;
-	character->body->allowWorldBlock = true;
-	game->eventManager->EnableKeyBoardInput(character);
-	jumpTimer.reset();
-	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
-		if (current != NULL) {
-			double time = game->logicTimer.getDeltaTime();
-			if (e.isPress(DIK_A)) {
-				character->NextAnimationFrame("left");
-				if (character->body->velocity.x > 0) character->body->velocity.x = 0;
-				character->body->velocity.x -= charMoveSpeed* time;
-			}
-			if (e.isPress(DIK_D)) {
-				character->NextAnimationFrame("right");
-				if (character->body->velocity.x < 0) character->body->velocity.x = 0;
-				character->body->velocity.x += charMoveSpeed*time;
-			}
-			if (e.isPress(DIK_SPACE)) {
-				if (jumpTimer.stopwatch(jumpTime)) {
-					character->body->velocity.y = 0;
-					character->body->AddForce(jumpForce, Vector(0, -1));
+	for (int i = 0; i < 1000; ++i){
+		character = this->add->SpriteAnimation(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "character", 32, 48, group);
+		character->CreateAnimation("down", 0, 3, false);
+		character->CreateAnimation("left", 4, 7, false);
+		character->CreateAnimation("right", 8, 11, false);
+		character->CreateAnimation("up", 12, 15, false);
+		game->physics->EnablePhysics(character);
+		character->body->CreateRectangleRigidBody(32, 48);
+		character->body->allowGravity = true;
+		character->body->allowBounciness = false;
+		character->body->allowWorldBlock = true;
+		game->eventManager->EnableKeyBoardInput(character);
+		jumpTimer.reset();
+		character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
+			SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
+			if (current != NULL) {
+				double time = game->logicTimer.getDeltaTime();
+				if (e.isPress(DIK_A)) {
+					character->NextAnimationFrame("left");
+					if (character->body->velocity.x > 0) character->body->velocity.x = 0;
+					character->body->velocity.x -= charMoveSpeed* time;
 				}
-				
+				if (e.isPress(DIK_D)) {
+					character->NextAnimationFrame("right");
+					if (character->body->velocity.x < 0) character->body->velocity.x = 0;
+					character->body->velocity.x += charMoveSpeed*time;
+				}
+				if (e.isPress(DIK_SPACE)) {
+					if (jumpTimer.stopwatch(jumpTime)) {
+						character->body->velocity.y = 0;
+						character->body->AddForce(jumpForce, Vector(0, -1));
+					}
+
+				}
 			}
-		}
-	};
+		};
+	}
 
 
 	Box box(1, 2, 3, 4, 5, 6);

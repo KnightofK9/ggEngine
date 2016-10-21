@@ -204,7 +204,7 @@ namespace ggEngine {
 						acceleration.y = 0;
 					}
 				}
-				position->y = WINDOW_HEIGHT  - sprite->GetHeight()*sprite->GetAnchor().y;
+				position->y = GAME_HEIGHT  - sprite->GetHeight()*sprite->GetAnchor().y;
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
@@ -222,7 +222,7 @@ namespace ggEngine {
 				if (velocity.x > 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
 				}
-				position->x = WINDOW_WIDTH - sprite->GetWidth()*sprite->GetAnchor().x;
+				position->x = GAME_WIDTH - sprite->GetWidth()*sprite->GetAnchor().x;
 			}
 			if (this->sprite->events->onWorldBounds != nullptr)
 			{
@@ -243,10 +243,10 @@ namespace ggEngine {
 		if (position->x - width/2 <= 0) {
 			isBlocked = blocked.left = true;
 		}
-		if (position->x + width/2 >= WINDOW_WIDTH) {
+		if (position->x + width/2 >= GAME_WIDTH) {
 			isBlocked = blocked.right = true;
 		}
-		if (position->y + height/2 >= WINDOW_HEIGHT) {
+		if (position->y + height/2 >= GAME_HEIGHT) {
 			isBlocked = blocked.down = true;
 		}
 		if (position->y - height/2 <= 0) {

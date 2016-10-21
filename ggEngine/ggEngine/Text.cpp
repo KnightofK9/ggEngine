@@ -64,10 +64,10 @@ void ggEngine::Text::Draw()
 		worldRect.left = 0;
 	if (worldRect.top < 0)
 		worldRect.top = 0;
-	if (worldRect.right > WINDOW_WIDTH)
-		worldRect.right = WINDOW_WIDTH;
-	if (worldRect.bottom > WINDOW_HEIGHT)
-		worldRect.bottom = WINDOW_HEIGHT;
+	if (worldRect.right > GAME_WIDTH)
+		worldRect.right = GAME_WIDTH;
+	if (worldRect.bottom > GAME_HEIGHT)
+		worldRect.bottom = GAME_HEIGHT;
 
 	RECT rect{ 0 , 0 , width, height };
 	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE) == D3D_OK)
