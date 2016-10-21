@@ -17,7 +17,7 @@ namespace ggEngine{
 		int width;
 		int height;
 		int numberOfCell;
-		std::string tilesSetName;
+		std::string tilesSetId;
 		Texture *tileSetTexture;
 	};
 }
