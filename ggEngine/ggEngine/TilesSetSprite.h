@@ -4,13 +4,8 @@
 #include <string>
 namespace ggEngine{
 	class Texture;
-	class TilesSetSprite : public GGObject, public IJsonable{
+	class TilesSetSprite : public GGObject{
 	public:
-		TilesSetSprite();
-		~TilesSetSprite();
-		void CreateJson(Json json);
-		void ParseJson(Json json);
-		void Destroy(bool isClearFromCache = false);
 	private:
 		int cellWidth;
 		int cellHeight;

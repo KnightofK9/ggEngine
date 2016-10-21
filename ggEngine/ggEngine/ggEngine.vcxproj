@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -239,6 +239,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="IJsonable.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Json.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -260,6 +261,7 @@
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tween.cpp" />
     <ClCompile Include="TweenManager.cpp" />
     <ClCompile Include="Vector.cpp" />

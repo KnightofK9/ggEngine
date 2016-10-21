@@ -61,7 +61,7 @@ void TestState::Create()
 
 
 	Box box(1, 2, 3, 4, 5, 6);
-	box.CreateJson("Json/box.json");
+	box.SaveJsonTo("Json/box.json");
 	box.ParseJson("Json/box.json");
 	//std::ofstream ofs("box_backup");
 	//{

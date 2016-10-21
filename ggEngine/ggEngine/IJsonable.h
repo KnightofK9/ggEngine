@@ -4,9 +4,9 @@
 namespace ggEngine {
 	class IJsonable {
 	public:
-		virtual void CreateJson(std::string location) = 0;
-		virtual void ParseJson(std::string location) = 0;
-		virtual const char* CreateJson() = 0;
+		void SaveJsonTo(std::string location);
+		void ParseJson(std::string location);
 		virtual void ParseJson(const char* jsonChar) = 0;
+		virtual const char* CreateJson() = 0;
 	};
 }
