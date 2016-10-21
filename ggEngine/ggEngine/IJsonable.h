@@ -6,5 +6,7 @@ namespace ggEngine {
 	public:
 		virtual void CreateJson(std::string location) = 0;
 		virtual void ParseJson(std::string location) = 0;
+		virtual const char* CreateJson() = 0;
+		virtual void ParseJson(const char* jsonChar) = 0;
 	};
 }

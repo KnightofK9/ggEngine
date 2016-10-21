@@ -29,6 +29,13 @@ ggEngine::Json::~Json()
 {
 }
 
+const char* ggEngine::Json::GetCharArray(){
+	rapidjson::StringBuffer buffer;
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	this->Accept(writer);
+	const char* output = buffer.GetString();
+	return output;
+}
 
 
 void ggEngine::Json::SaveTo(std::string location)

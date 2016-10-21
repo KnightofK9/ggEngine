@@ -38,4 +38,24 @@ namespace ggEngine{
 		vx = json["vx"].GetDouble();
 		vy = json["vy"].GetDouble();
 	}
+
+	const char* Box::CreateJson(){
+		Json json;
+		json.AddMember("x", x, json.GetAllocator());
+		json.AddMember("y", y, json.GetAllocator());
+		json.AddMember("w", w, json.GetAllocator());
+		json.AddMember("h", h, json.GetAllocator());
+		json.AddMember("vx", vx, json.GetAllocator());
+		json.AddMember("vy", vy, json.GetAllocator());
+		return json.GetCharArray();
+	}
+	void Box::ParseJson(const char* jsonChar){
+		Json json(jsonChar);
+		x = json["x"].GetDouble();
+		y = json["y"].GetDouble();
+		w = json["w"].GetDouble();
+		h = json["h"].GetDouble();
+		vx = json["vx"].GetDouble();
+		vy = json["vy"].GetDouble();
+	}
 }

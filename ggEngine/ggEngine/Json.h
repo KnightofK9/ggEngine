@@ -14,6 +14,7 @@ namespace ggEngine {
 		Json(std::string location);
 		Json();
 		~Json();
+		const char* GetCharArray();
 		void SaveTo(std::string location);
 	private:
 		rapidjson::Document::AllocatorType* allocator;
