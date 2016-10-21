@@ -130,4 +130,8 @@ namespace ggEngine {
 		fontMap[fontKey] = font;
 		return true;
 	}
+
+	bool Cache::CreateAudioFromFile(std::string audioKey, std::string audioPath){
+		return false;
+	}
 }

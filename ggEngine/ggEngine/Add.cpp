@@ -6,6 +6,7 @@
 #include "World.h"
 #include "Tween.h"
 #include "TweenManager.h"
+#include "Audio.h"
 namespace ggEngine{
 	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList){
 		this->cache = cache;
@@ -43,6 +44,10 @@ namespace ggEngine{
 		textObject->SetParentObject(group);
 		group->AddDrawObjectToList(textObject);
 		return textObject;
+	}
+
+	Audio* Add::Audio(std::string audioKey){
+		return new ggEngine::Audio();
 	}
 	ggEngine::Tween * Add::Tween(float & val, double end, double duration, std::function<double(int,double,double,int)> easingFunction)
 	{

@@ -2,6 +2,7 @@
 #include "Group.h"
 #include "Sprite.h"
 #include "Cache.h"
+#include "Audio.h"
 namespace ggEngine{
 	Preload::Preload(Cache *cache){
 		this->cache = cache;
@@ -22,5 +23,8 @@ namespace ggEngine{
 		case AtlasDefTypeJSON:
 			break;
 		}
+	}
+	void Preload::Audio(std::string audioKey, std::string audioPath){
+		this->cache->CreateAudioFromFile(audioKey, audioPath);
 	}
 }
