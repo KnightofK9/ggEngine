@@ -3,25 +3,24 @@
 #include <d3d9.h>
 namespace ggEngine {
 	class GameObject;
+	class QuadTree;
 	class QuadNode {
 	public:
-		QuadNode(double width, double height);
+		QuadNode(QuadTree *quadTree,double width, double height);
 		~QuadNode();
 		RECT GetRect();
 		void SetObject(GameObject *object);
 		GameObject* GetObjectFromNode();
-		int leftTop, rightTop, leftBottom, rightBottom;
+		QuadNode* GetLeftTop();
+		QuadNode* GetRightTop();
+		QuadNode* GetLeftBottom();
+		QuadNode* GetRightBottom();
 	private:
+		int leftTop, rightTop, leftBottom, rightBottom;
 		GameObject *object;
 		double width, height;
 		Vector position;
+		QuadTree *quadTreeParent;
 	};
-	inline void QuadNode::SetObject(GameObject * object)
-	{
-		this->object = object;
-	}
-	inline GameObject* QuadNode::GetObjectFromNode()
-	{
-		if (this->object != nullptr) return this->object;
-	}
+	
 }

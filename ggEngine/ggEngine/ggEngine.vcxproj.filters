@@ -204,6 +204,9 @@
     <ClCompile Include="IJsonable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -390,6 +393,9 @@
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
