@@ -46,9 +46,6 @@
     <Filter Include="Header Files\TileMap">
       <UniqueIdentifier>{80242a86-a19b-49b3-87b2-43a8fb8d3f28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Component\TilesMap">
-      <UniqueIdentifier>{e2f2c305-7d26-45af-ad83-0d1431661abe}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -205,9 +202,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IJsonable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -397,15 +391,6 @@
     </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="TilesSetSprite.h">
-      <Filter>Header Files\Component\TilesMap</Filter>
-    </ClInclude>
-    <ClInclude Include="TilesMap.h">
-      <Filter>Header Files\Component\TilesMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files\Component\TilesMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

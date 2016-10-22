@@ -1,21 +1,19 @@
 #include "QuadNode.h"
 
-template<class T>
-ggEngine::QuadNode<T>::QuadNode(double width, double height)
+ggEngine::QuadNode::QuadNode(double width, double height)
 {
-	leftTop = rightTop = leftBottom = rightBottom = object = nullptr;
+	leftTop = rightTop = leftBottom = rightBottom = -1;
+	this->object = nullptr;
 	this->width = width;
 	this->height = height;
 }
 
-template<class T>
-ggEngine::QuadNode<T>::~QuadNode()
+ggEngine::QuadNode::~QuadNode()
 {
 	if (object != nullptr) delete object;
 }
 
-template<class T>
-RECT ggEngine::QuadNode<T>::GetRect()
+RECT ggEngine::QuadNode::GetRect()
 {
-	return{ position.x,position.y,position.x + width,position.y + height };
+	return{ (long)position.x,(long)position.y,(long)position.x + (long)width,(long)position.y + (long)height };
 }

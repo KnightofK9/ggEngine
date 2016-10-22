@@ -204,9 +204,6 @@
     <ClInclude Include="TestState.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Tile.h" />
-    <ClInclude Include="TilesMap.h" />
-    <ClInclude Include="TilesSetSprite.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Tween.h" />
     <ClInclude Include="TweenManager.h" />
@@ -261,7 +258,6 @@
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tween.cpp" />
     <ClCompile Include="TweenManager.cpp" />
     <ClCompile Include="Vector.cpp" />

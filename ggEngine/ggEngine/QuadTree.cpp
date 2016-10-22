@@ -1,31 +1,26 @@
 #include "QuadTree.h"
 namespace ggEngine {
-	template<class T>
-	QuadTree<T>::QuadTree(double x, double y, double width, double height)
+	QuadTree::QuadTree(double x, double y, double width, double height)
 	{
 		this->width = width;
 		this->height = height;
 		this->rootNode = nullptr;
 		this->position = Vector(x, y);
 	}
-	template<class T>
-	QuadTree<T>::~QuadTree()
+	QuadTree::~QuadTree()
 	{
 		if (rootNode != nullptr) delete rootNode;
 	}
-	template<class T>
-	void QuadTree<T>::SetRootNode(QuadNode<T>* rootNode)
+	void QuadTree::SetRootNode(QuadNode* rootNode)
 	{
 		this->rootNode = rootNode;
 	}
-	template<class T>
-	QuadNode<T> QuadTree<T>::GetRootNode()
+	QuadNode* QuadTree::GetRootNode()
 	{
 		return this->rootNode;
 	}
-	template<class T>
-	RECT QuadTree<T>::GetRect()
+	RECT QuadTree::GetRect()
 	{
-		return{ position.x,position.y,position.x + width,position.y + height };
+		return{ (long)position.x,(long)position.y,(long)position.x + (long)width,(long)position.y + (long)height };
 	}
 }
