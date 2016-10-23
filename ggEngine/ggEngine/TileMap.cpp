@@ -7,10 +7,11 @@
 #include "AnimationTile.h"
 #include "SingleTile.h"
 namespace ggEngine {
-	TileMap::TileMap(DrawManager* drawManager)
+	TileMap::TileMap(DrawManager* drawManager,Cache *cache)
 	{
 		this->quadTree = nullptr;
 		this->drawManager = drawManager;
+		this->cache = cache;
 		this->spriteHandle = drawManager->GetSpriteHandle();
 	}
 	TileMap::~TileMap()
@@ -23,6 +24,13 @@ namespace ggEngine {
 	}
 	void TileMap::CheckCollision(const GameObject * gameObject)
 	{
+
+	}
+	void TileMap::BuildTree(std::string location)
+	{
+		Json json(location);
+		this->quadTree = new QuadTree(this, this->drawManager, this->cache);
+		quadTree->BuildTree(json.GetCharArray());
 	}
 	void TileMap::RecursiveDraw(const RECT & drawRect, QuadNode * quadNode, bool isDrawAllChildNode)
 	{
@@ -48,15 +56,5 @@ namespace ggEngine {
 		RecursiveDraw(drawRect, quadNode->GetRightBottom(), isDrawAllChildNode);
 		return;
 
-	}
-	void TileMap::ParseJson(const char * jsonChar)
-	{
-
-	}
-	const char * TileMap::CreateJson()
-	{
-		Json json;
-		//json.AddMember("x", x, json.GetAllocator());
-		return json.GetCharArray();
 	}
 }

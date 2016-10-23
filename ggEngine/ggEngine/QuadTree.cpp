@@ -31,7 +31,6 @@ namespace ggEngine {
 		this->width = json["width"].GetInt();
 		this->height = json["height"].GetInt();
 		int totalNodeSize = json["totalNodeSize"].GetInt();
-		this->quadNodeList.clear();
 		this->quadNodeList.resize(totalNodeSize);
 
 		const rapidjson::Value&  quadNodeJsonList = json["quadNodeList"];
