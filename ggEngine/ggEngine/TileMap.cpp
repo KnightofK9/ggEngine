@@ -6,11 +6,11 @@
 #include "SpriteInfo.h"
 #include "AnimationTile.h"
 #include "SingleTile.h"
+#include "Camera.h"
 namespace ggEngine {
-	TileMap::TileMap(DrawManager* drawManager,Cache *cache)
+	TileMap::TileMap(Camera *camera, DrawManager* drawManager, Cache *cache) :DrawObject(drawManager)
 	{
 		this->quadTree = nullptr;
-		this->drawManager = drawManager;
 		this->cache = cache;
 		this->spriteHandle = drawManager->GetSpriteHandle();
 	}
@@ -18,8 +18,9 @@ namespace ggEngine {
 	{
 		if (quadTree != nullptr) delete quadTree;
 	}
-	void TileMap::Draw(const RECT drawRect)
+	void TileMap::Draw()
 	{
+		const RECT drawRect = camera->GetRect();
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());
 	}
 	void TileMap::CheckCollision(const GameObject * gameObject)

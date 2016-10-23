@@ -22,8 +22,7 @@ namespace ggEngine {
 	}
 	QuadNode* QuadTree::GetRootNode()
 	{
-		if(this->quadNodeList.size()>0)
-			return this->quadNodeList[0];
+			return this->quadNodeList[1];
 	}
 	void QuadTree::BuildTree(const char * jsonChar)
 	{
@@ -31,10 +30,10 @@ namespace ggEngine {
 		this->width = json["width"].GetInt();
 		this->height = json["height"].GetInt();
 		int totalNodeSize = json["totalNodeSize"].GetInt();
-		this->quadNodeList.resize(totalNodeSize);
+		this->quadNodeList.resize(totalNodeSize+1);
 
 		const rapidjson::Value&  quadNodeJsonList = json["quadNodeList"];
-		for (rapidjson::SizeType i = 0; i < quadNodeJsonList.Size(); i++)
+		for (rapidjson::SizeType i = 1; i <= quadNodeJsonList.Size(); i++)
 		{
 			const rapidjson::Value& quadNodeJson = quadNodeJsonList[i];
 			int id = quadNodeJson["id"].GetInt();
@@ -59,10 +58,10 @@ namespace ggEngine {
 					TileType tileType = (TileType)tileInfo["type"].GetInt();
 					switch (tileType) {
 						case TileType_SingleTile:
-							tile = GetSpriteFromTileInfo(tileInfo["value"]["tileMapKey"].GetString(), tileInfo["value"]["tileId"].GetInt());
+							tile = GetSpriteFromTileInfo(tileInfo["value"]["tileMapKey"].GetString(), tileInfo["value"]["tileId"].GetInt(),width,height);
 							break;
 						case TileType_AnimationType:
-							tile = GetSpriteAnimationFromTileInfo(tileInfo["value"]);
+							tile = GetSpriteAnimationFromTileInfo(tileInfo["value"], width, height);
 							break;
 						default:
 							break;
@@ -84,7 +83,7 @@ namespace ggEngine {
 	{
 		return quadNodeList[index];
 	}
-	SingleTile * QuadTree::GetSpriteFromTileInfo(std::string tileMapKey, int tileId)
+	SingleTile * QuadTree::GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height)
 	{
 		TileMapInfo* tileMapInfo = this->cache->GetTileMap(tileMapKey);
 		SpriteInfo *tileInfo;
@@ -92,14 +91,17 @@ namespace ggEngine {
 			tileInfo = this->cache->GetDefaultSpriteInfo();
 		}
 		tileInfo = tileMapInfo->GetTileMapInfoAt(tileId);
-		return new SingleTile(this->drawManager, this->tileMap, tileInfo);
+		auto tile = new SingleTile(this->drawManager, this->tileMap, tileInfo);
+		tile->SetWidth(width);
+		tile->SetHeight(height);
+		return tile;
 	}
-	AnimationTile * QuadTree::GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList)
+	AnimationTile * QuadTree::GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList, double width, double height)
 	{
 		AnimationTile *animationTile = new AnimationTile(this->drawManager, this->tileMap);
 		for (rapidjson::SizeType i = 0; i < tileList.Size(); i++) {
 			const rapidjson::Value& tileInfo = tileList[i];
-			SingleTile *tile = GetSpriteFromTileInfo(tileInfo["tileMapKey"].GetString(), tileInfo["tileId"].GetInt());
+			SingleTile *tile = GetSpriteFromTileInfo(tileInfo["tileMapKey"].GetString(), tileInfo["tileId"].GetInt(),width,height);
 			animationTile->AddTileAnimation(tile);
 		}
 		return animationTile;

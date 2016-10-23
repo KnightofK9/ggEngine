@@ -22,8 +22,8 @@ namespace ggEngine {
 	private:
 		TileMap *tileMap;
 		DrawManager *drawManager;
-		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId);
-		AnimationTile* GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList);
+		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height);
+		AnimationTile* GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList, double width, double height);
 		std::vector<QuadNode*> quadNodeList;
 		Vector position;
 		Cache *cache;

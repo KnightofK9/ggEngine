@@ -35,13 +35,11 @@ void ggEngine::TileMapInfo::ParseJson(const char * jsonChar)
 	const rapidjson::Value &tileList = json["tileList"];
 	this->tileInfoList.resize(this->numberOfCell);
 	for (rapidjson::SizeType i = 0; i < tileList.Size(); ++i) {
-		int x, y, width, height,id;
+		int x, y, id;
 		id = json["id"].GetInt();
 		x = json["x"].GetInt();
 		y = json["y"].GetInt();
-		width = json["width"].GetInt();
-		height = json["height"].GetInt();
-		SpriteInfo *spriteInfo = new SpriteInfo(this->texture, x, y, width, height);
+		SpriteInfo *spriteInfo = new SpriteInfo(this->texture, x, y, tileWidth, tileHeight);
 		this->tileInfoList[id] = spriteInfo;
 	}
 }
