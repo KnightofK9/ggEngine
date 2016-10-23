@@ -27,7 +27,7 @@ namespace ggEngine {
 	//All instance of class inside engine must have namespace ggEngine
 	//Important, DrawObject derived from GameObject, GameObject already have position, scale, width, height. Just use position for this time
 	//Text is add via class Add. There should be a preload for font too, but forget it for now. Use default system font
-	class Text :public DrawObject {
+	class Text :public DrawObject, public GameObject {
 	public:
 		//Modify the constructor as you want, but must have those properties
 		Text(DrawManager *drawManager,Font *font, double x, double width, double height, double y, std::string text, Style style);

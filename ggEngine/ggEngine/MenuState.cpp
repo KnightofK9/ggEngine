@@ -115,7 +115,7 @@ void MenuState::Update()
 	else if (game->GetInput()->KeyDown(DIK_RETURN)) {
 		Sound *enterKeySound = new Sound(game->hWnd, "Resource/Sound/ping.wav");
 		enterKeySound->Start();
-		game->stateManager->Start("PingPongState", true, false);
+		game->stateManager->Start("PingPongState", true, true);
 	}
 }
 

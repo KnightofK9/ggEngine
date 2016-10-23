@@ -175,7 +175,7 @@ void PingPongState::Update()
 	
 	}
 	if (game->GetInput()->KeyDown(DIK_Q)) {
-		game->stateManager->Start("MenuState", true, false);
+		game->stateManager->Start("MenuState", true, true);
 	}
 }
 void PingPongState::PreRender()

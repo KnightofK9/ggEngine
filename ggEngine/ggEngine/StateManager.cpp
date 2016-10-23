@@ -11,13 +11,15 @@ namespace ggEngine {
 	StateManager::StateManager(Game * game)
 	{
 		this->game = game;
-		this->cache = game->cache;
 		this->currentState = NULL;
 	}
 
 	StateManager::~StateManager()
 	{
-		Destroy();
+		for (auto it = this->stateMap.begin(); it != this->stateMap.end(); ++it) {
+			delete (it->second);
+		}
+		stateMap.clear();
 	}
 
 	void StateManager::Destroy()

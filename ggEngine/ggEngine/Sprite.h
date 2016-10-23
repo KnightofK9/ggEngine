@@ -8,7 +8,7 @@
 #include "SpriteType.h"
 namespace ggEngine {
 	class Body;
-	class Sprite :public DrawObject {
+	class Sprite :public DrawObject, public GameObject {
 	public:
 		Sprite(DrawManager *drawManager, SpriteInfo *image);
 		Sprite(DrawManager *drawManager);

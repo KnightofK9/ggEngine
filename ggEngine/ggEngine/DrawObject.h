@@ -4,7 +4,7 @@
 #include "Matrix.h"
 #include "DrawManager.h"
 namespace ggEngine {
-	class DrawObject:public GameObject {
+	class DrawObject {
 	public:
 		DrawObject(DrawManager *DrawManager);
 		~DrawObject();

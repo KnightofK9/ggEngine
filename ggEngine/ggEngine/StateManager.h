@@ -15,6 +15,7 @@ namespace ggEngine {
 		void Destroy();
 		bool Add(std::string key, State* State, bool autoStart = false);
 		bool Start(std::string key, bool clearWolrd, bool clearCache);
+		void SetCache(Cache *cache) { this->cache = cache; }
 		bool Restart(bool clearWolrd, bool clearCache);
 		bool Remove(std::string key);
 		void ClearCurrentState();

@@ -83,7 +83,6 @@ namespace ggEngine {
 		for (auto it = this->spriteInfoMap.begin(); it != this->spriteInfoMap.end(); ++it) {
 			delete (it->second);
 		};
-
 		this->spriteInfoMap.clear();
 		for (auto it = this->fontMap.begin(); it != this->fontMap.end(); ++it) {
 			delete (it->second);

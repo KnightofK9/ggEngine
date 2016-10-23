@@ -31,14 +31,17 @@ namespace ggEngine {
 			camera = new Camera(this, GAME_WIDTH, GAME_HEIGHT,0,0,true);
 			drawManager = new DrawManager(this,camera);
 			cache = new Cache(this);
-			d3dManager->SetDrawManager(drawManager);
 			physics = new Physics(this, physicsMode);
-			d3dManager->SetStateManager(stateManager);
 			eventManager = new EventManager(this);
 			tweenManager = new TweenManager(this);
 			world = new World();
 			input = new Input(&hWnd);
 			g_debug.Init(this);
+
+			stateManager->SetCache(cache);
+			d3dManager->SetDrawManager(drawManager);
+			d3dManager->SetStateManager(stateManager);
+
 			input->InitKeyboard();
 			input->InitMouse();
 

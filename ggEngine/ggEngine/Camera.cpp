@@ -119,7 +119,7 @@ namespace ggEngine {
 	}
 	RECT Camera::GetRect()
 	{
-		return{ point.x - width / 2,point.y - height / 2,point.x + width / 2,point.y + height / 2 };
+		return{ (long)(point.x - width) / 2,(long)(point.y - height / 2),(long)(point.x + width / 2),(long)(point.y + height / 2) };
 	}
 	void Camera::SetUpKeyControl()
 	{
