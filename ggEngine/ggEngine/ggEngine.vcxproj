@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Add.h" />
+    <ClInclude Include="AnimationTile.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Body.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="SingleTile.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteInfo.h" />
@@ -205,6 +207,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileMapInfo.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Tween.h" />
     <ClInclude Include="TweenManager.h" />
@@ -216,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Add.cpp" />
+    <ClCompile Include="AnimationTile.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Body.cpp" />
@@ -250,6 +254,7 @@
     <ClCompile Include="QuadNode.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="SingleTile.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteInfo.cpp" />
@@ -260,6 +265,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMapInfo.cpp" />
     <ClCompile Include="Tween.cpp" />
     <ClCompile Include="TweenManager.cpp" />
     <ClCompile Include="Vector.cpp" />

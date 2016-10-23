@@ -1,19 +1,36 @@
 #include "QuadNode.h"
 #include "QuadTree.h"
-
+#include "DrawObject.h"
 namespace ggEngine {
-	QuadNode::QuadNode(QuadTree *quadTree, double width, double height)
+
+	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, int leftTop, int rightTop, int leftBottom, int rightBottom)
 	{
-		leftTop = rightTop = leftBottom = rightBottom = -1;
-		this->object = nullptr;
+		this->quadTreeParent = quadTree;
+		this->id = id;
 		this->width = width;
 		this->height = height;
+		this->leftTop = leftTop;
+		this->rightTop = rightTop;
+		this->leftBottom = leftBottom;
+		this->rightBottom = rightBottom;
+	}
+
+	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, std::vector<DrawObject*> objectList)
+	{
 		this->quadTreeParent = quadTree;
+		this->id = id;
+		SetObject(objectList);
+		this->width = width;
+		this->height = height;
+		this->leftTop = this->rightTop = this->leftBottom = this->rightBottom = -1;
 	}
 
 	QuadNode::~QuadNode()
 	{
-		if (object != nullptr) delete object;
+		for (auto it = objectList.begin(); it != objectList.end(); ++it) {
+			delete (*it);
+		}
+		objectList.clear();
 	}
 
 	RECT QuadNode::GetRect()
@@ -40,12 +57,12 @@ namespace ggEngine {
 		if (this->rightBottom == -1) return nullptr;
 		return this->quadTreeParent->GetNodeAt(this->rightBottom);
 	}
-	void QuadNode::SetObject(GameObject * object)
+	void QuadNode::SetObject(std::vector<DrawObject*>  objectList)
 	{
-		this->object = object;
+		this->objectList = objectList;
 	}
-	GameObject* QuadNode::GetObjectFromNode()
+	std::vector<DrawObject*> QuadNode::GetObjectFromNode()
 	{
-		if (this->object != nullptr) return this->object;
+		return this->objectList;
 	}
 }

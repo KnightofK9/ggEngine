@@ -13,6 +13,8 @@ namespace ggEngine {
 	Sprite::Sprite(DrawManager* drawManager) : DrawObject(drawManager)
 	{
 		this->color = D3DCOLOR_XRGB(255, 255, 255);
+		this->body = NULL;
+		this->anchor = Vector(0.5, 0.5);
 	}
 
 	Sprite::~Sprite()

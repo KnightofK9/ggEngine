@@ -5,6 +5,8 @@
 #include "XML.h"
 #include <vector>
 #include "Debug.h"
+#include "Json.h"
+#include "TileMapInfo.h"
 namespace ggEngine {
 	SpriteInfo* Cache::GetSpriteInfo(std::string key) {
 		std::map<std::string, SpriteInfo*>::iterator it = this->spriteInfoMap.find(key);
@@ -32,6 +34,20 @@ namespace ggEngine {
 			return defaultFont;
 		}
 		return font;
+	}
+	TileMapInfo * Cache::GetTileMap(std::string key)
+	{
+		auto it = this->tileMapMap.find(key);
+		TileMapInfo* tileMap;
+		if (it != this->tileMapMap.end())
+		{
+			tileMap = it->second;
+		}
+		else {
+			g_debug.Warning("No TileMap found with key " + key);
+			return nullptr;
+		}
+		return tileMap;
 	}
 	bool Cache::SetValueIfNotExists(std::string key,SpriteInfo * inf)
 	{
@@ -64,16 +80,23 @@ namespace ggEngine {
 	}
 	void Cache::ClearAll()
 	{
-		for (std::map<std::string, SpriteInfo*>::iterator it = this->spriteInfoMap.begin(); it != this->spriteInfoMap.end(); ++it) {
+		for (auto it = this->spriteInfoMap.begin(); it != this->spriteInfoMap.end(); ++it) {
 			delete (it->second);
 		};
 
 		this->spriteInfoMap.clear();
-		for (std::map<std::string, Font*>::iterator it = this->fontMap.begin(); it != this->fontMap.end(); ++it) {
+		for (auto it = this->fontMap.begin(); it != this->fontMap.end(); ++it) {
 			delete (it->second);
 		};
 		this->fontMap.clear();
+		for (auto it = this->atlasMap.begin(); it != this->atlasMap.end(); ++it) {
+			delete (it->second);
+		};
 		this->atlasMap.clear();
+		for (auto it = this->tileMapMap.begin(); it != this->tileMapMap.end(); ++it) {
+			delete (it->second);
+		};
+		this->tileMapMap.clear();
 	}
 	bool Cache::CreateTexture(std::string key, std::string textureFile, D3DCOLOR transColor) {
 		Texture *tex = new Texture(this->device, textureFile,transColor);
@@ -133,5 +156,26 @@ namespace ggEngine {
 
 	bool Cache::CreateAudioFromFile(std::string audioKey, std::string audioPath){
 		return false;
+	}
+	bool Cache::CreateTextureFromTileMapJson(std::string tileMapPath, std::string jsonPath, D3DCOLOR transColor)
+	{
+		Json json(jsonPath.c_str());
+		std::string tileMapKey = json["id"].GetString();
+		
+		auto it = tileMapMap.find(tileMapKey);
+		if (it != tileMapMap.end() && (it->second) != NULL)
+		{
+			g_debug.Warning("TileMap  " + tileMapKey + " has been loaded already!");
+			return false;
+		}
+		Texture *tileMap = new Texture(this->device, tileMapPath, transColor);
+		if (tileMap->GetDxTexture() == NULL) {
+			g_debug.Warning("No tileMap found with path " + tileMapPath);
+			return false;
+		}
+		TileMapInfo *tileMapInfo = new TileMapInfo(tileMap);
+		tileMapInfo->ParseJson(json.GetCharArray());
+		tileMapMap[tileMapKey] = tileMapInfo;
+		return true;
 	}
 }
