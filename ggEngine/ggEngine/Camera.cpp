@@ -117,6 +117,10 @@ namespace ggEngine {
 		rotate = 0;
 		point = Vector(width/2, height/2);
 	}
+	RECT Camera::GetRect()
+	{
+		return{ point.x - width / 2,point.y - height / 2,point.x + width / 2,point.y + height / 2 };
+	}
 	void Camera::SetUpKeyControl()
 	{
 		controlKey[CameraControl_ZoomIn] = DIK_NUMPAD3;

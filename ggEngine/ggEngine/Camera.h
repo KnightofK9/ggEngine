@@ -20,6 +20,7 @@ namespace ggEngine {
 		void EnableManualMove();
 		void DisableManualMove();
 		void ResetView();
+		RECT GetRect();
 	private:
 		LPDIRECT3DDEVICE9 device;
 		void SetUpKeyControl();
