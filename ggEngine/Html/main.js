@@ -47,7 +47,8 @@ function createQuadNode(nodeId,parentWidth,parentHeight, quadTree){
         quadNode.tileList = [];
         var tileInfo;
         tileInfo = createTileInfo("scene",randomInRangeInt(1,40));
-        quadNode.tileList.push(tileInfo);
+        var tileType = createTileType("singleTile",tileInfo);
+        quadNode.tileList.push(tileType);
         quadTree.quadNodeList[nodeId] = quadNode;
         return;
     }
