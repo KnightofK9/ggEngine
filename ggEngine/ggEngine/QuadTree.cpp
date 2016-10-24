@@ -22,7 +22,7 @@ namespace ggEngine {
 	}
 	QuadNode* QuadTree::GetRootNode()
 	{
-			return this->quadNodeList[1];
+		return this->rootNode;
 	}
 	void QuadTree::BuildTree(const char * jsonChar)
 	{
@@ -33,7 +33,7 @@ namespace ggEngine {
 		this->quadNodeList.resize(totalNodeSize+1);
 
 		const rapidjson::Value&  quadNodeJsonList = json["quadNodeList"];
-		for (rapidjson::SizeType i = 1; i <= quadNodeJsonList.Size(); i++)
+		for (rapidjson::SizeType i = 0; i <= quadNodeJsonList.Size(); i++)
 		{
 			const rapidjson::Value& quadNodeJson = quadNodeJsonList[i];
 			int id = quadNodeJson["id"].GetInt();
@@ -72,6 +72,7 @@ namespace ggEngine {
 			}
 			this->quadNodeList[id] = quadNode;
 		}
+		this->rootNode = new QuadNode(this, this->width, this->height, -1, 0,1,2,3);
 
 
 	}

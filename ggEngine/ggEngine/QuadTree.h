@@ -27,6 +27,7 @@ namespace ggEngine {
 		std::vector<QuadNode*> quadNodeList;
 		Vector position;
 		Cache *cache;
+		QuadNode *rootNode;
 		double width, height;
 	};
 }
