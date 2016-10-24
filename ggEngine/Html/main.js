@@ -29,16 +29,18 @@ function createQuadTree(){
     }
     quadTree.totalNodeSize = sum;
     quadTree.quadNodeList = new Array(quadTree.totalNodeSize);
-    createQuadNode(0,quadTree.width,quadTree.height,quadTree);
-    createQuadNode(1,quadTree.width,quadTree.height,quadTree);
-    createQuadNode(2,quadTree.width,quadTree.height,quadTree);
-    createQuadNode(3,quadTree.width,quadTree.height,quadTree);
+    createQuadNode(0,0,0,quadTree.width,quadTree.height,quadTree);
+    createQuadNode(1,quadTree.width/2,0,quadTree.width,quadTree.height,quadTree);
+    createQuadNode(2,0,quadTree.height/2,quadTree.width,quadTree.height,quadTree);
+    createQuadNode(3,quadTree.width/2,quadTree.height/2,quadTree.width,quadTree.height,quadTree);
     return quadTree;
 }
-function createQuadNode(nodeId,parentWidth,parentHeight, quadTree){
+function createQuadNode(nodeId, x, y, parentWidth, parentHeight, quadTree){
     var quadNode = {};
     var width = parentWidth / 2;
     var height = parentHeight / 2;
+    quadNode.x = x;
+    quadNode.y = y;
     quadNode.width = width;
     quadNode.height = height;
     quadNode.id = nodeId;
@@ -61,10 +63,10 @@ function createQuadNode(nodeId,parentWidth,parentHeight, quadTree){
 
     quadTree.quadNodeList[nodeId] = quadNode;
 
-    createQuadNode(quadNode.leftTop,quadNode.width,quadNode.height,quadTree);
-    createQuadNode(quadNode.rightTop,quadNode.width,quadNode.height,quadTree);
-    createQuadNode(quadNode.leftBottom,quadNode.width,quadNode.height,quadTree);
-    createQuadNode(quadNode.rightBottom,quadNode.width,quadNode.height,quadTree);
+    createQuadNode(quadNode.leftTop,quadNode.x,quadNode.y,quadNode.width,quadNode.height,quadTree);
+    createQuadNode(quadNode.rightTop,quadNode.x + quadNode.width/2,quadNode.y,quadNode.width,quadNode.height,quadTree);
+    createQuadNode(quadNode.leftBottom,quadNode.x,quadNode.y+quadNode.height/2,quadNode.width,quadNode.height,quadTree);
+    createQuadNode(quadNode.rightBottom,quadNode.x+quadNode.width/2,quadNode.y+quadNode.height/2,quadNode.width,quadNode.height,quadTree);
 
     return;
 }
