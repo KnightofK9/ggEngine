@@ -88,7 +88,7 @@ function createRandomTileAnimation(){
         tileAnimationList.push(tileInfo);
     }
     var tileType = createTileType("animationTile",tileAnimationList);
-    return tileAnimationList;
+    return tileType;
 }
 function randomInRangeInt(min,max){
     return Math.floor(Math.random()*(max-min)+min);
