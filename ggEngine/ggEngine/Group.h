@@ -19,7 +19,7 @@ namespace ggEngine{
 		void Reset();
 	protected:
 		std::list<Group*> groupList;
-	private:
 		std::list<DrawObject*> drawList;
+	private:
 	};
 }
