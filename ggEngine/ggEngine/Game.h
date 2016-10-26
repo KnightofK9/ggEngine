@@ -38,6 +38,7 @@ namespace ggEngine {
 		World *world;
 		TweenManager *tweenManager;
 
+		Camera *camera;
 		HWND hWnd;
 	private:
 		//
@@ -49,7 +50,6 @@ namespace ggEngine {
 		//
 		// Private class instance
 		//
-		Camera *camera;
 		D3DManager *d3dManager;
 		DrawManager *drawManager;
 		Input *input;

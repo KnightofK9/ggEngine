@@ -7,13 +7,16 @@
 #include "Tween.h"
 #include "TweenManager.h"
 #include "Audio.h"
+#include "TileMap.h"
+#include "Camera.h"
 namespace ggEngine{
-	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, std::list<ggEngine::Group*> *groupList){
+	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera){
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
 		this->world = world;
 		this->tweenManager = tweenManager;
+		this->camera = camera;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
@@ -36,6 +39,12 @@ namespace ggEngine{
 		ggEngine::Group *gr = new ggEngine::Group();
 		world->AddGroup(gr);
 		return gr;
+	}
+	TileMap * Add::TileMap()
+	{
+		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager, this->cache);
+		world->AddGroup(tileMap);
+		return tileMap;
 	}
 	Text* Add::Text(double x, double y, std::string fontKey, double width, double height, std::string text, Style style, ggEngine::Group  *group)
 	{
