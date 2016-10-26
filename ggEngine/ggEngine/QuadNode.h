@@ -25,7 +25,6 @@ namespace ggEngine {
 		int leftTop, rightTop, leftBottom, rightBottom;
 		std::vector<GameObject*> objectList;
 		double width, height;
-		Vector position;
 		int id;
 		QuadTree *quadTreeParent;
 

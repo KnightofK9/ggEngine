@@ -7,6 +7,7 @@
 #include "AnimationTile.h"
 #include "SingleTile.h"
 #include "Camera.h"
+#include "Debug.h"
 namespace ggEngine {
 	TileMap::TileMap(Camera *camera, DrawManager* drawManager, Cache *cache) 
 	{
@@ -30,6 +31,7 @@ namespace ggEngine {
 		this->drawList.clear();
 		const RECT drawRect = camera->GetRect();
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());
+		//g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
 		return &this->drawList;
 	}
 	void TileMap::CheckCollision(const GameObject * gameObject)
@@ -46,12 +48,13 @@ namespace ggEngine {
 	{
 		if (!isDrawAllChildNode) {
 			RECT intersectRect;
-			if (!IntersectRect(&intersectRect, &drawRect, &quadNode->GetRect())) {
+			RECT *b = &quadNode->GetRect();
+			if (!IntersectRect(&intersectRect, &drawRect,b)) {
 				return;
 			}
-			if (intersectRect.left == intersectRect.top == intersectRect.right == intersectRect.bottom == 0) {
+			/*if (intersectRect.left == intersectRect.right  && intersectRect.top == intersectRect.bottom && intersectRect.top == 0) {
 				isDrawAllChildNode = true;
-			}
+			}*/
 		}
 		//std::vector<DrawObject *> objectList = quadNode->GetObjectFromNode();
 		//if (objectList.size()>0) {

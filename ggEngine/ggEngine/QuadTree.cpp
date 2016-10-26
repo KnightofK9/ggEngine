@@ -74,9 +74,9 @@ namespace ggEngine {
 						}
 						drawObjectList.push_back(tile);
 					}
-					quadNode->SetPosition(x, y);
 					quadNode->SetObject(drawObjectList);
 				}
+				quadNode->SetPosition(x, y);
 				this->quadNodeList[id] = quadNode;
 			}
 			this->rootNode = new QuadNode(this, this->width, this->height, -1, 0, 1, 2, 3);
