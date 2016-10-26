@@ -63,4 +63,8 @@ namespace ggEngine {
 	{
 		Debug::defaultFont->Draw(x, y, text);
 	}
+	DWORD Debug::GetDtMs()
+	{
+		return game->logicTimer.getDeltaTimeInMilisecond();
+	}
 }

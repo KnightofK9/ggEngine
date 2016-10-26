@@ -1,17 +1,17 @@
 #pragma once
 #include "Sprite.h"
 #include <map>
+#include "StaticTimer.h"
 namespace ggEngine {
 	enum SpriteAnimationType { SA_RectangleSheet, SA_XMLSheet };
 	class Animator;
 	class SpriteAnimation : public Sprite {
 	public:
-		SpriteAnimation(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0);
+		SpriteAnimation(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 		~SpriteAnimation();
 		void Draw();
 		void Destroy();
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
-		void NextAnimationFrame(std::string animationName);
 		void PlayAnimation(std::string animationName);
 		void SetImage(SpriteInfo *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
 		int GetNumberOfFrame() { return this->numberOfFrame; }
@@ -26,6 +26,11 @@ namespace ggEngine {
 		int GetFramePerRow() { return this->framePerRow; }
 		void SetFrame(int frameIndex,bool isStopAnimation = true);
 	private:
+		///Deprecated
+		void NextAnimationFrame(std::string animationName);
+		std::string nextAnimationName = "";
+		int GetNextFrameIndex();
+		StaticTimer animationTimer;
 		void InitFrameList();
 		void SetCurrentSrcRect();
 		RECT *frameList = NULL;
@@ -36,8 +41,9 @@ namespace ggEngine {
 		int frameHeight;
 		int currentFrame;
 		bool isRunningAnimation;
-		Animator *currentAnimation = NULL;
+		Animator *currentAnimation = nullptr;
 		int numberOfFrame;
+		DWORD msPerFrame;
 		std::map<std::string, Animator*> animatorMap;
 		SpriteAnimationType spriteAnimationType;
 	};

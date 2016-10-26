@@ -3,7 +3,7 @@
 #include "Texture.h"
 #include "Debug.h"
 namespace ggEngine {
-	SpriteAnimation::SpriteAnimation(DrawManager *drawManager, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame) :Sprite(drawManager)
+	SpriteAnimation::SpriteAnimation(DrawManager *drawManager, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) :Sprite(drawManager)
 	{
 		this->spriteAnimationType = SA_RectangleSheet;
 		this->currentFrame = defaultFrame;
@@ -12,6 +12,7 @@ namespace ggEngine {
 		InitFrameList();
 		srcRect = frameList[defaultFrame];
 		SetAnchor(0.5, 0.5);
+		this->msPerFrame = msPerFrame;
 		//SetCurrentSrcRect();
 	}
 	SpriteAnimation::~SpriteAnimation()
@@ -29,8 +30,11 @@ namespace ggEngine {
 		if (!visible) return;
 		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {
-			int frameIndex = this->currentAnimation->GetNextFrameIndex();
-			srcRect = frameList[frameIndex];
+			this->animationTimer.SetDelta(g_debug.GetDtMs());
+			if (this->animationTimer.StopWatch(this->msPerFrame)) {
+				int frameIndex = this->GetNextFrameIndex();
+				if(frameIndex!=-1) srcRect = frameList[frameIndex];
+			}
 		}
 		else {
 			
@@ -60,20 +64,8 @@ namespace ggEngine {
 	}
 	void SpriteAnimation::NextAnimationFrame(std::string animationName)
 	{
-		std::map<std::string, Animator*>::iterator it = this->animatorMap.find(animationName);
-		if (it != this->animatorMap.end())
-		{
-			if (this->currentAnimation == (it->second)) {
-				this->srcRect = frameList[this->currentAnimation->GetNextFrameIndex(true)];
-				return;
-			}
-
-			this->currentAnimation = (it->second);
-			this->isRunningAnimation = false;
-		}
-		else {
-			g_debug.Warning("No animation found  with key " + animationName);
-		}
+		this->nextAnimationName = animationName;
+		this->isRunningAnimation = true;
 	}
 	void SpriteAnimation::PlayAnimation(std::string animationName)
 	{
@@ -138,6 +130,34 @@ namespace ggEngine {
 		}
 		if(frameIndex<numberOfFrame) this->srcRect = frameList[frameIndex];
 		else g_debug.Warning("Frame index exceed number of frame.");
+	}
+	int SpriteAnimation::GetNextFrameIndex()
+	{
+		if (this->currentAnimation != nullptr) {
+			return this->currentAnimation->GetNextFrameIndex();
+		}
+		g_debug.Error("No animation found for " + this->name);
+		return -1;
+		/*if (this->nextAnimationName != "") {
+			std::map<std::string, Animator*>::iterator it = this->animatorMap.find(this->nextAnimationName);
+			if (it != this->animatorMap.end())
+			{
+				if (this->currentAnimation == (it->second)) {
+					return this->currentAnimation->GetNextFrameIndex(true);
+				}
+
+				this->currentAnimation = (it->second);
+				return this->currentAnimation->GetNextFrameIndex();
+			}
+			else {
+				g_debug.Warning("No animation found  with key " + this->nextAnimationName);
+			}
+		}
+		else {
+			if (this->currentAnimation != nullptr) {
+				return this->currentAnimation->GetNextFrameIndex();
+			}
+		}*/
 	}
 	void SpriteAnimation::InitFrameList()
 	{

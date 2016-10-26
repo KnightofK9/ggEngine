@@ -11,8 +11,8 @@ namespace ggEngine {
 		void Destroy();
 		SpriteInfo* GetTileMapInfoAt(int id) { return this->tileInfoList[id]; }
 		// Inherited via IJsonable
-		virtual void ParseJson(const char * jsonChar) override;
-		virtual const char * CreateJson() override;
+		virtual void ParseJson(std::string jsonChar) override;
+		virtual std::string CreateJson() override;
 	private:
 		Texture *texture;
 		std::vector<SpriteInfo*> tileInfoList;

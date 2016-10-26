@@ -1,10 +1,12 @@
 #include "SingleTile.h"
 #include "TileMap.h"
+#include "QuadNode.h"
 namespace ggEngine {
-	SingleTile::SingleTile(DrawManager * drawManager, TileMap *tileMap , SpriteInfo * image) :Sprite(drawManager, image)
+	SingleTile::SingleTile(DrawManager * drawManager, QuadNode *parentNode , SpriteInfo * image) :Sprite(drawManager, image)
 	{
-		this->SetAnchor(0, 0);
-		SetParentObject(tileMap);
+		SetAnchor(0, 0);
+		SetPosition(0, 0);
+		SetParentObject(parentNode);
 	}
 	void SingleTile::Draw()
 	{

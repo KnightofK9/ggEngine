@@ -14,11 +14,10 @@ namespace ggEngine {
 		this->rightBottom = rightBottom;
 	}
 
-	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, std::vector<GameObject*> objectList)
+	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id)
 	{
 		this->quadTreeParent = quadTree;
 		this->id = id;
-		SetObject(objectList);
 		this->width = width;
 		this->height = height;
 		this->leftTop = this->rightTop = this->leftBottom = this->rightBottom = -1;

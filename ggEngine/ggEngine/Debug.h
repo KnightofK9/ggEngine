@@ -21,6 +21,7 @@ namespace ggEngine {
 		void Error(std::string message);
 		void Error(std::wstring message);
 		void DebugToScreen(double x, double y,std::string text);
+		DWORD GetDtMs();
 	private:
 		Font *defaultFont;
 		Game* game;

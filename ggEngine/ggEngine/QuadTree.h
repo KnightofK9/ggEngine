@@ -16,14 +16,14 @@ namespace ggEngine {
 		QuadTree(TileMap *tileMap,DrawManager *drawManager, Cache *cache);
 		~QuadTree();
 		QuadNode* GetRootNode();
-		void BuildTree(const char* jsonChar);
+		void BuildTree(std::string jsonChar);
 		RECT GetRect();
 		QuadNode* GetNodeAt(int index);
 	private:
 		TileMap *tileMap;
 		DrawManager *drawManager;
-		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height);
-		AnimationTile* GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList, double width, double height);
+		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height, QuadNode *parentNode);
+		AnimationTile* GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList, double width, double height, QuadNode *parentNode);
 		std::vector<QuadNode*> quadNodeList;
 		Vector position;
 		Cache *cache;

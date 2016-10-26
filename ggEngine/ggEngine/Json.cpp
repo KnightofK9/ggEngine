@@ -2,21 +2,23 @@
 #include <fstream>
 #include <filereadstream.h>
 #include <cstdio>
-ggEngine::Json::Json(const char * jsonChar)
+ggEngine::Json::Json(std::string jsonChar,bool isLocation)
 {
-	this->Parse(jsonChar);
+	if (isLocation) {
+		std::string location = jsonChar;
+		FILE* fp = fopen(location.c_str(), "rb"); // non-Windows use "r"
+		char readBuffer[65536];
+		rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+		this->ParseStream(is);
+		fclose(fp);
+		allocator = &this->GetAllocator();
+		return;
+	}
+	this->Parse(jsonChar.c_str());
 	allocator = &this->GetAllocator();
 }
 
-ggEngine::Json::Json(std::string location)
-{
-	FILE* fp = fopen(location.c_str(), "rb"); // non-Windows use "r"
-	char readBuffer[65536];
-	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-	this->ParseStream(is);
-	fclose(fp);
-	allocator = &this->GetAllocator();
-}
+
 
 ggEngine::Json::Json()
 {
@@ -29,12 +31,12 @@ ggEngine::Json::~Json()
 {
 }
 
-const char* ggEngine::Json::GetCharArray(){
+const std::string ggEngine::Json::GetCharArray(){
 	rapidjson::StringBuffer buffer;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 	this->Accept(writer);
-	const char* output = buffer.GetString();
-	return output;
+	std::string o = buffer.GetString();
+	return o;
 }
 
 

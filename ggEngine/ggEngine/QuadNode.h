@@ -8,7 +8,7 @@ namespace ggEngine {
 	class QuadNode: public GameObject {
 	public:
 		QuadNode(QuadTree *quadTree,double width, double height,int id, int leftTop, int rightTop, int leftBottom, int rightBottom);
-		QuadNode(QuadTree *quadTree, double width, double height,int id, std::vector<GameObject*> objectList);
+		QuadNode(QuadTree *quadTree, double width, double height,int id);
 		~QuadNode();
 		RECT GetRect();
 		void SetObject(std::vector<GameObject*> objectList);

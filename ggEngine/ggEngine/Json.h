@@ -10,11 +10,10 @@
 namespace ggEngine {
 	class Json: public rapidjson::Document {
 	public:
-		Json(const char* jsonChar);
-		Json(std::string location);
+		Json(std::string jsonChar,bool isLocation = false);
 		Json();
 		~Json();
-		const char* GetCharArray();
+		const std::string GetCharArray();
 		void SaveTo(std::string location);
 	private:
 		rapidjson::Document::AllocatorType* allocator;

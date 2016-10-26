@@ -21,7 +21,7 @@ void ggEngine::TileMapInfo::Destroy()
 {
 }
 
-void ggEngine::TileMapInfo::ParseJson(const char * jsonChar)
+void ggEngine::TileMapInfo::ParseJson(std::string jsonChar)
 {
 	Json json(jsonChar);
 	this->id = json["id"].GetString();
@@ -44,7 +44,7 @@ void ggEngine::TileMapInfo::ParseJson(const char * jsonChar)
 	}
 }
 
-const char * ggEngine::TileMapInfo::CreateJson()
+std::string ggEngine::TileMapInfo::CreateJson()
 {
 	return nullptr;
 }

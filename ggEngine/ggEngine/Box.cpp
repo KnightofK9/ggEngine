@@ -19,7 +19,7 @@ namespace ggEngine{
 	}
 	
 
-	const char* Box::CreateJson(){
+	std::string Box::CreateJson(){
 		Json json;
 		json.AddMember("x", x, json.GetAllocator());
 		json.AddMember("y", y, json.GetAllocator());
@@ -29,7 +29,7 @@ namespace ggEngine{
 		json.AddMember("vy", vy, json.GetAllocator());
 		return json.GetCharArray();
 	}
-	void Box::ParseJson(const char* jsonChar){
+	void Box::ParseJson(std::string jsonChar){
 		Json json(jsonChar);
 		x = json["x"].GetDouble();
 		y = json["y"].GetDouble();

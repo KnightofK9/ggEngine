@@ -23,10 +23,10 @@ namespace ggEngine{
 		group->AddDrawObjectToList(sprite);
 		return sprite;
 	}
-	SpriteAnimation* Add::SpriteAnimation(double x, double y, std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame)
+	SpriteAnimation* Add::SpriteAnimation(double x, double y, std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame , int msPerFrame)
 	{
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
-		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->drawManager, inf, frameWidth, frameHeight, defaultFrame, numberOfFrame);
+		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->drawManager, inf, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame);
 		spriteAnimation->SetParentObject(group);
 		spriteAnimation->SetPosition(x, y);
 		group->AddDrawObjectToList(spriteAnimation);

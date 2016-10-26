@@ -213,6 +213,9 @@
     <ClCompile Include="TileMapInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StaticTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -409,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="TileMapInfo.h">
       <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticTimer.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

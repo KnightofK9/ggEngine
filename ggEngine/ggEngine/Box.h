@@ -22,8 +22,8 @@ namespace ggEngine {
 			ar & vy;
 		}
 		// Inherited via IJsonable
-		virtual const char* CreateJson();
-		virtual void ParseJson(const char* jsonChar);
+		virtual std::string CreateJson() override;
+		virtual void ParseJson(std::string jsonChar) override;
 	private:
 
 	};

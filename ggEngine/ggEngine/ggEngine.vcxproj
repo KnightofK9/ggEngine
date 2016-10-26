@@ -202,6 +202,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="StaticTimer.h" />
     <ClInclude Include="TestState.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
@@ -259,6 +260,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="StaticTimer.cpp" />
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
