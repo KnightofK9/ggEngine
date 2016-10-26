@@ -22,7 +22,7 @@ namespace ggEngine {
 	class Texture;
 	class Game;
 	class StateManager;
-	class DrawObject;
+	class GameObject;
 	class Camera;
 	class Shape;
 	class DrawManager:public GGObject{
@@ -35,7 +35,7 @@ namespace ggEngine {
 		void DrawRectangle(double left, double top, double right, double bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
 		void DrawCircle(double x, double y, double radius, D3DCOLOR fillCOlor = DEFAULT_COLOR);
 		void DrawObjectFromGroup(std::list<Group*> *groupList);
-		void DrawList(std::list<DrawObject*> *drawObjectList);
+		void DrawList(std::list<GameObject*> *drawObjectList);
 		void DrawLine(const Vector Point1, const Vector Point2, D3DCOLOR color = DEFAULT_COLOR);
 		void DrawShape(Shape *shape);
 		IDirect3DDevice9 *GetDevice(){ return this->device; }

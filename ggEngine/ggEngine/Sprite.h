@@ -1,14 +1,14 @@
 #pragma once
-#include "DrawObject.h"
 #include "SpriteInfo.h"
 #include "ConstantEnum.h"
 #include <d3d9.h>
 #include <string>
 #include "Matrix.h"
 #include "SpriteType.h"
+#include "GameObject.h"
 namespace ggEngine {
 	class Body;
-	class Sprite :public DrawObject, public GameObject {
+	class Sprite : public GameObject {
 	public:
 		Sprite(DrawManager *drawManager, SpriteInfo *image);
 		Sprite(DrawManager *drawManager);

@@ -49,12 +49,12 @@ namespace ggEngine {
 				quadNode = new QuadNode(this, width, height,id, leftTop, rightTop, leftBottom,rightBottom);
 			}
 			else {
-				std::vector<DrawObject*> drawObjectList;
+				std::vector<GameObject*> drawObjectList;
 				const rapidjson::Value& drawList = json["tileList"];
 				for (rapidjson::SizeType i = 0; i < drawList.Size(); i++)
 				{
 					const rapidjson::Value& tileInfo = drawList[i];
-					DrawObject* tile;
+					GameObject* tile;
 					TileType tileType = (TileType)tileInfo["type"].GetInt();
 					switch (tileType) {
 						case TileType_SingleTile:

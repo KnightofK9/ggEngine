@@ -4,12 +4,17 @@
 #include "GGObject.h"
 #include <string>
 #include "Events.h"
+#include <d3d9.h>
+#include "DrawManager.h"
+#include "Matrix.h"
 namespace ggEngine {
 	class Body;
 	class GameObject :public GGObject {
 	public:
 		GameObject();
+		GameObject(DrawManager *drawManager);
 		~GameObject();
+		virtual void Draw();
 		Vector GetPosition();
 		Vector* GetPositionAsRef();
 		virtual void SetPosition(Vector vector);
@@ -51,5 +56,7 @@ namespace ggEngine {
 		bool alive;
 		bool visible;
 		double rotate;
+		DrawManager *drawManager;
+		LPD3DXSPRITE spriteHandle;
 	};
 }

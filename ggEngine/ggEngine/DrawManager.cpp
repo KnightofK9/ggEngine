@@ -147,17 +147,16 @@ namespace ggEngine {
 		}
 	}
 
-	void DrawManager::DrawList(std::list<DrawObject*> *drawObjectList)
+	void DrawManager::DrawList(std::list<GameObject*> *drawObjectList)
 	{
-		for (std::list<DrawObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
-			GameObject* go = dynamic_cast<GameObject*>(*it);
-			if (go->IsAlive()) {
-				go->UpdateWorldPosition();
+		for (std::list<GameObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
+			if ((*it)->IsAlive()) {
+				(*it)->UpdateWorldPosition();
 				(*it)->Draw();
 				++it;
 			}
 			else {
-				std::list<DrawObject*>::iterator tempIt = it;
+				std::list<GameObject*>::iterator tempIt = it;
 				++it;
 				delete (*tempIt);
 				drawObjectList->erase(tempIt);

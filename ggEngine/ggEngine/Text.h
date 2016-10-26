@@ -3,8 +3,8 @@
 #include <tchar.h>
 #include <string>
 #include "GGObject.h" //All instance of class within engine must derived from GGObject
-#include "DrawObject.h" //Text belong to group and must provide draw for group use for drawing on screen
 #include "Font.h"
+#include "GameObject.h"
 namespace ggEngine {
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
 	enum Allign { Allign_Left, Allign_Middle, Allign_Right};
@@ -27,7 +27,7 @@ namespace ggEngine {
 	//All instance of class inside engine must have namespace ggEngine
 	//Important, DrawObject derived from GameObject, GameObject already have position, scale, width, height. Just use position for this time
 	//Text is add via class Add. There should be a preload for font too, but forget it for now. Use default system font
-	class Text :public DrawObject, public GameObject {
+	class Text : public GameObject {
 	public:
 		//Modify the constructor as you want, but must have those properties
 		Text(DrawManager *drawManager,Font *font, double x, double width, double height, double y, std::string text, Style style);

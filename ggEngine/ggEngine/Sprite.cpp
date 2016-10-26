@@ -2,7 +2,7 @@
 #include "Body.h"
 #include "Texture.h"
 namespace ggEngine {
-	Sprite::Sprite(DrawManager *drawManager, SpriteInfo * image) : DrawObject(drawManager)
+	Sprite::Sprite(DrawManager *drawManager, SpriteInfo * image) : GameObject(drawManager)
 	{
 		SetImage(image);
 		this->anchor = Vector(0.5, 0.5);
@@ -10,7 +10,7 @@ namespace ggEngine {
 		this->color = D3DCOLOR_XRGB(255, 255, 255);
 	}
 
-	Sprite::Sprite(DrawManager* drawManager) : DrawObject(drawManager)
+	Sprite::Sprite(DrawManager* drawManager) : GameObject(drawManager)
 	{
 		this->color = D3DCOLOR_XRGB(255, 255, 255);
 		this->body = NULL;

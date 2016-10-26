@@ -25,7 +25,7 @@ namespace ggEngine {
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());
 	}*/
 
-	std::list<DrawObject*>* TileMap::GetDrawList(){
+	std::list<GameObject*>* TileMap::GetDrawList(){
 		this->drawList.clear();
 		const RECT drawRect = camera->GetRect();
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());
@@ -52,14 +52,15 @@ namespace ggEngine {
 				isDrawAllChildNode = true;
 			}
 		}
-		std::vector<DrawObject *> objectList = quadNode->GetObjectFromNode();
-		if (objectList.size()>0) {
-			for (auto it = objectList.begin(); it != objectList.end(); ++it) {
-				//(*it)->Draw();
-				this->drawList.push_back((*it));
-			}
-			return;
-		}
+		//std::vector<DrawObject *> objectList = quadNode->GetObjectFromNode();
+		//if (objectList.size()>0) {
+		//	for (auto it = objectList.begin(); it != objectList.end(); ++it) {
+		//		//(*it)->Draw();
+		//		this->drawList.push_back((*it));
+		//	}
+		//	return;
+		//}
+		this->drawList.push_back(quadNode);
 		RecursiveDraw(drawRect, quadNode->GetLeftTop(), isDrawAllChildNode);
 		RecursiveDraw(drawRect, quadNode->GetRightTop(), isDrawAllChildNode);
 		RecursiveDraw(drawRect, quadNode->GetLeftBottom(), isDrawAllChildNode);

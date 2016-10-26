@@ -1,6 +1,6 @@
 #pragma once
 #include "Group.h"
-#include "DrawObject.h"
+#include "GameObject.h"
 namespace ggEngine {
 	class QuadTree;
 	class SpriteInfo;
@@ -14,7 +14,7 @@ namespace ggEngine {
 		~TileMap();
 		void CheckCollision(const GameObject *gameObject);
 		void BuildTree(std::string location);
-		std::list<DrawObject*> *GetDrawList();
+		std::list<GameObject*> *GetDrawList();
 	private:
 		Camera *camera;
 		void RecursiveDraw(const RECT &drawRect, QuadNode *quadNode, bool isDrawChildNode = false);

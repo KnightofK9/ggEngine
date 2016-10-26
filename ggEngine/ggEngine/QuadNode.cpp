@@ -1,6 +1,5 @@
 #include "QuadNode.h"
 #include "QuadTree.h"
-#include "DrawObject.h"
 namespace ggEngine {
 
 	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, int leftTop, int rightTop, int leftBottom, int rightBottom)
@@ -15,7 +14,7 @@ namespace ggEngine {
 		this->rightBottom = rightBottom;
 	}
 
-	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, std::vector<DrawObject*> objectList)
+	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, std::vector<GameObject*> objectList)
 	{
 		this->quadTreeParent = quadTree;
 		this->id = id;
@@ -57,11 +56,19 @@ namespace ggEngine {
 		if (this->rightBottom == -1) return nullptr;
 		return this->quadTreeParent->GetNodeAt(this->rightBottom);
 	}
-	void QuadNode::SetObject(std::vector<DrawObject*>  objectList)
+	void QuadNode::Draw()
+	{
+		for (auto it = this->objectList.begin(); it != this->objectList.end(); ++it) {
+			if ((*it)->IsVisible()) {
+				(*it)->Draw();
+			}
+		}
+	}
+	void QuadNode::SetObject(std::vector<GameObject*>  objectList)
 	{
 		this->objectList = objectList;
 	}
-	std::vector<DrawObject*> QuadNode::GetObjectFromNode()
+	std::vector<GameObject*> QuadNode::GetObjectFromNode()
 	{
 		return this->objectList;
 	}

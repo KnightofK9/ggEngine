@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Body.h"
 #include "Events.h"
+#include "Debug.h"
 namespace ggEngine {
 	GameObject::GameObject()
 	{
@@ -9,11 +10,26 @@ namespace ggEngine {
 		this->alive = true;
 		this->rotate = 0;
 		this->events = NULL;
+		this->drawManager = nullptr;
+	}
+	GameObject::GameObject(DrawManager * drawManager)
+	{
+		SetPosition(VECTOR_ZERO);
+		SetScale(1, 1);
+		this->alive = true;
+		this->rotate = 0;
+		this->events = NULL;
+		this->drawManager = drawManager;
+		this->spriteHandle = drawManager->GetSpriteHandle();
 	}
 	GameObject::~GameObject()
 	{
 		if (body!=NULL) delete body;
 		if (events != NULL) delete events;
+	}
+	void GameObject::Draw()
+	{
+		g_debug.Warning("Draw method not implemented for this object " + this->name);
 	}
 	Vector GameObject::GetPosition()
 	{

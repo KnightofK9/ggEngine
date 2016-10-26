@@ -89,29 +89,29 @@ namespace ggEngine {
 
 	void Game::GameRun()
 	{
-		frameCountReal++;
-		if (realTimer.stopwatch(999)) {
-			frameRateReal = frameCountReal;
-			frameCountReal = 0;
-		}
-		logicTimer.updateDeltaTime();
-		//
-		// Check for state
-		//
+		//frameCountReal++;
+		//if (realTimer.stopwatch(999)) {
+		//	frameRateReal = frameCountReal;
+		//	frameCountReal = 0;
+		//}
+		//logicTimer.updateDeltaTime();
+		////
+		//// Check for state
+		////
 
-		stateManager->LateStart();
+		//stateManager->LateStart();
 
-		//
-		// Update game logic here
-		//
-		gameUpdate();
-		if (this->isRunning) this->stateManager->GetCurrentState()->PreRender();
+		////
+		//// Update game logic here
+		////
+		//gameUpdate();
+		//if (this->isRunning) this->stateManager->GetCurrentState()->PreRender();
 
-		//
-		// Render go here
-		//
-		this->d3dManager->update();
-		return;
+		////
+		//// Render go here
+		////
+		//this->d3dManager->update();
+		//return;
 		frameCountCore++;
 		if (coreTimer.stopwatch(999)) {
 			frameRateCore = frameCountCore;

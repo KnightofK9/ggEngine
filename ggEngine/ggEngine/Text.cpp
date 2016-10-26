@@ -30,7 +30,7 @@
 //		RECT R = { posX, posY, 0, 0 };
 //		font->DrawTextA(0, lpString, -1, &R, DT_NOCLIP, color);
 //}
-ggEngine::Text::Text(DrawManager *drawManager,Font *font, double x, double y, double width, double height, std::string text, Style style):DrawObject(drawManager)
+ggEngine::Text::Text(DrawManager *drawManager,Font *font, double x, double y, double width, double height, std::string text, Style style):GameObject(drawManager)
 {
 	SetAnchor(0.5, 0.5);
 	SetPosition(x, y);
@@ -75,7 +75,7 @@ void ggEngine::Text::Draw()
 		
 		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);
 		style.fontColor = (style.fontColor & 0x00FFFFFF) | (opacity << 24);
-		if (style.enableBackgroundColor) drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
+		if (style.enableBackgroundColor) this->drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
 		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_CENTER | DT_VCENTER | DT_NOCLIP, style.fontColor);
 		spriteHandle->End();
 	}

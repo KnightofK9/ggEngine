@@ -11,7 +11,7 @@ namespace ggEngine{
 			delete *it;
 		}
 		groupList.clear();
-		for (std::list<DrawObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
+		for (std::list<GameObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
 		{
 			delete *it;
 		}
@@ -31,12 +31,12 @@ namespace ggEngine{
 	{
 		if (this->update != nullptr) update();
 	}
-	void Group::AddDrawObjectToList(DrawObject* drawObject){
+	void Group::AddDrawObjectToList(GameObject* drawObject){
 		drawList.push_back(drawObject);
 	}
 	void Group::Reset(){
 
-		for (std::list<DrawObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
+		for (std::list<GameObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
 		{
 			delete *it;
 		}
