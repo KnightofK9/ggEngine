@@ -65,11 +65,12 @@ namespace ggEngine {
 	void QuadNode::Draw()
 	{
 		for (int i = 0; i < this->objectList.size(); i++) {
-			SingleTile *tile = dynamic_cast<SingleTile*>(objectList[i]);
-			/*this->objectList[i]->UpdateWorldPosition();
-			this->objectList[i]->Draw();*/
+			/*SingleTile *tile = dynamic_cast<SingleTile*>(objectList[i]);
+			
 			tile->UpdateWorldPosition();
-			tile->Draw();
+			tile->Draw();*/
+			this->objectList[i]->UpdateWorldPosition();
+			this->objectList[i]->Draw();
 		}
 		/*for (auto it = this->objectList.begin(); it != this->objectList.end(); ++it) {
 			if ((*it)->IsVisible()) {
