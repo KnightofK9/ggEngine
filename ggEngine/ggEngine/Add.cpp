@@ -40,9 +40,10 @@ namespace ggEngine{
 		world->AddGroup(gr);
 		return gr;
 	}
-	TileMap * Add::TileMap()
+	TileMap * Add::TileMap(std::string tileMapJsonPath)
 	{
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager, this->cache);
+		tileMap->BuildTree(tileMapJsonPath);
 		world->AddGroup(tileMap);
 		return tileMap;
 	}

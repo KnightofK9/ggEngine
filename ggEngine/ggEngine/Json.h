@@ -6,6 +6,7 @@
 #include <writer.h>
 #include <vector>
 #include "IValueable.h"
+#include <error\error.h>
 #define RAPIDJSON_HAS_STDSTRING 1
 namespace ggEngine {
 	class Json: public rapidjson::Document {

@@ -12,6 +12,15 @@
 #define MATH_PI (double(3.1415926535897))
 #define DEFAULT_COLOR D3DCOLOR_RGBA(170, 255, 0, 150)
 #define PIXEL_PER_CENTIMETER 100
+#define RAPIDJSON_PARSE_ERROR_NORETURN(parseErrorCode,offset) \
+   throw ParseException(parseErrorCode, #parseErrorCode, offset)
+#include <stdexcept>               // std::runtime_error
+#include <error/error.h> // rapidjson::ParseResult
+struct ParseException : std::runtime_error, rapidjson::ParseResult {
+	ParseException(rapidjson::ParseErrorCode code, const char* msg, size_t offset)
+		: std::runtime_error(msg), ParseResult(code, offset) {}
+};
+#include <reader.h>
 const bool PRINT_DETAIL = false;
 const int ERROR_CODE_UNKNOWN = 400;
 const int ERROR_CODE_D3DERR_INVALIDCALL = 401;

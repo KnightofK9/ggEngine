@@ -19,8 +19,8 @@ namespace ggEngine {
 		void BuildTree(std::string jsonChar);
 		RECT GetRect();
 		QuadNode* GetNodeAt(int index);
-	private:
 		TileMap *tileMap;
+	private:
 		DrawManager *drawManager;
 		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height, QuadNode *parentNode);
 		AnimationTile* GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList, double width, double height, QuadNode *parentNode);

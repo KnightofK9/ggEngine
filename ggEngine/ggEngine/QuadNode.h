@@ -17,9 +17,11 @@ namespace ggEngine {
 		QuadNode* GetRightTop();
 		QuadNode* GetLeftBottom();
 		QuadNode* GetRightBottom();
+		bool IsLeafNode() { return this->isLeafNode; }
 		// Inherited via DrawObject
 		void Draw() override;
 	private:
+		bool isLeafNode;
 		int leftTop, rightTop, leftBottom, rightBottom;
 		std::vector<GameObject*> objectList;
 		double width, height;

@@ -13,9 +13,9 @@ namespace ggEngine{
 		void AddGroup(Group* group);
 		void Update();
 		std::function<void(void)> update;
-		void AddDrawObjectToList(GameObject* drawObject);
-		std::list<GameObject*> *GetDrawList() { return &this->drawList; }
-		std::list<Group*> *GetGroupList() { return &this->groupList; }
+		virtual void AddDrawObjectToList(GameObject* drawObject);
+		virtual std::list<GameObject*> *GetDrawList() { return &this->drawList; }
+		virtual std::list<Group*> *GetGroupList() { return &this->groupList; }
 		void Reset();
 	protected:
 		std::list<Group*> groupList;

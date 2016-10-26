@@ -4,7 +4,7 @@ Group *group;
 const double charMoveSpeed = 10.0f;
 const double jumpForce = 5.0f;
 const double jumpTime = 500;
-
+TileMap *tileMap;
 Timer jumpTimer;
 TestState::TestState(Game *game):State(game)
 {
@@ -21,10 +21,9 @@ void TestState::Preload(){
 }
 void TestState::Create()
 {
+	tileMap = this->add->TileMap("Json/scene.json");
 	group = this->add->Group();
-	/*for (int i = 0; i < 1000; ++i){
-		
-	}*/
+
 	character = this->add->SpriteAnimation(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "character", 32, 48, group,0,0,1000/10);
 	character->CreateAnimation("down", 0, 3, true);
 	character->CreateAnimation("left", 4, 7, true);

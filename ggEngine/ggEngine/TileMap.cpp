@@ -11,6 +11,7 @@ namespace ggEngine {
 	TileMap::TileMap(Camera *camera, DrawManager* drawManager, Cache *cache) 
 	{
 		this->quadTree = nullptr;
+		this->camera = camera;
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->spriteHandle = drawManager->GetSpriteHandle();
@@ -37,7 +38,7 @@ namespace ggEngine {
 	}
 	void TileMap::BuildTree(std::string location)
 	{
-		Json json(location);
+		Json json(location,true);
 		this->quadTree = new QuadTree(this, this->drawManager, this->cache);
 		quadTree->BuildTree(json.GetCharArray());
 	}
@@ -60,7 +61,11 @@ namespace ggEngine {
 		//	}
 		//	return;
 		//}
-		this->drawList.push_back(quadNode);
+		
+		if (quadNode->IsLeafNode()) {
+			this->drawList.push_back(quadNode);
+			return;
+		}
 		RecursiveDraw(drawRect, quadNode->GetLeftTop(), isDrawAllChildNode);
 		RecursiveDraw(drawRect, quadNode->GetRightTop(), isDrawAllChildNode);
 		RecursiveDraw(drawRect, quadNode->GetLeftBottom(), isDrawAllChildNode);

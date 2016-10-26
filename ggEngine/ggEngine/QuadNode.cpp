@@ -1,5 +1,8 @@
 #include "QuadNode.h"
 #include "QuadTree.h"
+#include "TileMap.h"
+#include "SingleTile.h"
+#include "AnimationTile.h"
 namespace ggEngine {
 
 	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, int leftTop, int rightTop, int leftBottom, int rightBottom)
@@ -12,6 +15,8 @@ namespace ggEngine {
 		this->rightTop = rightTop;
 		this->leftBottom = leftBottom;
 		this->rightBottom = rightBottom;
+		this->isLeafNode = false;
+		SetParentObject(quadTree->tileMap);
 	}
 
 	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id)
@@ -21,6 +26,8 @@ namespace ggEngine {
 		this->width = width;
 		this->height = height;
 		this->leftTop = this->rightTop = this->leftBottom = this->rightBottom = -1;
+		this->isLeafNode = true;
+		SetParentObject(quadTree->tileMap);
 	}
 
 	QuadNode::~QuadNode()
@@ -57,11 +64,19 @@ namespace ggEngine {
 	}
 	void QuadNode::Draw()
 	{
-		for (auto it = this->objectList.begin(); it != this->objectList.end(); ++it) {
+		for (int i = 0; i < this->objectList.size(); i++) {
+			SingleTile *tile = dynamic_cast<SingleTile*>(objectList[i]);
+			/*this->objectList[i]->UpdateWorldPosition();
+			this->objectList[i]->Draw();*/
+			tile->UpdateWorldPosition();
+			tile->Draw();
+		}
+		/*for (auto it = this->objectList.begin(); it != this->objectList.end(); ++it) {
 			if ((*it)->IsVisible()) {
+				(*it)->UpdateWorldPosition();
 				(*it)->Draw();
 			}
-		}
+		}*/
 	}
 	void QuadNode::SetObject(std::vector<GameObject*>  objectList)
 	{

@@ -18,3 +18,7 @@
 #include "TweenManager.h"
 #include "Tween.h"
 #include "Easing.h"
+#include "TileMap.h"
+#include "TileSet.h"
+#include "QuadNode.h"
+#include "QuadTree.h"

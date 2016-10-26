@@ -49,7 +49,7 @@ function createQuadNode(nodeId, x, y, parentWidth, parentHeight, quadTree){
         quadNode.tileList = [];
         var tileInfo;
         tileInfo = createTileInfo("scene",randomInRangeInt(1,40));
-        var tileType = createTileType("singleTile",tileInfo);
+        var tileType = createTileType(0,tileInfo);
         quadNode.tileList.push(tileType);
         quadTree.quadNodeList[nodeId] = quadNode;
         return;
@@ -59,7 +59,7 @@ function createQuadNode(nodeId, x, y, parentWidth, parentHeight, quadTree){
     quadNode.rightTop = (nodeId+1)*4 + 1;
     quadNode.leftBottom = (nodeId+1)*4 + 2;
     quadNode.rightBottom = (nodeId+1)*4 + 3;
-    quadNode.tileList = "";
+    quadNode.tileList = [];
 
     quadTree.quadNodeList[nodeId] = quadNode;
 
@@ -78,7 +78,7 @@ function createTileType(type,value){
 }
 function createTileInfo(tileMapKey,tileId){
     var tileInfo = {};
-    tileInfo.tileMapKey = tileMapKey;
+    tileInfo.tileSetKey = tileMapKey;
     tileInfo.tileId = tileId;
     return tileInfo;
 }
@@ -89,7 +89,7 @@ function createRandomTileAnimation(){
         var tileInfo = createTileInfo("scene",randomInRangeInt(1,40));
         tileAnimationList.push(tileInfo);
     }
-    var tileType = createTileType("animationTile",tileAnimationList);
+    var tileType = createTileType(1,tileAnimationList);
     return tileType;
 }
 function randomInRangeInt(min,max){
