@@ -1,12 +1,12 @@
-#include "TileMapInfo.h"
+#include "TileSet.h"
 #include "SpriteInfo.h"
 #include "Texture.h"
-ggEngine::TileMapInfo::TileMapInfo(Texture * texture)
+ggEngine::TileSet::TileSet(Texture * texture)
 {
 	this->texture = texture;
 }
 
-ggEngine::TileMapInfo::~TileMapInfo()
+ggEngine::TileSet::~TileSet()
 {
 	for (auto it = this->tileInfoList.begin(); it != this->tileInfoList.end(); ++it) {
 		delete (*it);
@@ -17,11 +17,11 @@ ggEngine::TileMapInfo::~TileMapInfo()
 	}
 }
 
-void ggEngine::TileMapInfo::Destroy()
+void ggEngine::TileSet::Destroy()
 {
 }
 
-void ggEngine::TileMapInfo::ParseJson(std::string jsonChar)
+void ggEngine::TileSet::ParseJson(std::string jsonChar)
 {
 	Json json(jsonChar);
 	this->id = json["id"].GetString();
@@ -36,15 +36,16 @@ void ggEngine::TileMapInfo::ParseJson(std::string jsonChar)
 	this->tileInfoList.resize(this->numberOfCell);
 	for (rapidjson::SizeType i = 0; i < tileList.Size(); ++i) {
 		int x, y, id;
-		id = json["id"].GetInt();
-		x = json["x"].GetInt();
-		y = json["y"].GetInt();
+		const rapidjson::Value &tileInfo = tileList[i];
+		id = tileInfo["id"].GetInt();
+		x = tileInfo["x"].GetInt();
+		y = tileInfo["y"].GetInt();
 		SpriteInfo *spriteInfo = new SpriteInfo(this->texture, x, y, tileWidth, tileHeight);
 		this->tileInfoList[id] = spriteInfo;
 	}
 }
 
-std::string ggEngine::TileMapInfo::CreateJson()
+std::string ggEngine::TileSet::CreateJson()
 {
 	return nullptr;
 }

@@ -6,7 +6,7 @@
 #include <vector>
 #include "Debug.h"
 #include "Json.h"
-#include "TileMapInfo.h"
+#include "TileSet.h"
 namespace ggEngine {
 	SpriteInfo* Cache::GetSpriteInfo(std::string key) {
 		std::map<std::string, SpriteInfo*>::iterator it = this->spriteInfoMap.find(key);
@@ -35,11 +35,11 @@ namespace ggEngine {
 		}
 		return font;
 	}
-	TileMapInfo * Cache::GetTileMap(std::string key)
+	TileSet * Cache::GetTileMap(std::string key)
 	{
-		auto it = this->tileMapMap.find(key);
-		TileMapInfo* tileMap;
-		if (it != this->tileMapMap.end())
+		auto it = this->tileSetMap.find(key);
+		TileSet* tileMap;
+		if (it != this->tileSetMap.end())
 		{
 			tileMap = it->second;
 		}
@@ -92,10 +92,10 @@ namespace ggEngine {
 			delete (it->second);
 		};
 		this->atlasMap.clear();
-		for (auto it = this->tileMapMap.begin(); it != this->tileMapMap.end(); ++it) {
+		for (auto it = this->tileSetMap.begin(); it != this->tileSetMap.end(); ++it) {
 			delete (it->second);
 		};
-		this->tileMapMap.clear();
+		this->tileSetMap.clear();
 	}
 	bool Cache::CreateTexture(std::string key, std::string textureFile, D3DCOLOR transColor) {
 		Texture *tex = new Texture(this->device, textureFile,transColor);
@@ -156,25 +156,25 @@ namespace ggEngine {
 	bool Cache::CreateAudioFromFile(std::string audioKey, std::string audioPath){
 		return false;
 	}
-	bool Cache::CreateTextureFromTileMapJson(std::string tileMapPath, std::string jsonPath, D3DCOLOR transColor)
+	bool Cache::CreateTextureFromTileSetJson(std::string tileSetPath, std::string jsonPath, D3DCOLOR transColor)
 	{
-		Json json(jsonPath.c_str());
+		Json json(jsonPath,true);
 		std::string tileMapKey = json["id"].GetString();
 		
-		auto it = tileMapMap.find(tileMapKey);
-		if (it != tileMapMap.end() && (it->second) != NULL)
+		auto it = tileSetMap.find(tileMapKey);
+		if (it != tileSetMap.end() && (it->second) != NULL)
 		{
-			g_debug.Warning("TileMap  " + tileMapKey + " has been loaded already!");
+			g_debug.Warning("TileSet  " + tileMapKey + " has been loaded already!");
 			return false;
 		}
-		Texture *tileMap = new Texture(this->device, tileMapPath, transColor);
+		Texture *tileMap = new Texture(this->device, tileSetPath, transColor);
 		if (tileMap->GetDxTexture() == NULL) {
-			g_debug.Warning("No tileMap found with path " + tileMapPath);
+			g_debug.Warning("No tileMap found with path " + tileSetPath);
 			return false;
 		}
-		TileMapInfo *tileMapInfo = new TileMapInfo(tileMap);
-		tileMapInfo->ParseJson(json.GetCharArray());
-		tileMapMap[tileMapKey] = tileMapInfo;
+		TileSet *tileSet = new TileSet(tileMap);
+		tileSet->ParseJson(json.GetCharArray());
+		tileSetMap[tileMapKey] = tileSet;
 		return true;
 	}
 }

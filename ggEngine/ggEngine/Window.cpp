@@ -1,5 +1,14 @@
 #include "Window.h"
+#include <iostream>
+#include "MyStackWalker.h"
 namespace ggEngine {
+	LONG WINAPI MyFilter(EXCEPTION_POINTERS * pExp/*ExceptionInfo*/)
+	{
+		std::cout << "An uncaught exception was detected!\n";
+		MyStackWalker sw;
+		sw.ShowCallstack(GetCurrentThread(), pExp->ContextRecord);
+		return EXCEPTION_EXECUTE_HANDLER;
+	}
 	Window::Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height)
 	{
 		windowClass.style = NULL;
@@ -25,6 +34,8 @@ namespace ggEngine {
 			windowClass.hInstance,
 			NULL);
 		if (window == NULL) throw(TEXT("Window Constructor: Failed to creat a new window!"));
+
+		SetUnhandledExceptionFilter(MyFilter);
 	}
 
 	Window::~Window()

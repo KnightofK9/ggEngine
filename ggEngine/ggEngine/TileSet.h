@@ -4,12 +4,12 @@
 namespace ggEngine {
 	class Texture;
 	class SpriteInfo;
-	class TileMapInfo : public IJsonable {
+	class TileSet : public IJsonable {
 	public:
-		TileMapInfo(Texture *texture);
-		~TileMapInfo();
+		TileSet(Texture *texture);
+		~TileSet();
 		void Destroy();
-		SpriteInfo* GetTileMapInfoAt(int id) { return this->tileInfoList[id]; }
+		SpriteInfo* GetTileSetAt(int id) { return this->tileInfoList[id]; }
 		// Inherited via IJsonable
 		virtual void ParseJson(std::string jsonChar) override;
 		virtual std::string CreateJson() override;

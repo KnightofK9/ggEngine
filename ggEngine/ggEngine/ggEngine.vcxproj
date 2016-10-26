@@ -187,6 +187,7 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MouseEventArg.h" />
+    <ClInclude Include="MyStackWalker.h" />
     <ClInclude Include="NiseVector.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PingPongState.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="StackWalker.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StateManager.h" />
@@ -207,7 +209,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
-    <ClInclude Include="TileMapInfo.h" />
+    <ClInclude Include="TileSet.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Tween.h" />
     <ClInclude Include="TweenManager.h" />
@@ -257,6 +259,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteInfo.cpp" />
+    <ClCompile Include="StackWalker.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StateManager.cpp" />
@@ -265,7 +268,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
-    <ClCompile Include="TileMapInfo.cpp" />
+    <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Tween.cpp" />
     <ClCompile Include="TweenManager.cpp" />
     <ClCompile Include="Vector.cpp" />

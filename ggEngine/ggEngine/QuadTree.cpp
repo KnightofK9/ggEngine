@@ -5,7 +5,8 @@
 #include "AnimationTile.h"
 #include "SingleTile.h"
 #include "QuadNode.h"
-#include "TileMapInfo.h"
+#include "TileSet.h"
+#include "TileMap.h"
 namespace ggEngine {
 	QuadTree::QuadTree(TileMap *tileMap, DrawManager *drawManager,Cache *cache)
 	{
@@ -60,7 +61,7 @@ namespace ggEngine {
 					TileType tileType = (TileType)tileInfo["type"].GetInt();
 					switch (tileType) {
 						case TileType_SingleTile:
-							tile = GetSpriteFromTileInfo(tileInfo["value"]["tileMapKey"].GetString(), tileInfo["value"]["tileId"].GetInt(),width,height, quadNode);
+							tile = GetSpriteFromTileInfo(tileInfo["value"]["tileSetKey"].GetString(), tileInfo["value"]["tileId"].GetInt(),width,height, quadNode);
 							break;
 						case TileType_AnimationType:
 							tile = GetSpriteAnimationFromTileInfo(tileInfo["value"], width, height, quadNode);
@@ -74,7 +75,7 @@ namespace ggEngine {
 			this->quadNodeList[id] = quadNode;
 		}
 		this->rootNode = new QuadNode(this, this->width, this->height, -1, 0,1,2,3);
-
+		this->rootNode->SetParentObject(this->tileMap);
 
 	}
 	RECT QuadTree::GetRect()
@@ -87,12 +88,12 @@ namespace ggEngine {
 	}
 	SingleTile * QuadTree::GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height,QuadNode *parentNode)
 	{
-		TileMapInfo* tileMapInfo = this->cache->GetTileMap(tileMapKey);
+		TileSet* tileSet = this->cache->GetTileMap(tileMapKey);
 		SpriteInfo *tileInfo;
-		if (tileMapInfo == nullptr) {
+		if (tileSet == nullptr) {
 			tileInfo = this->cache->GetDefaultSpriteInfo();
 		}
-		tileInfo = tileMapInfo->GetTileMapInfoAt(tileId);
+		tileInfo = tileSet->GetTileSetAt(tileId);
 		auto tile = new SingleTile(this->drawManager, parentNode, tileInfo);
 		tile->SetWidth(width);
 		tile->SetHeight(height);
@@ -103,7 +104,7 @@ namespace ggEngine {
 		AnimationTile *animationTile = new AnimationTile(this->drawManager, this->tileMap);
 		for (rapidjson::SizeType i = 0; i < tileList.Size(); i++) {
 			const rapidjson::Value& tileInfo = tileList[i];
-			SingleTile *tile = GetSpriteFromTileInfo(tileInfo["tileMapKey"].GetString(), tileInfo["tileId"].GetInt(),width,height, parentNode);
+			SingleTile *tile = GetSpriteFromTileInfo(tileInfo["tileSetKey"].GetString(), tileInfo["tileId"].GetInt(),width,height, parentNode);
 			animationTile->AddTileAnimation(tile);
 		}
 		return animationTile;

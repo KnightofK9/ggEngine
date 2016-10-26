@@ -16,6 +16,7 @@ namespace ggEngine{
 		void Texture(std::string textureKey, std::string texturePath);
 		void Atlas(std::string atlasName, std::string atlasPath, std::string atlasDefPath, AtlasDefType type = AtlasDefTypeXML);
 		void Audio(std::string audioKey, std::string audioPath);
+		void TileSet(std::string tileSetPath, std::string tileSetJsonPath);
 	private:
 		Cache *cache;
 	};

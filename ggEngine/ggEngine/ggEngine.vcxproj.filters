@@ -210,10 +210,13 @@
     <ClCompile Include="AnimationTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TileMapInfo.cpp">
+    <ClCompile Include="StaticTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StaticTimer.cpp">
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StackWalker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -410,11 +413,17 @@
     <ClInclude Include="AnimationTile.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="TileMapInfo.h">
-      <Filter>Header Files\Component</Filter>
-    </ClInclude>
     <ClInclude Include="StaticTimer.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="StackWalker.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="MyStackWalker.h">
+      <Filter>Header Files\Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

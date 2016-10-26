@@ -17,6 +17,7 @@ void TestState::Init(){
 }
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
+	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
 }
 void TestState::Create()
 {
