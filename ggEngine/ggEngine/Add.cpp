@@ -9,6 +9,7 @@
 #include "Audio.h"
 #include "TileMap.h"
 #include "Camera.h"
+#include "Grid.h"
 namespace ggEngine{
 	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera){
 		this->cache = cache;
@@ -21,16 +22,24 @@ namespace ggEngine{
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
 		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->drawManager, inf);
-		sprite->SetParentObject(group);
 		sprite->SetPosition(x, y);
 		group->AddDrawObjectToList(sprite);
 		return sprite;
+	}
+	Grid * Add::Grid(double x, double y, int cellWidth, int cellHeight, int width, int height, ggEngine::Group * group)
+	{
+		ggEngine::Grid* grid = new ggEngine::Grid(this->camera,this->drawManager);
+		grid->SetCellWidth(cellWidth);
+		grid->SetCellHeight(cellHeight);
+		grid->SetWidth(width);
+		grid->SetHeight(height);
+		group->AddDrawObjectToList(grid);
+		return grid;
 	}
 	SpriteAnimation* Add::SpriteAnimation(double x, double y, std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame , int msPerFrame)
 	{
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
 		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->drawManager, inf, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame);
-		spriteAnimation->SetParentObject(group);
 		spriteAnimation->SetPosition(x, y);
 		group->AddDrawObjectToList(spriteAnimation);
 		return spriteAnimation;
@@ -51,7 +60,6 @@ namespace ggEngine{
 	{
 		Font* font = this->cache->GetFont(fontKey);
 		ggEngine::Text *textObject = new ggEngine::Text(this->drawManager,font, x, y, width, height, text, style);
-		textObject->SetParentObject(group);
 		group->AddDrawObjectToList(textObject);
 		return textObject;
 	}

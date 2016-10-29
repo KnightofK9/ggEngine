@@ -32,6 +32,10 @@ namespace ggEngine{
 		if (this->update != nullptr) update();
 	}
 	void Group::AddDrawObjectToList(GameObject* drawObject){
+
+		Group* parentGroup = dynamic_cast<Group*>(drawObject->GetParentObject());
+		if (parentGroup != NULL) parentGroup->GetDrawList()->remove(drawObject);
+		drawObject->SetParentObject(this);
 		drawList.push_back(drawObject);
 	}
 	void Group::Reset(){

@@ -4,7 +4,7 @@
 namespace ggEngine {
 	class Window {
 	public:
-		Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height);
+		Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height, GameMode mode);
 		~Window();
 
 		HWND getHandle() { return window; }

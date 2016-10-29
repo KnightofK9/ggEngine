@@ -5,6 +5,7 @@ const double charMoveSpeed = 10.0f;
 const double jumpForce = 5.0f;
 const double jumpTime = 500;
 TileMap *tileMap;
+Grid *grid;
 Timer jumpTimer;
 TestState::TestState(Game *game):State(game)
 {
@@ -60,7 +61,7 @@ void TestState::Create()
 			}
 		}
 	};
-
+	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
 	Box box(1, 2, 3, 4, 5, 6);
 	box.SaveJsonTo("Json/box.json");
 	//box.ParseJson("Json/box.json");
@@ -91,7 +92,7 @@ void TestState::PreRender()
 }
 void TestState::Render()
 {
-	//character->body->Render();
+	character->body->Render();
 	
 
 }

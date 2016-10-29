@@ -127,14 +127,26 @@ namespace ggEngine {
 		device->DrawPrimitiveUP(D3DPT_LINESTRIP, NUMPOINTS, &Circle[0], sizeof(Circle[0]));
 
 	}
-	void DrawManager::DrawLine(const Vector v1, const Vector v2, D3DCOLOR color)
+	void DrawManager::DrawLine(const Vector v1, const Vector v2,int width, D3DCOLOR color)
 	{
-		D3DTLVERTEX line[2];
+		D3DXVECTOR2 vLine[2];
+		lineManager->SetWidth(width);
+		lineManager->SetAntialias(false);
+		lineManager->SetGLLines(true);
+		vLine[0].x = v1.x;
+		vLine[0].y = v1.y;
+		vLine[1].x = v2.x;
+		vLine[1].y = v2.y;
+		lineManager->Begin();
+		lineManager->Draw(vLine, 2, color);
+		lineManager->End();
+
+		/*D3DTLVERTEX line[2];
 		line[0] = CreateD3DTLVERTEX(v1.x, v1.y, 0.0f, 1.0f, color, 0.0f, 0.0f);
 		line[1] = CreateD3DTLVERTEX(v2.x, v2.y, 0.0f, 1.0f, color, 0.0f, 0.0f);
 		device->SetFVF(D3DFVF_TL);
 		device->SetTexture(0, NULL);
-		device->DrawPrimitiveUP(D3DPT_LINESTRIP, 2, &line[0], sizeof(line[0]));
+		device->DrawPrimitiveUP(D3DPT_LINESTRIP, 2, &line[0], sizeof(line[0]));*/
 	}
 	void DrawManager::DrawObjectFromGroup(std::list<Group*> *groupList)
 	{

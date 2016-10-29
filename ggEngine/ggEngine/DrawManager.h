@@ -36,7 +36,7 @@ namespace ggEngine {
 		void DrawCircle(double x, double y, double radius, D3DCOLOR fillCOlor = DEFAULT_COLOR);
 		void DrawObjectFromGroup(std::list<Group*> *groupList);
 		void DrawList(std::list<GameObject*> *drawObjectList);
-		void DrawLine(const Vector Point1, const Vector Point2, D3DCOLOR color = DEFAULT_COLOR);
+		void DrawLine(const Vector Point1, const Vector Point2, int width = 1, D3DCOLOR color = DEFAULT_COLOR);
 		void DrawShape(Shape *shape);
 		IDirect3DDevice9 *GetDevice(){ return this->device; }
 		D3DTLVERTEX CreateD3DTLVERTEX(double X, double Y, double Z, double RHW, D3DCOLOR color, double U, double V);

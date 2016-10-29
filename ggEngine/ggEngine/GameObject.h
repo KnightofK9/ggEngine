@@ -28,7 +28,7 @@ namespace ggEngine {
 		virtual double GetWidth(){ return this->width; }
 		virtual double GetHeight(){ return this->height; }
 		void SetAnchor(double x, double y) { this->anchor.x = x; this->anchor.y = y; }
-		void UpdateWorldPosition();
+		virtual void UpdateWorldPosition();
 		Vector GetAnchor() { return this->anchor; }
 		void SetVisible(bool visible) { this->visible = visible; }
 		bool IsVisible() { return this->visible; }

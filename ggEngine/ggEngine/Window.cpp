@@ -9,7 +9,7 @@ namespace ggEngine {
 		sw.ShowCallstack(GetCurrentThread(), pExp->ContextRecord);
 		return EXCEPTION_EXECUTE_HANDLER;
 	}
-	Window::Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height)
+	Window::Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height, GameMode mode)
 	{
 		windowClass.style = NULL;
 		windowClass.lpfnWndProc = messageHandler;
@@ -22,11 +22,15 @@ namespace ggEngine {
 		windowClass.lpszMenuName = NULL;
 		windowClass.lpszClassName = title;
 		RegisterClass(&windowClass);
+		DWORD gameMode = WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP;
+		/*if (mode == GameMode_Windowed) {
+			gameMode = WS_OVERLAPPEDWINDOW;
+		}*/
 		window = CreateWindow(
 			windowClass.lpszClassName,
 			title,
 			//WS_OVERLAPPEDWINDOW,
-			WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
+			gameMode,
 			x, y,
 			width, height,
 			GetDesktopWindow(),

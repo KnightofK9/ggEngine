@@ -28,7 +28,7 @@ namespace ggEngine {
 		try {
 			d3dManager = new D3DManager(this,hWnd, width, height, gameColor, isWindowed);
 			stateManager = new StateManager(this);
-			camera = new Camera(this, GAME_WIDTH, GAME_HEIGHT,0,0,true);
+			camera = new Camera(this, width, height,0,0,true);
 			drawManager = new DrawManager(this,camera);
 			cache = new Cache(this);
 			physics = new Physics(this, physicsMode);
