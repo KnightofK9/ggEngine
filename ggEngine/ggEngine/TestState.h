@@ -15,4 +15,12 @@ public:
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 private:
+	SpriteAnimation *character;
+	Group *group;
+	const double charMoveSpeed = 10.0f;
+	const double jumpForce = 5.0f;
+	const double jumpTime = 500;
+	TileMap *tileMap;
+	Grid *grid;
+	Timer jumpTimer;
 };

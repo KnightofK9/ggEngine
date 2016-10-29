@@ -1,12 +1,5 @@
 #include "TestState.h"
-SpriteAnimation *character;
-Group *group;
-const double charMoveSpeed = 10.0f;
-const double jumpForce = 5.0f;
-const double jumpTime = 500;
-TileMap *tileMap;
-Grid *grid;
-Timer jumpTimer;
+
 TestState::TestState(Game *game):State(game)
 {
 }
