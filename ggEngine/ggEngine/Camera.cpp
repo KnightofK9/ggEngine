@@ -52,15 +52,15 @@ namespace ggEngine {
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomIn])) {
 				scale.x += SCALE_SPEED*scale.x;
 				scale.y += SCALE_SPEED*scale.y;
-				this->width = orgWidth*scale.x;
-				this->height = orgHeight*scale.y;
+				this->width = orgWidth/scale.x;
+				this->height = orgHeight/scale.y;
 			}
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomOut])) {
 				if (!(scale.x < 0 || scale.y < 0)) {
 					scale.x -= SCALE_SPEED*scale.x;
 					scale.y -= SCALE_SPEED*scale.y;
-					this->width = orgWidth*scale.x;
-					this->height = orgHeight*scale.y;
+					this->width = orgWidth/scale.x;
+					this->height = orgHeight/scale.y;
 				}
 			}
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_MoveLeft])) {
@@ -92,8 +92,8 @@ namespace ggEngine {
 	void Camera::SetScale(double x, double y)
 	{
 		this->scale = Vector(x, y);
-		this->width = orgWidth*x;
-		this->height = orgHeight*y;
+		this->width = orgWidth/x;
+		this->height = orgHeight/y;
 	}
 	void Camera::SetPoint(double x, double y)
 	{

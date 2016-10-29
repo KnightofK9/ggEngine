@@ -31,7 +31,7 @@ namespace ggEngine {
 		this->drawList.clear();
 		const RECT drawRect = camera->GetRect();
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());
-		//g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
+		g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
 		return &this->drawList;
 	}
 	void TileMap::CheckCollision(const GameObject * gameObject)
@@ -48,13 +48,13 @@ namespace ggEngine {
 	{
 		if (!isDrawAllChildNode) {
 			RECT intersectRect;
-			RECT *b = &quadNode->GetRect();
-			if (!IntersectRect(&intersectRect, &drawRect,b)) {
+			RECT b = quadNode->GetRect();
+			if (!IntersectRect(&intersectRect, &drawRect,&b)) {
 				return;
 			}
-			/*if (intersectRect.left == intersectRect.right  && intersectRect.top == intersectRect.bottom && intersectRect.top == 0) {
+			if (intersectRect.left == b.left  && intersectRect.top == b.top && intersectRect.right == b.right  && intersectRect.bottom == b.bottom ) {
 				isDrawAllChildNode = true;
-			}*/
+			}
 		}
 		//std::vector<DrawObject *> objectList = quadNode->GetObjectFromNode();
 		//if (objectList.size()>0) {
