@@ -27,7 +27,7 @@ namespace ggEngine{
 		Group* Group();
 		TileMap* TileMap(std::string tileMapJsonPath);
 		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
-		Audio* Audio(std::string audioKey);
+		Audio* Audio(std::string fileName);
 		ggEngine::Tween* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction);
 		//ggEngine::Tween* Tween(double init, double end, double duration, std::function<void(double)> update, std::function<double(double)> easingFunction);
 

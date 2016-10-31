@@ -1,4 +1,5 @@
 #include "TestState.h"
+#include "Audio.h"
 
 TestState::TestState(Game *game):State(game)
 {
@@ -12,11 +13,15 @@ void TestState::Init(){
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
 	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
+	font = new Font(game->GetDrawManager(), "sketches", "Resource\Font\sketches.ttf", 30);
 }
 void TestState::Create()
 {
+	
 	tileMap = this->add->TileMap("Json/scene.json");
 	group = this->add->Group();
+	sound = this->add->Audio("Resource/Sound/sound.wav");
+	
 
 	character = this->add->SpriteAnimation(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "character", 32, 48, group,0,0,1000/10);
 	character->CreateAnimation("down", 0, 3, true);
@@ -50,8 +55,19 @@ void TestState::Create()
 					character->body->velocity.y = 0;
 					character->body->AddForce(jumpForce, Vector(0, -1));
 				}
-
 			}
+
+			///Test
+			if (e.isPress(DIK_P))
+				sound->Play();
+			if (e.isPress(DIK_S))
+				sound->Stop();
+			if (e.isPress(DIK_E))
+				sound->Pause();
+			if (e.isPress(DIK_R))
+				sound->Resume();
+			if (e.isPress(DIK_V))
+				sound->FadeTo(30);
 		}
 	};
 	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
@@ -75,6 +91,14 @@ void TestState::Create()
 	//	ia >> box;
 	//	// archive and stream closed when destructors are called
 	//}
+
+	// Text
+	Style style;
+	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
+	text = this->add->Text(GAME_WIDTH / 2.0 , GAME_HEIGHT / 2.0, "sketches", 200, 200, "Test custom font", style, group);
+	text->SetFont(font);
+	text->SetAnchor(0.5, 0.5);
 }
 void TestState::Update()
 {
@@ -86,8 +110,6 @@ void TestState::PreRender()
 void TestState::Render()
 {
 	character->body->Render();
-	
-
 }
 void TestState::Pause()
 {

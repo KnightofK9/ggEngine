@@ -12,6 +12,7 @@ namespace ggEngine
 
 	Sound::Sound(HWND hWnd, const char * filePath, SoundType type, bool looping)
 	{
+		
 		volume = 80;
 		isLooping = looping;
 		this->type = type;
@@ -261,8 +262,8 @@ namespace ggEngine
 
 	void Sound::SetVolume(int volume)
 	{
-		//this->volume = volume;
-		//secondBuffer->SetVolume(volume);
+		this->volume = volume;
+		secondBuffer->SetVolume(volume);
 		// finding set volume with dB: -20*log(2)
 		// reference: http://soundfile.sapp.org/doc/WaveFormat/
 	}

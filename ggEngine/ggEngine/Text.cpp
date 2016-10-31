@@ -150,3 +150,4 @@ void ggEngine::Text::Transform(LPD3DXSPRITE spriteHandle)
 	//	this->body->rigidBody->Transform(mat);
 	spriteHandle->SetTransform(&mat);
 }
+

@@ -23,4 +23,7 @@ private:
 	TileMap *tileMap;
 	Grid *grid;
 	Timer jumpTimer;
+	Text *text;
+	Audio *sound;
+	Font *font;
 };

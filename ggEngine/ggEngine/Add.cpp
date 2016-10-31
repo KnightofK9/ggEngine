@@ -51,6 +51,7 @@ namespace ggEngine{
 	}
 	TileMap * Add::TileMap(std::string tileMapJsonPath)
 	{
+		
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager, this->cache);
 		tileMap->BuildTree(tileMapJsonPath);
 		world->AddGroup(tileMap);
@@ -65,7 +66,7 @@ namespace ggEngine{
 	}
 
 	Audio* Add::Audio(std::string audioKey){
-		return new ggEngine::Audio();
+		return new ggEngine::Audio(audioKey);
 	}
 	ggEngine::Tween * Add::Tween(float & val, double end, double duration, std::function<double(int,double,double,int)> easingFunction)
 	{
