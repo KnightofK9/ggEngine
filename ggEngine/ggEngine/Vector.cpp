@@ -9,6 +9,16 @@ namespace ggEngine {
 	Vector::Vector(double f) : D3DXVECTOR2(f, f) {
 
 	}
+	Vector::Vector(const Vector & v)
+	{
+		this->x = v.x;
+		this->y = v.y;
+	}
+	Vector::Vector(Vector * v)
+	{
+		this->x = v->x;
+		this->y = v->y;
+	}
 	Vector::Vector(const D3DXVECTOR2 & v) : D3DXVECTOR2(v.x, v.y)
 	{
 	}

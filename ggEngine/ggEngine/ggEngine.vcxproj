@@ -225,6 +225,7 @@
     <ClCompile Include="AnimationTile.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="AudioInfo.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Cache.cpp" />

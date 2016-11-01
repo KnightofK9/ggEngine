@@ -41,6 +41,9 @@ namespace ggEngine {
 		//position = sprite->GetPosition();
 		width = sprite->GetWidth();
 		height = sprite->GetHeight();
+		if (this->rigidBody != nullptr) {
+			this->rigidBody->Transform(this->position);
+		}
 	}
 
 	double Body::PerformCollisionSweptAABB(GameObject * staticGo, Vector currentVelocity)
@@ -158,7 +161,6 @@ namespace ggEngine {
 	}
 	void Body::CheckCollisionAndUpdateMovement()
 	{
-		if (!this->rigidBody->IsReady()) return;
 		//Debug::Log("Current position :" + std::to_string(position->y));
 		double timeStep = game->logicTimer.getDeltaTime();
 		Vector lastAcceleration = acceleration;
@@ -235,6 +237,9 @@ namespace ggEngine {
 	void Body::PostUpdate()
 	{
 		//sprite->SetPosition(position);
+		if (this->rigidBody != nullptr) {
+			this->rigidBody->Transform(this->position);
+		}
 	}
 	bool Body::CheckWorldBounds()
 	{

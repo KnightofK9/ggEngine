@@ -25,13 +25,14 @@ void TestStateCastleVania::Create()
 	character->CreateAnimation("right", 8, 11, true);
 	character->CreateAnimation("up", 12, 15, true);
 	game->physics->EnablePhysics(character);
-	character->body->CreateRectangleRigidBody(32, 48);
+	character->body->CreateRectangleRigidBody(character->GetWidth(), character->GetHeight());
+	character->body->rigidBody->SetAnchor(new Vector(0.5, 0.5));
 	character->body->allowGravity = true;
 	character->body->allowBounciness = false;
 	character->body->allowWorldBlock = true;
 	game->eventManager->EnableKeyBoardInput(character);
 	jumpTimer.reset();
-	character->SetScale(1.5, 1.5);
+	//character->SetScale(1.5, 1.5);
 	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {

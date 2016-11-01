@@ -19,10 +19,9 @@ void ggEngine::Circle::Destroy()
 {
 }
 
-void ggEngine::Circle::Transform(Matrix transformMatrix)
+void ggEngine::Circle::Transform(Vector position)
 {
-	pCenter.SetTransform(transformMatrix);
-	this->isReady = true;
+	
 }
 
 

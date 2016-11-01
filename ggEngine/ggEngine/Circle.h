@@ -8,11 +8,9 @@ namespace ggEngine {
 		~Circle();
 		double GetArea();
 		void Destroy();
-		void Transform(Matrix transformMatrix);
+		void Transform(Vector position);
 		NiseVector pCenter;
 		double radius;
-		bool IsReady(){ return this->isReady; }
 	private:
-		bool isReady;
 	};
 }

@@ -9,6 +9,8 @@ namespace ggEngine {
 	public:
 		Vector(double x, double y);
 		Vector(double f);
+		Vector(const Vector& v);
+		Vector(Vector* v);
 		Vector(const D3DXVECTOR2 &v);
 		Vector();
 		~Vector();

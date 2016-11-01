@@ -9,7 +9,6 @@ ggEngine::Rectangle::Rectangle(double width, double height)
 	p3 = Vector(0 + width, 0 + height);
 	p4 = Vector(0, 0 + height);
 	pCenter = p3 / 2;
-	isReady = false;
 }
 
 ggEngine::Rectangle::~Rectangle()
@@ -25,14 +24,18 @@ void ggEngine::Rectangle::Destroy()
 {
 }
 
-void ggEngine::Rectangle::Transform(Matrix transformMatrix)
+void ggEngine::Rectangle::Transform(Vector position)
 {
-	//transformMatri
-	p1.SetTransform(transformMatrix);
-	p2.SetTransform(transformMatrix);
-	p3.SetTransform(transformMatrix);
-	p4.SetTransform(transformMatrix);
-	pCenter.SetTransform(transformMatrix);
-	isReady = true;
+	pCenter.x = position.x - this->width*(0.5 - this->anchor.x);
+	pCenter.y = position.y - this->height*(0.5 - this->anchor.y);
+
+	double dtX = this->width / 2.0;
+	double dtY = this->height / 2.0;
+
+	p1.y = p2.y = pCenter.y - dtY;
+	p3.y = p4.y = pCenter.y + dtY;
+
+	p1.x = p4.x = pCenter.x - dtX;
+	p2.x = p3.x = pCenter.x + dtX;
 }
 

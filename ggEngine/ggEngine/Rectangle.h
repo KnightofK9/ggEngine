@@ -8,11 +8,9 @@ namespace ggEngine {
 		~Rectangle();
 		double GetArea();
 		void Destroy();
-		void Transform(Matrix transformMatrix);
-		NiseVector p1, p2, p3, p4, pCenter;
+		void Transform(Vector position);
+		Vector p1, p2, p3, p4, pCenter;
 		double width, height;
-		bool IsReady() { return this->isReady; }
 	private:
-		bool isReady;
 	};
 }

@@ -18,6 +18,7 @@ namespace ggEngine {
 		bool CreateTexture(std::string key, std::string textureName, D3DCOLOR transColor = D3DCOLOR_RGBA(0, 0, 0, 255));
 		bool CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath, D3DCOLOR transColor = D3DCOLOR_RGBA(0, 0, 0, 255));
 		bool CreateFontToCache(std::string fontKey, std::string fontName, int fontSize, bool isItalic, int fontWeight);
+		bool CreateFontFromFile(std::string fontKey, std::string fontName, std::string fontPath, int fontSize, bool isItalic, int fontWeight);
 		bool CreateAudioFromFile(std::string audioKey, std::string audioPath);
 		bool CreateTextureFromTileSetJson(std::string tileMapPath, std::string jsonPath, D3DCOLOR transColor = D3DCOLOR_RGBA(0, 0, 0, 255));
 		SpriteInfo* GetSpriteInfo(std::string key);

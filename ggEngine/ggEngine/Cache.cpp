@@ -153,6 +153,23 @@ namespace ggEngine {
 		return true;
 	}
 
+	bool Cache::CreateFontFromFile(std::string fontKey, std::string fontName, std::string fontPath, int fontSize, bool isItalic, int fontWeight)
+	{
+		std::map<std::string, Font*>::iterator it = fontMap.find(fontName);
+		if (it != fontMap.end() && (it->second) != NULL)
+		{
+			g_debug.Warning("Font " + fontKey + " has been loaded already!");
+			return false;
+		}
+		Font* font = new Font(game->GetDrawManager(), fontName, fontPath, fontSize, isItalic, fontWeight);
+		if (font->GetDxFont() == NULL) {
+			g_debug.Warning("Initialize font " + fontName + " failed.");
+			return false;
+		}
+		fontMap[fontKey] = font;
+		return true;
+	}
+
 	bool Cache::CreateAudioFromFile(std::string audioKey, std::string audioPath){
 		return false;
 	}

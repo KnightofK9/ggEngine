@@ -73,8 +73,8 @@ namespace ggEngine {
 		//Vector trans(this->position.x - this->width*(this->anchor.x), this->position.y - this->height*(this->anchor.y));
 		//D3DXMatrixTransformation2D(&mat, NULL, 0, &scale, &rotateCenter, this->rotate, &trans);
 		//mat *= (Matrix::CreateScaleMatrix(1, -1)*Matrix::CreateTranslateMatrix(0, this->height));
-		if (this->body != NULL)
-			this->body->rigidBody->Transform(mat);
+		/*if (this->body != NULL)
+			this->body->rigidBody->Transform(mat);*/
 		spriteHandle->SetTransform(&mat);
 	}
 

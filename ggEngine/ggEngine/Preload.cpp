@@ -11,6 +11,10 @@ namespace ggEngine{
 	{
 		this->cache->CreateFontToCache(fontKey, fontName, fontSize, isItalic, fontWeight);
 	}
+	void Preload::Font(std::string fontKey, std::string fontName, std::string fontPath, int fontSize, bool isItalic, int fontWeight)
+	{
+		this->cache->CreateFontFromFile(fontKey, fontName, fontPath, fontSize, isItalic, fontWeight);
+	}
 	void Preload::Texture(std::string textureKey, std::string texturePath){
 		this->cache->CreateTexture(textureKey, texturePath);
 	}
