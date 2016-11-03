@@ -2,7 +2,7 @@
 #include <d3d9.h>
 #include "Vector.h"
 #define GAME_WIDTH ((int)1024) //((int)1366) //(int)650 //((int)800)
-#define GAME_HEIGHT ((int)768) //((int)600)
+#define GAME_HEIGHT ((int)1024) //((int)600)
 #define MILISECOND_PER_UPDATE ((int)2)
 #define DEFAULT_MS_PER_FRAME_FOR_ANIMATION 14
 #define VECTOR_ZERO (Vector(0,0))

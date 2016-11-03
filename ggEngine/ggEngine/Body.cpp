@@ -287,6 +287,13 @@ namespace ggEngine {
 	{
 		blocked.Reset();
 		bool isBlocked = false;
+
+		Vector pivot = this->rigidBody->GetPivotPoint();
+		double distance = Vector::Distance(pivot,Vector(GAME_WIDTH / 2, GAME_HEIGHT / 2));
+		if (distance >= 400) {
+			isBlocked = true;
+		}
+		if (isBlocked) return isBlocked;
 		if (this->rigidBody->GetLeft() <= 0) {
 			isBlocked = blocked.left = true;
 		}

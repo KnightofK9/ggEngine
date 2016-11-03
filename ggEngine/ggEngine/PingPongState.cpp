@@ -27,6 +27,7 @@ void PingPongState::Create()
 		ball = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "ball", group);
 		game->physics->EnablePhysics(ball);
 		ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
+			go->SetPosition(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 			/*if (!e.blockDirection.up && !e.blockDirection.down)
 			{
 			srand(time(NULL));
