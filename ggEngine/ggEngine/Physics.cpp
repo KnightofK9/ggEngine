@@ -234,9 +234,9 @@ namespace ggEngine {
 		double top, left, right, bottom;
 		left = b.vx > 0 ? b.x : b.x + b.vx;
 		top = b.vy > 0 ? b.y : b.y + b.vy;
-		right = b.vx > 0 ? b.x + b.vx + b.w :b.x + b.w;
-		bottom = b.vy > 0 ? b.y + b.vy + b.h :b.y + b.h;
-		RECT r{ (long)left,(long)top,(long)right,(long)bottom };
+		right = b.vx > 0 ? b.r + b.vx  :b.r;
+		bottom = b.vy > 0 ? b.d + b.vy  :b.d;
+		RECT r{ (long)left-1,(long)top-1,(long)right+1,(long)bottom+1 };
 		return r;
 	}
 	bool Physics::AABBCheck(RECT b1, RECT b2)

@@ -22,7 +22,8 @@ void PingPongState::Create()
 #pragma region Ball
 	Sprite *background = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "background", group);
 	background->SetScale(Vector(0.8, 0.8));
-	for (int i = 0; i < 1000; ++i){
+	for (int i = 0; i < 2000; ++i){
+	//int i = 100;
 		ball = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "ball", group);
 		game->physics->EnablePhysics(ball);
 		ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
@@ -48,20 +49,23 @@ void PingPongState::Create()
 
 
 		//ball->events->onCollide = [this](GameObject *go, ColliderArg e) {
-		//Vector velocity = go->body->velocity;
-		//if (e.blockDirection.left || e.blockDirection.right)
-		//	go->position.x += go->body->velocity.x * timeEntrySAABB;
-		//else if (e.blockDirection.up || e.blockDirection.down)
-		//	go->position.y += go->body->velocity.y * timeEntrySAABB;
-
-		////double remainingTime = 1.1f - timeEntrySAABB;
-		//Vector n = e.normalSurfaceVector;
-		//Vector d = go->body->velocity;
-		//Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
-		//go->body->velocity = 0;
+		//	Vector velocity = go->body->velocity;
+		//	float movePosition = 5;
+		//	if (e.blockDirection.left) go->position.x += 5;
+		//	else if (e.blockDirection.right) go->position.x -= 5;
+		//	else if (e.blockDirection.up) go->position.y += 5;
+		//	else if (e.blockDirection.down) go->position.y -= 5;
+		//	Vector n = e.normalSurfaceVector;
+		//	Vector d = velocity;
+		//	Vector r = d - 2 * (Vector::DotProduct(d, n))*n;
+		//	go->body->velocity = r;
+		//	/*if (e.remainingTime > 0.0f) {
+		//		go->position.x += r.x*e.remainingTime;
+		//		go->position.y += r.y*e.remainingTime;
+		//	}*/
 		//};
 		ball->body->CreateRectangleRigidBody(ball->GetWidth(), ball->GetHeight());
-		ball->body->AddForce(i/10, Vector(i, i));
+		ball->body->AddForce((float)i/1000, i);
 	}
 #pragma endregion Ball
 
@@ -106,8 +110,8 @@ void PingPongState::Create()
 	}
 	leftBat->SetScale(1, 0.5);
 	rightBat->SetScale(1, 0.5);
-	//ball->body->CheckCollisionTo(leftBat);
-	//ball->body->CheckCollisionTo(rightBat);
+	/*ball->body->CheckCollisionTo(leftBat);
+	ball->body->CheckCollisionTo(rightBat);*/
 #pragma endregion Bat
 	rightBat->body->allowBounciness = false;
 	leftBat->body->allowBounciness = false;
@@ -162,7 +166,7 @@ void PingPongState::Update()
 	textScore1->SetText(std::to_string(score1));
 	textScore2->SetText(std::to_string(score2));
 	if (isSingle) {
-	/*	if (ball->position.y<leftBat->position.y)
+		/*if (ball->position.y<leftBat->position.y)
 			leftBat->position.y -= MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
 		else if (ball->position.y>leftBat->position.y) {
 			leftBat->position.y += MoveSpeedPerSec * (game->logicTimer.getDeltaTime());
@@ -174,6 +178,9 @@ void PingPongState::Update()
 		}*/
 	
 	}
+	ball->body->Render();
+	rightBat->body->Render();
+	leftBat->body->Render();
 	if (game->GetInput()->KeyDown(DIK_Q)) {
 		game->stateManager->Start("MenuState", true, true);
 	}

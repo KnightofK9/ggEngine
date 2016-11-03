@@ -42,7 +42,7 @@ void initGame() {
 	game->stateManager->Add("PingPongState", pingPongState, false);
 	MenuState *menuState = new MenuState(game);
 	game->stateManager->Add("MenuState", menuState, false);
-	game->stateManager->Start("TestState",false,false);
+	game->stateManager->Start("MenuState",false,false);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

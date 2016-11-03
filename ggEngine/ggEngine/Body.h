@@ -50,6 +50,12 @@ namespace ggEngine {
 		bool allowWorldBlock = true;
 
 
+		bool isCollideWithObject = false;
+		ColliderArg event;
+
+		bool isCollideWithWorld = false;
+
+
 		Vector velocity;
 		Vector newVelocity;
 		Vector deltaMax;
@@ -113,6 +119,7 @@ namespace ggEngine {
 		void CreateCircleRigidBody(double radius);
 		void CreateRectangleRigidBody(double width, double height);
 	private:
+		Vector temp;
 		std::vector<GameObject*> collisionObjectList;
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();

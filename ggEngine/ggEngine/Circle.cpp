@@ -19,9 +19,48 @@ void ggEngine::Circle::Destroy()
 {
 }
 
-void ggEngine::Circle::Transform(Vector position)
+void ggEngine::Circle::Transform(Vector position, double width, double height)
 {
 	
+}
+
+double ggEngine::Circle::GetLeft()
+{
+	return 0.0;
+}
+
+double ggEngine::Circle::GetRight()
+{
+	return 0.0;
+}
+
+double ggEngine::Circle::GetUp()
+{
+	return 0.0;
+}
+
+double ggEngine::Circle::GetDown()
+{
+	return 0.0;
+}
+
+double ggEngine::Circle::GetWidth()
+{
+	return 0.0;
+}
+
+double ggEngine::Circle::GetHeight()
+{
+	return 0.0;
+}
+
+ggEngine::Vector ggEngine::Circle::GetPivotPoint()
+{
+	return Vector();
+}
+
+void ggEngine::Circle::Translate(Vector translate)
+{
 }
 
 

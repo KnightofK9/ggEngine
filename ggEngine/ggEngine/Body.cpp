@@ -39,59 +39,65 @@ namespace ggEngine {
 	void Body::PreUpdate()
 	{
 		//position = sprite->GetPosition();
-		width = sprite->GetWidth();
-		height = sprite->GetHeight();
+		this->width = sprite->GetWidth();
+		this->height = sprite->GetHeight();
 		if (this->rigidBody != nullptr) {
-			this->rigidBody->Transform(this->position);
+			this->rigidBody->Transform(this->position, this->width, this->height);
 		}
 	}
 
 	double Body::PerformCollisionSweptAABB(GameObject * staticGo, Vector currentVelocity)
 	{
-		Rectangle *rect1 = dynamic_cast<Rectangle*>(this->rigidBody);
-		Rectangle *rect2 = dynamic_cast<Rectangle*>(staticGo->body->rigidBody);
+		staticGo->body->rigidBody->Transform(staticGo->GetPosition(),staticGo->GetWidth(),staticGo->GetHeight());
+		Shape* staticRigiBody = staticGo->body->rigidBody;
 		double xInvEntry, yInvEntry;
 		double xInvExit, yInvExit;
 		Vector normalVector;
 		ColliderArg e;
 		Box b1;
-		b1.x = rect1->p1.x;
-		b1.y = rect1->p1.y;
-		b1.w = rect1->p3.x-rect1->p1.x;
-		b1.h = rect1->p3.y-rect1->p1.y;
+		b1.x = this->rigidBody->GetLeft();
+		b1.y = this->rigidBody->GetUp();
+		b1.w = this->rigidBody->GetWidth();
+		b1.h = this->rigidBody->GetHeight();
+		b1.r = b1.x + b1.w;
+		b1.d = b1.y + b1.h;
 		b1.vx = currentVelocity.x*PIXEL_PER_CENTIMETER;
 		b1.vy = currentVelocity.y*PIXEL_PER_CENTIMETER;
 		Box b2;
-		b2.x = rect2->p1.x;
-		b2.y = rect2->p1.y;
-		b2.w = rect2->p3.x-rect2->p1.x;
-		b2.h = rect2->p3.y-rect2->p1.y;
+		b2.x = staticRigiBody->GetLeft();
+		b2.y = staticRigiBody->GetUp();
+		b2.w = staticRigiBody->GetWidth();
+		b2.h = staticRigiBody->GetHeight();
+		b2.r = b2.x + b2.w;
+		b2.d = b2.y + b2.h;
 		b2.vx = b2.vy = 0;
 		if (b1.vx > 0.0f) {
 			xInvEntry = b2.x - (b1.x + b1.w);
 			xInvExit = (b2.x + b2.w) - b1.x;
 		}
 		if (b1.vx < 0.0f) {
-			if(b2.x > (b1.x + b1.w)) return 1.0f;
-			xInvEntry = (b2.x + b2.w) - b1.x;
-			xInvExit = b2.x - (b1.x + b1.w);
+			xInvEntry = (b2.r) - b1.x;
+			xInvExit = b2.x - (b1.r);
 		}
 		if (b1.vy > 0.0f) {
-			yInvEntry = (b2.y - (b1.y + b1.h));
-			yInvExit = ((b2.y + b2.h) - b1.y);
+			yInvEntry = (b2.y - (b1.d));
+			yInvExit = ((b2.d) - b1.y);
 		}
 		if (b1.vy < 0.0f) {
-			yInvEntry = b1.y - (b2.y + b2.h);
-			yInvExit = (b1.y + b1.h) - b2.y;
+			yInvEntry = (b2.d) - b1.y;
+			yInvExit = b2.y - (b1.d);
 		}
 		//BroadPhase check
 		RECT broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
 		RECT r2 = b2.GetRect();
 		if (!Physics::AABBCheck(broadPhaseRect, r2)) {
 			//g_debug.Log("BroadPhaseCheck success");
+			if (staticGo->name == "Right Bat") {
+				int i = 1;
+			}
 			return 1.0f;
 		}
-
+		
 
 		double xEntry, yEntry;
 		double xExit, yExit;
@@ -118,6 +124,9 @@ namespace ggEngine {
 			normalVector.x = 0.0f;
 			normalVector.y = 0.0f;
 			// No collision found
+			if (staticGo->name == "Right Bat") {
+				int i = 1;
+			}
 			return 1.0f;
 		}
 		//g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) );
@@ -149,13 +158,23 @@ namespace ggEngine {
 		e.bound = true;
 		e.normalSurfaceVector = normalVector;
 		//Handle when collision happened
-		position->x += b1.vx*entryTime;
-		position->y += b1.vy*entryTime;
+		/*position->x += b1.vx*entryTime;
+		position->y += b1.vy*entryTime;*/
 
+		this->rigidBody->Translate(b1.vx*entryTime, b1.vy*entryTime);
+		
 		double remainingTime = 1 - entryTime;
 		e.remainingTime = remainingTime;
 		e.colliderObject = staticGo;
-		if (this->sprite->events->onCollide != nullptr) this->sprite->events->onCollide(this->sprite, e);
+		
+		event = e;
+		if (this->sprite->events->onCollide != nullptr) {
+			Vector pivot = this->rigidBody->GetPivotPoint();
+			this->position->x = pivot.x;
+			this->position->y = pivot.y;
+			this->sprite->events->onCollide(this->sprite, event);
+			this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
+		}
 
 		return entryTime;
 	}
@@ -165,7 +184,7 @@ namespace ggEngine {
 		double timeStep = game->logicTimer.getDeltaTime();
 		Vector lastAcceleration = acceleration;
 		Vector force = (CalculateAirForce() + CalculateGravityForce());
-		Vector temp = (velocity*timeStep + (0.5*lastAcceleration*timeStep*timeStep));
+		temp = (velocity*timeStep + (0.5*lastAcceleration*timeStep*timeStep));
 		Vector newAcceleration = force / mass;
 		acceleration = (lastAcceleration + newAcceleration) / 2;
 		if (blocked.down && allowWorldBlock) acceleration.y = 0;
@@ -176,25 +195,24 @@ namespace ggEngine {
 			double collideTime = PerformCollisionSweptAABB((*it),temp);
 			if (collideTime < 1.0f) {
 				isCollided = true;
+				isCollideWithObject = true;
 				break;
 			}
 		}
 		if (isCollided) {
 			return;
 		}
-
-		(*position) += temp * PIXEL_PER_CENTIMETER;
+		this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
+		/*(*position) += temp * PIXEL_PER_CENTIMETER;*/
 	}
 	void Body::UpdateBounds()
 	{
 		if (CheckWorldBounds()) {
-			Rectangle* rect = dynamic_cast<Rectangle*>(rigidBody);
-			double width, height;
-			width = height = 0;
-			if (rect != NULL) {
-				width = rect->width;
-				height = rect->height;
-			}
+			/*double width, height;
+			width = rigidBody->GetWidth();
+			height = rigidBody->GetHeight();
+			Vector pivot = this->rigidBody->GetPivotPoint();*/
+			this->isCollideWithWorld = true;
 			if (blocked.down) {
 				//Debug::Log("Meet world with " + std::to_string(velocity.y));
 				if (velocity.y > 0) {
@@ -206,55 +224,79 @@ namespace ggEngine {
 						acceleration.y = 0;
 					}
 				}
-				position->y = GAME_HEIGHT  - sprite->GetHeight()*sprite->GetAnchor().y;
+				//position->y = pivot.y;
+				this->rigidBody->Translate(Vector(0, GAME_HEIGHT - this->rigidBody->GetDown()));
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
 					if (allowBounciness) velocity.y *= -bounciness;
 				}
-				position->y = sprite->GetHeight()*sprite->GetAnchor().y;
+				//position->y = pivot.y;
+				this->rigidBody->Translate(Vector(0,0 - this->rigidBody->GetUp()));
 			}
 			if (blocked.left) {
 				if (velocity.x < 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
 				}
-				position->x = sprite->GetWidth()*sprite->GetAnchor().x;
+				//position->x = pivot.x;
+				this->rigidBody->Translate(Vector(0 - this->rigidBody->GetLeft(), 0));
 			}
 			if (blocked.right) {
 				if (velocity.x > 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
 				}
-				position->x = GAME_WIDTH - sprite->GetWidth()*sprite->GetAnchor().x;
+				//position->x = pivot.x;
+				this->rigidBody->Translate(Vector(GAME_WIDTH - this->rigidBody->GetRight(), 0));
 			}
 			if (this->sprite->events->onWorldBounds != nullptr)
 			{
 				ColliderArg e;
 				e.blockDirection = blocked;
+				Vector pivot = this->rigidBody->GetPivotPoint();
+				this->position->x = pivot.x;
+				this->position->y = pivot.y;
 				this->sprite->events->onWorldBounds(sprite, e);
+				this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
 			}
 		}
 	}
 	void Body::PostUpdate()
 	{
 		//sprite->SetPosition(position);
-		if (this->rigidBody != nullptr) {
+		/*if (this->rigidBody != nullptr) {
 			this->rigidBody->Transform(this->position);
+		}*/
+		Vector pivot = this->rigidBody->GetPivotPoint();
+		this->position->x = pivot.x;
+		this->position->y = pivot.y;
+		
+		
+		if (isCollideWithObject) {
+			
+			isCollideWithObject = false;
+		
+		}
+		else {
+			if (isCollideWithWorld) {
+				
+				isCollideWithWorld = false;
+			}
 		}
 	}
 	bool Body::CheckWorldBounds()
 	{
 		blocked.Reset();
 		bool isBlocked = false;
-		if (position->x - width/2 <= 0) {
+		if (this->rigidBody->GetLeft() <= 0) {
 			isBlocked = blocked.left = true;
 		}
-		if (position->x + width/2 >= GAME_WIDTH) {
+		if (this->rigidBody->GetRight() >= GAME_WIDTH ) {
 			isBlocked = blocked.right = true;
 		}
-		if (position->y + height/2 >= GAME_HEIGHT) {
+		if (this->rigidBody->GetDown() >= GAME_HEIGHT ) {
 			isBlocked = blocked.down = true;
 		}
-		if (position->y - height/2 <= 0) {
+		if (this->rigidBody->GetUp() <= 0 ) {
 			isBlocked = blocked.up = true;
 		}
 		return isBlocked;
@@ -319,6 +361,7 @@ namespace ggEngine {
 	}
 	void Body::AddForce(double force, double angleInRadian)
 	{
+		AddForce(force, new Vector(cos(angleInRadian), sin(angleInRadian)));
 	}
 	void Body::AddForce(double force, Vector angleInVector)
 	{

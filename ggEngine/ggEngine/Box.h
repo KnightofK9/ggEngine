@@ -10,6 +10,7 @@ namespace ggEngine {
 		double x, y;
 		double w, h;
 		double vx, vy;
+		double r, d;
 		RECT GetRect() { return RECT{ (long)x,(long)y,(long)(x + w),(long)(y + h) }; }
 
 		template<class Archive>
