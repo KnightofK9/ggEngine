@@ -22,7 +22,7 @@ void PingPongState::Create()
 #pragma region Ball
 	Sprite *background = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "background", group);
 	background->SetScale(Vector(0.8, 0.8));
-	for (int i = 0; i < 2000; ++i){
+	for (int i = 0; i < 1500; ++i){
 	//int i = 100;
 		ball = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "ball", group);
 		game->physics->EnablePhysics(ball);
@@ -33,7 +33,7 @@ void PingPongState::Create()
 			Vector velocity = { (rand() % 50)*1.0f, (rand() % 50)*1.0f };
 			go->body->velocity = velocity;
 			}*/
-			if (e.blockDirection.left)
+			/*if (e.blockDirection.left)
 			{
 				score2++;
 				go->position.x = leftBat->GetPosition().x + leftBat->GetWidth();
@@ -44,7 +44,7 @@ void PingPongState::Create()
 				score1++;
 				go->position.x = rightBat->GetPosition().x - rightBat->GetWidth();
 				go->position.y = rightBat->GetPosition().y;
-			}
+			}*/
 		};
 
 
