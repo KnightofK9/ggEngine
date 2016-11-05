@@ -13,13 +13,21 @@ void TestState::Init(){
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
 	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
-	font = new Font(game->GetDrawManager(), "sketches", "Resource\Font\sketches.ttf", 30);
+	this->preload->Font("sketches 90px","sketches", "Resource/Font/sketches.ttf", 90);
 }
 void TestState::Create()
 {
 	
 	tileMap = this->add->TileMap("Json/scene.json");
 	group = this->add->Group();
+	// Text
+	Style style;
+	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
+	text = this->add->Text(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "sketches 90px", 200, 200, "Test custom font", style, group);
+	text->SetAnchor(0.5, 0.5);
+
+
 	sound = this->add->Audio("Resource/Sound/sound.wav");
 	
 
@@ -92,13 +100,7 @@ void TestState::Create()
 	//	// archive and stream closed when destructors are called
 	//}
 
-	// Text
-	Style style;
-	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
-	text = this->add->Text(GAME_WIDTH / 2.0 , GAME_HEIGHT / 2.0, "sketches", 200, 200, "Test custom font", style, group);
-	text->SetFont(font);
-	text->SetAnchor(0.5, 0.5);
+
 }
 void TestState::Update()
 {

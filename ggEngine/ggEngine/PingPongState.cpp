@@ -22,12 +22,12 @@ void PingPongState::Create()
 #pragma region Ball
 	Sprite *background = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "background", group);
 	background->SetScale(Vector(0.8, 0.8));
-	for (int i = 0; i < 1500; ++i){
+	for (int i = 0; i < 1200; ++i){
 	//int i = 100;
 		ball = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "ball", group);
 		game->physics->EnablePhysics(ball);
 		ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
-			go->SetPosition(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+			go->SetPosition(GAME_WIDTH/2,GAME_HEIGHT/2);
 			/*if (!e.blockDirection.up && !e.blockDirection.down)
 			{
 			srand(time(NULL));

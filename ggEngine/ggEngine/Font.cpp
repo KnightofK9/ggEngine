@@ -1,5 +1,6 @@
 #include "Font.h"
 #include "DrawManager.h"
+#include "Debug.h"
 ggEngine::Font::Font(DrawManager * drawManager, std::string fontName, int fontSize, bool isItalic, int fontWeight)
 {
 	HRESULT hr = D3DXCreateFont(drawManager->GetDevice(),     //D3D Device
@@ -52,9 +53,9 @@ void ggEngine::Font::Destroy()
 
  ggEngine::Font::Font(DrawManager *drawManager, std::string fontName, std::string fontPath, int fontSize, bool isItalic, int fontWeight)
 {
-	 if (AddFontResourceEx(fontPath.c_str(), FR_PRIVATE, NULL))
+	 if (AddFontResourceEx(fontPath.c_str(), FR_PRIVATE, NULL) == 0)
 	 {
-		 MessageBox(NULL, "Error: Cannot load font from file", "Error", MB_OK);
+		 g_debug.Error("Error: Cannot load font from file");
 		 font = NULL;
 		 return;
 	 }
