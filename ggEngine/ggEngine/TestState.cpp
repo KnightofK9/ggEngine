@@ -69,6 +69,14 @@ void TestState::Create()
 			}	
 		}
 	};
+	character->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
+		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
+		if (current != NULL) {
+			if (e.blockDirection.up) {
+				current->body->velocity.y = 0;
+			}
+		}
+	};
 	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
 	Box box(1, 2, 3, 4, 5, 6);
 	box.SaveJsonTo("Json/box.json");
