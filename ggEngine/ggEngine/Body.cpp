@@ -36,8 +36,8 @@ namespace ggEngine {
 	void Body::PreUpdate()
 	{
 		//position = sprite->GetPosition();
-		this->width = sprite->GetWidth();
-		this->height = sprite->GetHeight();
+		this->width = sprite->GetOrgWidth() * (sprite->worldScale.x);
+		this->height = sprite->GetOrgHeight() * (sprite->worldScale.y);
 		if (this->rigidBody != nullptr) {
 			if(this->syncBounds) this->rigidBody->Transform(this->position, this->width, this->height);
 			else this->rigidBody->Transform(this->position);

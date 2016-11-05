@@ -38,14 +38,16 @@ void TestState::Create()
 	character->CreateAnimation("left", 4, 7, true);
 	character->CreateAnimation("right", 8, 11, true);
 	character->CreateAnimation("up", 12, 15, true);
+	character->SetAnchor(0, 0);
 	game->physics->EnablePhysics(character);
 	character->body->CreateRectangleRigidBody(32, 48);
+	character->body->rigidBody->SetAnchor(0, 0);
 	character->body->allowGravity = true;
 	character->body->allowBounciness = false;
 	character->body->allowWorldBlock = true;
 	game->eventManager->EnableKeyBoardInput(character);
 	jumpTimer.reset();
-	character->SetScale(1.5, 1.5);
+	character->SetScale(2, 2);
 	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {

@@ -15,6 +15,10 @@ namespace ggEngine {
 		void SetAnchor(Vector anchor) {
 			this->anchor = anchor;
 		}
+		void SetAnchor(double x, double y) {
+			this->anchor.x = x;
+			this->anchor.y = y;
+		}
 		virtual double GetLeft() = 0;
 		virtual double GetRight() = 0;
 		virtual double GetUp() = 0;

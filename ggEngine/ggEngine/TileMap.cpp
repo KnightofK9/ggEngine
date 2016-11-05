@@ -32,7 +32,7 @@ namespace ggEngine {
 		this->drawList.clear();
 		const RECT drawRect = camera->GetRect();
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());
-		g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
+		//g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
 		return &this->drawList;
 	}
 	void TileMap::UpdateWorldPosition()

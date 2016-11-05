@@ -36,8 +36,8 @@ void ggEngine::Rectangle::Transform(Vector position, double width, double height
 
 void ggEngine::Rectangle::Transform(Vector position)
 {
-	pCenter.x = position.x - this->width*(0.5 - this->anchor.x);
-	pCenter.y = position.y - this->height*(0.5 - this->anchor.y);
+	pCenter.x = position.x + this->width*(0.5 - this->anchor.x);
+	pCenter.y = position.y + this->height*(0.5 - this->anchor.y);
 
 
 	double dtX = this->width / 2.0;
@@ -83,8 +83,8 @@ double ggEngine::Rectangle::GetHeight()
 ggEngine::Vector ggEngine::Rectangle::GetPivotPoint()
 {
 	Vector pivot;
-	pivot.x = pCenter.x + this->width*(0.5 - this->anchor.x);
-	pivot.y = pCenter .y + this->height*(0.5 - this->anchor.y);
+	pivot.x = pCenter.x - this->width*(0.5 - this->anchor.x);
+	pivot.y = pCenter .y - this->height*(0.5 - this->anchor.y);
 	return pivot;
 }
 
