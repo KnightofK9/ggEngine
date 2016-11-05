@@ -31,6 +31,8 @@ namespace ggEngine {
 		void SetColorTint(int r, int g, int b) { this->color = D3DCOLOR_XRGB(r, g, b); }
 		void SetColorTint(D3DCOLOR color) { this->color = color; }
 		D3DCOLOR GetColorTint() { return this->color; }
+		virtual double GetOrgWidth() { return this->image->GetWidth(); }
+		virtual double GetOrgHeight() { return this->image->GetHeight(); }
 	protected:
 		D3DCOLOR color;
 		SpriteInfo *image = nullptr;

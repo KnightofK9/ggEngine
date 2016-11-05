@@ -9,6 +9,7 @@ namespace ggEngine {
 		double GetArea();
 		void Destroy();
 		void Transform(Vector position, double width, double height);
+		void Transform(Vector position);
 		NiseVector pCenter;
 		double radius;
 	private:

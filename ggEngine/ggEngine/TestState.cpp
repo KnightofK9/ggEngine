@@ -19,12 +19,14 @@ void TestState::Create()
 {
 	
 	tileMap = this->add->TileMap("Json/scene.json");
+	tileMap->name = "TileMap";
+	tileMap->SetScale(2, 2);
 	group = this->add->Group();
 	// Text
 	Style style;
 	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
-	text = this->add->Text(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "sketches 90px", 200, 200, "Test custom font", style, group);
+	text = this->add->Text(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "sketches 90px", 200, 200, "TEST STATE", style, group);
 	text->SetAnchor(0.5, 0.5);
 
 
@@ -48,34 +50,21 @@ void TestState::Create()
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {
 			double time = game->logicTimer.getDeltaTime();
+			double force = charMoveSpeed* time;
+			double currentJumpForce = jumpForce*time;
 			if (e.isPress(DIK_A)) {
 				character->PlayAnimation("left");
-				if (character->body->velocity.x > 0) character->body->velocity.x = 0;
-				character->body->velocity.x -= charMoveSpeed* time;
+				character->body->velocity.x = - force;
 			}
 			else if (e.isPress(DIK_D)) {
 				character->PlayAnimation("right");
-				if (character->body->velocity.x < 0) character->body->velocity.x = 0;
-				character->body->velocity.x += charMoveSpeed*time;
+				character->body->velocity.x = force;
 			}
 			if (e.isPress(DIK_SPACE)) {
 				if (jumpTimer.stopwatch(jumpTime)) {
-					character->body->velocity.y = 0;
-					character->body->AddForce(jumpForce, Vector(0, -1));
+					character->body->velocity.y = -currentJumpForce;
 				}
-			}
-
-			///Test
-			if (e.isPress(DIK_P))
-				sound->Play();
-			if (e.isPress(DIK_S))
-				sound->Stop();
-			if (e.isPress(DIK_E))
-				sound->Pause();
-			if (e.isPress(DIK_R))
-				sound->Resume();
-			if (e.isPress(DIK_V))
-				sound->FadeTo(30);
+			}	
 		}
 	};
 	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
@@ -104,7 +93,18 @@ void TestState::Create()
 }
 void TestState::Update()
 {
+	///Test
 	
+	if (this->game->GetInput()->KeyDown(DIK_P))
+		sound->Play();
+	if (this->game->GetInput()->KeyDown(DIK_S))
+		sound->Stop();
+	if (this->game->GetInput()->KeyDown(DIK_E))
+		sound->Pause();
+	if (this->game->GetInput()->KeyDown(DIK_R))
+		sound->Resume();
+	if (this->game->GetInput()->KeyDown(DIK_V))
+		sound->FadeTo(30);
 }
 void TestState::PreRender()
 {

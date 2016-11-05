@@ -55,7 +55,8 @@ namespace ggEngine {
 					quadNode = new QuadNode(this, width, height, id, leftTop, rightTop, leftBottom, rightBottom);
 				}
 				else {
-					quadNode = new QuadNode(this, width, height, id);
+					bool isCollidedObject = quadNodeJson["isCollidedObject"].GetBool();
+					quadNode = new QuadNode(this, width, height, id, isCollidedObject);
 					std::vector<GameObject*> drawObjectList;
 					for (rapidjson::SizeType i = 0; i < drawList.Size(); i++)
 					{
@@ -71,6 +72,10 @@ namespace ggEngine {
 							break;
 						default:
 							break;
+						}
+						if (isCollidedObject) {
+							SingleTile * s = dynamic_cast<SingleTile*>(tile);
+							s->SetColorTint(255, 0, 0);
 						}
 						drawObjectList.push_back(tile);
 					}

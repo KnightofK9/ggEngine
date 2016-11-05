@@ -20,6 +20,8 @@ namespace ggEngine {
 		RECT GetRect();
 		QuadNode* GetNodeAt(int index);
 		TileMap *tileMap;
+		std::vector<QuadNode*> GetQuadNodeList() { return this->quadNodeList; }
+		std::vector<QuadNode*> *GetQuadNodeListAsRef() { return &this->quadNodeList; }
 	private:
 		DrawManager *drawManager;
 		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height, QuadNode *parentNode);

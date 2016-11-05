@@ -28,11 +28,17 @@ void ggEngine::Rectangle::Destroy()
 
 void ggEngine::Rectangle::Transform(Vector position, double width, double height)
 {
+	this->width = width;
+	this->height = height;
+
+	Transform(position);
+}
+
+void ggEngine::Rectangle::Transform(Vector position)
+{
 	pCenter.x = position.x - this->width*(0.5 - this->anchor.x);
 	pCenter.y = position.y - this->height*(0.5 - this->anchor.y);
 
-	this->width = width;
-	this->height = height;
 
 	double dtX = this->width / 2.0;
 	double dtY = this->height / 2.0;

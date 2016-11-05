@@ -19,7 +19,7 @@ namespace ggEngine {
 	{
 		for (std::list<Body*>::iterator it = this->bodyList.begin();it != this->bodyList.end();) {
 			if ((*it)->IsAlive()) {
-				(*it)->Update();
+				if((*it)->IsEnable()) (*it)->Update();
 				++it;
 			}
 			else {

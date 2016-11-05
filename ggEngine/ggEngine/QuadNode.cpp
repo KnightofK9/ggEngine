@@ -3,6 +3,7 @@
 #include "TileMap.h"
 #include "SingleTile.h"
 #include "AnimationTile.h"
+#include "Debug.h"
 namespace ggEngine {
 
 	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, int leftTop, int rightTop, int leftBottom, int rightBottom)
@@ -16,10 +17,12 @@ namespace ggEngine {
 		this->leftBottom = leftBottom;
 		this->rightBottom = rightBottom;
 		this->isLeafNode = false;
+		this->isCollidedObject = false;
+		SetScale(1, 1);
 		SetParentObject(quadTree->tileMap);
 	}
 
-	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id)
+	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, bool isCollidedObject)
 	{
 		this->quadTreeParent = quadTree;
 		this->id = id;
@@ -27,6 +30,8 @@ namespace ggEngine {
 		this->height = height;
 		this->leftTop = this->rightTop = this->leftBottom = this->rightBottom = -1;
 		this->isLeafNode = true;
+		this->isCollidedObject = isCollidedObject;
+		SetScale(1, 1);
 		SetParentObject(quadTree->tileMap);
 	}
 
@@ -40,7 +45,7 @@ namespace ggEngine {
 
 	RECT QuadNode::GetRect()
 	{
-		return{ (long)position.x,(long)position.y,(long)position.x + (long)width,(long)position.y + (long)height };
+		return{ (long)(worldPosition.x) - 1,(long)(worldPosition.y) - 1,(long)(worldPosition.x + width*worldScale.x) + 1,(long)(worldPosition.y + height*worldScale.y) + 1 };
 	}
 	QuadNode * QuadNode::GetLeftTop()
 	{
@@ -61,6 +66,19 @@ namespace ggEngine {
 	{
 		if (this->rightBottom == -1) return nullptr;
 		return this->quadTreeParent->GetNodeAt(this->rightBottom);
+	}
+	void QuadNode::UpdateWorldPosition()
+	{
+		/*GameObject::UpdateWorldPosition();*/
+		/*for (int i = 0; i < this->objectList.size(); i++) {
+			this->objectList[i]->UpdateWorldPosition();
+		}*/
+	}
+	void QuadNode::UpdateWorldPositionFromTileMap()
+	{
+		this->worldScale = Vector(this->scale.x*this->parentObject->worldScale.x, this->scale.y*this->parentObject->worldScale.y);
+		this->worldPosition = Vector(this->position.x*this->parentObject->worldScale.x, this->position.y*this->parentObject->worldScale.y) + this->parentObject->worldPosition;
+
 	}
 	void QuadNode::Draw()
 	{

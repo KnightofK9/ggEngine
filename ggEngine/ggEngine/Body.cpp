@@ -19,7 +19,7 @@ namespace ggEngine {
 		this->game = game;
 		this->isAlive = true;
 		this->rigidBody = NULL;
-
+		SetPhysicsMode(PhysicsMode_AABBSwept);
 	}
 	Body::~Body()
 	{
@@ -33,16 +33,14 @@ namespace ggEngine {
 	{
 		collisionObjectList.erase(std::remove(collisionObjectList.begin(), collisionObjectList.end(), staticGo), collisionObjectList.end());
 	}
-	void Body::StopMovement(bool stopVelocity)
-	{
-	}
 	void Body::PreUpdate()
 	{
 		//position = sprite->GetPosition();
 		this->width = sprite->GetWidth();
 		this->height = sprite->GetHeight();
 		if (this->rigidBody != nullptr) {
-			this->rigidBody->Transform(this->position, this->width, this->height);
+			if(this->syncBounds) this->rigidBody->Transform(this->position, this->width, this->height);
+			else this->rigidBody->Transform(this->position);
 		}
 	}
 
@@ -158,8 +156,6 @@ namespace ggEngine {
 		e.bound = true;
 		e.normalSurfaceVector = normalVector;
 		//Handle when collision happened
-		/*position->x += b1.vx*entryTime;
-		position->y += b1.vy*entryTime;*/
 
 		this->rigidBody->Translate(b1.vx*entryTime, b1.vy*entryTime);
 		
@@ -167,16 +163,19 @@ namespace ggEngine {
 		e.remainingTime = remainingTime;
 		e.colliderObject = staticGo;
 		
-		event = e;
 		if (this->sprite->events->onCollide != nullptr) {
 			Vector pivot = this->rigidBody->GetPivotPoint();
 			this->position->x = pivot.x;
 			this->position->y = pivot.y;
-			this->sprite->events->onCollide(this->sprite, event);
+			this->sprite->events->onCollide(this->sprite, e);
 			this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
 		}
 
 		return entryTime;
+	}
+	double Body::PerformCollisionAABB(GameObject * staticGo, Vector currentVelocity)
+	{
+		return 0.0;
 	}
 	void Body::CheckCollisionAndUpdateMovement()
 	{
@@ -191,30 +190,33 @@ namespace ggEngine {
 		//Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
 		velocity += acceleration*timeStep;
 		bool isCollided = false;
+		if (this->physicsMode == PhysicsMode_AABB) {
+			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
+		}
 		for (std::vector<GameObject*>::iterator it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
-			double collideTime = PerformCollisionSweptAABB((*it),temp);
+			double collideTime = 1.0f;
+			if (this->physicsMode == PhysicsMode_AABBSwept) {
+				collideTime = PerformCollisionSweptAABB((*it), temp);
+			}
+			else if (this->physicsMode == PhysicsMode_AABB) {
+				collideTime = PerformCollisionAABB((*it), temp);
+			}
 			if (collideTime < 1.0f) {
 				isCollided = true;
-				isCollideWithObject = true;
 				break;
 			}
 		}
 		if (isCollided) {
 			return;
 		}
-		this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
-		/*(*position) += temp * PIXEL_PER_CENTIMETER;*/
+		if (this->physicsMode == PhysicsMode_AABBSwept) {
+			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
+		}
 	}
 	void Body::UpdateBounds()
 	{
-		if (CheckWorldBounds()) {
-			/*double width, height;
-			width = rigidBody->GetWidth();
-			height = rigidBody->GetHeight();
-			Vector pivot = this->rigidBody->GetPivotPoint();*/
-			this->isCollideWithWorld = true;
+		if (allowWorldBound && CheckWorldBounds()) {
 			if (blocked.down) {
-				//Debug::Log("Meet world with " + std::to_string(velocity.y));
 				if (velocity.y > 0) {
 					if (allowBounciness) {
 						velocity.y *= -bounciness;
@@ -224,28 +226,24 @@ namespace ggEngine {
 						acceleration.y = 0;
 					}
 				}
-				//position->y = pivot.y;
 				this->rigidBody->Translate(Vector(0, GAME_HEIGHT - this->rigidBody->GetDown()));
 			}
 			if (blocked.up) {
 				if (velocity.y < 0) {
 					if (allowBounciness) velocity.y *= -bounciness;
 				}
-				//position->y = pivot.y;
 				this->rigidBody->Translate(Vector(0,0 - this->rigidBody->GetUp()));
 			}
 			if (blocked.left) {
 				if (velocity.x < 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
 				}
-				//position->x = pivot.x;
 				this->rigidBody->Translate(Vector(0 - this->rigidBody->GetLeft(), 0));
 			}
 			if (blocked.right) {
 				if (velocity.x > 0) {
 					if (allowBounciness) velocity.x *= -bounciness;
 				}
-				//position->x = pivot.x;
 				this->rigidBody->Translate(Vector(GAME_WIDTH - this->rigidBody->GetRight(), 0));
 			}
 			if (this->sprite->events->onWorldBounds != nullptr)
@@ -262,26 +260,10 @@ namespace ggEngine {
 	}
 	void Body::PostUpdate()
 	{
-		//sprite->SetPosition(position);
-		/*if (this->rigidBody != nullptr) {
-			this->rigidBody->Transform(this->position);
-		}*/
 		Vector pivot = this->rigidBody->GetPivotPoint();
 		this->position->x = pivot.x;
 		this->position->y = pivot.y;
 		
-		
-		if (isCollideWithObject) {
-			
-			isCollideWithObject = false;
-		
-		}
-		else {
-			if (isCollideWithWorld) {
-				
-				isCollideWithWorld = false;
-			}
-		}
 	}
 	bool Body::CheckWorldBounds()
 	{
@@ -308,36 +290,7 @@ namespace ggEngine {
 		}
 		return isBlocked;
 	}
-	bool Body::MoveTo(int duration, int distance, int directionAngle)
-	{
-		return false;
-	}
-	void Body::SetSize(int width, int height, int offsetX, int offsetY)
-	{
-	}
-	void Body::Reset(Vector newPosition)
-	{
-	}
-	Body * Body::GetBounds(Body * obj)
-	{
-		return nullptr;
-	}
-	bool Body::HitTest(Vector position)
-	{
-		return false;
-	}
-	bool Body::OnFloor()
-	{
-		return false;
-	}
-	bool Body::OnCeiling()
-	{
-		return false;
-	}
-	bool Body::OnWall()
-	{
-		return false;
-	}
+	
 	void Body::Destroy()
 	{
 		isAlive = false;
@@ -346,25 +299,13 @@ namespace ggEngine {
 	{
 		this->game->GetDrawManager()->DrawShape(rigidBody);
 	}
-	std::string Body::ToString()
-	{
-		return std::string();
-	}
+	
 	void Body::Update()
 	{
 		PreUpdate();
 		CheckCollisionAndUpdateMovement();
 		UpdateBounds();
 		PostUpdate();
-	}
-	//Wrong, try to re-implemented it
-	void Body::IncrementForce(double force)
-	{
-		int signX = 1;
-		int signY = 1;
-		if (velocity.x < 0) signX = -1;
-		if (velocity.y < 0) signY = -1;
-		AddForce(force, Vector(signX, signY));
 	}
 	void Body::AddForce(double force, double angleInRadian)
 	{
@@ -373,6 +314,14 @@ namespace ggEngine {
 	void Body::AddForce(double force, Vector angleInVector)
 	{
 		velocity += angleInVector.Normalize() *force;
+	}
+	void Body::SetForce(double force, float angleInRadian)
+	{
+		SetForce(force, new Vector(cos(angleInRadian), sin(angleInRadian)));
+	}
+	void Body::SetForce(double force, Vector angleInVector)
+	{
+		velocity = angleInVector.Normalize() *force;
 	}
 	void Body::CreateCircleRigidBody(double radius)
 	{

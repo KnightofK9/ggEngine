@@ -16,6 +16,7 @@ namespace ggEngine {
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->spriteHandle = drawManager->GetSpriteHandle();
+		SetScale(1, 1);
 	}
 	TileMap::~TileMap()
 	{
@@ -31,8 +32,17 @@ namespace ggEngine {
 		this->drawList.clear();
 		const RECT drawRect = camera->GetRect();
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());
-		//g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
+		g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
 		return &this->drawList;
+	}
+	void TileMap::UpdateWorldPosition()
+	{
+		GameObject::UpdateWorldPosition();
+		this->quadTree->GetRootNode()->UpdateWorldPositionFromTileMap();
+		std::vector<QuadNode*> *quadNodeList = this->quadTree->GetQuadNodeListAsRef();
+		for (auto it = quadNodeList->begin(); it != quadNodeList->end(); ++it) {
+			((*it))->UpdateWorldPositionFromTileMap();
+		}
 	}
 	void TileMap::CheckCollision(const GameObject * gameObject)
 	{

@@ -15,6 +15,7 @@ namespace ggEngine {
 		void CheckCollision(const GameObject *gameObject);
 		void BuildTree(std::string location);
 		std::list<GameObject*> *GetDrawList();
+		void UpdateWorldPosition() override;
 	private:
 		Camera *camera;
 		void RecursiveDraw(const RECT &drawRect, QuadNode *quadNode, bool isDrawChildNode = false);
