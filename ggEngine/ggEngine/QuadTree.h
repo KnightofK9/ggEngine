@@ -11,9 +11,10 @@ namespace ggEngine {
 	class TileMap;
 	class QuadNode;
 	class DrawManager;
+	class Physics;
 	class QuadTree {
 	public:
-		QuadTree(TileMap *tileMap,DrawManager *drawManager, Cache *cache);
+		QuadTree(TileMap *tileMap,DrawManager *drawManager, Cache *cache, Physics* physics);
 		~QuadTree();
 		QuadNode* GetRootNode();
 		void BuildTree(std::string jsonChar);
@@ -22,6 +23,7 @@ namespace ggEngine {
 		TileMap *tileMap;
 		std::vector<QuadNode*> GetQuadNodeList() { return this->quadNodeList; }
 		std::vector<QuadNode*> *GetQuadNodeListAsRef() { return &this->quadNodeList; }
+		int GetNumberOfLeafNode() { return this->numberOfLeafNode; }
 	private:
 		DrawManager *drawManager;
 		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height, QuadNode *parentNode);
@@ -29,7 +31,9 @@ namespace ggEngine {
 		std::vector<QuadNode*> quadNodeList;
 		Vector position;
 		Cache *cache;
+		Physics* physics;
 		QuadNode *rootNode;
 		double width, height;
+		int numberOfLeafNode;
 	};
 }

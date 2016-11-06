@@ -18,9 +18,10 @@ namespace ggEngine{
 	class Camera;
 	class TileMap;
 	class Grid;
+	class Physics;
 	class Add:public GGObject  {
 	public:
-		Add(World *world,Cache *Cache,TweenManager *tweenManager, DrawManager *drawManager, Camera *camera);
+		Add(World *world,Cache *Cache,TweenManager *tweenManager, DrawManager *drawManager, Camera *camera, Physics *physics);
 		Sprite* Sprite(double x, double y, std::string textureKey, Group *group);
 		Grid *Grid(double x, double y,int cellWidth, int cellHeight, int width, int height, Group *group);
 		SpriteAnimation* SpriteAnimation(double x, double y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0, int msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -32,6 +33,7 @@ namespace ggEngine{
 		//ggEngine::Tween* Tween(double init, double end, double duration, std::function<void(double)> update, std::function<double(double)> easingFunction);
 
 	private:
+		Physics *physics;
 		TweenManager *tweenManager;
 		Cache *cache;
 		Camera *camera;

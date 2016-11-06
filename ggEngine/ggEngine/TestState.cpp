@@ -21,6 +21,7 @@ void TestState::Create()
 	tileMap = this->add->TileMap("Json/scene.json");
 	tileMap->name = "TileMap";
 	tileMap->SetScale(2, 2);
+
 	group = this->add->Group();
 	// Text
 	Style style;
@@ -43,11 +44,12 @@ void TestState::Create()
 	character->body->CreateRectangleRigidBody(32, 48);
 	character->body->rigidBody->SetAnchor(0, 0);
 	character->body->allowGravity = true;
-	character->body->allowBounciness = false;
+	character->body->allowWorldBounciness = false;
 	character->body->allowWorldBlock = true;
+	character->body->allowObjectBlock = false;
 	game->eventManager->EnableKeyBoardInput(character);
 	jumpTimer.reset();
-	character->SetScale(2, 2);
+	character->SetScale(1.5, 1.5);
 	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {
@@ -72,9 +74,7 @@ void TestState::Create()
 	character->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {
-			if (e.blockDirection.up) {
-				current->body->velocity.y = 0;
-			}
+
 		}
 	};
 	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
@@ -122,6 +122,10 @@ void TestState::PreRender()
 void TestState::Render()
 {
 	character->body->Render();
+	auto list = this->tileMap->GetCollisionCheckList();
+	for (auto it = list.begin(); it != list.end(); ++it) {
+		(*it)->body->Render();
+	}
 }
 void TestState::Pause()
 {

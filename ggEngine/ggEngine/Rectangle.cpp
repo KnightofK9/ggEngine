@@ -10,7 +10,7 @@ ggEngine::Rectangle::Rectangle(double width, double height)
 	p3 = Vector(0 + width, 0 + height);
 	p4 = Vector(0, 0 + height);
 	pCenter = p3 / 2;
-	SetAnchor(Vector(0.5, 0.5));
+	SetAnchor(Vector(0, 0));
 }
 
 ggEngine::Rectangle::~Rectangle()

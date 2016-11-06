@@ -179,8 +179,8 @@ namespace ggEngine {
 
 	void DrawManager::Update2D()
 	{
-		State* state = this->stateManager->GetCurrentState();
-		state->PreRender();
+		/*State* state = this->stateManager->GetCurrentState();
+		state->PreRender();*/
 		DrawObjectFromGroup(game->world->GetGroupList());
 		//DrawObjectFromGroup(&this->topGroupList);
 	}

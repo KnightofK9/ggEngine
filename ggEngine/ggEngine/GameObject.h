@@ -40,6 +40,8 @@ namespace ggEngine {
 		virtual void SetRotate(double angle){ this->rotate = angle; }
 		double GetRotate(){ return this->rotate; }
 		bool IsAlive() { return this->alive; }
+		void SetBody(Body* body) { this->body = body; }
+		Body* GetBody() { return this->body; }
 		Body* body = NULL;
 		Events* events = NULL;
 		Vector position;

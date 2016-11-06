@@ -18,7 +18,7 @@ namespace ggEngine {
 	class Game;
 	class Body :GGObject {
 	public:
-		Body(Game *game,Sprite *sprite);
+		Body(Game *game, GameObject * gameObject);
 		~Body();
 		int width;
 		int height;
@@ -42,20 +42,32 @@ namespace ggEngine {
 
 		/*Vector Force*/
 		double bounciness = 1;
-		bool allowBounciness = true;
+
+		bool allowWorldBounciness = true;
 		bool allowWorldBlock = true;
 
 		bool allowWorldBound = true;
 
+		bool allowObjectBounciness = false;
+	
 
-		Sprite* sprite;
+		GameObject* sprite;
 		Vector *position;
 		Direction blocked;
+		Direction worldBlocked;
 		bool syncBounds = true;
 		bool isMoving = false;
-		bool stopVelocityOnCollide = true;
+		bool allowObjectBlock = true;
 		Vector velocity;
 		//Public method 
+		//TO DO, choose velocity or distance here
+		void MoveLeft(double d);
+		void MoveRight(double d);
+		void Jump(double d,Vector direction = Vector(0,-1));
+
+		void RunLeft(double force);
+		void RunRight(double force);
+
 		void Render(D3DCOLOR color = DEFAULT_COLOR, bool filled = false);
 		void Update();
 		void Destroy();
@@ -72,15 +84,19 @@ namespace ggEngine {
 		PhysicsMode GetPhysicsMode() { return this->physicsMode; }
 		void SetEnable(bool enable) { this->enable = enable; }
 		bool IsEnable() { return this->enable; }
+		void AddListCheckCollisionTo(std::list<GameObject*> staticGoList);
 		void CheckCollisionTo(GameObject *staticGo);
 		void RemoveCheckCollisionWith(GameObject *staticGo);
+		void PreUpdate();
 	private:
+		bool CheckCollisionFromThisTo(GameObject* gameObject);
 		bool enable = true;
 		PhysicsMode physicsMode;
 		Game* game;
 		bool CheckWorldBounds();
 		Vector acceleration;
 		Vector temp;
+		std::list<GameObject*> staticGoList;
 		std::vector<GameObject*> collisionObjectList;
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
@@ -89,7 +105,6 @@ namespace ggEngine {
 		double PerformCollisionSweptAABB(GameObject *staticGo,Vector currentVelocity);
 		double PerformCollisionAABB(GameObject *staticGo, Vector currentVelocity);
 		void UpdateBounds();
-		void PreUpdate();
 		void CheckCollisionAndUpdateMovement();
 		void PostUpdate();
 		bool isAlive;

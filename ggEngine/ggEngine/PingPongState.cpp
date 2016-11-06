@@ -78,7 +78,7 @@ void PingPongState::Create()
 	leftBat->name = "Left Bat";
 	leftBat->position.x = leftBat->GetWidth() / 2 ;
 	game->physics->EnablePhysics(leftBat);
-	leftBat->body->allowBounciness = false;
+	leftBat->body->allowWorldBounciness = false;
 	leftBat->body->CreateRectangleRigidBody(leftBat->GetWidth(), leftBat->GetHeight());
 	game->eventManager->EnableKeyBoardInput(leftBat);
 	leftBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
@@ -114,8 +114,8 @@ void PingPongState::Create()
 	/*ball->body->CheckCollisionTo(leftBat);
 	ball->body->CheckCollisionTo(rightBat);*/
 #pragma endregion Bat
-	rightBat->body->allowBounciness = false;
-	leftBat->body->allowBounciness = false;
+	rightBat->body->allowWorldBounciness = false;
+	leftBat->body->allowWorldBounciness = false;
 	rightBat->body->allowWorldBlock = true;
 	leftBat->body->allowWorldBlock = true;
 

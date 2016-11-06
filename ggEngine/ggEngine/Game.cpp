@@ -139,7 +139,7 @@ namespace ggEngine {
 			// Update game logic here
 			//
 			gameUpdate();
-			if(this->isRunning) this->stateManager->GetCurrentState()->PreRender();
+			/*if(this->isRunning) this->stateManager->GetCurrentState()->PreRender();*/
 
 			//
 			// Render go here
@@ -174,7 +174,7 @@ namespace ggEngine {
 			State *state = stateManager->GetCurrentState();
 			state->Update();
 			/*Group update*/
-			RunGroupUpdate(state->GetGroupList());
+			RunGroupUpdate(world->GetGroupList());
 			tweenManager->Update(logicTimer.getDeltaTimeInMilisecond());
 			/*Physics update*/
 			physics->UpdatePhysics();

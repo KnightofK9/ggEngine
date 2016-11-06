@@ -195,6 +195,7 @@
     <ClInclude Include="Preload.h" />
     <ClInclude Include="QuadNode.h" />
     <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SingleTile.h" />

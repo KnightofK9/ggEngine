@@ -8,13 +8,16 @@
 #include "TileSet.h"
 #include "TileMap.h"
 #include "Debug.h"
+#include "Physics.h"
+#include "Body.h"
 #include <exception>
 namespace ggEngine {
-	QuadTree::QuadTree(TileMap *tileMap, DrawManager *drawManager,Cache *cache)
+	QuadTree::QuadTree(TileMap *tileMap, DrawManager *drawManager,Cache *cache, Physics *physics)
 	{
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->tileMap = tileMap;
+		this->physics = physics;
 	}
 	QuadTree::~QuadTree()
 	{
@@ -35,7 +38,7 @@ namespace ggEngine {
 			this->height = json["height"].GetInt();
 			int totalNodeSize = json["totalNodeSize"].GetInt();
 			this->quadNodeList.resize(totalNodeSize);
-
+			this->numberOfLeafNode = 0;
 			const rapidjson::Value&  quadNodeJsonList = json["quadNodeList"];
 			for (rapidjson::SizeType i = 0; i < quadNodeJsonList.Size(); i++)
 			{
@@ -80,6 +83,11 @@ namespace ggEngine {
 						drawObjectList.push_back(tile);
 					}
 					quadNode->SetObject(drawObjectList);
+					if (isCollidedObject) {
+						this->physics->AttachBodyTo(quadNode);
+						quadNode->body->CreateRectangleRigidBody(width, height);
+					}
+					this->numberOfLeafNode++;
 				}
 				quadNode->SetPosition(x, y);
 				this->quadNodeList[id] = quadNode;

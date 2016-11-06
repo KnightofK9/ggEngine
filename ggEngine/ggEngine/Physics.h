@@ -4,9 +4,10 @@
 #include "ColliderArg.h"
 #include "GameObject.h"
 #include "Box.h"
+#include <vector>
+#include "Rect.h"
 namespace ggEngine {
-	extern double timeEntrySAABB; // For using Swept AABB
-
+	class TileMap;
 	class Game;
 	class Sprite;
 	class Body;
@@ -15,14 +16,21 @@ namespace ggEngine {
 		Physics(Game *game,PhysicsMode physicsMode);
 		~Physics();
 		void UpdatePhysics();
-		void EnablePhysics(Sprite *sprite);
+		void EnablePhysics(GameObject * gameObject);
+		void AttachBodyTo(GameObject *gameObject);
 		void Reset();
-		static RECT CreateSweptBroadPhaseRect(Box b);
-		static bool AABBCheck(RECT b1, RECT b2);
+		void AddTileMap(TileMap* tileMap);
+		void RemoveTileMap(TileMap *tileMap);
+		static Rect CreateSweptBroadPhaseRect(Box b);
+		static bool AABBCheck(Rect b1, Rect b2);
 	private:
+		void UpdateCollisionList();
+		void UpdateBody();
 		PhysicsMode physicsMode;
 		Game *game;
 		std::list<Body*> bodyList;
+		std::list<GameObject*> collisionList;
+		std::vector<TileMap*> tileMapList;
 
 	};
 }

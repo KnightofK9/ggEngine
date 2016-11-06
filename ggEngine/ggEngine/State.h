@@ -12,7 +12,7 @@ namespace ggEngine{
 	class DrawManager;
 	class World;
 	class Game;
-	class State : public GGObject, public IGetGroup{
+	class State : public GGObject{
 	public:
 		State(Game *game);
 		~State();
@@ -20,7 +20,6 @@ namespace ggEngine{
 		Add *add;
 		Preload *preload;
 		virtual void Destroy();
-		std::list<Group*>* GetGroupList() { return &this->groupList; }
 		virtual void Init() = 0; //Called after start a State
 		virtual void Preload() = 0; //Called after init
 		virtual void Create() = 0;//Called after preload complete
@@ -33,7 +32,6 @@ namespace ggEngine{
 	protected:
 		Game *game;
 	private:
-		std::list<Group*> groupList;
 		DrawManager *drawManager;
 		Map *map;
 		World *world;

@@ -22,12 +22,12 @@ namespace ggEngine {
 		bool IsLeafNode() { return this->isLeafNode; }
 		// Inherited via DrawObject
 		void Draw() override;
+		bool IsCollidedObject() { return this->isCollidedObject; }
 	private:
 		bool isCollidedObject;
 		bool isLeafNode;
 		int leftTop, rightTop, leftBottom, rightBottom;
 		std::vector<GameObject*> objectList;
-		double width, height;
 		int id;
 		QuadTree *quadTreeParent;
 
