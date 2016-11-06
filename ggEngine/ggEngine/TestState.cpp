@@ -46,7 +46,7 @@ void TestState::Create()
 	character->body->allowGravity = true;
 	character->body->allowWorldBounciness = false;
 	character->body->allowWorldBlock = true;
-	character->body->allowObjectBlock = false;
+	//character->body->allowObjectBlock = false;
 	game->eventManager->EnableKeyBoardInput(character);
 	jumpTimer.reset();
 	character->SetScale(1.5, 1.5);
@@ -60,10 +60,16 @@ void TestState::Create()
 				character->PlayAnimation("left");
 				character->body->velocity.x = - force;
 			}
-			else if (e.isPress(DIK_D)) {
-				character->PlayAnimation("right");
-				character->body->velocity.x = force;
+			else {
+				if (e.isPress(DIK_D)) {
+					character->PlayAnimation("right");
+					character->body->velocity.x = force;
+				}
+				else {
+					character->body->velocity.x = 0;
+				}
 			}
+			
 			if (e.isPress(DIK_SPACE)) {
 				if (jumpTimer.stopwatch(jumpTime)) {
 					character->body->velocity.y = -currentJumpForce;

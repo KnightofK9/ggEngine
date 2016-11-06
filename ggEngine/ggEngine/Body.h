@@ -13,7 +13,7 @@
 #include "GameObject.h"
 #include <algorithm>
 namespace ggEngine {
-	
+	enum ColliderArgDirection { Collider_Left = 0, Collider_Up, Collider_Right, Collider_Down };
 	class Sprite;
 	class Game;
 	class Body :GGObject {
@@ -49,7 +49,8 @@ namespace ggEngine {
 		bool allowWorldBound = true;
 
 		bool allowObjectBounciness = false;
-	
+
+		bool allowObjectBlock = true;
 
 		GameObject* sprite;
 		Vector *position;
@@ -57,7 +58,6 @@ namespace ggEngine {
 		Direction worldBlocked;
 		bool syncBounds = true;
 		bool isMoving = false;
-		bool allowObjectBlock = true;
 		Vector velocity;
 		//Public method 
 		//TO DO, choose velocity or distance here
@@ -89,6 +89,8 @@ namespace ggEngine {
 		void RemoveCheckCollisionWith(GameObject *staticGo);
 		void PreUpdate();
 	private:
+		std::vector<ColliderArg> colliderDirection;
+		ColliderArg shortestCollider;
 		bool CheckCollisionFromThisTo(GameObject* gameObject);
 		bool enable = true;
 		PhysicsMode physicsMode;
