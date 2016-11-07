@@ -17,8 +17,8 @@ public:
 private:
 	SpriteAnimation *character;
 	Group *group;
-	const double charMoveSpeed = 10.0f;
-	const double jumpForce = 5.0f;
+	const double charMoveSpeed = 200.0f;
+	const double jumpForce = 300.0f;
 	const double jumpTime = 500;
 	TileMap *tileMap;
 	Grid *grid;

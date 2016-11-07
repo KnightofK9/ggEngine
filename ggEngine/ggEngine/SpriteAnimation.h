@@ -25,6 +25,8 @@ namespace ggEngine {
 		int GetFramePerColumn() { return this->framePerColumn; }
 		int GetFramePerRow() { return this->framePerRow; }
 		void SetFrame(int frameIndex,bool isStopAnimation = true);
+		virtual double GetOrgWidth() { return this->frameWidth; }
+		virtual double GetOrgHeight() { return this->frameHeight; }
 	private:
 		///Deprecated
 		void NextAnimationFrame(std::string animationName);

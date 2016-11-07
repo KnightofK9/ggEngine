@@ -134,6 +134,6 @@ namespace ggEngine{
 	//Fade to the specific volume
 	void Audio::FadeTo(float volume)	//with 100 levels
 	{
-		source->SetVolume(volume / 100);
+		//source->SetVolume(volume / 100);
 	}
 }

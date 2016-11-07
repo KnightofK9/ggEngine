@@ -9,15 +9,17 @@
 #include "Audio.h"
 #include "TileMap.h"
 #include "Camera.h"
+#include "Physics.h"
 #include "Grid.h"
 namespace ggEngine{
-	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera){
+	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics){
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
 		this->world = world;
 		this->tweenManager = tweenManager;
 		this->camera = camera;
+		this->physics = physics;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
@@ -51,9 +53,9 @@ namespace ggEngine{
 	}
 	TileMap * Add::TileMap(std::string tileMapJsonPath)
 	{
-		
-		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager, this->cache);
+		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager,this->cache,this->physics);
 		tileMap->BuildTree(tileMapJsonPath);
+		this->physics->AddTileMap(tileMap);
 		world->AddGroup(tileMap);
 		return tileMap;
 	}

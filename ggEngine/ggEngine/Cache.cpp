@@ -138,7 +138,7 @@ namespace ggEngine {
 	}
 	bool Cache::CreateFontToCache(std::string fontKey, std::string fontName, int fontSize, bool isItalic, int fontWeight)
 	{
-		std::map<std::string, Font*>::iterator it = fontMap.find(fontName);
+		std::map<std::string, Font*>::iterator it = fontMap.find(fontKey);
 		if (it != fontMap.end() && (it->second) != NULL)
 		{
 			g_debug.Warning("Font " + fontKey + " has been loaded already!");
@@ -155,7 +155,7 @@ namespace ggEngine {
 
 	bool Cache::CreateFontFromFile(std::string fontKey, std::string fontName, std::string fontPath, int fontSize, bool isItalic, int fontWeight)
 	{
-		std::map<std::string, Font*>::iterator it = fontMap.find(fontName);
+		std::map<std::string, Font*>::iterator it = fontMap.find(fontKey);
 		if (it != fontMap.end() && (it->second) != NULL)
 		{
 			g_debug.Warning("Font " + fontKey + " has been loaded already!");

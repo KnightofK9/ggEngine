@@ -10,7 +10,7 @@ ggEngine::Rectangle::Rectangle(double width, double height)
 	p3 = Vector(0 + width, 0 + height);
 	p4 = Vector(0, 0 + height);
 	pCenter = p3 / 2;
-	SetAnchor(Vector(0.5, 0.5));
+	SetAnchor(Vector(0, 0));
 }
 
 ggEngine::Rectangle::~Rectangle()
@@ -28,11 +28,17 @@ void ggEngine::Rectangle::Destroy()
 
 void ggEngine::Rectangle::Transform(Vector position, double width, double height)
 {
-	pCenter.x = position.x - this->width*(0.5 - this->anchor.x);
-	pCenter.y = position.y - this->height*(0.5 - this->anchor.y);
-
 	this->width = width;
 	this->height = height;
+
+	Transform(position);
+}
+
+void ggEngine::Rectangle::Transform(Vector position)
+{
+	pCenter.x = position.x + this->width*(0.5 - this->anchor.x);
+	pCenter.y = position.y + this->height*(0.5 - this->anchor.y);
+
 
 	double dtX = this->width / 2.0;
 	double dtY = this->height / 2.0;
@@ -77,8 +83,8 @@ double ggEngine::Rectangle::GetHeight()
 ggEngine::Vector ggEngine::Rectangle::GetPivotPoint()
 {
 	Vector pivot;
-	pivot.x = pCenter.x + this->width*(0.5 - this->anchor.x);
-	pivot.y = pCenter .y + this->height*(0.5 - this->anchor.y);
+	pivot.x = pCenter.x - this->width*(0.5 - this->anchor.x);
+	pivot.y = pCenter .y - this->height*(0.5 - this->anchor.y);
 	return pivot;
 }
 

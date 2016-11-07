@@ -24,6 +24,10 @@ void ggEngine::Circle::Transform(Vector position, double width, double height)
 	
 }
 
+void ggEngine::Circle::Transform(Vector position)
+{
+}
+
 double ggEngine::Circle::GetLeft()
 {
 	return 0.0;

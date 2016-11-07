@@ -40,13 +40,18 @@ namespace ggEngine {
 		virtual void SetRotate(double angle){ this->rotate = angle; }
 		double GetRotate(){ return this->rotate; }
 		bool IsAlive() { return this->alive; }
+		void SetBody(Body* body) { this->body = body; }
+		Body* GetBody() { return this->body; }
 		Body* body = NULL;
 		Events* events = NULL;
 		Vector position;
 		Vector worldPosition;
+		Vector worldScale;
 		std::string name = "";
 		void SetParentObject(GameObject *parentObject){this->parentObject = parentObject;}
 		GameObject *GetParentObject(){ return this->parentObject; }
+		virtual double GetOrgWidth() { return this->width; }
+		virtual double GetOrgHeight() { return this->height; }
 	protected:
 		GameObject* parentObject = NULL;
 		double width;

@@ -13,13 +13,24 @@ void TestState::Init(){
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
 	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
-	font = new Font(game->GetDrawManager(), "sketches", "Resource\Font\sketches.ttf", 30);
+	this->preload->Font("sketches 90px","sketches", "Resource/Font/sketches.ttf", 90);
 }
 void TestState::Create()
 {
 	
 	tileMap = this->add->TileMap("Json/scene.json");
+	tileMap->name = "TileMap";
+	tileMap->SetScale(2, 2);
+
 	group = this->add->Group();
+	// Text
+	Style style;
+	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
+	text = this->add->Text(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "sketches 90px", 200, 200, "TEST STATE", style, group);
+	text->SetAnchor(0.5, 0.5);
+
+
 	sound = this->add->Audio("Resource/Sound/sound.wav");
 	
 
@@ -28,11 +39,14 @@ void TestState::Create()
 	character->CreateAnimation("left", 4, 7, true);
 	character->CreateAnimation("right", 8, 11, true);
 	character->CreateAnimation("up", 12, 15, true);
+	character->SetAnchor(0, 0);
 	game->physics->EnablePhysics(character);
 	character->body->CreateRectangleRigidBody(32, 48);
+	character->body->rigidBody->SetAnchor(0, 0);
 	character->body->allowGravity = true;
-	character->body->allowBounciness = false;
+	character->body->allowWorldBounciness = false;
 	character->body->allowWorldBlock = true;
+	//character->body->allowObjectBlock = false;
 	game->eventManager->EnableKeyBoardInput(character);
 	jumpTimer.reset();
 	character->SetScale(1.5, 1.5);
@@ -40,34 +54,33 @@ void TestState::Create()
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {
 			double time = game->logicTimer.getDeltaTime();
+			double force = charMoveSpeed* time;
+			double currentJumpForce = jumpForce*time;
 			if (e.isPress(DIK_A)) {
 				character->PlayAnimation("left");
-				if (character->body->velocity.x > 0) character->body->velocity.x = 0;
-				character->body->velocity.x -= charMoveSpeed* time;
+				character->body->velocity.x = - force;
 			}
-			else if (e.isPress(DIK_D)) {
-				character->PlayAnimation("right");
-				if (character->body->velocity.x < 0) character->body->velocity.x = 0;
-				character->body->velocity.x += charMoveSpeed*time;
-			}
-			if (e.isPress(DIK_SPACE)) {
-				if (jumpTimer.stopwatch(jumpTime)) {
-					character->body->velocity.y = 0;
-					character->body->AddForce(jumpForce, Vector(0, -1));
+			else {
+				if (e.isPress(DIK_D)) {
+					character->PlayAnimation("right");
+					character->body->velocity.x = force;
+				}
+				else {
+					character->body->velocity.x = 0;
 				}
 			}
+			
+			if (e.isPress(DIK_SPACE)) {
+				if (jumpTimer.stopwatch(jumpTime)) {
+					character->body->velocity.y = -currentJumpForce;
+				}
+			}	
+		}
+	};
+	character->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
+		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
+		if (current != NULL) {
 
-			///Test
-			if (e.isPress(DIK_P))
-				sound->Play();
-			if (e.isPress(DIK_S))
-				sound->Stop();
-			if (e.isPress(DIK_E))
-				sound->Pause();
-			if (e.isPress(DIK_R))
-				sound->Resume();
-			if (e.isPress(DIK_V))
-				sound->FadeTo(30);
 		}
 	};
 	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
@@ -92,17 +105,22 @@ void TestState::Create()
 	//	// archive and stream closed when destructors are called
 	//}
 
-	// Text
-	Style style;
-	style.fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-	//style.fontColor = D3DCOLOR_ARGB(255,120, 180, 210);
-	text = this->add->Text(GAME_WIDTH / 2.0 , GAME_HEIGHT / 2.0, "sketches", 200, 200, "Test custom font", style, group);
-	text->SetFont(font);
-	text->SetAnchor(0.5, 0.5);
+
 }
 void TestState::Update()
 {
+	///Test
 	
+	if (this->game->GetInput()->KeyDown(DIK_P))
+		sound->Play();
+	if (this->game->GetInput()->KeyDown(DIK_S))
+		sound->Stop();
+	if (this->game->GetInput()->KeyDown(DIK_E))
+		sound->Pause();
+	if (this->game->GetInput()->KeyDown(DIK_R))
+		sound->Resume();
+	if (this->game->GetInput()->KeyDown(DIK_V))
+		sound->FadeTo(30);
 }
 void TestState::PreRender()
 {
@@ -110,6 +128,10 @@ void TestState::PreRender()
 void TestState::Render()
 {
 	character->body->Render();
+	auto list = this->tileMap->GetCollisionCheckList();
+	for (auto it = list.begin(); it != list.end(); ++it) {
+		(*it)->body->Render();
+	}
 }
 void TestState::Pause()
 {

@@ -129,7 +129,7 @@ void ggEngine::Text::Transform(LPD3DXSPRITE spriteHandle)
 {
 	//Scale from 0 0
 	Matrix mat;
-	mat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+	mat = Matrix::CreateScaleMatrix(this->worldScale.x, this->worldScale.y);
 	//Move to position
 	mat *= Matrix::CreateTranslateMatrix(worldPosition.x - GetWidth()*scale.x / 2, worldPosition.y - GetHeight()*scale.y / 2);
 	//Move anchor to position

@@ -51,6 +51,7 @@ function createQuadNode(nodeId, x, y, parentWidth, parentHeight, quadTree){
         tileInfo = createTileInfo("scene",randomInRangeInt(1,40));
         var tileType = createTileType(0,tileInfo);
         quadNode.tileList.push(tileType);
+        quadNode.isCollidedObject = Math.random() >= 0.8;
         quadTree.quadNodeList[nodeId] = quadNode;
         return;
     }

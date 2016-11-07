@@ -1,16 +1,16 @@
-
 #include "World.h"
-
-
-	ggEngine::World::World()
+namespace ggEngine {
+	World::World()
+	{
+		SetScale(1, 1);
+		SetPosition(0, 0);
+		this->worldPosition = Vector(0, 0);
+		this->worldScale = Vector(1, 1);
+	}
+	World::~World()
 	{
 	}
-
-	ggEngine::World::~World()
-	{
-	}
-
-	void ggEngine::World::Reset()
+	void World::Reset()
 	{
 		for (std::list<Group*>::const_iterator it = groupList.begin(); it != groupList.end(); it++)
 		{
@@ -18,3 +18,4 @@
 		}
 		groupList.clear();
 	}
+}

@@ -434,6 +434,9 @@
     <ClInclude Include="Grid.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files\Core\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="default.bmp">

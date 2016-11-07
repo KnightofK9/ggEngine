@@ -130,7 +130,7 @@ namespace ggEngine {
 	void DrawManager::DrawLine(const Vector v1, const Vector v2,int width, D3DCOLOR color)
 	{
 		D3DXVECTOR2 vLine[2];
-		lineManager->SetWidth(10);
+		lineManager->SetWidth(width);
 		lineManager->SetAntialias(false);
 		lineManager->SetGLLines(true);
 		vLine[0].x = v1.x;
@@ -179,8 +179,8 @@ namespace ggEngine {
 
 	void DrawManager::Update2D()
 	{
-		State* state = this->stateManager->GetCurrentState();
-		state->PreRender();
+		/*State* state = this->stateManager->GetCurrentState();
+		state->PreRender();*/
 		DrawObjectFromGroup(game->world->GetGroupList());
 		//DrawObjectFromGroup(&this->topGroupList);
 	}

@@ -22,12 +22,12 @@ void PingPongState::Create()
 #pragma region Ball
 	Sprite *background = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "background", group);
 	background->SetScale(Vector(0.8, 0.8));
-	for (int i = 0; i < 1500; ++i){
+	for (int i = 0; i < 1200; ++i){
 	//int i = 100;
 		ball = this->add->Sprite(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "ball", group);
 		game->physics->EnablePhysics(ball);
 		ball->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
-			go->SetPosition(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+			go->SetPosition(GAME_WIDTH/2,GAME_HEIGHT/2);
 			/*if (!e.blockDirection.up && !e.blockDirection.down)
 			{
 			srand(time(NULL));
@@ -78,7 +78,7 @@ void PingPongState::Create()
 	leftBat->name = "Left Bat";
 	leftBat->position.x = leftBat->GetWidth() / 2 ;
 	game->physics->EnablePhysics(leftBat);
-	leftBat->body->allowBounciness = false;
+	leftBat->body->allowWorldBounciness = false;
 	leftBat->body->CreateRectangleRigidBody(leftBat->GetWidth(), leftBat->GetHeight());
 	game->eventManager->EnableKeyBoardInput(leftBat);
 	leftBat->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
@@ -114,8 +114,8 @@ void PingPongState::Create()
 	/*ball->body->CheckCollisionTo(leftBat);
 	ball->body->CheckCollisionTo(rightBat);*/
 #pragma endregion Bat
-	rightBat->body->allowBounciness = false;
-	leftBat->body->allowBounciness = false;
+	rightBat->body->allowWorldBounciness = false;
+	leftBat->body->allowWorldBounciness = false;
 	rightBat->body->allowWorldBlock = true;
 	leftBat->body->allowWorldBlock = true;
 

@@ -56,7 +56,7 @@ namespace ggEngine {
 	{
 		//Scale from 0 0
 		Matrix mat;
-		mat = Matrix::CreateScaleMatrix(this->scale.x, this->scale.y);
+		mat = Matrix::CreateScaleMatrix(this->worldScale.x, this->worldScale.y);
 		//Move to anchor
 		mat *= Matrix::CreateTranslateMatrix(-this->GetWidth()*(this->GetAnchor().x), -this->GetHeight()*(this->GetAnchor().y));
 		//Rotate around anchor
@@ -79,6 +79,7 @@ namespace ggEngine {
 	}
 
 	void GameObject::UpdateWorldPosition(){
-		this->worldPosition = this->position + this->parentObject->worldPosition;
+		this->worldScale = Vector(this->scale.x*this->parentObject->worldScale.x, this->scale.y*this->parentObject->worldScale.y);
+		this->worldPosition = Vector(this->position.x*this->parentObject->worldScale.x, this->position.y*this->parentObject->worldScale.y) + this->parentObject->worldPosition;
 	}
 }

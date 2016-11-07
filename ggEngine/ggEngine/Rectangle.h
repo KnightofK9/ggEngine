@@ -9,6 +9,7 @@ namespace ggEngine {
 		double GetArea();
 		void Destroy();
 		void Transform(Vector position, double width, double height);
+		void Transform(Vector position);
 		Vector p1, p2, p3, p4, pCenter;
 		double width, height;
 		// Inherited via Shape

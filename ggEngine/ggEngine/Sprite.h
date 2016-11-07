@@ -24,13 +24,13 @@ namespace ggEngine {
 		SpriteInfo* GetImage() { return this->image; }
 		virtual void SetScale(double x, double y);
 		virtual void SetScale(Vector vector);
-		void SetBody(Body* body) { this->body = body; }
-		Body* GetBody() { return this->body; }
 		int GetOpacity() { return this->opacity; }
 		void SetOpacity(int opacity) { this->opacity = opacity%256; }
 		void SetColorTint(int r, int g, int b) { this->color = D3DCOLOR_XRGB(r, g, b); }
 		void SetColorTint(D3DCOLOR color) { this->color = color; }
 		D3DCOLOR GetColorTint() { return this->color; }
+		virtual double GetOrgWidth() { return this->image->GetWidth(); }
+		virtual double GetOrgHeight() { return this->image->GetHeight(); }
 	protected:
 		D3DCOLOR color;
 		SpriteInfo *image = nullptr;

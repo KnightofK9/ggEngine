@@ -49,6 +49,9 @@ namespace ggEngine {
 		int GetOpacity() { return this->opacity; }
 		void SetOpacity(int opacity) { this->opacity = opacity % 256; }
 		void Transform(LPD3DXSPRITE spriteHandle);
+
+		virtual double GetOrgWidth() { return this->orgWidth; }
+		virtual double GetOrgHeight() { return this->orgHeight; }
 	private:
 		Font *font;
 		Style style;

@@ -11,8 +11,13 @@ namespace ggEngine {
 		}
 		virtual double GetArea() = 0;
 		virtual void Transform(Vector position,double width, double height) = 0;
+		virtual void Transform(Vector position) = 0;
 		void SetAnchor(Vector anchor) {
 			this->anchor = anchor;
+		}
+		void SetAnchor(double x, double y) {
+			this->anchor.x = x;
+			this->anchor.y = y;
 		}
 		virtual double GetLeft() = 0;
 		virtual double GetRight() = 0;
