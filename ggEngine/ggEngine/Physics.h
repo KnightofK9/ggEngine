@@ -23,6 +23,7 @@ namespace ggEngine {
 		void RemoveTileMap(TileMap *tileMap);
 		static Rect CreateSweptBroadPhaseRect(Box b);
 		static bool AABBCheck(Rect b1, Rect b2);
+		static Box CreateBoxFromObject(GameObject *go, Vector velocity);
 	private:
 		void UpdateCollisionList();
 		void UpdateBody();

@@ -23,6 +23,7 @@ namespace ggEngine {
 		static double DotProduct(const Vector& vectorA, const Vector& vectorB);
 		static Vector3 CrossProduct(const Vector3& a, const Vector3& b);
 		std::string ToString();
+		static Vector Zero() { return Vector(0, 0); }
 	private:
 	};
 }

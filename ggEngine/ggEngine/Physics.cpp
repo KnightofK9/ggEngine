@@ -70,6 +70,21 @@ namespace ggEngine {
 		Rect rI;
 		return Rect::intersect(rI, b1, b2);
 	}
+	Box Physics::CreateBoxFromObject(GameObject * go, Vector velocity)
+	{
+		Shape *rigidBody = go->body->rigidBody;
+		Box b1;
+		b1.gameObject = go;
+		b1.x = rigidBody->GetLeft();
+		b1.y = rigidBody->GetUp();
+		b1.w = rigidBody->GetWidth();
+		b1.h = rigidBody->GetHeight();
+		b1.r = b1.x + b1.w;
+		b1.d = b1.y + b1.h;
+		b1.vx = velocity.x;
+		b1.vy = velocity.y;
+		return b1;
+	}
 	void Physics::UpdateCollisionList()
 	{
 		this->collisionList.clear();

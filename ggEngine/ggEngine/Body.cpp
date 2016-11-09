@@ -5,6 +5,7 @@
 #include "Events.h"
 #include "ColliderArg.h"
 #include <Windows.h>
+#include "Box.h"
 #include "Physics.h"
 namespace ggEngine {
 	Body::Body(Game* game,GameObject * gameObject)
@@ -59,6 +60,135 @@ namespace ggEngine {
 	{
 		collisionObjectList.erase(std::remove(collisionObjectList.begin(), collisionObjectList.end(), staticGo), collisionObjectList.end());
 	}
+	ColliderArg Body::GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<Box> &possibleCollidedList)
+	{
+		ColliderArg shortestArg;
+		shortestArg.entryTime = 1;
+		for (auto it = possibleCollidedList.begin(); it != possibleCollidedList.end(); ++it) {
+			ColliderArg e;
+			if (GetArgIfCollided(b1, (*it), e)) {
+				if (e < shortestArg) {
+					shortestArg = e;
+				}
+			}
+		}
+		for (auto it = possibleCollidedList.begin(); it != possibleCollidedList.end(); ++it) {
+			if (*it == shortestArg.b) {
+				possibleCollidedList.remove(*it);
+				break;
+			}
+		}
+		return shortestArg;
+	}
+	std::priority_queue<ColliderArg> Body::GetCollidedArgList(Box &b1, Vector currentVelocity)
+	{
+		std::priority_queue<ColliderArg> collidedList;		
+		for (auto it = staticGoList.begin(); it != staticGoList.end(); ++it) {
+			(*it)->body->PreUpdate();
+			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+			ColliderArg e;
+			if (GetArgIfCollided(b1, b2, e)) {
+				collidedList.push(e);
+			}
+		}
+		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+			(*it)->body->PreUpdate();
+			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+			ColliderArg e;
+			if (GetArgIfCollided(b1, b2, e)) {
+				collidedList.push(e);
+			}
+		}
+		return collidedList;
+	}
+	bool Body::GetArgIfCollided(Box &b1, Box &b2, ColliderArg &e)
+	{
+		e.b = b2;
+		if (!IsCollided(b1, b2)) return false;
+
+		double xInvEntry, yInvEntry;
+		double xInvExit, yInvExit;
+		Vector normalVector;
+		if (b1.vx > 0.0f) {
+			xInvEntry = b2.x - (b1.x + b1.w);
+			xInvExit = (b2.x + b2.w) - b1.x;
+		}
+		if (b1.vx < 0.0f) {
+			xInvEntry = (b2.r) - b1.x;
+			xInvExit = b2.x - (b1.r);
+		}
+		if (b1.vy > 0.0f) {
+			yInvEntry = (b2.y - (b1.d));
+			yInvExit = ((b2.d) - b1.y);
+		}
+		if (b1.vy < 0.0f) {
+			yInvEntry = (b2.d) - b1.y;
+			yInvExit = b2.y - (b1.d);
+		}
+		double xEntry, yEntry;
+		double xExit, yExit;
+
+		if (b1.vx == 0.0f) {
+			xEntry = -std::numeric_limits<double>::infinity();
+			xExit = std::numeric_limits<double>::infinity();
+		}
+		else {
+			xEntry = xInvEntry / (b1.vx);
+			xExit = xInvExit / (b1.vx);
+		}
+		if (b1.vy == 0.0f) {
+			yEntry = -std::numeric_limits<double>::infinity();
+			yExit = std::numeric_limits<double>::infinity();
+		}
+		else {
+			yEntry = yInvEntry / (b1.vy);
+			yExit = yInvExit / (b1.vy);
+		}
+		double entryTime = std::max(xEntry, yEntry);
+		double exitTime = std::min(xExit, yExit);
+		if (entryTime > exitTime || xEntry<0.0f&&yEntry<0.0f || xEntry>1.0f || yEntry>1.0f) {
+			normalVector.x = 0.0f;
+			normalVector.y = 0.0f;
+			// No collision found
+			return false;
+		}
+		//g_debug.Log("EntryTime:" + std::to_string(entryTime) + "|ExitTime:" + std::to_string(exitTime) + "|xEntry:" + std::to_string(xEntry) );
+		if (xEntry > yEntry) { //Get the max because object can collide with other axis already but not collided with box yet
+			if (b1.vx < 0.0f) { // b2 | b1
+				e.blockDirection.left =  true;
+				normalVector.x = 1.0f;
+				normalVector.y = 0.0f;
+			}
+			else { // b1 | b2
+				e.blockDirection.right =  true;
+				normalVector.x = -1.0f;
+				normalVector.y = 0.0f;\
+			}
+		}
+		else {
+			if (b1.vy < 0.0f) { // b2/b1
+				e.blockDirection.up =  true;
+				normalVector.x = 0.0f;
+				normalVector.y = 1.0f;
+			}
+			else { // b1/b2
+				e.blockDirection.down = true;
+				normalVector.x = 0.0f;
+				normalVector.y = -1.0f;
+			}
+		}
+
+		e.bound = true;
+		e.normalSurfaceVector = normalVector;
+		//Handle when collision happened
+		e.entryTime = entryTime;
+		e.remainingTime = 1 - entryTime;
+		e.colliderObject = b2.gameObject;
+		e.currentVelocity = Vector(b1.vx, b1.vy);
+		return true;
+
+
+	}
 	bool Body::CheckCollisionFromThisTo(GameObject * gameObject)
 	{
 		double collideTime = 1.0f;
@@ -73,6 +203,12 @@ namespace ggEngine {
 		}
 		return false;
 	}
+	bool Body::IsCollided(Box &b1, Box &b2)
+	{
+		Rect broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
+		Rect r2 = b2.GetRect();
+		return Physics::AABBCheck(broadPhaseRect, r2);
+	}
 	void Body::PreUpdate()
 	{
 		this->blocked.Reset();
@@ -85,6 +221,174 @@ namespace ggEngine {
 			else this->rigidBody->Transform(this->sprite->worldPosition);
 		}
 	}
+
+	bool Body::PerformCollisionCheck(Vector currentVelocity)
+	{
+		currentVelocity *= PIXEL_PER_CENTIMETER;
+		bool isCollided = false;
+		Box b1 = Physics::CreateBoxFromObject(this->sprite, currentVelocity);
+		//TO DO, box being move down so it won't recognized
+		std::list<Box> possibleCollidedList = GetPossibleCollidedList(b1, currentVelocity);
+		if (possibleCollidedList.empty()) {
+			return false;
+		}
+		double remainingTime = 1;
+		while (!possibleCollidedList.empty() || b1.vx != 0 && b1.vy != 0) {
+			ColliderArg e = GetShortestEntryTimeCollidedFromPossibleCollidedList(b1, possibleCollidedList);
+			if (e.entryTime == 1) {
+				break;
+			}
+			isCollided = true;
+			if (e.blockDirection.down) {
+				g_debug.Log("down");
+			}
+			if (e.blockDirection.up) {
+				g_debug.Log("up");
+			}
+			if (e.blockDirection.right) {
+				g_debug.Log("right");
+			}
+			if (e.blockDirection.left) {
+				g_debug.Log("left");
+			}
+			if (!IsCollided(b1, e.b)) continue;
+			g_debug.Log("Received");
+			if (this->allowObjectBlock) {
+				this->rigidBody->Translate(currentVelocity*e.entryTime);
+				remainingTime -= e.entryTime;
+				if (e.blockDirection.down) {
+					currentVelocity.y = 0;
+					velocity.y = 0;
+				}
+				if (e.blockDirection.up) {
+					currentVelocity.y = 0;
+					velocity.y = 0;
+				}
+				if (e.blockDirection.right) {
+					currentVelocity.x = 0;
+					velocity.x = 0;
+				}
+				if (e.blockDirection.left) {
+					currentVelocity.x = 0;
+					velocity.x = 0;
+				}
+				b1.vx = currentVelocity.x;
+				b1.vy = currentVelocity.y;
+			}
+			else {
+				this->rigidBody->Translate(currentVelocity.x, currentVelocity.y);
+				e.entryTime = 1;
+				e.remainingTime = 0;
+			}
+
+
+			if (this->sprite->events->onCollide != nullptr) {
+				Vector pivot = this->rigidBody->GetPivotPoint();
+				this->position->x = pivot.x;
+				this->position->y = pivot.y;
+				this->sprite->events->onCollide(this->sprite, e);
+				this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
+			}
+			//break;
+			if (e.remainingTime == 0) break;
+		}
+		if (isCollided && this->allowObjectBlock) {
+			this->rigidBody->Translate(currentVelocity*remainingTime);
+		}
+
+		return isCollided;
+
+
+		std::priority_queue<ColliderArg> collidedList = GetCollidedArgList(b1, currentVelocity);
+		if (collidedList.empty()) return false;
+		g_debug.Log("__");
+		while (!collidedList.empty()) {
+			ColliderArg e = collidedList.top();
+			collidedList.pop();
+			//if (e.blockDirection.down) {
+			//	g_debug.Log("down");
+			//}
+			//if (e.blockDirection.up) {
+			//	g_debug.Log("up");
+			//}
+			//if (e.blockDirection.right) {
+			//	g_debug.Log("right");
+			//}
+			//if (e.blockDirection.left) {
+			//	g_debug.Log("left");
+			//}
+			//if (!IsCollided(b1, e.b)) continue;
+			//g_debug.Log("Received");
+			//if (this->allowObjectBlock) {
+			//	double entryTimeDelta = e.entryTime - lastEntryTime;
+			//	lastEntryTime = e.entryTime;
+			//	this->rigidBody->Translate(currentVelocity*entryTimeDelta);
+			//	if (e.blockDirection.down) {
+			//		currentVelocity.y = 0;
+			//		velocity.y = 0;
+			//	}
+			//	if (e.blockDirection.up) {
+			//		currentVelocity.y = 0;
+			//		velocity.y = 0;
+			//	}
+			//	if (e.blockDirection.right) {
+			//		currentVelocity.x = 0;
+			//		velocity.x = 0;
+			//	}
+			//	if (e.blockDirection.left) {
+			//		currentVelocity.x = 0;
+			//		velocity.x = 0;
+			//	}
+			//	b1.vx = currentVelocity.x;
+			//	b1.vy = currentVelocity.y;
+			//}
+			//else {
+			//	this->rigidBody->Translate(currentVelocity.x, currentVelocity.y);
+			//	e.entryTime = 1;
+			//	e.remainingTime = 0;
+			//}
+
+
+			//if (this->sprite->events->onCollide != nullptr) {
+			//	Vector pivot = this->rigidBody->GetPivotPoint();
+			//	this->position->x = pivot.x;
+			//	this->position->y = pivot.y;
+			//	this->sprite->events->onCollide(this->sprite, e);
+			//	this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
+			//}
+			////break;
+			//if (e.remainingTime == 0) break;
+		}
+	/*	if (this->allowObjectBlock) {
+			this->rigidBody->Translate(currentVelocity*(1 - lastEntryTime));
+		}*/
+		return true;
+	}
+
+	std::list<Box> Body::GetPossibleCollidedList(Box &b1, Vector currentVelocity)
+	{
+		std::list<Box> possibleCollidedBoxList;
+		Rect broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
+		for (auto it = staticGoList.begin(); it != staticGoList.end(); ++it) {
+			(*it)->body->PreUpdate();
+			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+			Rect result;
+			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
+				possibleCollidedBoxList.push_back(b2);
+			}
+		}
+		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+			(*it)->body->PreUpdate();
+			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+			Rect result;
+			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
+				possibleCollidedBoxList.push_back(b2);
+			}
+		}
+		return possibleCollidedBoxList;
+	}
+
+	
 
 	double Body::PerformCollisionSweptAABB(GameObject * staticGo, Vector currentVelocity)
 	{
@@ -230,58 +534,61 @@ namespace ggEngine {
 		acceleration = (lastAcceleration + newAcceleration) / 2;
 		//Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
 		velocity += acceleration*timeStep;
-		bool isCollided = false;
-		if (this->physicsMode == PhysicsMode_AABB) {
-			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
-		}
-		for (auto it = staticGoList.begin(); it != staticGoList.end(); ++it) {
-			isCollided = CheckCollisionFromThisTo(*it) || isCollided;
-			//if (isCollided) g_debug.Log("Collision found with " + std::to_string((*it)->position.x)+ "-"+ std::to_string((*it)->position.y));
-		}
-		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
-			isCollided = CheckCollisionFromThisTo((*it)) || isCollided;
-		}
-		if (isCollided) {
-			ColliderArg e = this->shortestCollider;
-			if (this->allowObjectBlock) {
-				Vector currentVelocity = e.currentVelocity;
-				this->rigidBody->Translate(currentVelocity.x*e.entryTime, currentVelocity.y*e.entryTime);
-				if (blocked.down) {
-					currentVelocity.y = 0;
-					velocity.y = 0;
-				}
-				if (blocked.up) {
-					currentVelocity.y = 0;
-					velocity.y = 0;
-				}
-				if (blocked.right) {
-					currentVelocity.x = 0;
-					velocity.x = 0;
-				}
-				if (blocked.left) {
-					currentVelocity.x = 0;
-					velocity.x = 0;
-				}
-				this->rigidBody->Translate(currentVelocity.x*e.remainingTime, currentVelocity.y*e.remainingTime);
-			}
-			else {
-				this->rigidBody->Translate(e.currentVelocity.x, e.currentVelocity.y);
-				e.entryTime = 1;
-				e.remainingTime = 0;
-				if (this->sprite->events->onCollide != nullptr) {
-					Vector pivot = this->rigidBody->GetPivotPoint();
-					this->position->x = pivot.x;
-					this->position->y = pivot.y;
-					this->sprite->events->onCollide(this->sprite, e);
-					this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
-				}
-			}
-			if (blocked.up) g_debug.Log("Up");
-			if (blocked.right) g_debug.Log("Right");
-			if (blocked.down) g_debug.Log("Down");
-			if (blocked.left) g_debug.Log("Left");
-			return;
-		}
+		if (PerformCollisionCheck(temp)) return;
+
+
+		//bool isCollided = false;
+		//if (this->physicsMode == PhysicsMode_AABB) {
+		//	this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
+		//}
+		//for (auto it = staticGoList.begin(); it != staticGoList.end(); ++it) {
+		//	isCollided = CheckCollisionFromThisTo(*it) || GetArgIfCollided;
+		//	//if (isCollided) g_debug.Log("Collision found with " + std::to_string((*it)->position.x)+ "-"+ std::to_string((*it)->position.y));
+		//}
+		//for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+		//	isCollided = CheckCollisionFromThisTo((*it)) || GetArgIfCollided;
+		//}
+		//if (isCollided) {
+		//	ColliderArg e = this->shortestCollider;
+		//	if (this->allowObjectBlock) {
+		//		Vector currentVelocity = e.currentVelocity;
+		//		this->rigidBody->Translate(currentVelocity.x*e.entryTime, currentVelocity.y*e.entryTime);
+		//		if (blocked.down) {
+		//			currentVelocity.y = 0;
+		//			velocity.y = 0;
+		//		}
+		//		if (blocked.up) {
+		//			currentVelocity.y = 0;
+		//			velocity.y = 0;
+		//		}
+		//		if (blocked.right) {
+		//			currentVelocity.x = 0;
+		//			velocity.x = 0;
+		//		}
+		//		if (blocked.left) {
+		//			currentVelocity.x = 0;
+		//			velocity.x = 0;
+		//		}
+		//		this->rigidBody->Translate(currentVelocity.x*e.remainingTime, currentVelocity.y*e.remainingTime);
+		//	}
+		//	else {
+				//this->rigidBody->Translate(e.currentVelocity.x, e.currentVelocity.y);
+				//e.entryTime = 1;
+				//e.remainingTime = 0;
+		//		if (this->sprite->events->onCollide != nullptr) {
+		//			Vector pivot = this->rigidBody->GetPivotPoint();
+		//			this->position->x = pivot.x;
+		//			this->position->y = pivot.y;
+		//			this->sprite->events->onCollide(this->sprite, e);
+		//			this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
+		//		}
+		//	}
+		//	if (blocked.up) g_debug.Log("Up");
+		//	if (blocked.right) g_debug.Log("Right");
+		//	if (blocked.down) g_debug.Log("Down");
+		//	if (blocked.left) g_debug.Log("Left");
+		//	return;
+		//}
 		if (this->physicsMode == PhysicsMode_AABBSwept) {
 			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
 		}

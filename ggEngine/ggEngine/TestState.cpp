@@ -49,7 +49,7 @@ void TestState::Create()
 	//character->body->allowObjectBlock = false;
 	game->eventManager->EnableKeyBoardInput(character);
 	jumpTimer.reset();
-	character->SetScale(1.5, 1.5);
+	//character->SetScale(1.5, 1.5);
 	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {
