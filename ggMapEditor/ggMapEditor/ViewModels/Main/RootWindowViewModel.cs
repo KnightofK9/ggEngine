@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using ggMapEditor.Commands;
 
 namespace ggMapEditor.ViewModels.Main
@@ -44,6 +45,7 @@ namespace ggMapEditor.ViewModels.Main
             dockManagerViewModel = new DockManagerViewModel();
             AddTabCommand = new RelayCommand(AddTab);
             AddTilesetCommand = new RelayCommand(AddTileset);
+            SaveCommand = new RelayCommand(Save);
         }
         #endregion
 
@@ -51,10 +53,11 @@ namespace ggMapEditor.ViewModels.Main
         #region Commands
         public RelayCommand AddTabCommand { get; set; }
         public RelayCommand AddTilesetCommand { get; set; }
+        public RelayCommand SaveCommand { get; set; }
         #endregion
 
         #region Other Funcs
-        public void AddTab(object parameter)
+        private void AddTab(object parameter)
         {
             Views.Dialogs.NewTileMapDialog dialog = new Views.Dialogs.NewTileMapDialog();
             dialog.ShowDialog();
@@ -69,7 +72,7 @@ namespace ggMapEditor.ViewModels.Main
             combines.Add(cmb);
         }
 
-        public void AddTileset(object parameter)
+        private void AddTileset(object parameter)
         {
             if (combines.Count == 0 || combines[0] == null)
                 return;
@@ -83,6 +86,19 @@ namespace ggMapEditor.ViewModels.Main
             TilesetTapViewModel tsetTab = new TilesetTapViewModel(tset);
             tsetTab.Title = "Tileset";
             DockManagerViewModel.AddAnchorTab(tsetTab);
+        }
+
+        private void Save(object parameter)
+        {
+            if (combines[0] == null)
+            {
+                MessageBox.Show("Please create TileMap before.");
+                return;
+            }
+
+        //    combines[0].tileMap.listTile = dockManagerViewModel.DockTabs[0].RetrieveTiles();
+        //    Json.ConvertJson.SaveFile(combine);
+        //    status.Content = "Save map";
         }
         #endregion
     }

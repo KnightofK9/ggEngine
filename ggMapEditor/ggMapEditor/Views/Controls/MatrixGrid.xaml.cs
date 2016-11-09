@@ -115,7 +115,7 @@ namespace ggMapEditor.Views.Controls
             ObservableCollection<Models.Tile> listTile = new ObservableCollection<Models.Tile>();
             foreach (var cell in grid.Children)
             { 
-                var childrens = (cell as DragableLayout).GetChildren();
+                var childrens = (cell as DragableLayout).ListChild;
                 if (childrens.Count > 0)
                 {
                     Controls.Tile ctrTile = childrens.First() as Controls.Tile;

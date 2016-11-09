@@ -25,7 +25,7 @@ namespace ggMapEditor.ViewModels
 
         public AddTilesetViewModel(string folderPath)
         {
-            tileset = new Models.Tileset();
+            tileset = new Tileset();
             TileSize = 32;
             Name = "Tileset";
             this.folderPath = folderPath;

@@ -10,7 +10,7 @@ namespace ggMapEditor.Views.Controls
     [ContentProperty(nameof(Children))]
     public partial class DragableLayout : UserControl
     {
-        private ObservableCollection<UIElement> listChild;
+        public ObservableCollection<UIElement> ListChild { get; private set; }
         public static readonly DependencyPropertyKey ChildrenProperty = DependencyProperty.RegisterReadOnly
         (
             nameof(Children),
@@ -28,12 +28,7 @@ namespace ggMapEditor.Views.Controls
         public DragableLayout()
         {
             InitializeComponent();
-            listChild = new ObservableCollection<UIElement>();
-        }
-
-        public ObservableCollection<UIElement> GetChildren()
-        {
-            return listChild;
+            ListChild = new ObservableCollection<UIElement>();
         }
 
         private void Layout_DragOver(object sender, DragEventArgs e)
@@ -47,7 +42,7 @@ namespace ggMapEditor.Views.Controls
 
         private void Layout_Drop(object sender, DragEventArgs e)
         {
-            if (e.Handled == false)
+            if (e.Handled == false && ListChild.Count == 0)
             {
                 Canvas panel = (Canvas)sender;
                 UIElement element = (UIElement)e.Data.GetData("Object");
@@ -64,7 +59,7 @@ namespace ggMapEditor.Views.Controls
                             tile.ImgId = imgId;
                             panel.Name = "panel";
                             panel.Children.Add(tile);
-                            listChild.Add(tile);
+                            ListChild.Add(tile);
                             e.Effects = DragDropEffects.Copy;
                         }
                     }
@@ -73,5 +68,7 @@ namespace ggMapEditor.Views.Controls
                 Mouse.Capture(null);
             }
         }
+
+        //delegate 
     }
 }

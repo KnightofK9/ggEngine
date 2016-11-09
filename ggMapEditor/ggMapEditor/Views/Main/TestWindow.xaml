@@ -31,13 +31,24 @@
             </Menu.Resources>
         </Menu>-->
 
-        <Button Content="Add TileMap"
-                Command="{Binding AddTabCommand}"/>
+        <ToolBarTray Grid.Row="1"
+                     Height="30">
+            <ToolBar>
+                <Button Content="New Tile Map"
+                        Command="{Binding AddTabCommand}"
+                        Margin="5, 0"/>
+                <Button Content="New Tileset"
+                        Command="{Binding AddTilesetCommand}"
+                        Margin="5, 0"/>
+                <!--<Button Content="Open"
+                        Click="OpenTileMap_Click"
+                        Margin="5, 0"/>-->
+                <Button Content="Save"
+                        Command="{Binding SaveCommand}"
+                        Margin="5, 0"/>
+            </ToolBar>
+        </ToolBarTray>
 
-        <Button Content="Add Tileset"
-                Grid.Row="1"
-                Command="{Binding AddTilesetCommand}"/>
-        
         <dock:DockingManager Grid.Row="2"
                          DataContext="{Binding DockManagerViewModel}"
                          DocumentsSource="{Binding DockTabs}"
@@ -51,7 +62,7 @@
                     </ctrl:ZoomBox>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:TilesetTapViewModel}">
-                    <frag:TilesetBox/>
+                    <view:TilesetTab/>
                 </DataTemplate>
             </dock:DockingManager.Resources>
 

@@ -40,7 +40,7 @@ namespace ggMapEditor
             if (imgs == null)
                 return null;
 
-            BitmapFrame frame1 = BitmapFrame.Create(imgs[0]);
+             BitmapFrame frame1 = BitmapFrame.Create(imgs[0]);
             int width = frame1.PixelWidth;
             int height = frame1.PixelHeight;
 
@@ -138,8 +138,8 @@ namespace ggMapEditor
                 int width = img.PixelWidth;
                 int height = img.PixelHeight;
 
-                for (int i = 0; i < height - cellHeight - 1; i += cellHeight + 1)
-                    for (int k = 0; k < width - cellWidth - 1; k += cellWidth + 1)
+                for (int i = 0; i <= height - cellHeight; i += cellHeight)
+                    for (int k = 0; k <= width - cellWidth; k += cellWidth)
                     {
                         Int32Rect rect = new Int32Rect(k, i, cellWidth, cellHeight);
                         CroppedBitmap croppedBitmap = new CroppedBitmap(img, rect);

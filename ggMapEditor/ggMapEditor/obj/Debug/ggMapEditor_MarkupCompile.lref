@@ -1,16 +1,17 @@
-﻿D:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+﻿
 
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\MapAreaTab.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Controls\DragableLayout.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Controls\MatrixGrid.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Controls\Tile.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Controls\ZoomBox.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Fragments\LayerBox.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Fragments\TilesetBox.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Main\DragWindow.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Dialogs\HelpDialog.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Dialogs\AddTilesetDialog.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Dialogs\NewTileMapDialog.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Main\RootWindow.xaml;;
-FD:\subject\NMGame\MapEditor\ggMapEditor\ggMapEditor\Views\Main\TestWindow.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\MapAreaTab.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Controls\DragableLayout.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Controls\MatrixGrid.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Controls\Tile.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Controls\ZoomBox.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Fragments\LayerBox.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Fragments\TilesetBox.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Main\DragWindow.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Dialogs\HelpDialog.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Dialogs\AddTilesetDialog.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Dialogs\NewTileMapDialog.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Main\RootWindow.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\Main\TestWindow.xaml;;
+FD:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\Views\TilesetTab.xaml;;
 

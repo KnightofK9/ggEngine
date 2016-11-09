@@ -55,30 +55,11 @@ namespace ggMapEditor.ViewModels
                 || map.row == 0 || map.column == 0)
                 return;
 
-            //Grid grid = IGrid.GetGrid() as Grid;
-            Grid grid = new Grid();
-            grid.Children.Clear();
-            grid.ColumnDefinitions.Clear();
-            grid.RowDefinitions.Clear();
-
             //necessary variables
             columnCount = map.column;
             rowCount = map.row;
             tileWidth = map.leafWidth;
             tileHeight = map.leafHeight;
-
-
-            // Init grid
-            grid.Width = tileWidth * columnCount;
-            grid.Height = tileHeight * rowCount;
-
-            // Create collumns, rows
-            for (int i = 0; i < rowCount; i++)
-                grid.RowDefinitions.
-                    Add(new RowDefinition() { Height = new GridLength(tileHeight) });
-            for (int i = 0; i < columnCount; i++)
-                grid.ColumnDefinitions.
-                    Add(new ColumnDefinition() { Width = new GridLength(tileWidth) });
 
             // Add Cells
             for (int i = 0; i < rowCount; i++)
@@ -95,6 +76,26 @@ namespace ggMapEditor.ViewModels
                 }
         }
 
+
+        //public ObservableCollection<object> RetrieveChilds()
+        //{
+            //var listChild = new ObservableCollection<object>();
+            //    //Grid grid = IGrid.GetGrid() as Grid;
+            //    foreach (var cell in grid.Children)
+            //    {
+            //        var childrens = (cell as DragableLayout).GetChildren();
+            //        if (childrens.Count > 0)
+            //        {
+            //            Views.Controls.Tile ctrTile = childrens.First() as Views.Controls.Tile;
+            //            Models.Tile tile = new Models.Tile();
+            //            tile.tileId = ctrTile.ImgId;
+            //            Point cellPosition = ctrTile.TransformToAncestor(grid).Transform(new Point(0, 0));
+            //            tile.rectPos = new Int32Rect((int)cellPosition.X, (int)cellPosition.Y, tileWidth, tileHeight);
+            //            listTile.Add(tile);
+            //        }
+            //    }
+            //    return listTile;
+        //}
         //public ObservableCollection<Models.Tile> RetrieveTiles()
         //{
         //    ObservableCollection<Models.Tile> listTile = new ObservableCollection<Models.Tile>();

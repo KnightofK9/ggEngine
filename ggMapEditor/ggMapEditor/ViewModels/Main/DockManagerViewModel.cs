@@ -12,8 +12,12 @@ namespace ggMapEditor.ViewModels.Main
 {
     class DockManagerViewModel : Base.BaseViewModel
     {
-        #region Properties
+        #region Private Members
         private ObservableCollection<DockTabViewModel> dockTabs;
+        public ObservableCollection<object> anchors;
+        #endregion
+
+        #region Properties
         public ObservableCollection<DockTabViewModel> DockTabs
         {
             get { return dockTabs; }
@@ -24,7 +28,15 @@ namespace ggMapEditor.ViewModels.Main
             }
         }
 
-        public ObservableCollection<object> Anchorables { get; private set; }
+        public ObservableCollection<object> Anchorables
+        {
+            get { return anchors; }
+            private set
+            {
+                anchors = value;
+                RaisePropertyChanged(nameof(Anchorables));
+            }
+        }
         #endregion
 
         #region Constructors
