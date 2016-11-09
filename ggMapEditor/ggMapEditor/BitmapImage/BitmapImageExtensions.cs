@@ -115,8 +115,7 @@ namespace ggMapEditor
             return bm;
         }
 
-
-
+        
         public static void SaveImage(this RenderTargetBitmap img, string filePath)
         {
             BitmapEncoder encoder = new PngBitmapEncoder();

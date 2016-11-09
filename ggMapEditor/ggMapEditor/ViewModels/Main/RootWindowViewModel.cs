@@ -13,8 +13,8 @@ namespace ggMapEditor.ViewModels.Main
     {
         #region Private Members
         private ObservableCollection<Models.Combine> combines;
-        //private ObservableCollection<Models.TileMap> tileMaps;
         private DockManagerViewModel dockManagerViewModel;
+        private int current;
 
         #endregion
 
@@ -40,6 +40,7 @@ namespace ggMapEditor.ViewModels.Main
 
         public RootWindowViewModel()
         {
+            current = -1;
             combines = new ObservableCollection<Models.Combine>();
 
             dockManagerViewModel = new DockManagerViewModel();
@@ -70,6 +71,7 @@ namespace ggMapEditor.ViewModels.Main
             DockManagerViewModel.AddDockTab(mapTab);
 
             combines.Add(cmb);
+            current++;
         }
 
         private void AddTileset(object parameter)
@@ -79,26 +81,27 @@ namespace ggMapEditor.ViewModels.Main
             
             Views.Dialogs.AddTilesetDialog dialog = new Views.Dialogs.AddTilesetDialog(combines[0].folderPath);
             dialog.ShowDialog();
+
             Models.Tileset tset = (dialog.DataContext as ViewModels.AddTilesetViewModel).GetTileset();
-            if (tset == null || tset.imageUri == null)
-                return;
+            if (tset == null) return;
+            //check if tilesetKey is exist
 
             TilesetTapViewModel tsetTab = new TilesetTapViewModel(tset);
-            tsetTab.Title = "Tileset";
+            tsetTab.Title = tset.tilesetKey;
             DockManagerViewModel.AddAnchorTab(tsetTab);
+            combines[current].tilesets.Add(tset);
         }
 
         private void Save(object parameter)
         {
-            if (combines[0] == null)
+            if (combines[current] == null)
             {
                 MessageBox.Show("Please create TileMap before.");
                 return;
             }
-
-        //    combines[0].tileMap.listTile = dockManagerViewModel.DockTabs[0].RetrieveTiles();
-        //    Json.ConvertJson.SaveFile(combine);
-        //    status.Content = "Save map";
+            combines[current].tileMap.listTile = (dockManagerViewModel.DockTabs[current] as MapAreaTabViewModel).ListTile;
+            Json.ConvertJson.SaveFile(combines[current]);
+            //status.Content = "Save map";
         }
         #endregion
     }

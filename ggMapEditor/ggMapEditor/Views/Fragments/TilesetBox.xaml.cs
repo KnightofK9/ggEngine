@@ -35,7 +35,7 @@ namespace ggMapEditor.Views.Fragments
         {
             get
             {
-                return tileset.id;
+                return tileset.tilesetKey;
             }
             private set
             {

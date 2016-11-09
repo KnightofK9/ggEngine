@@ -35,7 +35,12 @@ namespace ggMapEditor.ViewModels.Base
                     CloseWindowFlag = true;
                 else
                     CloseWindowFlag = !CloseWindowFlag;
-            })); 
+            }));
+            //GC.Collect();
+        }
+        public virtual void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            CloseWindow();
         }
     }
 }

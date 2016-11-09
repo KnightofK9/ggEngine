@@ -50,10 +50,10 @@ namespace ggMapEditor.ViewModels
 
         public Models.Tileset Tileset
         {
-            get { return combine.tileset; }
+            get { return combine.tilesets[0]; }
             set
             {
-                combine.tileset = value;
+                combine.tilesets[0] = value;
                 RaisePropertyChanged("Tileset");
             }
         }

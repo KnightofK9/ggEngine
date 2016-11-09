@@ -26,6 +26,7 @@ namespace ggMapEditor.Views.Dialogs
             InitializeComponent();
             vm = new ViewModels.NewTileMapViewModel();
             this.DataContext = vm;
+            this.Closing += vm.OnWindowClosing;
         }
 
         public Models.Combine GetCombine()

@@ -94,7 +94,7 @@ namespace ggMapEditor.Views.Main
             }
             Dialogs.AddTilesetDialog fileDialog = new Dialogs.AddTilesetDialog(combine.folderPath);
             fileDialog.ShowDialog();
-            combine.tileset = fileDialog.GetTileset();
+            combine.tilesets[0] = fileDialog.GetTileset();
             //if (combine.tileset != null && combine.tileset.imageUri != null)
             //    tilesetBox.SetTileset(combine.tileset);
         }

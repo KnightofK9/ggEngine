@@ -37,10 +37,10 @@ namespace ggMapEditor.ViewModels
         #region Properties
         public string Name
         {
-            get { return tileset.id; }
+            get { return tileset.tilesetKey; }
             set
             {
-                tileset.id = value;
+                tileset.tilesetKey = value;
                 RaisePropertyChanged("Name");
             }
 
@@ -88,14 +88,12 @@ namespace ggMapEditor.ViewModels
 
         void ButtonOk(object parameter)
         {
-            RenderTileset();
-            CloseWindow();
+            if (!RenderTileset())
+                this.CloseWindow();
+            base.CloseWindow();
         }
         void ButtonCancel(object parameter)
         {
-            tileset.tileList.Clear();
-            tileset = null;
-            GC.Collect();
             CloseWindow();
         }
         void BrowsFile(object parameter)
@@ -124,12 +122,24 @@ namespace ggMapEditor.ViewModels
             return tileset;
         }
 
-        private void RenderTileset()
+        private bool RenderTileset()
         {
-            BitmapImage img = new BitmapImage(tileset.imageUri);
+            //Kiểm tra nếu image k còn tồn tại
+            //if (!File.Exists(tileset.imageUri.ToString()))
+            //{
+            //    MessageBox.Show("This image is not exists.");
+            //    return false;
+            //}
+            //Kiểm tra các tileset có lưu chồng lên nhau k
+            string imgPath = folderPath + "\\" + tileset.tilesetKey + ".png";
+            if (File.Exists(imgPath))
+            {
+                MessageBox.Show("This name is exists. Please choose another.");
+                return false;
+            }
 
+            BitmapImage img = new BitmapImage(tileset.imageUri);
             List<BitmapSource> bmCells = BitmapImageExtensions.CropImage(img, TileSize, TileSize);
-         
             for (int i = 0; i < bmCells.Count; i++)
             {
                 Models.TilesetCell tile = new TilesetCell();
@@ -142,13 +152,25 @@ namespace ggMapEditor.ViewModels
             tileset.width = newImgSource.PixelWidth;
             tileset.height = newImgSource.PixelHeight;
 
-            string imgPath = folderPath + "\\" + tileset.id + ".png";
             newImgSource.SaveImage(imgPath);
             tileset.imageUri = new Uri(imgPath, UriKind.RelativeOrAbsolute);
 
-            string jsonFilePath = folderPath + "\\" + tileset.id + ".json";
+            string jsonFilePath = folderPath + "\\" + tileset.tilesetKey + ".json";
             string json = JsonConvert.SerializeObject(tileset);
-            System.IO.File.WriteAllText(jsonFilePath, json);    
+            System.IO.File.WriteAllText(jsonFilePath, json);
+
+            return true;
+        }
+
+        public override void CloseWindow(Nullable<bool> result = true)
+        {
+            //if (tileset != null)
+            //{
+            //    tileset.tileList.Clear();
+            //    tileset = null;
+            //}
+            //GC.Collect();
+            base.CloseWindow(result);
         }
         #endregion
     }

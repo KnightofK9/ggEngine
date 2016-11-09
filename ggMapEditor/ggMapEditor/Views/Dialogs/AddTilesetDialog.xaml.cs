@@ -29,6 +29,7 @@ namespace ggMapEditor.Views.Dialogs
             InitializeComponent();
             vm = new ViewModels.AddTilesetViewModel(folderPath);
             this.DataContext = vm;
+            this.Closing += vm.OnWindowClosing;
         }
 
         public Models.Tileset GetTileset()

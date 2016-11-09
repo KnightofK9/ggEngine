@@ -118,12 +118,10 @@ namespace ggMapEditor.ViewModels
             //Save folder contain tilemap
             combine.folderPath += "//" + FolderName;
             Json.ConvertJson.SaveFile(combine);
-            this.CloseWindow();
+            base.CloseWindow();
         }
         private void CancelButton_Click(object parameter)
         {
-            combine = null;
-            GC.Collect();
             this.CloseWindow();
         }
         private void BrowseButton_Click(object parameter)
@@ -141,6 +139,13 @@ namespace ggMapEditor.ViewModels
         public Models.Combine GetCombine()
         {
             return combine;
+        }
+
+        public override void CloseWindow(Nullable<bool> result = true)
+        {
+            //combine = null;
+          //GC.Collect();
+            base.CloseWindow(result);
         }
     }
 }

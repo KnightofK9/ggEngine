@@ -71,7 +71,7 @@ namespace ggMapEditor.Views.Controls
                 SetValue(TileHeightProperty, value);
             }
         }
-        //public Int32Rect RectImage { get; set; }
+        public string TilesetKey { get;  set;}
         #endregion
 
         #region CallBacks
@@ -105,7 +105,8 @@ namespace ggMapEditor.Views.Controls
             {
                 DataObject data = new DataObject();
                 data.SetData(DataFormats.Bitmap, TileSource);
-                data.SetData("ImgId", this.ImgId);
+                data.SetData(nameof(TilesetKey), this.TilesetKey);
+                data.SetData(nameof(ImgId), this.ImgId);
                 data.SetData("Object", this);
 
                 DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);

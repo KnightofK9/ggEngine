@@ -14,13 +14,17 @@ namespace ggMapEditor.ViewModels
         private int tileHeight;
 
         private ObservableCollection<DragableLayout> listChild;
+        //private ObservableCollection<Models.Tile> listTile;
         #endregion
 
         #region Constructors
         public MapAreaTabViewModel(Models.TileMap map)
         {
-            listChild = new ObservableCollection<DragableLayout>();
+            ListChild = new ObservableCollection<DragableLayout>();
+            ListTile = new ObservableCollection<Models.Tile>();
             InitGrid(map);
+
+
         }
         #endregion
 
@@ -44,9 +48,11 @@ namespace ggMapEditor.ViewModels
             set
             {
                 listChild = value;
-                RaisePropertyChanged("ListChild");
+                RaisePropertyChanged(nameof(ListChild));
             }
         }
+
+        public ObservableCollection<Models.Tile> ListTile{ get; private set; }
         #endregion
 
         private void InitGrid(Models.TileMap map)
@@ -71,49 +77,19 @@ namespace ggMapEditor.ViewModels
                     Canvas.SetLeft(layout, k*32);
                     layout.Width = tileWidth;
                     layout.Height = tileHeight;
-                    
+                    layout.ChildChanged += DragableLayout_ChildChange;
+
                     ListChild.Add(layout);
                 }
         }
 
 
-        //public ObservableCollection<object> RetrieveChilds()
-        //{
-            //var listChild = new ObservableCollection<object>();
-            //    //Grid grid = IGrid.GetGrid() as Grid;
-            //    foreach (var cell in grid.Children)
-            //    {
-            //        var childrens = (cell as DragableLayout).GetChildren();
-            //        if (childrens.Count > 0)
-            //        {
-            //            Views.Controls.Tile ctrTile = childrens.First() as Views.Controls.Tile;
-            //            Models.Tile tile = new Models.Tile();
-            //            tile.tileId = ctrTile.ImgId;
-            //            Point cellPosition = ctrTile.TransformToAncestor(grid).Transform(new Point(0, 0));
-            //            tile.rectPos = new Int32Rect((int)cellPosition.X, (int)cellPosition.Y, tileWidth, tileHeight);
-            //            listTile.Add(tile);
-            //        }
-            //    }
-            //    return listTile;
-        //}
-        //public ObservableCollection<Models.Tile> RetrieveTiles()
-        //{
-        //    ObservableCollection<Models.Tile> listTile = new ObservableCollection<Models.Tile>();
-        //    //Grid grid = IGrid.GetGrid() as Grid;
-        //    foreach (var cell in grid.Children)
-        //    {
-        //        var childrens = (cell as DragableLayout).GetChildren();
-        //        if (childrens.Count > 0)
-        //        {
-        //            Views.Controls.Tile ctrTile = childrens.First() as Views.Controls.Tile;
-        //            Models.Tile tile = new Models.Tile();
-        //            tile.tileId = ctrTile.ImgId;
-        //            Point cellPosition = ctrTile.TransformToAncestor(grid).Transform(new Point(0, 0));
-        //            tile.rectPos = new Int32Rect((int)cellPosition.X, (int)cellPosition.Y, tileWidth, tileHeight);
-        //            listTile.Add(tile);
-        //        }
-        //    }
-        //    return listTile;
-        //}
+        public void DragableLayout_ChildChange(object sender, DragableLayoutChildEventArgs e)
+        {
+            if (ListTile != null)
+            {
+                ListTile.Add(e.child);
+            }
+        }
     }
 }

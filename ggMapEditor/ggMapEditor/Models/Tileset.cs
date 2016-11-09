@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json;
 
 namespace ggMapEditor.Models
 {
     public class Tileset
     {
         private static int countId = 0;
-        public string id { get; set; }
+        public string tilesetKey { get; set; } // == name
         public int height { get; set; }
         public int width { get; set; }
         public int tileHeight { get; set; }
@@ -33,11 +34,8 @@ namespace ggMapEditor.Models
         public ObservableCollection<Models.TilesetCell> tileList { get; set; }
         public Tileset()
         {
-            id = "Tileset " + (countId++).ToString();
-            //tileSize = 32;
+            tilesetKey = "Tileset " + (countId++).ToString();
             tileHeight = tileWidth = 32;
-            //colorTransparent = Brushes.Pink;
-            //tiles = new ObservableCollection<Models.Tile>();
             tileList = new ObservableCollection<TilesetCell>();
         }
     }

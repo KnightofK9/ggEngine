@@ -11,7 +11,7 @@ namespace ggMapEditor.Models
     public class Tile
     {
         public long tileId;
-        public string tilesetKey = "Tileset";
+        public string tilesetKey;   //Tên của tileset
 
         [JsonIgnore]
         public Int32Rect rectPos;

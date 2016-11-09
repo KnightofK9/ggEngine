@@ -78,7 +78,6 @@ D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\bin\Debug\ro\Xceed.Wpf.AvalonDo
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
-D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\ggMapEditor.csprojResolveAssemblyReference.cache
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\Views\MapAreaTab.g.cs
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\Views\Controls\DragableLayout.g.cs
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\Views\Controls\MatrixGrid.g.cs

@@ -48,6 +48,7 @@ namespace ggMapEditor.ViewModels
                 tile.TileWidth = tileset.tileWidth;
                 tile.TileHeight = tile.TileHeight;
                 tile.ImgId = t.id;
+                tile.TilesetKey = tileset.tilesetKey;
                 tiles.Add(tile);
             }
             CtrlTiles = tiles;
