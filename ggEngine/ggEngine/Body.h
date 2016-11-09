@@ -12,6 +12,8 @@
 #include <vector>
 #include "GameObject.h"
 #include <algorithm>
+#include <queue>
+#include <list>
 namespace ggEngine {
 	enum ColliderArgDirection { Collider_Left = 0, Collider_Up, Collider_Right, Collider_Down };
 	class Sprite;
@@ -89,10 +91,16 @@ namespace ggEngine {
 		void RemoveCheckCollisionWith(GameObject *staticGo);
 		void PreUpdate();
 	private:
+		bool PerformCollisionCheck(Vector currentVelocity);
+		std::list<Box> GetPossibleCollidedList(Box &b1, Vector currentVelocity);
 		std::vector<ColliderArg> colliderDirection;
+		ColliderArg GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<Box> &possibleCollidedList);
+		std::priority_queue<ColliderArg> GetCollidedArgList(Box &b1, Vector currentVelocity);
+		bool GetArgIfCollided(Box &b1, Box &b2, ColliderArg &e);
 		ColliderArg shortestCollider;
 		bool CheckCollisionFromThisTo(GameObject* gameObject);
 		bool enable = true;
+		bool IsCollided(Box &b1,Box &b2);
 		PhysicsMode physicsMode;
 		Game* game;
 		bool CheckWorldBounds();
