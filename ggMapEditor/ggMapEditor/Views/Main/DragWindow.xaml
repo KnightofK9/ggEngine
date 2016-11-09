@@ -1,0 +1,36 @@
+﻿<Window x:Class="ggMapEditor.Views.Main.DragWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ggMapEditor.Views.Main"
+        xmlns:ctrl="clr-namespace:ggMapEditor.Views.Controls"
+        mc:Ignorable="d"
+        Title="DragWindow" Height="500" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ctrl:ZoomBox x:Name="zoomBox"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+            <ctrl:MatrixGrid HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             RowCount="10"
+                             ColumnCount="20"
+                             TileSize="32"/>
+        </ctrl:ZoomBox>
+        <Grid Name="grid"
+                Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ctrl:Tile TileHeight="32"
+                       TileWidth="32"
+                       TileSource="pack://application:,,,/rampo.jpg"/>
+        </Grid>
+    </Grid>
+</Window>

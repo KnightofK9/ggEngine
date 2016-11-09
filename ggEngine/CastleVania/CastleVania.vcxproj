@@ -94,7 +94,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;E:\application\boost_1_62_0\lib32-msvc-12.0;E:\application\boost_1_62_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\1-Study\DirectX\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;E:\application\boost_1_62_0\lib32-msvc-12.0;E:\application\boost_1_62_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>ggEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

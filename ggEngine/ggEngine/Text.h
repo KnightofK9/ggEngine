@@ -5,6 +5,9 @@
 #include "GGObject.h" //All instance of class within engine must derived from GGObject
 #include "Font.h"
 #include "GameObject.h"
+
+//#pragma comment(lib, "d3dx9core.lib")
+
 namespace ggEngine {
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
 	enum Allign { Allign_Left, Allign_Middle, Allign_Right};
