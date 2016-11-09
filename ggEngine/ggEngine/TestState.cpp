@@ -13,12 +13,14 @@ void TestState::Init(){
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
 	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
+	//this->preload->TileSet("TileMap/scene1.png", "TileMap/scene1.json");
 	this->preload->Font("sketches 90px","sketches", "Resource/Font/sketches.ttf", 90);
 }
 void TestState::Create()
 {
 	
 	tileMap = this->add->TileMap("Json/scene.json");
+	//tileMap = this->add->TileMap("TileMap/TileMap.json");
 	tileMap->name = "TileMap";
 	tileMap->SetScale(2, 2);
 
@@ -49,7 +51,7 @@ void TestState::Create()
 	//character->body->allowObjectBlock = false;
 	game->eventManager->EnableKeyBoardInput(character);
 	jumpTimer.reset();
-	character->SetScale(1.5, 1.5);
+	//character->SetScale(1.5, 1.5);
 	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
 		if (current != NULL) {
