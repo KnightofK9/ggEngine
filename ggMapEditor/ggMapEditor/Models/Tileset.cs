@@ -14,7 +14,7 @@ namespace ggMapEditor.Models
     public class Tileset
     {
         private static int countId = 0;
-        public string tilesetKey { get; set; } // == name
+        public string id { get; set; } // == name == tilesetKey
         public int height { get; set; }
         public int width { get; set; }
         public int tileHeight { get; set; }
@@ -34,7 +34,7 @@ namespace ggMapEditor.Models
         public ObservableCollection<Models.TilesetCell> tileList { get; set; }
         public Tileset()
         {
-            tilesetKey = "Tileset " + (countId++).ToString();
+            id = "Tileset " + (countId++).ToString();
             tileHeight = tileWidth = 32;
             tileList = new ObservableCollection<TilesetCell>();
         }

@@ -2,6 +2,7 @@
 #include "EventArg.h"
 #include "Vector.h"
 #include "Direction.h"
+#include "Box.h"
 namespace ggEngine {
 	class GameObject;
 	class ColliderArg :public EventArg {
@@ -16,6 +17,15 @@ namespace ggEngine {
 		Direction blockDirection;
 		Vector currentVelocity;
 		GameObject *colliderObject;
+		Box b;
+		bool operator<(const ColliderArg& other) const
+		{
+			return entryTime < other.entryTime;
+		}
+		bool operator==(const ColliderArg& other) const
+		{
+			return entryTime == other.entryTime;
+		}
 		void Reset() {
 			overLapped = false;
 			bound = false;

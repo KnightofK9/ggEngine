@@ -13,13 +13,20 @@ ggEngine::Tween::Tween(TweenManager* tweenManager, float &val, double end, unsig
 	this->currentTime = 0;
 }
 //Not ready to use yet
-//ggEngine::Tween::Tween(TweenManager* tweenManager, double init, double end, unsigned int duration, std::function<void(double)> update, std::function<double(double)> easingFunction) : val(val)
-//{
-//	this->val = NULL;
-//	this->tweenManager = tweenManager;
-//	this->isAlive = true;
-//	this->isFinished = false;
-//}
+ggEngine::Tween::Tween(TweenManager* tweenManager, float init, double end, unsigned int duration, std::function<void(double)> onUpdate, std::function<double(int, double, double, int)> easingFunction) :val(currentValue)
+{
+	this->end = end;
+	this->duration = duration;
+	this->tweenManager = tweenManager;
+	this->isAlive = true;
+	this->isFinished = false;
+	this->isPlaying = false;
+	this->easingFunction = easingFunction;
+	this->startValue = (double)init;
+	this->changeInValue = end - init;
+	this->currentTime = 0;
+	this->onUpdate = onUpdate;
+}
 
 ggEngine::Tween::~Tween()
 {
@@ -56,6 +63,9 @@ double ggEngine::Tween::Update(double deltaTime)
 		this->isFinished = true;
 		this->isPlaying = false;
 		CallFinish();
+	}
+	if (this->onUpdate != nullptr) {
+		onUpdate(val);
 	}
 	return this->val;
 }

@@ -1,6 +1,6 @@
 #include "TestState.h"
 #include "Audio.h"
-
+#include "World.h"
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -8,7 +8,8 @@ TestState::~TestState()
 {
 }
 void TestState::Init(){
-
+	increase = 0;
+	currentOpacity = 255;
 }
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
@@ -18,12 +19,11 @@ void TestState::Preload(){
 }
 void TestState::Create()
 {
-	
 	tileMap = this->add->TileMap("Json/scene.json");
 	//tileMap = this->add->TileMap("TileMap/TileMap.json");
 	tileMap->name = "TileMap";
-	tileMap->SetScale(2, 2);
-
+	tileMap->SetScale(1.5, 1.5);
+	this->game->world->SetOpacityAffectByParent(true);
 	group = this->add->Group();
 	// Text
 	Style style;
@@ -88,6 +88,24 @@ void TestState::Create()
 	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
 	Box box(1, 2, 3, 4, 5, 6);
 	box.SaveJsonTo("Json/box.json");
+
+	this->add->Tween(0, 255, 2000, Easing::linearTween, [this](double value) {
+		this->game->world->SetOpacity(value);
+	})->SetOnFinish([this]() {
+		//this->game->world->SetOpacityAffectByParent(false);
+	})->Start();
+
+	this->add->LoopInfinity(1000, [this]() {
+		this->text->SetText(std::to_string(++increase));
+	})->Start();
+
+	this->add->Tween(text->position.y, text->position.y - 200, 1000, Easing::easeOutQudouble)->Start();
+	this->add->Tween(text->position.x, text->position.x + 200, 1000, Easing::easeOutCirc)->SetOnFinish([this]() {
+		this->add->Tween(text->position.x, text->position.x - 200, 1000, Easing::easeInCubic)->Start();
+		this->add->Tween(text->position.y, text->position.y + 200, 1000, Easing::easeInOutCubic)->Start();
+	})->Start();
+
+
 	//box.ParseJson("Json/box.json");
 	//std::ofstream ofs("box_backup");
 	//{
@@ -112,7 +130,20 @@ void TestState::Create()
 void TestState::Update()
 {
 	///Test
-	
+	//this->currentOpacity += this->increase;
+	//{
+	//	if (this->currentOpacity < 0 || this->currentOpacity>255) {
+	//		this->increase *= -1;
+	//	}
+	//	this->currentOpacity += this->increase*2;
+	//	g_debug.Log(this->currentOpacity);
+	//}
+
+	//this->game->world->SetOpacity(currentOpacity);
+	//g_debug.Log(this->game->world->GetOpacity());
+
+
+
 	if (this->game->GetInput()->KeyDown(DIK_P))
 		sound->Play();
 	if (this->game->GetInput()->KeyDown(DIK_S))

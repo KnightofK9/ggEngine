@@ -26,4 +26,6 @@ private:
 	Text *text;
 	Audio *sound;
 	Font *font;
+	int increase;
+	int currentOpacity;
 };

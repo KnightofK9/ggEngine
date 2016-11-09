@@ -4,6 +4,7 @@
 namespace ggEngine{
 	Group::Group()
 	{
+		SetOpacityAffectByParent(true);
 	}
 	Group::~Group(){
 		for (std::list<Group*>::const_iterator it = groupList.begin(); it != groupList.end(); it++)

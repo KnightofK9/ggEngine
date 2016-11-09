@@ -10,7 +10,7 @@ namespace ggEngine{
 		this->drawManager = game->GetDrawManager();
 		this->game = game;
 		this->world = game->world;
-		this->add = new ggEngine::Add( game->world ,game->cache,game->tweenManager , game->GetDrawManager(), game->camera, game->physics);
+		this->add = new ggEngine::Add( game->world ,game->cache,game->tweenManager , game->GetDrawManager(), game->camera, game->physics, game->timeBasedEventManager);
 		this->preload = new ggEngine::Preload(game->cache);
 	}
 	State::~State(){

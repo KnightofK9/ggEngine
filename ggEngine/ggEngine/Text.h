@@ -49,8 +49,6 @@ namespace ggEngine {
 		virtual void SetScale(double x, double y);
 		virtual void SetScale(Vector vector);
 		virtual void SetRotate(double rotate); 
-		int GetOpacity() { return this->opacity; }
-		void SetOpacity(int opacity) { this->opacity = opacity % 256; }
 		void Transform(LPD3DXSPRITE spriteHandle);
 
 		virtual double GetOrgWidth() { return this->orgWidth; }
@@ -61,7 +59,6 @@ namespace ggEngine {
 		std::string text;
 		double orgWidth;
 		double orgHeight;
-		int opacity = 255;
 	};
 }
 

@@ -81,5 +81,8 @@ namespace ggEngine {
 	void GameObject::UpdateWorldPosition(){
 		this->worldScale = Vector(this->scale.x*this->parentObject->worldScale.x, this->scale.y*this->parentObject->worldScale.y);
 		this->worldPosition = Vector(this->position.x*this->parentObject->worldScale.x, this->position.y*this->parentObject->worldScale.y) + this->parentObject->worldPosition;
+		if (this->IsOpacityAffectByParent()) {
+			this->opacity = this->parentObject->GetOpacity();
+		}
 	}
 }

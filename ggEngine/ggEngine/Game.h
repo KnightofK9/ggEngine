@@ -7,6 +7,7 @@
 #include "DrawManager.h"
 #include "IGetGroup.h"
 namespace ggEngine {
+	class TimeBasedEventManager;
 	class TweenManager;
 	class EventManager;
 	class Camera;
@@ -37,7 +38,7 @@ namespace ggEngine {
 		Input* GetInput() { return this->input; }
 		World *world;
 		TweenManager *tweenManager;
-
+		TimeBasedEventManager *timeBasedEventManager;
 		Camera *camera;
 		HWND hWnd;
 	private:
