@@ -86,7 +86,7 @@ namespace ggMapEditor.Views.Fragments
                     CroppedBitmap croppedBitmap = new CroppedBitmap(source, new Int32Rect(t.x, t.y, tileset.tileWidth, tileset.tileHeight));
                     tile.TileSource = croppedBitmap;
                     tile.TileWidth = tileset.tileWidth;
-                    tile.TileHeight = tile.TileHeight;
+                    tile.TileHeight = tileset.tileHeight;
                     tile.ImgId = t.id;
                     CtrTiles.Add(tile);
                 }

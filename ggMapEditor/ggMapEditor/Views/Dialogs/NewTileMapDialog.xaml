@@ -7,7 +7,6 @@
         xmlns:helpers="clr-namespace:ggMapEditor.Helpers"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         Title="New Tile Map"

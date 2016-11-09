@@ -24,7 +24,7 @@ namespace ggMapEditor.ViewModels.Base
             set
             {
                 closeWindowFlag = value;
-                RaisePropertyChanged("CloseWindowFlag");
+                RaisePropertyChanged(nameof(CloseWindowFlag));
             }
         }
         public virtual void CloseWindow(Nullable<bool> result = true)
@@ -36,11 +36,12 @@ namespace ggMapEditor.ViewModels.Base
                 else
                     CloseWindowFlag = !CloseWindowFlag;
             }));
-            //GC.Collect();
+            GC.Collect();
         }
         public virtual void OnWindowClosing(object sender, CancelEventArgs e)
         {
             CloseWindow();
         }
+
     }
 }

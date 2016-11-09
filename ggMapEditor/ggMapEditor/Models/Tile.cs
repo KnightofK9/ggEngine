@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using ggMapEditor.Views.Controls;
 using Newtonsoft.Json;
 
 namespace ggMapEditor.Models
@@ -15,9 +16,17 @@ namespace ggMapEditor.Models
 
         [JsonIgnore]
         public Int32Rect rectPos;
+        [JsonIgnore]
+        public bool isCollidedObject;
 
         public Tile()
         {
+            isCollidedObject = false;
+        }
+
+        public void DragableLayout_CollidedChanged(object sender, DragableLayoutChildEventArgs e)
+        {
+            isCollidedObject = e.isCollidedObject;
         }
     }
 }

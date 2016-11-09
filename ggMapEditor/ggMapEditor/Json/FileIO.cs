@@ -22,7 +22,7 @@ namespace ggMapEditor.Json
             {
                 QTObject obj = new QTObject();
                 obj.value = tile;
-
+                obj.isCollidedObject = tile.isCollidedObject;
                 listQTObj.Add(obj);
             }
             Int32Rect rect = new Int32Rect(0, 0, tileMap.width, tileMap.height);

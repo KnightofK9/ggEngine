@@ -169,7 +169,6 @@ namespace ggMapEditor.ViewModels
             //    tileset.tileList.Clear();
             //    tileset = null;
             //}
-            //GC.Collect();
             base.CloseWindow(result);
         }
         #endregion

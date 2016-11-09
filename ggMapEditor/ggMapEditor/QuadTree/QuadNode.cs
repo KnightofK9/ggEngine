@@ -15,10 +15,13 @@ namespace ggMapEditor.QuadTree
     {
         public int type;
         public Models.Tile value;
+        [JsonIgnore]
+        public bool isCollidedObject;
     }
 
     public class QuadNode
-    { 
+    {
+        public long id;
         public int x;
         public int y;
         public int width;
@@ -28,8 +31,8 @@ namespace ggMapEditor.QuadTree
         public long rightTop { get; set; }
         public long rightBottom { get; set; }
         public long leftBottom { get; set; }
+        public bool isCollidedObject { get; set; }
 
-        public long id;
         public ObservableCollection<QTObject> tileList = new ObservableCollection<QTObject>();
 
         private Dictionary<long, QuadNode> listChild;
@@ -75,7 +78,7 @@ namespace ggMapEditor.QuadTree
 
         public void Insert(QTObject obj)
         {
-            Debug.Print("Node: " + id + "objs id: " + obj.value.tileId +", objs count: " + tileList.Count);
+            Debug.Print("Node: " + id + " objs id: " + obj.value.tileId +", objs count: " + tileList.Count);
             if (listChild != null)
             {
                 if (listChild[leftTop].IsContain(obj))
@@ -90,7 +93,11 @@ namespace ggMapEditor.QuadTree
             else
             {
                 if (this.IsContain(obj))
+                {
                     tileList.Add(obj);
+                    isCollidedObject = obj.isCollidedObject;
+                }
+
                 if (tileList.Count > QuadTree<Models.Tile>.MaxObjPerCell
                     && height > QuadTree<Models.Tile>.MinCellHeight
                     && width > QuadTree<Models.Tile>.MinCellWidth)
@@ -122,7 +129,6 @@ namespace ggMapEditor.QuadTree
                         if (listChild[leftBottom].IsContain(lastTile))
                         {
                             listChild[leftBottom].Insert(lastTile);
-
                         }
                     }
                 }
@@ -180,6 +186,10 @@ namespace ggMapEditor.QuadTree
         public bool ShouldSerializeleftBottom()
         {
             return !(listChild == null || listChild[leftBottom] == null);
+        }
+        public bool ShouldSerializeisCollidedObject()
+        {
+            return !(tileList == null || tileList.Count == 0);
         }
 
         public int GetTotalNodeSize()

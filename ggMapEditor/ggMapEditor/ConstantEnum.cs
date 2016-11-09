@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace ggMapEditor
 {
     //public enum Visibility { Visible, Hide };
+    public enum ToolTypes { Pen, Eraser, Block, Arrow };
     public enum TilesetType { Base, Collections };
     public enum TileType { singleTipe, animationTile};
 }

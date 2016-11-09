@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using ggMapEditor.Commands;
+using ggMapEditor.Helpers;
 
 namespace ggMapEditor.ViewModels.Main
 {
@@ -47,6 +49,9 @@ namespace ggMapEditor.ViewModels.Main
             AddTabCommand = new RelayCommand(AddTab);
             AddTilesetCommand = new RelayCommand(AddTileset);
             SaveCommand = new RelayCommand(Save);
+            ControlsCommand = new RelayCommand(SwitchControls);
+
+            ToolsEventHandle.DrawTool = ToolTypes.Block;
         }
         #endregion
 
@@ -55,6 +60,7 @@ namespace ggMapEditor.ViewModels.Main
         public RelayCommand AddTabCommand { get; set; }
         public RelayCommand AddTilesetCommand { get; set; }
         public RelayCommand SaveCommand { get; set; }
+        public RelayCommand ControlsCommand { get; set; }
         #endregion
 
         #region Other Funcs
@@ -78,7 +84,7 @@ namespace ggMapEditor.ViewModels.Main
         {
             if (combines.Count == 0 || combines[0] == null)
                 return;
-            
+
             Views.Dialogs.AddTilesetDialog dialog = new Views.Dialogs.AddTilesetDialog(combines[0].folderPath);
             dialog.ShowDialog();
 
@@ -102,6 +108,11 @@ namespace ggMapEditor.ViewModels.Main
             combines[current].tileMap.listTile = (dockManagerViewModel.DockTabs[current] as MapAreaTabViewModel).ListTile;
             Json.ConvertJson.SaveFile(combines[current]);
             //status.Content = "Save map";
+        }
+
+        private void SwitchControls(object parameter)
+        {
+            ToolsEventHandle.DrawTool = ToolTypes.Block;
         }
         #endregion
     }

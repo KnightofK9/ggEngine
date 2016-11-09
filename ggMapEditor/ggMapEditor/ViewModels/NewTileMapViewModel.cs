@@ -110,18 +110,41 @@ namespace ggMapEditor.ViewModels
         #region Commands
         private void OkButton_Click(object parameter)
         {
+            //Save folder contain tilemap
+            combine.folderPath += "\\" + FolderName;
+            //Check if folder is exists
+            if (Directory.Exists(combine.folderPath))
+            {
+                var result = MessageBox.Show("Can not create tile map."
+                    + "\nMake sure this tile map's name does not exit."
+                    + "\nDo you want to replace with this tile map?",
+                    null,
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (result != MessageBoxResult.OK)
+                {
+                    CloseWindow();
+                    return;
+                }
+
+                System.IO.DirectoryInfo di = new DirectoryInfo(combine.folderPath);
+                foreach (FileInfo file in di.GetFiles())
+                    file.Delete();
+                foreach (DirectoryInfo dir in di.GetDirectories())
+                    dir.Delete(true);
+            }
+
             //Resize tilemap
             int max = Math.Max(TileMap.row, TileMap.column);
             double n = Math.Ceiling(Math.Log((double)max, 2.0));
             TileMap.height = TileMap.width = (int)Math.Pow(2.0, n) * TileSize;
 
-            //Save folder contain tilemap
-            combine.folderPath += "//" + FolderName;
+            
             Json.ConvertJson.SaveFile(combine);
             base.CloseWindow();
         }
         private void CancelButton_Click(object parameter)
         {
+            combine = null;
             this.CloseWindow();
         }
         private void BrowseButton_Click(object parameter)
@@ -144,7 +167,6 @@ namespace ggMapEditor.ViewModels
         public override void CloseWindow(Nullable<bool> result = true)
         {
             //combine = null;
-          //GC.Collect();
             base.CloseWindow(result);
         }
     }

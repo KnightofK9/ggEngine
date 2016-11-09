@@ -47,6 +47,13 @@
                         Command="{Binding SaveCommand}"
                         Margin="5, 0"/>
             </ToolBar>
+            
+            <ToolBar>
+                <Button Name="blockButton"
+                        Content="Draw Block"
+                        Command="{Binding ControlsCommand}"
+                        Margin="5, 0"/>
+            </ToolBar>
         </ToolBarTray>
 
         <dock:DockingManager Grid.Row="2"

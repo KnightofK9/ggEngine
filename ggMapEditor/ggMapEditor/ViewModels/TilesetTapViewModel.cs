@@ -46,7 +46,7 @@ namespace ggMapEditor.ViewModels
                 CroppedBitmap croppedBitmap = new CroppedBitmap(source, new Int32Rect(t.x, t.y, tileset.tileWidth, tileset.tileHeight));
                 tile.TileSource = croppedBitmap;
                 tile.TileWidth = tileset.tileWidth;
-                tile.TileHeight = tile.TileHeight;
+                tile.TileHeight = tileset.tileHeight;
                 tile.ImgId = t.id;
                 tile.TilesetKey = tileset.tilesetKey;
                 tiles.Add(tile);
