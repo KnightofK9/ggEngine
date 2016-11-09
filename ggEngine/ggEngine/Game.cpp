@@ -10,6 +10,7 @@
 #include "Input.h"
 #include "World.h"
 #include "TweenManager.h"
+#include "TimeBasedEventManager.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
@@ -26,6 +27,7 @@ namespace ggEngine {
 			break;
 		}
 		try {
+			timeBasedEventManager = new TimeBasedEventManager(this);
 			d3dManager = new D3DManager(this,hWnd, width, height, gameColor, isWindowed);
 			stateManager = new StateManager(this);
 			camera = new Camera(this, width, height,0,0,true);
@@ -169,6 +171,7 @@ namespace ggEngine {
 			/*Handle input*/
 			input->PollKeyboard();
 			eventManager->DispatchKeyBoardEvent(input->keyStates);
+			timeBasedEventManager->Update(logicTimer.getDeltaTimeInMilisecond());
 			/*State update*/
 			
 			State *state = stateManager->GetCurrentState();

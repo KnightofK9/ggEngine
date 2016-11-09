@@ -6,6 +6,7 @@ namespace ggEngine {
 		SetPosition(0, 0);
 		this->worldPosition = Vector(0, 0);
 		this->worldScale = Vector(1, 1);
+		SetOpacityAffectByParent(false);
 	}
 	World::~World()
 	{

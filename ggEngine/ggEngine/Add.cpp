@@ -10,9 +10,11 @@
 #include "TileMap.h"
 #include "Camera.h"
 #include "Physics.h"
+#include "TimeBasedEventInfo.h"
+#include "TimeBasedEventManager.h"
 #include "Grid.h"
 namespace ggEngine{
-	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics){
+	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics, TimeBasedEventManager *timeBasedEventManager){
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
@@ -20,6 +22,7 @@ namespace ggEngine{
 		this->tweenManager = tweenManager;
 		this->camera = camera;
 		this->physics = physics;
+		this->timeBasedEventManager = timeBasedEventManager;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
@@ -76,10 +79,38 @@ namespace ggEngine{
 		this->tweenManager->AddTween(tween);
 		return tween;
 	}
-	//ggEngine::Tween * Add::Tween(double init, double end, double duration, std::function<void(double)> update, std::function<double(double)> easingFunction)
-	//{
-	//	return NULL;
-	//	/*ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, init, end, duration, update, easingFunction);
-	//	return tween;*/
-	//}
+	ggEngine::Tween * Add::Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction,  std::function<void(double)> update)
+	{
+		ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, init, end, duration, update, easingFunction);
+		this->tweenManager->AddTween(tween);
+		return tween;
+	}
+	TimeBasedEventInfo * Add::TimeOut(unsigned int delay, std::function<void(void)> function)
+	{
+		TimeBasedEventInfo *e = new TimeBasedEventInfo();
+		e->type = TimeBasedEvent_Single;
+		e->delay = delay;
+		e->function = function;
+		this->timeBasedEventManager->AddEvent(e);
+		return e;
+	}
+	TimeBasedEventInfo * Add::LoopInfinity(unsigned int delay, std::function<void(void)> function)
+	{
+		TimeBasedEventInfo *e = new TimeBasedEventInfo();
+		e->type = TimeBasedEvent_LoopInfinity;
+		e->delay = delay;
+		e->function = function;
+		this->timeBasedEventManager->AddEvent(e);
+		return e;
+	}
+	TimeBasedEventInfo * Add::Loop(unsigned int delay, unsigned int numberOfLoops, std::function<void(void)> function)
+	{
+		TimeBasedEventInfo *e = new TimeBasedEventInfo();
+		e->type = TimeBasedEvent_Loop;
+		e->delay = delay;
+		e->function = function;
+		e->numberOfLoops = numberOfLoops;
+		this->timeBasedEventManager->AddEvent(e);
+		return e;
+	}
 }

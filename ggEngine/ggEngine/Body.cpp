@@ -239,7 +239,7 @@ namespace ggEngine {
 				break;
 			}
 			isCollided = true;
-			if (e.blockDirection.down) {
+			/*if (e.blockDirection.down) {
 				g_debug.Log("down");
 			}
 			if (e.blockDirection.up) {
@@ -251,8 +251,8 @@ namespace ggEngine {
 			if (e.blockDirection.left) {
 				g_debug.Log("left");
 			}
-			if (!IsCollided(b1, e.b)) continue;
-			g_debug.Log("Received");
+			if (!IsCollided(b1, e.b)) continue;*/
+			//g_debug.Log("Received");
 			if (this->allowObjectBlock) {
 				this->rigidBody->Translate(currentVelocity*e.entryTime);
 				remainingTime -= e.entryTime;

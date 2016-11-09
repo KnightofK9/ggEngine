@@ -20,6 +20,7 @@ namespace ggEngine {
 		this->isCollidedObject = false;
 		SetScale(1, 1);
 		SetParentObject(quadTree->tileMap);
+		SetOpacityAffectByParent(true);
 	}
 
 	QuadNode::QuadNode(QuadTree * quadTree, double width, double height,int id, bool isCollidedObject)
@@ -33,6 +34,7 @@ namespace ggEngine {
 		this->isCollidedObject = isCollidedObject;
 		SetScale(1, 1);
 		SetParentObject(quadTree->tileMap);
+		SetOpacityAffectByParent(true);
 	}
 
 	QuadNode::~QuadNode()
@@ -78,7 +80,7 @@ namespace ggEngine {
 	{
 		this->worldScale = Vector(this->scale.x*this->parentObject->worldScale.x, this->scale.y*this->parentObject->worldScale.y);
 		this->worldPosition = Vector(this->position.x*this->parentObject->worldScale.x, this->position.y*this->parentObject->worldScale.y) + this->parentObject->worldPosition;
-
+		this->opacity = this->parentObject->GetOpacity();
 	}
 	void QuadNode::Draw()
 	{

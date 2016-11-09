@@ -9,6 +9,7 @@ namespace ggEngine {
 	class Tween :public GGObject {
 	public:
 		Tween(TweenManager* tweenManager, float &val, double end, unsigned int duration, std::function<double(int, double, double, int)> easingFunction);
+		Tween(TweenManager* tweenManager, float init, double end, unsigned int duration, std::function<void(double)> onUpdate, std::function<double(int, double, double, int)> easingFunction);
 		~Tween();
 		Tween* SetOnFinish(std::function<void()> onFinish);
 		bool IsPlaying();
@@ -21,9 +22,9 @@ namespace ggEngine {
 		//claw::tween::single_tweener* GetClawTweener() { return this->tweener; }
 		Tween* CallFinish();
 	private:
-		//Tween(TweenManager* tweenManager, double init, double end, unsigned int duration, std::function<void(double)> update, std::function<double(double)> easingFunction);
 		//claw::tween::single_tweener *tweener = nullptr;
 		std::function<void()> onFinish = nullptr;
+		std::function<void(double)> onUpdate = nullptr;
 		TweenManager* tweenManager;
 		std::function<double(double, double, double, double)> easingFunction;
 		bool isPlaying;
@@ -35,5 +36,6 @@ namespace ggEngine {
 		double end;
 		double duration;
 		double changeInValue;
+		float currentValue = 0;
 	};
 }

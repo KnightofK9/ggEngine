@@ -52,7 +52,14 @@ namespace ggEngine {
 		GameObject *GetParentObject(){ return this->parentObject; }
 		virtual double GetOrgWidth() { return this->width; }
 		virtual double GetOrgHeight() { return this->height; }
+		int GetOpacity() { return this->opacity; }
+		void SetOpacityAffectByParent(bool opacityAffectByParent) { this->opacityAffectByParent = opacityAffectByParent; }
+		bool IsOpacityAffectByParent() {return this->opacityAffectByParent;}
+		void SetOpacity(int opacity) { if (opacity > 255) { this->opacity = 255; } else this->opacity = opacity; }
+	
 	protected:
+		bool opacityAffectByParent = true;
+		int opacity = 255;
 		GameObject* parentObject = NULL;
 		double width;
 		double height;
