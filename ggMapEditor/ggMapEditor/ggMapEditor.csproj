@@ -113,10 +113,10 @@
     <Compile Include="ViewModels\Main\RootWindowViewModel.cs" />
     <Compile Include="ViewModels\Main\DockManagerViewModel.cs" />
     <Compile Include="ViewModels\Main\DockTabViewModel.cs" />
-    <Compile Include="ViewModels\ToolBarTrayViewModel.cs" />
-    <Compile Include="Views\Fragments\ToolBarTray.xaml.cs">
-      <DependentUpon>ToolBarTray.xaml</DependentUpon>
+    <Compile Include="ViewModels\MatrixGrid.xaml.cs">
+      <DependentUpon>MatrixGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ToolBarTrayViewModel.cs" />
     <Compile Include="Views\MapAreaTab.xaml.cs">
       <DependentUpon>MapAreaTab.xaml</DependentUpon>
     </Compile>
@@ -125,9 +125,6 @@
     <Compile Include="ViewModels\TileViewModel.cs" />
     <Compile Include="Views\Controls\DragableLayout.xaml.cs">
       <DependentUpon>DragableLayout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\MatrixGrid.xaml.cs">
-      <DependentUpon>MatrixGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\Tile.xaml.cs">
       <DependentUpon>Tile.xaml</DependentUpon>
@@ -144,9 +141,6 @@
     <Compile Include="Views\Dialogs\NewTileMapDialog.xaml.cs">
       <DependentUpon>NewTileMapDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Main\RootWindow.xaml.cs">
-      <DependentUpon>RootWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Main\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
@@ -154,19 +148,15 @@
     <Compile Include="Views\TilesetTab.xaml.cs">
       <DependentUpon>TilesetTab.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Fragments\ToolBarTray.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="ViewModels\MatrixGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MapAreaTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\DragableLayout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\MatrixGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,10 +172,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Fragments\TilesetBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Main\DragWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,9 +182,6 @@
     </Compile>
     <Compile Include="Views\Fragments\LayerBox.xaml.cs">
       <DependentUpon>LayerBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Fragments\TilesetBox.xaml.cs">
-      <DependentUpon>TilesetBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\DragWindow.xaml.cs">
       <DependentUpon>DragWindow.xaml</DependentUpon>
@@ -212,10 +195,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\NewTileMapDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Main\RootWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,6 +240,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cursor.png" />
+    <Resource Include="Resources\eraser.png" />
+    <Resource Include="Resources\file.png" />
+    <Resource Include="Resources\image.png" />
+    <Resource Include="Resources\pen.png" />
+    <Resource Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\block.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

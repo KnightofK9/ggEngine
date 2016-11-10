@@ -11,7 +11,9 @@
         xmlns:dock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:dockctrl="clr-namespace:Xceed.Wpf.AvalonDock.Controls;assembly=Xceed.Wpf.AvalonDock"
         mc:Ignorable="d"
-        Title="TestWindow" Height="768" Width="1024">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Title="TestWindow">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -32,47 +34,76 @@
         </Menu>-->
 
         <ToolBarTray Grid.Row="1"
-                     Height="30">
-            <ToolBar>
-                <Button Content="New Tile Map"
+                     Background="#f6f6f6">
+            <ToolBar Background="#f6f6f6">
+                <Button ToolTip="New Tile Map"
                         Command="{Binding AddTabCommand}"
-                        Margin="5, 0"/>
-                <Button Content="New Tileset"
+                        Margin="10, 0">
+                    <Image Source="/Resources/file.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
+                <Button ToolTip="New Tileset"
                         Command="{Binding AddTilesetCommand}"
-                        Margin="5, 0"/>
+                        Margin="10, 0">
+                    <Image Source="/Resources/image.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
                 <!--<Button Content="Open"
                         Click="OpenTileMap_Click"
                         Margin="5, 0"/>-->
-                <Button Content="Save"
+                <Button ToolTip="Save"
                         Command="{Binding SaveCommand}"
-                        Margin="5, 0"/>
+                        Margin="10, 0">
+                    <Image Source="/Resources/save.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
             </ToolBar>
-            
-            <ToolBar>
+
+            <ToolBar Background="#f6f6f6">
                 <Button Name="toolBlock"
-                        Content="Draw Block"
+                        ToolTip="Draw Block"
                         Command="{Binding ControlsCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Margin="5, 0"/>
+                        Margin="10, 0">
+                    <Image Source="/Resources/block.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
                 <Button Name="pen"
-                        Content="Pen"
+                        ToolTip="Pen"
                         Command="{Binding ControlsCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Margin="5, 0"/>
+                        Margin="10, 0">
+                    <Image Source="/Resources/pen.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
                 <Button Name="eraser"
-                        Content="Eraser"
+                        ToolTip="Eraser"
                         Command="{Binding ControlsCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Margin="5, 0"/>
+                        Margin="10, 0">
+                    <Image Source="/Resources/eraser.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
                 <Button Name="arrow"
-                        Content="Arrow"
+                        ToolTip="Arrow"
                         Command="{Binding ControlsCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Margin="5, 0"/>
+                        Margin="10, 0">
+                    <Image Source="/Resources/cursor.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
             </ToolBar>
         </ToolBarTray>
 
         <dock:DockingManager Grid.Row="2"
+                             Background="DimGray"
                          DataContext="{Binding DockManagerViewModel}"
                          DocumentsSource="{Binding DockTabs}"
                          AnchorablesSource="{Binding Anchorables}" >
@@ -96,6 +127,9 @@
                     <Setter Property="CanClose" Value="{Binding Model.CanClose}" />
                 </Style>
             </dock:DockingManager.LayoutItemContainerStyle>
+            <dock:DockingManager.Theme>
+                <dock:VS2010Theme/>
+            </dock:DockingManager.Theme>
         </dock:DockingManager>
     </Grid>
 </Window>
