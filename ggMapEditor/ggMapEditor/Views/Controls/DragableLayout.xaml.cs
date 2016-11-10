@@ -12,10 +12,12 @@ namespace ggMapEditor.Views.Controls
     public class DragableLayoutChildEventArgs
     {
         public readonly Models.Tile child;
+        public readonly bool isChildRemoved;
         public readonly bool isCollidedObject;
-        public DragableLayoutChildEventArgs(Models.Tile child)
+        public DragableLayoutChildEventArgs(Models.Tile child, bool isRemoved = false) //isRemoved: tile được thêm vào hay xóa đi
         {
             this.child = child;
+            this.isChildRemoved = isRemoved;
         }
         public DragableLayoutChildEventArgs(bool isCollidedObject)
         {
@@ -30,7 +32,7 @@ namespace ggMapEditor.Views.Controls
         public event AddChildHandle ChildChanged;
         public event AddChildHandle CollidedChanged;
 
-        public ObservableCollection<UIElement> ListChild { get; private set; }
+        protected ObservableCollection<Models.Tile> ListChild { get; private set; }
         public static readonly DependencyPropertyKey ChildrenProperty = DependencyProperty.RegisterReadOnly
         (
             nameof(Children),
@@ -48,7 +50,7 @@ namespace ggMapEditor.Views.Controls
         public DragableLayout()
         {
             InitializeComponent();
-            ListChild = new ObservableCollection<UIElement>();
+            ListChild = new ObservableCollection<Models.Tile>();
             
         }
 
@@ -79,7 +81,6 @@ namespace ggMapEditor.Views.Controls
                             cTile.TilesetKey = (string)e.Data.GetData(nameof(cTile.TilesetKey));
                             cTile.ImgId = (long)e.Data.GetData(nameof(cTile.ImgId));
                             panel.Children.Add(cTile);
-                            ListChild.Add(cTile);
                             e.Effects = DragDropEffects.Copy;
 
 
@@ -90,6 +91,8 @@ namespace ggMapEditor.Views.Controls
                             mTile.rectPos = new Int32Rect((int)cellPosition.X, (int)cellPosition.Y, (int)cTile.TileWidth, (int)cTile.TileHeight);
                             this.CollidedChanged += mTile.DragableLayout_CollidedChanged;
                             OnChildChanged(new DragableLayoutChildEventArgs(mTile));
+
+                            ListChild.Add(mTile);
                         }
                     }
                 }
@@ -97,6 +100,7 @@ namespace ggMapEditor.Views.Controls
                 Mouse.Capture(null);
             }
         }
+
 
         public void OnChildChanged(DragableLayoutChildEventArgs e)
         {
@@ -109,15 +113,17 @@ namespace ggMapEditor.Views.Controls
 
         private void container_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (ToolsEventHandle.DrawTool == ToolTypes.Block && ListChild.Count == 1)
+            Canvas panel = (Canvas)sender;
+
+            if (ToolsEventHandle.DrawTool == ToolTypes.Block
+                && panel.Children.Count == 1)
             {
-                Canvas panel = (Canvas)sender;
                 Rectangle rec = new Rectangle()
                 {
                     Width = this.Width,
                     Height = this.Height,
                     Stroke = Brushes.Green,
-                    StrokeThickness = 1,
+                    StrokeThickness = 2,
                 };
                 Canvas.SetTop(rec, 0);
                 Canvas.SetLeft(rec, 0);
@@ -127,19 +133,23 @@ namespace ggMapEditor.Views.Controls
                 return;
             }
 
-            if (ToolsEventHandle.DrawTool ==  ToolTypes.Pen
-                && ListChild.Count == 0
-                && e.Handled == false)
+            if (ToolsEventHandle.DrawTool == ToolTypes.Eraser && panel.Children.Count >= 1)
             {
-
+                if (panel.Children.Count == 1)
+                {
+                    OnChildChanged(new DragableLayoutChildEventArgs(ListChild[0], true));
+                    ListChild.RemoveAt(ListChild.Count - 1);
+                }
+                panel.Children.RemoveAt(panel.Children.Count - 1);
+                OnCollidedChanged(new DragableLayoutChildEventArgs(false));
             }
         }
 
         private void container_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                MessageBox.Show("Pressed!");
+
             }
         }
     }

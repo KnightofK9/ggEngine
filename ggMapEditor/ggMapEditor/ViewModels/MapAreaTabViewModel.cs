@@ -88,7 +88,10 @@ namespace ggMapEditor.ViewModels
         {
             if (ListTile != null)
             {
-                ListTile.Add(e.child);
+                if (e.isChildRemoved)
+                    ListTile.Remove(e.child);
+                else
+                    ListTile.Add(e.child);
             }
         }
     }

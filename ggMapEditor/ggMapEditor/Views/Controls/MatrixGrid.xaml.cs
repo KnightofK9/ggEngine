@@ -112,21 +112,22 @@ namespace ggMapEditor.Views.Controls
 
         public ObservableCollection<Models.Tile> RetrieveTiles()
         {
-            ObservableCollection<Models.Tile> listTile = new ObservableCollection<Models.Tile>();
-            foreach (var cell in grid.Children)
-            { 
-                var childrens = (cell as DragableLayout).ListChild;
-                if (childrens.Count > 0)
-                {
-                    Controls.Tile ctrTile = childrens.First() as Controls.Tile;
-                    Models.Tile tile = new Models.Tile();
-                    tile.tileId = ctrTile.ImgId;
-                    Point cellPosition = ctrTile.TransformToAncestor(grid).Transform(new Point(0, 0));
-                    tile.rectPos = new Int32Rect((int)cellPosition.X, (int)cellPosition.Y, TileSize, TileSize);
-                    listTile.Add(tile);
-                }
-            }
-            return listTile;
+            //ObservableCollection<Models.Tile> listTile = new ObservableCollection<Models.Tile>();
+            //foreach (var cell in grid.Children)
+            //{ 
+            //    var childrens = (cell as DragableLayout).ListChild;
+            //    if (childrens.Count > 0)
+            //    {
+            //        Controls.Tile ctrTile = childrens.First() as Controls.Tile;
+            //        Models.Tile tile = new Models.Tile();
+            //        tile.tileId = ctrTile.ImgId;
+            //        Point cellPosition = ctrTile.TransformToAncestor(grid).Transform(new Point(0, 0));
+            //        tile.rectPos = new Int32Rect((int)cellPosition.X, (int)cellPosition.Y, TileSize, TileSize);
+            //        listTile.Add(tile);
+            //    }
+            //}
+            //return listTile;
+            return null;
         }
     }
 }

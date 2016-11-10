@@ -55,6 +55,9 @@ namespace ggMapEditor.Views.Controls
 
         private void OnSliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (Helpers.ToolsEventHandle.DrawTool != ToolTypes.Arrow)
+                return;
+
             scaleTransform.ScaleX = e.NewValue;
             scaleTransform.ScaleY = e.NewValue;
 
@@ -64,6 +67,9 @@ namespace ggMapEditor.Views.Controls
 
         void OnMouseMove(object sender, MouseEventArgs e)
         {
+            if (Helpers.ToolsEventHandle.DrawTool != ToolTypes.Arrow)
+                return;
+
             if (lastDragedPoint.HasValue)
             {
                 Point posCurrent = e.GetPosition(scrollViewer);
@@ -80,6 +86,9 @@ namespace ggMapEditor.Views.Controls
 
         void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (Helpers.ToolsEventHandle.DrawTool != ToolTypes.Arrow)
+                return;
+
             var mousePos = e.GetPosition(scrollViewer);
             if (mousePos.X <= scrollViewer.ViewportWidth
                 && mousePos.Y <= scrollViewer.ViewportHeight)
@@ -92,6 +101,9 @@ namespace ggMapEditor.Views.Controls
 
         void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (Helpers.ToolsEventHandle.DrawTool != ToolTypes.Arrow)
+                return;
+
             lastMousePositionOnTarget = Mouse.GetPosition(container);
 
             if (e.Delta > 0)
@@ -104,6 +116,9 @@ namespace ggMapEditor.Views.Controls
 
         void OnMouseleftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if (Helpers.ToolsEventHandle.DrawTool != ToolTypes.Arrow)
+                return;
+
             scrollViewer.Cursor = Cursors.Arrow;
             scrollViewer.ReleaseMouseCapture();
             lastDragedPoint = null;
@@ -111,6 +126,9 @@ namespace ggMapEditor.Views.Controls
 
         void OnScrollViewerScrollChanged(object sender, ScrollChangedEventArgs e)
         {
+            if (Helpers.ToolsEventHandle.DrawTool != ToolTypes.Arrow)
+                return;
+
             if (e.ExtentHeightChange != 0 || e.ExtentWidthChange != 0)
             {
                 Nullable<Point> targetBeffore = null;
@@ -155,6 +173,9 @@ namespace ggMapEditor.Views.Controls
 
         void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if (Helpers.ToolsEventHandle.DrawTool != ToolTypes.Arrow)
+                return;
+
             scrollViewer.Cursor = Cursors.Arrow;
             scrollViewer.ReleaseMouseCapture();
             lastDragedPoint = null;
