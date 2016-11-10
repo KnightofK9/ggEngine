@@ -174,15 +174,6 @@ namespace ggMapEditor
                     {
                         Int32Rect rect = new Int32Rect(k, i, cellWidth, cellHeight);
                         CroppedBitmap croppedBitmap = new CroppedBitmap(img, rect);
-
-                        //for (int m = 0; m < bmSources.Count; m++)
-                        //        if (croppedBitmap.IsEqual(bmSources[m]))
-                        //        {
-                        //            isExist = true;
-                        //            break;
-                        //        }
-                        //if (!isExist)
-
                         long key = croppedBitmap.ToBytes().SumBytes();
                         List<BitmapSource> list;
                         if (hashMap.TryGetValue(key, out list))

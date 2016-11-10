@@ -91,11 +91,12 @@ namespace ggMapEditor.ViewModels
         {
             if (!RenderTileset())
                 this.CloseWindow();
-            base.CloseWindow();
+            StatusMsg = "Cropped Image";
+            base.CloseWindow(true);
         }
         void ButtonCancel(object parameter)
         {
-            CloseWindow();
+            this.CloseWindow(false);
         }
         void BrowsFile(object parameter)
         {
@@ -136,7 +137,6 @@ namespace ggMapEditor.ViewModels
             StatusMsg = "Cropping Image...";
             BitmapImage img = new BitmapImage(tileset.imageUri);
             List<BitmapSource> bmCells = BitmapImageExtensions.CropImage(img, TileSize, TileSize);
-            StatusMsg = "Cropped Image";
 
             for (int i = 0; i < bmCells.Count; i++)
             {
@@ -163,14 +163,14 @@ namespace ggMapEditor.ViewModels
             return true;
         }
 
-        public override void CloseWindow(Nullable<bool> result = true)
+        public override void CloseWindow(Nullable<bool> isSaveRecord = true)
         {
-            //if (tileset != null)
-            //{
-            //    tileset.tileList.Clear();
-            //    tileset = null;
-            //}
-            base.CloseWindow(result);
+            if (tileset != null)
+            {
+                tileset.tileList.Clear();
+                tileset = null;
+            }
+            base.CloseWindow(false);
         }
         #endregion
     }

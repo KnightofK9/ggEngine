@@ -122,7 +122,7 @@ namespace ggMapEditor.ViewModels
                     MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (result != MessageBoxResult.OK)
                 {
-                    CloseWindow();
+                    this.CloseWindow(false);
                     return;
                 }
 
@@ -140,12 +140,12 @@ namespace ggMapEditor.ViewModels
 
             
             Json.ConvertJson.SaveFile(combine);
-            base.CloseWindow();
+            base.CloseWindow(true);
         }
         private void CancelButton_Click(object parameter)
         {
             combine = null;
-            this.CloseWindow();
+            this.CloseWindow(false);
         }
         private void BrowseButton_Click(object parameter)
         {
@@ -164,10 +164,10 @@ namespace ggMapEditor.ViewModels
             return combine;
         }
 
-        public override void CloseWindow(Nullable<bool> result = true)
+        public override void CloseWindow(Nullable<bool> isSaveRecord = false)
         {
-            //combine = null;
-            base.CloseWindow(result);
+            combine = null;
+            base.CloseWindow(false);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -47,8 +48,10 @@ namespace ggMapEditor.ViewModels.Base
                 RaisePropertyChanged(nameof(CloseWindowFlag));
             }
         }
-        public virtual void CloseWindow(Nullable<bool> result = true)
+        private Nullable<bool> isSaveRecord;
+        public virtual void CloseWindow(Nullable<bool> isSaveRecord = true)
         {
+            this.isSaveRecord = isSaveRecord;
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
                 if (CloseWindowFlag == null)
@@ -60,8 +63,9 @@ namespace ggMapEditor.ViewModels.Base
         }
         public virtual void OnWindowClosing(object sender, CancelEventArgs e)
         {
+            if (isSaveRecord == true)
+                return;
             CloseWindow();
         }
-
     }
 }

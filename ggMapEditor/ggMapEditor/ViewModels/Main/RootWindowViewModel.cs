@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,16 +36,6 @@ namespace ggMapEditor.ViewModels.Main
         //public ToolBarViewModel toolBarViewModel{get; private set;}
         //public StatusBarViewModel statusBarViewModel{get; private set;}
 
-
-        //public string StatusMessage
-        //{
-        //    get { return base.StatusMsg; }
-        //    set
-        //    {
-        //        StatusMsg = value;
-        //        RaisePropertyChanged(nameof(StatusMsg));
-        //    }
-        //}
         #endregion
 
         #region Constructors
@@ -61,6 +52,7 @@ namespace ggMapEditor.ViewModels.Main
             ControlsCommand = new RelayCommand(SwitchControls);
 
             ToolsEventHandle.DrawTool = ToolTypes.Block;
+            StatusMsg = "Ready";
         }
         #endregion
 
@@ -87,7 +79,8 @@ namespace ggMapEditor.ViewModels.Main
 
             combines.Add(cmb);
             current++;
-            StatusMsg = "Ready";
+
+            StatusMsg = "Created " + cmb.folderName;
         }
 
         private void AddTileset(object parameter)
@@ -108,7 +101,7 @@ namespace ggMapEditor.ViewModels.Main
             DockManagerViewModel.AddAnchorTab(tsetTab);
             combines[current].tilesets.Add(tset);
 
-            StatusMsg = "Ready";
+            StatusMsg = "Created " + tset.id;
         }
 
         private void Save(object parameter)
@@ -116,11 +109,12 @@ namespace ggMapEditor.ViewModels.Main
             if (combines[current] == null)
             {
                 MessageBox.Show("Please create TileMap before.");
+                StatusMsg = "";
                 return;
             }
             combines[current].tileMap.listTile = (dockManagerViewModel.DockTabs[current] as MapAreaTabViewModel).ListTile;
             Json.ConvertJson.SaveFile(combines[current]);
-            //status.Content = "Save map";
+            StatusMsg = "Saved";
         }
 
         private void SwitchControls(object parameter)
