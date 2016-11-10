@@ -36,6 +36,15 @@ namespace ggMapEditor.ViewModels.Main
         //public StatusBarViewModel statusBarViewModel{get; private set;}
 
 
+        //public string StatusMessage
+        //{
+        //    get { return base.StatusMsg; }
+        //    set
+        //    {
+        //        StatusMsg = value;
+        //        RaisePropertyChanged(nameof(StatusMsg));
+        //    }
+        //}
         #endregion
 
         #region Constructors
@@ -78,6 +87,7 @@ namespace ggMapEditor.ViewModels.Main
 
             combines.Add(cmb);
             current++;
+            StatusMsg = "Ready";
         }
 
         private void AddTileset(object parameter)
@@ -86,16 +96,19 @@ namespace ggMapEditor.ViewModels.Main
                 return;
 
             Views.Dialogs.AddTilesetDialog dialog = new Views.Dialogs.AddTilesetDialog(combines[0].folderPath);
+            var vm = dialog.DataContext as ViewModels.AddTilesetViewModel;
+            vm.StatusMsgChanged += RootWindow_StatusMsgChanged;
             dialog.ShowDialog();
-
-            Models.Tileset tset = (dialog.DataContext as ViewModels.AddTilesetViewModel).GetTileset();
+            
+            Models.Tileset tset = vm.GetTileset();
             if (tset == null) return;
-            //check if tilesetKey is exist
 
             TilesetTapViewModel tsetTab = new TilesetTapViewModel(tset);
             tsetTab.Title = tset.id;
             DockManagerViewModel.AddAnchorTab(tsetTab);
             combines[current].tilesets.Add(tset);
+
+            StatusMsg = "Ready";
         }
 
         private void Save(object parameter)
@@ -116,23 +129,38 @@ namespace ggMapEditor.ViewModels.Main
             {
                 case "toolBlock":
                     ToolsEventHandle.DrawTool = ToolTypes.Block;
+                    StatusMsg = "Using Block tool";
                     break;
 
                 case "pen":
                     ToolsEventHandle.DrawTool = ToolTypes.Pen;
+                    StatusMsg = "Using Pen tool";
                     break;
 
                 case "eraser":
                     ToolsEventHandle.DrawTool = ToolTypes.Eraser;
+                    StatusMsg = "Using Eraser tool";
                     break;
 
                 case "arrow":
                     ToolsEventHandle.DrawTool = ToolTypes.Arrow;
+                    StatusMsg = "Using Arrow tool";
                     break;
 
                 default:
                     return;
             }
+        }
+
+        private void RootWindow_StatusMsgChanged(object sender, MessageEventArgs e)
+        {
+            StatusMsg = e.statusMsg;
+        }
+
+        protected override void SetStatusMsgChanged(MessageEventArgs e)
+        {
+            base.SetStatusMsgChanged(e);
+            RaisePropertyChanged(nameof(StatusMsg));
         }
         #endregion
     }

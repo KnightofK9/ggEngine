@@ -35,6 +35,11 @@ namespace ggMapEditor
             return data;
         }
 
+        public static long SumBytes(this byte[] bytes)
+        {
+            return bytes.Sum(x => (byte)x);
+        }
+
         public static RenderTargetBitmap MergeImage(this List<BitmapSource> imgs)
         {
             if (imgs == null)
@@ -64,20 +69,46 @@ namespace ggMapEditor
         }
         public static RenderTargetBitmap MergeImageDifference(this List<BitmapSource> imgs)
         {
+            var hashMap = new Dictionary<byte[], BitmapSource>();
             List<BitmapSource> listDif = new List<BitmapSource>();
             listDif.Add(imgs[0]);
+            hashMap.Add(imgs[0].ToBytes(), imgs[0]);
             for (int i = 1; i < imgs.Count(); i++)
             {
-                bool isExist = false;
-                for (int k = 0; k < listDif.Count(); k++)
-                    if (imgs[i].IsEqual(imgs[k]))
-                    {
-                        isExist = true;
-                        break;
-                    }
-                if (!isExist)
-                    listDif.Add(imgs[i]);
+                //bool isExist = false;
+                ////for (int k = 0; k < listDif.Count(); k++)
+                ////    if (imgs[i].IsEqual(imgs[k]))
+                ////    {
+                ////        isExist = true;
+                ////        break;
+                ////    }
+                //long key = imgs[i].ToBytes().SumBytes();
+                //List<BitmapSource> list;
+                //if (hashMap.TryGetValue(key, out list))
+                //{
+                //    foreach (var item in list)
+                //        if (imgs[i].IsEqual(item))
+                //        {
+                //            isExist = true;
+                //            break;
+                //        }
+                //    hashMap[key].Add(imgs[i]);
+                //}
+                //else
+                //{
+                //    list = new List<BitmapSource>();
+                //    list.Add(imgs[i]);
+                //    hashMap.Add(key, list);
+                //}
+
+                if (hashMap.ContainsKey(imgs[i].ToBytes()))
+                    continue;
+
+                listDif.Add(imgs[i]);
+                hashMap.Add(imgs[i].ToBytes(), imgs[i]);
             }
+
+
             return MergeImage(listDif);
         }
 
@@ -131,7 +162,8 @@ namespace ggMapEditor
 
         public static List<BitmapSource> CropImage(BitmapImage img, int cellWidth = 32, int cellHeight = 32)
         {
-            List<BitmapSource> bmSources = new List<BitmapSource>();
+            var bmSources = new List<BitmapSource>();
+            var hashMap = new Dictionary<long, List<BitmapSource>>();
             if (img != null && cellWidth > 0 && cellHeight > 0)
             {
                 int width = img.PixelWidth;
@@ -143,15 +175,38 @@ namespace ggMapEditor
                         Int32Rect rect = new Int32Rect(k, i, cellWidth, cellHeight);
                         CroppedBitmap croppedBitmap = new CroppedBitmap(img, rect);
 
-                        bool isExist = false;
-                        for (int m = 0; m < bmSources.Count; m++)
-                                if (croppedBitmap.IsEqual(bmSources[m]))
+                        //for (int m = 0; m < bmSources.Count; m++)
+                        //        if (croppedBitmap.IsEqual(bmSources[m]))
+                        //        {
+                        //            isExist = true;
+                        //            break;
+                        //        }
+                        //if (!isExist)
+
+                        long key = croppedBitmap.ToBytes().SumBytes();
+                        List<BitmapSource> list;
+                        if (hashMap.TryGetValue(key, out list))
+                        {
+                            bool isExist = false;
+                            foreach (var item in list)
+                                if (croppedBitmap.IsEqual(item))
                                 {
                                     isExist = true;
                                     break;
                                 }
-                        if (!isExist)
-                        bmSources.Add(croppedBitmap);
+                            if (isExist == false)
+                            {
+                                hashMap[key].Add(croppedBitmap);
+                                bmSources.Add(croppedBitmap);
+                            }
+                        }
+                        else
+                        {
+                            list = new List<BitmapSource>();
+                            list.Add(croppedBitmap);
+                            hashMap.Add(key, list);
+                            bmSources.Add(croppedBitmap);
+                        }
                     }                
             }
             return bmSources;

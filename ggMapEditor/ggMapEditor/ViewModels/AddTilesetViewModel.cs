@@ -15,6 +15,7 @@ using ggMapEditor.Commands;
 using ggMapEditor.Models;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using ggMapEditor.Helpers;
 
 namespace ggMapEditor.ViewModels
 {
@@ -124,12 +125,6 @@ namespace ggMapEditor.ViewModels
 
         private bool RenderTileset()
         {
-            //Kiểm tra nếu image k còn tồn tại
-            //if (!File.Exists(tileset.imageUri.ToString()))
-            //{
-            //    MessageBox.Show("This image is not exists.");
-            //    return false;
-            //}
             //Kiểm tra các tileset có lưu chồng lên nhau k
             string imgPath = folderPath + "\\" + tileset.id + ".png";
             if (File.Exists(imgPath))
@@ -138,8 +133,11 @@ namespace ggMapEditor.ViewModels
                 return false;
             }
 
+            StatusMsg = "Cropping Image...";
             BitmapImage img = new BitmapImage(tileset.imageUri);
             List<BitmapSource> bmCells = BitmapImageExtensions.CropImage(img, TileSize, TileSize);
+            StatusMsg = "Cropped Image";
+
             for (int i = 0; i < bmCells.Count; i++)
             {
                 Models.TilesetCell tile = new TilesetCell();

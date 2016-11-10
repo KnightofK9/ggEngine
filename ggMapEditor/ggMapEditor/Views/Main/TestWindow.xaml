@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!--<Menu Grid.Row="0" DataContext="{Binding MenuViewModel}" ItemsSource="{Binding Items}">
@@ -106,7 +107,7 @@
                              Background="DimGray"
                          DataContext="{Binding DockManagerViewModel}"
                          DocumentsSource="{Binding DockTabs}"
-                         AnchorablesSource="{Binding Anchorables}" >
+                         AnchorablesSource="{Binding Anchorables}">
 
             <dock:DockingManager.Resources>
                 <!-- add views for specific ViewModels -->
@@ -131,5 +132,13 @@
                 <dock:VS2010Theme/>
             </dock:DockingManager.Theme>
         </dock:DockingManager>
+
+        <!-- StatusBar: Thanh trạng thái cho biết chương trình đang làm gì-->
+        <StatusBar Grid.Row="5" Background="Gray">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusMsg}"
+                           Foreground="White"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

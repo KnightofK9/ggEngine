@@ -109,3 +109,4 @@ D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\ggMapEditor.exe
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\ggMapEditor.pdb
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\ViewModels\MatrixGrid.g.cs
 D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\ViewModels\MatrixGrid.baml
+D:\subject\NMGame\Engine\ggMapEditor\ggMapEditor\obj\Debug\ggMapEditor.csprojResolveAssemblyReference.cache

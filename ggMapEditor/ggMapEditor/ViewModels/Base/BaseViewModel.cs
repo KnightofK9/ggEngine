@@ -6,11 +6,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using ggMapEditor.Helpers;
 
 namespace ggMapEditor.ViewModels.Base
 {
-    class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
+        private string statusMsg;
+        public event EventHandle.MessageHandle StatusMsgChanged;
+
+        protected virtual void SetStatusMsgChanged(MessageEventArgs e)
+        {
+            StatusMsgChanged?.Invoke(this, e);
+        }
+
+        public string StatusMsg
+        {
+            get { return statusMsg; }
+            set
+            {
+                statusMsg = value;
+                SetStatusMsgChanged(new MessageEventArgs(statusMsg));
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         internal void RaisePropertyChanged(string property)
         {
