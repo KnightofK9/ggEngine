@@ -213,6 +213,8 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TileSet.h" />
+    <ClInclude Include="TimeBasedEventInfo.h" />
+    <ClInclude Include="TimeBasedEventManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Tween.h" />
     <ClInclude Include="TweenManager.h" />
@@ -274,6 +276,8 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TileSet.cpp" />
+    <ClCompile Include="TimeBasedEventInfo.cpp" />
+    <ClCompile Include="TimeBasedEventManager.cpp" />
     <ClCompile Include="Tween.cpp" />
     <ClCompile Include="TweenManager.cpp" />
     <ClCompile Include="Vector.cpp" />

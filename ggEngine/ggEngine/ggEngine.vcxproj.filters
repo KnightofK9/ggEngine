@@ -225,6 +225,12 @@
     <ClCompile Include="AudioInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimeBasedEventInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeBasedEventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -435,6 +441,12 @@
       <Filter>Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="AudioInfo.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeBasedEventInfo.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeBasedEventManager.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
