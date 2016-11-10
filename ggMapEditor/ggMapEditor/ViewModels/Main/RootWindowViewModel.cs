@@ -93,7 +93,7 @@ namespace ggMapEditor.ViewModels.Main
             //check if tilesetKey is exist
 
             TilesetTapViewModel tsetTab = new TilesetTapViewModel(tset);
-            tsetTab.Title = tset.tilesetKey;
+            tsetTab.Title = tset.id;
             DockManagerViewModel.AddAnchorTab(tsetTab);
             combines[current].tilesets.Add(tset);
         }
@@ -112,7 +112,27 @@ namespace ggMapEditor.ViewModels.Main
 
         private void SwitchControls(object parameter)
         {
-            ToolsEventHandle.DrawTool = ToolTypes.Block;
+            switch ((parameter as Button).Name)
+            {
+                case "toolBlock":
+                    ToolsEventHandle.DrawTool = ToolTypes.Block;
+                    break;
+
+                case "pen":
+                    ToolsEventHandle.DrawTool = ToolTypes.Pen;
+                    break;
+
+                case "eraser":
+                    ToolsEventHandle.DrawTool = ToolTypes.Eraser;
+                    break;
+
+                case "arrow":
+                    ToolsEventHandle.DrawTool = ToolTypes.Arrow;
+                    break;
+
+                default:
+                    return;
+            }
         }
         #endregion
     }

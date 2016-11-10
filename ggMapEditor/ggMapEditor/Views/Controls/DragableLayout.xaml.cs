@@ -124,6 +124,14 @@ namespace ggMapEditor.Views.Controls
                 panel.Children.Add(rec);
 
                 OnCollidedChanged(new DragableLayoutChildEventArgs(true));
+                return;
+            }
+
+            if (ToolsEventHandle.DrawTool ==  ToolTypes.Pen
+                && ListChild.Count == 0
+                && e.Handled == false)
+            {
+
             }
         }
 

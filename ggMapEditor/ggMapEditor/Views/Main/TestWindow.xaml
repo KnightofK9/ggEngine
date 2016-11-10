@@ -49,9 +49,25 @@
             </ToolBar>
             
             <ToolBar>
-                <Button Name="blockButton"
+                <Button Name="toolBlock"
                         Content="Draw Block"
                         Command="{Binding ControlsCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Margin="5, 0"/>
+                <Button Name="pen"
+                        Content="Pen"
+                        Command="{Binding ControlsCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Margin="5, 0"/>
+                <Button Name="eraser"
+                        Content="Eraser"
+                        Command="{Binding ControlsCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Margin="5, 0"/>
+                <Button Name="arrow"
+                        Content="Arrow"
+                        Command="{Binding ControlsCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
                         Margin="5, 0"/>
             </ToolBar>
         </ToolBarTray>

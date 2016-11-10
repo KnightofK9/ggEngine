@@ -139,14 +139,16 @@ namespace ggMapEditor.QuadTree
         {
             leftTop = ((id + 1) * 4);
             rightTop = ((id + 1) * 4) + 1;
-            rightBottom = ((id + 1) * 4) + 2;
-            leftBottom = ((id + 1) * 4) + 3;
+            //rightBottom = ((id + 1) * 4) + 2;
+            //leftBottom = ((id + 1) * 4) + 3;
+            rightBottom = ((id + 1) * 4) + 3;
+            leftBottom = ((id + 1) * 4) + 2;
 
             listChild = new Dictionary<long, QuadNode>();
             listChild.Add(leftTop, new QuadNode     (new Int32Rect(x,              y,              width / 2, height / 2), null, leftTop));
             listChild.Add(rightTop, new QuadNode    (new Int32Rect(x + width / 2,  y,              width / 2, height / 2), null, rightTop));
-            listChild.Add(rightBottom, new QuadNode (new Int32Rect(x + width / 2,  y + height / 2, width / 2, height / 2), null, rightBottom));
-            listChild.Add(leftBottom, new QuadNode  (new Int32Rect(x,              y + height / 2, width / 2, height / 2), null, leftBottom));
+            listChild.Add(rightBottom, new QuadNode (new Int32Rect(x + width / 2,  y + height / 2, width / 2, height / 2), null, leftBottom));//
+            listChild.Add(leftBottom, new QuadNode  (new Int32Rect(x,              y + height / 2, width / 2, height / 2), null, rightBottom));//
             //hasChild = true;
         }
 
@@ -191,7 +193,6 @@ namespace ggMapEditor.QuadTree
         {
             return !(tileList == null || tileList.Count == 0);
         }
-
         public int GetTotalNodeSize()
         {
             if (listChild == null)
@@ -209,10 +210,10 @@ namespace ggMapEditor.QuadTree
             if (listChild == null)
                 return 1;
             int node = 0;
-            node += listChild[leftTop].GetTotalNodeSize();
-            node += listChild[rightTop].GetTotalNodeSize();
-            node += listChild[rightBottom].GetTotalNodeSize();
-            node += listChild[leftBottom].GetTotalNodeSize();
+            node += listChild[leftTop].GetTotalLeafNodeSize();
+            node += listChild[rightTop].GetTotalLeafNodeSize();
+            node += listChild[rightBottom].GetTotalLeafNodeSize();
+            node += listChild[leftBottom].GetTotalLeafNodeSize();
 
             return node;
 

@@ -37,10 +37,10 @@ namespace ggMapEditor.ViewModels
         #region Properties
         public string Name
         {
-            get { return tileset.tilesetKey; }
+            get { return tileset.id; }
             set
             {
-                tileset.tilesetKey = value;
+                tileset.id = value;
                 RaisePropertyChanged("Name");
             }
 
@@ -131,7 +131,7 @@ namespace ggMapEditor.ViewModels
             //    return false;
             //}
             //Kiểm tra các tileset có lưu chồng lên nhau k
-            string imgPath = folderPath + "\\" + tileset.tilesetKey + ".png";
+            string imgPath = folderPath + "\\" + tileset.id + ".png";
             if (File.Exists(imgPath))
             {
                 MessageBox.Show("This name is exists. Please choose another.");
@@ -151,11 +151,14 @@ namespace ggMapEditor.ViewModels
             var newImgSource = bmCells.MergeImage();
             tileset.width = newImgSource.PixelWidth;
             tileset.height = newImgSource.PixelHeight;
+            tileset.numberOfCell = bmCells.Count;
+            tileset.numberOfCellPerRow = bmCells.Count;
+            tileset.numberOfCellPerColumn = 1;
 
             newImgSource.SaveImage(imgPath);
             tileset.imageUri = new Uri(imgPath, UriKind.RelativeOrAbsolute);
 
-            string jsonFilePath = folderPath + "\\" + tileset.tilesetKey + ".json";
+            string jsonFilePath = folderPath + "\\" + tileset.id + ".json";
             string json = JsonConvert.SerializeObject(tileset);
             System.IO.File.WriteAllText(jsonFilePath, json);
 

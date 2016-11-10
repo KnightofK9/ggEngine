@@ -93,6 +93,7 @@
     <Compile Include="ConstantEnum.cs" />
     <Compile Include="Helpers\DialogCloser.cs" />
     <Compile Include="Helpers\StaticHelpers.cs" />
+    <Compile Include="Helpers\ToolsEventHandle.cs" />
     <Compile Include="Json\FileIO.cs" />
     <Compile Include="Json\JsonFormat.cs" />
     <Compile Include="Models\Combine.cs" />
@@ -111,6 +112,10 @@
     <Compile Include="ViewModels\Main\RootWindowViewModel.cs" />
     <Compile Include="ViewModels\Main\DockManagerViewModel.cs" />
     <Compile Include="ViewModels\Main\DockTabViewModel.cs" />
+    <Compile Include="ViewModels\ToolBarTrayViewModel.cs" />
+    <Compile Include="Views\Fragments\ToolBarTray.xaml.cs">
+      <DependentUpon>ToolBarTray.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MapAreaTab.xaml.cs">
       <DependentUpon>MapAreaTab.xaml</DependentUpon>
     </Compile>
@@ -148,6 +153,10 @@
     <Compile Include="Views\TilesetTab.xaml.cs">
       <DependentUpon>TilesetTab.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Fragments\ToolBarTray.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MapAreaTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

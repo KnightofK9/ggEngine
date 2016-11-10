@@ -21,7 +21,7 @@ namespace ggMapEditor.Models
         public int tileWidth { get; set; }
         public int numberOfCell { get; set; }
         public int numberOfCellPerRow { get; set; }
-        public int numberOfCellPerCol { get; set; }
+        public int numberOfCellPerColumn { get; set; }
 
 
 
