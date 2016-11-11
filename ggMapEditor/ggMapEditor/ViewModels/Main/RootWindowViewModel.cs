@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 using ggMapEditor.Commands;
 using ggMapEditor.Helpers;
 
@@ -50,6 +55,7 @@ namespace ggMapEditor.ViewModels.Main
             AddTilesetCommand = new RelayCommand(AddTileset);
             SaveCommand = new RelayCommand(Save);
             ControlsCommand = new RelayCommand(SwitchControls);
+            CaptureImgCommand = new RelayCommand(CaptureImage);
 
             ToolsEventHandle.DrawTool = ToolTypes.Block;
             StatusMsg = "Ready";
@@ -62,6 +68,7 @@ namespace ggMapEditor.ViewModels.Main
         public RelayCommand AddTilesetCommand { get; set; }
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand ControlsCommand { get; set; }
+        public RelayCommand CaptureImgCommand { get; set; }
         #endregion
 
         #region Other Funcs
@@ -156,6 +163,14 @@ namespace ggMapEditor.ViewModels.Main
             base.SetStatusMsgChanged(e);
             RaisePropertyChanged(nameof(StatusMsg));
         }
+
+        private void CaptureImage(object parameter)
+        {
+            var mapAreaVM = DockManagerViewModel.DockTabs[current] as MapAreaTabViewModel;
+            var image = mapAreaVM.CaptureImage();
+            image.SaveImage(combines[current].folderPath + "\\" + combines[current].folderName + "_Captured.png");
+        }
+
         #endregion
     }
 }

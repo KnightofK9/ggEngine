@@ -3,7 +3,7 @@ using ggMapEditor.Commands;
 
 namespace ggMapEditor.ViewModels.Main
 {
-    class DockTabViewModel : Base.BaseViewModel
+    public class DockTabViewModel : Base.BaseViewModel
     {
         #region Properties
         private bool isClosed;

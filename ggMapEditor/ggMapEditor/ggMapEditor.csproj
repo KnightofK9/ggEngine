@@ -93,6 +93,7 @@
     <Compile Include="ConstantEnum.cs" />
     <Compile Include="Helpers\DialogCloser.cs" />
     <Compile Include="Helpers\EventHandle.cs" />
+    <Compile Include="Helpers\MouseBehaviour.cs" />
     <Compile Include="Helpers\StaticHelpers.cs" />
     <Compile Include="Helpers\ToolsEventHandle.cs" />
     <Compile Include="Json\FileIO.cs" />

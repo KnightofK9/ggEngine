@@ -143,6 +143,24 @@ namespace ggMapEditor.Views.Controls
                 panel.Children.RemoveAt(panel.Children.Count - 1);
                 OnCollidedChanged(new DragableLayoutChildEventArgs(false));
             }
+            if (ToolsEventHandle.DrawTool == ToolTypes.Pen
+                && panel.Children.Count == 0
+                && Helpers.StaticHelper.currentCTile != null)
+            {
+
+                //var cTile = new Controls.Tile(StaticHelper.currentCTile);
+                //panel.Children.Add(cTile);
+
+                //Models.Tile mTile = new Models.Tile();
+                //mTile.tileId = cTile.ImgId;
+                //mTile.tilesetKey = cTile.TilesetKey;
+                //Point cellPosition = new Point(Canvas.GetLeft(this), Canvas.GetTop(this));//cTile.TransformToAncestor(grid).Transform(new Point(0, 0));
+                //mTile.rectPos = new Int32Rect((int)cellPosition.X, (int)cellPosition.Y, (int)cTile.TileWidth, (int)cTile.TileHeight);
+                //this.CollidedChanged += mTile.DragableLayout_CollidedChanged;
+                //OnChildChanged(new DragableLayoutChildEventArgs(mTile));
+
+                //ListChild.Add(mTile);
+            }
         }
 
         private void container_MouseMove(object sender, MouseEventArgs e)
@@ -151,6 +169,17 @@ namespace ggMapEditor.Views.Controls
             {
 
             }
+        }
+
+        public void AddChild(UIElement element)
+        {
+            Canvas.SetTop(element, 0);
+            Canvas.SetLeft(element, 0);
+            container.Children.Add(element);
+        }
+        public void RemoveChild()
+        {
+            container.Children.RemoveAt(container.Children.Count - 1);
         }
     }
 }

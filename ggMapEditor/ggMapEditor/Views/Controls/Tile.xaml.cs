@@ -36,6 +36,7 @@ namespace ggMapEditor.Views.Controls
         public Tile(Tile tile)
         {
             InitializeComponent();
+            this.TilesetKey = tile.TilesetKey;
             this.TileHeight = tile.TileHeight;
             this.TileWidth = tile.TileWidth;
             this.TileSource = tile.TileSource;
@@ -98,44 +99,49 @@ namespace ggMapEditor.Views.Controls
         #endregion
 
         #region functions
-        protected override void OnMouseMove(MouseEventArgs e)
+        //protected override void OnMouseMove(MouseEventArgs e)
+        //{
+        //    base.OnMouseMove(e);
+        //    if (e.LeftButton == MouseButtonState.Pressed)
+        //    {
+        //        DataObject data = new DataObject();
+        //        data.SetData(DataFormats.Bitmap, TileSource);
+        //        data.SetData(nameof(TilesetKey), "abc");//this.TilesetKey);
+        //        data.SetData(nameof(ImgId), this.ImgId);
+        //        data.SetData("Object", this);
+
+        //        DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+        //    }
+        //}
+
+        //protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
+        //{
+        //    base.OnGiveFeedback(e);
+
+        //    if (e.Effects.HasFlag(DragDropEffects.Copy))
+        //        Mouse.SetCursor(Cursors.Pen);
+        //    else
+        //        Mouse.SetCursor(Cursors.No);
+
+        //    e.Handled = true;
+        //}
+
+        //protected override void OnDrop(DragEventArgs e)
+        //{
+        //    base.OnDrop(e);
+        //    e.Effects = DragDropEffects.Copy;
+        //    e.Handled = true;
+        //}
+        //protected override void OnDragOver(DragEventArgs e)
+        //{
+        //    base.OnDragOver(e);
+        //    e.Effects = DragDropEffects.Copy;
+        //    e.Handled = true;
+        //}
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            base.OnMouseMove(e);
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DataObject data = new DataObject();
-                data.SetData(DataFormats.Bitmap, TileSource);
-                data.SetData(nameof(TilesetKey), this.TilesetKey);
-                data.SetData(nameof(ImgId), this.ImgId);
-                data.SetData("Object", this);
-
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-            }
-        }
-
-        protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
-        {
-            base.OnGiveFeedback(e);
-
-            if (e.Effects.HasFlag(DragDropEffects.Copy))
-                Mouse.SetCursor(Cursors.Pen);
-            else
-                Mouse.SetCursor(Cursors.No);
-
-            e.Handled = true;
-        }
-
-        protected override void OnDrop(DragEventArgs e)
-        {
-            base.OnDrop(e);
-            e.Effects = DragDropEffects.Copy;
-            e.Handled = true;
-        }
-        protected override void OnDragOver(DragEventArgs e)
-        {
-            base.OnDragOver(e);
-            e.Effects = DragDropEffects.Copy;
-            e.Handled = true;
+            base.OnPreviewMouseLeftButtonDown(e);
+            Helpers.StaticHelper.currentCTile = this;
         }
         #endregion
     }

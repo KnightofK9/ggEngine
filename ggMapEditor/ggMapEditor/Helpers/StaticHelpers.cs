@@ -11,6 +11,7 @@ namespace ggMapEditor.Helpers
 {
     public static class StaticHelper
     {
+        public static Views.Controls.Tile currentCTile;
         //public static T GetChildOfType<T>(this DependencyObject depObj)
         //where T : DependencyObject
         //{

@@ -89,6 +89,9 @@ namespace ggMapEditor.ViewModels
 
         void ButtonOk(object parameter)
         {
+            if (tileset.imageUri == null)
+                return;
+
             if (!RenderTileset())
                 this.CloseWindow();
             StatusMsg = "Cropped Image";
