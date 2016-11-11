@@ -44,8 +44,8 @@ namespace ggMapEditor.ViewModels
 
         public Models.TileMap TileMap
         {
-            get { return combine.tileMap; }
-            set { combine.tileMap = value; }
+            get { return combine.tileMaps; }
+            set { combine.tileMaps = value; }
         }
 
         public Models.Tileset Tileset

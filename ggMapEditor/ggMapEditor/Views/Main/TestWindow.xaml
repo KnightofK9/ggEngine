@@ -108,6 +108,13 @@
                         Margin="10, 0">
                     Capture Image
                 </Button>
+                <Button 
+                        ToolTip="Arrow"
+                        Command="{Binding LoadBackgroundCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Margin="10, 0">
+                    Load Background
+                </Button>
             </ToolBar>
         </ToolBarTray>
 

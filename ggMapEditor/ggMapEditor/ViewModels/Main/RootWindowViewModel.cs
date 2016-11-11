@@ -20,7 +20,7 @@ namespace ggMapEditor.ViewModels.Main
     class RootWindowViewModel : Base.BaseViewModel
     {
         #region Private Members
-        private ObservableCollection<Models.Combine> combines;
+        private Models.Combine combine;
         private DockManagerViewModel dockManagerViewModel;
         private int current;
 
@@ -48,7 +48,7 @@ namespace ggMapEditor.ViewModels.Main
         public RootWindowViewModel()
         {
             current = -1;
-            combines = new ObservableCollection<Models.Combine>();
+            //combines = new ObservableCollection<Models.Combine>();
 
             dockManagerViewModel = new DockManagerViewModel();
             AddTabCommand = new RelayCommand(AddTab);
@@ -56,8 +56,12 @@ namespace ggMapEditor.ViewModels.Main
             SaveCommand = new RelayCommand(Save);
             ControlsCommand = new RelayCommand(SwitchControls);
             CaptureImgCommand = new RelayCommand(CaptureImage);
+            LoadBackgroundCommand = new RelayCommand(LoadBackground);
 
+            //Static
             ToolsEventHandle.DrawTool = ToolTypes.Block;
+            CacheElementCollection.Elements = new Dictionary<System.Windows.Point, UIElement>();
+
             StatusMsg = "Ready";
         }
         #endregion
@@ -69,6 +73,7 @@ namespace ggMapEditor.ViewModels.Main
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand ControlsCommand { get; set; }
         public RelayCommand CaptureImgCommand { get; set; }
+        public RelayCommand LoadBackgroundCommand { get; set; }
         #endregion
 
         #region Other Funcs
@@ -77,14 +82,14 @@ namespace ggMapEditor.ViewModels.Main
             Views.Dialogs.NewTileMapDialog dialog = new Views.Dialogs.NewTileMapDialog();
             dialog.ShowDialog();
             Models.Combine cmb = (dialog.DataContext as ViewModels.NewTileMapViewModel).GetCombine();
-            if (cmb == null || cmb.tileMap == null)
+            if (cmb == null || cmb.tileMaps == null || cmb.tileMaps.Count == 0)
                 return;
 
-            MapAreaTabViewModel mapTab = new MapAreaTabViewModel(cmb.tileMap);
+            MapAreaTabViewModel mapTab = new MapAreaTabViewModel(cmb.tileMaps[0]);
             mapTab.Title = cmb.folderName;
             DockManagerViewModel.AddDockTab(mapTab);
 
-            combines.Add(cmb);
+            combine = cmb;
             current++;
 
             StatusMsg = "Created " + cmb.folderName;
@@ -92,10 +97,10 @@ namespace ggMapEditor.ViewModels.Main
 
         private void AddTileset(object parameter)
         {
-            if (combines.Count == 0 || combines[0] == null)
+            if (combine == null)
                 return;
 
-            Views.Dialogs.AddTilesetDialog dialog = new Views.Dialogs.AddTilesetDialog(combines[0].folderPath);
+            Views.Dialogs.AddTilesetDialog dialog = new Views.Dialogs.AddTilesetDialog(combine.folderPath);
             var vm = dialog.DataContext as ViewModels.AddTilesetViewModel;
             vm.StatusMsgChanged += RootWindow_StatusMsgChanged;
             dialog.ShowDialog();
@@ -106,21 +111,23 @@ namespace ggMapEditor.ViewModels.Main
             TilesetTapViewModel tsetTab = new TilesetTapViewModel(tset);
             tsetTab.Title = tset.id;
             DockManagerViewModel.AddAnchorTab(tsetTab);
-            combines[current].tilesets.Add(tset);
+            combine.tilesets.Add(tset);
 
             StatusMsg = "Created " + tset.id;
         }
 
         private void Save(object parameter)
         {
-            if (combines[current] == null)
+            if (combine == null)
             {
                 MessageBox.Show("Please create TileMap before.");
                 StatusMsg = "";
                 return;
             }
-            combines[current].tileMap.listTile = (dockManagerViewModel.DockTabs[current] as MapAreaTabViewModel).HashMapChild;
-            Json.ConvertJson.SaveFile(combines[current]);
+            if (combine.tileMaps.Count == 0)
+                return;
+            combine.tileMaps[current].listTile = (dockManagerViewModel.DockTabs[current] as MapAreaTabViewModel).HashMapChild;
+            Json.ConvertJson.SaveFile(combine, current);
             StatusMsg = "Saved";
         }
 
@@ -168,9 +175,13 @@ namespace ggMapEditor.ViewModels.Main
         {
             var mapAreaVM = DockManagerViewModel.DockTabs[current] as MapAreaTabViewModel;
             var image = mapAreaVM.CaptureImage();
-            image.SaveImage(combines[current].folderPath + "\\" + combines[current].folderName + "_Captured.png");
+            image.SaveImage(combine.folderPath + "\\" + combine.folderName + "_Captured.png");
         }
 
+        private void LoadBackground(object parameter)
+        {
+            
+        }
         #endregion
     }
 }

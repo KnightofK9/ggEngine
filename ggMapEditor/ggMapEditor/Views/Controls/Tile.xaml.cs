@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ggMapEditor.Helpers;
 
 namespace ggMapEditor.Views.Controls
 {
@@ -140,8 +141,21 @@ namespace ggMapEditor.Views.Controls
         //}
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
+            if (CacheElementCollection.Elements == null)
+                return;
             base.OnPreviewMouseLeftButtonDown(e);
-            Helpers.StaticHelper.currentCTile = this;
+
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                CacheElementCollection.Elements.Add(e.GetPosition(null), this);
+                StaticHelper.currentCTile = null;
+            }
+            else
+            {
+                CacheElementCollection.Elements.Clear();
+                StaticHelper.currentCTile = this;
+            }
+            
         }
         #endregion
     }

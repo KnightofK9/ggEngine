@@ -91,9 +91,11 @@
     <Compile Include="BitmapImage\BitmapImageExtensions.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ConstantEnum.cs" />
+    <Compile Include="Helpers\CacheElementCollection.cs" />
     <Compile Include="Helpers\DialogCloser.cs" />
     <Compile Include="Helpers\EventHandle.cs" />
     <Compile Include="Helpers\MouseBehaviour.cs" />
+    <Compile Include="Helpers\OtherBehaviours.cs" />
     <Compile Include="Helpers\StaticHelpers.cs" />
     <Compile Include="Helpers\ToolsEventHandle.cs" />
     <Compile Include="Json\FileIO.cs" />
@@ -109,7 +111,6 @@
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\AddTilesetViewModel.cs" />
     <Compile Include="ViewModels\LayerBoxViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Main\AnchorTabViewModel.cs" />
     <Compile Include="ViewModels\Main\RootWindowViewModel.cs" />
     <Compile Include="ViewModels\Main\DockManagerViewModel.cs" />

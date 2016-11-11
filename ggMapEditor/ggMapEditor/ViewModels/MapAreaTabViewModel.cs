@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using ggMapEditor.Commands;
 using ggMapEditor.Views;
 using ggMapEditor.Views.Controls;
+using ggMapEditor.Helpers;
 
 namespace ggMapEditor.ViewModels
 {
@@ -61,7 +62,7 @@ namespace ggMapEditor.ViewModels
                     layout.Height = tileHeight;
                     //layout.ChildChanged += DragableLayout_ChildChange;
 
-                    HashMap.Add(new Point(k,i), layout);
+                    HashMap.Add(new Point(k, i), layout);
                 }
         }
 
@@ -74,11 +75,11 @@ namespace ggMapEditor.ViewModels
         }
         public int MapWidth
         {
-            get { return tileWidth*columnCount; }
+            get { return tileWidth * columnCount; }
         }
         public int MapHeight
         {
-            get { return tileHeight*rowCount; }
+            get { return tileHeight * rowCount; }
         }
 
         public ObservableCollection<DragableLayout> ListChild
@@ -103,7 +104,9 @@ namespace ggMapEditor.ViewModels
                 foreach (var c in hashMap)
                 {
                     var dragLayout = c.Value;
-                    Views.Controls.Tile cTile = dragLayout.Children[0] as Views.Controls.Tile;
+                    if (dragLayout.GetChildCount() == 0 || dragLayout.GetChildAt(0) == null)
+                        continue;
+                    Views.Controls.Tile cTile = dragLayout.GetChildAt(0) as Views.Controls.Tile;
 
                     var mTile = new Models.Tile();
                     mTile.tileId = cTile.ImgId;
@@ -171,7 +174,11 @@ namespace ggMapEditor.ViewModels
                 DrawBlock();
 
             if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Pen)
-                DrawTile(new Views.Controls.Tile(Helpers.StaticHelper.currentCTile));
+            {
+                //DrawMultiTile(CacheElementCollection.Elements);
+                DrawTile(Helpers.StaticHelper.currentCTile);
+            }
+
 
             if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Eraser)
                 Eraser();
@@ -210,16 +217,46 @@ namespace ggMapEditor.ViewModels
         }
 
 
+        private void DrawMultiTile(Dictionary<Point, UIElement> elements)
+        {
+            if (elements != null && elements.Count > 1)
+            {
+                var childs = elements.TranslatePositionCollection(Mouse.GetPosition(null), Mouse.GetPosition(container));
+                foreach (var c in childs)
+                {
+                    int XcurCell = (int)c.Key.X / tileWidth;
+                    int YcurCell = (int)c.Key.Y / tileHeight;
+
+                    if (XcurCell > columnCount - 1
+                        || XcurCell < 0
+                        || YcurCell > rowCount - 1
+                        || YcurCell < 0)
+                        continue;
+
+                    var cell = HashMap[new Point(XcurCell, YcurCell)];
+                    if (cell.GetChildCount() == 0)
+                        cell.AddChild(new Views.Controls.Tile(c.Value as Tile));
+                }
+            }
+        }
+
         private void DrawTile(UIElement element)
         {
-            var cell = GetChild();
-            if (cell.GetChildCount() == 0 && element != null)
-                cell.AddChild(element);
+            if (element != null)
+            {
+                var cell = GetChild();
+                if (cell == null) return;
+
+                if (cell.GetChildCount() == 0 && element != null)
+                    cell.AddChild(new Views.Controls.Tile(element as Tile));
+            }
         }
 
         private void Eraser()
         {
             var cell = GetChild();
+            if (cell == null) return;
+
             if (cell.GetChildCount() > 0)
                 cell.RemoveChild();
         }
@@ -247,6 +284,12 @@ namespace ggMapEditor.ViewModels
             Point mousePos = Mouse.GetPosition(container);
             int XcurCell = (int)mousePos.X / tileWidth;
             int YcurCell = (int)mousePos.Y / tileHeight;
+
+            if (XcurCell > columnCount - 1
+                || XcurCell < 0
+                || YcurCell > rowCount - 1
+                || YcurCell < 0)
+                return null;
 
             return HashMap[new Point(XcurCell, YcurCell)];
         }

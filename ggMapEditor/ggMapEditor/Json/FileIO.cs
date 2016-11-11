@@ -13,10 +13,10 @@ namespace ggMapEditor.Json
 {
     public static class ConvertJson
     {
-        public static string SaveFile(Models.Combine combine)
+        public static string SaveFile(Models.Combine combine, int currentTab)
         {
             // Dua vao QuadTree de lay id, rect
-            Models.TileMap tileMap = combine.tileMap;
+            Models.TileMap tileMap = combine.tileMaps[0];
             ObservableCollection<QTObject> listQTObj = new ObservableCollection<QTObject>();
             foreach (var tile in tileMap.listTile)
             {
