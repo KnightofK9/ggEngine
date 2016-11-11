@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using ggMapEditor.Commands;
 using ggMapEditor.Views;
 using ggMapEditor.Views.Controls;
@@ -24,17 +24,16 @@ namespace ggMapEditor.ViewModels
         private int tileWidth;
         private int tileHeight;
 
-        private ObservableCollection<DragableLayout> listChild;
-        private Dictionary<string, DragableLayout> hashMap; //Matrix Map (simulate container)
+        //private ObservableCollection<DragableLayout> listChild;
+        private Dictionary<Point, DragableLayout> hashMap; //Matrix Map (simulate container)
         //private ObservableCollection<Models.Tile> listTile;
         #endregion
 
         #region Constructors
         public MapAreaTabViewModel(Models.TileMap map)
         {
-            ListChild = new ObservableCollection<DragableLayout>();
-            ListTile = new ObservableCollection<Models.Tile>();
-            HashMap = new Dictionary<string, DragableLayout>();
+            //ListTile = new ObservableCollection<Models.Tile>();
+            HashMap = new Dictionary<Point, DragableLayout>();
 
             InitGrid(map);
         }
@@ -60,10 +59,9 @@ namespace ggMapEditor.ViewModels
                     Canvas.SetLeft(layout, k * 32);
                     layout.Width = tileWidth;
                     layout.Height = tileHeight;
-                    layout.ChildChanged += DragableLayout_ChildChange;
+                    //layout.ChildChanged += DragableLayout_ChildChange;
 
-                    //ListChild.Add(layout);
-                    HashMap.Add(k.ToString() + i.ToString(), layout);
+                    HashMap.Add(new Point(k,i), layout);
                 }
         }
 
@@ -85,17 +83,9 @@ namespace ggMapEditor.ViewModels
 
         public ObservableCollection<DragableLayout> ListChild
         {
-            get { //return listChild;
-                return new ObservableCollection<DragableLayout>(HashMap.Values);
-            }
-            set
-            {
-                //listChild = value;
-                //RaisePropertyChanged(nameof(ListChild));
-            }
+            get { return new ObservableCollection<DragableLayout>(HashMap.Values); }
         }
-
-        public Dictionary<string, DragableLayout> HashMap
+        public Dictionary<Point, DragableLayout> HashMap
         {
             get { return hashMap; }
             set
@@ -104,8 +94,32 @@ namespace ggMapEditor.ViewModels
                 RaisePropertyChanged(nameof(ListChild));
             }
         }
+        public ObservableCollection<Models.Tile> HashMapChild
+        {
+            get
+            {
+                var listChild = new ObservableCollection<Models.Tile>();
 
-        public ObservableCollection<Models.Tile> ListTile{ get; private set; }
+                foreach (var c in hashMap)
+                {
+                    var dragLayout = c.Value;
+                    Views.Controls.Tile cTile = dragLayout.Children[0] as Views.Controls.Tile;
+
+                    var mTile = new Models.Tile();
+                    mTile.tileId = cTile.ImgId;
+                    mTile.tilesetKey = cTile.TilesetKey;
+                    mTile.isCollidedObject = c.Value.GetChildCount() == 0 ? true : false;
+
+                    Point position = c.Key;
+                    position.X *= tileWidth + 1;    // Cộng 1 để lúc xuất không bị nhầm lẫn giữa 2 node
+                    position.Y *= tileHeight + 1;
+                    mTile.rectPos = new Int32Rect((int)position.X, (int)position.Y, (int)cTile.TileWidth, (int)cTile.TileHeight);
+
+                    listChild.Add(mTile);
+                }
+                return listChild;
+            }
+        }
         #endregion
 
         #region Mouse Events
@@ -140,37 +154,43 @@ namespace ggMapEditor.ViewModels
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                Point mousePos = e.GetPosition(container);
-                int XcurCell = (int)mousePos.X / tileWidth;
-                int YcurCell = (int)mousePos.Y / tileHeight;
+                if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Block)
+                    DrawBlock();
 
-                if (Helpers.StaticHelper.currentCTile != null)
-                {
-                    var cell = HashMap[XcurCell.ToString() + YcurCell.ToString()];
-                    cell.AddChild(new Views.Controls.Tile(Helpers.StaticHelper.currentCTile));
-                }
+                if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Pen)
+                    DrawTile(new Views.Controls.Tile(Helpers.StaticHelper.currentCTile));
+
+                if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Eraser)
+                    Eraser();
             }
         }
 
         private void ExecuteMouseLeftButtonDown(MouseEventArgs e)
         {
-            //MessageBox.Show(e.GetPosition(container).ToString());
+            if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Block)
+                DrawBlock();
+
+            if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Pen)
+                DrawTile(new Views.Controls.Tile(Helpers.StaticHelper.currentCTile));
+
+            if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Eraser)
+                Eraser();
         }
         #endregion
         #endregion
 
 
         #region Others
-        public void DragableLayout_ChildChange(object sender, DragableLayoutChildEventArgs e)
-        {
-            if (ListTile != null)
-            {
-                if (e.isChildRemoved)
-                    ListTile.Remove(e.child);
-                else
-                    ListTile.Add(e.child);
-            }
-        }
+        //public void DragableLayout_ChildChange(object sender, DragableLayoutChildEventArgs e)
+        //{
+        //    if (ListTile != null)
+        //    {
+        //        if (e.isChildRemoved)
+        //            ListTile.Remove(e.child);
+        //        else
+        //            ListTile.Add(e.child);
+        //    }
+        //}
         public RenderTargetBitmap CaptureImage()
         {
             if (container == null)
@@ -192,17 +212,43 @@ namespace ggMapEditor.ViewModels
 
         private void DrawTile(UIElement element)
         {
-
+            var cell = GetChild();
+            if (cell.GetChildCount() == 0 && element != null)
+                cell.AddChild(element);
         }
 
         private void Eraser()
         {
-
+            var cell = GetChild();
+            if (cell.GetChildCount() > 0)
+                cell.RemoveChild();
         }
 
         private void DrawBlock()
         {
+            var cell = GetChild();
+            if (cell.GetChildCount() == 1)
+            {
+                int strokeThickness = 2;
+                Rectangle block = new Rectangle()
+                {
+                    Width = tileWidth,
+                    Height = tileHeight,
+                    Stroke = Brushes.Green,
+                    StrokeThickness = strokeThickness,
+                };
 
+                cell.AddChild(block);
+            }
+        }
+
+        private DragableLayout GetChild()
+        {
+            Point mousePos = Mouse.GetPosition(container);
+            int XcurCell = (int)mousePos.X / tileWidth;
+            int YcurCell = (int)mousePos.Y / tileHeight;
+
+            return HashMap[new Point(XcurCell, YcurCell)];
         }
         #endregion
     }
