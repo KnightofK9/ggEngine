@@ -22,6 +22,7 @@ var TileMap = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumbe
     };
     this.initQuadTree = function(){
         useQuadTree = true;
+        initQuadTree();
     };
     this.exportToJson = function(){
         var tileMap = {};
@@ -75,9 +76,7 @@ var TileMap = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumbe
         quadNode.id = nodeId;
 
         if(width <= quadTree.leafWidth && height <= quadTree.leafHeight){
-            quadNode.objectIdList = [];
-            var randomObjectId = Helper.getRandomIntInRange(0,numberOfRandomElement);
-            quadNode.objectIdList.push(randomObjectId);
+            quadNode.objectIdList = getAnyIntersectObjectId(quadNode.x,quadNode.y,quadNode.x+quadNode.width,quadNode.y+quadNode.height);
             quadTree.quadNodeList[nodeId] = quadNode;
             return;
         }
@@ -95,7 +94,11 @@ var TileMap = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumbe
         createQuadNode(quadNode.leftBottom,quadNode.x,quadNode.y+quadNode.height/2,quadNode.width,quadNode.height,quadTree);
         createQuadNode(quadNode.rightBottom,quadNode.x+quadNode.width/2,quadNode.y+quadNode.height/2,quadNode.width,quadNode.height,quadTree);
     };
-
+    var getAnyIntersectObjectId = function(left, top,right,bottom){
+        var idList = [];
+        //TO DO: get intersect object here
+        return idList;
+    };
     var createRandomGameObject = function(){
         var gameObjectInfo = new GameObjectInfo();
         //var random = Helper.getRandomIntInRange(0,2);
