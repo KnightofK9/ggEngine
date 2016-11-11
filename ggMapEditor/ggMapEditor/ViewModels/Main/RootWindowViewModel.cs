@@ -119,7 +119,7 @@ namespace ggMapEditor.ViewModels.Main
                 StatusMsg = "";
                 return;
             }
-            combines[current].tileMap.listTile = (dockManagerViewModel.DockTabs[current] as MapAreaTabViewModel).ListTile;
+            combines[current].tileMap.listTile = (dockManagerViewModel.DockTabs[current] as MapAreaTabViewModel).HashMapChild;
             Json.ConvertJson.SaveFile(combines[current]);
             StatusMsg = "Saved";
         }

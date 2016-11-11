@@ -9,7 +9,6 @@
     <Canvas AllowDrop="True"
           DragOver="Layout_DragOver"
           Drop="Layout_Drop"
-          MouseMove="container_MouseMove"
           PreviewMouseLeftButtonDown="container_PreviewMouseLeftButtonDown"
           HorizontalAlignment="Stretch"
           VerticalAlignment="Stretch"
