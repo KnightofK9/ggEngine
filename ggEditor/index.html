@@ -135,7 +135,7 @@
                 +'Height <input id="dialog-height" type="number" class="form-control">'
                 +'Tile Width <input id="dialog-t-width" type="number" class="form-control">'
                 +'Tile Height <input id="dialog-t-height" type="number" class="form-control">'
-                +'Quad Node Cell Height <input id="dialog-q-height" type="number" class="form-control">'
+                +'Quad Node Cell Ưidth <input id="dialog-q-width" type="number" class="form-control">'
                 +'Quad Node Cell Height <input id="dialog-q-height" type="number" class="form-control">'
                 ,
                 onshow: function(dialogRef){
@@ -152,7 +152,7 @@
                     var qWidth = parseInt(dialogRef.getModalBody().find('#dialog-q-width').val());
                     var qHeight = parseInt(dialogRef.getModalBody().find('#dialog-q-height').val());
                     var tWidth = parseInt(dialogRef.getModalBody().find('#dialog-t-height').val());
-                    var tHeight = parseInt(dialogRef.getModalBody().find('#dialog-t-height').val());
+                    var tHeight = parseInt(dialogRef.getModalBody().find('#dialog-t-width').val());
                     if(sceneEditor!=null){
                         sceneEditor = null;
                         game.destroy();
