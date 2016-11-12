@@ -1,64 +1,100 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>ggGenerator</title>
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+<html >
+<head >
+    <title >ggGenerator</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="style.css" >
 
-    <!--Include Section-->
+    
 
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-
-
-
-    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js" ></script>
 
 
-    <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
 
-    <!--End Include Section-->
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
 
 
-    <script type="text/javascript" src="js/TileMapManager.js"></script>
-    <script type="text/javascript" src="js/Helper.js"></script>
-    <script type="text/javascript" src="js/ggConsole.js"></script>
+    <script type="text/javascript" src="node_modules/requirejs/require.js" ></script>
+
+    
+
+
+    <script type="text/javascript" src="js/TileMapManager.js" ></script>
+    <script type="text/javascript" src="js/Helper.js" ></script>
+    <script type="text/javascript" src="js/ggConsole.js" ></script>
+    <script type="text/javascript" src="js/MapEditor.js" ></script>
+    <script type="text/javascript" src="js/Constant.js" ></script>
 
 </head>
-<body>
-<a id="downloadAnchorElem" style="display:none"></a>
-<button type="button" class="btn btn-primary" id="btn-create-tile-map">CreateTileMap</button>
-<button type="button" class="btn btn-primary" id="btn-init-quad-tree">InitQuadTree</button>
-<button type="button" class="btn btn-primary" id="btn-export-tile-map">ExportTileMap</button>
-<div class="well" id="gg-console">Welcome to ggGenerator</div>
-<script>
-    var currentTileMap = null;
-    $(document).ready(function () {
-        ggConsole.init();
-        var create = function () {
-            currentTileMap = new TileMap(512, 512, 32, 32, "scene", 40);
-            currentTileMap.createTileMap();
-            ggConsole.log("Init tile map succeed!");
-        };
-        var initQuadTree = function () {
-            if (currentTileMap != null) {
-                currentTileMap.initQuadTree();
-                ggConsole.log("Init quad tree succeed!");
-            }
-            else ggConsole.log("Warning tile map haven't been created!");
 
-        };
-        var exportQuadTree = function () {
-            if (currentTileMap != null) {
-                currentTileMap.exportToJson();
-                ggConsole.log("Export map succeed!");
-            }
-            else ggConsole.log("Warning tile map haven't been created!");
-        };
-        $("#btn-create-tile-map").on('click', create);
-        $("#btn-init-quad-tree").on('click', initQuadTree);
-        $("#btn-export-tile-map").on('click', exportQuadTree);
+<body >
+    <ul class="nav nav-tabs" >
+        <li class="active" ><a href="#" >Map Editor</a></li>
+        <li ><a href="#" >Char Editor</a></li>
+        <li ><a href="#" >Object Editor</a></li>
+        <li ><a href="#" >Weapon Editor</a></li>
+    </ul>
+    <div id="gg-map-editor" >
+        <a id="downloadAnchorElem" style="display:none" ></a>
+        <button type="button" class="btn btn-primary" id="btn-new-scene" >New Scene</button>
+        <button type="button" class="btn btn-primary" id="btn-create-tile-map" >Create Tile Map</button>
+        <button type="button" class="btn btn-primary" id="btn-init-quad-tree" >Init Quad Tree</button>
+        <button type="button" class="btn btn-primary" id="btn-export-tile-map" >Export Tile Map</button>
+        <div >
+            <div id="gg-map-scene" class="panel panel-default" >
+                <div class="panel-body" >Scene</div>
+            </div>
+            <div id="gg-map-panel" class="panel panel-default" >
+                <div class="panel-body" >
+                    <div class="dropdown" >
+                        <button class="btn btn-primary dropdown-toggle" id="gg-map-tile-set-select" type="button" data-toggle="dropdown"  aria-expanded="false">Tile Set List
+    <span class="caret" ></span></button>
+                        <ul class="dropdown-menu" id="gg-map-tile-set-list" role="menu" aria-labelledby="gg-map-tile-set-select" >
+                            <li role="presentation" ><a role="menuitem"  href="#" >Map 1</a></li>
+                        </ul>
+                    </div>
+                    <div id="gg-map-tile-panel" >
 
-    });
-</script>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="well" id="gg-console" >Welcome to ggGenerator</div>
+    </div>
+    <script >
+        var currentTileMap = null;
+        var mapEditor = null;
+        $(document).ready(function() {
+            ggConsole.init();
+            mapEditor = new MapEditor();
+            var create = function() {
+                currentTileMap = new TileMap(512, 512, 32, 32, "scene", 40);
+                currentTileMap.createTileMap();
+                ggConsole.log("Init tile map succeed!");
+            };
+            var initQuadTree = function() {
+                if (currentTileMap != null) {
+                    currentTileMap.initQuadTree();
+                    ggConsole.log("Init quad tree succeed!");
+                } else ggConsole.log("Warning tile map haven't been created!");
+
+            };
+            var exportQuadTree = function() {
+                if (currentTileMap != null) {
+                    currentTileMap.exportToJson();
+                    ggConsole.log("Export map succeed!");
+                } else ggConsole.log("Warning tile map haven't been created!");
+            };
+            $("#btn-create-tile-map").on('click', create);
+            $("#btn-init-quad-tree").on('click', initQuadTree);
+            $("#btn-export-tile-map").on('click', exportQuadTree);
+
+        });
+    </script>
+
 </body>
+
+
+
 </html>

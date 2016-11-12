@@ -1,0 +1,28 @@
+
+#gg-map-scene{
+    width:65vw;
+    height:55vh;
+    overflow-y: scroll;   
+    display: inline-block;
+}
+#gg-map-panel{
+    width:31vw;
+    height:55vh;
+    overflow-y: scroll;
+    display: inline-block;
+}
+
+table>tbody>tr>td {
+    border: 1px solid;
+    padding:0;
+    margin:0;
+}
+table>th {
+    border: 1px solid;
+    padding:0;
+    margin:0;
+}
+table {
+    width:100%;
+    height:100%;
+}

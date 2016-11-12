@@ -96,6 +96,11 @@ var TileMap = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumbe
     };
     var getAnyIntersectObjectId = function(left, top,right,bottom){
         var idList = [];
+        var quadNodeRect = new Rect();
+        quadNodeRect.left = left;
+        quadNodeRect.top = top;
+        quadNodeRect.right = right;
+        quadNodeRect.bottom = bottom;
         //TO DO: get intersect object here
         return idList;
     };
@@ -229,4 +234,10 @@ function QuadTree(){
     this.totalLeafNodeSize = 0;
     this.totalNodeSize = 0;
     this.quadNodeList = new Array(this.totalNodeSize);
+}
+function Rect(){
+    this.left = 0;
+    this.top = 0;
+    this.right = 0;
+    this.bottom = 0;
 }
