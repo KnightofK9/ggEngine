@@ -8,5 +8,17 @@ var ggConsole = new function(){
     };
     this.log = function(message){
         c.html(c.html()+"</br>"+message);
-    }
+    };
+    this.showNotification = function(title,message){
+        BootstrapDialog.show({
+            title:title,
+            message:message,
+            buttons: [{
+                label: 'Ok',
+                action: function(dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
+    };
 };

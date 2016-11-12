@@ -1,4 +1,7 @@
 {
   "name": "ggEditor",
-  "main":"index.html"
+  "main": "index.html",
+  "dependencies": {
+    "bootstrap3-dialog": "^1.35.2"
+  }
 }

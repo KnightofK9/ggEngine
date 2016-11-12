@@ -3,6 +3,7 @@
 <head >
     <title >ggGenerator</title>
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" >
     <link rel="stylesheet" type="text/css" href="style.css" >
 
     
@@ -14,17 +15,27 @@
     <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
 
 
-    <script type="text/javascript" src="node_modules/requirejs/require.js" ></script>
+
+
+    <script type="text/javascript" src="node_modules/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js" ></script>
 
     
 
+
+    <!--<script type="text/javascript" src="js/Core/phaser.min.js" ></script>-->
+    <script type="text/javascript" src="js/Core/phaser.js" ></script>
 
     <script type="text/javascript" src="js/TileMapManager.js" ></script>
     <script type="text/javascript" src="js/Helper.js" ></script>
     <script type="text/javascript" src="js/ggConsole.js" ></script>
     <script type="text/javascript" src="js/MapEditor.js" ></script>
     <script type="text/javascript" src="js/Constant.js" ></script>
+    <script type="text/javascript" src="js/SceneEditor.js" ></script>
 
+
+    <!--State-->
+    <script type="text/javascript" src="js/State/Boot.js" ></script>
+    <script type="text/javascript" src="js/State/EditState.js" ></script>
 </head>
 
 <body >
@@ -36,19 +47,42 @@
     </ul>
     <div id="gg-map-editor" >
         <a id="downloadAnchorElem" style="display:none" ></a>
-        <button type="button" class="btn btn-primary" id="btn-new-scene" >New Scene</button>
+        <button type="button" onclick="initSceneEditor()" class="btn btn-primary" id="btn-new-scene" >New Scene</button>
         <button type="button" class="btn btn-primary" id="btn-create-tile-map" >Create Tile Map</button>
         <button type="button" class="btn btn-primary" id="btn-init-quad-tree" >Init Quad Tree</button>
         <button type="button" class="btn btn-primary" id="btn-export-tile-map" >Export Tile Map</button>
         <div >
             <div id="gg-map-scene" class="panel panel-default" >
-                <div class="panel-body" >Scene</div>
-            </div>
-            <div id="gg-map-panel" class="panel panel-default" >
                 <div class="panel-body" >
+                    <div id="gg-phaser">
+
+                    </div>
+                    <script type="text/javascript">
+
+                    </script>
+                </div>
+            </div>
+            <div id="gg-info-panel" class="panel panel-default">
+                <div id="gg-info-tab">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#">Hierarchy</a></li>
+                    </ul>
+                </div>
+                <div id="gg-info-hierarchy" class="panel-body" >
+
+                </div>
+            </div>
+
+            <div id="gg-map-panel" class="panel panel-default" >
+                <div id="gg-tool-tab">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#">Tile Set</a></li>
+                    </ul>
+                </div>
+                <div id="gg-tool-map-panel" class="panel-body" >
                     <div class="dropdown" >
                         <button class="btn btn-primary dropdown-toggle" id="gg-map-tile-set-select" type="button" data-toggle="dropdown"  aria-expanded="false">Tile Set List
-    <span class="caret" ></span></button>
+                            <span class="caret" ></span></button>
                         <ul class="dropdown-menu" id="gg-map-tile-set-list" role="menu" aria-labelledby="gg-map-tile-set-select" >
                             <li role="presentation" ><a role="menuitem"  href="#" >Map 1</a></li>
                         </ul>
@@ -56,17 +90,19 @@
                     <div id="gg-map-tile-panel" >
 
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="well" id="gg-console" >Welcome to ggGenerator</div>
     </div>
     <script >
+        var game = null;
         var currentTileMap = null;
         var mapEditor = null;
+        var sceneEditor = null;
         $(document).ready(function() {
             ggConsole.init();
+            initSceneEditor();
             mapEditor = new MapEditor();
             var create = function() {
                 currentTileMap = new TileMap(512, 512, 32, 32, "scene", 40);
@@ -91,7 +127,48 @@
             $("#btn-export-tile-map").on('click', exportQuadTree);
 
         });
+        function initSceneEditor(){
+            BootstrapDialog.show({
+                closable :false,
+                title:"Select scene size",
+                message: 'Width <input id="dialog-width" type="number" class="form-control">'
+                +'Height <input id="dialog-height" type="number" class="form-control">'
+                +'Tile Width <input id="dialog-t-width" type="number" class="form-control">'
+                +'Tile Height <input id="dialog-t-height" type="number" class="form-control">'
+                +'Quad Node Cell Height <input id="dialog-q-height" type="number" class="form-control">'
+                +'Quad Node Cell Height <input id="dialog-q-height" type="number" class="form-control">'
+                ,
+                onshow: function(dialogRef){
+                    dialogRef.getModalBody().find('#dialog-width').val(800);
+                    dialogRef.getModalBody().find('#dialog-height').val(600);
+                    dialogRef.getModalBody().find('#dialog-q-width').val(16);
+                    dialogRef.getModalBody().find('#dialog-q-height').val(16);
+                    dialogRef.getModalBody().find('#dialog-t-width').val(16);
+                    dialogRef.getModalBody().find('#dialog-t-height').val(16);
+                },
+                onhide: function(dialogRef){
+                    var width = parseInt(dialogRef.getModalBody().find('#dialog-width').val());
+                    var height = parseInt(dialogRef.getModalBody().find('#dialog-height').val());
+                    var qWidth = parseInt(dialogRef.getModalBody().find('#dialog-q-width').val());
+                    var qHeight = parseInt(dialogRef.getModalBody().find('#dialog-q-height').val());
+                    var tWidth = parseInt(dialogRef.getModalBody().find('#dialog-t-height').val());
+                    var tHeight = parseInt(dialogRef.getModalBody().find('#dialog-t-height').val());
+                    if(sceneEditor!=null){
+                        sceneEditor = null;
+                        game.destroy();
+                    }
+                    sceneEditor = new SceneEditor(width,height,tWidth, tHeight ,qWidth,qHeight);
+                },
+                buttons: [{
+                    label: 'Create',
+                    action: function(dialogRef) {
+                        dialogRef.close();
+                    }
+                }]
+            });
+        }
     </script>
+
 
 </body>
 

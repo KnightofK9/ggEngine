@@ -1,17 +1,27 @@
 
 #gg-map-scene{
-    width:65vw;
-    height:55vh;
+    width:50vw;
+    height:70vh;
+    overflow-x:scroll;
     overflow-y: scroll;   
     display: inline-block;
 }
-#gg-map-panel{
-    width:31vw;
-    height:55vh;
+#gg-info-panel{
+    width:20vw;
+    height:70vh;
     overflow-y: scroll;
     display: inline-block;
 }
-
+#gg-map-panel{
+    width:26vw;
+    height:70vh;
+    overflow-y: scroll;
+    display: inline-block;
+}
+#gg-map-tile-panel{
+    transform-origin: left top;
+    transform: scale(2);
+}
 table>tbody>tr>td {
     border: 1px solid;
     padding:0;
