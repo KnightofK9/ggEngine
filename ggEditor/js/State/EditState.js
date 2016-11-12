@@ -33,7 +33,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         for(var key in Constant.TILE_SET_DICT){
             if(Constant.TILE_SET_DICT.hasOwnProperty(key)){
                 var tileSet = Constant.TILE_SET_DICT[key];
-                game.load.spritesheet(key, Constant.TILE_SET_PATH + tileSet.name, tileSet.cellWidth,tileSet.cellHeight);
+                game.load.image(key, Constant.TILE_SET_PATH + tileSet.name, tileSet.cellWidth,tileSet.cellHeight);
             }
         }
 
@@ -106,15 +106,16 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
     };
     var addTileSet = function(tileSetKey){
-        if(layerList.length==1){
-            ggConsole.showNotification("Error","You can not use multiple tile set for 1 tile map.");
-            return false;
-        }
+        //if(layerList.length==1){
+        //    ggConsole.showNotification("Error","You can not use multiple tile set for 1 tile map.");
+        //    return false;
+        //}
         map.addTilesetImage(tileSetKey);
         var layer = map.createBlankLayer(tileSetKey, game.width/tileWidth, game.height/tileHeight, tileWidth, tileHeight);
         layer.scrollFactorX = 0.5;
         layer.scrollFactorY = 0.5;
         layer.resizeWorld();
+        //layer.loadTexture(tileSetKey);
         layerList.push(layer);
         var lastIndex = layerList.length  - 1;
         var layerKey = game.input.keyboard.addKey((lastIndex+1).toString().charCodeAt(0));
@@ -129,15 +130,29 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         //    map.addTilesetImage(tileSetKey);
         //    currentTileSetKey = tileSetKey;
         //}
+
         var tileSetIndex = map.getTilesetIndex(tileSetKey);
         if(tileSetIndex === null){
             if(!addTileSet(tileSetKey)) return;
         }
+        if(currentTileSetKey != tileSetKey){
+            changeMapTileSetArray(tileSetKey);
+        }
+        currentTileSetKey = tileSetKey;
+        var tile = Constant.TILE_SET_DICT[tileSetKey].tileList[tileId];
         currentLayerIndex = enterPosition.indexOf(tileSetKey);
         currentLayer = layerList[currentLayerIndex];
+        //var tile = new Phaser.Tile(currentLayer,tileId,tile.x,tile.y,tile.width,tile.height);
         currentTile = tileId;
     };
-
+    var changeMapTileSetArray = function(tileSetKey){
+        map.tiles = [];
+        var tileSet = Constant.TILE_SET_DICT[tileSetKey];
+        var currentTileSetId = map.getTilesetIndex(tileSetKey);
+        for(var i = 0;i<tileSet.tileList.length;i++){
+            map.tiles.push([tileSet.tileList[i].x,tileSet.tileList[i].y,currentTileSetId]);
+        }
+    };
     var updateMarker = function() {
 
        if(currentLayer!=null){
@@ -145,7 +160,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
            marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
            if (game.input.mousePointer.isDown)
            {
-               map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentLayer);
+               map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
            }
        }
 
