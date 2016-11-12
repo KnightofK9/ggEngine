@@ -2,9 +2,10 @@
  * Created by Knight of k9 on 12/11/2016.
  */
 var Constant = new function(){
-    this.DEFAULT_URL = "http://localhost/ggEditor/";
+    //this.DEFAULT_URL = "http://localhost/ggEditor/";
+    this.DEFAULT_URL = "";
     this.RESOURCE_PATH = this.DEFAULT_URL + "Resource/Resources/";
-    this.TILE_SET_PATH = this.DEFAULT_URL + "Resource/Resources/" + "TileSet/";
+    this.TILE_SET_PATH = this.RESOURCE_PATH + "TileSet/";
 
 
     this.TILE_SET_DICT ={
