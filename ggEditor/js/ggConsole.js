@@ -21,4 +21,17 @@ var ggConsole = new function(){
             }]
         });
     };
+    this.alertNotification = function(title,message){
+        BootstrapDialog.show({
+            type:BootstrapDialog.TYPE_DANGER,
+            title:title,
+            message:message,
+            buttons: [{
+                label: 'Ok',
+                action: function(dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
+    };
 };

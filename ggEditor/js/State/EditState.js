@@ -51,7 +51,8 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         map.width = game.width;
         map.height = game.height;
         map.callDestroy = function(){
-
+            ggConsole.alertNotification("Error","Each state must have only 1 tile map.")
+            return false;
         };
         hierarchyObject = hierarchyEditor.addObjectToHierarchy("tile-map",map);
         hierarchyEditor.updateHierarchy();
@@ -148,6 +149,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
                 currentTileSetKey = "";
                 currentLayer = null;
             }
+            return true;
         };
         //layer.loadTexture(tileSetKey);
         layerList.push(layer);

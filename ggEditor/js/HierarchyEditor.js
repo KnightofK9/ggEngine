@@ -70,13 +70,15 @@ var HierarchyEditor = function () {
     this.handleRemoveClick = function(hObjectId){
         for(var i = 0;i<hObjectList.length; i++){
             if(hObjectList[i].id === hObjectId){
-                for(var t = 0;t<hObjectList[i].parent.childList.length;t++){
-                    if(hObjectList[i].parent.childList[t].id === hObjectId){
-                        hObjectList[i].parent.childList.splice(t,1);
-                        break;
+                if(!hObjectList[i].item.callDestroy()) return;
+                if(hObjectList[i].parent != null){
+                    for(var t = 0;t<hObjectList[i].parent.childList.length;t++){
+                        if(hObjectList[i].parent.childList[t].id === hObjectId){
+                            hObjectList[i].parent.childList.splice(t,1);
+                            break;
+                        }
                     }
                 }
-                hObjectList[i].item.callDestroy();
                 hObjectList.splice(i,1);
                 break;
             }
