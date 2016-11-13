@@ -4,9 +4,7 @@
     <title >ggGenerator</title>
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css" >
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" >
-    <link rel="stylesheet" type="text/css" href="style.css" >
-
-    
+    <link rel="stylesheet" type="text/css" href="css/style.css" >
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js" ></script>
 
@@ -29,6 +27,7 @@
     <script type="text/javascript" src="js/Helper.js" ></script>
     <script type="text/javascript" src="js/ggConsole.js" ></script>
     <script type="text/javascript" src="js/MapEditor.js" ></script>
+    <script type="text/javascript" src="js/HierarchyEditor.js" ></script>
     <script type="text/javascript" src="js/Constant.js" ></script>
     <script type="text/javascript" src="js/SceneEditor.js" ></script>
 
@@ -68,8 +67,94 @@
                         <li class="active"><a href="#">Hierarchy</a></li>
                     </ul>
                 </div>
-                <div id="gg-info-hierarchy" class="panel-body" >
 
+                <div id="gg-info-hierarchy" class="panel-body hierarchy" >
+                    <div class="just-padding">
+
+                        <div id="gg-hierarchy-list" class="list-group list-group-root well">
+
+                            <a href="#" class="list-group-item">Item 1</a>
+                            <div class="list-group">
+
+                                <a href="#" class="list-group-item">Item 1.1</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 1.1.1</a>
+                                    <a href="#" class="list-group-item">Item 1.1.2</a>
+                                    <a href="#" class="list-group-item">Item 1.1.3</a>
+                                </div>
+
+                                <a href="#" class="list-group-item">Item 1.2</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 1.2.1</a>
+                                    <a href="#" class="list-group-item">Item 1.2.2</a>
+                                    <a href="#" class="list-group-item">Item 1.2.3</a>
+                                </div>
+
+                                <a href="#" class="list-group-item">Item 1.3</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 1.3.1</a>
+                                    <a href="#" class="list-group-item">Item 1.3.2</a>
+                                    <a href="#" class="list-group-item">Item 1.3.3</a>
+                                </div>
+
+                            </div>
+
+                            <a href="#" class="list-group-item">Item 2</a>
+                            <div class="list-group">
+
+                                <a href="#" class="list-group-item">Item 2.1</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 2.1.1</a>
+                                    <a href="#" class="list-group-item">Item 2.1.2</a>
+                                    <a href="#" class="list-group-item">Item 2.1.3</a>
+                                </div>
+
+                                <a href="#" class="list-group-item">Item 2.2</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 2.2.1</a>
+                                    <a href="#" class="list-group-item">Item 2.2.2</a>
+                                    <a href="#" class="list-group-item">Item 2.2.3</a>
+                                </div>
+
+                                <a href="#" class="list-group-item">Item 2.3</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 2.3.1</a>
+                                    <a href="#" class="list-group-item">Item 2.3.2</a>
+                                    <a href="#" class="list-group-item">Item 2.3.3</a>
+                                </div>
+
+                            </div>
+
+
+                            <a href="#" class="list-group-item">Item 3</a>
+                            <div class="list-group">
+
+                                <a href="#" class="list-group-item">Item 3.1</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 3.1.1</a>
+                                    <a href="#" class="list-group-item">Item 3.1.2</a>
+                                    <a href="#" class="list-group-item">Item 3.1.3</a>
+                                </div>
+
+                                <a href="#" class="list-group-item">Item 3.2</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 3.2.1</a>
+                                    <a href="#" class="list-group-item">Item 3.2.2</a>
+                                    <a href="#" class="list-group-item">Item 3.2.3</a>
+                                </div>
+
+                                <a href="#" class="list-group-item">Item 3.3</a>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">Item 3.3.1</a>
+                                    <a href="#" class="list-group-item">Item 3.3.2</a>
+                                    <a href="#" class="list-group-item">Item 3.3.3</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -100,9 +185,11 @@
         var currentTileMap = null;
         var mapEditor = null;
         var sceneEditor = null;
+        var hierarchyEditor = null;
         $(document).ready(function() {
             ggConsole.init();
             initSceneEditor();
+            hierarchyEditor = new HierarchyEditor();
             mapEditor = new MapEditor();
             var create = function() {
                 currentTileMap = new TileMap(512, 512, 32, 32, "scene", 40);
@@ -135,7 +222,7 @@
                 +'Height <input id="dialog-height" type="number" class="form-control">'
                 +'Tile Width <input id="dialog-t-width" type="number" class="form-control">'
                 +'Tile Height <input id="dialog-t-height" type="number" class="form-control">'
-                +'Quad Node Cell Ưidth <input id="dialog-q-width" type="number" class="form-control">'
+                +'Quad Node Cell Width <input id="dialog-q-width" type="number" class="form-control">'
                 +'Quad Node Cell Height <input id="dialog-q-height" type="number" class="form-control">'
                 ,
                 onshow: function(dialogRef){
@@ -157,6 +244,7 @@
                         sceneEditor = null;
                         game.destroy();
                     }
+                    hierarchyEditor.updateHierarchy();
                     sceneEditor = new SceneEditor(width,height,tWidth, tHeight ,qWidth,qHeight);
                 },
                 buttons: [{
