@@ -30,6 +30,7 @@
     <script type="text/javascript" src="js/HierarchyEditor.js" ></script>
     <script type="text/javascript" src="js/Constant.js" ></script>
     <script type="text/javascript" src="js/SceneEditor.js" ></script>
+    <script type="text/javascript" src="js/Class.js" ></script>
 
 
     <!--State-->
@@ -47,8 +48,6 @@
     <div id="gg-map-editor" >
         <a id="downloadAnchorElem" style="display:none" ></a>
         <button type="button" onclick="initSceneEditor()" class="btn btn-primary" id="btn-new-scene" >New Scene</button>
-        <button type="button" class="btn btn-primary" id="btn-create-tile-map" >Create Tile Map</button>
-        <button type="button" class="btn btn-primary" id="btn-init-quad-tree" >Init Quad Tree</button>
         <button type="button" class="btn btn-primary" id="btn-export-tile-map" >Export Tile Map</button>
         <div >
             <div id="gg-map-scene" class="panel panel-default" >
@@ -73,84 +72,6 @@
 
                         <div id="gg-hierarchy-list" class="list-group list-group-root well">
 
-                            <a href="#" class="list-group-item">Item 1</a>
-                            <div class="list-group">
-
-                                <a href="#" class="list-group-item">Item 1.1</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 1.1.1</a>
-                                    <a href="#" class="list-group-item">Item 1.1.2</a>
-                                    <a href="#" class="list-group-item">Item 1.1.3</a>
-                                </div>
-
-                                <a href="#" class="list-group-item">Item 1.2</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 1.2.1</a>
-                                    <a href="#" class="list-group-item">Item 1.2.2</a>
-                                    <a href="#" class="list-group-item">Item 1.2.3</a>
-                                </div>
-
-                                <a href="#" class="list-group-item">Item 1.3</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 1.3.1</a>
-                                    <a href="#" class="list-group-item">Item 1.3.2</a>
-                                    <a href="#" class="list-group-item">Item 1.3.3</a>
-                                </div>
-
-                            </div>
-
-                            <a href="#" class="list-group-item">Item 2</a>
-                            <div class="list-group">
-
-                                <a href="#" class="list-group-item">Item 2.1</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 2.1.1</a>
-                                    <a href="#" class="list-group-item">Item 2.1.2</a>
-                                    <a href="#" class="list-group-item">Item 2.1.3</a>
-                                </div>
-
-                                <a href="#" class="list-group-item">Item 2.2</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 2.2.1</a>
-                                    <a href="#" class="list-group-item">Item 2.2.2</a>
-                                    <a href="#" class="list-group-item">Item 2.2.3</a>
-                                </div>
-
-                                <a href="#" class="list-group-item">Item 2.3</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 2.3.1</a>
-                                    <a href="#" class="list-group-item">Item 2.3.2</a>
-                                    <a href="#" class="list-group-item">Item 2.3.3</a>
-                                </div>
-
-                            </div>
-
-
-                            <a href="#" class="list-group-item">Item 3</a>
-                            <div class="list-group">
-
-                                <a href="#" class="list-group-item">Item 3.1</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 3.1.1</a>
-                                    <a href="#" class="list-group-item">Item 3.1.2</a>
-                                    <a href="#" class="list-group-item">Item 3.1.3</a>
-                                </div>
-
-                                <a href="#" class="list-group-item">Item 3.2</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 3.2.1</a>
-                                    <a href="#" class="list-group-item">Item 3.2.2</a>
-                                    <a href="#" class="list-group-item">Item 3.2.3</a>
-                                </div>
-
-                                <a href="#" class="list-group-item">Item 3.3</a>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">Item 3.3.1</a>
-                                    <a href="#" class="list-group-item">Item 3.3.2</a>
-                                    <a href="#" class="list-group-item">Item 3.3.3</a>
-                                </div>
-
-                            </div>
 
                         </div>
 
@@ -204,10 +125,7 @@
 
             };
             var exportQuadTree = function() {
-                if (currentTileMap != null) {
-                    currentTileMap.exportToJson();
-                    ggConsole.log("Export map succeed!");
-                } else ggConsole.log("Warning tile map haven't been created!");
+                sceneEditor.editState.exportTileMap();
             };
             $("#btn-create-tile-map").on('click', create);
             $("#btn-init-quad-tree").on('click', initQuadTree);

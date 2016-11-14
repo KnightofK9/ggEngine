@@ -1,9 +1,6 @@
 /**
  * Created by Knight of k9 on 12/11/2016.
  */
-/**
- * Created by Knight of k9 on 12/11/2016.
- */
 var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeight) {
     var bgData = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABHNCSVQICAgIfAhkiAAAAFFJREFUWIXtzjERACAQBDFgMPOKzr8ScADFFlBsFKRX1WqfStLG68SNQcogZZAySBmkDFIGKYOUQcogZZAySBmkDFIGKYOUQcog9X1wJnl9ONrTcwPWLGFOywAAAABJRU5ErkJggg==";
     var backgroundSprite;
@@ -26,6 +23,20 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
     var currentLayerIndex = 0;
     var manualSelectLayer = 0;
     var layer3Key;
+    var isUsedQuadTree = false;
+
+
+    var objectList = [];
+    var quadId = 0;
+
+
+    this.exportTileMap = function(){
+        var tileMap = initTileMapAsJson();
+        Helper.downloadJson(tileMap,"ProtoTypeTileMap");
+        quadId = 0;
+        objectList = [];
+    };
+
     this.preload = function(){
         //var iBg = new Image();
         //iBg.src = bgData;
@@ -83,6 +94,118 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
 
     };
+
+    var initTileMapAsJson = function(){
+        var numberOfColumn = game.width/tileWidth;
+        var numberOfRow = game.height/tileHeight;
+        var tileList = [];
+        var tileMap = new TileMap();
+        tileMap.width = game.width;
+        tileMap.height = game.height;
+        tileMap.tileWidth = tileWidth;
+        tileMap.tileHeight = tileHeight;
+        for(var i = 0;i<map.tilesets.length;i++){
+            tileMap.tileSetList.push(map.tilesets[i].name);
+        }
+        for(var y = 0;y<numberOfRow;y++){
+            for(var x = 0;x<numberOfColumn;x++){
+                var tile = null;
+                for(var l = 0; l<layerList.length;l++){
+                    var t = map.getTile(x,y,layerList[l].name);
+                    if(t !== null){
+                        tile = new SingleTile();
+                        tile.tileSetKey = layerList[l].name;
+                        tile.tileId = t.index;
+                        tile.x = x*tileWidth;
+                        tile.y = y*tileHeight;
+                    }
+                }
+                if(tile!=null){
+                    tile.id = quadId;
+                    objectList.push(tile);
+                    tileList.push(tile);
+                    quadId++;
+                }
+            }
+        }
+        tileMap.tileList = tileList;
+        return tileMap;
+    };
+
+    function getBaseLog(x, y) {
+        return Math.log(y) / Math.log(x);
+    }
+    function createQuadTree(){
+        "use strict";
+        var quadTree = new QuadTree();
+        quadTree.width = 512;
+        quadTree.height = 512;
+        quadTree.leafWidth = 32;
+        quadTree.leafHeight = 32;
+        quadTree.totalLeafNodeSize = 16*16;
+        var sum = 0;
+        var cap = 1;
+        var capLimit = Math.floor(getBaseLog(4,quadTree.totalLeafNodeSize));
+        while(cap<=capLimit){
+            sum+= Math.pow(4,cap);
+            cap++;
+        }
+        quadTree.totalNodeSize = sum;
+        quadTree.quadNodeList = new Array(quadTree.totalNodeSize);
+        createQuadNode(0,0,0,quadTree.width,quadTree.height,quadTree);
+        createQuadNode(1,quadTree.width/2,0,quadTree.width,quadTree.height,quadTree);
+        createQuadNode(2,0,quadTree.height/2,quadTree.width,quadTree.height,quadTree);
+        createQuadNode(3,quadTree.width/2,quadTree.height/2,quadTree.width,quadTree.height,quadTree);
+        return quadTree;
+    }
+    function createQuadNode(nodeId, x, y, parentWidth, parentHeight, quadTree){
+        var width = parentWidth / 2;
+        var height = parentHeight / 2;
+        var quadNode;
+        if(width <= quadTree.leafWidth && height <= quadTree.leafHeight){
+            quadNode = new LeafNode();
+            quadNode.x = x;
+            quadNode.y = y;
+            quadNode.width = width;
+            quadNode.height = height;
+            quadNode.id = nodeId;
+
+
+            quadNode.quadNodeIdList = [];
+
+
+            quadTree.quadNodeList[nodeId] = quadNode;
+        }
+        else{
+            quadNode = new QuadNode();
+
+            quadNode.x = x;
+            quadNode.y = y;
+            quadNode.width = width;
+            quadNode.height = height;
+            quadNode.id = nodeId;
+
+            quadNode.leftTop = (nodeId+1)*4;
+            quadNode.rightTop = (nodeId+1)*4 + 1;
+            quadNode.leftBottom = (nodeId+1)*4 + 2;
+            quadNode.rightBottom = (nodeId+1)*4 + 3;
+
+            quadTree.quadNodeList[nodeId] = quadNode;
+
+            createQuadNode(quadNode.leftTop,quadNode.x,quadNode.y,quadNode.width,quadNode.height,quadTree);
+            createQuadNode(quadNode.rightTop,quadNode.x + quadNode.width/2,quadNode.y,quadNode.width,quadNode.height,quadTree);
+            createQuadNode(quadNode.leftBottom,quadNode.x,quadNode.y+quadNode.height/2,quadNode.width,quadNode.height,quadTree);
+            createQuadNode(quadNode.rightBottom,quadNode.x+quadNode.width/2,quadNode.y+quadNode.height/2,quadNode.width,quadNode.height,quadTree);
+
+        }
+
+
+
+    }
+
+
+
+
     var changeLayer = function(key) {
 
         switch (key.keyCode)
