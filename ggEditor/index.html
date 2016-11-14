@@ -107,8 +107,15 @@
         var mapEditor = null;
         var sceneEditor = null;
         var hierarchyEditor = null;
+
         $(document).ready(function() {
             ggConsole.init();
+            var nativeLog = console.log.bind(console) //store native function
+
+            console.log = function(text){ //override
+                nativeLog("<<<" + text);
+                ggConsole.log(text);
+            };
             initSceneEditor();
             hierarchyEditor = new HierarchyEditor();
             mapEditor = new MapEditor();

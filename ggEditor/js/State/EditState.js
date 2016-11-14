@@ -31,8 +31,16 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
 
     this.exportTileMap = function(){
+        var state = [];
+
         var tileMap = initTileMapAsJson();
-        Helper.downloadJson(tileMap,"ProtoTypeTileMap");
+        var quadTree = createQuadTree();
+
+        state.push(tileMap);
+        state.push(quadTree);
+
+
+        Helper.downloadJson(state,"ProtoTypeTileMap");
         quadId = 0;
         objectList = [];
     };
@@ -104,6 +112,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         tileMap.height = game.height;
         tileMap.tileWidth = tileWidth;
         tileMap.tileHeight = tileHeight;
+        tileMap.isUsedQuadTree = true;
         for(var i = 0;i<map.tilesets.length;i++){
             tileMap.tileSetList.push(map.tilesets[i].name);
         }
@@ -138,19 +147,33 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
     function createQuadTree(){
         "use strict";
         var quadTree = new QuadTree();
-        quadTree.width = 512;
-        quadTree.height = 512;
-        quadTree.leafWidth = 32;
-        quadTree.leafHeight = 32;
-        quadTree.totalLeafNodeSize = 16*16;
+        var width = 0;
+        for(width = quadNodeWidth;width<=game.width;width*=2){
+
+        }
+        var height = 0;
+        for(height = quadNodeHeight;height<=game.height;height*=2){
+
+        }
+
+
+
+        quadTree.width = width;
+        quadTree.height = height;
+        quadTree.leafWidth = quadNodeWidth;
+        quadTree.leafHeight = quadNodeHeight;
+        quadTree.totalLeafNodeSize = (quadTree.width/quadNodeWidth) * (quadTree.height/quadNodeHeight);
         var sum = 0;
         var cap = 1;
         var capLimit = Math.floor(getBaseLog(4,quadTree.totalLeafNodeSize));
+        var lastSum = 0;
         while(cap<=capLimit){
+            lastSum = sum;
             sum+= Math.pow(4,cap);
             cap++;
         }
         quadTree.totalNodeSize = sum;
+        quadTree.indexOfFirstLeafNode = quadTree.totalNodeSize - quadTree.totalLeafNodeSize;
         quadTree.quadNodeList = new Array(quadTree.totalNodeSize);
         createQuadNode(0,0,0,quadTree.width,quadTree.height,quadTree);
         createQuadNode(1,quadTree.width/2,0,quadTree.width,quadTree.height,quadTree);

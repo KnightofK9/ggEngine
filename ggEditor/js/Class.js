@@ -29,6 +29,7 @@ function TileMap(){
     this.tileWidth = 0;
     this.tileHeight = 0;
     this.tileSetList = [];
+    this.isUsedQuadTree = false;
 }
 function SingleTile(){
     /**
@@ -85,13 +86,15 @@ function Brick(){
 }
 
 function QuadTree(){
-
+    this.x = 0;
+    this.y = 0;
     this.width = 0;
     this.height = 0;
     this.leafWidth = 0;
     this.leafHeight = 0;
     this.totalLeafNodeSize = 0;
     this.totalNodeSize = 0;
+    this.indexOfFirstLeafNode = 0;
     this.quadNodeList = new Array(this.totalNodeSize);
 }
 function QuadNode(){
