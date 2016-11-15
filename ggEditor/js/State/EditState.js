@@ -31,13 +31,16 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
 
     this.exportTileMap = function(){
+        isUsedQuadTree = stateInfo.isUsedQuadTree();
         var state = [];
 
         var tileMap = initTileMapAsJson();
-        var quadTree = createQuadTree();
+        if(isUsedQuadTree){
+            var quadTree = createQuadTree();
+        }
 
         state.push(tileMap);
-        state.push(quadTree);
+        if(isUsedQuadTree) state.push(quadTree);
 
 
         Helper.downloadJson(state,"ProtoTypeTileMap");
@@ -112,7 +115,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         tileMap.height = game.height;
         tileMap.tileWidth = tileWidth;
         tileMap.tileHeight = tileHeight;
-        tileMap.isUsedQuadTree = true;
+        tileMap.isUsedQuadTree = isUsedQuadTree;
         for(var i = 0;i<map.tilesets.length;i++){
             tileMap.tileSetList.push(map.tilesets[i].name);
         }
@@ -162,6 +165,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         quadTree.height = height;
         quadTree.leafWidth = quadNodeWidth;
         quadTree.leafHeight = quadNodeHeight;
+        quadTree.totalObjectSize = objectList.length;
         quadTree.totalLeafNodeSize = (quadTree.width/quadNodeWidth) * (quadTree.height/quadNodeHeight);
         var sum = 0;
         var cap = 1;

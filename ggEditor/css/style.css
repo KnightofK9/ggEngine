@@ -37,7 +37,9 @@ table {
     height:100%;
 }
 
-
+#gg-state-info{
+    display:none;
+}
 
 /*Hierarchy*/
 .gg-hierarchy-delete{
@@ -45,6 +47,7 @@ table {
     right: 7px;
     top: 13px;
 }
+
 
 .just-padding {
     padding: 15px;

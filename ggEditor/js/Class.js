@@ -94,6 +94,7 @@ function QuadTree(){
     this.leafHeight = 0;
     this.totalLeafNodeSize = 0;
     this.indexOfFirstLeafNode = 0;
+    this.totalObjectSize = 0;
     this.totalNodeSize = 0;
     this.quadNodeList = new Array(this.totalNodeSize);
 }
@@ -110,7 +111,7 @@ function QuadNode(){
     this.leftBottom = -1;
     this.rightBottom = -1;
 }
-function LeafNode(){
+function LeafNode() {
     this.type = "LeafNode";
     this.x = 0;
     this.y = 0;
@@ -119,18 +120,6 @@ function LeafNode(){
     this.id = -1;
     this.quadNodeIdList = [];
 }
-function QuadTree(){
-    this.type = "QuadTree";
-    this.width = 0;
-    this.height = 0;
-    this.leafWidth = 0;
-    this.leafHeight = 0;
-    this.totalLeafNodeSize = 0;
-    this.totalNodeSize = 0;
-    this.quadNodeList = null;
-}
-
-
 
 function Rect(){
     this.left = 0;

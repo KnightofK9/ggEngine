@@ -3,6 +3,7 @@
  */
 var HierarchyEditor = function () {
     var hierarchyPanel = $("#gg-info-hierarchy");
+    var navTab = $("#gg-info-hierarchy-nav-tab");
     var hierarchyListPanel = $("#gg-hierarchy-list");
     //<a href="#" class="list-group-item">Item 1</a>
     //<div class="list-group">
@@ -10,6 +11,16 @@ var HierarchyEditor = function () {
     var hierarchyList = [];
     var hObjectList = [];
     var id = 0;
+    this.setActive = function(isActive){
+        if(isActive){
+            hierarchyPanel.css("display","block");
+            navTab.addClass("active");
+        }else{
+            hierarchyPanel.css("display","none");
+            navTab.removeClass("active");
+        }
+
+    };
     this.addObjectToHierarchy = function (name, object) {
         var hierarchyObject = new HierarchyObject();
         hierarchyObject.id = id++;

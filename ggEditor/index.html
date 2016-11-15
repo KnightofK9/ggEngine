@@ -27,6 +27,7 @@
     <script type="text/javascript" src="js/Helper.js" ></script>
     <script type="text/javascript" src="js/ggConsole.js" ></script>
     <script type="text/javascript" src="js/MapEditor.js" ></script>
+    <script type="text/javascript" src="js/StateInfo.js" ></script>
     <script type="text/javascript" src="js/HierarchyEditor.js" ></script>
     <script type="text/javascript" src="js/Constant.js" ></script>
     <script type="text/javascript" src="js/SceneEditor.js" ></script>
@@ -63,7 +64,8 @@
             <div id="gg-info-panel" class="panel panel-default">
                 <div id="gg-info-tab">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#">Hierarchy</a></li>
+                        <li id="gg-info-hierarchy-nav-tab" class="active"><a href="#" onclick='switchToTab("gg-info-hierarchy")' >Hierarchy</a></li>
+                        <li id="gg-state-info-nav-tab" ><a href="#" onclick='switchToTab("gg-state-info")'>State Info</a></li>
                     </ul>
                 </div>
 
@@ -75,8 +77,14 @@
 
                         </div>
 
+
                     </div>
                 </div>
+
+                <div id="gg-state-info"  class="panel-body hierarchy">
+                    <label  class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox" checked >Use quad tree</label>
+                </div>
+
             </div>
 
             <div id="gg-map-panel" class="panel panel-default" >
@@ -107,9 +115,10 @@
         var mapEditor = null;
         var sceneEditor = null;
         var hierarchyEditor = null;
-
+        var stateInfo = null;
         $(document).ready(function() {
             ggConsole.init();
+            stateInfo = new StateInfo();
             var nativeLog = console.log.bind(console) //store native function
 
             console.log = function(text){ //override
@@ -179,6 +188,18 @@
                     }
                 }]
             });
+        }
+        function switchToTab(tabName) {
+            switch (tabName) {
+                case "gg-info-hierarchy":
+                    hierarchyEditor.setActive(true);
+                    stateInfo.setActive(false);
+                    break;
+                case "gg-state-info":
+                    hierarchyEditor.setActive(false);
+                    stateInfo.setActive(true);
+                    break;
+            }
         }
     </script>
 
