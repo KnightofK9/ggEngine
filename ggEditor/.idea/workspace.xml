@@ -26,10 +26,22 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6524909">
-              <caret line="246" column="40" selection-start-line="246" selection-start-column="40" selection-end-line="246" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.49210206">
+              <caret line="187" column="31" selection-start-line="187" selection-start-column="31" selection-end-line="187" selection-end-column="31" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/Constant.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#49#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -103,18 +115,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SceneEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/SceneEditor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#49#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Helper.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/Helper.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -165,7 +165,6 @@
         <option value="$PROJECT_DIR$/js/HierachyEditor.js" />
         <option value="$PROJECT_DIR$/js/State/Boot.js" />
         <option value="$PROJECT_DIR$/js/MapEditor.js" />
-        <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/js/ggConsole.js" />
         <option value="$PROJECT_DIR$/js/SceneEditor.js" />
@@ -175,6 +174,7 @@
         <option value="$PROJECT_DIR$/js/StateInfo.js" />
         <option value="$PROJECT_DIR$/js/State/EditState.js" />
         <option value="$PROJECT_DIR$/js/Class.js" />
+        <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -873,12 +873,12 @@
       <workItem from="1479003132005" duration="8281000" />
       <workItem from="1479024985056" duration="4479000" />
       <workItem from="1479038804461" duration="2143000" />
-      <workItem from="1479205101648" duration="7621000" />
+      <workItem from="1479205101648" duration="10098000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62168000" />
+    <option name="totallyTimeSpent" value="64645000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1249,16 +1249,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Constant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#49#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/bootstrap3-dialog/src/js/bootstrap-dialog.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1387,10 +1377,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/Constant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#49#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6524909">
-          <caret line="246" column="40" selection-start-line="246" selection-start-column="40" selection-end-line="246" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.49210206">
+          <caret line="187" column="31" selection-start-line="187" selection-start-column="31" selection-end-line="187" selection-end-column="31" />
           <folding>
             <element signature="n#style#0;n#a#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>

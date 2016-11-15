@@ -10,7 +10,7 @@ var Constant = new function(){
 
     this.TILE_SET_DICT ={
         "level-2-tile-set":{
-            name:"lv2.png",
+            name:"level-2-tile-set.png",
             width:64,
             height:192,
             cellWidth:16,
@@ -19,7 +19,7 @@ var Constant = new function(){
             numberOfCellPerColumn:12
         },
         "level-3-tile-set":{
-            name:"lv3.png",
+            name:"level-3-tile-set.png",
             width:128,
             height:288,
             cellWidth:16,

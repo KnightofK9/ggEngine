@@ -15,6 +15,8 @@ void TestState::Init(){
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
 	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
+	this->preload->TileSet("Resource/level-2-tile-set.png", "Resource/level-2-tile-set.json");
+	this->preload->TileSet("Resource/level-3-tile-set.png", "Resource/level-3-tile-set.json");
 	//this->preload->TileSet("TileMap/scene1.png", "TileMap/scene1.json");
 	this->preload->Font("sketches 90px","sketches", "Resource/Font/sketches.ttf", 90);
 }
