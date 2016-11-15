@@ -49,6 +49,7 @@
     <div id="gg-map-editor" >
         <a id="downloadAnchorElem" style="display:none" ></a>
         <button type="button" onclick="initSceneEditor()" class="btn btn-primary" id="btn-new-scene" >New Scene</button>
+        <button type="button" onclick="createNewTileSet()" class="btn btn-primary" id="btn-net-tile-set" >New Tile Set</button>
         <button type="button" class="btn btn-primary" id="btn-export-tile-map" >Export Tile Map</button>
         <div >
             <div id="gg-map-scene" class="panel panel-default" >
@@ -200,6 +201,64 @@
                     stateInfo.setActive(true);
                     break;
             }
+        }
+        function createNewTileSet(){
+            BootstrapDialog.show({
+                closable :true,
+                title:"Select scene size",
+                message: 'Tile Set Id <input id="dialog-text" type="text" class="form-control">'
+                +'Tile Set Width <input id="dialog-width" type="number" class="form-control">'
+                +'Tile Set Height <input id="dialog-height" type="number" class="form-control">'
+                +'Tile Width <input id="dialog-t-width" type="number" class="form-control">'
+                +'Tile Height <input id="dialog-t-height" type="number" class="form-control">'
+                ,
+                onshow: function(dialogRef){
+                    dialogRef.getModalBody().find('#dialog-text').val(0);
+                    dialogRef.getModalBody().find('#dialog-width').val(0);
+                    dialogRef.getModalBody().find('#dialog-height').val(0);
+                    dialogRef.getModalBody().find('#dialog-t-width').val(0);
+                    dialogRef.getModalBody().find('#dialog-t-height').val(0);
+                },
+                onhide: function(dialogRef){
+                    var id = parseInt(dialogRef.getModalBody().find('#dialog-text').val());
+                    var width = parseInt(dialogRef.getModalBody().find('#dialog-width').val());
+                    var height = parseInt(dialogRef.getModalBody().find('#dialog-height').val());
+                    var tWidth = parseInt(dialogRef.getModalBody().find('#dialog-t-height').val());
+                    var tHeight = parseInt(dialogRef.getModalBody().find('#dialog-t-width').val());
+                    var tileSet = new TileSet();
+                    tileSet.id = "TestTileMap";
+                    tileSet.width = width;
+                    tileSet.height = height;
+                    tileSet.tileWidth = tWidth;
+                    tileSet.tileHeight = tHeight;
+                    tileSet.numberOfCellPerColumn = height/tHeight;
+                    tileSet.numberOfCellPerRow = width/tWidth;
+                    tileSet.numberOfCell = tileSet.numberOfCellPerColumn*tileSet.numberOfCellPerRow;
+                    tileSet.tileList = [];
+                    var x = 0;
+                    var y = 0;
+                    for(var i =0;i<tileSet.numberOfCell;i++){
+                        var tileInfo = {};
+                        tileInfo.id = i;
+                        tileInfo.x = x;
+                        tileInfo.y = y;
+                        tileSet.tileList.push(tileInfo);
+                        x+=tileSet.tileWidth;
+                        if(x>=tileSet.width){
+                            x = 0;
+                            y += tileSet.tileHeight;
+                        }
+                    }
+                    Helper.downloadJson(tileSet,tileSet.id);
+
+                },
+                buttons: [{
+                    label: 'Create',
+                    action: function(dialogRef) {
+                        dialogRef.close();
+                    }
+                }]
+            });
         }
     </script>
 

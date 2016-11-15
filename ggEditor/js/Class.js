@@ -47,6 +47,18 @@ function SingleTile(){
 
 }
 
+function TileSet(){
+    this.id = "";
+    this.width = 0;
+    this.height = 0;
+    this.tileWidth = 0;
+    this.tileHeight = 0;
+    this.numberOfCell = 0;
+    this.numberOfCellPerColumn = 0;
+    this.numberOfCellPerRow = 0;
+}
+
+
 function StaticTile(){
     /**
      * Game object inheritance

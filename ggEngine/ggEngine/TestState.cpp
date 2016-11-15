@@ -22,7 +22,7 @@ void TestState::Create()
 {
 	std::string tileMapJson = "";
 	{
-		Json state("Json/tilemap.json", true);
+		Json state("Json/state.json", true);
 		for (rapidjson::SizeType i = 0; i < state.Size(); i++)
 		{
 			const rapidjson::Value& jsonTile = state[i];
