@@ -130,6 +130,8 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
                         tile.tileId = t.index;
                         tile.x = x*tileWidth;
                         tile.y = y*tileHeight;
+                        tile.width = tileWidth;
+                        tile.height = tileHeight;
                     }
                 }
                 if(tile!=null){

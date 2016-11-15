@@ -54,10 +54,10 @@ namespace ggEngine{
 		world->AddGroup(gr);
 		return gr;
 	}
-	TileMap * Add::TileMap(std::string tileMapJsonPath)
+	TileMap * Add::TileMap(std::string tileMapJson,bool isLocation)
 	{
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager,this->cache,this->physics);
-		tileMap->BuildTree(tileMapJsonPath);
+		tileMap->BuildTree(tileMapJson, isLocation);
 		this->physics->AddTileMap(tileMap);
 		world->AddGroup(tileMap);
 		return tileMap;
