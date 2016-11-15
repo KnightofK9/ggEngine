@@ -93,8 +93,8 @@ function QuadTree(){
     this.leafWidth = 0;
     this.leafHeight = 0;
     this.totalLeafNodeSize = 0;
-    this.totalNodeSize = 0;
     this.indexOfFirstLeafNode = 0;
+    this.totalNodeSize = 0;
     this.quadNodeList = new Array(this.totalNodeSize);
 }
 function QuadNode(){

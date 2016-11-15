@@ -236,35 +236,22 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         var allNodeList = Array(quadTree.quadNodeList.length);
         var l = quadTree.quadNodeList.length;
         while(l--) allNodeList[l] = quadTree.quadNodeList[l];
-        var leafNodeList = allNodeList.splice(quadTree.indexOfFirstLeafNode);
         //var leafNodeList = quadTree.quadNodeList.splice(quadTree.indexOfFirstLeafNode);
         var numberOfCellPerRow = quadTree.width / quadTree.leafWidth;
         var numberOfCellPerColumn = quadTree.height / quadTree.leafHeight;
         var leafWidth = quadTree.leafWidth;
         var leafHeight = quadTree.leafHeight;
 
-        var leafNodeAs2dArray = new Array(numberOfCellPerColumn);
-        for (var i = 0; i < numberOfCellPerColumn; i++) {
-            leafNodeAs2dArray[i] = new Array(numberOfCellPerRow);
-        }
 
-        for (i = 0; i < leafNodeList.length; i++) {
-            var node = leafNodeList[i];
-            var x = node.x / leafWidth;
-            var y = node.y / leafHeight;
-            leafNodeAs2dArray[y][x] = node;
-        }
 
-        for (i = 0; i < objectList.length; i++) {
+        for (var i = 0; i < objectList.length; i++) {
             var object = objectList[i];
-            for (y = object.y / leafHeight; y*leafHeight <= object.y + object.width; y += 1) {
-                for (x = object.x / leafWidth; x*leafWidth <= object.x + object.height; x += 1) {
+            for (var y = object.y / leafHeight; y*leafHeight <= object.y + object.width; y += 1) {
+                for (var x = object.x / leafWidth; x*leafWidth <= object.x + object.height; x += 1) {
                     quadTree.quadNodeList[y*numberOfCellPerRow+x + quadTree.indexOfFirstLeafNode].quadNodeIdList.push(object.id);
                 }
             }
         }
-        leafNodeList = [].concat.apply([], leafNodeAs2dArray);
-        quadTree.quadNodeList = quadTree.quadNodeList.concat(leafNodeList);
 
     };
 
