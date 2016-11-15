@@ -159,6 +159,7 @@
                 +'Tile Height <input id="dialog-t-height" type="number" class="form-control">'
                 +'Quad Node Cell Width <input id="dialog-q-width" type="number" class="form-control">'
                 +'Quad Node Cell Height <input id="dialog-q-height" type="number" class="form-control">'
+                +'<input style="display: none;" type="file" accept=".json" id="dialog-up-file" />'
                 ,
                 onshow: function(dialogRef){
                     dialogRef.getModalBody().find('#dialog-width').val(800);
@@ -167,14 +168,31 @@
                     dialogRef.getModalBody().find('#dialog-q-height').val(16);
                     dialogRef.getModalBody().find('#dialog-t-width').val(16);
                     dialogRef.getModalBody().find('#dialog-t-height').val(16);
+                    dialogRef.getModalBody().find('#dialog-up-file').change(function(event){
+                        Helper.getJsonFromFile(event.target.files[0],function(isSuccess,json){
+                            if(isSuccess){
+                                loadSceneFromJson(json);
+                            }
+                            dialogRef.close();
+                        })
+                    });
+
                 },
                 buttons: [{
+                    label: 'Load',
+                    action: function(dialogRef) {
+                        dialogRef.getModalBody().find('#dialog-up-file').click();
+                    }
+                },{
                     label: 'Create',
                     action: function(dialogRef) {
                         createSceneFromDialog(dialogRef);
                     }
                 }]
             });
+        }
+        function loadSceneFromJson(json){
+            console.log(JSON.stringify(json));
         }
         function createSceneFromDialog(dialogRef){
             var width = parseInt(dialogRef.getModalBody().find('#dialog-width').val());
