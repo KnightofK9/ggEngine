@@ -141,10 +141,10 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         return tileMap;
     };
 
-    function getBaseLog(x, y) {
+    var getBaseLog = function(x, y) {
         return Math.log(y) / Math.log(x);
-    }
-    function createQuadTree(){
+    };
+    var createQuadTree = function (){
         "use strict";
         var quadTree = new QuadTree();
         var width = 0;
@@ -179,9 +179,15 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         createQuadNode(1,quadTree.width/2,0,quadTree.width,quadTree.height,quadTree);
         createQuadNode(2,0,quadTree.height/2,quadTree.width,quadTree.height,quadTree);
         createQuadNode(3,quadTree.width/2,quadTree.height/2,quadTree.width,quadTree.height,quadTree);
+
+        initLeafNodeList(quadTree);
+
         return quadTree;
-    }
-    function createQuadNode(nodeId, x, y, parentWidth, parentHeight, quadTree){
+    };
+
+
+
+    var createQuadNode = function (nodeId, x, y, parentWidth, parentHeight, quadTree){
         var width = parentWidth / 2;
         var height = parentHeight / 2;
         var quadNode;
@@ -224,9 +230,43 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
 
 
-    }
+    };
 
+    var initLeafNodeList = function(quadTree){
+        var allNodeList = Array(quadTree.quadNodeList.length);
+        var l = quadTree.quadNodeList.length;
+        while(l--) allNodeList[l] = quadTree.quadNodeList[l];
+        var leafNodeList = allNodeList.splice(quadTree.indexOfFirstLeafNode);
+        //var leafNodeList = quadTree.quadNodeList.splice(quadTree.indexOfFirstLeafNode);
+        var numberOfCellPerRow = quadTree.width / quadTree.leafWidth;
+        var numberOfCellPerColumn = quadTree.height / quadTree.leafHeight;
+        var leafWidth = quadTree.leafWidth;
+        var leafHeight = quadTree.leafHeight;
 
+        var leafNodeAs2dArray = new Array(numberOfCellPerColumn);
+        for (var i = 0; i < numberOfCellPerColumn; i++) {
+            leafNodeAs2dArray[i] = new Array(numberOfCellPerRow);
+        }
+
+        for (i = 0; i < leafNodeList.length; i++) {
+            var node = leafNodeList[i];
+            var x = node.x / leafWidth;
+            var y = node.y / leafHeight;
+            leafNodeAs2dArray[y][x] = node;
+        }
+
+        for (i = 0; i < objectList.length; i++) {
+            var object = objectList[i];
+            for (y = object.y / leafHeight; y*leafHeight <= object.y + object.width; y += 1) {
+                for (x = object.x / leafWidth; x*leafWidth <= object.x + object.height; x += 1) {
+                    quadTree.quadNodeList[y*numberOfCellPerRow+x + quadTree.indexOfFirstLeafNode].quadNodeIdList.push(object.id);
+                }
+            }
+        }
+        leafNodeList = [].concat.apply([], leafNodeAs2dArray);
+        quadTree.quadNodeList = quadTree.quadNodeList.concat(leafNodeList);
+
+    };
 
 
     var changeLayer = function(key) {
