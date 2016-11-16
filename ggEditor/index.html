@@ -83,7 +83,7 @@
                 </div>
 
                 <div id="gg-state-info"  class="panel-body hierarchy">
-                    <label  class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox" checked >Use quad tree</label>
+                    <label  class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox"  >Use quad tree</label>
                 </div>
 
             </div>
@@ -153,7 +153,9 @@
             BootstrapDialog.show({
                 closable :true,
                 title:"Select scene size",
-                message: 'Width <input id="dialog-width" type="number" class="form-control">'
+                message:
+                'Name <input id="dialog-name" type="text" class="form-control">'
+                +'Width <input id="dialog-width" type="number" class="form-control">'
                 +'Height <input id="dialog-height" type="number" class="form-control">'
                 +'Tile Width <input id="dialog-t-width" type="number" class="form-control">'
                 +'Tile Height <input id="dialog-t-height" type="number" class="form-control">'
@@ -162,6 +164,7 @@
                 +'<input style="display: none;" type="file" accept=".json" id="dialog-up-file" />'
                 ,
                 onshow: function(dialogRef){
+                    dialogRef.getModalBody().find('#dialog-name').val("ProtoTypeState");
                     dialogRef.getModalBody().find('#dialog-width').val(800);
                     dialogRef.getModalBody().find('#dialog-height').val(600);
                     dialogRef.getModalBody().find('#dialog-q-width').val(16);
@@ -187,14 +190,33 @@
                     label: 'Create',
                     action: function(dialogRef) {
                         createSceneFromDialog(dialogRef);
+                        dialogRef.close();
                     }
                 }]
             });
         }
         function loadSceneFromJson(json){
-            console.log(JSON.stringify(json));
+            var name = json.name;
+            var width = json.width;
+            var height = json.height;
+           if(json.quadTree){
+               var qWidth = json.quadTree.leafWidth;
+               var qHeight =json.quadTree.leafHeight;
+           }
+            var tWidth = json.tileWidth;
+            var tHeight = json.tileHeight;
+            if(sceneEditor!=null){
+                sceneEditor = null;
+                game.destroy();
+                hierarchyEditor.clearAll();
+            }
+            hierarchyEditor.updateHierarchy();
+            sceneEditor = new SceneEditor(name, width,height,tWidth, tHeight ,qWidth,qHeight,json);
+
+//            importState
         }
         function createSceneFromDialog(dialogRef){
+            var name = (dialogRef.getModalBody().find('#dialog-name').val());
             var width = parseInt(dialogRef.getModalBody().find('#dialog-width').val());
             var height = parseInt(dialogRef.getModalBody().find('#dialog-height').val());
             var qWidth = parseInt(dialogRef.getModalBody().find('#dialog-q-width').val());
@@ -204,9 +226,10 @@
             if(sceneEditor!=null){
                 sceneEditor = null;
                 game.destroy();
+                if(hierarchyEditor!=null) hierarchyEditor.clearAll();
             }
             hierarchyEditor.updateHierarchy();
-            sceneEditor = new SceneEditor(width,height,tWidth, tHeight ,qWidth,qHeight);
+            sceneEditor = new SceneEditor(name, width,height,tWidth, tHeight ,qWidth,qHeight);
             dialogRef.close();
         }
         function switchToTab(tabName) {

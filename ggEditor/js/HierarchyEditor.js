@@ -21,6 +21,12 @@ var HierarchyEditor = function () {
         }
 
     };
+    this.clearAll = function(){
+        hierarchyListPanel.html("");
+        hierarchyList = [];
+        hObjectList = [];
+        id = 0;
+    };
     this.addObjectToHierarchy = function (name, object) {
         var hierarchyObject = new HierarchyObject();
         hierarchyObject.id = id++;

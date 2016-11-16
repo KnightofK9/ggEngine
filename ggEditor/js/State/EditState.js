@@ -1,7 +1,7 @@
 /**
  * Created by Knight of k9 on 12/11/2016.
  */
-var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeight) {
+var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeight,json) {
     var bgData = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABHNCSVQICAgIfAhkiAAAAFFJREFUWIXtzjERACAQBDFgMPOKzr8ScADFFlBsFKRX1WqfStLG68SNQcogZZAySBmkDFIGKYOUQcogZZAySBmkDFIGKYOUQcog9X1wJnl9ONrTcwPWLGFOywAAAABJRU5ErkJggg==";
     var backgroundSprite;
     var map;
@@ -24,26 +24,92 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
     var manualSelectLayer = 0;
     var layer3Key;
     var isUsedQuadTree = false;
-
-
+    var that = this;
+    var updateGroup = null;
     var objectList = [];
     var quadId = 0;
+    var remaingTileToupdate = [];
+    this.importState = function(stateJson){
+        for(var i = 0;i<stateJson.groupList.length;i++){
+            var group = stateJson.groupList[i];
+            switch(group.type){
+                case "TileMap":
+                    var tileMap = new TileMap();
+                    tileWidth = group.tileWidth;
+                    tileHeight = group.tileHeight;
+                    isUsedQuadTree = group.isUsedQuadTree;
+                    for(var d = 0;d< group.tileSetList.length;d++){
+                        //var tileSetKey = group.tileSetList[d];
+                        //addTileSet(tileSetKey);
+                        //currentLayer = addLayer(tileSetKey);
+                        //currentTileSetKey = tileSetKey;
+                    }
+                    //changeMapTileSetArray(currentTileSetKey);
+                    for(var t = 0;t< group.tileList.length;t++){
+                        var tile = group.tileList[t];
+                        switch(tile.type){
+                            case  "SingleTile":
+                                //if(currentTileSetKey !== tile.tileSetKey){
+                                //    for(var layer in layerList){
+                                //        if(layer.name === tile.tileSetKey){
+                                //            currentTileSetKey = tile.tileSetKey;
+                                //            changeMapTileSetArray(currentTileSetKey);
+                                //            break;
+                                //        }
+                                //    }
+                                //}
+                                //if(tile.tileSetKey === "level-3-tile-set") {
+                                //    break;
+                                //}
+
+                                //that.pickTile(tile.tileSetKey,tile.tileId);
+                                //map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+                                //window.setTimeout(function(){
+                                //    that.pickTile(tile.tileSetKey,tile.tileId);
+                                //    map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+                                //},100);
+                                remaingTileToupdate.push(tile);
+                                //game.time.events.add(1000 , function(tile){
+                                //    that.pickTile(tile.tileSetKey,tile.tileId);
+                                //    map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+                                //}, this,tile);
+
+                                break;
+                            default:
+                                console.log("No supported tile type "+ tile.type);
+                                break;
+                        }
+                    }
+
+
+                    break;
+                default:
+                    console.log("No supported group type "+ group.type);
+                    break;
+            }
+        }
+
+    };
 
 
     this.exportTileMap = function(){
         isUsedQuadTree = stateInfo.isUsedQuadTree();
-        var state = [];
-
+        var state = new State();
+        state.name = name;
+        state.width = game.width;
+        state.height = game.height;
+        state.tileWidth = tileWidth;
+        state.tileHeight = tileHeight;
         var tileMap = initTileMapAsJson();
         if(isUsedQuadTree){
             var quadTree = createQuadTree();
         }
 
-        state.push(tileMap);
-        if(isUsedQuadTree) state.push(quadTree);
+        state.groupList.push(tileMap);
+        if(isUsedQuadTree) state.quadTree = quadTree;
 
 
-        Helper.downloadJson(state,"ProtoTypeTileMap");
+        Helper.downloadJson(state,state.name);
         quadId = 0;
         objectList = [];
     };
@@ -66,6 +132,14 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         //backgroundSprite = game.add.tileSprite(0,0,game.width,game.height,'bg');
         //backgroundSprite.tileWidth = tileWidth;
         //backgroundSprite.tileHheight = tileHeight;
+        var updateGroup = game.add.group();
+        updateGroup.update = function(){
+            if(remaingTileToupdate.length){
+                var tile = remaingTileToupdate.pop();
+                that.pickTile(tile.tileSetKey,tile.tileId);
+                map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+            }
+        };
         game.stage.backgroundColor = "#4488AA";
         map = game.add.tilemap();
         map.tileWidth = tileWidth;
@@ -104,6 +178,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
 
 
+        if(json) this.importState(json);
     };
 
     var initTileMapAsJson = function(){

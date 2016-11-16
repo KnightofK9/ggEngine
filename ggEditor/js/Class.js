@@ -20,17 +20,7 @@ function GameObject(){
     this.height = 0;
 }
 
-function TileMap(){
-    this.type = "TileMap";
-    this.x = 0;
-    this.y = 0;
-    this.width = 0;
-    this.height = 0;
-    this.tileWidth = 0;
-    this.tileHeight = 0;
-    this.tileSetList = [];
-    this.isUsedQuadTree = false;
-}
+
 function SingleTile(){
     /**
      * Game object inheritance
@@ -138,4 +128,43 @@ function Rect(){
     this.top = 0;
     this.right = 0;
     this.bottom = 0;
+}
+function TileMap(){
+    this.type = "TileMap";
+    this.x = 0;
+    this.y = 0;
+    this.width = 0;
+    this.height = 0;
+    this.tileWidth = 0;
+    this.tileHeight = 0;
+    this.tileSetList = [];
+    this.scale = new Vector(1,1);
+    this.isUsedQuadTree = false;
+}
+function Group(){
+    this.type = "Group";
+    this.x = 0;
+    this.y = 0;
+    this.objectList = [];
+    this.scale = new Vector(1,1);
+    this.isUsedQuadTree = false;
+}
+function State(){
+    this.type = "State";
+    this.name = "";
+    this.width = 0;
+    this.height = 0;
+    this.tileWidth = 0;
+    this.tileHeight = 0;
+    this.camera = null;
+    this.groupList = [];
+    this.quadTree = null;
+}
+function Camera(){
+    this.type = "Camera";
+    this.x = 0;
+    this.y = 0;
+    this.width = 0;
+    this.height = 0;
+
 }

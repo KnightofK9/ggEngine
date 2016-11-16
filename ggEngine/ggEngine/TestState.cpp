@@ -24,13 +24,12 @@ void TestState::Create()
 {
 	std::string tileMapJson = "";
 	{
-		Json state("Json/state.json", true);
-		for (rapidjson::SizeType i = 0; i < state.Size(); i++)
+		Json state("Json/ProtoTypeState.json", true);
+		for (auto& it : state["groupList"].GetArray())
 		{
-			const rapidjson::Value& jsonTile = state[i];
-			std::string type = jsonTile["type"].GetString();
+			std::string type = it["type"].GetString();
 			if (type == "TileMap") {
-				tileMapJson = Json::GetCharArrayFromValue(jsonTile);
+				tileMapJson = Json::GetCharArrayFromValue(it);
 			}
 		}
 	}
