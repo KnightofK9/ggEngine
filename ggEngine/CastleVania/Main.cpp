@@ -1,5 +1,6 @@
 #include "../ggEngine/ggEngine.h"
 #include "TestStateCastleVania.h"
+#include "TestState.h"
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 using namespace ggEngine;
 //Field
@@ -34,8 +35,10 @@ void cleanup() {
 }
 void initGame() {
 	TestStateCastleVania *testState = new TestStateCastleVania(game);
+	TestState *tState = new TestState(game);
 	game->stateManager->Add("TestStateCastleVania", testState, false);
-	game->stateManager->Start("TestStateCastleVania", false, false);
+	game->stateManager->Add("TestState", tState, false);
+	game->stateManager->Start("TestState", false, false);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

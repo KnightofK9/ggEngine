@@ -1,36 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    
-    <link rel="stylesheet" type="text/css" href="node_modules/bootflat/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="node_modules/bootflat/css/site.min.css">
-    
-    
+    <title>ggGenerator</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--Include Section-->
+
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript"  src="node_modules/bootflat/js/bootstrap.min.js"></script>
-    
-    <script type="text/javascript"  src="node_modules/bootflat/bootflat/js/icheck.min.js"></script>
-    <script type="text/javascript"  src="node_modules/bootflat/bootflat/js/jquery.fs.selecter.min.js"></script>
-    <script type="text/javascript"  src="node_modules/bootflat/bootflat/js/jquery.fs.stepper.min.js"></script>
+
+
+
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
+
+    <!--End Include Section-->
+
+
+    <script type="text/javascript" src="js/TileMapManager.js"></script>
+    <script type="text/javascript" src="js/Helper.js"></script>
+    <script type="text/javascript" src="js/ggConsole.js"></script>
+
 </head>
 <body>
-<div class="btn-group">
-              <button type="button" class="btn btn-primary">Primary</button>
-              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-</div>
-    
-        
+<a id="downloadAnchorElem" style="display:none"></a>
+<button type="button" class="btn btn-primary" id="btn-create-tile-map">CreateTileMap</button>
+<button type="button" class="btn btn-primary" id="btn-init-quad-tree">InitQuadTree</button>
+<button type="button" class="btn btn-primary" id="btn-export-tile-map">ExportTileMap</button>
+<div class="well" id="gg-console">Welcome to ggGenerator</div>
+<script>
+    var currentTileMap = null;
+    $(document).ready(function () {
+        ggConsole.init();
+        var create = function () {
+            currentTileMap = new TileMap(512, 512, 32, 32, "scene", 40);
+            currentTileMap.createTileMap();
+            ggConsole.log("Init tile map succeed!");
+        };
+        var initQuadTree = function () {
+            if (currentTileMap != null) {
+                currentTileMap.initQuadTree();
+                ggConsole.log("Init quad tree succeed!");
+            }
+            else ggConsole.log("Warning tile map haven't been created!");
+
+        };
+        var exportQuadTree = function () {
+            if (currentTileMap != null) {
+                currentTileMap.exportToJson();
+                ggConsole.log("Export map succeed!");
+            }
+            else ggConsole.log("Warning tile map haven't been created!");
+        };
+        $("#btn-create-tile-map").on('click', create);
+        $("#btn-init-quad-tree").on('click', initQuadTree);
+        $("#btn-export-tile-map").on('click', exportQuadTree);
+
+    });
+</script>
 </body>
 </html>

@@ -161,7 +161,7 @@ namespace ggMapEditor.ViewModels
                     DrawBlock();
 
                 if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Pen)
-                    DrawTile(new Views.Controls.Tile(Helpers.StaticHelper.currentCTile));
+                    DrawTile(Helpers.StaticHelper.currentCTile);
 
                 if (Helpers.ToolsEventHandle.DrawTool == ToolTypes.Eraser)
                     Eraser();
@@ -264,6 +264,8 @@ namespace ggMapEditor.ViewModels
         private void DrawBlock()
         {
             var cell = GetChild();
+            if (cell == null) return;
+
             if (cell.GetChildCount() == 1)
             {
                 int strokeThickness = 2;
