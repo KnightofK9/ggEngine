@@ -18,5 +18,31 @@ var Helper = new function () {
     this.getBaseLog = function(x,y){
         return Math.log(y) / Math.log(x);
     };
+<<<<<<< HEAD
 
+=======
+    this.getJsonFromFile = function(file, callback){
+        var uploadedFile = file;
+
+        //if(uploadedFile.type !== "text/jso" && uploadedFile.type !== "application/x-javascript") {
+        //    alert("Wrong file type == " + uploadedFile.type);
+        //    callback(false,null);
+        //    return false;
+        //}
+
+        if (uploadedFile) {
+            var readFile = new FileReader();
+            readFile.onload = function(e) {
+                var contents = e.target.result;
+                var json = JSON.parse(contents);
+                callback(true,json);
+            };
+            readFile.readAsText(uploadedFile);
+        } else {
+            console.log("Failed to load file");
+            callback(false,null);
+        }
+
+    }
+>>>>>>> 8af77554377c4c3da7f646992b14f23eb4652998
 };

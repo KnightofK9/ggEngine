@@ -1,11 +1,10 @@
 #pragma once
 #include <d3d9.h>
-#include "ISerializable.h"
 #include "IJsonable.h"
 #include "Rect.h"
 namespace ggEngine {
 	class GameObject;
-	class Box : public ISerializable, public IJsonable {
+	class Box : public IJsonable {
 	public:
 		Box(double x, double y, double w, double h, double vx, double vy);
 		Box();

@@ -49,13 +49,13 @@ namespace ggEngine{
 	{
 		//if (isPlayed == false)
 		//{
-			Stop();
-			source->FlushSourceBuffers();
-			if (FAILED(source->SubmitSourceBuffer(&buffer)))
-				MessageBox(NULL, "Error: Buffer is unavailable to play this Audio. " +
-					GetLastError(), "Error", MB_OK);
-			source->SetVolume(1, XAUDIO2_COMMIT_NOW);
-			source->Start(0);
+			//Stop();
+			//source->FlushSourceBuffers();
+			//if (FAILED(source->SubmitSourceBuffer(&buffer)))
+			//	MessageBox(NULL, "Error: Buffer is unavailable to play this Audio. " +
+			//		GetLastError(), "Error", MB_OK);
+			//source->SetVolume(1, XAUDIO2_COMMIT_NOW);
+			//source->Start(0);
 
 			//isPlayed = true;
 		//}

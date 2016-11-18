@@ -28,7 +28,7 @@ namespace ggEngine{
 		Grid *Grid(double x, double y,int cellWidth, int cellHeight, int width, int height, Group *group);
 		SpriteAnimation* SpriteAnimation(double x, double y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0, int msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 		Group* Group();
-		TileMap* TileMap(std::string tileMapJsonPath);
+		TileMap* TileMap(std::string tileMapJson, bool isLocation);
 		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
 		Audio* Audio(std::string fileName);
 		ggEngine::Tween* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction);

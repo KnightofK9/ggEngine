@@ -8,5 +8,34 @@ var ggConsole = new function(){
     };
     this.log = function(message){
         c.html(c.html()+"</br>"+message);
+<<<<<<< HEAD
     }
+=======
+    };
+    this.showNotification = function(title,message){
+        BootstrapDialog.show({
+            title:title,
+            message:message,
+            buttons: [{
+                label: 'Ok',
+                action: function(dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
+    };
+    this.alertNotification = function(title,message){
+        BootstrapDialog.show({
+            type:BootstrapDialog.TYPE_DANGER,
+            title:title,
+            message:message,
+            buttons: [{
+                label: 'Ok',
+                action: function(dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
+    };
+>>>>>>> 8af77554377c4c3da7f646992b14f23eb4652998
 };

@@ -96,6 +96,14 @@ var TileMap = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumbe
     };
     var getAnyIntersectObjectId = function(left, top,right,bottom){
         var idList = [];
+<<<<<<< HEAD
+=======
+        var quadNodeRect = new Rect();
+        quadNodeRect.left = left;
+        quadNodeRect.top = top;
+        quadNodeRect.right = right;
+        quadNodeRect.bottom = bottom;
+>>>>>>> 8af77554377c4c3da7f646992b14f23eb4652998
         //TO DO: get intersect object here
         return idList;
     };
@@ -165,6 +173,7 @@ var TileMap = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumbe
         return position;
     };
 };
+<<<<<<< HEAD
 function GameObjectInfo(){
     this.type = "";
     this.info = {};
@@ -230,3 +239,5 @@ function QuadTree(){
     this.totalNodeSize = 0;
     this.quadNodeList = new Array(this.totalNodeSize);
 }
+=======
+>>>>>>> 8af77554377c4c3da7f646992b14f23eb4652998
