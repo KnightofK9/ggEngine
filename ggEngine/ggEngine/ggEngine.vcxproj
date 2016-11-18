@@ -183,7 +183,6 @@
     <ClInclude Include="IGetGroup.h" />
     <ClInclude Include="IJsonable.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="ISerializable.h" />
     <ClInclude Include="IValueable.h" />
     <ClInclude Include="Json.h" />
     <ClInclude Include="KeyBoardEventArg.h" />
