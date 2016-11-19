@@ -97,7 +97,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
                 var preTileSet = new PreTileSet();
                 var key = layerList[i].name;
                 preTileSet.tileSetPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].name;
-                preTileSet.tileSetPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].json;
+                preTileSet.tileSetJsonPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].json;
                 preloadList.push(preTileSet);
             }
         }

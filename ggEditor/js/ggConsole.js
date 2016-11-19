@@ -8,9 +8,6 @@ var ggConsole = new function(){
     };
     this.log = function(message){
         c.html(c.html()+"</br>"+message);
-<<<<<<< HEAD
-    }
-=======
     };
     this.showNotification = function(title,message){
         BootstrapDialog.show({
@@ -37,5 +34,4 @@ var ggConsole = new function(){
             }]
         });
     };
->>>>>>> 8af77554377c4c3da7f646992b14f23eb4652998
 };

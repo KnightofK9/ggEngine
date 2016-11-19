@@ -3,9 +3,10 @@ CVState::CVState(Game * game):State(game)
 {
 }
 
-CVState::CVState(Game * game, Json state):State(game)
+CVState::CVState(Game * game, std::string statePath):State(game)
 {
-	this->json = state.GetCharArray;
+	Json state(statePath, true);
+	this->json = state.GetCharArray();
 }
 
 CVState::~CVState()
@@ -18,10 +19,30 @@ void CVState::Init()
 
 void CVState::Preload()
 {
+	Json jsonFile(this->json);
+	for (auto& it : jsonFile["preloadList"].GetArray())
+	{
+		std::string type = it["type"].GetString();
+		if (type == "PreTileSet") {
+			std::string tileSetPath = it["tileSetPath"].GetString();
+			std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
+			this->preload->TileSet(tileSetPath, tileSetJsonPath);
+		}
+	}
+
 }
 
 void CVState::Create()
 {
+	Json jsonFile(this->json);
+	for (auto& it : jsonFile["groupList"].GetArray())
+	{
+		std::string type = it["type"].GetString();
+		if (type == "TileMap") {
+			std::string tileMapJson = Json::GetCharArrayFromValue(it);
+			this->add->TileMap(tileMapJson, false);
+		}
+	}
 }
 
 void CVState::Update()

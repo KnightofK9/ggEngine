@@ -6,7 +6,7 @@ using namespace ggEngine;
 class CVState : public State {
 public :
 	CVState(Game *game);
-	CVState(Game *game,Json state);
+	CVState(Game *game, std::string statePath);
 	~CVState();
 	virtual void Init() ; //Called after start a State
 	virtual void Preload() ; //Called after init
@@ -17,7 +17,7 @@ public :
 	virtual void Pause();//Called when the game is set to paused
 	virtual void Resume();//Called when the game is resumed
 	virtual void ShutDown();//Called when start a new State
-	void Load() override;
+	virtual void Load() override;
 protected:
 	std::string json;
 };
