@@ -36,7 +36,7 @@ namespace ggEngine{
 		TimeBasedEventInfo* TimeOut(unsigned int delay , std::function<void(void)> function);
 		TimeBasedEventInfo* LoopInfinity(unsigned int delay, std::function<void(void)> function);
 		TimeBasedEventInfo* Loop(unsigned int delay, unsigned int numberOfLoops, std::function<void(void)> function);
-	private:
+	protected:
 		Physics *physics;
 		TweenManager *tweenManager;
 		Cache *cache;

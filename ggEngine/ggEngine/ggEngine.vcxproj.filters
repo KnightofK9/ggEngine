@@ -225,6 +225,12 @@
     <ClCompile Include="AudioInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimeBasedEventInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeBasedEventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -386,9 +392,6 @@
     <ClInclude Include="State.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="ISerializable.h">
-      <Filter>Header Files\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="NiseVector.h">
       <Filter>Header Files\Core\Math</Filter>
     </ClInclude>
@@ -436,6 +439,15 @@
     </ClInclude>
     <ClInclude Include="AudioInfo.h">
       <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ISerializable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeBasedEventInfo.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeBasedEventManager.h">
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

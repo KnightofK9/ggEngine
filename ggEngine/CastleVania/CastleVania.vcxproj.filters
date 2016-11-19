@@ -27,10 +27,19 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CVAdd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestStateCastleVania.h">
       <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="CVState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVAdd.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
