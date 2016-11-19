@@ -90,7 +90,19 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         }
 
     };
-
+    var initPreloadList = function(){
+        var preloadList = [];
+        if(layerList.length>0){
+            for(var i = 0;i<layerList.length;i++){
+                var preTileSet = new PreTileSet();
+                var key = layerList[i].name;
+                preTileSet.tileSetPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].name;
+                preTileSet.tileSetPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].json;
+                preloadList.push(preTileSet);
+            }
+        }
+        return preloadList;
+    };
 
     this.exportTileMap = function(){
         isUsedQuadTree = stateInfo.isUsedQuadTree();
@@ -106,6 +118,8 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         }
 
         state.groupList.push(tileMap);
+        var preloadList = initPreloadList();
+        state.preloadList = preloadList;
         if(isUsedQuadTree) state.quadTree = quadTree;
 
 

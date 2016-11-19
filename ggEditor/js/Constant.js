@@ -11,6 +11,7 @@ var Constant = new function(){
     this.TILE_SET_DICT ={
         "level-2-tile-set":{
             name:"level-2-tile-set.png",
+            json:"level-2-tile-set.json",
             width:64,
             height:192,
             cellWidth:16,
@@ -20,6 +21,7 @@ var Constant = new function(){
         },
         "level-3-tile-set":{
             name:"level-3-tile-set.png",
+            json:"level-3-tile-set.json",
             width:128,
             height:288,
             cellWidth:16,

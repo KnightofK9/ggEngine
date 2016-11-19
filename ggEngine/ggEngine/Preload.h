@@ -4,7 +4,7 @@
 #include <string>
 #include "Font.h"
 namespace ggEngine{
-	enum AtlasDefType{ AtlasDefTypeXML, AtlasDefTypeJSON };
+	enum AtlasDefType{ AtlasDefTypeXML = 0, AtlasDefTypeJSON };
 	class Sprite;
 	class Group;
 	class Cache;

@@ -1,6 +1,6 @@
 #include "TestStateCastleVania.h"
 
-TestStateCastleVania::TestStateCastleVania(Game *game) :State(game)
+TestStateCastleVania::TestStateCastleVania(Game *game) :CVState(game)
 {
 }
 TestStateCastleVania::~TestStateCastleVania()

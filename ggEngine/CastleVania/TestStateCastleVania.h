@@ -1,7 +1,8 @@
 #pragma once
-#include "../ggEngine/ggEngine.h"
+#include <ggEngine.h>
+#include "CVState.h"
 using namespace ggEngine;
-class TestStateCastleVania : public State{
+class TestStateCastleVania : public CVState{
 public:
 	TestStateCastleVania(Game *game);
 	~TestStateCastleVania();

@@ -15,7 +15,7 @@ namespace ggEngine{
 	class State : public GGObject{
 	public:
 		~State();
-		virtual void Start();
+		void Start();
 		virtual void Load();
 		Add *add;
 		Preload *preload;
