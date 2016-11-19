@@ -32,5 +32,6 @@ namespace ggEngine {
 	protected:
 		D3DCOLOR color;
 		SpriteInfo *image = nullptr;
+		DWORD style ;
 	};
 }

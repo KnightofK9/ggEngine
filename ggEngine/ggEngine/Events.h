@@ -16,6 +16,7 @@ namespace ggEngine {
 		std::function<void(GameObject*, MouseEventArg)> onMousePress;
 		std::function<void(GameObject*, ColliderArg)> onWorldBounds;
 		std::function<void(GameObject*, ColliderArg)> onCollide;
+		std::function<bool(GameObject*, ColliderArg)> onCheckingCollide;
 		std::function<void(GameObject*, ColliderArg)> onOverlap;
 		std::function<void(GameObject*, EventArg)> onMoveComplete;
 		std::function<void(GameObject*, EventArg)> movementCallback;

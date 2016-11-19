@@ -253,6 +253,10 @@ namespace ggEngine {
 			}
 			if (!IsCollided(b1, e.b)) continue;*/
 			//g_debug.Log("Received");
+			this->allowObjectBlock = false;
+			if (this->sprite->events->onCheckingCollide != nullptr) {
+				allowObjectBlock = this->sprite->events->onCheckingCollide(e.b.gameObject, e);
+			}
 			if (this->allowObjectBlock) {
 				this->rigidBody->Translate(currentVelocity*e.entryTime);
 				remainingTime -= e.entryTime;

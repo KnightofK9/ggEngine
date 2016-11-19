@@ -6,6 +6,7 @@
 namespace ggEngine {
 	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_RotateRight, CameraControl_RotateLeft, CameraControl_Reset, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown};
 	class Game;
+	class GameObject;
 	class Camera : public GGObject {
 	public:
 		Camera(Game *game, int width, int height,double x = 0, double y = 0, bool enableManualMove = false);
@@ -20,6 +21,7 @@ namespace ggEngine {
 		void EnableManualMove();
 		void DisableManualMove();
 		void ResetView();
+		void Follow(GameObject *go);
 		RECT GetRect();
 	private:
 		LPDIRECT3DDEVICE9 device;

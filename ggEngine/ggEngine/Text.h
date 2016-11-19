@@ -56,6 +56,7 @@ namespace ggEngine {
 	private:
 		Font *font;
 		Style style;
+		DWORD drawStyle;
 		std::string text;
 		double orgWidth;
 		double orgHeight;

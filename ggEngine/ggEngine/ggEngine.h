@@ -24,3 +24,7 @@
 #include "QuadTree.h"
 #include "TimeBasedEventInfo.h"
 #include  "TimeBasedEventManager.h"
+#include "SingleTile.h"
+#include "Cache.h"
+#include "Camera.h"
+#include "Timer.h"

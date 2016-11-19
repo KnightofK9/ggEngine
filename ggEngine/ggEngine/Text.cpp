@@ -41,6 +41,7 @@ ggEngine::Text::Text(DrawManager *drawManager,Font *font, double x, double y, do
 	this->text = text;
 	this->style = style;
 	this->font = font;
+	this->drawStyle = D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE;
 }
 
 ggEngine::Text::~Text()
@@ -70,7 +71,7 @@ void ggEngine::Text::Draw()
 		worldRect.bottom = GAME_HEIGHT;
 
 	RECT rect{ 0 , 0 , width, height };
-	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE) == D3D_OK)
+	if (spriteHandle->Begin(this->drawStyle) == D3D_OK)
 	{
 		
 		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);

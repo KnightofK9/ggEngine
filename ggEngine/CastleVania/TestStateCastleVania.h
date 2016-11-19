@@ -1,10 +1,11 @@
 #pragma once
 #include <ggEngine.h>
 #include "CVState.h"
+#include "Simon.h"
 using namespace ggEngine;
 class TestStateCastleVania : public CVState{
 public:
-	TestStateCastleVania(Game *game);
+	TestStateCastleVania(CVGame *game);
 	~TestStateCastleVania();
 	void Init(); //Called after start a scene
 	void Preload(); //Called after int
@@ -16,4 +17,5 @@ public:
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 private:
+	Simon *simon;
 };

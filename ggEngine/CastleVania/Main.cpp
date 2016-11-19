@@ -1,11 +1,12 @@
 #include <ggEngine.h>
+#include "CVGame.h"
 #include "TestStateCastleVania.h"
 #include "TestState.h"
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 using namespace ggEngine;
 //Field
 Window *window;
-Game *game;
+CVGame *game;
 //Method declarations
 void cleanup();
 void quitWithError(LPCTSTR error);
@@ -16,9 +17,9 @@ void onExit();
 LRESULT CALLBACK messageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 int main() {
 	try {
-		window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, GAME_WIDTH, GAME_HEIGHT, GameMode_Windowed);
+		window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, GameMode_Windowed);
 		//game = new Game(window->getHandle(), GAME_WIDTH, GAME_HEIGHT, GameMode_Windowed, D3DCOLOR_XRGB(0,0,0));
-		game = new Game(window->getHandle(), GAME_WIDTH, GAME_HEIGHT, GameMode_Windowed, PhysicsMode_AABBSwept, D3DCOLOR_XRGB(177, 177, 177));
+		game = new CVGame(window->getHandle(), 800, 600, GameMode_Windowed, PhysicsMode_AABBSwept, D3DCOLOR_XRGB(177, 177, 177));
 	}
 	catch (LPCTSTR error) {
 		quitWithError(error);
@@ -40,7 +41,7 @@ void initGame() {
 	game->stateManager->Add("TestStateCastleVania", testState, false);
 	game->stateManager->Add("JsonState", jsonState, false);
 	//game->stateManager->Add("TestState", tState, false);
-	game->stateManager->Start("JsonState", false, false);
+	game->stateManager->Start("TestStateCastleVania", false, false);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

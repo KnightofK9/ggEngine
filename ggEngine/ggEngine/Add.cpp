@@ -13,8 +13,9 @@
 #include "TimeBasedEventInfo.h"
 #include "TimeBasedEventManager.h"
 #include "Grid.h"
+#include "EventManager.h"
 namespace ggEngine{
-	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics, TimeBasedEventManager *timeBasedEventManager){
+	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics, TimeBasedEventManager *timeBasedEventManager, EventManager *eventManager){
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
@@ -23,6 +24,7 @@ namespace ggEngine{
 		this->camera = camera;
 		this->physics = physics;
 		this->timeBasedEventManager = timeBasedEventManager;
+		this->eventManager = eventManager;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);

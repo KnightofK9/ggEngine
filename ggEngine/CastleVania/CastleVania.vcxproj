@@ -149,18 +149,32 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CharacterBase.cpp" />
+    <ClCompile Include="CVGame.cpp" />
     <ClCompile Include="CVPreload.cpp" />
     <ClCompile Include="CVState.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="StaticTile.cpp" />
     <ClCompile Include="TestStateCastleVania.cpp" />
     <ClCompile Include="CVAdd.cpp" />
+    <ClCompile Include="TileBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterBase.h" />
+    <ClInclude Include="CharacterConstant.h" />
     <ClInclude Include="Constant.h" />
+    <ClInclude Include="CVGame.h" />
+    <ClInclude Include="CVObject.h" />
     <ClInclude Include="CVPreload.h" />
     <ClInclude Include="CVState.h" />
+    <ClInclude Include="Simon.h" />
+    <ClInclude Include="StaticTile.h" />
     <ClInclude Include="TestStateCastleVania.h" />
     <ClInclude Include="CVAdd.h" />
+    <ClInclude Include="TextureConstant.h" />
+    <ClInclude Include="TileBase.h" />
+    <ClInclude Include="TypeEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ggEngine\ggEngine.vcxproj">

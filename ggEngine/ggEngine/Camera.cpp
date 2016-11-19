@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "Game.h"
 #include "Input.h"
-
+#include "GameObject.h"
 namespace ggEngine {
 	Camera::Camera(Game * game, int width, int height, double x , double y , bool enableManualMove)
 	{
@@ -116,6 +116,9 @@ namespace ggEngine {
 		SetScale(1, 1);
 		rotate = 0;
 		point = Vector(width/2, height/2);
+	}
+	void Camera::Follow(GameObject * go)
+	{
 	}
 	RECT Camera::GetRect()
 	{

@@ -1,9 +1,12 @@
 #include "CVState.h"
-CVState::CVState(Game * game):State(game)
+
+CVState::CVState(CVGame * game):State(game,false)
 {
+	this->cvgame = game;
+	Load();
 }
 
-CVState::CVState(Game * game, std::string statePath):State(game)
+CVState::CVState(CVGame * game, std::string statePath):State(game)
 {
 	Json state(statePath, true);
 	this->json = state.GetCharArray();
@@ -11,6 +14,14 @@ CVState::CVState(Game * game, std::string statePath):State(game)
 
 CVState::~CVState()
 {
+	if (cvAdd != nullptr) {
+		delete cvAdd;
+		cvAdd = nullptr;
+	}
+	if (cvPreload != nullptr) {
+		delete cvPreload;
+		cvPreload = nullptr;
+	}
 }
 
 void CVState::Init()
@@ -71,8 +82,8 @@ void CVState::ShutDown()
 
 void CVState::Load()
 {
-	this->add = new CVAdd(game->world, game->cache, game->tweenManager, game->GetDrawManager(), game->camera, game->physics, game->timeBasedEventManager);
-	this->preload = new CVPreload(game->cache);
+	this->cvAdd = new CVAdd(this, cvgame);
+	this->cvPreload = new CVPreload(cvgame->cache);
 }
 
 

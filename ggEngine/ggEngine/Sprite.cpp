@@ -8,6 +8,7 @@ namespace ggEngine {
 		this->anchor = Vector(0.5, 0.5);
 		this->body = NULL;
 		this->color = D3DCOLOR_XRGB(255, 255, 255);
+		this->style = D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE;
 	}
 
 	Sprite::Sprite(DrawManager* drawManager) : GameObject(drawManager)
@@ -15,6 +16,7 @@ namespace ggEngine {
 		this->color = D3DCOLOR_XRGB(255, 255, 255);
 		this->body = NULL;
 		this->anchor = Vector(0.5, 0.5);
+		this->style = D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE;
 	}
 
 	Sprite::~Sprite()
@@ -26,7 +28,7 @@ namespace ggEngine {
 		RECT srcRect = image->GetRect();
 		if (!visible) return;
 		color = (color & 0x00FFFFFF) | (opacity << 24);
-		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE) == D3D_OK)
+		if (spriteHandle->Begin(style) == D3D_OK)
 		{
 			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, color);
 			spriteHandle->End();

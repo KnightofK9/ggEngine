@@ -9,6 +9,7 @@
 #include "Matrix.h"
 namespace ggEngine {
 	class Body;
+	typedef unsigned int Tag;
 	class GameObject :public GGObject {
 	public:
 		GameObject();
@@ -56,7 +57,7 @@ namespace ggEngine {
 		void SetOpacityAffectByParent(bool opacityAffectByParent) { this->opacityAffectByParent = opacityAffectByParent; }
 		bool IsOpacityAffectByParent() {return this->opacityAffectByParent;}
 		void SetOpacity(int opacity) { if (opacity > 255) { this->opacity = 255; } else this->opacity = opacity; }
-	
+		Tag tag = 0;
 	protected:
 		bool opacityAffectByParent = true;
 		int opacity = 255;
