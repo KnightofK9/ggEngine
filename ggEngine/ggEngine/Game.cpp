@@ -158,7 +158,7 @@ namespace ggEngine {
 
 	void Game::GameCustomRender()
 	{
-		g_debug.DebugToScreen(0, 0, std::to_string(frameRateReal));
+		g_debug.DebugToScreen(0, GAME_HEIGHT-20, std::to_string(frameRateReal));
 
 	}
 

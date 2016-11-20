@@ -1,3 +1,4 @@
+#pragma once
 #include "Group.h"
 namespace ggEngine{
 	class World : public Group{

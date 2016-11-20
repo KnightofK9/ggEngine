@@ -3,6 +3,7 @@
 #include "Debug.h"
 ggEngine::Font::Font(DrawManager * drawManager, std::string fontName, int fontSize, bool isItalic, int fontWeight)
 {
+	this->fontSize = fontSize;
 	HRESULT hr = D3DXCreateFont(drawManager->GetDevice(),     //D3D Device
 		fontSize,               //Font height
 		0,                //Font width
@@ -29,7 +30,7 @@ ggEngine::Font::~Font()
 
 void ggEngine::Font::Draw(double worldX, double worldY,std::string text, D3DCOLOR fontColor)
 {
-	RECT rect = { 0,0,worldX,worldY };
+	RECT rect = { worldX,worldY,worldX,worldY };
 	font->DrawTextA(NULL, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, fontColor);
 }
 
@@ -53,6 +54,7 @@ void ggEngine::Font::Destroy()
 
  ggEngine::Font::Font(DrawManager *drawManager, std::string fontName, std::string fontPath, int fontSize, bool isItalic, int fontWeight)
 {
+	 this->fontSize = fontSize;
 	 if (AddFontResourceEx(fontPath.c_str(), FR_PRIVATE, NULL) == 0)
 	 {
 		 g_debug.Error("Error: Cannot load font from file");
