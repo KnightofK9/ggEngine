@@ -28,3 +28,4 @@
 #include "Cache.h"
 #include "Camera.h"
 #include "Timer.h"
+#include "ScreenGroup.h"

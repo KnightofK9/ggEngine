@@ -231,6 +231,9 @@
     <ClCompile Include="TimeBasedEventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SreenGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -448,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="TimeBasedEventManager.h">
       <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenGroup.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

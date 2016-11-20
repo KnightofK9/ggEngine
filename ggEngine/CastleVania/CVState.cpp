@@ -8,8 +8,10 @@ CVState::CVState(CVGame * game):State(game,false)
 
 CVState::CVState(CVGame * game, std::string statePath):State(game)
 {
+	this->cvgame = game;
 	Json state(statePath, true);
 	this->json = state.GetCharArray();
+	Load();
 }
 
 CVState::~CVState()
@@ -37,7 +39,7 @@ void CVState::Preload()
 		if (type == "PreTileSet") {
 			std::string tileSetPath = it["tileSetPath"].GetString();
 			std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
-			this->preload->TileSet(tileSetPath, tileSetJsonPath);
+			this->cvPreload->TileSet(tileSetPath, tileSetJsonPath);
 		}
 	}
 
@@ -51,7 +53,7 @@ void CVState::Create()
 		std::string type = it["type"].GetString();
 		if (type == "TileMap") {
 			std::string tileMapJson = Json::GetCharArrayFromValue(it);
-			this->add->TileMap(tileMapJson, false);
+			this->cvAdd->TileMap(tileMapJson, false);
 		}
 	}
 }

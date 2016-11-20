@@ -39,6 +39,17 @@ namespace ggEngine{
 		drawObject->SetParentObject(this);
 		drawList.push_back(drawObject);
 	}
+	void Group::Draw()
+	{
+		this->UpdateWorldPosition();
+		if ((this)->IsVisible()) {
+			for (auto it = this->groupList.begin(); it != this->groupList.end();++it) {
+				(*it)->Draw();
+			}
+			this->drawManager->DrawList(this->GetDrawList());
+		}
+		
+	}
 	void Group::Reset(){
 
 		for (std::list<GameObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
@@ -47,4 +58,5 @@ namespace ggEngine{
 		}
 		drawList.clear();
 	}
+	
 }

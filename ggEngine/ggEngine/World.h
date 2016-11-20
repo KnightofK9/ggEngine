@@ -5,5 +5,6 @@ namespace ggEngine{
 		World();
 		~World();
 		void Reset();
+		void UpdateWorldPosition() override;
 	};
 }

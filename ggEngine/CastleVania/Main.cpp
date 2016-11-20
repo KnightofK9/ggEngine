@@ -41,7 +41,7 @@ void initGame() {
 	game->stateManager->Add("TestStateCastleVania", testState, false);
 	game->stateManager->Add("JsonState", jsonState, false);
 	//game->stateManager->Add("TestState", tState, false);
-	game->stateManager->Start("TestStateCastleVania", false, false);
+	game->stateManager->Start("JsonState", false, false);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

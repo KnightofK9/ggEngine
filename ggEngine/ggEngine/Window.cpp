@@ -23,9 +23,9 @@ namespace ggEngine {
 		windowClass.lpszClassName = title;
 		RegisterClass(&windowClass);
 		DWORD gameMode = WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP;
-		/*if (mode == GameMode_Windowed) {
+		if (mode == GameMode_Windowed) {
 			gameMode = WS_OVERLAPPEDWINDOW;
-		}*/
+		}
 		window = CreateWindow(
 			windowClass.lpszClassName,
 			title,

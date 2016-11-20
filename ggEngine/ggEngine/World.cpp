@@ -19,4 +19,7 @@ namespace ggEngine {
 		}
 		groupList.clear();
 	}
+	void World::UpdateWorldPosition()
+	{
+	}
 }

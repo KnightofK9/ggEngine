@@ -22,7 +22,6 @@ void TestStateCastleVania::Create()
 }
 void TestStateCastleVania::Update()
 {
-	g_debug.Log(std::to_string(this->simon->position.y));
 
 }
 void TestStateCastleVania::PreRender()

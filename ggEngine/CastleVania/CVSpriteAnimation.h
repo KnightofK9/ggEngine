@@ -1,0 +1,9 @@
+#pragma once
+#pragma once
+#include <ggEngine.h>
+using namespace ggEngine;
+class CVSpriteAnimation : public SpriteAnimation {
+public:
+	CVSpriteAnimation(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+	~CVSpriteAnimation();
+};
