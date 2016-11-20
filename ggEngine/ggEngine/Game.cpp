@@ -36,7 +36,7 @@ namespace ggEngine {
 			physics = new Physics(this, physicsMode);
 			eventManager = new EventManager(this);
 			tweenManager = new TweenManager(this);
-			world = new World();
+			world = new World(this->drawManager);
 			input = new Input(&hWnd);
 			g_debug.Init(this);
 

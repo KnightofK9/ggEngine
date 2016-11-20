@@ -3,8 +3,9 @@
 using namespace ggEngine;
 class InfoPanel : public ScreenGroup {
 public:
-	InfoPanel();
+	InfoPanel(DrawManager* drawManager);
 	~InfoPanel();
+	virtual void Draw() override;
 private:
-
+	
 };

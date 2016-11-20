@@ -52,7 +52,7 @@ namespace ggEngine{
 		return spriteAnimation;
 	}
 	Group* Add::Group(){
-		ggEngine::Group *gr = new ggEngine::Group();
+		ggEngine::Group *gr = new ggEngine::Group(this->drawManager);
 		world->AddGroup(gr);
 		return gr;
 	}

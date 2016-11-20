@@ -1,6 +1,7 @@
 #include "World.h"
+#include "DrawManager.h"
 namespace ggEngine {
-	World::World()
+	World::World(DrawManager *drawManager) : Group(drawManager)
 	{
 		SetScale(1, 1);
 		SetPosition(0, 0);

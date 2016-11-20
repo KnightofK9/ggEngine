@@ -231,7 +231,7 @@
     <ClCompile Include="TimeBasedEventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SreenGroup.cpp">
+    <ClCompile Include="ScreenGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

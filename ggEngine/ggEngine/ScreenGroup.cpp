@@ -1,7 +1,7 @@
 #include "ScreenGroup.h"
 #include "Sprite.h"
 namespace ggEngine {
-	ScreenGroup::ScreenGroup()
+	ScreenGroup::ScreenGroup(DrawManager *drawManager) : Group(drawManager)
 	{
 
 	}

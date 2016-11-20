@@ -5,9 +5,10 @@
 #include "GameObject.h"
 namespace ggEngine{
 	class Sprite;
+	class DrawManager;
 	class Group : public GameObject, public IGetGroup{
 	public:
-		Group();
+		Group(DrawManager *drawManager);
 		~Group();
 		void Destroy();
 		void AddGroup(Group* group);

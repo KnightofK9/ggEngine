@@ -267,7 +267,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteInfo.cpp" />
-    <ClCompile Include="SreenGroup.cpp" />
+    <ClCompile Include="ScreenGroup.cpp" />
     <ClCompile Include="StackWalker.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sprite.cpp" />
