@@ -6,6 +6,7 @@ var ObjectList = function(){
     var navTab = $("#gg-tool-object-list-nav-tab");
     var that = this;
     //<li role="presentation" ><a role="menuitem" tabindex="-1" href="#" >Map 1</a></li>
+
     var objectSelect = $("#gg-object-tile");
     var charSelect = $("#gg-object-character");
     var tileSelect = $("#gg-object-tile");
@@ -17,13 +18,16 @@ var ObjectList = function(){
             panel.css("display","none");
             navTab.removeClass("active");
         }
+    };
+    var initOption = function(key){
+        // <option data-img-src="Resource/Resources/Boomerang.png" data-img-class="first" data-img-alt="StaticTile" data-img-label="StaticTile" value="0">   </option>
 
     };
     var handleClicked = function(select, picker_option, event){
         var type = select.node[0].textContent;
         switch(this[0].id){
             case "gg-object-tile-picker":
-                alert(type);
+                sceneEditor.editState.pickTypeTile(type);
                 break;
         }
     };

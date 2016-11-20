@@ -29,6 +29,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var objectList = [];
     var quadId = 0;
     var remaingTileToupdate = [];
+    var currentTileType = "";
     var groupList = [];
     var hierachyGrouplist = [];
     var createGroup = function(groupName){
@@ -126,6 +127,11 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         }
 
     };
+    var resetPick = function(){
+        currentTileType = "";
+        currentLayer = null;
+        currentTile = null;
+    }
     var initPreloadList = function(){
         var preloadList = [];
         if(layerList.length>0){
@@ -469,7 +475,16 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
 
         return layer;
     };
+    this.pickTypeTile = function(type){
+        resetPick();
+        switch(type){
+            case "StaticType":
+                currentTileType = type;
+                break;
+        }
+    };
     this.pickTile = function(tileSetKey, tileId) {
+        resetPick();
         //if(currentTileSetKey !== tileSetKey){
         //    currentLayer.resetTilesetCache();
         //    map.addTilesetImage(tileSetKey);
