@@ -7,4 +7,6 @@ public:
 	CVPreload(Cache *cache);
 	~CVPreload();
 	void CharSimon();
+	void UIInfoPanel();
+	void FontGame();
 };

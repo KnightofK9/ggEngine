@@ -181,7 +181,8 @@ namespace ggEngine {
 	{
 		/*State* state = this->stateManager->GetCurrentState();
 		state->PreRender();*/
-		DrawObjectFromGroup(game->world->GetGroupList());
+		//DrawObjectFromGroup(game->world->GetGroupList());
+		game->world->Draw();
 		//DrawObjectFromGroup(&this->topGroupList);
 	}
 	D3DTLVERTEX DrawManager::CreateD3DTLVERTEX(double X, double Y, double Z, double RHW,

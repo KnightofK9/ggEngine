@@ -203,6 +203,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="ScreenGroup.h" />
     <ClInclude Include="StackWalker.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Sprite.h" />
@@ -266,6 +267,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteInfo.cpp" />
+    <ClCompile Include="ScreenGroup.cpp" />
     <ClCompile Include="StackWalker.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sprite.cpp" />

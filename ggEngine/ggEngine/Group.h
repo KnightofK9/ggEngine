@@ -5,9 +5,10 @@
 #include "GameObject.h"
 namespace ggEngine{
 	class Sprite;
+	class DrawManager;
 	class Group : public GameObject, public IGetGroup{
 	public:
-		Group();
+		Group(DrawManager *drawManager);
 		~Group();
 		void Destroy();
 		void AddGroup(Group* group);
@@ -16,6 +17,7 @@ namespace ggEngine{
 		virtual void AddDrawObjectToList(GameObject* drawObject);
 		virtual std::list<GameObject*> *GetDrawList() { return &this->drawList; }
 		virtual std::list<Group*> *GetGroupList() { return &this->groupList; }
+		virtual void Draw() override;
 		void Reset();
 	protected:
 		std::list<Group*> groupList;

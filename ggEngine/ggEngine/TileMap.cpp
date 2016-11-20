@@ -12,13 +12,12 @@
 #include "Cache.h"
 #include "Debug.h"
 namespace ggEngine {
-	TileMap::TileMap(Camera *camera, DrawManager* drawManager, Cache *cache, Physics *physics) 
+	TileMap::TileMap(Camera *camera, DrawManager* drawManager, Cache *cache, Physics *physics) : Group(drawManager)
 	{
 		this->quadTree = nullptr;
 		this->camera = camera;
 		this->physics = physics;
 		this->cache = cache;
-		this->drawManager = drawManager;
 		this->spriteHandle = drawManager->GetSpriteHandle();
 		SetScale(1, 1);
 	}

@@ -85,3 +85,15 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	return simon;
 }
 
+InfoPanel*  CVAdd::UIInfoPanel()
+{
+	InfoPanel *infoPanel = new InfoPanel(this->drawManager);
+	Style style;
+	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	infoPanel->score = this->Text(20, 20, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE-", style, infoPanel);
+
+
+	world->AddGroup(infoPanel);
+	return infoPanel;
+}
+

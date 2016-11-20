@@ -152,7 +152,10 @@
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="CVGame.cpp" />
     <ClCompile Include="CVPreload.cpp" />
+    <ClCompile Include="CVSprite.cpp" />
+    <ClCompile Include="CVSpriteAnimation.cpp" />
     <ClCompile Include="CVState.cpp" />
+    <ClCompile Include="InfoPanel.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="StaticTile.cpp" />
@@ -167,7 +170,10 @@
     <ClInclude Include="CVGame.h" />
     <ClInclude Include="CVObject.h" />
     <ClInclude Include="CVPreload.h" />
+    <ClInclude Include="CVSprite.h" />
+    <ClInclude Include="CVSpriteAnimation.h" />
     <ClInclude Include="CVState.h" />
+    <ClInclude Include="InfoPanel.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />
     <ClInclude Include="TestStateCastleVania.h" />

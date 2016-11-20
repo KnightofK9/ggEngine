@@ -29,7 +29,6 @@ namespace ggEngine {
 		QuadTree *quadTree;
 		LPD3DXSPRITE spriteHandle;
 		Cache *cache;
-		DrawManager *drawManager;
 		double tileWidth;
 		double tileHeight;
 		bool isUsedQuadTree;

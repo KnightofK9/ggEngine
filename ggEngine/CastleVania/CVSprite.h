@@ -1,0 +1,8 @@
+#pragma once
+#include <ggEngine.h>
+using namespace ggEngine;
+class CVSprite : public Sprite {
+public:
+	CVSprite(DrawManager *drawManager, SpriteInfo *image);
+	~CVSprite();
+};

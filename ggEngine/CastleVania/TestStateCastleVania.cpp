@@ -10,10 +10,13 @@ void TestStateCastleVania::Init() {
 
 }
 void TestStateCastleVania::Preload() {
+	this->cvPreload->FontGame();
+	this->cvPreload->UIInfoPanel();
 	this->cvPreload->CharSimon();
 }
 void TestStateCastleVania::Create()
 {
+	this->cvAdd->UIInfoPanel();
 	Group* group = this->cvAdd->Group();
 	this->simon = this->cvAdd->CharSimon(400, 400, group);
 
@@ -22,7 +25,6 @@ void TestStateCastleVania::Create()
 }
 void TestStateCastleVania::Update()
 {
-	g_debug.Log(std::to_string(this->simon->position.y));
 
 }
 void TestStateCastleVania::PreRender()

@@ -29,9 +29,9 @@ namespace ggEngine {
 		D3DCOLOR GetColorTint() { return this->color; }
 		virtual double GetOrgWidth() { return this->image->GetWidth(); }
 		virtual double GetOrgHeight() { return this->image->GetHeight(); }
+		DWORD style;
 	protected:
 		D3DCOLOR color;
 		SpriteInfo *image = nullptr;
-		DWORD style ;
 	};
 }
