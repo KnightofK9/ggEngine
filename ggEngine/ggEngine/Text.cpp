@@ -77,7 +77,7 @@ void ggEngine::Text::Draw()
 		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);
 		style.fontColor = (style.fontColor & 0x00FFFFFF) | (opacity << 24);
 		if (style.enableBackgroundColor) this->drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
-		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_NOCLIP , style.fontColor);
+		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &rect,DT_LEFT| DT_NOCLIP , style.fontColor);
 		spriteHandle->End();
 	}
 }
