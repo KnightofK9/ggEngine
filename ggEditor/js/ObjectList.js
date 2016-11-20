@@ -19,10 +19,23 @@ var ObjectList = function(){
         }
 
     };
+    var handleClicked = function(select, picker_option, event){
+        var type = select.node[0].textContent;
+        switch(this[0].id){
+            case "gg-object-tile-picker":
+                alert(type);
+                break;
+        }
+    };
     var init = function(){
         objectSelect.css("display","none");
         charSelect.css("display","none");
         tileSelect.css("display","none");
+        $("select").imagepicker({
+            show_label:true,
+            clicked:handleClicked
+            // function(select, picker option, event){...}
+        });
     };
     init();
 };

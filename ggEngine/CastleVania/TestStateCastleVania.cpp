@@ -39,11 +39,11 @@ void TestStateCastleVania::Create()
 	}
 	tileMap = this->cvAdd->TileMap(tileMapJson, false);
 
-	this->cvAdd->UIInfoPanel();
 	Group* group = this->cvAdd->Group();
 	this->simon = this->cvAdd->CharSimon(400, 400, group);
 
 
+	this->cvAdd->UIInfoPanel();
 
 }
 void TestStateCastleVania::Update()

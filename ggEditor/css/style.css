@@ -43,7 +43,9 @@ table {
 #gg-tool-object-list{
     display:none;
 }
-
+.panel-body{
+    height:100%;
+}
 /*Hierarchy*/
 .gg-hierarchy-delete{
     position: absolute;
