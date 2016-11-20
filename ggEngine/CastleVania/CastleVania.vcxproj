@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine;D:\application\DirectXSDK\Include;D:\application\RapidJson\include\rapidjson;D:\application\boost_1_62_0\stage\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\subject\NMGame\Engine\ggEngine\ggEngine;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine;D:\application\DirectXSDK\Include;D:\application\RapidJson\include\rapidjson;D:\application\boost_1_62_0\stage\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine;D:\application\DirectXSDK\Lib\x86;D:\application\boost_1_62_0\stage\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;E:\application\boost_1_62_0\libs;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,7 +94,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;E:\1-Study\DirectX\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;E:\application\boost_1_62_0\lib32-msvc-12.0;E:\application\boost_1_62_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;D:\subject\NMGame\Engine\ggEngine\Debug;D:\subject\NMGame\Engine\ggEngine\CastleVania\Debug;E:\1-Study\DirectX\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;E:\application\boost_1_62_0\lib32-msvc-12.0;E:\application\boost_1_62_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>ggEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
