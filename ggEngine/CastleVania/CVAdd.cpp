@@ -159,20 +159,29 @@ InfoPanel*  CVAdd::UIInfoPanel()
 											style,
 											infoPanel);
 	//P-H
-	infoPanel->enemyPoint	= this->Text(	GAME_WIDTH/2 + 150,
+	infoPanel->enemyPoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*2,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											"-03",
+											"03",
 											style,
 											infoPanel);
-	infoPanel->playerPoint	= this->Text(	GAME_WIDTH/2 + 150,
+	infoPanel->p			= this->Text(	GAME_WIDTH / 2 + 100,
 											margin + fontSize * 2,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											"P-02",
+											"P-",
+											style,
+											infoPanel);
+
+	infoPanel->playerPoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*2,
+											margin + fontSize * 2,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"02",
 											style,
 											infoPanel);
 
