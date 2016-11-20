@@ -159,7 +159,16 @@ InfoPanel*  CVAdd::UIInfoPanel()
 											style,
 											infoPanel);
 	//P-H
-	infoPanel->enemyPoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
+	infoPanel->life			= this->Text(	GAME_WIDTH / 2 + 100 + fontSize*2,
+											margin + fontSize,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"-",
+											style,
+											infoPanel);
+
+	infoPanel->lifePoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -176,7 +185,7 @@ InfoPanel*  CVAdd::UIInfoPanel()
 											style,
 											infoPanel);
 
-	infoPanel->playerPoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
+	infoPanel->pPoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
 											margin + fontSize * 2,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
