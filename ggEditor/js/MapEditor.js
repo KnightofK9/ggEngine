@@ -5,10 +5,21 @@ var MapEditor = function () {
     var tileSetSelect = $("#gg-map-tile-set-select");
     var tileSetList = $("#gg-map-tile-set-list");
     var tilePanel = $("#gg-map-tile-panel");
+    var panel = $("#gg-tool-map-panel");
+    var navTab = $("#gg-tool-map-panel-nav-tab");
     var that = this;
     //<li role="presentation" ><a role="menuitem" tabindex="-1" href="#" >Map 1</a></li>
 
+    this.setActive = function(isActive){
+        if(isActive){
+            panel.css("display","block");
+            navTab.addClass("active");
+        }else{
+            panel.css("display","none");
+            navTab.removeClass("active");
+        }
 
+    };
     this.reloadTileSetList = function () {
         tileSetList.html("");
         for (var key in Constant.TILE_SET_DICT) {

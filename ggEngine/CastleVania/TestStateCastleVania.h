@@ -17,5 +17,6 @@ public:
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 private:
+	TileMap *tileMap;
 	Simon *simon;
 };

@@ -40,6 +40,9 @@ table {
 #gg-state-info{
     display:none;
 }
+#gg-tool-object-list{
+    display:none;
+}
 
 /*Hierarchy*/
 .gg-hierarchy-delete{
