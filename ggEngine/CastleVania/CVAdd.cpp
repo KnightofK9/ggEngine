@@ -87,11 +87,94 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 
 InfoPanel*  CVAdd::UIInfoPanel()
 {
+
 	InfoPanel *infoPanel = new InfoPanel(this->drawManager);
 	Style style;
+	int fontSize = 22;
+	int margin = 20;
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
-	infoPanel->score = this->Text(20, 20, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE-", style, infoPanel);
+	
+	//Fist line
+	infoPanel->score		= this->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE-", style, infoPanel);
+	infoPanel->scorePoint	= this->Text(	infoPanel->score->GetX() + fontSize*6,
+											margin,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50, 
+											"000300",
+											style,
+											infoPanel);
 
+	infoPanel->time			= this->Text(	GAME_WIDTH/2 - fontSize*4,
+											margin,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"TIME",
+											style,
+											infoPanel);
+
+	infoPanel->timePoint	= this->Text(	infoPanel->time->GetX() + fontSize*5, 
+											margin,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"0012",
+											style,
+											infoPanel);
+
+	infoPanel->stage		= this->Text(	GAME_WIDTH - fontSize*10, 
+											margin,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"STAGE",
+											style,
+											infoPanel);
+
+	infoPanel->stagePoint	= this->Text(	infoPanel->stage->GetX() + fontSize*6,
+											margin,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"01",
+											style,
+											infoPanel);
+	//second line
+	infoPanel->player		= this->Text(	margin,
+											margin + fontSize,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"PLAYER",
+											style,
+											infoPanel);
+	//third line
+	infoPanel->enemy		= this->Text(	margin,
+											margin + fontSize*2,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"ENEMY",
+											style,
+											infoPanel);
+	//P-H
+	infoPanel->enemyPoint	= this->Text(	GAME_WIDTH/2 + 150,
+											margin + fontSize,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"-03",
+											style,
+											infoPanel);
+	infoPanel->playerPoint	= this->Text(	GAME_WIDTH/2 + 150,
+											margin + fontSize * 2,
+											TextureConstant::GAME_FONT_TEXTURE,
+											50,
+											50,
+											"P-02",
+											style,
+											infoPanel);
 
 	world->AddGroup(infoPanel);
 	return infoPanel;

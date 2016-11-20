@@ -22,5 +22,5 @@ void CVPreload::UIInfoPanel()
 
 void CVPreload::FontGame()
 {
-	this->Font(TextureConstant::GAME_FONT_TEXTURE, TextureConstant::GAME_FONT_NAME, TextureConstant::GAME_FONT_TEXTURE_PATH, 10);
+	this->Font(TextureConstant::GAME_FONT_TEXTURE, TextureConstant::GAME_FONT_NAME, TextureConstant::GAME_FONT_TEXTURE_PATH, 20);
 }
