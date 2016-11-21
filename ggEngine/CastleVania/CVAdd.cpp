@@ -111,7 +111,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50, 
-											"000300",
+											"000000",
 											style,
 											infoPanel);
 
@@ -134,11 +134,15 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											infoPanel);
 	
 	infoPanel->timeInfo = this->LoopInfinity(1000, [infoPanel] {
-		if (infoPanel->curTime <= 0)
-			infoPanel->timeInfo->Stop();
-
-			infoPanel->curTime--;
-			infoPanel->timePoint->SetText(ggEngine::Helper::IntToString(infoPanel->curTime, 4));
+		if (infoPanel->timeInfo != NULL)
+		{
+			if (infoPanel->curTime <= 0)
+				infoPanel->timeInfo->Stop();
+			else {
+				infoPanel->curTime--;
+				infoPanel->timePoint->SetText(ggEngine::Helper::IntToString(infoPanel->curTime, 4));
+			}
+		}
 	})->Start();
 
 	infoPanel->stage		= this->Text(	GAME_WIDTH - fontSize*10, 
@@ -209,7 +213,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											"03",
+											"05",
 											style,
 											infoPanel);
 	infoPanel->p			= this->Text(	GAME_WIDTH / 2 + 100 + fontSize,
@@ -226,10 +230,13 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											"02",
+											"03",
 											style,
 											infoPanel);
 
+	infoPanel->itemBox		= this->Sprite(419, 75, "item_box", infoPanel);
+	infoPanel->itemBox->SetAnchor(0.5, 0.5);
+	infoPanel->itemBox->SetScale(3, 3);
 	group->AddGroup(infoPanel);
 	return infoPanel;
 }

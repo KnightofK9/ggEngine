@@ -16,30 +16,31 @@ void InfoPanel::Draw()
 	ScreenGroup::Draw();
 }
 
-void InfoPanel::SetPlayerHealth()
+void InfoPanel::SetPlayerHealth(int health)
+{
+	//this->playerHealthBar->
+}
+
+void InfoPanel::SetEnemyHealth(int health)
 {
 }
 
-void InfoPanel::SetEnemyHealth()
+void InfoPanel::SetLife(int point)
 {
+	this->lifePoint->SetText(ggEngine::Helper::IntToString(point, 2));
 }
 
-void InfoPanel::SetLife()
+void InfoPanel::SetPoint(int point)
 {
+	this->pPoint->SetText(ggEngine::Helper::IntToString(point, 2));
 }
 
-void InfoPanel::SetPoint()
+void InfoPanel::SetState(int state)
 {
+	this->stagePoint->SetText(ggEngine::Helper::IntToString(state, 2));
 }
 
-void InfoPanel::SetState()
+void InfoPanel::SetScore(int score)
 {
-}
-
-void InfoPanel::SetScore()
-{
-}
-
-void InfoPanel::GetTime()
-{
+	this->scorePoint->SetText(ggEngine::Helper::IntToString(score, 6));
 }
