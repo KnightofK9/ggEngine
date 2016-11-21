@@ -32,6 +32,7 @@ var HierarchyEditor = function () {
         hierarchyObject.id = id++;
         hierarchyObject.name = name;
         hierarchyObject.item = object;
+        hierarchyObject.parent = null;
         hierarchyList.push(hierarchyObject);
         hObjectList.push(hierarchyObject);
         return hierarchyObject;
@@ -95,6 +96,8 @@ var HierarchyEditor = function () {
                             break;
                         }
                     }
+                }else{
+                    hierarchyList.splice(hierarchyList.indexOf(hObjectList[i]),1);
                 }
                 hObjectList.splice(i,1);
                 break;
@@ -135,6 +138,19 @@ var HierarchyEditor = function () {
             + content
             + '</div>';
     };
+
+    var init = function(){
+        var menu = [{
+            name: 'Create Group',
+            // img: 'images/create.png',
+            title: 'Create Group',
+            fun: function () {
+                sceneEditor.editState.showCreateGroup();
+            }
+        }];
+        $('#gg-info-hierarchy').contextMenu(menu,{triggerOn:'contextmenu'});
+    };
+    init();
 };
 
 function HierarchyObject() {

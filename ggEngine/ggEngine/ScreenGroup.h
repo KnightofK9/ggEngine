@@ -6,6 +6,6 @@ namespace ggEngine {
 	public:
 		ScreenGroup(DrawManager *drawManager);
 		~ScreenGroup();
-		void AddDrawObjectToList(GameObject* drawObject) override;
+		virtual void AddDrawObjectToList(GameObject* drawObject) override;
 	};
 }

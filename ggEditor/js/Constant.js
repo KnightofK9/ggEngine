@@ -29,5 +29,13 @@ var Constant = new function(){
             numberOfCellPerRow:8,
             numberOfCellPerColumn:18
         }
+    };
+    this.CHARACTER_DICT = {
+        "char-simon":{
+            name:"Resource/Resources/Character/simon.png",
+            type:"SpriteAnimation",
+            width:45,
+            height:50
+        }
     }
 };

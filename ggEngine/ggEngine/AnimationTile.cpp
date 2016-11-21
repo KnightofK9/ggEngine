@@ -19,7 +19,7 @@ namespace ggEngine {
 	}
 	void AnimationTile::AddTileAnimation(SingleTile * singleTile)
 	{
-		singleTile->SetParentObject(this);
+		//singleTile->SetParentObject(this);
 		this->tileAnimationList.push_back(singleTile);
 		this->size++;
 	}

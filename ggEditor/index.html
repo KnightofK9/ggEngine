@@ -2,21 +2,25 @@
 <html>
 <head>
     <title>ggGenerator</title>
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-dialog.min.css">
+    <link rel="stylesheet" type="text/css" href="css/contextMenu.min.css">
+    <link rel="stylesheet" type="text/css" href="css/image-picker.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="js/Core/jquery.min.js"></script>
 
 
-    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/Core/bootstrap.min.js"></script>
 
 
-    <script type="text/javascript" src="node_modules/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
+    <script type="text/javascript" src="js/Core/bootstrap-dialog.min.js"></script>
 
 
     <!--<script type="text/javascript" src="js/Core/phaser.min.js" ></script>-->
     <script type="text/javascript" src="js/Core/phaser.js"></script>
+    <script type="text/javascript" src="js/Core/image-picker.js"></script>
+    <script type="text/javascript" src="js/Core/contextMenu.js"></script>
 
     <script type="text/javascript" src="js/TileMapManager.js"></script>
     <script type="text/javascript" src="js/ObjectList.js"></script>
@@ -124,7 +128,10 @@
                 </div>
                 <div id="gg-object-panel">
                     <div id="gg-object-tile">
-
+                        <select id="gg-object-tile-picker" class="image-picker">
+                            <!--<option data-img-src="img/01.png" data-img-class="first" data-img-alt="Page 1" value="1">  StaticTile  </option>-->
+                            <option data-img-src="Resource/Resources/Boomerang.png"  data-img-class="custom" data-img-alt="StaticTile" data-img-label="StaticTile" style="width:10px;height:10px" value="0">   </option>
+                        </select>
                     </div>
                     <div id="gg-object-character">
 

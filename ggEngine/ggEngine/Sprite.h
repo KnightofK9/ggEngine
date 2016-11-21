@@ -14,6 +14,7 @@ namespace ggEngine {
 		Sprite(DrawManager *drawManager);
 		~Sprite();
 		virtual void Draw();
+		virtual void DrawRect();
 		virtual void SetWidth(double width);
 		virtual void SetHeight(double height);
 		virtual double GetWidth();

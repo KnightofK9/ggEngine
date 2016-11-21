@@ -42,6 +42,7 @@ namespace ggEngine {
 		void SetFont(Font *font) { this->font = font; }
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
 		void Draw();
+		void DrawRect();
 		void SetText(std::string text); 
 		virtual void SetWidth(double width);
 		virtual void SetHeight(double height);

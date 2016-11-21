@@ -1,5 +1,6 @@
 #pragma once
 #include <ggEngine.h>
+#include "HealthBar.h"
 using namespace ggEngine;
 class InfoPanel : public ScreenGroup {
 public:
@@ -27,6 +28,9 @@ public:
 
 	Text *p = nullptr;
 	Text *pPoint = nullptr;
+
+	HealthBar *playerHealthBar = nullptr;
+	HealthBar *enemyHealthBar = nullptr;
 private:
 	
 };

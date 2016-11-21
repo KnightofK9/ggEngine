@@ -159,12 +159,15 @@ namespace ggEngine {
 		}
 	}
 
-	void DrawManager::DrawList(std::list<GameObject*> *drawObjectList)
+	void DrawManager::DrawList(std::list<GameObject*> *drawObjectList,bool drawMask)
 	{
 		for (std::list<GameObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
 			if ((*it)->IsAlive()) {
 				(*it)->UpdateWorldPosition();
-				(*it)->Draw();
+				if (drawMask) {
+					(*it)->DrawRect();
+				}
+				else (*it)->Draw();
 				++it;
 			}
 			else {

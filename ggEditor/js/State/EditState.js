@@ -29,6 +29,43 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var objectList = [];
     var quadId = 0;
     var remaingTileToupdate = [];
+    var currentTileType = "";
+    var groupList = [];
+    var hierachyGrouplist = [];
+    var createGroup = function(groupName){
+        var group = game.add.group();
+        group.name = groupName;
+
+        var hierachyGroup = hierarchyEditor.addObjectToHierarchy(groupName,group);
+        group.callDestroy = function(){
+            groupList.splice(groupList.indexOf(group),1);
+            hierachyGrouplist.splice(groupList.indexOf(hierachyGroup),1);
+            this.destroy();
+            return true;
+        };
+        groupList.push(group);
+        hierachyGrouplist.push(group);
+        hierarchyEditor.updateHierarchy();
+    };
+    this.showCreateGroup = function(){
+        BootstrapDialog.show({
+            closable: true,
+            title: "Create group",
+            message: 'Name <input id="dialog-name" type="text" class="form-control">'
+            ,
+            onshow: function (dialogRef) {
+                dialogRef.getModalBody().find('#dialog-name').val("Group");
+            },
+            buttons: [ {
+                label: 'Create',
+                action: function (dialogRef) {
+                    var name = dialogRef.getModalBody().find('#dialog-name').val();
+                    dialogRef.close();
+                    createGroup(name);
+                }
+            }]
+        });
+    };
     this.importState = function(stateJson){
         for(var i = 0;i<stateJson.groupList.length;i++){
             var group = stateJson.groupList[i];
@@ -90,6 +127,11 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         }
 
     };
+    var resetPick = function(){
+        currentTileType = "";
+        currentLayer = null;
+        currentTile = null;
+    }
     var initPreloadList = function(){
         var preloadList = [];
         if(layerList.length>0){
@@ -433,7 +475,16 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
 
         return layer;
     };
+    this.pickTypeTile = function(type){
+        resetPick();
+        switch(type){
+            case "StaticType":
+                currentTileType = type;
+                break;
+        }
+    };
     this.pickTile = function(tileSetKey, tileId) {
+        resetPick();
         //if(currentTileSetKey !== tileSetKey){
         //    currentLayer.resetTilesetCache();
         //    map.addTilesetImage(tileSetKey);
