@@ -42,7 +42,7 @@ void IntroState::Create()
 	int fontSize = 10;
 
 	this->push = this->cvAdd->Text(128 - fontSize*7, 120, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "PUSH START KEY", style, group);
-	this->year = 
+	//this->year = 
 
 
 }

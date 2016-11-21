@@ -19,6 +19,7 @@ namespace ggEngine{
 	class Camera;
 	class TileMap;
 	class Grid;
+	class ScreenGroup;
 	class Physics;
 	class TimeBasedEventManager;
 	class TimeBasedEventInfo;
@@ -30,6 +31,7 @@ namespace ggEngine{
 		Grid *Grid(double x, double y,int cellWidth, int cellHeight, int width, int height, Group *group);
 		SpriteAnimation* SpriteAnimation(double x, double y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0, int msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 		Group* Group();
+		ScreenGroup *ScreenGroup();
 		TileMap* TileMap(std::string tileMapJson, bool isLocation);
 		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
 		Audio* Audio(std::string fileName);

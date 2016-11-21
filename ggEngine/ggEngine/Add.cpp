@@ -10,6 +10,7 @@
 #include "TileMap.h"
 #include "Camera.h"
 #include "Physics.h"
+#include "ScreenGroup.h"
 #include "TimeBasedEventInfo.h"
 #include "TimeBasedEventManager.h"
 #include "Grid.h"
@@ -53,6 +54,12 @@ namespace ggEngine{
 	}
 	Group* Add::Group(){
 		ggEngine::Group *gr = new ggEngine::Group(this->drawManager);
+		world->AddGroup(gr);
+		return gr;
+	}
+	ScreenGroup * Add::ScreenGroup()
+	{
+		ggEngine::ScreenGroup *gr = new ggEngine::ScreenGroup(this->drawManager);
 		world->AddGroup(gr);
 		return gr;
 	}
