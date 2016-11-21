@@ -19,10 +19,17 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	Simon *simon = new Simon(this->drawManager, inf, 45, 40, 0,0, 130);
 	simon->SetPosition(x, y);
 	simon->SetAnchor(0.5, 0.5);
-	simon->CreateAnimation("move", 0, 3, true);
-	simon->CreateAnimation("run", 5, 8, true);
-	simon->CreateAnimation("knee", 8, 8, true);
-	simon->CreateAnimation("up", 12, 15, true);
+	simon->CreateAnimation("walk", 0, 3, true);
+	simon->CreateAnimation("kneel", 4, 4, true);
+	simon->CreateAnimation("climbUp", 5, 6, true);
+	simon->CreateAnimation("climbDown", 7, 8, true);
+	simon->CreateAnimation("behind", 9, 9, true);
+	simon->CreateAnimation("hurt", 10, 10, true);
+	simon->CreateAnimation("death", 11, 11, true);
+	simon->CreateAnimation("standAttack", 12, 14, true);
+	simon->CreateAnimation("kneelAttack", 15, 17, true);
+	simon->CreateAnimation("climbDownAttack", 18, 20, true);
+	simon->CreateAnimation("climbUpAttack", 21, 23, true);
 
 	this->physics->EnablePhysics(simon);
 	simon->body->CreateRectangleRigidBody(45, 40);
@@ -59,12 +66,12 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 		double force = CharacterConstant::SIMON_MOVE_FORCE* time;
 		double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE*time;
 		if (e.isPress(DIK_A)) {
-			simon->PlayAnimation("move");
+			simon->PlayAnimation("walk");
 			simon->body->velocity.x = -force;
 		}
 		else {
 			if (e.isPress(DIK_D)) {
-				simon->PlayAnimation("move");
+				simon->PlayAnimation("walk");
 				simon->body->velocity.x = force;
 			}
 			else {
