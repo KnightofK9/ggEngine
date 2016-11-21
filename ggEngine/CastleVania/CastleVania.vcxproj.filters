@@ -96,6 +96,7 @@
     <ClCompile Include="CVSpriteAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IntroState.cpp">
     <ClCompile Include="HealthBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -152,6 +153,8 @@
     <ClInclude Include="CVSpriteAnimation.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="IntroState.h">
+      <Filter>Header Files\State</Filter>
     <ClInclude Include="HealthBar.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>

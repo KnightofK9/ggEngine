@@ -2,6 +2,7 @@
 #include "CVGame.h"
 #include "TestStateCastleVania.h"
 #include "TestState.h"
+#include "IntroState.h"
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 using namespace ggEngine;
 //Field
@@ -42,7 +43,10 @@ void initGame() {
 	game->stateManager->Add("TestStateCastleVania", testState, false);
 	game->stateManager->Add("JsonState", jsonState, false);
 	//game->stateManager->Add("TestState", tState, false);
-	game->stateManager->Start("TestStateCastleVania", false, false);
+
+	IntroState *introState = new IntroState(game);
+	game->stateManager->Add("IntroState", introState, false);
+	game->stateManager->Start("IntroState", false, false);
 }
 void quitWithError(LPCTSTR error) {
 	HWND parentWindow = NULL;

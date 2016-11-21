@@ -43,13 +43,11 @@ void TestStateCastleVania::Create()
 	this->simon = this->cvAdd->CharSimon(400, 400, group);
 
 
-
 	this->cvAdd->UIInfoPanel(group);
 	//Group *b = this->cvAdd->Group();
 	//HealthBar *healthBar = this->cvAdd->UIPlayerHealthBar(100, 100, group);
 	/*ggEngine::Sprite* emptyHealthBar = this->cvAdd->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, b);
 	ggEngine::Sprite* healthBar = this->cvAdd->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, b);*/
-
 }
 void TestStateCastleVania::Update()
 {

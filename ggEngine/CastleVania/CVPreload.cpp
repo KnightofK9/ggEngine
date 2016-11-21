@@ -17,6 +17,7 @@ void CVPreload::UIInfoPanel()
 {
 	this->Texture(TextureConstant::EMPTY_HEALTH_TEXTURE, TextureConstant::EMPTY_HEALTH_TEXTURE_PATH);
 	this->Texture(TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE_PATH);
+	this->Texture(TextureConstant::LIFE_TEXTURE, TextureConstant::LIFE_TEXTURE_PATH);
 	this->Texture(TextureConstant::FULL_HEALTH_ENEMY_TEXTURE, TextureConstant::FULL_HEALTH_ENEMY_TEXTURE_PATH);
 }
 
