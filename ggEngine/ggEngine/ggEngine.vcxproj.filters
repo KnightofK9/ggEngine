@@ -455,6 +455,9 @@
     <ClInclude Include="ScreenGroup.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationArg.h">
+      <Filter>Header Files\Core\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="default.bmp">

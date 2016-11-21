@@ -83,7 +83,7 @@ namespace ggEngine {
 			g_debug.Warning("Start frame must not be negative.");
 			startFrame = 0;
 		}
-		animatorMap[animationName] = new Animator(startFrame, endFrame, this, isLoop);
+		animatorMap[animationName] = new Animator(startFrame, endFrame, this, animationName, isLoop);
 	}
 	void SpriteAnimation::NextAnimationFrame(std::string animationName)
 	{
