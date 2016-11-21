@@ -96,6 +96,9 @@
     <ClCompile Include="CVSpriteAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IntroState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestStateCastleVania.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="CVSpriteAnimation.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroState.h">
+      <Filter>Header Files\State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
