@@ -54,14 +54,15 @@ void IntroState::Create()
 	this->push->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		Text  *current = dynamic_cast<Text*>(go);
 		if (current != NULL) {
-			if (e.isPress(DIK_0)) {
-				this->cvAdd->LoopInfinity(200, [this]() {
+			if (e.isPress(DIK_0) && isKeyPressed == false) {
+				isKeyPressed = true;
+				this->cvAdd->LoopInfinity(150, [this]() {
 					this->push->SetVisible(!this->push->IsVisible());
 				})->Start();
 
-				this->cvAdd->TimeOut(1000, [this]() {
+				this->cvAdd->TimeOut(1200, [this]() {
 					if (this->cvgame->stateManager->GetCurrentState() == this)
-						this->cvgame->stateManager->Start("TestStateCastleVania", false, false);
+						this->cvgame->stateManager->Start("TestStateCastleVania", true, true);
 				})->Start();
 			}}};
 	this->year		= this->cvAdd->Text(384 - fontSize * 7,	456, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "TM AND © 1987", style, textGroup);

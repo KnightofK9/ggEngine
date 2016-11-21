@@ -17,6 +17,7 @@ public:
 	void ShutDown();
 	//Called when start a new scene
 private:
+	bool isKeyPressed = false;
 	Sprite* menu_bg;
 	SpriteAnimation* menu_anim;
 	Text* push;

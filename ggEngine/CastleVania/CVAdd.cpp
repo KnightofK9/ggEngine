@@ -16,7 +16,7 @@ CVAdd::~CVAdd()
 Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SIMON_TEXTURE);
-	Simon *simon = new Simon(this->drawManager, inf, 45, 40, 0);
+	Simon *simon = new Simon(this->drawManager, inf, 45, 40, 0,0, 130);
 	simon->SetPosition(x, y);
 	simon->SetAnchor(0.5, 0.5);
 	simon->CreateAnimation("move", 0, 3, true);
@@ -152,7 +152,7 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->playerHealthBar = this->UIPlayerHealthBar(margin + fontSize*6, margin + fontSize, infoPanel);
+	infoPanel->playerHealthBar = this->UIPlayerHealthBar(margin + fontSize*7, margin + fontSize, infoPanel);
 	infoPanel->playerHealthBar->SetScale(1.3, 1.3);
 
 	infoPanel->lifeIcon		= this->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
@@ -172,7 +172,7 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 											"ENEMY",
 											style,
 											infoPanel);
-	infoPanel->enemyHealthBar = this->UIEnemyHealthBar(margin + fontSize*6, margin + fontSize * 2, infoPanel);
+	infoPanel->enemyHealthBar = this->UIEnemyHealthBar(margin + fontSize*7, margin + fontSize * 2, infoPanel);
 	infoPanel->enemyHealthBar->SetScale(1.3, 1.3);
 
 #pragma endregion
