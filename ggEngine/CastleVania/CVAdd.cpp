@@ -128,8 +128,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											//boost::lexical_cast<string>(infoPanel->curTime),
-											"0012",
+											boost::lexical_cast<string>(infoPanel->curTime),
 											style,
 											infoPanel);
 	
