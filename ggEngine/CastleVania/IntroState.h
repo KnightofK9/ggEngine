@@ -14,7 +14,8 @@ public:
 	void Render();//Called after render completed
 	void Pause();//Called when the scene is set to paused
 	void Resume();//Called when the scene is resumed
-	void ShutDown();//Called when start a new scene
+	void ShutDown();
+	//Called when start a new scene
 private:
 	Sprite* menu_bg;
 	SpriteAnimation* menu_anim;
@@ -23,4 +24,5 @@ private:
 	Text* coLTD;
 	Text* licenceBy;
 	Text* INC;
+	void ChangeState();
 };
