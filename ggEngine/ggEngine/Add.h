@@ -6,7 +6,6 @@
 #include "Text.h"
 
 namespace ggEngine{
-	class Helper;
 	class Tween;
 	class TweenManager;
 	class Font;

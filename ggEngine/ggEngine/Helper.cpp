@@ -1,6 +1,7 @@
 #include "Helper.h"
 #include "Group.h"
 #include <boost\lexical_cast.hpp>
+#include <boost\format.hpp>
 
 namespace ggEngine {
 	LPCWSTR Helper::StringToLPCWSTR(const std::string & s)
@@ -31,9 +32,10 @@ namespace ggEngine {
 		return insRect;
 	}
 
-	string ggEngine::Helper::IntToString(const int &number, int numchar)
+	string ggEngine::Helper::IntToString(const int &number, int numCharWidth)
 	{
-		return boost::lexical_cast<string>(number);
+
+		return boost::lexical_cast<string>(boost::format("% 0" + boost::lexical_cast<string>(numCharWidth) + "d") % number);
 	}
 }
 

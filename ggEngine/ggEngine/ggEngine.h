@@ -31,3 +31,4 @@
 #include "Timer.h"
 #include "ScreenGroup.h"
 #include "Animator.h"
+#include "Helper.h"

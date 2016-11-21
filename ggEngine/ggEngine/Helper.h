@@ -9,7 +9,7 @@ namespace ggEngine {
 		static LPCWSTR StringToLPCWSTR(const std::string &s);
 		static std::string WCharToString(const LPCWSTR s);
 		static RECT intersectRectAndGroup(RECT &srcRect, GameObject *go, Group *group);
-		static string IntToString(const int &number, int numchar);
+		static string IntToString(const int &number, int numCharWidth);
 	private:
 		Helper() {}
 	};

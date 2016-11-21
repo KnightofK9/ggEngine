@@ -4,6 +4,7 @@
 #include "CVState.h"
 #include "CharacterConstant.h"
 #include <boost\lexical_cast.hpp>
+#include <boost\format.hpp>
 
 CVAdd::CVAdd(CVState* state , CVGame *cvgame):Add(cvgame->world, cvgame->cache, cvgame->tweenManager, cvgame->GetDrawManager(), cvgame->camera, cvgame->physics, cvgame->timeBasedEventManager, cvgame->eventManager)
 {
@@ -105,7 +106,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	
 #pragma region  First line
 	infoPanel->score		= this->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE—", style, infoPanel);
-	infoPanel->scorePoint	= this->Text(	margin + fontSize*6,
+	infoPanel->scorePoint	= this->Text(	10 + fontSize*6,
 											margin,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -128,7 +129,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											boost::lexical_cast<string>(infoPanel->curTime),
+											ggEngine::Helper::IntToString(infoPanel->curTime, 4),
 											style,
 											infoPanel);
 	
@@ -137,7 +138,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 			infoPanel->timeInfo->Stop();
 
 			infoPanel->curTime--;
-			infoPanel->timePoint->SetText(boost::lexical_cast<string>(infoPanel->curTime));
+			infoPanel->timePoint->SetText(ggEngine::Helper::IntToString(infoPanel->curTime, 4));
 	})->Start();
 
 	infoPanel->stage		= this->Text(	GAME_WIDTH - fontSize*10, 

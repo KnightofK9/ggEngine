@@ -40,7 +40,7 @@ public:
 	HealthBar *enemyHealthBar = nullptr;
 
 	TimeBasedEventInfo* timeInfo;
-	int curTime = 500;
+	int curTime = 300;
 private:
 	void GetTime();
 };
