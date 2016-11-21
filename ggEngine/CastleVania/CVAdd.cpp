@@ -94,7 +94,7 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 	int margin = 20;
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
 	
-	//====================Fist line===================
+#pragma region  First line
 	infoPanel->score		= this->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE-", style, infoPanel);
 	infoPanel->scorePoint	= this->Text(	infoPanel->score->GetX() + fontSize*6,
 											margin,
@@ -140,7 +140,9 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 											"01",
 											style,
 											infoPanel);
-	//===============second line==========================
+#pragma endregion
+
+#pragma region  Second line
 	infoPanel->player		= this->Text(	margin,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
@@ -150,12 +152,18 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
+	infoPanel->playerHealthBar = this->UIPlayerHealthBar(margin + fontSize*6, margin + fontSize, infoPanel);
+	infoPanel->playerHealthBar->SetScale(1.3, 1.3);
+
 	infoPanel->lifeIcon		= this->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
 											margin + fontSize + 10,
 											TextureConstant::LIFE_TEXTURE,
 											infoPanel);
+	infoPanel->lifeIcon->SetAnchor(0.5, 0.5);
+	infoPanel->lifeIcon->SetScale(2.5, 2.5);
+#pragma endregion
 
-	//third line
+#pragma region  Third line
 	infoPanel->enemy		= this->Text(	margin,
 											margin + fontSize*2,
 											TextureConstant::GAME_FONT_TEXTURE,
@@ -164,6 +172,10 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 											"ENEMY",
 											style,
 											infoPanel);
+	infoPanel->enemyHealthBar = this->UIEnemyHealthBar(margin + fontSize*6, margin + fontSize * 2, infoPanel);
+	infoPanel->enemyHealthBar->SetScale(1.3, 1.3);
+
+#pragma endregion
 	//P-H
 	infoPanel->life			= this->Text(	GAME_WIDTH / 2 + 100 + fontSize*2,
 											margin + fontSize,
@@ -199,10 +211,6 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 											"02",
 											style,
 											infoPanel);
-
-	
-	infoPanel->playerHealthBar = this->UIPlayerHealthBar(50, 20, infoPanel);
-	infoPanel->enemyHealthBar = this->UIEnemyHealthBar(50, 50, infoPanel);
 
 	group->AddGroup(infoPanel);
 	return infoPanel;

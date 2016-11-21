@@ -34,7 +34,7 @@ void IntroState::Create()
 	this->menu_anim = this->cvAdd->SpriteAnimation(220, 125, "menu_anim", 72, 58, group, 0, 15, 100);
 	this->cvgame->eventManager->EnableSpriteAnimationEvent(menu_anim);
 	this->menu_anim->CreateAnimation("batFly", 0, 13, false);
-	this->menu_anim->CreateAnimation("batFlyLoop", 11, 13, true);
+	this->menu_anim->CreateAnimation("batFlyLoop", 12, 13, true);
 	this->menu_anim->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
 		e.animator->spriteAnimation->PlayAnimation("batFlyLoop");
 	};
@@ -64,13 +64,10 @@ void IntroState::Create()
 						this->cvgame->stateManager->Start("TestStateCastleVania", false, false);
 				})->Start();
 			}}};
-	this->year		= this->cvAdd->Text(384 - fontSize * 7, 456, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "TM AND @ 1987", style, textGroup);
+	this->year		= this->cvAdd->Text(384 - fontSize * 7,	456, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "TM AND © 1987", style, textGroup);
 	this->coLTD		= this->cvAdd->Text(384 - fontSize * 12, 456 + fontSize, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "KONAMI INDUSTRY CO.,LTD.", style, textGroup);
 	this->licenceBy = this->cvAdd->Text(384 - fontSize * 5, 456 + fontSize*2, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "LICENSED BY", style, textGroup);
 	this->INC		= this->cvAdd->Text(384 - fontSize * 12, 456 + fontSize*3, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "NINTENDO OF AMERICA INC.", style, textGroup);
-	
-
-
 
 }
 void IntroState::Update()
