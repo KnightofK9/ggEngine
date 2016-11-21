@@ -3,6 +3,8 @@
 #include "TypeEnum.h"
 #include "CVState.h"
 #include "CharacterConstant.h"
+#include <boost\lexical_cast.hpp>
+
 CVAdd::CVAdd(CVState* state , CVGame *cvgame):Add(cvgame->world, cvgame->cache, cvgame->tweenManager, cvgame->GetDrawManager(), cvgame->camera, cvgame->physics, cvgame->timeBasedEventManager, cvgame->eventManager)
 {
 	this->cvgame = cvgame;
@@ -92,7 +94,7 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	return simon;
 }
 
-InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
+InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 {
 
 	InfoPanel *infoPanel = new InfoPanel(this->drawManager);
@@ -102,8 +104,8 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
 	
 #pragma region  First line
-	infoPanel->score		= this->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE-", style, infoPanel);
-	infoPanel->scorePoint	= this->Text(	infoPanel->score->GetX() + fontSize*6,
+	infoPanel->score		= this->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE—", style, infoPanel);
+	infoPanel->scorePoint	= this->Text(	margin + fontSize*6,
 											margin,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -126,9 +128,18 @@ InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
+											//boost::lexical_cast<string>(infoPanel->curTime),
 											"0012",
 											style,
 											infoPanel);
+	
+	infoPanel->timeInfo = this->LoopInfinity(1000, [infoPanel] {
+		if (infoPanel->curTime <= 0)
+			infoPanel->timeInfo->Stop();
+
+			infoPanel->curTime--;
+			infoPanel->timePoint->SetText(boost::lexical_cast<string>(infoPanel->curTime));
+	})->Start();
 
 	infoPanel->stage		= this->Text(	GAME_WIDTH - fontSize*10, 
 											margin,

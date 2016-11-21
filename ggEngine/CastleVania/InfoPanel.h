@@ -7,6 +7,13 @@ public:
 	InfoPanel(DrawManager* drawManager);
 	~InfoPanel();
 	virtual void Draw() override;
+	void SetPlayerHealth();
+	void SetEnemyHealth();
+	void SetLife();
+	void SetPoint();
+	void SetState();
+	void SetScore();
+
 	Text *score = nullptr;
 	Text *scorePoint = nullptr;
 
@@ -31,6 +38,9 @@ public:
 
 	HealthBar *playerHealthBar = nullptr;
 	HealthBar *enemyHealthBar = nullptr;
+
+	TimeBasedEventInfo* timeInfo;
+	int curTime = 500;
 private:
-	
+	void GetTime();
 };

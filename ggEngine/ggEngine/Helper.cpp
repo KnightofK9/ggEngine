@@ -1,5 +1,7 @@
 #include "Helper.h"
 #include "Group.h"
+#include <boost\lexical_cast.hpp>
+
 namespace ggEngine {
 	LPCWSTR Helper::StringToLPCWSTR(const std::string & s)
 	{
@@ -27,6 +29,11 @@ namespace ggEngine {
 		RECT insRect;
 		IntersectRect(&insRect, &srcRect, &groupRect);
 		return insRect;
+	}
+
+	string ggEngine::Helper::IntToString(const int &number, int numchar)
+	{
+		return boost::lexical_cast<string>(number);
 	}
 }
 

@@ -15,3 +15,31 @@ void InfoPanel::Draw()
 
 	ScreenGroup::Draw();
 }
+
+void InfoPanel::SetPlayerHealth()
+{
+}
+
+void InfoPanel::SetEnemyHealth()
+{
+}
+
+void InfoPanel::SetLife()
+{
+}
+
+void InfoPanel::SetPoint()
+{
+}
+
+void InfoPanel::SetState()
+{
+}
+
+void InfoPanel::SetScore()
+{
+}
+
+void InfoPanel::GetTime()
+{
+}

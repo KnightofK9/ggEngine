@@ -54,7 +54,7 @@ void IntroState::Create()
 	this->push->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		Text  *current = dynamic_cast<Text*>(go);
 		if (current != NULL) {
-			if (e.isPress(DIK_0) && isKeyPressed == false) {
+			if (e.isPress(DIK_SPACE) && isKeyPressed == false) {
 				isKeyPressed = true;
 				this->cvAdd->LoopInfinity(150, [this]() {
 					this->push->SetVisible(!this->push->IsVisible());
