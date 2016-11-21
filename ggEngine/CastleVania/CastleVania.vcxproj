@@ -157,9 +157,9 @@
     <ClCompile Include="CVState.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="InfoPanel.cpp" />
+    <ClCompile Include="IntroState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Simon.cpp" />
-    <ClCompile Include="IntroState.cpp" />
     <ClCompile Include="StaticTile.cpp" />
     <ClCompile Include="TestStateCastleVania.cpp" />
     <ClCompile Include="CVAdd.cpp" />
@@ -177,8 +177,8 @@
     <ClInclude Include="CVState.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InfoPanel.h" />
-    <ClInclude Include="Simon.h" />
     <ClInclude Include="IntroState.h" />
+    <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />
     <ClInclude Include="TestStateCastleVania.h" />
     <ClInclude Include="CVAdd.h" />

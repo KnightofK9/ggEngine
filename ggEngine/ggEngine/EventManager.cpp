@@ -1,6 +1,7 @@
 #include "EventManager.h"
 #include "Game.h"
 #include "GameObject.h"
+#include "SpriteAnimation.h"
 #include "Events.h"
 ggEngine::EventManager::EventManager(Game * game)
 {
@@ -21,6 +22,11 @@ void ggEngine::EventManager::EnableKeyBoardInput(GameObject * go)
 {
 	InitEvents(go);
 	receivedKeyBoardList.push_back(go);
+}
+
+void ggEngine::EventManager::EnableSpriteAnimationEvent(SpriteAnimation * go)
+{
+	InitEvents(go);
 }
 
 void ggEngine::EventManager::DisableKeyBoardInput(GameObject * go, bool isClearEvent)
