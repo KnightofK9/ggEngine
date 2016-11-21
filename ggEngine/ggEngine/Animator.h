@@ -19,9 +19,9 @@ namespace ggEngine {
 		bool isLoop;
 		int framePerRow;
 		int framePerColumn;
+		SpriteAnimation* spriteAnimation = nullptr;
 	private:
 		std::string name;
 		RECT *frameList;
-		SpriteAnimation* spriteAnimation = nullptr;
 	};
 }

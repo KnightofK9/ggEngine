@@ -32,22 +32,23 @@ void IntroState::Create()
 
 
 	this->menu_anim = this->cvAdd->SpriteAnimation(220, 125, "menu_anim", 72, 58, group, 0, 15, 100);
-	cvgame->eventManager->EnableSpriteAnimationEvent(menu_anim);
-	this->menu_anim->CreateAnimation("anim", 0, 13, false);
-	menu_anim->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-		g_debug.Log("Animation " + e.animationName + " completed. ");
+	this->cvgame->eventManager->EnableSpriteAnimationEvent(menu_anim);
+	this->menu_anim->CreateAnimation("batFly", 0, 13, false);
+	this->menu_anim->CreateAnimation("batFlyLoop", 11, 13, true);
+	this->menu_anim->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
+		e.animator->spriteAnimation->PlayAnimation("batFlyLoop");
 	};
-	this->menu_anim->PlayAnimation("anim");
+	this->menu_anim->PlayAnimation("batFly");
 	this->menu_anim->SetAnchor(0.5, 0.5);
 
 
+	//============== Text =======================
 	Style style;
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
 	int fontSize = 10;
 
 	this->push = this->cvAdd->Text(128 - fontSize*7, 120, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "PUSH START KEY", style, group);
 	//this->push
-	//this->year = 
 
 
 }

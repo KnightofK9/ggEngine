@@ -44,6 +44,7 @@ namespace ggEngine {
 				this->isFinished = true;
 				if (this->spriteAnimation->events->onAnimationCompleted != nullptr) {
 					AnimationArg e;
+					e.animator = this;
 					e.animationName = this->name;
 					this->spriteAnimation->events->onAnimationCompleted(this->spriteAnimation, e);
 				}

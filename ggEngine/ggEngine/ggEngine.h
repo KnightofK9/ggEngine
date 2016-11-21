@@ -30,3 +30,4 @@
 #include "Camera.h"
 #include "Timer.h"
 #include "ScreenGroup.h"
+#include "Animator.h"
