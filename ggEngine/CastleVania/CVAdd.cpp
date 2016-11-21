@@ -85,7 +85,7 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	return simon;
 }
 
-InfoPanel*  CVAdd::UIInfoPanel()
+InfoPanel*  CVAdd::UIInfoPanel(ggEngine::Group *group)
 {
 
 	InfoPanel *infoPanel = new InfoPanel(this->drawManager);
@@ -194,7 +194,35 @@ InfoPanel*  CVAdd::UIInfoPanel()
 											style,
 											infoPanel);
 
-	world->AddGroup(infoPanel);
+	
+	infoPanel->playerHealthBar = this->UIPlayerHealthBar(50, 20, infoPanel);
+	infoPanel->enemyHealthBar = this->UIEnemyHealthBar(50, 50, infoPanel);
+
+	group->AddGroup(infoPanel);
 	return infoPanel;
+}
+
+HealthBar * CVAdd::UIPlayerHealthBar(double x, double y, ggEngine::Group* group)
+{
+	HealthBar *bar = new HealthBar(this->drawManager);
+	ggEngine::Sprite* emptyHealthBar = this->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
+	ggEngine::Sprite* healthBar = this->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, bar);
+	bar->SetEmptyHealthBar(emptyHealthBar);
+	bar->SetHealthBar(healthBar,16);
+	bar->SetPosition(x, y);
+	group->AddGroup(bar);
+	return bar;
+}
+
+HealthBar * CVAdd::UIEnemyHealthBar(double x, double y, ggEngine::Group* group)
+{
+	HealthBar *bar = new HealthBar(this->drawManager);
+	ggEngine::Sprite* emptyHealthBar = this->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
+	ggEngine::Sprite* healthBar = this->Sprite(0, 0, TextureConstant::FULL_HEALTH_ENEMY_TEXTURE, bar);
+	bar->SetEmptyHealthBar(emptyHealthBar);
+	bar->SetHealthBar(healthBar, 16);
+	bar->SetPosition(x, y);
+	group->AddGroup(bar);
+	return bar;
 }
 

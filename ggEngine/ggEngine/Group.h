@@ -19,7 +19,12 @@ namespace ggEngine{
 		virtual std::list<Group*> *GetGroupList() { return &this->groupList; }
 		virtual void Draw() override;
 		void Reset();
+		void SetMask(bool isUsedMask) { this->isUsedMask = isUsedMask; }
+		bool IsUsedMask() { return this->isUsedMask; }
+		void RemoveMask();
 	protected:
+		RECT mask;
+		bool isUsedMask = false;
 		std::list<Group*> groupList;
 		std::list<GameObject*> drawList;
 	private:

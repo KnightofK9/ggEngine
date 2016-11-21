@@ -11,7 +11,7 @@ namespace ggEngine {
 		SetImage(image, frameWidth, frameHeight, numberOfFrame);
 		InitFrameList();
 		srcRect = frameList[defaultFrame];
-		SetAnchor(0.5, 0.5);
+		SetAnchor(0, 0);
 		this->msPerFrame = msPerFrame;
 		//SetCurrentSrcRect();
 	}
@@ -39,6 +39,29 @@ namespace ggEngine {
 		else {
 			
 		}
+		if (spriteHandle->Begin(this->style) == D3D_OK)
+		{
+			color = (color & 0x00FFFFFF) | (opacity << 24);
+			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, color);
+			spriteHandle->End();
+		}
+	}
+	void SpriteAnimation::DrawRect()
+	{
+		Transform(spriteHandle);
+		if (!visible) return;
+		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
+		if (this->isRunningAnimation) {
+			this->animationTimer.SetDelta(g_debug.GetDtMs());
+			if (this->animationTimer.StopWatch(this->msPerFrame)) {
+				int frameIndex = this->GetNextFrameIndex();
+				if (frameIndex != -1) srcRect = frameList[frameIndex];
+			}
+		}
+		else {
+
+		}
+		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentObject);
 		if (spriteHandle->Begin(this->style) == D3D_OK)
 		{
 			color = (color & 0x00FFFFFF) | (opacity << 24);

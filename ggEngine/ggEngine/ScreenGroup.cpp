@@ -23,7 +23,12 @@ namespace ggEngine {
 				text->drawStyle = D3DXSPRITE_ALPHABLEND;
 			}
 		}
-		Group::AddDrawObjectToList(drawObject);
+
+
+		Group* parentGroup = (drawObject->GetParentObject());
+		if (parentGroup != nullptr) parentGroup->GetDrawList()->remove(drawObject);
+		drawObject->SetParentObject(this);
+		drawList.push_back(drawObject);
 
 	}
 

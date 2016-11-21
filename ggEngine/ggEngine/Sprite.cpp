@@ -5,7 +5,7 @@ namespace ggEngine {
 	Sprite::Sprite(DrawManager *drawManager, SpriteInfo * image) : GameObject(drawManager)
 	{
 		SetImage(image);
-		this->anchor = Vector(0.5, 0.5);
+		this->anchor = Vector(0, 0);
 		this->body = NULL;
 		this->color = D3DCOLOR_XRGB(255, 255, 255);
 		this->style = D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE;
@@ -31,6 +31,19 @@ namespace ggEngine {
 		if (spriteHandle->Begin(style) == D3D_OK)
 		{
 			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &srcRect, NULL, NULL, color);
+			spriteHandle->End();
+		}
+	}
+	void Sprite::DrawRect()
+	{
+		Transform(spriteHandle);
+		RECT srcRect = image->GetRect();
+		if (!visible) return;
+		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentObject);
+		color = (color & 0x00FFFFFF) | (opacity << 24);
+		if (spriteHandle->Begin(style) == D3D_OK)
+		{
+			spriteHandle->Draw(this->GetImage()->GetTexture()->GetDxTexture(), &drawRect, NULL, NULL, color);
 			spriteHandle->End();
 		}
 	}

@@ -2,6 +2,7 @@
 #include "Body.h"
 #include "Events.h"
 #include "Debug.h"
+#include "Group.h"
 namespace ggEngine {
 	GameObject::GameObject()
 	{
@@ -30,6 +31,11 @@ namespace ggEngine {
 	void GameObject::Draw()
 	{
 		g_debug.Warning("Draw method not implemented for this object " + this->name);
+	}
+	void GameObject::DrawRect()
+	{
+		g_debug.Warning("Draw mask method not implemented for this object " + this->name);
+
 	}
 	Vector GameObject::GetPosition()
 	{
