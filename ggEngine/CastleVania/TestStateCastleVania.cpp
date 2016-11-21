@@ -44,7 +44,6 @@ void TestStateCastleVania::Create()
 	this->simon = this->cvAdd->CharSimon(400, 400, group);
 
 
-
 }
 void TestStateCastleVania::Update()
 {

@@ -94,7 +94,7 @@ InfoPanel*  CVAdd::UIInfoPanel()
 	int margin = 20;
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
 	
-	//Fist line
+	//====================Fist line===================
 	infoPanel->score		= this->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE-", style, infoPanel);
 	infoPanel->scorePoint	= this->Text(	infoPanel->score->GetX() + fontSize*6,
 											margin,
@@ -140,7 +140,7 @@ InfoPanel*  CVAdd::UIInfoPanel()
 											"01",
 											style,
 											infoPanel);
-	//second line
+	//===============second line==========================
 	infoPanel->player		= this->Text(	margin,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
@@ -149,6 +149,12 @@ InfoPanel*  CVAdd::UIInfoPanel()
 											"PLAYER",
 											style,
 											infoPanel);
+
+	infoPanel->lifeIcon		= this->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
+											margin + fontSize + 10,
+											TextureConstant::LIFE_TEXTURE,
+											infoPanel);
+
 	//third line
 	infoPanel->enemy		= this->Text(	margin,
 											margin + fontSize*2,
@@ -185,7 +191,7 @@ InfoPanel*  CVAdd::UIInfoPanel()
 											style,
 											infoPanel);
 
-	infoPanel->pPoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
+	infoPanel->pPoint		= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
 											margin + fontSize * 2,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,

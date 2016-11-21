@@ -19,4 +19,7 @@ public:
 	static constexpr const char* GAME_FONT_NAME = "Press Start";
 	static constexpr const char* GAME_FONT_TEXTURE_PATH = "Resource/Resources/Font/PrStart.ttf";
 
+	static constexpr const char* LIFE_TEXTURE = "LifeTexture";
+	static constexpr const char* LIFE_TEXTURE_PATH = "Resource/Resources/Heart2.png";
+
 };
