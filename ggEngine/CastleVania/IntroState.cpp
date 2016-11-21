@@ -12,7 +12,7 @@ void IntroState::Init() {
 void IntroState::Preload() {
 	this->cvPreload->Texture("menu_bg", "Resource/Resources/MenuScene/menu_bg.png");
 	this->cvPreload->Texture("menu_anim", "Resource/Resources/MenuScene/menu_anim.png");
-	this->cvPreload->Font(TextureConstant::GAME_FONT_TEXTURE, TextureConstant::GAME_FONT_NAME, TextureConstant::GAME_FONT_TEXTURE_PATH, 10);
+	this->cvPreload->Font(TextureConstant::GAME_FONT_TEXTURE, TextureConstant::GAME_FONT_NAME, TextureConstant::GAME_FONT_TEXTURE_PATH, 22);
 
 }
 void IntroState::Create()
@@ -45,9 +45,11 @@ void IntroState::Create()
 	//============== Text =======================
 	Style style;
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
-	int fontSize = 10;
+	int fontSize = 22;
 
-	this->push = this->cvAdd->Text(128 - fontSize*7, 120, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "PUSH START KEY", style, group);
+	//384 = 128*3
+	ScreenGroup *textGroup = this->cvAdd->ScreenGroup();
+	this->push = this->cvAdd->Text(384 - fontSize*7, 384, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "PUSH START KEY", style, textGroup);
 	this->cvgame->eventManager->EnableKeyBoardInput(this->push);
 	this->push->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		Text  *current = dynamic_cast<Text*>(go);
@@ -61,9 +63,13 @@ void IntroState::Create()
 					if (this->cvgame->stateManager->GetCurrentState() == this)
 						this->cvgame->stateManager->Start("TestStateCastleVania", false, false);
 				})->Start();
-			}
-		}
-	};
+			}}};
+	this->year		= this->cvAdd->Text(384 - fontSize * 7, 456, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "TM AND @ 1987", style, textGroup);
+	this->coLTD		= this->cvAdd->Text(384 - fontSize * 12, 456 + fontSize, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "KONAMI INDUSTRY CO.,LTD.", style, textGroup);
+	this->licenceBy = this->cvAdd->Text(384 - fontSize * 5, 456 + fontSize*2, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "LICENSED BY", style, textGroup);
+	this->INC		= this->cvAdd->Text(384 - fontSize * 12, 456 + fontSize*3, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "NINTENDO OF AMERICA INC.", style, textGroup);
+	
+
 
 
 }
