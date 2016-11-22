@@ -188,7 +188,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											infoPanel);
 
 	infoPanel->playerHealthBar = this->UIPlayerHealthBar(margin + fontSize*7, margin + fontSize, infoPanel);
-	//infoPanel->playerHealthBar->SetScale(1.5, 1.5);
+	infoPanel->playerHealthBar->SetScale(1.3, 1.3);
 
 	infoPanel->lifeIcon		= this->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
 											margin + fontSize + 10,
