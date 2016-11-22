@@ -13,6 +13,8 @@ public:
 	InfoPanel* UIInfoPanel(ggEngine::Group *group);
 	HealthBar *UIPlayerHealthBar(double x, double y, ggEngine::Group* group);
 	HealthBar *UIEnemyHealthBar(double x, double y, ggEngine::Group* group);
+
+	int health = 5;
 private:
 	CVGame *cvgame;
 	CVState* state;

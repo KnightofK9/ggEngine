@@ -20,7 +20,8 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	Simon *simon = new Simon(this->drawManager, inf, 45, 40, 0,0, 130);
 	simon->SetPosition(x, y);
 	simon->SetAnchor(0.5, 0.5);
-	simon->CreateAnimation("walk", 0, 3, true);
+	simon->CreateAnimation("idle", 0, 0, true);
+	simon->CreateAnimation("move", 0, 3, true);
 	simon->CreateAnimation("kneel", 4, 4, true);
 	simon->CreateAnimation("climbUp", 5, 6, true);
 	simon->CreateAnimation("climbDown", 7, 8, true);
@@ -64,25 +65,35 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	simon->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		Simon *simon = dynamic_cast<Simon*>(go);
 		double time = cvgame->logicTimer.getDeltaTime();
-		double force = CharacterConstant::SIMON_MOVE_FORCE* time;
-		double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE*time;
+		double force = CharacterConstant::SIMON_MOVE_FORCE; //* time;
+		double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE;// *time;																	  //Move right
+		
+		simon->PlayAnimation("idle");
+		simon->body->velocity.x = 0;
+		//Move left
 		if (e.isPress(DIK_A)) {
-			simon->PlayAnimation("walk");
+			simon->PlayAnimation("move");
+			simon->SetScale(1, 1);
 			simon->body->velocity.x = -force;
 		}
-		else {
-			if (e.isPress(DIK_D)) {
-				simon->PlayAnimation("walk");
-				simon->body->velocity.x = force;
-			}
-			else {
-				simon->body->velocity.x = 0;
-			}
+		//Move right
+		if (e.isPress(DIK_D)) {
+			simon->PlayAnimation("move");
+			simon->SetScale(-1, 1);
+			simon->body->velocity.x = force;
 		}
 
 		if (e.isPress(DIK_SPACE)) {
 			simon->body->velocity.y = -currentJumpForce;
 		}
+		if (e.isPress(DIK_S)) {
+			simon->PlayAnimation("kneel");
+			simon->body->velocity.x = 0;
+		}
+		/*if (health <= 0) {
+			simon->PlayAnimation("death");
+			simon->body->velocity.x = 0;
+		}*/
 	};
 
 

@@ -21,10 +21,10 @@ void IntroState::Create()
 	this->menu_bg = this->cvAdd->Sprite(128, 112, "menu_bg", group);
 	this->menu_bg->SetAnchor(0.5, 0.5);
 	
-	this->cvgame->camera->RegisterControl(CameraControl_MoveUp, DIK_I);
-	this->cvgame->camera->RegisterControl(CameraControl_MoveDown, DIK_K);
-	this->cvgame->camera->RegisterControl(CameraControl_MoveLeft, DIK_J);
-	this->cvgame->camera->RegisterControl(CameraControl_MoveRight, DIK_L);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveUp, DIK_UP);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveDown, DIK_DOWN);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveLeft, DIK_LEFT);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveRight, DIK_RIGHT);
 	this->cvgame->camera->RegisterControl(CameraControl_ZoomIn, DIK_1);
 	this->cvgame->camera->RegisterControl(CameraControl_ZoomOut, DIK_2);
 	this->cvgame->camera->SetPoint(128, 112);
@@ -54,7 +54,7 @@ void IntroState::Create()
 	this->push->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		Text  *current = dynamic_cast<Text*>(go);
 		if (current != NULL) {
-			if (e.isPress(DIK_SPACE) && isKeyPressed == false) {
+			if (e.isPress(DIK_RETURN) && isKeyPressed == false) {
 				isKeyPressed = true;
 				this->cvAdd->LoopInfinity(150, [this]() {
 					this->push->SetVisible(!this->push->IsVisible());

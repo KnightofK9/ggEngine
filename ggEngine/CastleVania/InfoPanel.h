@@ -50,5 +50,5 @@ public:
 
 	TimeBasedEventInfo* timeInfo = nullptr;
 private:
-	int curTime = 10;
+	int curTime = 100;
 };
