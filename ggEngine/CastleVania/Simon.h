@@ -1,6 +1,7 @@
 #pragma once
 #include <ggEngine.h>
 #include "CharacterBase.h"
+#include "CharacterConstant.h"
 #include "InfoPanel.h"
 using namespace ggEngine;
 class Simon :public CharacterBase {
@@ -8,7 +9,23 @@ public:
 	Simon(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	~Simon();
 	void SetHealth(int heath);
-	int GetHealth() { return 100; }// this->health; }
+	int GetHealth() { return this->health; }
+	
+	void Idle();
+	void MoveLeft();
+	void MoveRight();
+	void Jump();
+	void Kneel();
+	void Climbup();
+	void ClimbDown();
+	void Hurt();
+	void Death();
+	void StandAttack();
+	void KneelAttack();
+	void ClimbDownAttack();
+	void ClimbUpAttack();
+	void LoseHealth(int health);
+	void GainHealth(int health);
 
 	InfoPanel *infoPanel = nullptr;
 	bool isGrounding;	//for jump or for fall down or for hurt

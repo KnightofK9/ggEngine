@@ -14,12 +14,13 @@ CVAdd::~CVAdd()
 {
 }
 
-Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
+Simon* CVAdd::CharSimon(double x, double y, int health, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SIMON_TEXTURE);
 	Simon *simon = new Simon(this->drawManager, inf, 45, 40, 0,0, 130);
 	simon->SetPosition(x, y);
 	simon->SetAnchor(0.5, 0.5);
+	simon->SetHealth(health);
 	simon->CreateAnimation("idle", 0, 0, true);
 	simon->CreateAnimation("move", 0, 3, true);
 	simon->CreateAnimation("kneel", 4, 4, true);
@@ -32,9 +33,6 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	simon->CreateAnimation("kneelAttack", 15, 17, true);
 	simon->CreateAnimation("climbDownAttack", 18, 20, true);
 	simon->CreateAnimation("climbUpAttack", 21, 23, true);
-	//simon->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-	//	e.animator->spriteAnimation->PlayAnimation("indle");
-	//}
 
 	this->physics->EnablePhysics(simon);
 	simon->body->CreateRectangleRigidBody(45, 40);
@@ -70,49 +68,38 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 		double time = cvgame->logicTimer.getDeltaTime();
 		//double force = CharacterConstant::SIMON_MOVE_FORCE; //* time;
 		//double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE;// *time;																	  //Move right
-		
-		simon->PlayAnimation("idle");
-		simon->body->velocity.x = 0;
 
-		//Death
-		if (simon->GetHealth() <= 0) {
-			simon->PlayAnimation("death");
-			simon->body->velocity.x = 0;
-			return;
+		simon->Idle();
+
+		//if (simon->GetHealth() <= 0) {
+		//	simon->Death();
+		//	return;
+		//}
+
+		if (e.isPress(DIK_LEFT)) {
+			simon->MoveLeft();
+			simon->GainHealth(10);
 		}
-		//Move left
-		if (e.isPress(DIK_A)) {
-			simon->PlayAnimation("move");
-			simon->SetScale(1, 1);
-			simon->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
-		}
-		//Move right
-		if (e.isPress(DIK_D)) {
-			simon->PlayAnimation("move");
-			simon->SetScale(-1, 1);
-			simon->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
+		if (e.isPress(DIK_RIGHT)) {
+			simon->MoveRight();
+			simon->LoseHealth(10);
 		}
 
 		if (e.isPress(DIK_SPACE) && simon->isGrounding == true) {
-			simon->PlayAnimation("idle");
-			simon->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
-			this->TimeOut(1000, [simon] {
-				simon->isGrounding = false;
-			});
-			simon->isGrounding = true;
-			simon->PlayAnimation("kneel");
-			this->TimeOut(1000, [simon] {
-			});
-			simon->PlayAnimation("idle");
+			simon->Jump();
 		}
 
-		if (e.isPress(DIK_S)) {
-			simon->PlayAnimation("kneel");
-			simon->body->velocity.x = 0;
+		if (e.isPress(DIK_E) && e.isPress(DIK_DOWN)) {
+			simon->KneelAttack();
+		}
+		else{
+			if (e.isPress(DIK_DOWN))
+				simon->Kneel();
+			if (e.isPress(DIK_E))
+				simon->StandAttack();
 		}
 		//set isGrounding
 	};
-
 
 	group->AddDrawObjectToList(simon);
 
