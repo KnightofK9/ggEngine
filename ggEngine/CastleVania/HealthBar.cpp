@@ -13,7 +13,7 @@ void HealthBar::SetHealth(int currentHealth)
 {
 	if (currentHealth > maxHealth) currentHealth = maxHealth;
 	this->currentHealth = currentHealth;
-	SetWidth((GetWidth() / this->maxHealth)*this->currentHealth);
+	SetWidth((originWidth / this->maxHealth)*this->currentHealth);
 }
 
 void HealthBar::SetEmptyHealthBar(Sprite * emptyHealthBar)
@@ -27,6 +27,7 @@ void HealthBar::SetHealthBar(Sprite * healthBar, int maxHealth)
 {
 	this->healthBar = healthBar;
 	this->maxHealth = maxHealth;
+	this->originWidth = healthBar->GetWidth();
 }
 
 void HealthBar::Draw()
@@ -50,4 +51,12 @@ void HealthBar::Draw()
 	if (this->emptyHealthBar != nullptr) this->emptyHealthBar->Draw();
 	if (this->healthBar != nullptr) this->healthBar->DrawRect();*/
 }
+
+void HealthBar::SetScale(double x, double y)
+{
+	ScreenGroup::SetScale(x, y);
+	originWidth *= x;
+}
+
+
 
