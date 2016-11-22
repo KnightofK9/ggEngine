@@ -52,11 +52,5 @@ void HealthBar::Draw()
 	if (this->healthBar != nullptr) this->healthBar->DrawRect();*/
 }
 
-void HealthBar::SetScale(double x, double y)
-{
-	ScreenGroup::SetScale(x, y);
-	originWidth *= x;
-}
-
 
 

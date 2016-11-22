@@ -10,7 +10,6 @@ public:
 	void SetEmptyHealthBar(Sprite *emptyHealthBar);
 	void SetHealthBar(Sprite *healthBar, int maxHealth);
 	void Draw() override;
-	void SetScale(double x, double y) override;
 
 
 private:

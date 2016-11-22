@@ -38,8 +38,12 @@ void Simon::MoveRight()
 
 void Simon::Jump()
 {
-	this->PlayAnimation("kneel");
-	this->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
+	if (isGrounding)
+	{
+		this->PlayAnimation("kneel");
+		this->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
+		isGrounding = false;
+	}
 }
 
 void Simon::Kneel()
