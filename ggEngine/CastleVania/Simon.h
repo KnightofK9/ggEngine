@@ -18,7 +18,7 @@ public:
 	void MoveRight();
 	void Jump();
 	void Kneel();
-	void Climbup();
+	void ClimbUp();
 	void ClimbDown();
 	void Hurt();
 	void Death();

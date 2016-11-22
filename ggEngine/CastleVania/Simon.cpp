@@ -42,7 +42,7 @@ void Simon::Jump()
 	{
 		this->PlayAnimation("kneel");
 		this->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
-		isGrounding = false;
+		//isGrounding = false;
 	}
 }
 
@@ -52,7 +52,7 @@ void Simon::Kneel()
 	this->body->velocity.x = 0;
 }
 
-void Simon::Climbup()
+void Simon::ClimbUp()
 {
 	this->PlayAnimation("climbUp");
 }
