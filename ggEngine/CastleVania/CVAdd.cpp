@@ -71,18 +71,18 @@ Simon* CVAdd::CharSimon(double x, double y, int health, ggEngine::Group * group)
 
 		simon->Idle();
 
-		//if (simon->GetHealth() <= 0) {
-		//	simon->Death();
-		//	return;
-		//}
+		if (simon->GetHealth() <= 0) {
+			simon->Death();
+			return;
+		}
 
 		if (e.isPress(DIK_LEFT)) {
 			simon->MoveLeft();
-			simon->GainHealth(10);
+			simon->GainHealth(1);
 		}
 		if (e.isPress(DIK_RIGHT)) {
 			simon->MoveRight();
-			simon->LoseHealth(10);
+			simon->LoseHealth(1);
 		}
 
 		if (e.isPress(DIK_SPACE) && simon->isGrounding == true) {
@@ -265,7 +265,7 @@ HealthBar * CVAdd::UIPlayerHealthBar(double x, double y, ggEngine::Group* group)
 	ggEngine::Sprite* emptyHealthBar = this->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
 	ggEngine::Sprite* healthBar = this->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, bar);
 	bar->SetEmptyHealthBar(emptyHealthBar);
-	bar->SetHealthBar(healthBar,16);
+	bar->SetHealthBar(healthBar,100);
 	bar->SetPosition(x, y);
 	group->AddGroup(bar);
 	return bar;

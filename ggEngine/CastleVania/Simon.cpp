@@ -3,6 +3,7 @@
 Simon::Simon(DrawManager * drawManager, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(drawManager, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->tag = ObjectType_Simon;
+	this->health = 100;
 	this->isGrounding = true;
 }
 
@@ -93,9 +94,11 @@ void Simon::ClimbUpAttack()
 void Simon::LoseHealth(int health)
 {
 	this->health -= health;
+	healthSignal(this->health);
 }
 
 void Simon::GainHealth(int health)
 {
 	this->health += health;
+	healthSignal(this->health);
 }
