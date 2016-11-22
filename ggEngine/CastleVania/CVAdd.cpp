@@ -32,6 +32,9 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	simon->CreateAnimation("kneelAttack", 15, 17, true);
 	simon->CreateAnimation("climbDownAttack", 18, 20, true);
 	simon->CreateAnimation("climbUpAttack", 21, 23, true);
+	//simon->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
+	//	e.animator->spriteAnimation->PlayAnimation("indle");
+	//}
 
 	this->physics->EnablePhysics(simon);
 	simon->body->CreateRectangleRigidBody(45, 40);
@@ -65,35 +68,49 @@ Simon* CVAdd::CharSimon(double x, double y, ggEngine::Group * group)
 	simon->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		Simon *simon = dynamic_cast<Simon*>(go);
 		double time = cvgame->logicTimer.getDeltaTime();
-		double force = CharacterConstant::SIMON_MOVE_FORCE; //* time;
-		double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE;// *time;																	  //Move right
+		//double force = CharacterConstant::SIMON_MOVE_FORCE; //* time;
+		//double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE;// *time;																	  //Move right
 		
 		simon->PlayAnimation("idle");
 		simon->body->velocity.x = 0;
+
+		//Death
+		if (simon->GetHealth() <= 0) {
+			simon->PlayAnimation("death");
+			simon->body->velocity.x = 0;
+			return;
+		}
 		//Move left
 		if (e.isPress(DIK_A)) {
 			simon->PlayAnimation("move");
 			simon->SetScale(1, 1);
-			simon->body->velocity.x = -force;
+			simon->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
 		}
 		//Move right
 		if (e.isPress(DIK_D)) {
 			simon->PlayAnimation("move");
 			simon->SetScale(-1, 1);
-			simon->body->velocity.x = force;
+			simon->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
 		}
 
-		if (e.isPress(DIK_SPACE)) {
-			simon->body->velocity.y = -currentJumpForce;
+		if (e.isPress(DIK_SPACE) && simon->isGrounding == true) {
+			simon->PlayAnimation("idle");
+			simon->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
+			this->TimeOut(1000, [simon] {
+				simon->isGrounding = false;
+			});
+			simon->isGrounding = true;
+			simon->PlayAnimation("kneel");
+			this->TimeOut(1000, [simon] {
+			});
+			simon->PlayAnimation("idle");
 		}
+
 		if (e.isPress(DIK_S)) {
 			simon->PlayAnimation("kneel");
 			simon->body->velocity.x = 0;
 		}
-		/*if (health <= 0) {
-			simon->PlayAnimation("death");
-			simon->body->velocity.x = 0;
-		}*/
+		//set isGrounding
 	};
 
 
