@@ -22,4 +22,7 @@ public:
 	static constexpr const char* LIFE_TEXTURE = "LifeTexture";
 	static constexpr const char* LIFE_TEXTURE_PATH = "Resource/Resources/Heart2.png";
 
+	static constexpr const char* ITEM_BOX_TEXTURE = "ItemBox";
+	static constexpr const char* ITEM_BOX_TEXTURE_PATH = "Resource/Resources/item_box.png";
+
 };

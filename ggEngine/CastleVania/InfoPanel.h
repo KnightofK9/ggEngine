@@ -7,12 +7,17 @@ public:
 	InfoPanel(DrawManager* drawManager);
 	~InfoPanel();
 	virtual void Draw() override;
-	void SetPlayerHealth(int health);
-	void SetEnemyHealth(int health);
-	void SetLife(int point);
-	void SetPoint(int point);
-	void SetState(int state);
-	void SetScore(int score);
+	void SetPlayerHealth(const int& health);
+	void SetEnemyHealth(const int& health);
+	void SetLife(const int& point);
+	void SetPoint(const int& point);
+	void SetState(const int& state);
+	void SetScore(const int& score);
+
+	void StopTime();
+	void StartTime();
+	void SetTime(const int& time);
+	int GetTime() { return curTime; }
 
 	Text *score = nullptr;
 	Text *scorePoint = nullptr;
@@ -41,9 +46,9 @@ public:
 
 	Sprite *itemBox = nullptr;
 	Sprite *item = nullptr;
+	SpriteInfo *itemInfo = nullptr;
 
 	TimeBasedEventInfo* timeInfo = nullptr;
-	int curTime = 300;
-
 private:
+	int curTime = 10;
 };

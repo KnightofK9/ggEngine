@@ -19,7 +19,9 @@ void CVPreload::UIInfoPanel()
 	this->Texture(TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE_PATH);
 	this->Texture(TextureConstant::LIFE_TEXTURE, TextureConstant::LIFE_TEXTURE_PATH);
 	this->Texture(TextureConstant::FULL_HEALTH_ENEMY_TEXTURE, TextureConstant::FULL_HEALTH_ENEMY_TEXTURE_PATH);
-	this->Texture("item_box", "Resource/Resources/item_box.png");
+	this->Texture(TextureConstant::ITEM_BOX_TEXTURE, TextureConstant::ITEM_BOX_TEXTURE_PATH);
+
+	this->Texture("Holy_water", "Resource/Resources/Holy_water.png");
 }
 
 void CVPreload::FontGame()

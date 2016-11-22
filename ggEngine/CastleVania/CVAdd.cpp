@@ -3,8 +3,6 @@
 #include "TypeEnum.h"
 #include "CVState.h"
 #include "CharacterConstant.h"
-#include <boost\lexical_cast.hpp>
-#include <boost\format.hpp>
 
 CVAdd::CVAdd(CVState* state , CVGame *cvgame):Add(cvgame->world, cvgame->cache, cvgame->tweenManager, cvgame->GetDrawManager(), cvgame->camera, cvgame->physics, cvgame->timeBasedEventManager, cvgame->eventManager)
 {
@@ -129,21 +127,20 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											ggEngine::Helper::IntToString(infoPanel->curTime, 4),
+											ggEngine::Helper::IntToString(infoPanel->GetTime(), 4),
 											style,
 											infoPanel);
 	
 	infoPanel->timeInfo = this->LoopInfinity(1000, [infoPanel] {
-		if (infoPanel->timeInfo != NULL)
-		{
-			if (infoPanel->curTime <= 0)
-				infoPanel->timeInfo->Stop();
-			else {
-				infoPanel->curTime--;
-				infoPanel->timePoint->SetText(ggEngine::Helper::IntToString(infoPanel->curTime, 4));
-			}
+		if (infoPanel->GetTime() <= 0)
+			infoPanel->StopTime();
+		else {
+			infoPanel->SetTime(infoPanel->GetTime() - 1);
+			infoPanel->timePoint->SetText(ggEngine::Helper::IntToString(infoPanel->GetTime(), 4));
 		}
-	})->Start();
+	});
+	infoPanel->StartTime();
+
 
 	infoPanel->stage		= this->Text(	GAME_WIDTH - fontSize*10, 
 											margin,
@@ -234,9 +231,15 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->itemBox		= this->Sprite(419, 75, "item_box", infoPanel);
+	infoPanel->itemBox		= this->Sprite(419, 75, "ItemBox", infoPanel);
 	infoPanel->itemBox->SetAnchor(0.5, 0.5);
 	infoPanel->itemBox->SetScale(3, 3);
+
+	infoPanel->item = this->Sprite(infoPanel->itemBox->GetX(), infoPanel->itemBox->GetY(), "Holy_water", infoPanel);
+	infoPanel->item->SetAnchor(0.5, 0.5);
+	infoPanel->item->SetScale(1.5, 1.5);
+
+
 	group->AddGroup(infoPanel);
 	return infoPanel;
 }
