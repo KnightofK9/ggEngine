@@ -178,6 +178,7 @@
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InfoPanel.h" />
     <ClInclude Include="IntroState.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />
     <ClInclude Include="TestStateCastleVania.h" />
@@ -190,6 +191,9 @@
     <ProjectReference Include="..\ggEngine\ggEngine.vcxproj">
       <Project>{e02a5697-7d50-453b-aca5-6b8f999a59d7}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CastleVania.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

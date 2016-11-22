@@ -1,7 +1,6 @@
 #include "InfoPanel.h"
 InfoPanel::InfoPanel(DrawManager* drawManager) : ScreenGroup(drawManager)
 {
-
 }
 
 InfoPanel::~InfoPanel()
@@ -16,7 +15,7 @@ void InfoPanel::Draw()
 	ScreenGroup::Draw();
 }
 
-void InfoPanel::SetPlayerHealth(const int& health)
+void InfoPanel::SetPlayerHealth(int health)
 {
 	this->playerHealthBar->SetHealth(health);
 }

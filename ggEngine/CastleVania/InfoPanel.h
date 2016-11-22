@@ -7,7 +7,7 @@ public:
 	InfoPanel(DrawManager* drawManager);
 	~InfoPanel();
 	virtual void Draw() override;
-	void SetPlayerHealth(const int& health);
+	void SetPlayerHealth(int health);
 	void SetEnemyHealth(const int& health);
 	void SetLife(const int& point);
 	void SetPoint(const int& point);
