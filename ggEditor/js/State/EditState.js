@@ -32,6 +32,9 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var currentTileType = "";
     var groupList = [];
     var hierachyGrouplist = [];
+    this.getCurrentLayer = function(){
+        return currentLayer;
+    };
     var createGroup = function(groupName){
         var group = game.add.group();
         group.name = groupName;
@@ -129,7 +132,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     };
     var resetPick = function(){
         currentTileType = "";
-        currentLayer = null;
+        // currentLayer = null;
         currentTile = null;
     }
     var initPreloadList = function(){
@@ -197,7 +200,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
             }
         };
         game.stage.backgroundColor = "#4488AA";
-        map = game.add.tilemap();
+        map = hierarchyEditor.add.tilemap()._item;
         map.tileWidth = tileWidth;
         map.tileHeight = tileHeight;
         map.width = game.width;
@@ -206,8 +209,8 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
             ggConsole.alertNotification("Error","Each state must have only 1 tile map.")
             return false;
         };
-        hierarchyObject = hierarchyEditor.addObjectToHierarchy("tile-map",map);
-        hierarchyEditor.updateHierarchy();
+        // hierarchyObject = hierarchyEditor.addObjectToHierarchy("tile-map",map);
+        // hierarchyEditor.updateHierarchy();
         //for(var key in Constant.TILE_SET_DICT){
         //    if(Constant.TILE_SET_DICT.hasOwnProperty(key)){
         //        map.addTilesetImage(key);
@@ -463,8 +466,8 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         };
         //layer.loadTexture(tileSetKey);
         layerList.push(layer);
-        hierarchyEditor.addObjectToHObject(tileSetKey,layer,hierarchyObject);
-        hierarchyEditor.updateHierarchy();
+        // hierarchyEditor.addObjectToHObject(tileSetKey,layer,hierarchyObject);
+        // hierarchyEditor.updateHierarchy();
         var lastIndex = layerList.length  - 1;
         var layerKey = game.input.keyboard.addKey((lastIndex+1).toString().charCodeAt(0));
         layerKey.onDown.add(changeLayer, this);
@@ -475,10 +478,13 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
 
         return layer;
     };
+    this.reset = function(){
+        hierarchyId = 0;
+    };
     this.pickTypeTile = function(type){
         resetPick();
         switch(type){
-            case "StaticType":
+            case "StaticTile":
                 currentTileType = type;
                 break;
         }
@@ -532,7 +538,16 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
             marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
             if (game.input.mousePointer.isDown)
             {
-                map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                if(currentTileType !== ""){
+                    switch (currentTileType){
+                        case "StaticTile":
+                            hierarchyEditor.add.staticTile(marker.x,marker.y,currentLayer,map);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
             }
         }
 

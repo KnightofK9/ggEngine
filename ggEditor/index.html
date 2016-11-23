@@ -22,6 +22,9 @@
     <script type="text/javascript" src="js/Core/image-picker.js"></script>
     <script type="text/javascript" src="js/Core/contextMenu.js"></script>
 
+
+
+    <script type="text/javascript" src="js/Class.js"></script>
     <script type="text/javascript" src="js/TileMapManager.js"></script>
     <script type="text/javascript" src="js/ObjectList.js"></script>
     <script type="text/javascript" src="js/Helper.js"></script>
@@ -29,9 +32,9 @@
     <script type="text/javascript" src="js/MapEditor.js"></script>
     <script type="text/javascript" src="js/StateInfo.js"></script>
     <script type="text/javascript" src="js/HierarchyEditor.js"></script>
+    <script type="text/javascript" src="js/HierarchyInfo.js"></script>
     <script type="text/javascript" src="js/Constant.js"></script>
     <script type="text/javascript" src="js/SceneEditor.js"></script>
-    <script type="text/javascript" src="js/Class.js"></script>
 
 
     <!--State-->
@@ -168,7 +171,7 @@
         mapEditor = new MapEditor();
         objectList = new ObjectList();
         var create = function () {
-            currentTileMap = new TileMap(512, 512, 32, 32, "scene", 40);
+            currentTileMap = new TileMapManager(512, 512, 32, 32, "scene", 40);
             currentTileMap.createTileMap();
             ggConsole.log("Init tile map succeed!");
         };
@@ -247,6 +250,7 @@
             game.destroy();
             hierarchyEditor.clearAll();
         }
+        hierarchyList.reset();
         hierarchyEditor.updateHierarchy();
         sceneEditor = new SceneEditor(name, width, height, tWidth, tHeight, qWidth, qHeight, json);
 
@@ -265,6 +269,7 @@
             game.destroy();
             if (hierarchyEditor != null) hierarchyEditor.clearAll();
         }
+        hierarchyList.reset();
         hierarchyEditor.updateHierarchy();
         sceneEditor = new SceneEditor(name, width, height, tWidth, tHeight, qWidth, qHeight);
         dialogRef.close();

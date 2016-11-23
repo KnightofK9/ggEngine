@@ -2,6 +2,7 @@
  * Created by Knight of k9 on 12/11/2016.
  */
 var SceneEditor = function(name, width,height,tileWidth, tileHeight, quadNodeWidth, quadNodeHeight,json){
+    overReset();
     this.editState = null;
     this.bootState = null;
     var that = this;
@@ -20,4 +21,6 @@ var SceneEditor = function(name, width,height,tileWidth, tileHeight, quadNodeWid
 
     init();
 };
-
+var overReset = function(){
+    hierarchyId = 0;
+};
