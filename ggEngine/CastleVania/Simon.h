@@ -8,8 +8,6 @@ using namespace ggEngine;
 
 class Simon :public CharacterBase {
 public:
-	boost::signals2::signal<void(int)> healthSignal;
-
 	Simon(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	~Simon();
 	void SetHealth(int heath);
@@ -20,7 +18,7 @@ public:
 	void MoveRight();
 	void Jump();
 	void Kneel();
-	void Climbup();
+	void ClimbUp();
 	void ClimbDown();
 	void Hurt();
 	void Death();
