@@ -32,6 +32,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var currentTileType = "";
     var groupList = [];
     var hierachyGrouplist = [];
+    var currentPickTile = "";
     this.getCurrentLayer = function(){
         return currentLayer;
     };
@@ -132,6 +133,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     };
     var resetPick = function(){
         currentTileType = "";
+        currentPickTile = "";
         // currentLayer = null;
         currentTile = null;
     }
@@ -483,6 +485,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     };
     this.pickTypeTile = function(type){
         resetPick();
+        currentPickTile = "TilePick";
         switch(type){
             case "StaticTile":
                 currentTileType = type;
@@ -496,7 +499,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         //    map.addTilesetImage(tileSetKey);
         //    currentTileSetKey = tileSetKey;
         //}
-
+        currentPickTile = "TilePick";
         var tileSetIndex = map.getTilesetIndex(tileSetKey);
         if(tileSetIndex === null){
             addTileSet(tileSetKey)
@@ -540,20 +543,27 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         }
         if (game.input.mousePointer.isDown)
         {
-            if(currentTileType !== ""){
-                switch (currentTileType){
-                    case "StaticTile":
-                        hierarchyEditor.add.staticTile(marker.x,marker.y,currentLayer,map);
-                        break;
-                    default:
-                        break;
+            switch(currentPickTile){
+                case "TilePick":
+                    if(currentTileType !== ""){
+                    switch (currentTileType){
+                        case "StaticTile":
+                            hierarchyEditor.add.staticTile(marker.x,marker.y,currentLayer,map);
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            else{
-                if(currentLayer!=null){
-                    map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                else{
+                    if(currentLayer!=null){
+                        map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                    }
                 }
+                    break;
+                default:
+                    break;
             }
+
         }
 
 
