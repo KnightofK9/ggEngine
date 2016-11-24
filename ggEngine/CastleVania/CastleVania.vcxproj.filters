@@ -102,6 +102,9 @@
     <ClCompile Include="IntroState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestStateCastleVania.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="WeaponConstant.h">
       <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
