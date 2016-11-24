@@ -531,26 +531,30 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
             map.tiles.push([tileSet.tileList[i].x,tileSet.tileList[i].y,currentTileSetId]);
         }
     };
-    var updateMarker = function() {
+    var updateMarker = function(pointer,event) {
 
         if(currentLayer!=null){
             marker.x = currentLayer.getTileX(game.input.activePointer.worldX) * tileWidth;
             marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
-            if (game.input.mousePointer.isDown)
-            {
-                if(currentTileType !== ""){
-                    switch (currentTileType){
-                        case "StaticTile":
-                            hierarchyEditor.add.staticTile(marker.x,marker.y,currentLayer,map);
-                            break;
-                        default:
-                            break;
-                    }
+
+        }
+        if (game.input.mousePointer.isDown)
+        {
+            if(currentTileType !== ""){
+                switch (currentTileType){
+                    case "StaticTile":
+                        hierarchyEditor.add.staticTile(marker.x,marker.y,currentLayer,map);
+                        break;
+                    default:
+                        break;
                 }
-                else map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+            }
+            else{
+                if(currentLayer!=null){
+                    map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                }
             }
         }
-
 
 
     }
