@@ -14,11 +14,11 @@ namespace ggEngine{
 	class Game;
 	class State : public GGObject{
 	public:
-		State(Game *game);
 		~State();
 		void Start();
-		Add *add;
-		Preload *preload;
+		virtual void Load();
+		Add *add = nullptr;
+		Preload *preload = nullptr;
 		virtual void Destroy();
 		virtual void Init() = 0; //Called after start a State
 		virtual void Preload() = 0; //Called after init
@@ -30,6 +30,7 @@ namespace ggEngine{
 		virtual void Resume() = 0;//Called when the game is resumed
 		virtual void ShutDown() = 0;//Called when start a new State
 	protected:
+		State(Game *game, bool isLoadAutomatic = false);
 		Game *game;
 	private:
 		DrawManager *drawManager;

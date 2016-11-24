@@ -9,12 +9,14 @@
 #include "Matrix.h"
 namespace ggEngine {
 	class Body;
+	typedef unsigned int Tag;
 	class GameObject :public GGObject {
 	public:
 		GameObject();
 		GameObject(DrawManager *drawManager);
 		~GameObject();
 		virtual void Draw();
+		virtual void DrawRect();
 		Vector GetPosition();
 		Vector* GetPositionAsRef();
 		virtual void SetPosition(Vector vector);
@@ -48,19 +50,19 @@ namespace ggEngine {
 		Vector worldPosition;
 		Vector worldScale;
 		std::string name = "";
-		void SetParentObject(GameObject *parentObject){this->parentObject = parentObject;}
-		GameObject *GetParentObject(){ return this->parentObject; }
+		void SetParentObject(Group *parentObject){this->parentObject = parentObject;}
+		Group *GetParentObject(){ return this->parentObject; }
 		virtual double GetOrgWidth() { return this->width; }
 		virtual double GetOrgHeight() { return this->height; }
 		int GetOpacity() { return this->opacity; }
 		void SetOpacityAffectByParent(bool opacityAffectByParent) { this->opacityAffectByParent = opacityAffectByParent; }
 		bool IsOpacityAffectByParent() {return this->opacityAffectByParent;}
 		void SetOpacity(int opacity) { if (opacity > 255) { this->opacity = 255; } else this->opacity = opacity; }
-	
+		Tag tag = 0;
 	protected:
 		bool opacityAffectByParent = true;
 		int opacity = 255;
-		GameObject* parentObject = NULL;
+		Group* parentObject = nullptr;
 		double width;
 		double height;
 		Vector anchor;

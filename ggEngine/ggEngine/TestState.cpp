@@ -1,6 +1,7 @@
 #include "TestState.h"
 #include "Audio.h"
 #include "World.h"
+#include "Json.h"
 TestState::TestState(Game *game):State(game)
 {
 }
@@ -14,15 +15,28 @@ void TestState::Init(){
 void TestState::Preload(){
 	this->preload->Texture("character", "Resource/char.png");
 	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
+	this->preload->TileSet("Resource/level-2-tile-set.png", "Resource/level-2-tile-set.json");
+	this->preload->TileSet("Resource/level-3-tile-set.png", "Resource/level-3-tile-set.json");
 	//this->preload->TileSet("TileMap/scene1.png", "TileMap/scene1.json");
 	this->preload->Font("sketches 90px","sketches", "Resource/Font/sketches.ttf", 90);
 }
 void TestState::Create()
 {
-	tileMap = this->add->TileMap("Json/scene.json");
+	std::string tileMapJson = "";
+	{
+		Json state("Json/ProtoTypeState.json", true);
+		for (auto& it : state["groupList"].GetArray())
+		{
+			std::string type = it["type"].GetString();
+			if (type == "TileMap") {
+				tileMapJson = Json::GetCharArrayFromValue(it);
+			}
+		}
+	}
+	tileMap = this->add->TileMap(tileMapJson, false);
 	//tileMap = this->add->TileMap("TileMap/TileMap.json");
 	tileMap->name = "TileMap";
-	tileMap->SetScale(1.5, 1.5);
+	//tileMap->SetScale(1.5, 1.5);
 	this->game->world->SetOpacityAffectByParent(true);
 	group = this->add->Group();
 	// Text
@@ -86,18 +100,18 @@ void TestState::Create()
 		}
 	};
 	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
-	Box box(1, 2, 3, 4, 5, 6);
-	box.SaveJsonTo("Json/box.json");
+	//Box box(1, 2, 3, 4, 5, 6);
+	//box.SaveJsonTo("Json/box.json");
 
-	this->add->Tween(0, 255, 2000, Easing::linearTween, [this](double value) {
-		this->game->world->SetOpacity(value);
-	})->SetOnFinish([this]() {
-		//this->game->world->SetOpacityAffectByParent(false);
-	})->Start();
+	//this->add->Tween(0, 255, 2000, Easing::linearTween, [this](double value) {
+	//	this->game->world->SetOpacity(value);
+	//})->SetOnFinish([this]() {
+	//	//this->game->world->SetOpacityAffectByParent(false);
+	//})->Start();
 
-	this->add->LoopInfinity(1000, [this]() {
-		this->text->SetText(std::to_string(++increase));
-	})->Start();
+	//this->add->LoopInfinity(1000, [this]() {
+	//	this->text->SetText(std::to_string(++increase));
+	//})->Start();
 
 	this->add->Tween(text->position.y, text->position.y - 200, 1000, Easing::easeOutQudouble)->Start();
 	this->add->Tween(text->position.x, text->position.x + 200, 1000, Easing::easeOutCirc)->SetOnFinish([this]() {

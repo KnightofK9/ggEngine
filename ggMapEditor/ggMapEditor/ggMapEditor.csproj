@@ -91,9 +91,11 @@
     <Compile Include="BitmapImage\BitmapImageExtensions.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ConstantEnum.cs" />
+    <Compile Include="Helpers\CacheElementCollection.cs" />
     <Compile Include="Helpers\DialogCloser.cs" />
     <Compile Include="Helpers\EventHandle.cs" />
     <Compile Include="Helpers\MouseBehaviour.cs" />
+    <Compile Include="Helpers\OtherBehaviours.cs" />
     <Compile Include="Helpers\StaticHelpers.cs" />
     <Compile Include="Helpers\ToolsEventHandle.cs" />
     <Compile Include="Json\FileIO.cs" />
@@ -108,8 +110,9 @@
     <Compile Include="QuadTree\QuadNode.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\AddTilesetViewModel.cs" />
+    <Compile Include="ViewModels\Base\Template.cs" />
     <Compile Include="ViewModels\LayerBoxViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\LoadBackgroundViewModel.cs" />
     <Compile Include="ViewModels\Main\AnchorTabViewModel.cs" />
     <Compile Include="ViewModels\Main\RootWindowViewModel.cs" />
     <Compile Include="ViewModels\Main\DockManagerViewModel.cs" />
@@ -118,6 +121,9 @@
       <DependentUpon>MatrixGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ToolBarTrayViewModel.cs" />
+    <Compile Include="Views\Dialogs\LoadBackgroundDialog.xaml.cs">
+      <DependentUpon>LoadBackgroundDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MapAreaTab.xaml.cs">
       <DependentUpon>MapAreaTab.xaml</DependentUpon>
     </Compile>
@@ -152,6 +158,10 @@
     <Page Include="ViewModels\MatrixGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\LoadBackgroundDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MapAreaTab.xaml">
       <SubType>Designer</SubType>

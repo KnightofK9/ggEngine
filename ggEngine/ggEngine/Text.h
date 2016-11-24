@@ -10,7 +10,7 @@
 
 namespace ggEngine {
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
-	enum Allign { Allign_Left, Allign_Middle, Allign_Right};
+	enum Allign { Allign_Left, Allign_Middle, Allign_Right, Allign_Top, Allign_Bottom};
 	struct Style {
 		bool enableBackgroundColor = false;
 		//A canvas fillstyle that will be used as the background for the whole Text object.Set to null to disable. Preserved for future using
@@ -25,7 +25,8 @@ namespace ggEngine {
 		int strokeThickness = 0;
 		D3DCOLOR fontColor = D3DCOLOR_ARGB(255, 0, 0, 0);
 		Allign horizontalAllign = Allign_Left;
-		Allign verticalAllign = Allign_Left;
+		Allign verticalAllign = Allign_Top;
+		int fontSize = 14;
 	};
 	//All instance of class inside engine must have namespace ggEngine
 	//Important, DrawObject derived from GameObject, GameObject already have position, scale, width, height. Just use position for this time
@@ -41,6 +42,7 @@ namespace ggEngine {
 		void SetFont(Font *font) { this->font = font; }
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix
 		void Draw();
+		void DrawRect();
 		void SetText(std::string text); 
 		virtual void SetWidth(double width);
 		virtual void SetHeight(double height);
@@ -53,6 +55,7 @@ namespace ggEngine {
 
 		virtual double GetOrgWidth() { return this->orgWidth; }
 		virtual double GetOrgHeight() { return this->orgHeight; }
+		DWORD drawStyle;
 	private:
 		Font *font;
 		Style style;

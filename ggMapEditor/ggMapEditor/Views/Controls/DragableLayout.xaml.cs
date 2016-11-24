@@ -176,5 +176,9 @@ namespace ggMapEditor.Views.Controls
         {
             return container.Children.Count;
         }
+        public UIElement GetChildAt(int index)
+        {
+            return container.Children[index];
+        }
     }
 }

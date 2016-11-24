@@ -7,6 +7,7 @@
 #include <vector>
 #include "IValueable.h"
 #include <error\error.h>
+#include <prettywriter.h>
 #define RAPIDJSON_HAS_STDSTRING 1
 namespace ggEngine {
 	class Json: public rapidjson::Document {
@@ -15,6 +16,7 @@ namespace ggEngine {
 		Json();
 		~Json();
 		const std::string GetCharArray();
+		static std::string GetCharArrayFromValue(const rapidjson::Value &val);
 		void SaveTo(std::string location);
 	private:
 		rapidjson::Document::AllocatorType* allocator;

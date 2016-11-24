@@ -90,7 +90,10 @@ namespace ggMapEditor.ViewModels
         void ButtonOk(object parameter)
         {
             if (tileset.imageUri == null)
+            {
+                MessageBox.Show("Please choose an image path.");
                 return;
+            }
 
             if (!RenderTileset())
                 this.CloseWindow();
@@ -105,7 +108,7 @@ namespace ggMapEditor.ViewModels
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Multiselect = true;
-            fileDialog.Filter = "Image files |*png;*jpge;jpg";
+            fileDialog.Filter = "Image files |*png;*jpge;*jpg";
             fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             if (fileDialog.ShowDialog() == true)
@@ -117,7 +120,6 @@ namespace ggMapEditor.ViewModels
                 {
                     MessageBox.Show(ex.ToString());
                 }
-
         }
         #endregion
 

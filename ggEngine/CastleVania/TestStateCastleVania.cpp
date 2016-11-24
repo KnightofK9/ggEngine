@@ -1,7 +1,6 @@
 #include "TestStateCastleVania.h"
 
-
-TestStateCastleVania::TestStateCastleVania(Game *game) :State(game)
+TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
 }
 TestStateCastleVania::~TestStateCastleVania()
@@ -11,72 +10,46 @@ void TestStateCastleVania::Init() {
 
 }
 void TestStateCastleVania::Preload() {
-	this->preload->Texture("character", "Resource/char.png");
-	this->preload->TileSet("Resource/scene1.png", "Resource/scene1.json");
+	Json jsonFile("State/TestState.json", true);
+	for (auto& it : jsonFile["preloadList"].GetArray())
+	{
+		std::string type = it["type"].GetString();
+		if (type == "PreTileSet") {
+			std::string tileSetPath = it["tileSetPath"].GetString();
+			std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
+			this->cvPreload->TileSet(tileSetPath, tileSetJsonPath);
+		}
+	}
+	this->cvPreload->FontGame();
+	this->cvPreload->UIInfoPanel();
+	this->cvPreload->CharSimon();
 }
 void TestStateCastleVania::Create()
 {
-	tileMap = this->add->TileMap("Json/scene.json");
-	group = this->add->Group();
-
-	character = this->add->SpriteAnimation(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0, "character", 32, 48, group, 0, 0, 1000 / 10);
-	character->CreateAnimation("down", 0, 3, true);
-	character->CreateAnimation("left", 4, 7, true);
-	character->CreateAnimation("right", 8, 11, true);
-	character->CreateAnimation("up", 12, 15, true);
-	game->physics->EnablePhysics(character);
-	character->body->CreateRectangleRigidBody(character->GetWidth(), character->GetHeight());
-	character->body->rigidBody->SetAnchor(new Vector(0.5, 0.5));
-	character->body->allowGravity = true;
-	character->body->allowBounciness = false;
-	character->body->allowWorldBlock = true;
-	game->eventManager->EnableKeyBoardInput(character);
-	jumpTimer.reset();
-	//character->SetScale(1.5, 1.5);
-	character->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		SpriteAnimation  *current = dynamic_cast<SpriteAnimation*>(go);
-		if (current != NULL) {
-			double time = game->logicTimer.getDeltaTime();
-			if (e.isPress(DIK_A)) {
-				character->PlayAnimation("left");
-				if (character->body->velocity.x > 0) character->body->velocity.x = 0;
-				character->body->velocity.x -= charMoveSpeed* time;
-			}
-			else if (e.isPress(DIK_D)) {
-				character->PlayAnimation("right");
-				if (character->body->velocity.x < 0) character->body->velocity.x = 0;
-				character->body->velocity.x += charMoveSpeed*time;
-			}
-			if (e.isPress(DIK_SPACE)) {
-				if (jumpTimer.stopwatch(jumpTime)) {
-					character->body->velocity.y = 0;
-					character->body->AddForce(jumpForce, Vector(0, -1));
-				}
-
+	std::string tileMapJson = "";
+	{
+		Json state("State/TestState.json", true);
+		for (auto& it : state["groupList"].GetArray())
+		{
+			std::string type = it["type"].GetString();
+			if (type == "TileMap") {
+				tileMapJson = Json::GetCharArrayFromValue(it);
 			}
 		}
-	};
-	//grid = this->add->Grid(0, 0, 10, 10, GAME_WIDTH, GAME_HEIGHT, group);
-	Box box(1, 2, 3, 4, 5, 6);
-	box.SaveJsonTo("Json/box.json");
-	//box.ParseJson("Json/box.json");
-	//std::ofstream ofs("box_backup");
-	//{
-	//	boost::archive::text_oarchive oa(ofs);
-	//	// write class instance to archive
-	//	oa << box;
-	//	// archive and stream closed when destructors are called
-	//}
+	}
+	tileMap = this->cvAdd->TileMap(tileMapJson, false);
 
-	//box = new Box(0, 0, 0, 0, 0, 0);
-	//{
-	//	// create and open an archive for input
-	//	std::ifstream ifs("box_backup");
-	//	boost::archive::text_iarchive ia(ifs);
-	//	// read class state from archive
-	//	ia >> box;
-	//	// archive and stream closed when destructors are called
-	//}
+	Group* group = this->cvAdd->Group();
+	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);
+	this->simon = this->cvAdd->CharSimon(400, 400, 16, infoPanel, group);
+
+
+	//cath event when player lose health or gain health
+	//this->simon->healthSignal.connect(boost::bind(&InfoPanel::SetPlayerHealth, infoPanel, _1));
+	//Group *b = this->cvAdd->Group();
+	//HealthBar *healthBar = this->cvAdd->UIPlayerHealthBar(100, 100, group);
+	/*ggEngine::Sprite* emptyHealthBar = this->cvAdd->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, b);
+	ggEngine::Sprite* healthBar = this->cvAdd->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, b);*/
 }
 void TestStateCastleVania::Update()
 {
@@ -87,8 +60,6 @@ void TestStateCastleVania::PreRender()
 }
 void TestStateCastleVania::Render()
 {
-	character->body->Render();
-
 
 }
 void TestStateCastleVania::Pause()

@@ -12,13 +12,13 @@ namespace ggMapEditor.Models
         private static int countId = 0;
         public string folderPath { get; set; }
         public string folderName { get; set; }
-        public Models.TileMap tileMap { get; set; }
+        public ObservableCollection<Models.TileMap> tileMaps { get; set; }
         public ObservableCollection<Models.Tileset> tilesets { get; set; }
 
         public Combine()
         {
-            tileMap = null;
             tilesets = new ObservableCollection<Tileset>();
+            tileMaps = new ObservableCollection<TileMap>();
             folderName = "NewTileMap " + countId++;
         }
     }

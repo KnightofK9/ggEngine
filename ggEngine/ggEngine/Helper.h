@@ -1,10 +1,16 @@
 #pragma once
 #include <d3d9.h>
 #include <string>
-class Helper {
-public:
-	static LPCWSTR StringToLPCWSTR(const std::string &s);
-	static std::string WCharToString(const LPCWSTR s);
-private:
-	Helper() {}
-};
+#include "GameObject.h"
+namespace ggEngine {
+	class Group;
+	class Helper {
+	public:
+		static LPCWSTR StringToLPCWSTR(const std::string &s);
+		static std::string WCharToString(const LPCWSTR s);
+		static RECT intersectRectAndGroup(RECT &srcRect, GameObject *go, Group *group);
+		static string IntToString(const int &number, int numCharWidth);
+	private:
+		Helper() {}
+	};
+}

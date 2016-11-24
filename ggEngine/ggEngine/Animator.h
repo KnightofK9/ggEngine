@@ -5,7 +5,7 @@
 namespace ggEngine {
 	class Animator:public GGObject {
 	public:
-		Animator(int startFrame, int endFrame, SpriteAnimation *spriteAnimation, bool isLoop);
+		Animator(int startFrame, int endFrame, SpriteAnimation *spriteAnimation, std::string name, bool isLoop);
 		~Animator();
 		void Destroy();
 		void Reset();
@@ -19,7 +19,9 @@ namespace ggEngine {
 		bool isLoop;
 		int framePerRow;
 		int framePerColumn;
+		SpriteAnimation* spriteAnimation = nullptr;
 	private:
+		std::string name;
 		RECT *frameList;
 	};
 }

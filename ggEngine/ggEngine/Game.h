@@ -41,7 +41,7 @@ namespace ggEngine {
 		TimeBasedEventManager *timeBasedEventManager;
 		Camera *camera;
 		HWND hWnd;
-	private:
+	protected:
 		//
 		// Private Method
 		//

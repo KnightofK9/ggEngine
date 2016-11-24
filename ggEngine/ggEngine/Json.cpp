@@ -39,6 +39,14 @@ const std::string ggEngine::Json::GetCharArray(){
 	return o;
 }
 
+std::string ggEngine::Json::GetCharArrayFromValue(const rapidjson::Value & val)
+{
+	rapidjson::StringBuffer buf;
+	rapidjson::Writer<rapidjson::StringBuffer> wr(buf);
+	val.Accept(wr);
+	return buf.GetString();
+}
+
 
 void ggEngine::Json::SaveTo(std::string location)
 {

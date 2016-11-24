@@ -5,17 +5,22 @@
 #include "DrawManager.h"
 #include "World.h"
 #include "Game.h"
-namespace ggEngine{
-	State::State(Game *game){
+namespace ggEngine {
+	State::State(Game *game,bool isLoadAutomatic) {
 		this->drawManager = game->GetDrawManager();
 		this->game = game;
 		this->world = game->world;
-		this->add = new ggEngine::Add( game->world ,game->cache,game->tweenManager , game->GetDrawManager(), game->camera, game->physics, game->timeBasedEventManager);
-		this->preload = new ggEngine::Preload(game->cache);
+		if(isLoadAutomatic) Load();
 	}
-	State::~State(){
-		delete add;
-		delete preload;
+	State::~State() {
+		if (add != nullptr) {
+			delete add;
+			add = nullptr;
+		}
+		if (preload != nullptr) {
+			delete preload;
+			preload = nullptr;
+		}
 	}
 	void State::Start()
 	{
@@ -23,7 +28,13 @@ namespace ggEngine{
 		Preload();
 		Create();
 	}
-	void State::Destroy(){
+	void State::Load()
+	{
+		this->add = new ggEngine::Add(game->world, game->cache, game->tweenManager, game->GetDrawManager(), game->camera, game->physics, game->timeBasedEventManager, game->eventManager);
+		this->preload = new ggEngine::Preload(game->cache);
+
+	}
+	void State::Destroy() {
 
 	}
 }

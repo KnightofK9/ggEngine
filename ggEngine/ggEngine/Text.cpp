@@ -1,5 +1,6 @@
 #include "Text.h"
 #include "Debug.h"
+#include "Helper.h"
 //Text::Text(LPDIRECT3DDEVICE9 device, int fontSize, char * fontFamily,
 //	int fontWeight, bool isItalic)
 //{
@@ -32,7 +33,7 @@
 //}
 ggEngine::Text::Text(DrawManager *drawManager,Font *font, double x, double y, double width, double height, std::string text, Style style):GameObject(drawManager)
 {
-	SetAnchor(0.5, 0.5);
+	SetAnchor(0, 0);
 	SetPosition(x, y);
 	this->orgWidth = width;
 	this->orgHeight = height;
@@ -41,6 +42,7 @@ ggEngine::Text::Text(DrawManager *drawManager,Font *font, double x, double y, do
 	this->text = text;
 	this->style = style;
 	this->font = font;
+	this->drawStyle = D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE;
 }
 
 ggEngine::Text::~Text()
@@ -60,23 +62,45 @@ void ggEngine::Text::Draw()
 	//double width = GetWidth();
 	//double height = GetHeight();
 	RECT worldRect{ position.x - width*anchor.x, position.y - height*anchor.y, position.x + width*(1- anchor.x), position.y + height*(1 - anchor.y) };
-	if (worldRect.left < 0)
+	/*if (worldRect.left < 0)
 		worldRect.left = 0;
 	if (worldRect.top < 0)
 		worldRect.top = 0;
 	if (worldRect.right > GAME_WIDTH)
 		worldRect.right = GAME_WIDTH;
 	if (worldRect.bottom > GAME_HEIGHT)
-		worldRect.bottom = GAME_HEIGHT;
+		worldRect.bottom = GAME_HEIGHT;*/
 
 	RECT rect{ 0 , 0 , width, height };
-	if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE) == D3D_OK)
+	if (spriteHandle->Begin(this->drawStyle) == D3D_OK)
 	{
 		
 		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);
 		style.fontColor = (style.fontColor & 0x00FFFFFF) | (opacity << 24);
 		if (style.enableBackgroundColor) this->drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
-		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &rect, DT_CENTER | DT_VCENTER | DT_NOCLIP, style.fontColor);
+		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &rect,DT_LEFT| DT_NOCLIP , style.fontColor);
+		spriteHandle->End();
+	}
+}
+
+void ggEngine::Text::DrawRect()
+{
+	if (!visible) return;
+	this->Transform(spriteHandle);
+	//double width = GetWidth();
+	//double height = GetHeight();
+	RECT worldRect{ position.x - width*anchor.x, position.y - height*anchor.y, position.x + width*(1 - anchor.x), position.y + height*(1 - anchor.y) };
+
+
+	RECT rect{ 0 , 0 , width, height };
+	RECT drawRect = Helper::intersectRectAndGroup(rect, this, this->parentObject);
+	if (spriteHandle->Begin(this->drawStyle) == D3D_OK)
+	{
+
+		style.backgroundColor = (style.backgroundColor & 0x00FFFFFF) | (opacity << 24);
+		style.fontColor = (style.fontColor & 0x00FFFFFF) | (opacity << 24);
+		if (style.enableBackgroundColor) this->drawManager->DrawRectangle(worldRect.left, worldRect.top, worldRect.right, worldRect.bottom, style.backgroundColor);
+		font->GetDxFont()->DrawTextA(spriteHandle, text.c_str(), -1, &drawRect, DT_LEFT | DT_NOCLIP, style.fontColor);
 		spriteHandle->End();
 	}
 }

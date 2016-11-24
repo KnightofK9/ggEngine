@@ -10,6 +10,8 @@ namespace ggMapEditor.Models
 {
     public class TileMap
     {
+        private static int countId = 0;
+        public string id;   //name
         public int width;     //actual width
         public int height;    //actual height
         public int leafWidth;
@@ -33,6 +35,7 @@ namespace ggMapEditor.Models
 
         public TileMap()
         {
+            id = "Tile Map " + (countId++).ToString();
             listTile = new ObservableCollection<Tile>();
             quadNodeList = new ObservableCollection<QuadTree.QuadNode>();
             leafWidth = leafHeight = 32;

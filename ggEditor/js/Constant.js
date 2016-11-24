@@ -10,7 +10,8 @@ var Constant = new function(){
 
     this.TILE_SET_DICT ={
         "level-2-tile-set":{
-            name:"lv2.png",
+            name:"level-2-tile-set.png",
+            json:"level-2-tile-set.json",
             width:64,
             height:192,
             cellWidth:16,
@@ -19,13 +20,22 @@ var Constant = new function(){
             numberOfCellPerColumn:12
         },
         "level-3-tile-set":{
-            name:"lv3.png",
+            name:"level-3-tile-set.png",
+            json:"level-3-tile-set.json",
             width:128,
             height:288,
             cellWidth:16,
             cellHeight:16,
             numberOfCellPerRow:8,
             numberOfCellPerColumn:18
+        }
+    };
+    this.CHARACTER_DICT = {
+        "char-simon":{
+            name:"Resource/Resources/Character/simon.png",
+            type:"SpriteAnimation",
+            width:45,
+            height:50
         }
     }
 };

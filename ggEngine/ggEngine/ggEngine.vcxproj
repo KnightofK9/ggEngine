@@ -26,7 +26,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;E:\application\boost_1_62_0\libs;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\application\boost_1_62_0;D:\application\DirectXSDK\Include;D:\application\RapidJson\include\rapidjson;D:\application\boost_1_62_0\stage\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\application\boost_1_62_0\stage\lib;D:\application\boost_1_62_0\boost;D:\application\DirectXSDK\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;E:\application\boost_1_62_0\libs;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);d3d9.lib;d3dx9core.lib</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Add.h" />
+    <ClInclude Include="AnimationArg.h" />
     <ClInclude Include="AnimationTile.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Audio.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="ScreenGroup.h" />
     <ClInclude Include="StackWalker.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Sprite.h" />
@@ -266,6 +268,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteInfo.cpp" />
+    <ClCompile Include="ScreenGroup.cpp" />
     <ClCompile Include="StackWalker.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sprite.cpp" />

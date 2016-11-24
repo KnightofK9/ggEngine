@@ -10,11 +10,13 @@
 #include "TileMap.h"
 #include "Camera.h"
 #include "Physics.h"
+#include "ScreenGroup.h"
 #include "TimeBasedEventInfo.h"
 #include "TimeBasedEventManager.h"
 #include "Grid.h"
+#include "EventManager.h"
 namespace ggEngine{
-	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics, TimeBasedEventManager *timeBasedEventManager){
+	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics, TimeBasedEventManager *timeBasedEventManager, EventManager *eventManager){
 		this->cache = cache;
 		this->drawManager = drawManager;
 		this->device = drawManager->GetDevice();
@@ -23,6 +25,7 @@ namespace ggEngine{
 		this->camera = camera;
 		this->physics = physics;
 		this->timeBasedEventManager = timeBasedEventManager;
+		this->eventManager = eventManager;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
@@ -50,14 +53,20 @@ namespace ggEngine{
 		return spriteAnimation;
 	}
 	Group* Add::Group(){
-		ggEngine::Group *gr = new ggEngine::Group();
+		ggEngine::Group *gr = new ggEngine::Group(this->drawManager);
 		world->AddGroup(gr);
 		return gr;
 	}
-	TileMap * Add::TileMap(std::string tileMapJsonPath)
+	ScreenGroup * Add::ScreenGroup()
+	{
+		ggEngine::ScreenGroup *gr = new ggEngine::ScreenGroup(this->drawManager);
+		world->AddGroup(gr);
+		return gr;
+	}
+	TileMap * Add::TileMap(std::string tileMapJson,bool isLocation)
 	{
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager,this->cache,this->physics);
-		tileMap->BuildTree(tileMapJsonPath);
+		tileMap->BuildTree(tileMapJson, isLocation);
 		this->physics->AddTileMap(tileMap);
 		world->AddGroup(tileMap);
 		return tileMap;

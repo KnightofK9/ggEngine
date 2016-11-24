@@ -1,9 +1,12 @@
 #pragma once
-#include "../ggEngine/ggEngine.h"
+#include <ggEngine.h>
+#include "CVState.h"
+#include "Simon.h"
+#include <boost\signal.hpp>
 using namespace ggEngine;
-class TestStateCastleVania : public State{
+class TestStateCastleVania : public CVState{
 public:
-	TestStateCastleVania(Game *game);
+	TestStateCastleVania(CVGame *game);
 	~TestStateCastleVania();
 	void Init(); //Called after start a scene
 	void Preload(); //Called after int
@@ -15,12 +18,6 @@ public:
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 private:
-	SpriteAnimation *character;
-	Group *group;
-	const double charMoveSpeed = 10.0f;
-	const double jumpForce = 5.0f;
-	const double jumpTime = 500;
 	TileMap *tileMap;
-	Grid *grid;
-	Timer jumpTimer;
+	Simon *simon;
 };

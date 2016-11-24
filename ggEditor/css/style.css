@@ -37,14 +37,22 @@ table {
     height:100%;
 }
 
-
-
+#gg-state-info{
+    display:none;
+}
+#gg-tool-object-list{
+    display:none;
+}
+.panel-body{
+    height:100%;
+}
 /*Hierarchy*/
 .gg-hierarchy-delete{
     position: absolute;
     right: 7px;
     top: 13px;
 }
+
 
 .just-padding {
     padding: 15px;

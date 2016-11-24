@@ -24,9 +24,9 @@ namespace ggMapEditor.Models
             isCollidedObject = false;
         }
 
-        public void DragableLayout_CollidedChanged(object sender, DragableLayoutChildEventArgs e)
-        {
-            isCollidedObject = e.isCollidedObject;
-        }
+        //public void DragableLayout_CollidedChanged(object sender, DragableLayoutChildEventArgs e)
+        //{
+        //    isCollidedObject = e.isCollidedObject;
+        //}
     }
 }

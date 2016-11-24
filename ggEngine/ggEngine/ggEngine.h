@@ -1,4 +1,5 @@
 #pragma once
+#include "World.h"
 #include "Add.h"
 #include "Preload.h"
 #include "Game.h"
@@ -24,3 +25,10 @@
 #include "QuadTree.h"
 #include "TimeBasedEventInfo.h"
 #include  "TimeBasedEventManager.h"
+#include "SingleTile.h"
+#include "Cache.h"
+#include "Camera.h"
+#include "Timer.h"
+#include "ScreenGroup.h"
+#include "Animator.h"
+#include "Helper.h"

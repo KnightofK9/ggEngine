@@ -1,7 +1,7 @@
 /**
  * Created by Knight of k9 on 12/11/2016.
  */
-var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeight) {
+var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeight,json) {
     var bgData = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABHNCSVQICAgIfAhkiAAAAFFJREFUWIXtzjERACAQBDFgMPOKzr8ScADFFlBsFKRX1WqfStLG68SNQcogZZAySBmkDFIGKYOUQcogZZAySBmkDFIGKYOUQcog9X1wJnl9ONrTcwPWLGFOywAAAABJRU5ErkJggg==";
     var backgroundSprite;
     var map;
@@ -24,23 +24,151 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
     var manualSelectLayer = 0;
     var layer3Key;
     var isUsedQuadTree = false;
-
-
+    var that = this;
+    var updateGroup = null;
     var objectList = [];
     var quadId = 0;
+    var remaingTileToupdate = [];
+    var currentTileType = "";
+    var groupList = [];
+    var hierachyGrouplist = [];
+    this.getCurrentLayer = function(){
+        return currentLayer;
+    };
+    var createGroup = function(groupName){
+        var group = game.add.group();
+        group.name = groupName;
 
+        var hierachyGroup = hierarchyEditor.addObjectToHierarchy(groupName,group);
+        group.callDestroy = function(){
+            groupList.splice(groupList.indexOf(group),1);
+            hierachyGrouplist.splice(groupList.indexOf(hierachyGroup),1);
+            this.destroy();
+            return true;
+        };
+        groupList.push(group);
+        hierachyGrouplist.push(group);
+        hierarchyEditor.updateHierarchy();
+    };
+    this.showCreateGroup = function(){
+        BootstrapDialog.show({
+            closable: true,
+            title: "Create group",
+            message: 'Name <input id="dialog-name" type="text" class="form-control">'
+            ,
+            onshow: function (dialogRef) {
+                dialogRef.getModalBody().find('#dialog-name').val("Group");
+            },
+            buttons: [ {
+                label: 'Create',
+                action: function (dialogRef) {
+                    var name = dialogRef.getModalBody().find('#dialog-name').val();
+                    dialogRef.close();
+                    createGroup(name);
+                }
+            }]
+        });
+    };
+    this.importState = function(stateJson){
+        for(var i = 0;i<stateJson.groupList.length;i++){
+            var group = stateJson.groupList[i];
+            switch(group.type){
+                case "TileMap":
+                    var tileMap = new TileMap();
+                    tileWidth = group.tileWidth;
+                    tileHeight = group.tileHeight;
+                    isUsedQuadTree = group.isUsedQuadTree;
+                    for(var d = 0;d< group.tileSetList.length;d++){
+                        //var tileSetKey = group.tileSetList[d];
+                        //addTileSet(tileSetKey);
+                        //currentLayer = addLayer(tileSetKey);
+                        //currentTileSetKey = tileSetKey;
+                    }
+                    //changeMapTileSetArray(currentTileSetKey);
+                    for(var t = 0;t< group.tileList.length;t++){
+                        var tile = group.tileList[t];
+                        switch(tile.type){
+                            case  "SingleTile":
+                                //if(currentTileSetKey !== tile.tileSetKey){
+                                //    for(var layer in layerList){
+                                //        if(layer.name === tile.tileSetKey){
+                                //            currentTileSetKey = tile.tileSetKey;
+                                //            changeMapTileSetArray(currentTileSetKey);
+                                //            break;
+                                //        }
+                                //    }
+                                //}
+                                //if(tile.tileSetKey === "level-3-tile-set") {
+                                //    break;
+                                //}
+
+                                //that.pickTile(tile.tileSetKey,tile.tileId);
+                                //map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+                                //window.setTimeout(function(){
+                                //    that.pickTile(tile.tileSetKey,tile.tileId);
+                                //    map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+                                //},100);
+                                remaingTileToupdate.push(tile);
+                                //game.time.events.add(1000 , function(tile){
+                                //    that.pickTile(tile.tileSetKey,tile.tileId);
+                                //    map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+                                //}, this,tile);
+
+                                break;
+                            default:
+                                console.log("No supported tile type "+ tile.type);
+                                break;
+                        }
+                    }
+
+
+                    break;
+                default:
+                    console.log("No supported group type "+ group.type);
+                    break;
+            }
+        }
+
+    };
+    var resetPick = function(){
+        currentTileType = "";
+        // currentLayer = null;
+        currentTile = null;
+    }
+    var initPreloadList = function(){
+        var preloadList = [];
+        if(layerList.length>0){
+            for(var i = 0;i<layerList.length;i++){
+                var preTileSet = new PreTileSet();
+                var key = layerList[i].name;
+                preTileSet.tileSetPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].name;
+                preTileSet.tileSetJsonPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].json;
+                preloadList.push(preTileSet);
+            }
+        }
+        return preloadList;
+    };
 
     this.exportTileMap = function(){
-        var state = [];
-
+        isUsedQuadTree = stateInfo.isUsedQuadTree();
+        var state = new State();
+        state.name = name;
+        state.width = game.width;
+        state.height = game.height;
+        state.tileWidth = tileWidth;
+        state.tileHeight = tileHeight;
         var tileMap = initTileMapAsJson();
-        var quadTree = createQuadTree();
+        if(isUsedQuadTree){
+            var quadTree = createQuadTree();
+        }
 
-        state.push(tileMap);
-        state.push(quadTree);
+        state.groupList.push(tileMap);
+        var preloadList = initPreloadList();
+        state.preloadList = preloadList;
+        if(isUsedQuadTree) state.quadTree = quadTree;
 
 
-        Helper.downloadJson(state,"ProtoTypeTileMap");
+        Helper.downloadJson(state,state.name);
         quadId = 0;
         objectList = [];
     };
@@ -63,8 +191,16 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         //backgroundSprite = game.add.tileSprite(0,0,game.width,game.height,'bg');
         //backgroundSprite.tileWidth = tileWidth;
         //backgroundSprite.tileHheight = tileHeight;
+        var updateGroup = game.add.group();
+        updateGroup.update = function(){
+            if(remaingTileToupdate.length){
+                var tile = remaingTileToupdate.pop();
+                that.pickTile(tile.tileSetKey,tile.tileId);
+                map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+            }
+        };
         game.stage.backgroundColor = "#4488AA";
-        map = game.add.tilemap();
+        map = hierarchyEditor.add.tilemap()._item;
         map.tileWidth = tileWidth;
         map.tileHeight = tileHeight;
         map.width = game.width;
@@ -73,8 +209,8 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
             ggConsole.alertNotification("Error","Each state must have only 1 tile map.")
             return false;
         };
-        hierarchyObject = hierarchyEditor.addObjectToHierarchy("tile-map",map);
-        hierarchyEditor.updateHierarchy();
+        // hierarchyObject = hierarchyEditor.addObjectToHierarchy("tile-map",map);
+        // hierarchyEditor.updateHierarchy();
         //for(var key in Constant.TILE_SET_DICT){
         //    if(Constant.TILE_SET_DICT.hasOwnProperty(key)){
         //        map.addTilesetImage(key);
@@ -101,6 +237,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
 
 
+        if(json) this.importState(json);
     };
 
     var initTileMapAsJson = function(){
@@ -112,7 +249,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         tileMap.height = game.height;
         tileMap.tileWidth = tileWidth;
         tileMap.tileHeight = tileHeight;
-        tileMap.isUsedQuadTree = true;
+        tileMap.isUsedQuadTree = isUsedQuadTree;
         for(var i = 0;i<map.tilesets.length;i++){
             tileMap.tileSetList.push(map.tilesets[i].name);
         }
@@ -127,6 +264,8 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
                         tile.tileId = t.index;
                         tile.x = x*tileWidth;
                         tile.y = y*tileHeight;
+                        tile.width = tileWidth;
+                        tile.height = tileHeight;
                     }
                 }
                 if(tile!=null){
@@ -162,6 +301,7 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         quadTree.height = height;
         quadTree.leafWidth = quadNodeWidth;
         quadTree.leafHeight = quadNodeHeight;
+        quadTree.totalObjectSize = objectList.length;
         quadTree.totalLeafNodeSize = (quadTree.width/quadNodeWidth) * (quadTree.height/quadNodeHeight);
         var sum = 0;
         var cap = 1;
@@ -326,8 +466,8 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
         };
         //layer.loadTexture(tileSetKey);
         layerList.push(layer);
-        hierarchyEditor.addObjectToHObject(tileSetKey,layer,hierarchyObject);
-        hierarchyEditor.updateHierarchy();
+        // hierarchyEditor.addObjectToHObject(tileSetKey,layer,hierarchyObject);
+        // hierarchyEditor.updateHierarchy();
         var lastIndex = layerList.length  - 1;
         var layerKey = game.input.keyboard.addKey((lastIndex+1).toString().charCodeAt(0));
         layerKey.onDown.add(changeLayer, this);
@@ -338,7 +478,19 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
 
         return layer;
     };
+    this.reset = function(){
+        hierarchyId = 0;
+    };
+    this.pickTypeTile = function(type){
+        resetPick();
+        switch(type){
+            case "StaticTile":
+                currentTileType = type;
+                break;
+        }
+    };
     this.pickTile = function(tileSetKey, tileId) {
+        resetPick();
         //if(currentTileSetKey !== tileSetKey){
         //    currentLayer.resetTilesetCache();
         //    map.addTilesetImage(tileSetKey);
@@ -386,7 +538,16 @@ var EditState = function(game,tileWidth, tileHeight, quadNodeWidth, quadNodeHeig
             marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
             if (game.input.mousePointer.isDown)
             {
-                map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                if(currentTileType !== ""){
+                    switch (currentTileType){
+                        case "StaticTile":
+                            hierarchyEditor.add.staticTile(marker.x,marker.y,currentLayer,map);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
             }
         }
 

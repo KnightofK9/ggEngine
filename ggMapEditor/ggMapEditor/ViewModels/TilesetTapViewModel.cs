@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using ggMapEditor.Commands;
 
 namespace ggMapEditor.ViewModels
 {
@@ -53,6 +56,26 @@ namespace ggMapEditor.ViewModels
             }
             CtrlTiles = tiles;
         }
+        #endregion
+
+        #region Commands
+        //public RelayCommand selectionChangedCommand;
+        //public RelayCommand SelectionChangedCommand
+        //{
+        //    get
+        //    {
+        //        if (selectionChangedCommand == null)
+        //            return selectionChangedCommand
+        //                = new RelayCommand(param => ExecuteSelectionChanged((SelectionChangedEventArgs)param));
+        //        return selectionChangedCommand;
+        //    }
+        //    set { selectionChangedCommand = value; }
+        //}
+
+        //private void ExecuteSelectionChanged(SelectionChangedEventArgs param)
+        //{
+        //    MessageBox.Show("abc");
+        //}
         #endregion
     }
 }

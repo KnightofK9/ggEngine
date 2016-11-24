@@ -18,6 +18,7 @@ namespace ggEngine {
 		//static bool RemoveFontFromResource(std::string fontName);
 
 	private:
+		int fontSize;
 		LPD3DXFONT font;
 	};
 }

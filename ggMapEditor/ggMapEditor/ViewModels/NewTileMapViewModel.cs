@@ -20,7 +20,7 @@ namespace ggMapEditor.ViewModels
         public NewTileMapViewModel()
         {
             combine = new Models.Combine();
-            combine.tileMap = new Models.TileMap();
+            combine.tileMaps.Add(new Models.TileMap());
             combine.folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             OkCommand = new RelayCommand(OkButton_Click);
@@ -79,10 +79,10 @@ namespace ggMapEditor.ViewModels
         }
         private Models.TileMap TileMap
         {
-            get { return combine.tileMap; }
+            get { return combine.tileMaps[0]; }
             set
             {
-                combine.tileMap = value;
+                combine.tileMaps[0] = value;
             }
         }
         public string FolderPath
@@ -139,7 +139,7 @@ namespace ggMapEditor.ViewModels
             TileMap.height = TileMap.width = (int)Math.Pow(2.0, n) * TileSize;
 
             
-            Json.ConvertJson.SaveFile(combine);
+            Json.ConvertJson.SaveFile(combine, 0);
             base.CloseWindow(true);
         }
         private void CancelButton_Click(object parameter)

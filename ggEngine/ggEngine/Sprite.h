@@ -14,6 +14,7 @@ namespace ggEngine {
 		Sprite(DrawManager *drawManager);
 		~Sprite();
 		virtual void Draw();
+		virtual void DrawRect();
 		virtual void SetWidth(double width);
 		virtual void SetHeight(double height);
 		virtual double GetWidth();
@@ -29,6 +30,7 @@ namespace ggEngine {
 		D3DCOLOR GetColorTint() { return this->color; }
 		virtual double GetOrgWidth() { return this->image->GetWidth(); }
 		virtual double GetOrgHeight() { return this->image->GetHeight(); }
+		DWORD style;
 	protected:
 		D3DCOLOR color;
 		SpriteInfo *image = nullptr;

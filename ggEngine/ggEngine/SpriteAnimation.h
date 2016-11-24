@@ -9,7 +9,8 @@ namespace ggEngine {
 	public:
 		SpriteAnimation(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 		~SpriteAnimation();
-		void Draw();
+		void Draw() override;
+		void DrawRect() override;
 		void Destroy();
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
 		void PlayAnimation(std::string animationName);

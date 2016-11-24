@@ -16,6 +16,42 @@
     <Filter Include="Header Files\State">
       <UniqueIdentifier>{1a340c16-28f4-45ba-85b0-a87979870377}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Manager">
+      <UniqueIdentifier>{9c29aed3-5a20-437a-b122-047c6ccd1244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Character">
+      <UniqueIdentifier>{e84ba508-ed32-4bb9-8b53-03fbd0746418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object">
+      <UniqueIdentifier>{6e189a5b-3293-4563-9176-9ba5b2436a1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Core">
+      <UniqueIdentifier>{16c386f7-5262-44ce-845f-86fabe0b3cc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Character\Core">
+      <UniqueIdentifier>{004e1cd3-428c-4965-9a9c-6ef06cd8b479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Weapon">
+      <UniqueIdentifier>{9dd8f264-a192-4035-9e92-6acf44d840f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Item">
+      <UniqueIdentifier>{7c7c390d-067c-4779-9694-138f5fcd941a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tile">
+      <UniqueIdentifier>{4446e93a-cc31-45ff-8b50-9031d042489f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tile\Core">
+      <UniqueIdentifier>{bc50013a-f087-443a-a66d-34bf9590a615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Constant">
+      <UniqueIdentifier>{79cfcbe5-530e-4328-a3b5-5f57e3222e75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{c72b014f-da27-4382-8c12-a0cd0f5c2e44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{446c3ce0-00b7-4996-b569-6b282afbc238}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -27,10 +63,117 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CVAdd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVPreload.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticTile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVSpriteAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestStateCastleVania.h">
       <Filter>Header Files\State</Filter>
     </ClInclude>
+    <ClInclude Include="CVAdd.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CVPreload.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterBase.h">
+      <Filter>Header Files\Character\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureConstant.h">
+      <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant.h">
+      <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeEnum.h">
+      <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="CVObject.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TileBase.h">
+      <Filter>Header Files\Tile\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticTile.h">
+      <Filter>Header Files\Tile\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterConstant.h">
+      <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="CVState.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CVGame.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoPanel.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CVSprite.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CVSpriteAnimation.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroState.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemConstant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponConstant.h">
+      <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CastleVania.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
