@@ -178,7 +178,6 @@
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InfoPanel.h" />
     <ClInclude Include="IntroState.h" />
-    <ClInclude Include="ItemConstant.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />
@@ -187,7 +186,6 @@
     <ClInclude Include="TextureConstant.h" />
     <ClInclude Include="TileBase.h" />
     <ClInclude Include="TypeEnum.h" />
-    <ClInclude Include="WeaponConstant.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ggEngine\ggEngine.vcxproj">

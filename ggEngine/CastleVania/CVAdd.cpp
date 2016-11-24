@@ -62,6 +62,10 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 		}
 
 	};
+	simon->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
+		Simon *simon = dynamic_cast<Simon*>(go);
+		simon->isGrounding = true;
+	};
 
 	this->eventManager->EnableKeyBoardInput(simon);
 	simon->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
@@ -91,6 +95,9 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 		}
 
 		if (e.isPress(DIK_SPACE) && simon->isGrounding == true) {
+			this->TimeOut(500, [simon] {
+				simon->Idle();
+			});
 			simon->Jump();
 		}
 
