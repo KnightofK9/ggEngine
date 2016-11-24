@@ -469,9 +469,9 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         // hierarchyEditor.addObjectToHObject(tileSetKey,layer,hierarchyObject);
         // hierarchyEditor.updateHierarchy();
         var lastIndex = layerList.length  - 1;
-        var layerKey = game.input.keyboard.addKey((lastIndex+1).toString().charCodeAt(0));
-        layerKey.onDown.add(changeLayer, this);
-        layerKeyList.push(layerKey);
+        //var layerKey = game.input.keyboard.addKey((lastIndex+1).toString().charCodeAt(0));
+        //layerKey.onDown.add(changeLayer, this);
+        //layerKeyList.push(layerKey);
         enterPosition.push(tileSetKey);
 
 
