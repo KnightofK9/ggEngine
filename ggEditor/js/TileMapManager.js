@@ -1,7 +1,7 @@
 /**
  * Created by Knight of k9 on 11/11/2016.
  */
-var TileMap = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumberOfCell){
+var TileMapManager = function(width,height,cellWidth,cellHeight,tileSetKey,tileSetNumberOfCell){
     var tileMap = {};
     var gameObjectList = [];
     var quadTree = [];
