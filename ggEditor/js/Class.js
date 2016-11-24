@@ -27,8 +27,10 @@ function HierarchyObject(){
     my.hierarchyIdDict[this._hierarchyId] = this;
     this._parent = null;
     this._childList = [];
+    this._level = 0;
     this._item = null;
     this._add = function(hObject){
+        hObject._level = this._level + 1;
         hObject._parent = this;
         this._childList.push(hObject);
     };
@@ -175,7 +177,9 @@ function StaticTile() {
     this._parent = null;
     this._childList = [];
     this._item = null;
+    this._level = 0;
     this._add = function(hObject){
+        hObject._level = this._level + 1;
         hObject._parent = this;
         this._childList.push(hObject);
     };
@@ -218,7 +222,13 @@ function StaticTile() {
     this.idX = -1;
     this.idY = -1;
     this.layer = null;
-
+    this.getName = function(){
+        var space = "";
+        for(var i = 0;i<this._level;i++){
+            space+="&nbsp;&nbsp;";
+        }
+        return space + this._name;
+    };
     this.callDestroy = function(){
         var tileMap = this.parent._item;
         var tile = tileMap.getTile(this.idX,this.idY,this.layer);
@@ -238,9 +248,11 @@ function TileMap() {
     this._parent = null;
     this._childList = [];
     this._item = null;
+    this._level = 0;
     this._add = function(hObject){
-        hObject._parent = this;
         this._childList.push(hObject);
+        hObject._parent = this;
+        hObject._level = this._level + 1;
     };
     this._remove = function(hObject){
         for(var i = 0;i<this._childList.length;i++){
@@ -275,6 +287,14 @@ function TileMap() {
     this.scale = new Vector(1, 1);
     this.isUsedQuadTree = false;
 
+
+    this.getName = function(){
+        var space = "";
+        for(var i = 0;i<this._level;i++){
+            space+="&nbsp;&nbsp;";
+        }
+        return space + this._name;
+    };
     this.addTypeTile = function(hTile){
         //TO DO: put tile into game here
         var tileMap = this._item;

@@ -17,7 +17,7 @@ var HierarchyEditor = function () {
         var group = new Group();
         group._item = game.add.group();
         my.hierarchy._add(group);
-        var div = createLine(group._hierarchyId,group._name);
+        var div = createLine(group._hierarchyId,group.getName());
         hierarchyListPanel.append(div);
         return group;
     };
@@ -25,7 +25,7 @@ var HierarchyEditor = function () {
         var tileMap = new TileMap();
         tileMap._item = game.add.tilemap();
         my.hierarchy._add(tileMap);
-        var div = createLine(tileMap._hierarchyId,tileMap._name);
+        var div = createLine(tileMap._hierarchyId,tileMap.getName());
         hierarchyListPanel.append(div);
         currentHTileMap = tileMap;
         return tileMap;
@@ -195,7 +195,7 @@ var HierarchyEditor = function () {
     };
 
     var createHierarchyDiv = function (hObject) {
-        var div = createLine(hObject._hierarchyId, hObject._name);
+        var div = createLine(hObject._hierarchyId, hObject.getName());
         for(var i = 0;i<hObject._childList.length;i++){
             div += createChild(createHierarchyDiv(hObject._childList[i]));
         }
@@ -203,7 +203,21 @@ var HierarchyEditor = function () {
     };
 
     var createLine = function (id, name) {
-        return '<div id="hierarchy-'+id+'"><a  class="list-group-item">' + name
+        var divClass = "";
+        var hObject = my.hierarchyIdDict[id];
+        switch(hObject._level){
+            case 0:
+            case 1:
+                divClass = "list-group-item-info list-group-item";
+                break;
+            case 2:
+                divClass = "list-group-item";
+                break;
+            default:
+                divClass = "list-group-item";
+                break;
+        }
+        return '<div id="hierarchy-'+id+'"><a  class="'+ divClass +'">' + hObject.getName()
             +'<i onclick="hierarchyEditor.handleRemoveClick('+id+')" class="glyphicon glyphicon-remove gg-hierarchy-delete"></i>'
             + '</a></div>';
     };
