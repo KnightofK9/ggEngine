@@ -77,8 +77,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\application\DirectXSDK\Lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\application\DirectXSDK\Include;D:\application\boost_1_62_0;D:\application\RapidJson\include\rapidjson;D:\application\boost_1_62_0\stage\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\application\boost_1_62_0\stage\lib;D:\application\boost_1_62_0\boost;D:\application\DirectXSDK\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;E:\application\boost_1_62_0\libs;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);d3d9.lib;d3dx9core.lib</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
