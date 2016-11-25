@@ -3,6 +3,7 @@
 #include "CVAdd.h"
 #include "CVPreload.h"
 #include "CVGame.h"
+#include "ItemManager.h"
 using namespace ggEngine;
 class CVState : public State {
 public :
@@ -21,6 +22,7 @@ public :
 	virtual void Load() override;
 	CVAdd *cvAdd = nullptr;
 	CVPreload *cvPreload = nullptr;
+	ItemManager *itemManager = nullptr;
 protected:
 	std::string json;
 	CVGame *cvgame;

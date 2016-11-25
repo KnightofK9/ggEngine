@@ -24,6 +24,10 @@ CVState::~CVState()
 		delete cvPreload;
 		cvPreload = nullptr;
 	}
+	if (itemManager != nullptr) {
+		delete itemManager;
+		itemManager = nullptr;
+	}
 }
 
 void CVState::Init()
@@ -42,7 +46,6 @@ void CVState::Preload()
 			this->cvPreload->TileSet(tileSetPath, tileSetJsonPath);
 		}
 	}
-
 }
 
 void CVState::Create()
@@ -86,6 +89,7 @@ void CVState::Load()
 {
 	this->cvAdd = new CVAdd(this, cvgame);
 	this->cvPreload = new CVPreload(cvgame->cache);
+	this->itemManager = new ItemManager(cvgame);
 }
 
 

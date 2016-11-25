@@ -23,6 +23,7 @@ void TestStateCastleVania::Preload() {
 	this->cvPreload->FontGame();
 	this->cvPreload->UIInfoPanel();
 	this->cvPreload->CharSimon();
+	this->itemManager->PreloadAllItem();
 }
 void TestStateCastleVania::Create()
 {
@@ -42,7 +43,7 @@ void TestStateCastleVania::Create()
 	Group* group = this->cvAdd->Group();
 	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);
 	this->simon = this->cvAdd->CharSimon(400, 400, 16, infoPanel, group);
-
+	this->itemManager->AddHealthPotion(0, 0, group);
 
 	//cath event when player lose health or gain health
 	//this->simon->healthSignal.connect(boost::bind(&InfoPanel::SetPlayerHealth, infoPanel, _1));

@@ -56,6 +56,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 		Tag type = otherObject->tag;
 		switch (type) {
 		case ObjectType_Static:
+			otherObject->SetVisible(false);
 			break;
 		default:
 			break;
@@ -294,4 +295,3 @@ HealthBar * CVAdd::UIEnemyHealthBar(double x, double y, ggEngine::Group* group)
 	group->AddGroup(bar);
 	return bar;
 }
-

@@ -14,8 +14,8 @@ public:
 	static constexpr const char* FULL_HEALTH_ENEMY_TEXTURE = "FullHealEnemyTexture";
 	static constexpr const char* FULL_HEALTH_ENEMY_TEXTURE_PATH = "Resource/Resources/HealthUI/full_health_enemy.png";
 
-	static constexpr const char* BAT_TEXTURE = "WhipUpgradeTexture";
-	static constexpr const char* BAT_TEXTURE_PATH = "Resource/Resources/IntroScene/bat.png";
+	static constexpr const char* BAT_ANIM_TEXTURE = "WhipUpgradeTexture";
+	static constexpr const char* BAT_ANIM_TEXTURE_PATH = "Resource/Resources/IntroScene/bat.png";
 
 	static constexpr const char* HELICOPTER_TEXTURE = "WhipUpgradeTexture";
 	static constexpr const char* HELICOPTER_TEXTURE_PATH = "Resource/Resources/IntroScene/helicopter.png";
@@ -30,8 +30,11 @@ public:
 	static constexpr const char* LIFE_TEXTURE = "LifeTexture";
 	static constexpr const char* LIFE_TEXTURE_PATH = "Resource/Resources/Heart2.png";
 
-	static constexpr const char* HEART_MINI_TEXTURE = "LifeTexture";
+	static constexpr const char* HEART_MINI_TEXTURE = "HeartMiniTexture";
 	static constexpr const char* HEART_MINI_TEXTURE_PATH = "Resource/Resources/Heart1.png";
+
+	static constexpr const char* HEART_LARGER_TEXTURE = "HeartLargeTexture";
+	static constexpr const char* HEART_LARGER_TEXTURE_PATH = "Resource/Resources/Heart2.png";
 
 	static constexpr const char* ITEM_BOX_TEXTURE = "ItemBox";
 	static constexpr const char* ITEM_BOX_TEXTURE_PATH = "Resource/Resources/item_box.png";
@@ -84,8 +87,8 @@ public:
 	static constexpr const char* DOUBLESHOT_TEXTURE = "DoubleShotTexture";
 	static constexpr const char* DOUBLESHOT_TEXTURE_PATH = "Resource/Resources/DoubleShot.png";
 
-	static constexpr const char* INVIN_POSITION_TEXTURE = "InvinPositionTexture";
-	static constexpr const char* INVIN_POSITION_TEXTURE_PATH = "Resource/Resources/invincibility_potion.png";
+	static constexpr const char* INVIN_POTION_TEXTURE = "InvinPositionTexture";
+	static constexpr const char* INVIN_POTION_TEXTURE_PATH = "Resource/Resources/invincibility_potion.png";
 
 	static constexpr const char* MONEY_BAG_100_TEXTURE = "MoneyBag100Texture";
 	static constexpr const char* MONEY_BAG_100_TEXTURE_PATH = "Resource/Resources/MoneyBag100.png";
