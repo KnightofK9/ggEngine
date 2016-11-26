@@ -35,7 +35,7 @@ namespace ggEngine {
 		/*Gravity*/
 		double mass = 0.4;
 		double gravity = 9.81;
-		bool allowGravity = false;
+		bool allowGravity = true;
 		/*Vicious damping*/
 		double dampingCoeffecient = 0.4;
 		double alphaAngle = 0;
@@ -45,7 +45,7 @@ namespace ggEngine {
 		/*Vector Force*/
 		double bounciness = 1;
 
-		bool allowWorldBounciness = true;
+		bool allowWorldBounciness = false;
 		bool allowWorldBlock = true;
 
 		bool allowWorldBound = true;
@@ -90,7 +90,10 @@ namespace ggEngine {
 		void CheckCollisionTo(GameObject *staticGo);
 		void RemoveCheckCollisionWith(GameObject *staticGo);
 		void PreUpdate();
+		void SetActive(bool isActive) { this->isActive = isActive; }
+		bool IsActive() { return this->isActive; }
 	private:
+		bool isActive = true;
 		bool PerformCollisionCheck(Vector currentVelocity);
 		std::list<Box> GetPossibleCollidedList(Box &b1, Vector currentVelocity);
 		std::vector<ColliderArg> colliderDirection;

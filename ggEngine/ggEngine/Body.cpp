@@ -686,6 +686,7 @@ namespace ggEngine {
 	
 	void Body::Update()
 	{
+		if (!this->isActive) return;
 		PreUpdate();
 		CheckCollisionAndUpdateMovement();
 		UpdateBounds();

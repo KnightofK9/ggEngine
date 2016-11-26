@@ -87,8 +87,8 @@ void CVState::ShutDown()
 
 void CVState::Load()
 {
-	this->cvAdd = new CVAdd(this, cvgame);
-	this->cvPreload = new CVPreload(cvgame->cache);
+	this->cvAdd = cvgame->cvAdd;
+	this->cvPreload = cvgame->cvPreload;
 	this->itemManager = new ItemManager(cvgame);
 }
 
