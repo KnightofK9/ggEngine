@@ -25,7 +25,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("climbUpAttack", 21, 23, true);
 
 	this->cvGame->physics->EnablePhysics(this);
-	this->body->CreateRectangleRigidBody(45, 40);
+	this->body->CreateRectangleRigidBody(20, GetHeight());
+	this->body->syncBounds = false;
 	this->body->rigidBody->SetAnchor(0.5, 0.5);
 	this->body->allowGravity = true;
 	this->body->allowWorldBounciness = false;

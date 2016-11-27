@@ -22,6 +22,7 @@ namespace ggEngine {
 		void Reset();
 		void AddTileMap(TileMap* tileMap);
 		void RemoveTileMap(TileMap *tileMap);
+		std::list<Body*> GetBodyList() { return this->bodyList; }
 		static Rect CreateSweptBroadPhaseRect(Box b);
 		static bool AABBCheck(Rect b1, Rect b2);
 		static Box CreateBoxFromObject(GameObject *go, Vector velocity);

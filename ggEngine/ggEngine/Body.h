@@ -54,6 +54,7 @@ namespace ggEngine {
 
 		bool allowObjectBlock = true;
 
+
 		GameObject* sprite;
 		Vector *position;
 		Direction blocked;

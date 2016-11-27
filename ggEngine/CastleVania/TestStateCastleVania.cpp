@@ -70,7 +70,10 @@ void TestStateCastleVania::PreRender()
 }
 void TestStateCastleVania::Render()
 {
-
+	std::list<Body*> bodyList = this->cvgame->physics->GetBodyList();
+	for (auto it = bodyList.begin(); it != bodyList.end(); ++it) {
+		(*it)->Render();
+	}
 }
 void TestStateCastleVania::Pause()
 {

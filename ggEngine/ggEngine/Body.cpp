@@ -218,8 +218,10 @@ namespace ggEngine {
 		this->blocked.Reset();
 		this->shortestCollider.Reset();
 		//position = sprite->GetPosition();
-		this->width = sprite->GetOrgWidth() * (sprite->worldScale.x);
-		this->height = sprite->GetOrgHeight() * (sprite->worldScale.y);
+		if (this->syncBounds) {
+			this->width = sprite->GetOrgWidth() * (sprite->worldScale.x);
+			this->height = sprite->GetOrgHeight() * (sprite->worldScale.y);
+		}
 		if (this->rigidBody != nullptr) {
 			this->sprite->UpdateWorldPosition();
 			if(this->syncBounds) this->rigidBody->Transform(this->sprite->worldPosition, this->width, this->height);
@@ -296,7 +298,10 @@ namespace ggEngine {
 				this->position->x = pivot.x;
 				this->position->y = pivot.y;
 				this->sprite->events->onCollide(this->sprite, e);
-				this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
+				if(this->syncBounds) this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
+				else {
+					this->rigidBody->Transform(this->position, this->width, this->height);
+				}
 			}
 			//break;
 			if (e.remainingTime == 0) break;
@@ -643,7 +648,12 @@ namespace ggEngine {
 				this->position->x = pivot.x;
 				this->position->y = pivot.y;
 				this->sprite->events->onWorldBounds(sprite, e);
-				this->rigidBody->Transform(this->position, sprite->GetWidth(), sprite->GetHeight());
+				if (this->syncBounds) {
+					this->rigidBody->Transform(this->position, this->sprite->GetWidth(), this->sprite->GetHeight());
+				}
+				else {
+					this->rigidBody->Transform(this->position, this->width, this->height);
+				}
 			}
 		}
 	}
@@ -720,6 +730,8 @@ namespace ggEngine {
 	void Body::CreateRectangleRigidBody(double width, double height)
 	{
 		this->rigidBody = new Rectangle(width, height);
+		this->width = width;
+		this->height = height;
 	}
 	Vector Body::CalculateAirForce()
 	{

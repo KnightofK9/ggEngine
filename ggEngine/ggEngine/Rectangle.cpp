@@ -90,10 +90,16 @@ ggEngine::Vector ggEngine::Rectangle::GetPivotPoint()
 
 void ggEngine::Rectangle::Translate(Vector translate)
 {
-	p1 += translate;
-	p2 += translate;
-	p3 += translate;
-	p4 += translate;
 	pCenter += translate;
+
+
+	double dtX = this->width / 2.0;
+	double dtY = this->height / 2.0;
+
+	p1.y = p2.y = pCenter.y - dtY;
+	p3.y = p4.y = pCenter.y + dtY;
+
+	p1.x = p4.x = pCenter.x - dtX;
+	p2.x = p3.x = pCenter.x + dtX;
 }
 
