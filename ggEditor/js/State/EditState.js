@@ -30,6 +30,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var quadId = 0;
     var remaingTileToupdate = [];
     var currentTileType = "";
+    var currentPickName = "";
     var groupList = [];
     var hierachyGrouplist = [];
     var currentPickTile = "";
@@ -134,9 +135,10 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var resetPick = function(){
         currentTileType = "";
         currentPickTile = "";
+        currentPickName = "";
         // currentLayer = null;
         currentTile = null;
-    }
+    };
     var initPreloadList = function(){
         var preloadList = [];
         if(layerList.length>0){
@@ -184,6 +186,12 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
             if(Constant.TILE_SET_DICT.hasOwnProperty(key)){
                 var tileSet = Constant.TILE_SET_DICT[key];
                 game.load.image(key, Constant.TILE_SET_PATH + tileSet.name, tileSet.cellWidth,tileSet.cellHeight);
+            }
+        }
+
+        for(var key in Constant.ITEM_DICT){
+            if(Constant.ITEM_DICT.hasOwnProperty(key)){
+                game.load.image(key, Constant.ITEM_DICT[key].name);
             }
         }
 
@@ -483,6 +491,24 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     this.reset = function(){
         hierarchyId = 0;
     };
+
+    var changeMapTileSetArray = function(tileSetKey){
+        map.tiles = [];
+        var tileSet = Constant.TILE_SET_DICT[tileSetKey];
+        var currentTileSetId = map.getTilesetIndex(tileSetKey);
+        for(var i = 0;i<tileSet.tileList.length;i++){
+            map.tiles.push([tileSet.tileList[i].x,tileSet.tileList[i].y,currentTileSetId]);
+        }
+    };
+
+
+
+    this.pickItem = function(itemKey){
+        resetPick();
+        currentPickTile = "ItemPick";
+        currentPickName = itemKey;
+
+    };
     this.pickTypeTile = function(type){
         resetPick();
         currentPickTile = "TilePick";
@@ -526,14 +552,6 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         //var tile = new Phaser.Tile(currentLayer,tileId,tile.x,tile.y,tile.width,tile.height);
         currentTile = tileId;
     };
-    var changeMapTileSetArray = function(tileSetKey){
-        map.tiles = [];
-        var tileSet = Constant.TILE_SET_DICT[tileSetKey];
-        var currentTileSetId = map.getTilesetIndex(tileSetKey);
-        for(var i = 0;i<tileSet.tileList.length;i++){
-            map.tiles.push([tileSet.tileList[i].x,tileSet.tileList[i].y,currentTileSetId]);
-        }
-    };
     var updateMarker = function(pointer,event) {
 
         if(currentLayer!=null){
@@ -544,6 +562,14 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         if (game.input.mousePointer.isDown)
         {
             switch(currentPickTile){
+                case "ItemPick":
+                    var key = currentPickName;
+                    var targetObject = game.input.mousePointer.targetObject;
+                    if(targetObject.type && targetObject.type == key){
+                        return;
+                    }
+
+                    break;
                 case "TilePick":
                     if(currentTileType !== ""){
                     switch (currentTileType){

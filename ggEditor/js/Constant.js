@@ -38,6 +38,45 @@ var Constant = new function(){
             height:50
         }
     };
+    this.ENEMY_DICT = {
+        "AxeKnight":{
+            name:this.RESOURCE_PATH+"AxeKnight.png",
+            frameWidth:16,
+            frameHeight:32,
+            numberOfFrame:3
+        },
+        "BatEnemy":{
+            name:this.RESOURCE_PATH+"BatEnemy.png",
+            frameWidth:16,
+            frameHeight:16,
+            numberOfFrame:4
+        },
+        "BonePillar":{
+            name:this.RESOURCE_PATH+"BonePillar.png",
+            frameWidth:16,
+            frameHeight:16,
+            numberOfFrame:4
+        },
+        "Boss":{
+            name:this.RESOURCE_PATH+"Boss.png",
+            frameWidth:32,
+            frameHeight:32,
+            numberOfFrame:4
+        },
+        "Ghost":{
+            name:this.RESOURCE_PATH+"Ghost.png",
+            frameWidth:16,
+            frameHeight:16,
+            numberOfFrame:2
+        },
+        "MedusaHead":{
+            name:this.RESOURCE_PATH+"MedusaHead.png",
+            frameWidth:32,
+            frameHeight:16,
+            numberOfFrame:2
+        }
+
+    };
     this.ITEM_DICT = {
         "Heart":{
             name:this.RESOURCE_PATH+"Heart1.png"
