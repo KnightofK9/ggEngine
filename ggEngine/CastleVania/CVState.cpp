@@ -24,10 +24,6 @@ CVState::~CVState()
 		delete cvPreload;
 		cvPreload = nullptr;
 	}
-	if (itemManager != nullptr) {
-		delete itemManager;
-		itemManager = nullptr;
-	}
 }
 
 void CVState::Init()
@@ -89,7 +85,6 @@ void CVState::Load()
 {
 	this->cvAdd = cvgame->cvAdd;
 	this->cvPreload = cvgame->cvPreload;
-	this->itemManager = new ItemManager(cvgame);
 }
 
 

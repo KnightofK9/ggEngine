@@ -24,4 +24,8 @@ namespace ggEngine {
 		this->isAllowToPlay = true;
 		return this;
 	}
+	void TimeBasedEventInfo::Destroy()
+	{
+		Stop();
+	}
 }

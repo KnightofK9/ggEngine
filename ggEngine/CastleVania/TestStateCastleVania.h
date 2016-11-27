@@ -20,4 +20,5 @@ public:
 private:
 	TileMap *tileMap;
 	Simon *simon;
+	ItemManager *itemManager = nullptr;
 };

@@ -18,4 +18,5 @@ public:
 protected:
 	unsigned int liveTime = -1;
 	CVGame *cvGame;
+	TimeBasedEventInfo * timeEvent = nullptr;
 };

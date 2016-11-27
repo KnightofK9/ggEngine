@@ -3,16 +3,19 @@
 #include "CharacterBase.h"
 #include "CharacterConstant.h"
 #include "InfoPanel.h"
-#include <boost\signals2.hpp>
 using namespace ggEngine;
-
+class CVGame;
 class Simon :public CharacterBase {
 public:
-	Simon(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	~Simon();
 	void SetHealth(int heath);
 	int GetHealth() { return this->health; }
 	
+	void SetMaxHealth(int maxHealth) { this->maxHealth = maxHealth; }
+	int GetMaxHealth() { return this->maxHealth; }
+
+
 	void Idle();
 	void MoveLeft();
 	void MoveRight();
@@ -35,4 +38,5 @@ public:
 	bool isGrounding;	//for jump or for fall down or for hurt
 private:
 	int health;
+	int maxHealth;
 };

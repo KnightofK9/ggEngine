@@ -18,12 +18,14 @@ namespace ggEngine {
 		void UpdatePhysics();
 		void EnablePhysics(GameObject * gameObject);
 		void AttachBodyTo(GameObject *gameObject);
+		void RemoveBodyFromList(Body *body);
 		void Reset();
 		void AddTileMap(TileMap* tileMap);
 		void RemoveTileMap(TileMap *tileMap);
 		static Rect CreateSweptBroadPhaseRect(Box b);
 		static bool AABBCheck(Rect b1, Rect b2);
 		static Box CreateBoxFromObject(GameObject *go, Vector velocity);
+		static ColliderArg CreateOppositeColliderArg(ColliderArg e, GameObject* otherObject);
 	private:
 		void UpdateCollisionList();
 		void UpdateBody();

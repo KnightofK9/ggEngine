@@ -167,7 +167,7 @@
     <ClCompile Include="IntroState.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MiniHealth.cpp" />
+    <ClCompile Include="Heart.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="StaticTile.cpp" />
     <ClCompile Include="TestStateCastleVania.cpp" />
@@ -188,7 +188,7 @@
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InfoPanel.h" />
     <ClInclude Include="IntroState.h" />
-    <ClInclude Include="MiniHealth.h" />
+    <ClInclude Include="Heart.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />

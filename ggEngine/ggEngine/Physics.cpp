@@ -32,12 +32,17 @@ namespace ggEngine {
 			gameObject->events = new Events(game, gameObject);
 		}
 	}
+
 	void Physics::AttachBodyTo(GameObject * gameObject)
 	{
 		Body* body = new Body(game, gameObject); gameObject->SetBody(body);
 		if (gameObject->events == NULL) {
 			gameObject->events = new Events(game, gameObject);
 		}
+	}
+	void Physics::RemoveBodyFromList(Body * body)
+	{
+		bodyList.remove(body);
 	}
 	void Physics::Reset(){
 		bodyList.clear();
@@ -85,6 +90,19 @@ namespace ggEngine {
 		b1.vy = velocity.y;
 		return b1;
 	}
+	ColliderArg Physics::CreateOppositeColliderArg(ColliderArg e, GameObject * otherObject)
+	{
+		ColliderArg o = e;
+		o.colliderObject = otherObject;
+		o.blockDirection.Revert();
+		auto entry = o.remainingTime;
+		o.remainingTime = o.entryTime;
+		o.entryTime = entry;
+		o.currentVelocity = Vector(0,0);
+		o.normalSurfaceVector *= -1;
+		return o;
+	}
+	
 	void Physics::UpdateCollisionList()
 	{
 		this->collisionList.clear();

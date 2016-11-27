@@ -22,7 +22,6 @@ public :
 	virtual void Load() override;
 	CVAdd *cvAdd = nullptr;
 	CVPreload *cvPreload = nullptr;
-	ItemManager *itemManager = nullptr;
 protected:
 	std::string json;
 	CVGame *cvgame;

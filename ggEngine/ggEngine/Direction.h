@@ -16,5 +16,11 @@ namespace ggEngine{
 		bool Any() {
 			return left || right || up || down;
 		}
+		void Revert() {
+			up = !up;
+			down = !down;
+			left = !left;
+			right = !right;
+		}
 	};
 }

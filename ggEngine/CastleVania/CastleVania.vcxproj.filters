@@ -105,7 +105,7 @@
     <ClCompile Include="TimeBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MiniHealth.cpp">
+    <ClCompile Include="Heart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -173,7 +173,7 @@
     <ClInclude Include="ItemBase.h">
       <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
-    <ClInclude Include="MiniHealth.h">
+    <ClInclude Include="Heart.h">
       <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
   </ItemGroup>

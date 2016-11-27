@@ -1,10 +1,110 @@
 #include "Simon.h"
-
-Simon::Simon(DrawManager * drawManager, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(drawManager, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
+#include "CVGame.h"
+#include "CVAdd.h"
+Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->tag = ObjectType_Simon;
 	this->health = 16;
+	this->maxHealth = 16;
 	this->isGrounding = true;
+	this->infoPanel = infoPanel;
+	this->SetPosition(0, 0);
+	this->SetAnchor(0.5, 0.5);
+	this->SetHealth(health);
+	this->CreateAnimation("idle", 0, 0, true);
+	this->CreateAnimation("move", 0, 3, true);
+	this->CreateAnimation("kneel", 4, 4, true);
+	this->CreateAnimation("climbUp", 5, 6, true);
+	this->CreateAnimation("climbDown", 7, 8, true);
+	this->CreateAnimation("behind", 9, 9, true);
+	this->CreateAnimation("hurt", 10, 10, true);
+	this->CreateAnimation("death", 11, 11, true);
+	this->CreateAnimation("standAttack", 12, 14, true);
+	this->CreateAnimation("kneelAttack", 15, 17, true);
+	this->CreateAnimation("climbDownAttack", 18, 20, true);
+	this->CreateAnimation("climbUpAttack", 21, 23, true);
+
+	this->cvGame->physics->EnablePhysics(this);
+	this->body->CreateRectangleRigidBody(45, 40);
+	this->body->rigidBody->SetAnchor(0.5, 0.5);
+	this->body->allowGravity = true;
+	this->body->allowWorldBounciness = false;
+	this->body->allowWorldBlock = true;
+	this->events->onCheckingCollide = [this](GameObject *object, ColliderArg e) {
+		GameObject *otherObject = e.colliderObject;
+		Tag type = otherObject->tag;
+		switch (type) {
+		case ObjectType_Static:
+			
+			return true;
+		default:
+			return false;
+		}
+		return false;
+
+	};
+	this->events->onCollide = [this](GameObject *object, ColliderArg e) {
+		GameObject *otherObject = e.colliderObject;
+		Tag type = otherObject->tag;
+		switch (type) {
+		case ObjectType_Static:
+			if (otherObject->events->onCollide != nullptr) {
+				ColliderArg	o = Physics::CreateOppositeColliderArg(e, object);
+				otherObject->events->onCollide(otherObject, o);
+			}
+			break;
+		default:
+			break;
+		}
+
+	};
+	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
+		//Simon *this = dynamic_cast<Simon*>(go);
+		this->isGrounding = true;
+	};
+
+	this->cvGame->eventManager->EnableKeyBoardInput(this);
+	this->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
+		double time = this->cvGame->logicTimer.getDeltaTime();
+		//double force = CharacterConstant::SIMON_MOVE_FORCE; //* time;
+		//double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE;// *time;																	  //Move right
+
+		this->Idle();
+
+		if (this->GetHealth() <= 0) {
+			this->Death();
+			return;
+		}
+
+		if (this->isGrounding == false) {
+			this->Kneel();
+		}
+
+		if (e.isPress(DIK_LEFT)) {
+			this->MoveLeft();
+		}
+		if (e.isPress(DIK_RIGHT)) {
+			this->MoveRight();
+		}
+
+		if (e.isPress(DIK_SPACE) && this->isGrounding == true) {
+			this->cvGame->cvAdd->TimeOut(500, [this] {
+				this->Idle();
+			});
+			this->Jump();
+		}
+
+		if (e.isPress(DIK_E) && e.isPress(DIK_DOWN)) {
+			this->KneelAttack();
+		}
+		else {
+			if (e.isPress(DIK_DOWN))
+				this->Kneel();
+			if (e.isPress(DIK_E))
+				this->StandAttack();
+		}
+		//set isGrounding
+	};
 }
 
 Simon::~Simon()
@@ -13,7 +113,11 @@ Simon::~Simon()
 
 void Simon::SetHealth(int heath)
 {
-	this->health = health;
+	this->health = heath;
+	if (this->health < 0) this->health = 0;
+	if (this->health > this->maxHealth) this->health = this->maxHealth;
+	infoPanel->SetPlayerHealth(this->health);
+	if (this->health == 0) Death();
 }
 
 void Simon::Idle()
@@ -98,11 +202,14 @@ void Simon::ClimbUpAttack()
 void Simon::LoseHealth(int health)
 {
 	this->health -= health;
+	if (this->health < 0) this->health = 0;
 	infoPanel->SetPlayerHealth(this->health);
+	if (this->health == 0) Death();
 }
 
 void Simon::GainHealth(int health)
 {
 	this->health += health;
+	if (this->health > this->maxHealth) this->health = this->maxHealth;
 	infoPanel->SetPlayerHealth(this->health);
 }

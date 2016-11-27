@@ -48,7 +48,10 @@ namespace ggEngine {
 	}
 	void Camera::Update()
 	{
-		if (enableManualMove) {
+		/*if (game->GetInput()->KeyDown(controlKey[CameraControl_ManualMove])) {
+			this->enableManualMove = !this->enableManualMove;
+		}*/
+		if (this->enableManualMove) {
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomIn])) {
 				scale.x += SCALE_SPEED*scale.x;
 				scale.y += SCALE_SPEED*scale.y;
@@ -85,6 +88,9 @@ namespace ggEngine {
 				rotate += ROTATE_SPEED;
 			}
 		}
+		else if (this->follow != nullptr) {
+			point = this->follow->worldPosition;
+		}
 	}
 	void Camera::Destroy()
 	{
@@ -119,6 +125,13 @@ namespace ggEngine {
 	}
 	void Camera::Follow(GameObject * go)
 	{
+		this->enableManualMove = false;
+		this->follow = go;
+	}
+	void Camera::UnFollow()
+	{
+		this->enableManualMove = true;
+		this->follow = nullptr;
 	}
 	RECT Camera::GetRect()
 	{
@@ -135,5 +148,7 @@ namespace ggEngine {
 		controlKey[CameraControl_Reset] = DIK_NUMPAD0;
 		controlKey[CameraControl_RotateLeft] = DIK_NUMPAD7;
 		controlKey[CameraControl_RotateRight] = DIK_NUMPAD9;
+		controlKey[CameraControl_ManualMove] = DIK_DIVIDE;
+
 	}
 }

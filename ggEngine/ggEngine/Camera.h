@@ -4,7 +4,7 @@
 #include "Matrix.h"
 #include <d3d9.h>
 namespace ggEngine {
-	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_RotateRight, CameraControl_RotateLeft, CameraControl_Reset, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown};
+	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_RotateRight, CameraControl_RotateLeft, CameraControl_Reset, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown,CameraControl_ManualMove};
 	class Game;
 	class GameObject;
 	class Camera : public GGObject {
@@ -22,8 +22,10 @@ namespace ggEngine {
 		void DisableManualMove();
 		void ResetView();
 		void Follow(GameObject *go);
+		void UnFollow();
 		RECT GetRect();
 	private:
+		GameObject *follow = nullptr;
 		LPDIRECT3DDEVICE9 device;
 		void SetUpKeyControl();
 		bool enableManualMove;
@@ -32,7 +34,7 @@ namespace ggEngine {
 		Vector scale;
 		Matrix translatedMatrix;
 		Game *game;
-		DWORD controlKey[9];
+		DWORD controlKey[10];
 		double width;
 		double height;
 		double orgWidth;

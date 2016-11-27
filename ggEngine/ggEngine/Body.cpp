@@ -25,6 +25,7 @@ namespace ggEngine {
 	}
 	Body::~Body()
 	{
+		this->game->physics->RemoveBodyFromList(this);
 		if (this->rigidBody != nullptr) {
 			delete this->rigidBody;
 			this->rigidBody = nullptr;
@@ -50,15 +51,18 @@ namespace ggEngine {
 	}
 	void Body::AddListCheckCollisionTo(std::list<GameObject*> staticGoList)
 	{
-		this->staticGoList = staticGoList;
+		//this->staticGoList = staticGoList;
 	}
 	void Body::CheckCollisionTo(GameObject * staticGo)
 	{
-		collisionObjectList.push_back(staticGo);
+		//collisionObjectList.push_back(staticGo);
+		this->staticGoList.push_back(staticGo);
 	}
+
 	void Body::RemoveCheckCollisionWith(GameObject * staticGo)
 	{
-		collisionObjectList.erase(std::remove(collisionObjectList.begin(), collisionObjectList.end(), staticGo), collisionObjectList.end());
+		this->staticGoList.remove(staticGo);
+		//collisionObjectList.remove(std::find(collisionObjectList.begin(), collisionObjectList.end(), staticGo), collisionObjectList.end());
 	}
 	ColliderArg Body::GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<Box> &possibleCollidedList)
 	{
@@ -217,6 +221,7 @@ namespace ggEngine {
 		this->width = sprite->GetOrgWidth() * (sprite->worldScale.x);
 		this->height = sprite->GetOrgHeight() * (sprite->worldScale.y);
 		if (this->rigidBody != nullptr) {
+			this->sprite->UpdateWorldPosition();
 			if(this->syncBounds) this->rigidBody->Transform(this->sprite->worldPosition, this->width, this->height);
 			else this->rigidBody->Transform(this->sprite->worldPosition);
 		}

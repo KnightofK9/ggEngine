@@ -16,5 +16,6 @@ namespace ggEngine {
 		TimeBasedEventInfo* Resume();
 		TimeBasedEventInfo* Stop();
 		TimeBasedEventInfo* Start();
+		void Destroy() override;
 	};
 }

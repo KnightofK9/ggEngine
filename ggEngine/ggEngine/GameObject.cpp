@@ -8,6 +8,7 @@ namespace ggEngine {
 	{
 		SetPosition(VECTOR_ZERO);
 		SetScale(1,1);
+		this->worldScale = Vector(1, 1);
 		this->alive = true;
 		this->rotate = 0;
 		this->events = NULL;
@@ -17,6 +18,7 @@ namespace ggEngine {
 	{
 		SetPosition(VECTOR_ZERO);
 		SetScale(1, 1);
+		this->worldScale = Vector(1, 1);
 		this->alive = true;
 		this->rotate = 0;
 		this->events = NULL;

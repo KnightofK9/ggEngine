@@ -5,9 +5,14 @@ TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 }
 TestStateCastleVania::~TestStateCastleVania()
 {
+	if (itemManager != nullptr) {
+		delete itemManager;
+		itemManager = nullptr;
+	}
 }
 void TestStateCastleVania::Init() {
 
+	this->itemManager = new ItemManager(cvgame);
 }
 void TestStateCastleVania::Preload() {
 	Json jsonFile("State/TestState.json", true);
@@ -42,9 +47,13 @@ void TestStateCastleVania::Create()
 
 	Group* group = this->cvAdd->Group();
 	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);
-	this->simon = this->cvAdd->CharSimon(400, 400, 16, infoPanel, group);
-	this->itemManager->AddHealthPotion(0, 0, group);
-
+	this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);
+	this->simon->SetHealth(1);
+	this->cvgame->simon = this->simon;
+	this->itemManager->AddHeart(200, 100, group);
+	this->itemManager->AddHeart(250, 100, group);
+	this->itemManager->AddHeart(300, 100, group);
+	this->itemManager->AddHeart(450, 100, group);
 	//cath event when player lose health or gain health
 	//this->simon->healthSignal.connect(boost::bind(&InfoPanel::SetPlayerHealth, infoPanel, _1));
 	//Group *b = this->cvAdd->Group();
