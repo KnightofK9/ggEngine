@@ -5,6 +5,7 @@
 #include "InfoPanel.h"
 using namespace ggEngine;
 class CVGame;
+class ItemBase;
 class Simon :public CharacterBase {
 public:
 	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -39,4 +40,6 @@ public:
 private:
 	int health;
 	int maxHealth;
+	int score;
+	ItemBase * currentItem = nullptr;
 };
