@@ -86,6 +86,16 @@ namespace ggEngine {
 		spriteHandle->SetTransform(&mat);
 	}
 
+	Rect GameObject::GetRect()
+	{
+		int left, top, right, bottom;
+		left = this->position.x + (1 - this->anchor.x)*GetWidth();
+		top = this->position.y + (1 - this->anchor.y)*GetHeight();
+		right = left + (-anchor.x)*GetWidth();
+		bottom = top + (-anchor.y)*GetHeight();
+		return Rect(left, top, right, bottom);
+	}
+
 	void GameObject::UpdateWorldPosition(){
 		this->worldScale = Vector(this->scale.x*this->parentObject->worldScale.x, this->scale.y*this->parentObject->worldScale.y);
 		this->worldPosition = Vector(this->position.x*this->parentObject->worldScale.x, this->position.y*this->parentObject->worldScale.y) + this->parentObject->worldPosition;

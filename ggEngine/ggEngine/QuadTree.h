@@ -4,36 +4,28 @@
 #include <d3d9.h>
 #include "Vector.h"
 #include "Json.h"
+#include "Group.h"
 namespace ggEngine {
-	class SingleTile;
-	class AnimationTile;
-	class Cache;
-	class TileMap;
+	class Game;
 	class QuadNode;
-	class DrawManager;
-	class Physics;
-	class QuadTree {
+	class GameObject;
+	class QuadTree : public Group {
 	public:
-		QuadTree(TileMap *tileMap,DrawManager *drawManager, Cache *cache, Physics* physics);
+		QuadTree(Game *game);
 		~QuadTree();
-		QuadNode* GetRootNode();
-		void BuildTree(std::string jsonChar);
-		RECT GetRect();
-		QuadNode* GetNodeAt(int index);
-		TileMap *tileMap;
-		std::vector<QuadNode*> GetQuadNodeList() { return this->quadNodeList; }
-		std::vector<QuadNode*> *GetQuadNodeListAsRef() { return &this->quadNodeList; }
-		int GetNumberOfLeafNode() { return this->numberOfLeafNode; }
+
+		void Update() override;
+		std::list<Body*> *GetActiveObject();
+		void AddDrawObjectToList(GameObject* drawObject) override;
+		std::list<GameObject*> *GetDrawList() override;
 	private:
-		DrawManager *drawManager;
-		SingleTile* GetSpriteFromTileInfo(std::string tileMapKey, int tileId, double width, double height, QuadNode *parentNode);
-		AnimationTile* GetSpriteAnimationFromTileInfo(rapidjson::Value const &tileList, double width, double height, QuadNode *parentNode);
+		int XYIndexTo1dIndex(int x, int y);
+		int leafWidth;
+		int leafHeight;
+		int numberOfNodePerRow;
+		int numberOfNodePerColumn;
+		int startOfLeafNodeId;
 		std::vector<QuadNode*> quadNodeList;
-		Vector position;
-		Cache *cache;
-		Physics* physics;
-		QuadNode *rootNode;
-		double width, height;
-		int numberOfLeafNode;
+		Game *game;
 	};
 }

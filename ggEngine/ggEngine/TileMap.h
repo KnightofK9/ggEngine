@@ -3,7 +3,6 @@
 #include "GameObject.h"
 #include <vector>
 namespace ggEngine {
-	class QuadTree;
 	class SpriteInfo;
 	class DrawManager;
 	class QuadNode;
@@ -26,7 +25,6 @@ namespace ggEngine {
 		Camera *camera;
 		Physics* physics;
 		void RecursiveDraw(const RECT &drawRect, QuadNode *quadNode, bool isDrawChildNode = false);
-		QuadTree *quadTree;
 		LPD3DXSPRITE spriteHandle;
 		Cache *cache;
 		double tileWidth;
