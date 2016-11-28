@@ -16,6 +16,7 @@ namespace ggEngine {
 
 		void Update() override;
 		std::list<Body*> *GetActiveObject();
+		void RemoveObjectFromList(GameObject *gameObject);
 		void AddDrawObjectToList(GameObject* drawObject) override;
 		std::list<GameObject*> *GetDrawList() override;
 	private:
