@@ -157,9 +157,6 @@ function LeafNode() {
     this.type = "LeafNode";
     this.x = 0;
     this.y = 0;
-    this.width = 0;
-    this.height = 0;
-    this.id = -1;
     this.quadNodeIdList = [];
 }
 
@@ -242,6 +239,14 @@ function StaticTile() {
         }
         this._remove(this);
         return true;
+    };
+    this.exportAsJson = function(){
+        return{
+            type:this.type,
+            name:this.name,
+            idX:this.idX,
+            idY:this.idY
+        }
     };
 
 }
@@ -398,7 +403,35 @@ function Group() {
         hSprite.y = sprite.y;
         this._add(hSprite);
         return hSprite;
-    }
+    };
+    this.exportAsJson = function(useQuadTree){
+        var json =  {
+            type:this.type,
+            name:this.name,
+            x:this.x,
+            y:this.y,
+            itemList:[]
+        };
+        for(var i = 0;i<this._childList.length;i++){
+            var item = this._childList[i];
+            var sprite = {};
+            sprite.type = item.type;
+            sprite.name = item.name;
+            sprite.x = item.x;
+            sprite.y = item.y;
+            sprite.width = item._item.width;
+            sprite.height = item._item.height;
+            switch(sprite.type){
+                default:
+                    break;
+            }
+            if(useQuadTree){
+                sprite.quadTreeId = my.getQuadTreeId(sprite);
+            }
+            json.itemList.push(sprite);
+        }
+        return json;
+    };
 
 }
 function Sprite(){
