@@ -12,15 +12,10 @@ var HierarchyEditor = function () {
     var hObjectList = [];
     var id = 0;
     var currentHTileMap = null;
+
+    var currentHObjectSeletingId = -1;
+
     this.add = {};
-    this.add.group = function(){
-        var group = new Group();
-        group._item = game.add.group();
-        my.hierarchy._add(group);
-        var div = createLine(group._hierarchyId,group.getName());
-        hierarchyListPanel.append(div);
-        return group;
-    };
     this.add.tilemap = function(){
         var tileMap = new TileMap();
         tileMap._item = game.add.tilemap();
@@ -59,6 +54,26 @@ var HierarchyEditor = function () {
         // reloadHierarchy();
         return staticTile;
 
+    };
+    this.add.group = function(name){
+        var group = game.add.group();
+        var hGroup = new Group();
+        hGroup._name = name;
+        hGroup._item = group;
+        hGroup.x = group.x;
+        hGroup.y = group.y;
+        my.hierarchy._add(hGroup);
+
+        var div = createLine(hGroup._hierarchyId,hGroup.getName());
+        hierarchyListPanel.append(div);
+
+        return hGroup;
+    };
+    this.add.sprite = function(sprite,hGroup){
+        var hSprite = hGroup.addObject(sprite);
+        var div = createLine(hSprite._hierarchyId,hSprite.getName());
+        var parentDiv = $("#hierarchy-"+ hGroup._hierarchyId);
+        parentDiv.append(div);
     };
 
 
@@ -179,6 +194,25 @@ var HierarchyEditor = function () {
         // reloadHierarchy();
     };
 
+    this.onSelectLineClick = function(hierarchyId){
+        var hObject =  my.hierarchyIdDict[hierarchyId];
+        if(hObject != null){
+            switch (hObject.type){
+                case "Group":
+                    sceneEditor.editState.selectGroup(hObject);
+                    if(currentHObjectSeletingId != -1){
+                        $("#hierarchy-" + currentHObjectSeletingId+" a").removeClass('list-group-item-info');
+                    }
+                    currentHObjectSeletingId = hierarchyId;
+                    $("#hierarchy-" + hierarchyId + " a").addClass('list-group-item-info');
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    };
+
     /**
      * Private function
      */
@@ -208,8 +242,8 @@ var HierarchyEditor = function () {
         switch(hObject._level){
             case 0:
             case 1:
-                divClass = "list-group-item-info list-group-item";
-                break;
+                // divClass = "list-group-item-info list-group-item";
+                // break;
             case 2:
                 divClass = "list-group-item";
                 break;
@@ -217,7 +251,7 @@ var HierarchyEditor = function () {
                 divClass = "list-group-item";
                 break;
         }
-        return '<div id="hierarchy-'+id+'"><a  class="'+ divClass +'">' + hObject.getName()
+        return '<div onclick="hierarchyEditor.onSelectLineClick('+id+')" id="hierarchy-'+id+'"><a  class="'+ divClass +'">' + hObject.getName()
             +'<i onclick="hierarchyEditor.handleRemoveClick('+id+')" class="glyphicon glyphicon-remove gg-hierarchy-delete"></i>'
             + '</a></div>';
     };

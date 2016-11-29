@@ -213,6 +213,32 @@
         $("#btn-export-tile-map").on('click', exportQuadTree);
 
     });
+    function showYesNoDialog(title,body,callback){
+        BootstrapDialog.show({
+            closable: true,
+            title: title,
+            message: body
+            ,
+            onshow: function (dialogRef) {
+
+            },
+            buttons: [{
+                label: 'Yes',
+                cssClass:'btn-primary' ,
+                action: function (dialogRef) {
+                    dialogRef.close();
+                    callback(true);
+                }
+            }, {
+                label: 'No',
+                action: function (dialogRef) {
+                    dialogRef.close();
+                    callback(false);
+                }
+            }]
+        });
+    }
+
     function initSceneEditor() {
         BootstrapDialog.show({
             closable: true,

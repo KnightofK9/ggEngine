@@ -36,25 +36,18 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var currentPickTile = "";
     var mouseSprite = null;
 
+    var isBlockingClick = false;
+
+    var currentSelectHGroup = null;
+
     var mouseGroup = null;
 
     this.getCurrentLayer = function(){
         return currentLayer;
     };
     var createGroup = function(groupName){
-        var group = game.add.group();
-        group.name = groupName;
+        hierarchyEditor.add.group(groupName);
 
-        var hierachyGroup = hierarchyEditor.addObjectToHierarchy(groupName,group);
-        group.callDestroy = function(){
-            groupList.splice(groupList.indexOf(group),1);
-            hierachyGrouplist.splice(groupList.indexOf(hierachyGroup),1);
-            this.destroy();
-            return true;
-        };
-        groupList.push(group);
-        hierachyGrouplist.push(group);
-        hierarchyEditor.updateHierarchy();
     };
     this.showCreateGroup = function(){
         BootstrapDialog.show({
@@ -538,6 +531,9 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
                 break;
         }
     };
+    this.selectGroup = function(hGroup){
+        currentSelectHGroup = hGroup;
+    };
     this.pickTile = function(tileSetKey, tileId) {
         resetPick();
         //if(currentTileSetKey !== tileSetKey){
@@ -589,6 +585,7 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
 
         if (game.input.mousePointer.isDown)
         {
+            if(isBlockingClick) return;
             switch(currentPickTile){
                 case "ItemPick":
                     var key = currentPickName;
@@ -596,7 +593,32 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
                     if(targetObject!= null && targetObject.type && targetObject.type == key){
                         return;
                     }
+                    isBlockingClick = true;
+                    var setSprite = function(){
+                        if(currentSelectHGroup === null){
+                            ggConsole.alertNotification("Alert","No group has been selected!");
+                            isBlockingClick = false;
+                            return;
+                        }
+                        var sprite = game.add.sprite(game.input.activePointer.worldX,game.input.activePointer.worldY,currentPickName,currentSelectHGroup._item);
+                        sprite._type = currentPickName;
+                        if(Constant.ENEMY_DICT.hasOwnProperty(currentPickName)){
+                            var info = Constant.ENEMY_DICT[currentPickName];
+                            var walk = sprite.animations.add('walk');
+                            sprite.animations.play('walk', 24, true);
+                            sprite.x -= info.frameWidth;
+                            sprite.y -= info.frameHeight;
+                        }else{
+                            sprite.x -= sprite.width;
+                            sprite.y -= sprite.height;
+                        }
+                        hierarchyEditor.add.sprite(sprite,currentSelectHGroup);
 
+
+
+                        isBlockingClick = false;
+                    };
+                    window.setTimeout(setSprite,150);
                     break;
                 case "TilePick":
                     if(currentTileType !== ""){
