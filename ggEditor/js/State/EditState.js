@@ -34,6 +34,10 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var groupList = [];
     var hierachyGrouplist = [];
     var currentPickTile = "";
+    var mouseSprite = null;
+
+    var mouseGroup = null;
+
     this.getCurrentLayer = function(){
         return currentLayer;
     };
@@ -136,6 +140,8 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         currentTileType = "";
         currentPickTile = "";
         currentPickName = "";
+        if(mouseSprite!=null) mouseSprite.destroy();
+        mouseSprite = null;
         // currentLayer = null;
         currentTile = null;
     };
@@ -194,6 +200,11 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
                 game.load.image(key, Constant.ITEM_DICT[key].name);
             }
         }
+        for(var key in Constant.ENEMY_DICT){
+            if(Constant.ENEMY_DICT.hasOwnProperty(key)){
+                game.load.spritesheet(key, Constant.ENEMY_DICT[key].name,Constant.ENEMY_DICT[key].frameWidth,Constant.ENEMY_DICT[key].frameHeight,Constant.ENEMY_DICT[key].numberOfFrame);
+            }
+        }
 
     };
     this.create = function(){
@@ -248,6 +259,10 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
 
 
         if(json) this.importState(json);
+
+
+        mouseGroup = game.add.group();
+
     };
 
     var initTileMapAsJson = function(){
@@ -507,6 +522,11 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         resetPick();
         currentPickTile = "ItemPick";
         currentPickName = itemKey;
+        mouseSprite = game.add.sprite(game.input.activePointer.worldX,game.input.activePointer.worldY,itemKey);
+        if(Constant.ENEMY_DICT.hasOwnProperty(itemKey)){
+            var walk = mouseSprite.animations.add('walk');
+            mouseSprite.animations.play('walk', 24, true);
+        }
 
     };
     this.pickTypeTile = function(type){
@@ -553,19 +573,27 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         currentTile = tileId;
     };
     var updateMarker = function(pointer,event) {
+        switch(currentPickTile){
+            case "ItemPick":
+                mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
+                mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                break;
+            case "TilePick":
+            default:
+                if(currentLayer!=null){
+                    marker.x = currentLayer.getTileX(game.input.activePointer.worldX) * tileWidth;
+                    marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
 
-        if(currentLayer!=null){
-            marker.x = currentLayer.getTileX(game.input.activePointer.worldX) * tileWidth;
-            marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
-
+                }
         }
+
         if (game.input.mousePointer.isDown)
         {
             switch(currentPickTile){
                 case "ItemPick":
                     var key = currentPickName;
                     var targetObject = game.input.mousePointer.targetObject;
-                    if(targetObject.type && targetObject.type == key){
+                    if(targetObject!= null && targetObject.type && targetObject.type == key){
                         return;
                     }
 

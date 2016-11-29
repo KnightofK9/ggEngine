@@ -71,7 +71,7 @@ var Constant = new function(){
         },
         "MedusaHead":{
             name:this.RESOURCE_PATH+"MedusaHead.png",
-            frameWidth:32,
+            frameWidth:16,
             frameHeight:16,
             numberOfFrame:2
         }

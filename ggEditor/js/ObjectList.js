@@ -52,9 +52,9 @@ var ObjectList = function(){
             case "gg-object-tile-picker":
                 sceneEditor.editState.pickTypeTile(type);
                 break;
-            case "gg-object-item-picke":
-                break;
+            case "gg-object-item-picker":
             case "gg-object-char-picker":
+                sceneEditor.editState.pickItem(type);
                 break;
         }
     };
