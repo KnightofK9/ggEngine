@@ -596,13 +596,15 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
                         return;
                     }
                     isBlockingClick = true;
+                    var posX = game.input.activePointer.worldX;
+                    var posY = game.input.activePointer.worldY;
                     var setSprite = function(){
                         if(currentSelectHGroup === null){
                             ggConsole.alertNotification("Alert","No group has been selected!");
                             isBlockingClick = false;
                             return;
                         }
-                        var sprite = game.add.sprite(game.input.activePointer.worldX,game.input.activePointer.worldY,currentPickName,currentSelectHGroup._item);
+                        var sprite = game.add.sprite(posX,posY,currentPickName,currentSelectHGroup._item);
                         sprite._type = currentPickName;
                         if(Constant.ENEMY_DICT.hasOwnProperty(currentPickName)){
                             var info = Constant.ENEMY_DICT[currentPickName];
