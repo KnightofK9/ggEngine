@@ -26,7 +26,7 @@ var ObjectList = function(){
     };
     var initOption = function(key,name){
         // <option data-img-src="Resource/Resources/Boomerang.png" data-img-class="first" data-img-alt="StaticTile" data-img-label="StaticTile" value="0">   </option>
-        var div = ' <option data-img-src="'+ name +'" data-img-class="first" data-img-alt="'+ key + '" data-img-label="'+ key + '" value="0">   </option>';
+        var div = ' <option data-img-src="'+ name +'" data-img-class="first" data-img-alt="'+ key + '" data-img-label="'+ key + '" > '+key+'  </option>';
         return div;
     };
 
@@ -65,8 +65,8 @@ var ObjectList = function(){
         charSelect.css("display","none");
         tileSelect.css("display","none");
         $("select").imagepicker({
-            show_label:true,
-            clicked:handleClicked
+            show_label:true
+            ,clicked:handleClicked
             // function(select, picker option, event){...}
         });
     };
