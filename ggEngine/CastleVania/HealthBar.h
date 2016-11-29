@@ -1,4 +1,5 @@
 #pragma once
+
 #include <ggEngine.h>
 using namespace ggEngine;
 class HealthBar : public ScreenGroup {
