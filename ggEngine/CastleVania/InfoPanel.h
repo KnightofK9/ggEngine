@@ -13,6 +13,7 @@ public:
 	void SetPoint(const int& point);
 	void SetState(const int& state);
 	void SetScore(const int& score);
+	void SetItemImage(SpriteInfo *spriteInfo);
 
 	void StopTime();
 	void StartTime();
@@ -46,7 +47,7 @@ public:
 
 	Sprite *itemBox = nullptr;
 	Sprite *item = nullptr;
-	SpriteInfo *itemInfo = nullptr;
+	Sprite *itemShot = nullptr;
 
 	TimeBasedEventInfo* timeInfo = nullptr;
 private:

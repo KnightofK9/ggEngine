@@ -108,6 +108,78 @@
     <ClCompile Include="Heart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cross.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HeartLarger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InvinPotion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBag100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBag400.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBag700.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBag1000.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PotRoast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stuff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AxeItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DaggerItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WhipUpgradeItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWaterItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VAudio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBaseAnim.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubleShot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TripleShot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestStateCastleVania.h">
@@ -175,6 +247,78 @@
     </ClInclude>
     <ClInclude Include="Heart.h">
       <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Cross.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HeartLarger.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="InvinPotion.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBag100.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBag400.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBag700.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBag1000.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PotRoast.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Stuff.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="AxeItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWaterItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="WhipUpgradeItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="DaggerItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWater.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponBase.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="VAudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBaseAnim.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="TripleShot.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleShot.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverState.h">
+      <Filter>Header Files\State</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryState.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

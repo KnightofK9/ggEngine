@@ -18,6 +18,25 @@ ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame->GetDra
 	this->visible = false;
 	this->body->SetActive(false);
 }
+
+//ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+//	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
+//{
+//	this->cvGame = cvGame;
+//	this->cvGame->physics->EnablePhysics(this);
+//	this->body->CreateRectangleRigidBody(this->image->GetWidth(), this->image->GetHeight());
+//	this->body->allowGravity = true;
+//	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
+//		Simon * simon = dynamic_cast<Simon*>(e.colliderObject);
+//		if (simon != nullptr) {
+//			OnSimonContact(simon, e);
+//		}
+//	};
+//	this->tag = ObjectType_Static;
+//	this->visible = false;
+//	this->body->SetActive(false);
+//}
+
 ItemBase::~ItemBase()
 {
 }

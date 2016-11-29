@@ -14,13 +14,13 @@ public:
 	static constexpr const char* FULL_HEALTH_ENEMY_TEXTURE = "FullHealEnemyTexture";
 	static constexpr const char* FULL_HEALTH_ENEMY_TEXTURE_PATH = "Resource/Resources/HealthUI/full_health_enemy.png";
 
-	static constexpr const char* BAT_ANIM_TEXTURE = "WhipUpgradeTexture";
+	static constexpr const char* BAT_ANIM_TEXTURE = "BatAnimTexture";
 	static constexpr const char* BAT_ANIM_TEXTURE_PATH = "Resource/Resources/IntroScene/bat.png";
 
-	static constexpr const char* HELICOPTER_TEXTURE = "WhipUpgradeTexture";
+	static constexpr const char* HELICOPTER_TEXTURE = "HelicopterTexture";
 	static constexpr const char* HELICOPTER_TEXTURE_PATH = "Resource/Resources/IntroScene/helicopter.png";
 
-	static constexpr const char* INTRO_BG_TEXTURE = "WhipUpgradeTexture";
+	static constexpr const char* INTRO_BG_TEXTURE = "IntroBGTexture";
 	static constexpr const char* INTRO_BG_TEXTURE_PATH = "Resource/Resources/IntroScene/intro_bg.png";
 
 	static constexpr const char* GAME_FONT_TEXTURE = "GameFont";
@@ -114,8 +114,8 @@ public:
 	static constexpr const char* STUFF_TEXTURE = "StuffTexture";
 	static constexpr const char* STUFF_TEXTURE_PATH = "Resource/Resources/Stuff.png";
 
-	static constexpr const char* TRIPLE_SHOT_TEXTURE = "MoneyBag100Texture";
-	static constexpr const char* TRIPLE_SHOT_TEXTURE_PATH = "Resource/Resources/MoneyBag100.png";
+	static constexpr const char* TRIPLE_SHOT_TEXTURE = "TripleShotTexture";
+	static constexpr const char* TRIPLE_SHOT_TEXTURE_PATH = "Resource/Resources/TripleShot.png";
 
 	static constexpr const char* AI6_TEXTURE = "AI6Texture";
 	static constexpr const char* AI6_TEXTURE_PATH = "Resource/Resources/AI6.png";

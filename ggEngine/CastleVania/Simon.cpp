@@ -93,6 +93,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				this->Idle();
 			});
 			this->Jump();
+			this->isGrounding = false;
 		}
 
 		if (e.isPress(DIK_E) && e.isPress(DIK_DOWN)) {
@@ -104,8 +105,13 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			if (e.isPress(DIK_E))
 				this->StandAttack();
 		}
-		//set isGrounding
 	};
+
+	shot = 0;
+	score = 0;
+	stagePoint = 0;
+	lifePoint = 0;
+	pPoint = 0;
 }
 
 Simon::~Simon()
@@ -213,4 +219,50 @@ void Simon::GainHealth(int health)
 	this->health += health;
 	if (this->health > this->maxHealth) this->health = this->maxHealth;
 	infoPanel->SetPlayerHealth(this->health);
+}
+
+void Simon::IncreaseScore(int score)
+{
+	this->score += score;
+	this->infoPanel->SetScore(this->score);
+}
+
+void Simon::IncreaseState()
+{
+	this->infoPanel->SetState(++this->stagePoint);
+}
+
+void Simon::IncreaseLifePoint(int point)
+{
+	this->lifePoint += point;
+	this->infoPanel->SetLife(lifePoint);
+}
+
+void Simon::DecreaseLifePoint(int point)
+{
+	this->lifePoint = (lifePoint - point <= 0) ? 0 : lifePoint - point;
+	this->infoPanel->SetLife(this->lifePoint);
+}
+
+void Simon::DescreasePPoint(int point)
+{
+	this->pPoint = (pPoint - point <= 0) ? 0 : pPoint - point;
+	this->infoPanel->SetLife(this->pPoint);
+}
+
+void Simon::SetWeapon(WeaponBase * weapon, SpriteInfo *image)
+{
+	this->weapon = weapon;
+}
+
+void Simon::SetSubWeapon(WeaponBase * subWeapon, SpriteInfo * image)
+{
+	this->subWeapon = subWeapon;
+	this->infoPanel->SetItemImage(image);
+}
+
+void Simon::SetShot(int shot, SpriteInfo * image)
+{
+	this->shot = shot;
+	this->infoPanel->itemShot->SetImage(image);
 }
