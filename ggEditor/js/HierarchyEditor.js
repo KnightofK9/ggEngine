@@ -159,21 +159,32 @@ var HierarchyEditor = function () {
         var isReload = false;
         var hObject = my.hierarchyIdDict[hObjectId];
         if(hObject){
-            if(hObject.callDestroy){
-                if(hObject.callDestroy()){
-                    isReload = true;
+            var destroyFunction = function(){
+                var parent = hObject._parent;
+                if(hObject.callDestroy){
+                    if(hObject.callDestroy()){
+                        $("#hierarchy-" + hObjectId).remove();
+                        isReload = true;
+                    }else{
+                        ggConsole.log("Failed");
+                    }
+                }else{
+                    ggConsole.alertNotification("Warning",hObject.type+" has no destroy method!");
+                    return;
                 }
-            }else{
-                ggConsole.alertNotification("Warning",hObject.type+" has no destroy method!");
-                return false;
-            }
+                if(isReload){
+                    reloadHierarchy();
+                }
+            };
+            showYesNoDialog("Group","Do you want to destroy this group and all it's child?",function(isYes){
+                if(isYes){
+                    destroyFunction();
+                }
+            });
+
         }else{
-            return false;
+            return;
         }
-        if(isReload){
-           reloadHierarchy();
-        }
-        return true;
         // for(var i = 0;i<hObjectList.length; i++){
         //     if(hObjectList[i].id === hObjectId){
         //         if(!hObjectList[i].item.callDestroy()) return;
@@ -201,10 +212,10 @@ var HierarchyEditor = function () {
                 case "Group":
                     sceneEditor.editState.selectGroup(hObject);
                     if(currentHObjectSeletingId != -1){
-                        $("#hierarchy-" + currentHObjectSeletingId+" a").removeClass('list-group-item-info');
+                        $("#hierarchy-" + currentHObjectSeletingId+" a:first-child").removeClass('list-group-item-info');
                     }
                     currentHObjectSeletingId = hierarchyId;
-                    $("#hierarchy-" + hierarchyId + " a").addClass('list-group-item-info');
+                    $("#hierarchy-" + hierarchyId + " a:first-child").addClass('list-group-item-info');
                     break;
                 default:
                     break;
@@ -219,13 +230,13 @@ var HierarchyEditor = function () {
 
 
     var reloadHierarchy = function () {
-        hierarchyListPanel.html("");
-        var div = "";
-        for (var i = 0; i < my.hierarchy._childList.length; i++) {
-            div += createHierarchyDiv(my.hierarchy._childList[i]);
-        }
-        hierarchyListPanel.html(div);
-        if(sceneEditor && sceneEditor.editState) sceneEditor.editState.getCurrentLayer().dirty = true;
+        // hierarchyListPanel.html("");
+        // var div = "";
+        // for (var i = 0; i < my.hierarchy._childList.length; i++) {
+        //     div += createHierarchyDiv(my.hierarchy._childList[i]);
+        // }
+        // hierarchyListPanel.html(div);
+        if(sceneEditor && sceneEditor.editState && sceneEditor.editState.getCurrentLayer()) sceneEditor.editState.getCurrentLayer().dirty = true;
     };
 
     var createHierarchyDiv = function (hObject) {

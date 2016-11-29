@@ -384,11 +384,10 @@ function Group() {
     this.y = 0;
     this.callDestroy = function(){
         var that = this;
-        showYesNoDialog("Group","Do you want to destroy this group and all it's child?",function(isYes){
-            if(isYes){
-                that._item.destroy();
-            }
-        })
+
+        this._destroy();
+        that._item.destroy();
+        return true;
     };
     this.addObject = function(sprite){
         var hSprite = new Sprite();
@@ -458,6 +457,7 @@ function Sprite(){
     this.callDestroy = function(){
         this._item.destroy();
         this._destroy();
+        return true;
     }
 }
 

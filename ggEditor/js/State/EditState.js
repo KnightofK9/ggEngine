@@ -207,10 +207,12 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         //backgroundSprite.tileHheight = tileHeight;
         var updateGroup = game.add.group();
         updateGroup.update = function(){
-            if(remaingTileToupdate.length){
+            if(remaingTileToupdate.length > 0){
                 var tile = remaingTileToupdate.pop();
                 that.pickTile(tile.tileSetKey,tile.tileId);
                 map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+            }else{
+                this.destroy();
             }
         };
         game.stage.backgroundColor = "#4488AA";
