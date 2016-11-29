@@ -1,16 +1,21 @@
+#pragma once
 #include "GGObject.h"
-#include <xaudio2.h>
+#include <windows.h>
+#include <mmsystem.h>
+#include <dsound.h>
+#include <stdio.h>
 #include <string>
-#include "AudioInfo.h"
+#include <SFML\Audio.hpp>
+#pragma comment (lib, "sfml-audio-d.lib")
 
 namespace ggEngine{
 	class Audio : public GGObject{
 	public:
-		Audio(std::string filePath);
+		Audio(std::string audioKey);
 
 		void Play();
 		void Stop();
-		void Loop();
+		void Loop(bool isLoop);
 		void Repeat(int numberOfRepeat);
 		void Pause();
 		void Resume();
@@ -23,12 +28,7 @@ namespace ggEngine{
 		void FadeTo(float volume);
 
 	private:
-		AudioInfo *auInfo;
-		IXAudio2* engine;
-		IXAudio2SourceVoice * source;
-		IXAudio2MasteringVoice* masterVoice;
-		XAUDIO2_BUFFER buffer;
-
-		bool isPlayed, isPausing;
+		sf::SoundBuffer soundBuffer;
+		sf::Sound sound;
 	};
 }

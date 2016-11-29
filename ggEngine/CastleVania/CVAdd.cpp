@@ -169,10 +169,13 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	infoPanel->itemBox->SetAnchor(0.5, 0.5);
 	infoPanel->itemBox->SetScale(3, 3);
 
-	infoPanel->item = this->Sprite(infoPanel->itemBox->GetX(), infoPanel->itemBox->GetY(), "Holy_water", infoPanel);
+	infoPanel->item = this->Sprite(408, 62, "", infoPanel);
 	infoPanel->item->SetAnchor(0.5, 0.5);
-	infoPanel->item->SetScale(1.5, 1.5);
+	infoPanel->item->SetScale(3, 3);
 
+	infoPanel->itemShot = this->Sprite(651, 52, "", infoPanel);
+	infoPanel->itemShot->SetAnchor(0.5, 0.5);
+	infoPanel->itemShot->SetScale(3, 3);
 
 	group->AddGroup(infoPanel);
 	return infoPanel;

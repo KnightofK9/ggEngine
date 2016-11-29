@@ -17,4 +17,5 @@ public:
 private:
 	CVGame *cvgame;
 	CVState* state;
+	ggEngine::Audio *audio;
 };

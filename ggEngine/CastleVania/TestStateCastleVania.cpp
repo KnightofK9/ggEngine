@@ -54,6 +54,15 @@ void TestStateCastleVania::Create()
 	this->itemManager->AddHeart(250, 100, group);
 	this->itemManager->AddHeart(300, 100, group);
 	this->itemManager->AddHeart(450, 100, group);
+	this->itemManager->AddMoneyBag1000(150, 100, group);
+	this->itemManager->AddStuff(180, 100, group);
+	this->itemManager->AddDagger(230, 100, group);
+	this->itemManager->AddInvinPotion(400, 100, group);
+	this->itemManager->AddPotRoast(280, 100, group);
+	this->itemManager->AddDoubleShot(260, 100, group);
+	this->itemManager->AddTripleShot(170, 100, group);
+
+
 	//cath event when player lose health or gain health
 	//this->simon->healthSignal.connect(boost::bind(&InfoPanel::SetPlayerHealth, infoPanel, _1));
 	//Group *b = this->cvAdd->Group();

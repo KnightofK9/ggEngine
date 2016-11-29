@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -46,193 +42,197 @@
     <Filter Include="Header Files\TileMap">
       <UniqueIdentifier>{80242a86-a19b-49b3-87b2-43a8fb8d3f28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D3DManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Helper.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DrawManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Group.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Add.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Preload.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Cache.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StateManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpriteAnimation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Physics.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Body.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Matrix.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Rectangle.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Circle.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Events.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DXInput.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColliderArg.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sound.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PingPongState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpriteInfo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TweenManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tween.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Easing.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Box.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NiseVector.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QuadNode.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Json.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Audio.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IJsonable.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SingleTile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AnimationTile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StaticTimer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TileSet.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StackWalker.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Grid.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AudioInfo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TimeBasedEventInfo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TimeBasedEventManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ScreenGroup.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

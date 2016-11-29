@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\1-Study\DirectX\ggEngine\ggEngine;D:\application\boost_1_62_0;D:\subject\NMGame\Engine\ggEngine\ggEngine;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine;D:\application\DirectXSDK\Include;D:\application\RapidJson\include\rapidjson;D:\application\boost_1_62_0\stage\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\application\boost_1_62_0\stage\lib;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine;D:\application\DirectXSDK\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;E:\application\boost_1_62_0\libs;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\application\SFML-2.4.1\include;C:\xampp\htdocs\Engine\ggEngine\ggEngine;E:\1-Study\DirectX\ggEngine\ggEngine;D:\application\boost_1_62_0;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine;D:\application\DirectXSDK\Include;D:\application\RapidJson\include\rapidjson;D:\application\boost_1_62_0\stage\lib;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;E:\application\RapidJson\include\rapidjson;E:\application\boost_1_62_0\;E:\application\DirectXSDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\xampp\htdocs\Engine\ggEngine\ggEngine;D:\application\boost_1_62_0\stage\lib;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine;D:\application\DirectXSDK\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;E:\application\boost_1_62_0\libs;E:\application\DirectXSDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -94,12 +94,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\application\SFML-2.4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;D:\subject\NMGame\Engine\ggEngine\Debug;D:\subject\NMGame\Engine\ggEngine\CastleVania\Debug;E:\1-Study\DirectX\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;E:\application\boost_1_62_0\lib32-msvc-12.0;E:\application\boost_1_62_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ggEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\application\SFML-2.4.1\lib;C:\xampp\htdocs\Engine\ggEngine\ggEngine\Debug;C:\xampp\htdocs\Engine\ggEngine\Debug;E:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;E:\1-Study\DirectX\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;E:\application\boost_1_62_0\lib32-msvc-12.0;E:\application\boost_1_62_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ggEngine.lib;%(AdditionalDependencies);sfml-audio-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -156,51 +157,99 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AxeItem.cpp" />
+    <ClCompile Include="BoomerangItem.cpp" />
     <ClCompile Include="CharacterBase.cpp" />
+    <ClCompile Include="Cross.cpp" />
+    <ClCompile Include="Crown.cpp" />
     <ClCompile Include="CVGame.cpp" />
     <ClCompile Include="CVPreload.cpp" />
     <ClCompile Include="CVSprite.cpp" />
     <ClCompile Include="CVSpriteAnimation.cpp" />
     <ClCompile Include="CVState.cpp" />
+    <ClCompile Include="DaggerItem.cpp" />
+    <ClCompile Include="DoubleShot.cpp" />
+    <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="HealthBar.cpp" />
+    <ClCompile Include="HeartLarger.cpp" />
+    <ClCompile Include="HolyWater.cpp" />
+    <ClCompile Include="HolyWaterItem.cpp" />
     <ClCompile Include="InfoPanel.cpp" />
     <ClCompile Include="IntroState.cpp" />
+    <ClCompile Include="InvinPotion.cpp" />
+    <ClCompile Include="ItemBaseAnim.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Heart.cpp" />
+    <ClCompile Include="MoneyBag100.cpp" />
+    <ClCompile Include="MoneyBag1000.cpp" />
+    <ClCompile Include="MoneyBag400.cpp" />
+    <ClCompile Include="MoneyBag700.cpp" />
+    <ClCompile Include="PotRoast.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="StaticTile.cpp" />
+    <ClCompile Include="StopWatch.cpp" />
+    <ClCompile Include="StoryState.cpp" />
+    <ClCompile Include="Stuff.cpp" />
     <ClCompile Include="TestStateCastleVania.cpp" />
     <ClCompile Include="CVAdd.cpp" />
     <ClCompile Include="TileBase.cpp" />
     <ClCompile Include="TimeBase.cpp" />
+    <ClCompile Include="TripleShot.cpp" />
+    <ClCompile Include="VAudio.cpp" />
+    <ClCompile Include="WeaponBase.cpp" />
+    <ClCompile Include="WhipUpgradeItem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AxeItem.h" />
+    <ClInclude Include="BoomerangItem.h" />
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="CharacterConstant.h" />
     <ClInclude Include="Constant.h" />
+    <ClInclude Include="Cross.h" />
+    <ClInclude Include="Crown.h" />
     <ClInclude Include="CVGame.h" />
     <ClInclude Include="CVObject.h" />
     <ClInclude Include="CVPreload.h" />
     <ClInclude Include="CVSprite.h" />
     <ClInclude Include="CVSpriteAnimation.h" />
     <ClInclude Include="CVState.h" />
+    <ClInclude Include="DaggerItem.h" />
+    <ClInclude Include="DoubleShot.h" />
+    <ClInclude Include="GameOverState.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="HeartLarger.h" />
+    <ClInclude Include="HolyWater.h" />
+    <ClInclude Include="HolyWaterItem.h" />
     <ClInclude Include="InfoPanel.h" />
     <ClInclude Include="IntroState.h" />
     <ClInclude Include="Heart.h" />
+    <ClInclude Include="InvinPotion.h" />
+    <ClInclude Include="ItemBaseAnim.h" />
+    <ClInclude Include="MoneyBag100.h" />
+    <ClInclude Include="MoneyBag1000.h" />
+    <ClInclude Include="MoneyBag400.h" />
+    <ClInclude Include="MoneyBag700.h" />
+    <ClInclude Include="PotRoast.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />
+    <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="StoryState.h" />
+    <ClInclude Include="Stuff.h" />
     <ClInclude Include="TestStateCastleVania.h" />
     <ClInclude Include="CVAdd.h" />
     <ClInclude Include="TextureConstant.h" />
     <ClInclude Include="TileBase.h" />
     <ClInclude Include="ItemBase.h" />
+    <ClInclude Include="TripleShot.h" />
     <ClInclude Include="TypeEnum.h" />
+    <ClInclude Include="VAudio.h" />
+    <ClInclude Include="WeaponBase.h" />
+    <ClInclude Include="WhipUpgradeItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ggEngine\ggEngine.vcxproj">

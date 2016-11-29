@@ -45,6 +45,11 @@ void InfoPanel::SetScore(const int& score)
 	this->scorePoint->SetText(ggEngine::Helper::IntToString(score, 6));
 }
 
+void InfoPanel::SetItemImage(SpriteInfo *spriteInfo)
+{
+	this->item->SetImage(spriteInfo);
+}
+
 void InfoPanel::StopTime()
 {
 	this->timeInfo->Stop();
