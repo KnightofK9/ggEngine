@@ -170,6 +170,7 @@
     <ClCompile Include="DaggerItem.cpp" />
     <ClCompile Include="DoubleShot.cpp" />
     <ClCompile Include="GameOverState.cpp" />
+    <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="HeartLarger.cpp" />
     <ClCompile Include="HolyWater.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="DaggerItem.h" />
     <ClInclude Include="DoubleShot.h" />
     <ClInclude Include="GameOverState.h" />
+    <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="HeartLarger.h" />
     <ClInclude Include="HolyWater.h" />
@@ -231,6 +233,7 @@
     <ClInclude Include="MoneyBag400.h" />
     <ClInclude Include="MoneyBag700.h" />
     <ClInclude Include="PotRoast.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />

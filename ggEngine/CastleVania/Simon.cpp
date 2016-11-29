@@ -1,6 +1,7 @@
 #include "Simon.h"
 #include "CVGame.h"
 #include "CVAdd.h"
+#include "ItemManager.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->tag = ObjectType_Simon;

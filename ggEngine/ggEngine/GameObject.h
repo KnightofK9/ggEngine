@@ -7,6 +7,7 @@
 #include <d3d9.h>
 #include "DrawManager.h"
 #include "Matrix.h"
+#include "Rect.h"
 namespace ggEngine {
 	class Body;
 	typedef unsigned int Tag;
@@ -59,6 +60,7 @@ namespace ggEngine {
 		bool IsOpacityAffectByParent() {return this->opacityAffectByParent;}
 		void SetOpacity(int opacity) { if (opacity > 255) { this->opacity = 255; } else this->opacity = opacity; }
 		Tag tag = 0;
+		Rect GetRect();
 	protected:
 		bool opacityAffectByParent = true;
 		int opacity = 255;

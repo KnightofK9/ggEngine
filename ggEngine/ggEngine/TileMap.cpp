@@ -1,7 +1,6 @@
 #include "TileMap.h"
 #include "DrawManager.h"
 #include "Sprite.h"
-#include "QuadTree.h"
 #include "QuadNode.h"
 #include "SpriteInfo.h"
 #include "AnimationTile.h"
@@ -14,7 +13,6 @@
 namespace ggEngine {
 	TileMap::TileMap(Camera *camera, DrawManager* drawManager, Cache *cache, Physics *physics) : Group(drawManager)
 	{
-		this->quadTree = nullptr;
 		this->camera = camera;
 		this->physics = physics;
 		this->cache = cache;
@@ -23,7 +21,6 @@ namespace ggEngine {
 	}
 	TileMap::~TileMap()
 	{
-		if (quadTree != nullptr) delete quadTree;
 		this->physics->RemoveTileMap(this);
 	}
 	void TileMap::Destroy()
@@ -119,16 +116,7 @@ namespace ggEngine {
 	}
 	void TileMap::RecursiveDraw(const RECT & drawRect, QuadNode * quadNode, bool isDrawAllChildNode)
 	{
-		if (!isDrawAllChildNode) {
-			RECT intersectRect;
-			RECT b = quadNode->GetRect();
-			if (!IntersectRect(&intersectRect, &drawRect,&b)) {
-				return;
-			}
-			if (intersectRect.left == b.left  && intersectRect.top == b.top && intersectRect.right == b.right  && intersectRect.bottom == b.bottom ) {
-				isDrawAllChildNode = true;
-			}
-		}
+		
 		//std::vector<DrawObject *> objectList = quadNode->GetObjectFromNode();
 		//if (objectList.size()>0) {
 		//	for (auto it = objectList.begin(); it != objectList.end(); ++it) {
@@ -138,18 +126,7 @@ namespace ggEngine {
 		//	return;
 		//}
 		
-		if (quadNode->IsLeafNode()) {
-			this->drawList.push_back(quadNode);
-			if (quadNode->IsCollidedObject()) {
-				this->collisionCheckList.push_back(quadNode);
-			}
-			return;
-		}
-		RecursiveDraw(drawRect, quadNode->GetLeftTop(), isDrawAllChildNode);
-		RecursiveDraw(drawRect, quadNode->GetRightTop(), isDrawAllChildNode);
-		RecursiveDraw(drawRect, quadNode->GetLeftBottom(), isDrawAllChildNode);
-		RecursiveDraw(drawRect, quadNode->GetRightBottom(), isDrawAllChildNode);
-		return;
+		
 
 	}
 }

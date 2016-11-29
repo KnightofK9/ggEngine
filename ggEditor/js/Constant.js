@@ -37,5 +37,95 @@ var Constant = new function(){
             width:45,
             height:50
         }
+    };
+    this.ENEMY_DICT = {
+        "AxeKnight":{
+            name:this.RESOURCE_PATH+"AxeKnight.png",
+            frameWidth:16,
+            frameHeight:32,
+            numberOfFrame:3
+        },
+        "BatEnemy":{
+            name:this.RESOURCE_PATH+"BatEnemy.png",
+            frameWidth:16,
+            frameHeight:16,
+            numberOfFrame:4
+        },
+        "BonePillar":{
+            name:this.RESOURCE_PATH+"BonePillar.png",
+            frameWidth:16,
+            frameHeight:16,
+            numberOfFrame:4
+        },
+        "Boss":{
+            name:this.RESOURCE_PATH+"Boss.png",
+            frameWidth:32,
+            frameHeight:32,
+            numberOfFrame:4
+        },
+        "Ghost":{
+            name:this.RESOURCE_PATH+"Ghost.png",
+            frameWidth:16,
+            frameHeight:16,
+            numberOfFrame:2
+        },
+        "MedusaHead":{
+            name:this.RESOURCE_PATH+"MedusaHead.png",
+            frameWidth:16,
+            frameHeight:16,
+            numberOfFrame:2
+        }
+
+    };
+    this.ITEM_DICT = {
+        "Heart":{
+            name:this.RESOURCE_PATH+"Heart1.png"
+        },
+        "BigHeart":{
+            name:this.RESOURCE_PATH+"Heart2.png"
+        },
+        "HolyWater":{
+            name:this.RESOURCE_PATH+"Holy_water.png"
+        },
+        "InvincibilityPotion":{
+            name:this.RESOURCE_PATH+"invincibility_potion.png"
+        },
+        "MoneyBag100":{
+            name:this.RESOURCE_PATH+"MoneyBag100.png"
+        },
+        "MoneyBag400":{
+            name:this.RESOURCE_PATH+"MoneyBag400.png"
+        },
+        "MoneyBag700":{
+            name:this.RESOURCE_PATH+"MoneyBag700.png"
+        },
+        "PotRoast":{
+            name:this.RESOURCE_PATH+"PotRoast.png"
+        },
+        "StopWatch":{
+            name:this.RESOURCE_PATH+"StopWatch.png"
+        },
+        "TripleShot":{
+            name:this.RESOURCE_PATH+"TripleShot.png"
+        },
+        "WhipUpgrade":{
+            name:this.RESOURCE_PATH+"WhipUpgrade.png"
+        },
+        "Axe":{
+            name:this.RESOURCE_PATH+"Axe.png"
+        },
+        "Boomerang":{
+            name:this.RESOURCE_PATH+"Boomerang.png"
+        },
+        "Cross":{
+            name:this.RESOURCE_PATH+"Cross.png"
+        },
+
+        "Dagger":{
+            name:this.RESOURCE_PATH+"Dagger.png"
+        },
+        "DoubleShot":{
+            name:this.RESOURCE_PATH+"DoubleShot.png"
+        }
     }
 };

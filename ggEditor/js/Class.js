@@ -193,6 +193,8 @@ function StaticTile() {
         }
     };
     this._destroy = function(){
+        my.hierarchyIdDict[this._hierarchyId] = null;
+        delete my.hierarchyIdDict[this._hierarchyId];
         if(this.parent != null) {
             for (var i = 0; i < this.parent._childList.length; i++) {
                 if (this.parent._childList[i] === this) {
@@ -201,7 +203,10 @@ function StaticTile() {
                 }
             }
         }
-    }
+        for(var i = 0; i<this._childList.length;i++){
+            this._childList[i].callDestroy();
+        }
+    };
     // this.prototype = new HierarchyObject();
     /**
      * Game object inheritance
@@ -210,7 +215,7 @@ function StaticTile() {
     // HierarchyObject.apply(this);
     this.type = "StaticTile";
     // this.prototype._name = this.type + this.prototype._hierarchyId;
-    this._name = this.type + this._hierarchyId;
+    this._name = this.type;
     this.x = 0;
     this.y = 0;
     this.width = 0;
@@ -227,7 +232,7 @@ function StaticTile() {
         for(var i = 0;i<this._level;i++){
             space+="&nbsp;&nbsp;";
         }
-        return space + this._name;
+        return space + this._name +this._hierarchyId;
     };
     this.callDestroy = function(){
         var tileMap = this.parent._item;
@@ -257,12 +262,15 @@ function TileMap() {
     this._remove = function(hObject){
         for(var i = 0;i<this._childList.length;i++){
             if(this._childList[i] === hObject){
+                hObject.callDestroy();
                 this._childList.splice(i,1);
                 break;
             }
         }
     };
     this._destroy = function(){
+        my.hierarchyIdDict[this._hierarchyId] = null;
+        delete my.hierarchyIdDict[this._hierarchyId];
         if(this.parent != null) {
             for (var i = 0; i < this.parent._childList.length; i++) {
                 if (this.parent._childList[i] === this) {
@@ -271,12 +279,15 @@ function TileMap() {
                 }
             }
         }
-    }
+        for(var i = 0; i<this._childList.length;i++){
+            this._childList[i].callDestroy();
+        }
+    };
     // HierarchyObject.apply(this);
     // this.prototype = new HierarchyObject();
     this.type = "TileMap";
     // this.prototype._name = this.type + this.prototype._hierarchyId;
-    this._name = this.type + this._hierarchyId;
+    this._name = this.type;
     this.x = 0;
     this.y = 0;
     this.width = 0;
@@ -293,7 +304,7 @@ function TileMap() {
         for(var i = 0;i<this._level;i++){
             space+="&nbsp;&nbsp;";
         }
-        return space + this._name;
+        return space + this._name +this._hierarchyId;
     };
     this.addTypeTile = function(hTile){
         //TO DO: put tile into game here
@@ -317,14 +328,139 @@ function TileMap() {
         return false;
     }
 }
+
 function Group() {
+    /**
+     * HierarchyObject
+     */
+    this._name = "";
+    this._hierarchyId = my.hierarchyIdCount;
+    my.hierarchyIdCount+=1;
+    my.hierarchyIdDict[this._hierarchyId] = this;
+    this._parent = null;
+    this._childList = [];
+    this._item = null;
+    this._level = 0;
+    this._add = function(hObject){
+        this._childList.push(hObject);
+        hObject._parent = this;
+        hObject._level = this._level + 1;
+    };
+    this._remove = function(hObject){
+        for(var i = 0;i<this._childList.length;i++){
+            if(this._childList[i] === hObject){
+                this._childList.splice(i,1);
+                break;
+            }
+        }
+    };
+    this._destroy = function(){
+        my.hierarchyIdDict[this._hierarchyId] = null;
+        delete my.hierarchyIdDict[this._hierarchyId];
+        if(this.parent != null) {
+            for (var i = 0; i < this.parent._childList.length; i++) {
+                if (this.parent._childList[i] === this) {
+                    this.parent._childList.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        for(var i = 0; i<this._childList.length;i++){
+            this._childList[i].callDestroy();
+        }
+    };
+    this.getName = function(){
+        var space = "";
+        for(var i = 0;i<this._level;i++){
+            space+="&nbsp;&nbsp;";
+        }
+        return space + this._name +this._hierarchyId;
+    };
+    /**
+     * End HierarchyObject
+     */
     this.type = "Group";
     this.x = 0;
     this.y = 0;
-    this.objectList = [];
-    this.scale = new Vector(1, 1);
-    this.isUsedQuadTree = false;
+    this.callDestroy = function(){
+        var that = this;
+
+        this._destroy();
+        that._item.destroy();
+        return true;
+    };
+    this.addObject = function(sprite){
+        var hSprite = new Sprite();
+        hSprite._item = sprite;
+        hSprite._name = sprite._type;
+        hSprite.type = sprite._type;
+        hSprite.x = sprite.x;
+        hSprite.y = sprite.y;
+        this._add(hSprite);
+        return hSprite;
+    }
+
 }
+function Sprite(){
+    /**
+     * HierarchyObject
+     */
+    this._name = "";
+    this._hierarchyId = my.hierarchyIdCount;
+    my.hierarchyIdCount+=1;
+    my.hierarchyIdDict[this._hierarchyId] = this;
+    this._parent = null;
+    this._childList = [];
+    this._item = null;
+    this._level = 0;
+    this._add = function(hObject){
+        this._childList.push(hObject);
+        hObject._parent = this;
+        hObject._level = this._level + 1;
+    };
+    this._remove = function(hObject){
+        for(var i = 0;i<this._childList.length;i++){
+            if(this._childList[i] === hObject){
+                this._childList.splice(i,1);
+                break;
+            }
+        }
+    };
+    this._destroy = function(){
+        my.hierarchyIdDict[this._hierarchyId] = null;
+        delete my.hierarchyIdDict[this._hierarchyId];
+        if(this.parent != null) {
+            for (var i = 0; i < this.parent._childList.length; i++) {
+                if (this.parent._childList[i] === this) {
+                    this.parent._childList.splice(i, 1);
+                    break;
+                }
+            }
+            for(var i = 0; i<this._childList.length;i++){
+                this._childList[i].callDestroy();
+            }
+        }
+    };
+    this.getName = function(){
+        var space = "";
+        for(var i = 0;i<this._level;i++){
+            space+="&nbsp;&nbsp;";
+        }
+        return space + this._name +this._hierarchyId;
+    };
+    /**
+     * End HierarchyObject
+     */
+    this.type = "";
+    this.x = 0;
+    this.y = 0;
+    this.callDestroy = function(){
+        this._item.destroy();
+        this._destroy();
+        return true;
+    }
+}
+
 function State() {
     this.type = "State";
     this.name = "";

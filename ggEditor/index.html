@@ -23,7 +23,6 @@
     <script type="text/javascript" src="js/Core/contextMenu.js"></script>
 
 
-
     <script type="text/javascript" src="js/Class.js"></script>
     <script type="text/javascript" src="js/TileMapManager.js"></script>
     <script type="text/javascript" src="js/ObjectList.js"></script>
@@ -57,19 +56,19 @@
     <!--<button type="button" class="btn btn-primary" id="btn-export-tile-map">Export Tile Map</button>-->
 
     <div id="gg-tool-bar">
-        <button  id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default">
+        <button id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default">
             <i class="glyphicon glyphicon-file"></i> New Scene
         </button>
         <button id="btn-net-tile-set" onclick="createNewTileSet()" class="btn btn-default">
             <i class="glyphicon glyphicon-list-alt"></i> New Tile Set
         </button>
-        <button  id="btn-export-tile-map" class="btn btn-default">
+        <button id="btn-export-tile-map" class="btn btn-default">
             <i class="glyphicon glyphicon-save"></i> Export Tile Map
         </button>
-        <button  class="btn btn-default">
+        <button class="btn btn-default">
             <i class="glyphicon glyphicon-move"></i> Move
         </button>
-        <button  class="btn btn-default">
+        <button class="btn btn-default">
             <i class="glyphicon glyphicon-remove"></i> Remove
         </button>
     </div>
@@ -99,7 +98,9 @@
                 <div class="just-padding">
 
                     <div id="gg-hierarchy-list" class="list-group list-group-root well">
-
+                        <div style="display: none" onclick="hierarchyEditor.onSelectLineClick(0)" id="hierarchy-0"><a class="list-group-item">
+                            &nbsp;&nbsp;Game<i onclick="hierarchyEditor.handleRemoveClick(0)"
+                                                   class="glyphicon glyphicon-remove gg-hierarchy-delete"></i></a></div>
 
                     </div>
 
@@ -116,7 +117,9 @@
         <div id="gg-map-panel" class="panel panel-default">
             <div id="gg-tool-tab">
                 <ul class="nav nav-tabs">
-                    <li id="gg-tool-map-panel-nav-tab" class="active"><a href="#" onclick='switchToTab("gg-tool-map-panel")' >Tile Set</a></li>
+                    <li id="gg-tool-map-panel-nav-tab" class="active"><a href="#"
+                                                                         onclick='switchToTab("gg-tool-map-panel")'>Tile
+                        Set</a></li>
                     <li id="gg-tool-object-list-nav-tab"><a href="#" onclick='switchToTab("gg-tool-object-list")'>Object
                         List</a></li>
                 </ul>
@@ -142,23 +145,33 @@
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu" id="gg-object-list-list" role="menu"
                         aria-labelledby="gg-map-tile-set-select">
-                        <li role="presentation"><a role="menuitem" onclick='selectObjectList("gg-object-tile")' href="#">Tile</a></li>
-                        <li role="presentation"><a role="menuitem" onclick='selectObjectList("gg-object-character")' href="#">Character</a></li>
-                        <li role="presentation"><a role="menuitem" onclick='selectObjectList("gg-object-object")' href="#">Object</a></li>
+                        <li role="presentation"><a role="menuitem" onclick='selectObjectList("gg-object-tile")'
+                                                   href="#">Tile</a></li>
+                        <li role="presentation"><a role="menuitem" onclick='selectObjectList("gg-object-character")'
+                                                   href="#">Character</a></li>
+                        <li role="presentation"><a role="menuitem" onclick='selectObjectList("gg-object-object")'
+                                                   href="#">Object</a></li>
                     </ul>
                 </div>
                 <div id="gg-object-panel">
                     <div id="gg-object-tile">
                         <select id="gg-object-tile-picker" class="image-picker">
                             <!--<option data-img-src="img/01.png" data-img-class="first" data-img-alt="Page 1" value="1">  StaticTile  </option>-->
-                            <option data-img-src="Resource/Resources/Boomerang.png"  data-img-class="custom" data-img-alt="StaticTile" data-img-label="StaticTile" style="width:10px;height:10px" value="0">   </option>
+                            <option data-img-src="Resource/Resources/Boomerang.png" data-img-class="custom"
+                                    data-img-alt="StaticTile" data-img-label="StaticTile" style="width:10px;height:10px"
+                                    value="0"></option>
                         </select>
                     </div>
                     <div id="gg-object-character">
+                        <select id="gg-object-char-picker" class="image-picker">
+                            <!--<option data-img-src="img/01.png" data-img-class="first" data-img-alt="Page 1" value="1">  StaticTile  </option>-->
 
+                        </select>
                     </div>
                     <div id="gg-object-object">
-
+                        <select id="gg-object-item-picker" class="image-picker">
+                            <!--<option data-img-src="img/01.png" data-img-class="first" data-img-alt="Page 1" value="1">  StaticTile  </option>-->
+                        </select>
                     </div>
                 </div>
             </div>
@@ -208,6 +221,32 @@
         $("#btn-export-tile-map").on('click', exportQuadTree);
 
     });
+    function showYesNoDialog(title, body, callback) {
+        BootstrapDialog.show({
+            closable: true,
+            title: title,
+            message: body
+            ,
+            onshow: function (dialogRef) {
+
+            },
+            buttons: [{
+                label: 'Yes',
+                cssClass: 'btn-primary',
+                action: function (dialogRef) {
+                    dialogRef.close();
+                    callback(true);
+                }
+            }, {
+                label: 'No',
+                action: function (dialogRef) {
+                    dialogRef.close();
+                    callback(false);
+                }
+            }]
+        });
+    }
+
     function initSceneEditor() {
         BootstrapDialog.show({
             closable: true,
@@ -312,9 +351,9 @@
                 break;
         }
     }
-    function selectObjectList(objectListName){
-        $("#gg-object-panel > div").css("display","none");
-        $("#"+objectListName).css("display","block");
+    function selectObjectList(objectListName) {
+        $("#gg-object-panel > div").css("display", "none");
+        $("#" + objectListName).css("display", "block");
     }
     function createTileSetFromDialog(dialogRef) {
         var id = (dialogRef.getModalBody().find('#dialog-text').val());

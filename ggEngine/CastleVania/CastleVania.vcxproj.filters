@@ -49,6 +49,9 @@
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{446c3ce0-00b7-4996-b569-6b282afbc238}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{0fbf29dc-071d-4cea-b591-097f128b1ea9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -178,6 +181,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StoryState.cpp">
+    <ClCompile Include="EnemyBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -319,6 +323,11 @@
     </ClInclude>
     <ClInclude Include="StoryState.h">
       <Filter>Header Files</Filter>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

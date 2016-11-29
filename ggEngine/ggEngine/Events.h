@@ -22,6 +22,7 @@ namespace ggEngine {
 		std::function<void(GameObject*, EventArg)> onMoveComplete;
 		std::function<void(GameObject*, EventArg)> movementCallback;
 		std::function<void(GameObject*, AnimationArg)> onAnimationCompleted;
+		
 		bool enable;
 	private:
 		Game *game;

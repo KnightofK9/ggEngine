@@ -30,26 +30,24 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var quadId = 0;
     var remaingTileToupdate = [];
     var currentTileType = "";
+    var currentPickName = "";
     var groupList = [];
     var hierachyGrouplist = [];
     var currentPickTile = "";
+    var mouseSprite = null;
+
+    var isBlockingClick = false;
+
+    var currentSelectHGroup = null;
+
+    var mouseGroup = null;
+
     this.getCurrentLayer = function(){
         return currentLayer;
     };
     var createGroup = function(groupName){
-        var group = game.add.group();
-        group.name = groupName;
+        hierarchyEditor.add.group(groupName);
 
-        var hierachyGroup = hierarchyEditor.addObjectToHierarchy(groupName,group);
-        group.callDestroy = function(){
-            groupList.splice(groupList.indexOf(group),1);
-            hierachyGrouplist.splice(groupList.indexOf(hierachyGroup),1);
-            this.destroy();
-            return true;
-        };
-        groupList.push(group);
-        hierachyGrouplist.push(group);
-        hierarchyEditor.updateHierarchy();
     };
     this.showCreateGroup = function(){
         BootstrapDialog.show({
@@ -134,9 +132,12 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     var resetPick = function(){
         currentTileType = "";
         currentPickTile = "";
+        currentPickName = "";
+        if(mouseSprite!=null) mouseSprite.destroy();
+        mouseSprite = null;
         // currentLayer = null;
         currentTile = null;
-    }
+    };
     var initPreloadList = function(){
         var preloadList = [];
         if(layerList.length>0){
@@ -187,6 +188,17 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
             }
         }
 
+        for(var key in Constant.ITEM_DICT){
+            if(Constant.ITEM_DICT.hasOwnProperty(key)){
+                game.load.image(key, Constant.ITEM_DICT[key].name);
+            }
+        }
+        for(var key in Constant.ENEMY_DICT){
+            if(Constant.ENEMY_DICT.hasOwnProperty(key)){
+                game.load.spritesheet(key, Constant.ENEMY_DICT[key].name,Constant.ENEMY_DICT[key].frameWidth,Constant.ENEMY_DICT[key].frameHeight,Constant.ENEMY_DICT[key].numberOfFrame);
+            }
+        }
+
     };
     this.create = function(){
         ggConsole.log("Phaser load completed!");
@@ -195,10 +207,12 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         //backgroundSprite.tileHheight = tileHeight;
         var updateGroup = game.add.group();
         updateGroup.update = function(){
-            if(remaingTileToupdate.length){
+            if(remaingTileToupdate.length > 0){
                 var tile = remaingTileToupdate.pop();
                 that.pickTile(tile.tileSetKey,tile.tileId);
                 map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+            }else{
+                this.destroy();
             }
         };
         game.stage.backgroundColor = "#4488AA";
@@ -240,6 +254,10 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
 
 
         if(json) this.importState(json);
+
+
+        mouseGroup = game.add.group();
+
     };
 
     var initTileMapAsJson = function(){
@@ -483,6 +501,29 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
     this.reset = function(){
         hierarchyId = 0;
     };
+
+    var changeMapTileSetArray = function(tileSetKey){
+        map.tiles = [];
+        var tileSet = Constant.TILE_SET_DICT[tileSetKey];
+        var currentTileSetId = map.getTilesetIndex(tileSetKey);
+        for(var i = 0;i<tileSet.tileList.length;i++){
+            map.tiles.push([tileSet.tileList[i].x,tileSet.tileList[i].y,currentTileSetId]);
+        }
+    };
+
+
+
+    this.pickItem = function(itemKey){
+        resetPick();
+        currentPickTile = "ItemPick";
+        currentPickName = itemKey;
+        mouseSprite = game.add.sprite(game.input.activePointer.worldX,game.input.activePointer.worldY,itemKey);
+        if(Constant.ENEMY_DICT.hasOwnProperty(itemKey)){
+            var walk = mouseSprite.animations.add('walk');
+            mouseSprite.animations.play('walk', 24, true);
+        }
+
+    };
     this.pickTypeTile = function(type){
         resetPick();
         currentPickTile = "TilePick";
@@ -491,6 +532,9 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
                 currentTileType = type;
                 break;
         }
+    };
+    this.selectGroup = function(hGroup){
+        currentSelectHGroup = hGroup;
     };
     this.pickTile = function(tileSetKey, tileId) {
         resetPick();
@@ -526,24 +570,60 @@ var EditState = function(name, game,tileWidth, tileHeight, quadNodeWidth, quadNo
         //var tile = new Phaser.Tile(currentLayer,tileId,tile.x,tile.y,tile.width,tile.height);
         currentTile = tileId;
     };
-    var changeMapTileSetArray = function(tileSetKey){
-        map.tiles = [];
-        var tileSet = Constant.TILE_SET_DICT[tileSetKey];
-        var currentTileSetId = map.getTilesetIndex(tileSetKey);
-        for(var i = 0;i<tileSet.tileList.length;i++){
-            map.tiles.push([tileSet.tileList[i].x,tileSet.tileList[i].y,currentTileSetId]);
-        }
-    };
     var updateMarker = function(pointer,event) {
+        switch(currentPickTile){
+            case "ItemPick":
+                mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
+                mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                break;
+            case "TilePick":
+            default:
+                if(currentLayer!=null){
+                    marker.x = currentLayer.getTileX(game.input.activePointer.worldX) * tileWidth;
+                    marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
 
-        if(currentLayer!=null){
-            marker.x = currentLayer.getTileX(game.input.activePointer.worldX) * tileWidth;
-            marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
-
+                }
         }
+
         if (game.input.mousePointer.isDown)
         {
+            if(isBlockingClick) return;
             switch(currentPickTile){
+                case "ItemPick":
+                    var key = currentPickName;
+                    var targetObject = game.input.mousePointer.targetObject;
+                    if(targetObject!= null && targetObject.type && targetObject.type == key){
+                        return;
+                    }
+                    isBlockingClick = true;
+                    var posX = game.input.activePointer.worldX;
+                    var posY = game.input.activePointer.worldY;
+                    var setSprite = function(){
+                        if(currentSelectHGroup === null){
+                            ggConsole.alertNotification("Alert","No group has been selected!");
+                            isBlockingClick = false;
+                            return;
+                        }
+                        var sprite = game.add.sprite(posX,posY,currentPickName,currentSelectHGroup._item);
+                        sprite._type = currentPickName;
+                        if(Constant.ENEMY_DICT.hasOwnProperty(currentPickName)){
+                            var info = Constant.ENEMY_DICT[currentPickName];
+                            var walk = sprite.animations.add('walk');
+                            sprite.animations.play('walk', 24, true);
+                            sprite.x -= info.frameWidth;
+                            sprite.y -= info.frameHeight;
+                        }else{
+                            sprite.x -= sprite.width;
+                            sprite.y -= sprite.height;
+                        }
+                        hierarchyEditor.add.sprite(sprite,currentSelectHGroup);
+
+
+
+                        isBlockingClick = false;
+                    };
+                    window.setTimeout(setSprite,150);
+                    break;
                 case "TilePick":
                     if(currentTileType !== ""){
                     switch (currentTileType){
