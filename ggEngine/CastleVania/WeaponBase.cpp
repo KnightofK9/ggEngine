@@ -95,11 +95,11 @@ void WeaponBase::FireHorizontal(bool isLeft)
 		this->SetScale(-1, 1);
 	}
 	Vector direction = GetHorizontalDirection(isLeft);
-	this->body->AddForce(throwForce, direction);
+	this->body->AddForce(this->throwForce, direction);
 }
 
 void WeaponBase::FireAsThrow(bool isLeft)
 {
 	Vector direction = GetThrowDirection(isLeft);
-	this->body->AddForce(throwForce, direction);
+	this->body->AddForce(this->throwForce, direction);
 }
