@@ -17,6 +17,10 @@ void CharacterBase::MoveRight()
 {
 }
 
+void CharacterBase::Attack()
+{
+}
+
 void CharacterBase::ChangeFacingDirection(bool isLeft)
 {
 	this->isLeft = isLeft;

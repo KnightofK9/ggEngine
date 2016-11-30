@@ -2,8 +2,12 @@
 #include "CVGame.h"
 #include "CVAdd.h"
 #include "ItemManager.h"
+#include "WeaponManager.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
+	this->weaponManager = cvGame->weaponManager;
+
+
 	this->tag = ObjectType_Simon;
 	this->health = 16;
 	this->maxHealth = 16;
@@ -107,6 +111,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			if (e.isPress(DIK_E))
 				this->StandAttack();
 		}
+		if (e.isPress(DIK_Q)) {
+			Attack();
+		}
 	};
 
 	shot = 0;
@@ -127,6 +134,11 @@ void Simon::SetHealth(int heath)
 	if (this->health > this->maxHealth) this->health = this->maxHealth;
 	infoPanel->SetPlayerHealth(this->health);
 	if (this->health == 0) Death();
+}
+
+void Simon::Attack()
+{
+	this->weaponManager->AddWeaponDagger(this->position.x, this->position.y, isLeft, this->parentObject);
 }
 
 void Simon::Idle()

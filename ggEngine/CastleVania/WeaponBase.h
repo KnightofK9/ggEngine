@@ -23,5 +23,5 @@ protected:
 	virtual void FireHorizontal(bool isLeft);
 	virtual void FireAsThrow(bool isLeft);
 	CVGame *cvGame;
-	double throwForce = 100.0;
+	double throwForce = 1.0;
 };

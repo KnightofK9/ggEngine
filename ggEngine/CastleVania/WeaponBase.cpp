@@ -7,7 +7,7 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame->G
 	this->cvGame->physics->EnablePhysics(this);
 	this->body->CreateRectangleRigidBody(this->image->GetWidth(), this->image->GetHeight());
 	this->body->allowGravity = true;
-
+	this->body->syncBounds = false;
 
 	this->tag = ObjectType_Weapon;
 	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
@@ -91,6 +91,9 @@ Vector WeaponBase::GetThrowDirection(bool isLeft)
 
 void WeaponBase::FireHorizontal(bool isLeft)
 {
+	if (isLeft) {
+		this->SetScale(-1, 1);
+	}
 	Vector direction = GetHorizontalDirection(isLeft);
 	this->body->AddForce(throwForce, direction);
 }

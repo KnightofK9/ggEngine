@@ -2,7 +2,7 @@
 
 WeaponDagger::WeaponDagger(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvGame,image)
 {
-
+	this->body->allowGravity = false;
 }
 
 WeaponDagger::~WeaponDagger()

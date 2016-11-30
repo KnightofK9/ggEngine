@@ -6,6 +6,7 @@
 using namespace ggEngine;
 class CVGame;
 class ItemBase;
+class WeaponManager;
 class Simon :public CharacterBase {
 public:
 	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -16,6 +17,7 @@ public:
 	void SetMaxHealth(int maxHealth) { this->maxHealth = maxHealth; }
 	int GetMaxHealth() { return this->maxHealth; }
 
+	void Attack() override;
 
 	void Idle();
 	void MoveLeft();
@@ -59,4 +61,6 @@ private:
 	int pPoint;
 	
 	int shot;
+
+	WeaponManager *weaponManager = nullptr;
 };

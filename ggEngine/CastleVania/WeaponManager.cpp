@@ -18,7 +18,9 @@ WeaponDagger* WeaponManager::AddWeaponDagger(double x, double y, bool isLeft, Gr
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::DAGGER_TEXTURE);
 	WeaponDagger *weaponDagger = new WeaponDagger(this->cvGame, inf);
 	weaponDagger->SetPosition(x, y);
+	
 	weaponDagger->Active();
+	weaponDagger->FireWeapon(isLeft);
 	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
 	group->AddDrawObjectToList(weaponDagger);
 	return weaponDagger;

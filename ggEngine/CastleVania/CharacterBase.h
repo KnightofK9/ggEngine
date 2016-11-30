@@ -11,6 +11,7 @@ public:
 
 	virtual void MoveLeft();
 	virtual void MoveRight();
+	virtual void Attack();
 protected:
 	void ChangeFacingDirection(bool isLeft);
 	bool isLeft = true;
