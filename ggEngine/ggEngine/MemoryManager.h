@@ -17,7 +17,7 @@ namespace ggEngine {
 		void AddObjectToRemoveQueue(GameObject *gameObject);
 	private:
 		Game *game;
-		std::list<GameObject*> removeQueue;
-		//std::queue<GameObject*> removeQueue;
+		//std::list<GameObject*> removeQueue;
+		std::queue<GameObject*> removeQueue;
 	};
 }
