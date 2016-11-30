@@ -11,8 +11,7 @@ namespace ggEngine {
 	class Events :public GGObject {
 	public:
 		Events(Game *game,GameObject *go);
-		~Events();
-		void Destroy();
+		virtual ~Events();
 		std::function<void(GameObject*, KeyBoardEventArg)> onKeyPress;
 		std::function<void(GameObject*, MouseEventArg)> onMousePress;
 		std::function<void(GameObject*, ColliderArg)> onWorldBounds;

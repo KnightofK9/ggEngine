@@ -12,7 +12,7 @@ private:
 
 public:
 	AudioInfo(std::string fileName = "");
-	~AudioInfo();
+	virtual ~AudioInfo();
 
 	inline const XAUDIO2_BUFFER* GetBuffer() { return &buffer; }
 	inline const DWORD AudioInfo::GetChunkSize();

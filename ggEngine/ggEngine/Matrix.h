@@ -6,7 +6,7 @@ namespace ggEngine {
 	class Matrix :public D3DXMATRIX {
 	public:
 		Matrix() {};
-		~Matrix() {};
+		virtual ~Matrix() {};
 		Matrix(CONST D3DXMATRIX &mat);
 		Matrix(CONST FLOAT *mat);
 		Matrix(CONST D3DMATRIX &mat);

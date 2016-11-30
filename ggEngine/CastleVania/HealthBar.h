@@ -6,7 +6,7 @@ class CVGame;
 class HealthBar : public ScreenGroup {
 public:
 	HealthBar(CVGame *cvGame);
-	~HealthBar();
+	virtual ~HealthBar();
 	int GetHealth() { return this->currentHealth; }
 	void SetHealth(int currentHealth);
 	void SetEmptyHealthBar(Sprite *emptyHealthBar);

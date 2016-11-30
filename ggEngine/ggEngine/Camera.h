@@ -11,10 +11,9 @@ namespace ggEngine {
 	class Camera : public GGObject {
 	public:
 		Camera(Game *game, int width, int height,double x = 0, double y = 0, bool enableManualMove = false);
-		~Camera();
+		virtual ~Camera();
 		void Draw();
 		void Update();
-		void Destroy();
 		void SetScale(double x, double y);
 		void SetPoint(double x, double y);
 		Matrix GetTranslatedMatrix() { return this->translatedMatrix; }

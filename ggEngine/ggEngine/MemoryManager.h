@@ -1,13 +1,14 @@
 #pragma once
 #include "ComponentBase.h"
 #include <queue>
+#include <list>
 namespace ggEngine {
 	class Game;
 	class GameObject;
 	class MemoryManager : public ComponentBase {
 	public:
 		MemoryManager(Game *game);
-		~MemoryManager();
+		virtual ~MemoryManager();
 
 		// Inherited via ComponentBase
 		void Update(double dt) override;
@@ -16,6 +17,7 @@ namespace ggEngine {
 		void AddObjectToRemoveQueue(GameObject *gameObject);
 	private:
 		Game *game;
-		std::queue<GameObject*> removeQueue;
+		std::list<GameObject*> removeQueue;
+		//std::queue<GameObject*> removeQueue;
 	};
 }

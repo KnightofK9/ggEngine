@@ -12,7 +12,7 @@ ggEngine::TileSet::~TileSet()
 		delete (*it);
 	}
 	if (this->texture != nullptr) {
-		this->texture->Destroy();
+		delete this->texture;
 		this->texture = nullptr;
 	}
 }

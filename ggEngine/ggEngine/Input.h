@@ -20,7 +20,7 @@ namespace ggEngine
 		char keyStates[256]; // keyboard state buffer
 		Input(HWND *hWnd);
 		HWND *hWnd;
-		~Input();
+		virtual ~Input();
 		/// Keyboard
 		int InitKeyboard();
 		void PollKeyboard();

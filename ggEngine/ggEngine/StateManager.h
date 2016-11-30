@@ -11,8 +11,7 @@ namespace ggEngine {
 	class StateManager: public GGObject {
 	public:
 		StateManager(Game *game);
-		~StateManager();
-		void Destroy();
+		virtual ~StateManager();
 		bool Add(std::string key, State* State, bool autoStart = false);
 		bool Start(std::string key, bool clearWolrd, bool clearCache);
 		void SetCache(Cache *cache) { this->cache = cache; }

@@ -43,7 +43,7 @@ namespace ggEngine
 
 	public:
 		Sound(HWND hWnd, const char * filePath, SoundType type = SoundType_Sound, bool looping = false);
-		~Sound();
+		virtual ~Sound();
 
 		void Start();
 		void Pause();

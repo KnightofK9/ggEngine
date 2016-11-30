@@ -6,5 +6,5 @@ class CVGame;
 class StaticTile :public TileBase {
 public:
 	StaticTile(CVGame *cvGame, TileMap *tileMap, SpriteInfo *image);
-	~StaticTile();
+	virtual ~StaticTile();
 };

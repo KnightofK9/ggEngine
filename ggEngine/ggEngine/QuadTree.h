@@ -12,7 +12,7 @@ namespace ggEngine {
 	class QuadTree : public Group {
 	public:
 		QuadTree(Game *game);
-		~QuadTree();
+		virtual ~QuadTree();
 
 		void Update() override;
 		std::list<Body*> *GetActiveObject();

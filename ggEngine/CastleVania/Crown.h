@@ -6,7 +6,7 @@ using namespace ggEngine;
 class Crown : public ItemBase {
 public:
 	Crown(CVGame *cvgame, SpriteInfo *image);
-	~Crown();
+	virtual ~Crown();
 
 	void OnSimonContact(Simon *simon, ColliderArg e) override;
 private:

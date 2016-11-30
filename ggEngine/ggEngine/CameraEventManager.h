@@ -8,14 +8,13 @@ namespace ggEngine {
 	class CameraEventManager : public ComponentBase {
 	public:
 		CameraEventManager(Game *game);
-		~CameraEventManager();
-		void RemoveTracking(GameObject *go);
+		virtual ~CameraEventManager();
 		void Track(GameObject *go);
 		void Update(double dt) override;
 		void Reset() override;
 	private:
-		bool IsTracking(GameObject *go);
 		Game* game;
-		std::map<GameObject*, bool> trackingListCameraMap;
+		std::map<GameObject*, bool> *trackingListCameraMap;
+		
 	};
 }

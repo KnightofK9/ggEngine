@@ -3,7 +3,7 @@ namespace ggEngine {
 	class GGObject {
 	public:
 		GGObject();
-		~GGObject();
+		virtual ~GGObject();
 		virtual void Destroy(){
 			this->alive = false;
 		}

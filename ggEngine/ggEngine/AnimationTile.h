@@ -8,7 +8,7 @@ namespace ggEngine {
 	class AnimationTile : public Sprite {
 	public:
 		AnimationTile(Game *game, TileMap *tileMap);
-		~AnimationTile();
+		virtual ~AnimationTile();
 		void AddTileAnimation(SingleTile* singleTile);
 		void Draw();
 	private:

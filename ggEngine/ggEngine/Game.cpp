@@ -69,7 +69,8 @@ namespace ggEngine {
 	}
 	Game::~Game()
 	{
-		Destroy();
+		d3dManager->Destroy();
+		d3dManager = NULL;
 	}
 
 	void Game::ErrorCheck(int errorCode)
@@ -154,11 +155,7 @@ namespace ggEngine {
 		}
 	}
 
-	void Game::Destroy()
-	{
-		d3dManager->Destroy();
-		d3dManager = NULL;
-	}
+
 
 	void Game::GameCustomRender()
 	{
@@ -187,24 +184,24 @@ namespace ggEngine {
 			/*Physics update*/
 			physics->Update(dt);
 			cameraEventManager->Update(dt);
+			memoryManager->Update(dt);
 		}
 	}
 	
 	void Game::RunGroupUpdate(std::list<Group*> *groupList)
 	{
-		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end();) {
+		for (std::list<Group*>::iterator it = groupList->begin(); it != groupList->end();++it) {
 			if ((*it)->IsAlive()) {
 				std::list<Group*> *groupList = (*it)->GetGroupList();
 				(*it)->Update();
 				RunGroupUpdate(groupList);
-				++it;
 			}
-			else {
+			/*else {
 				std::list<Group*>::iterator tempIt = it;
 				++it;
 				delete ((*tempIt));
 				groupList->remove((*tempIt));
-			}
+			}*/
 		}
 	}
 	

@@ -6,7 +6,7 @@ using namespace ggEngine;
 class DaggerItem : public ItemBase {
 public:
 	DaggerItem(CVGame *cvgame, SpriteInfo *image);
-	~DaggerItem();
+	virtual ~DaggerItem();
 
 	void OnSimonContact(Simon *simon, ColliderArg e) override;
 private:

@@ -8,7 +8,7 @@ class EnemyBase;
 class WeaponBase : public CVSprite {
 public:
 	WeaponBase(CVGame *cvGame, SpriteInfo *image);
-	~WeaponBase();
+	virtual ~WeaponBase();
 
 	virtual void FireWeapon(bool isLeft);
 	virtual void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e);

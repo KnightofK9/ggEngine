@@ -6,7 +6,7 @@ using namespace ggEngine;
 class Cross : public ItemBase {
 public:
 	Cross(CVGame *cvgame, SpriteInfo *image);
-	~Cross();
+	virtual ~Cross();
 
 	void OnSimonContact(Simon *simon, ColliderArg e) override;
 private:

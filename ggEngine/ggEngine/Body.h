@@ -21,7 +21,7 @@ namespace ggEngine {
 	class Body :GGObject {
 	public:
 		Body(Game *game, GameObject * gameObject);
-		~Body();
+		virtual ~Body();
 		int width;
 		int height;
 		int orgWidth;
@@ -73,7 +73,6 @@ namespace ggEngine {
 
 		void Render(D3DCOLOR color = DEFAULT_COLOR, bool filled = false);
 		void Update();
-		void Destroy();
 		bool IsAlive() { return this->isAlive; }
 
 		void AddForce(double force, double angleInRadian);

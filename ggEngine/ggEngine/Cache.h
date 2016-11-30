@@ -12,8 +12,7 @@ namespace ggEngine {
 	class Cache:public GGObject {
 	public:
 		Cache(Game* game);
-		~Cache();
-		void Destroy();
+		virtual ~Cache();
 		void ClearAll();
 		bool CreateTexture(std::string key, std::string textureName, D3DCOLOR transColor = D3DCOLOR_RGBA(0, 0, 0, 255));
 		bool CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath, D3DCOLOR transColor = D3DCOLOR_RGBA(0, 0, 0, 255));

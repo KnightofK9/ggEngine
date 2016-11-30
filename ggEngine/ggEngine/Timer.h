@@ -7,8 +7,7 @@ namespace ggEngine {
 	class Timer:public GGObject {
 	public:
 		Timer(void);
-		~Timer(void);
-		void Destroy();
+		virtual ~Timer(void);
 		DWORD getTimer();
 		DWORD getStartTimeMillis();
 		void sleep(int ms);

@@ -6,7 +6,7 @@ namespace ggEngine {
 	class Grid : public GameObject {
 	public:
 		Grid(Game *game);
-		~Grid();
+		virtual ~Grid();
 		void SetCellWidth(int cellWidth) { this->cellWidth = cellWidth; }
 		void SetCellHeight(int cellHeight) { this->cellHeight = cellHeight; }
 		int GetCellWidth() { return this->cellWidth; }

@@ -6,7 +6,7 @@ using namespace ggEngine;
 class DoubleShot : public ItemBase {
 public:
 	DoubleShot(CVGame *cvgame, SpriteInfo *image);
-	~DoubleShot();
+	virtual ~DoubleShot();
 
 	void OnSimonContact(Simon *simon, ColliderArg e) override;
 private:

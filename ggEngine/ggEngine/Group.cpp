@@ -10,12 +10,14 @@ namespace ggEngine{
 		SetOpacityAffectByParent(true);
 	}
 	Group::~Group(){
-		for (std::list<Group*>::const_iterator it = groupList.begin(); it != groupList.end(); it++)
+		auto cloneGroup = std::list<Group*>(this->groupList);
+		for (auto it = cloneGroup.begin(); it != cloneGroup.end(); ++it)
 		{
 			delete *it;
 		}
 		groupList.clear();
-		for (std::list<GameObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
+		auto cloneGame = std::list<GameObject*>(this->drawList);
+		for (auto it = cloneGame.begin(); it != cloneGame.end(); ++it)
 		{
 			delete *it;
 		}
@@ -102,6 +104,11 @@ namespace ggEngine{
 	void Group::RemoveMask()
 	{
 		this->isUsedMask = false;
+	}
+
+	void Group::RemoveObjectFromList(GameObject *go)
+	{
+		this->drawList.remove(go);
 	}
 	
 }

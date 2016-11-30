@@ -9,7 +9,7 @@ private:
 	Sound* sound;
 public:
 	MenuState(Game *game);
-	~MenuState();
+	virtual ~MenuState();
 	void Init(); //Called after start a scene
 	void Preload(); //Called after int
 	void Create();//Called after preload complete

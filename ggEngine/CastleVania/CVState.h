@@ -9,7 +9,7 @@ class CVState : public State {
 public :
 	CVState(CVGame *game);
 	CVState(CVGame *game, std::string statePath);
-	~CVState();
+	virtual ~CVState();
 	virtual void Init() ; //Called after start a State
 	virtual void Preload() ; //Called after init
 	virtual void Create() ;//Called after preload complete

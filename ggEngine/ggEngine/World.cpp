@@ -4,6 +4,7 @@
 namespace ggEngine {
 	World::World(Game *game) : Group(game)
 	{
+		this->name = "World";
 		SetScale(1, 1);
 		SetPosition(0, 0);
 		this->worldPosition = Vector(0, 0);

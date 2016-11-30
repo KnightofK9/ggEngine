@@ -7,7 +7,7 @@ namespace ggEngine {
 		NiseVector(double f);
 		NiseVector(const D3DXVECTOR2 &v);
 		NiseVector();
-		~NiseVector();
+		virtual ~NiseVector();
 		void SetTransform(Matrix mat);
 	private:
 		double orgX, orgY;

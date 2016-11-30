@@ -10,7 +10,7 @@ namespace ggEngine {
 	class TweenManager : public ComponentBase {
 	public:
 		TweenManager(Game *game);
-		~TweenManager();
+		virtual ~TweenManager();
 		void Update(double deltaTime);
 		void AddTween(Tween* tween);
 		void Reset();

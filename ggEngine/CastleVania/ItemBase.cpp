@@ -14,7 +14,7 @@ ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame, image)
 			OnSimonContact(simon,e);
 		}
 	};
-	this->tag = ObjectType_Static;
+	this->tag = ObjectType_Item;
 	this->visible = false;
 	this->body->SetActive(false);
 }
@@ -23,6 +23,10 @@ ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame, image)
 
 ItemBase::~ItemBase()
 {
+	if (cvGame->simon != nullptr) {
+		cvGame->simon->body->RemoveCheckCollisionWith(this);
+	}
+	if (timeEvent != nullptr) timeEvent->Stop();
 }
 
 void ItemBase::SetLiveTime(unsigned int liveTime)
@@ -37,18 +41,9 @@ void ItemBase::CheckCollisionToSimon(Simon * simon)
 
 void ItemBase::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	
 	Destroy();
 }
 
-void ItemBase::Destroy()
-{
-	if (cvGame->simon != nullptr) {
-		cvGame->simon->body->RemoveCheckCollisionWith(this);
-	}
-	if (timeEvent != nullptr) timeEvent->Destroy();
-	GameObject::Destroy();
-}
 
 void ItemBase::Active()
 {

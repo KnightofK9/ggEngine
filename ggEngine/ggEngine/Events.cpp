@@ -1,5 +1,6 @@
 #include "Events.h"
-
+#include "Game.h"
+#include "EventManager.h"
 ggEngine::Events::Events(Game * game, GameObject * go)
 {
 	this->game = game;
@@ -9,8 +10,7 @@ ggEngine::Events::Events(Game * game, GameObject * go)
 
 ggEngine::Events::~Events()
 {
+	this->game->eventManager->RemoveEventFromAllManager(this->go);
 }
 
-void ggEngine::Events::Destroy()
-{
-}
+

@@ -39,7 +39,8 @@ namespace ggEngine {
 	}
 	Texture::~Texture()
 	{
-		Destroy();
+		if (texture != NULL)
+			texture->Release();
 	}
 	int Texture::GetWidth()
 	{
@@ -49,9 +50,5 @@ namespace ggEngine {
 	{
 		return info.Height;
 	}
-	void Texture::Destroy()
-	{
-		if (texture != NULL)
-			texture->Release();
-	}
+	
 }

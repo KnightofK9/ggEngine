@@ -6,8 +6,7 @@ namespace ggEngine {
 	class Animator:public GGObject {
 	public:
 		Animator(int startFrame, int endFrame, SpriteAnimation *spriteAnimation, std::string name, bool isLoop);
-		~Animator();
-		void Destroy();
+		virtual ~Animator();
 		void Reset();
 		int GetNextFrameIndex(bool forceGetNextFrame = false);
 		bool isFinished;

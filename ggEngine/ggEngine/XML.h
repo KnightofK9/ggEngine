@@ -18,7 +18,7 @@ namespace ggEngine {
 	class XML : public GGObject {
 	public:
 		XML(std::string path);
-		~XML();
+		virtual ~XML();
 		std::vector<AtlasSpriteInfo> GetSpriteList();
 		bool IsLoaded() { return !this->fileNotFound; }
 	private:

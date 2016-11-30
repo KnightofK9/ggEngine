@@ -39,10 +39,6 @@ namespace ggEngine {
 		}
 	}
 
-	void DrawManager::Destroy()
-	{
-		
-	}
 
 	void DrawManager::Update(double dt)
 	{
@@ -170,21 +166,20 @@ namespace ggEngine {
 
 	void DrawManager::DrawList(std::list<GameObject*> *drawObjectList,bool drawMask)
 	{
-		for (std::list<GameObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();) {
+		for (std::list<GameObject*>::iterator it = drawObjectList->begin(); it != drawObjectList->end();++it) {
 			if ((*it)->IsAlive()) {
 				(*it)->UpdateWorldPosition();
 				if (drawMask) {
 					(*it)->DrawRect();
 				}
 				else (*it)->Draw();
-				++it;
 			}
-			else {
+			/*else {
 				std::list<GameObject*>::iterator tempIt = it;
 				++it;
 				delete (*tempIt);
 				drawObjectList->erase(tempIt);
-			}
+			}*/
 		}
 	}
 

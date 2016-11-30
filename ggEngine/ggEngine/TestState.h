@@ -4,7 +4,7 @@ using namespace ggEngine;
 class TestState : public State{
 public:
 	TestState(Game *game);
-	~TestState();
+	virtual ~TestState();
 	void Init(); //Called after start a scene
 	void Preload(); //Called after int
 	void Create();//Called after preload complete

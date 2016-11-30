@@ -8,7 +8,7 @@ namespace ggEngine {
 	public:
 		SpriteInfo(Texture *texture);
 		SpriteInfo(Texture *atlas, float x, float y, float width, float height);
-		~SpriteInfo();
+		virtual ~SpriteInfo();
 		float GetWidth() { return this->width; }
 		float GetHeight() { return this->height; }
 		RECT GetRect() { return this->srcRect; }

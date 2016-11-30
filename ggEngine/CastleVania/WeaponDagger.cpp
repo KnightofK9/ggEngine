@@ -7,7 +7,7 @@ WeaponDagger::WeaponDagger(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvG
 
 WeaponDagger::~WeaponDagger()
 {
-
+	//g_debug.Log("Deleting WeaponDagger");
 }
 
 

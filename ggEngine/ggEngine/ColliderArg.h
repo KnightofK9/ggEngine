@@ -8,7 +8,7 @@ namespace ggEngine {
 	class ColliderArg :public EventArg {
 	public:
 		ColliderArg();
-		~ColliderArg();
+		virtual ~ColliderArg();
 		bool overLapped = false;
 		bool bound = false;
 		double remainingTime = 0;

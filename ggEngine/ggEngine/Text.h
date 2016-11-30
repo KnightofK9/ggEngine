@@ -37,7 +37,7 @@ namespace ggEngine {
 		//Modify the constructor as you want, but must have those properties
 		Text(Game *game,Font *font, double x, double width, double height, double y, std::string text, Style style);
 		//Release the font here
-		~Text();
+		virtual ~Text();
 		//You MUST call the base GameObject::Destroy() in here. Destroy just set alive to false for collector take care
 		void SetFont(Font *font) { this->font = font; }
 		//Called by DrawManager, the translatedWorldMatrix is Camera Translated Matrix, you MUST multi matrix of the draw with Camera Matrix

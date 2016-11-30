@@ -4,30 +4,31 @@
 #include "Game.h"
 #include "Camera.h"
 #include "Body.h"
+#include "Game.h"
+#include "EventManager.h"
 ggEngine::CameraEventManager::CameraEventManager(Game * game)
 {
 	this->game = game;
+	this->trackingListCameraMap = &game->eventManager->trackingListCameraMap;
 }
 ggEngine::CameraEventManager::~CameraEventManager()
 {
 }
-void ggEngine::CameraEventManager::RemoveTracking(GameObject * go)
-{
-	this->trackingListCameraMap.erase(go);
-}
+
 void ggEngine::CameraEventManager::Track(GameObject * go)
 {
 	Rect cameraRect = this->game->camera->GetNormalRect();
 	Rect ojectRect = (go)->GetRect();
 	Rect r;
 	bool isInCamera = Rect::intersect(r, cameraRect, ojectRect);
-	this->trackingListCameraMap[go] = isInCamera;
+	(*this->trackingListCameraMap)[go] = isInCamera;
 }
 void ggEngine::CameraEventManager::Update(double dt)
 {
 	Rect cameraRect = this->game->camera->GetNormalRect();
-	for (auto it = this->trackingListCameraMap.begin(); it != this->trackingListCameraMap.end();++it) {
+	for (auto it = this->trackingListCameraMap->begin(); it != this->trackingListCameraMap->end();++it) {
 		GameObject *gameObject = (*it).first;
+		if (!gameObject->IsAlive()) continue;
 		Rect ojectRect = gameObject->GetRect();
 		Rect r;
 		bool wasInCamera = (*it).second;
@@ -51,16 +52,5 @@ void ggEngine::CameraEventManager::Update(double dt)
 
 void ggEngine::CameraEventManager::Reset()
 {
-	this->trackingListCameraMap.clear();
-}
-
-bool ggEngine::CameraEventManager::IsTracking(GameObject * go)
-{
-	auto it = this->trackingListCameraMap.find(go);
-	bool isFound = false;
-	if (it != this->trackingListCameraMap.end())
-	{
-		isFound = true;
-	}
-	return isFound;
+	this->trackingListCameraMap->clear();
 }

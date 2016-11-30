@@ -5,7 +5,7 @@
 class IntroState : public CVState {
 public:
 	IntroState(CVGame *game);
-	~IntroState();
+	virtual ~IntroState();
 	void Init(); //Called after start a scene
 	void Preload(); //Called after int
 	void Create();//Called after preload complete

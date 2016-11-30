@@ -10,7 +10,7 @@ class WeaponManager;
 class Simon :public CharacterBase {
 public:
 	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
-	~Simon();
+	virtual ~Simon();
 	void SetHealth(int heath);
 	int GetHealth() { return this->health; }
 	

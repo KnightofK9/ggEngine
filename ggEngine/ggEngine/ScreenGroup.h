@@ -6,7 +6,7 @@ namespace ggEngine {
 	class ScreenGroup : public Group {
 	public:
 		ScreenGroup(Game *game);
-		~ScreenGroup();
+		virtual ~ScreenGroup();
 		virtual void AddDrawObjectToList(GameObject* drawObject) override;
 	};
 }

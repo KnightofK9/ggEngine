@@ -49,14 +49,11 @@ namespace ggEngine {
 
 	D3DManager::~D3DManager() 
 	{
-		Destroy();
-	}
-
-	void D3DManager::Destroy()
-	{
 		if (d3d != NULL) { d3d->Release(); d3d = NULL; }
 		if (d3ddv != NULL) { d3ddv->Release(); d3ddv = NULL; }
 	}
+
+
 
 
 

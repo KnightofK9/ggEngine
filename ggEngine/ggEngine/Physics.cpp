@@ -116,20 +116,19 @@ namespace ggEngine {
 	}
 	void Physics::UpdateBody()
 	{
-		for (auto it = this->bodyList.begin(); it != this->bodyList.end();) {
+		for (auto it = this->bodyList.begin(); it != this->bodyList.end();++it) {
 			if ((*it)->IsAlive()) {
 				if ((*it)->IsEnable()) {
 					((*it))->AddListCheckCollisionTo(this->collisionList);
 					(*it)->Update();
 				}
-				++it;
 			}
-			else {
+			/*else {
 				std::list<Body*>::iterator tempIt = it;
 				++it;
 				delete (*tempIt);
 				bodyList.erase(tempIt);
-			}
+			}*/
 		}
 	}
 }

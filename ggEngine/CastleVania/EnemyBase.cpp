@@ -16,10 +16,6 @@ void EnemyBase::OnSimonContact(Simon * simon, ColliderArg e)
 {
 }
 
-void EnemyBase::Destroy()
-{
-}
-
 void EnemyBase::Active()
 {
 }

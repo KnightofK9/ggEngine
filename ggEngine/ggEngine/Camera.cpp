@@ -92,9 +92,6 @@ namespace ggEngine {
 			point = this->follow->worldPosition;
 		}
 	}
-	void Camera::Destroy()
-	{
-	}
 	void Camera::SetScale(double x, double y)
 	{
 		this->scale = Vector(x, y);

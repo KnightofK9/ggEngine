@@ -6,5 +6,5 @@ class CVGame;
 class TileBase :public SingleTile,public CVObject {
 public:
 	TileBase(CVGame *cvGame, TileMap *tileMap, SpriteInfo *image);
-	~TileBase();
+	virtual ~TileBase();
 };

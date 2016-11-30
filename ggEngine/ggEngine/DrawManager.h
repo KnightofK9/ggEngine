@@ -28,8 +28,7 @@ namespace ggEngine {
 	class DrawManager:public ComponentBase {
 	public:
 		DrawManager(Game *game, Camera* camera);
-		~DrawManager();
-		void Destroy();
+		virtual ~DrawManager();
 		void Update(double dt) override;
 		void Reset() override;
 

@@ -12,8 +12,7 @@ namespace ggEngine {
 	class D3DManager :public ComponentBase {
 	public:
 		D3DManager(Game *game, HWND window, int width, int height, D3DCOLOR backgroundColor, bool isWindowed);
-		~D3DManager();
-		void Destroy();
+		virtual ~D3DManager();
 		void Update(double dt) override;
 		void Reset() override;
 		IDirect3DDevice9& getDevice() { return *d3ddv; }

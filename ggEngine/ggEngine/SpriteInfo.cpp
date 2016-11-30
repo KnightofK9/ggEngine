@@ -26,7 +26,7 @@ ggEngine::SpriteInfo::~SpriteInfo()
 void ggEngine::SpriteInfo::Release()
 {
 	if (this->texture != NULL) {
-		this->texture->Destroy();
+		delete this->texture;
 		this->texture = NULL;
 	}
 }

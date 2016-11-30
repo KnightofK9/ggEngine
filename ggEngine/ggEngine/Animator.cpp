@@ -17,9 +17,7 @@ namespace ggEngine {
 	Animator::~Animator()
 	{
 	}
-	void Animator::Destroy()
-	{
-	}
+
 	void Animator::Reset()
 	{
 		this->currentFrame = this->startFrame;

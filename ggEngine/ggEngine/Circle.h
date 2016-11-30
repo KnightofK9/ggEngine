@@ -5,9 +5,8 @@ namespace ggEngine {
 	class Circle: public Shape {
 	public:
 		Circle(double radius);
-		~Circle();
+		virtual ~Circle();
 		double GetArea();
-		void Destroy();
 		void Transform(Vector position, double width, double height);
 		void Transform(Vector position);
 		NiseVector pCenter;

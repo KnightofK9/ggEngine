@@ -21,6 +21,8 @@ namespace ggEngine {
 
 	Sprite::~Sprite()
 	{
+		//g_debug.Log("Deleting Sprite");
+
 	}
 	void Sprite::Draw()
 	{
@@ -48,11 +50,7 @@ namespace ggEngine {
 		}
 	}
 	
-	void Sprite::Destroy(bool isClearCache)
-	{
-		this->image->Destroy();
-		GGObject::Destroy();
-	}
+
 	void Sprite::SetImage(SpriteInfo *image)
 	{
 		this->image = image;

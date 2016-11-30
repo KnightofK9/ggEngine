@@ -7,7 +7,7 @@ class CVGame;
 class Heart : public ItemBase {
 public:
 	Heart(CVGame *cvgame, SpriteInfo *image);
-	~Heart();
+	virtual ~Heart();
 
 	void OnSimonContact(Simon *simon, ColliderArg e) override;
 private:

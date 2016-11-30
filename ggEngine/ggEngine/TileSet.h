@@ -7,7 +7,7 @@ namespace ggEngine {
 	class TileSet : public IJsonable {
 	public:
 		TileSet(Texture *texture);
-		~TileSet();
+		virtual ~TileSet();
 		SpriteInfo* GetTileSetAt(int id) { return this->tileInfoList[id]; }
 		// Inherited via IJsonable
 		virtual void ParseJson(std::string jsonChar) override;

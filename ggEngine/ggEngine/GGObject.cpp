@@ -7,4 +7,6 @@ ggEngine::GGObject::GGObject()
 
 ggEngine::GGObject::~GGObject()
 {
+
+
 }

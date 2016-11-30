@@ -5,7 +5,7 @@ namespace ggEngine{
 	class World : public Group{
 	public:
 		World(Game *game);
-		~World();
+		virtual ~World();
 		void Reset();
 		void UpdateWorldPosition() override;
 	};

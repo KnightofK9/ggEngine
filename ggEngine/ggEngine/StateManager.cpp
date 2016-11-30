@@ -24,10 +24,7 @@ namespace ggEngine {
 		stateMap.clear();
 	}
 
-	void StateManager::Destroy()
-	{
-		
-	}
+	
 
 	bool StateManager::Add(std::string key, State * State, bool autoStart)
 	{
@@ -111,10 +108,10 @@ namespace ggEngine {
 			if (this->currentState != NULL) {
 				game->world->Reset();
 				game->physics->Reset();
-				game->eventManager->Reset();
 				game->timeBasedEventManager->Reset();
 				game->tweenManager->Reset();
 				game->cameraEventManager->Reset();
+				game->eventManager->Reset();
 				this->currentState->ShutDown();
 			}
 		}

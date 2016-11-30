@@ -10,7 +10,7 @@ namespace ggEngine {
 	public:
 		Tween(TweenManager* tweenManager, float &val, double end, unsigned int duration, std::function<double(int, double, double, int)> easingFunction);
 		Tween(TweenManager* tweenManager, float init, double end, unsigned int duration, std::function<void(double)> onUpdate, std::function<double(int, double, double, int)> easingFunction);
-		~Tween();
+		virtual ~Tween();
 		Tween* SetOnFinish(std::function<void()> onFinish);
 		bool IsPlaying();
 		bool IsFinished();

@@ -55,6 +55,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		Tag type = otherObject->tag;
 		switch (type) {
 		case ObjectType_Static:
+		case ObjectType_Item:
 			if (otherObject->events->onCollide != nullptr) {
 				ColliderArg	o = Physics::CreateOppositeColliderArg(e, object);
 				otherObject->events->onCollide(otherObject, o);

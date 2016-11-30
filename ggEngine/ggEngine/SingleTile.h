@@ -8,7 +8,7 @@ namespace ggEngine {
 	public:
 		SingleTile(Game *game, TileMap *tileMap ,SpriteInfo *image);
 		SingleTile(Game *game, QuadNode *parentNode, SpriteInfo *image) :Sprite(game) {}
-		~SingleTile();
+		virtual ~SingleTile();
 		void Draw();
 	private:
 	};

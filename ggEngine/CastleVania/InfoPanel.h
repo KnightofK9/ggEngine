@@ -6,7 +6,7 @@ using namespace ggEngine;
 class InfoPanel : public ScreenGroup {
 public:
 	InfoPanel(CVGame *cvGame);
-	~InfoPanel();
+	virtual ~InfoPanel();
 	virtual void Draw() override;
 	void SetPlayerHealth(int health);
 	void SetEnemyHealth(const int& health);

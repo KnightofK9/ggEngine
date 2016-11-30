@@ -9,10 +9,6 @@ namespace ggEngine {
 	}
 	Timer::~Timer(void)
 	{
-		Destroy();
-	}
-	void Timer::Destroy()
-	{
 	}
 	DWORD Timer::getTimer()
 	{

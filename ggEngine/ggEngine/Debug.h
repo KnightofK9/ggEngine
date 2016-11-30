@@ -9,7 +9,7 @@ namespace ggEngine {
 	public:
 		Debug();
 		void Init(Game *game);
-		~Debug();
+		virtual ~Debug();
 		void Log(GGTEXT message);
 		void Log(std::string message);
 		void Log(std::wstring message);

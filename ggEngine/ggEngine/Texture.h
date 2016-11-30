@@ -10,10 +10,9 @@ namespace ggEngine {
 	class Texture : public GGObject {
 	public:
 		Texture(LPDIRECT3DDEVICE9 device, std::string fileSource, D3DCOLOR transcolor = NULL);
-		~Texture();
+		virtual ~Texture();
 		int GetWidth();
 		int GetHeight();
-		void Destroy();
 		LPDIRECT3DTEXTURE9 GetDxTexture() { return this->texture; }
 	private:
 		LPDIRECT3DTEXTURE9 texture;

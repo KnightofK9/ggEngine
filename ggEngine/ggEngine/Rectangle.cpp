@@ -22,9 +22,6 @@ double ggEngine::Rectangle::GetArea()
 	return Vector::Distance(p1, p2)*Vector::Distance(p2, p3);
 }
 
-void ggEngine::Rectangle::Destroy()
-{
-}
 
 void ggEngine::Rectangle::Transform(Vector position, double width, double height)
 {

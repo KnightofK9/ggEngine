@@ -696,10 +696,7 @@ namespace ggEngine {
 		return worldBlocked.Any();
 	}
 	
-	void Body::Destroy()
-	{
-		isAlive = false;
-	}
+	
 	void Body::Render(D3DCOLOR color, bool filled)
 	{
 		this->game->GetDrawManager()->DrawShape(rigidBody);

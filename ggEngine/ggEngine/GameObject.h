@@ -16,7 +16,10 @@ namespace ggEngine {
 	public:
 		GameObject();
 		GameObject(Game *game);
-		~GameObject();
+		virtual ~GameObject();
+
+		virtual void Destroy() override;
+
 		virtual void Draw();
 		virtual void DrawRect();
 		Vector GetPosition();
@@ -36,7 +39,6 @@ namespace ggEngine {
 		Vector GetAnchor() { return this->anchor; }
 		void SetVisible(bool visible) { this->visible = visible; }
 		bool IsVisible() { return this->visible; }
-		virtual void Destroy();
 		Vector GetScale() { return this->scale; }
 		virtual void Transform(LPD3DXSPRITE spriteHandle);
 		virtual void SetScale(Vector vector) { this->scale = vector; }

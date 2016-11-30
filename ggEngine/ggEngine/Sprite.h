@@ -13,7 +13,7 @@ namespace ggEngine {
 	public:
 		Sprite(Game *game, SpriteInfo *image);
 		Sprite(Game *game);
-		~Sprite();
+		virtual ~Sprite();
 		virtual void Draw();
 		virtual void DrawRect();
 		virtual void SetWidth(double width);
@@ -21,7 +21,6 @@ namespace ggEngine {
 		virtual double GetWidth();
 		virtual double GetHeight();
 		void SetImage(SpriteInfo *image);
-		void Destroy(bool isClearCache);
 		SpriteInfo* GetImage() { return this->image; }
 		virtual void SetScale(double x, double y);
 		virtual void SetScale(Vector vector);

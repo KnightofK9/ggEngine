@@ -5,7 +5,7 @@ using namespace ggEngine;
 class CVPreload : public Preload {
 public:
 	CVPreload(Cache *cache);
-	~CVPreload();
+	virtual ~CVPreload();
 	void CharSimon();
 	void UIInfoPanel();
 	void FontGame();

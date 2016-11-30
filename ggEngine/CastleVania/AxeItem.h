@@ -6,7 +6,7 @@ using namespace ggEngine;
 class AxeItem : public ItemBase {
 public:
 	AxeItem(CVGame *cvgame, SpriteInfo *image);
-	~AxeItem();
+	virtual ~AxeItem();
 
 	void OnSimonContact(Simon *simon, ColliderArg e) override;
 private:

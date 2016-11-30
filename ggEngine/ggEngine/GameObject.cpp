@@ -4,6 +4,7 @@
 #include "Debug.h"
 #include "Group.h"
 #include "Game.h"
+#include "MemoryManager.h"
 namespace ggEngine {
 	GameObject::GameObject()
 	{
@@ -29,6 +30,9 @@ namespace ggEngine {
 	}
 	GameObject::~GameObject()
 	{
+		//g_debug.Log("Deleting GameObject");
+
+		this->parentObject->RemoveObjectFromList(this);
 		if (body!=NULL) delete body;
 		if (events != NULL) delete events;
 	}
@@ -60,7 +64,8 @@ namespace ggEngine {
 	}
 	void GameObject::Destroy()
 	{
-		this->alive = false;
+		GGObject::Destroy();
+		this->game->memoryManager->AddObjectToRemoveQueue(this);
 	}
 	void GameObject::Transform(LPD3DXSPRITE spriteHandle)
 	{

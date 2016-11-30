@@ -70,14 +70,11 @@ namespace ggEngine {
 	}
 	Cache::~Cache()
 	{
-		Destroy();
-	}
-	void Cache::Destroy()
-	{
 		ClearAll();
 		delete defaultSpriteInfo;
 		delete defaultFont;
 	}
+
 	void Cache::ClearAll()
 	{
 		for (auto it = this->spriteInfoMap.begin(); it != this->spriteInfoMap.end(); ++it) {
@@ -128,7 +125,7 @@ namespace ggEngine {
 			}
 			if (!isAllLoadSucceed) {
 				g_debug.Warning("All key has been created, atlas load failed.");
-				atlas->Destroy();
+				delete atlas;
 				return false;
 			}
 			atlasMap[atlasName] = atlas;

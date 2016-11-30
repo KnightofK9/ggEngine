@@ -8,7 +8,11 @@ namespace ggEngine {
 	class EventManager: public GGObject {
 	public:
 		EventManager(Game *game);
-		~EventManager();
+		virtual ~EventManager();
+
+		void RemoveEventFromAllManager(GameObject *go);
+
+
 		void Destroy();
 		void EnableKeyBoardInput(GameObject *go);
 		void EnableSpriteAnimationEvent(SpriteAnimation *go);
@@ -22,6 +26,9 @@ namespace ggEngine {
 		void DispatchMouseEvent(double mouseX, double mouseY, bool isPress); 
 		char ScanToChar(DWORD scanCode) const;
 		void Reset();
+
+
+		std::map<GameObject*, bool> trackingListCameraMap;
 	private:
 		void InitEvents(GameObject *go);
 		Game *game;

@@ -10,7 +10,7 @@ namespace ggEngine{
 	class Group : public GameObject, public IGetGroup{
 	public:
 		Group(Game *game);
-		~Group();
+		virtual ~Group();
 		void AddGroup(Group* group);
 		virtual void Update();
 		std::function<void(void)> update;
@@ -22,6 +22,7 @@ namespace ggEngine{
 		void SetMask(bool isUsedMask) { this->isUsedMask = isUsedMask; }
 		bool IsUsedMask() { return this->isUsedMask; }
 		void RemoveMask();
+		void RemoveObjectFromList(GameObject*go);
 	protected:
 		RECT mask;
 		bool isUsedMask = false;

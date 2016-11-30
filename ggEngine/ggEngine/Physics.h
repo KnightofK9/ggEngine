@@ -14,7 +14,7 @@ namespace ggEngine {
 	class Physics:public ComponentBase {
 	public:
 		Physics(Game *game,PhysicsMode physicsMode);
-		~Physics();
+		virtual ~Physics();
 
 		void Update(double dt) override;
 

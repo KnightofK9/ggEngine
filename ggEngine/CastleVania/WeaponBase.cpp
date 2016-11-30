@@ -39,7 +39,7 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame,im
 
 WeaponBase::~WeaponBase()
 {
-	
+	//g_debug.Log("Deleting WeaponBase");
 }
 
 void WeaponBase::FireWeapon(bool isLeft)
@@ -54,7 +54,7 @@ void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 void WeaponBase::OnOutOfCamera(EventArg e)
 {
 	g_debug.Log("Out of camera!");
-	//Destroy();
+	Destroy();
 }
 
 

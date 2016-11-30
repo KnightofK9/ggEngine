@@ -13,7 +13,7 @@ namespace ggEngine {
 		Vector(Vector* v);
 		Vector(const D3DXVECTOR2 &v);
 		Vector();
-		~Vector();
+		virtual ~Vector();
 		Vector Normalize();
 		void TransformNormal(Matrix mat);
 		void TransformCord(Matrix mat);

@@ -14,7 +14,7 @@ namespace ggEngine {
 	public:
 		Json(std::string jsonChar,bool isLocation = false);
 		Json();
-		~Json();
+		virtual ~Json();
 		const std::string GetCharArray();
 		static std::string GetCharArrayFromValue(const rapidjson::Value &val);
 		void SaveTo(std::string location);

@@ -27,7 +27,7 @@ class CVPreload;
 class ItemManager{
 public:
 	ItemManager(CVGame *cvGame);
-	~ItemManager();
+	virtual ~ItemManager();
 
 	void PreloadAllItem();
 	Heart* AddHeart(double x, double y, ggEngine::Group* group);

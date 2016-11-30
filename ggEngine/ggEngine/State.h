@@ -14,7 +14,7 @@ namespace ggEngine{
 	class Game;
 	class State : public GGObject{
 	public:
-		~State();
+		virtual ~State();
 		void Start();
 		virtual void Load();
 		Add *add = nullptr;

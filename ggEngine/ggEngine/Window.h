@@ -5,7 +5,7 @@ namespace ggEngine {
 	class Window {
 	public:
 		Window(WNDPROC messageHandler, GGTEXT title, int x, int y, int width, int height, GameMode mode);
-		~Window();
+		virtual ~Window();
 
 		HWND getHandle() { return window; }
 		void show() { ShowWindow(window, SW_SHOWDEFAULT); }

@@ -71,7 +71,7 @@
 		HANDLE hProcess = GetCurrentProcess()
 		);
 	  StackWalker(DWORD dwProcessId, HANDLE hProcess);
-	  virtual ~StackWalker();
+	  virtual virtual ~StackWalker();
 
 	  typedef BOOL (__stdcall *PReadProcessMemoryRoutine)(
 		HANDLE      hProcess,

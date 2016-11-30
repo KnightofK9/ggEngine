@@ -9,7 +9,7 @@ namespace ggEngine {
 	public:
 		Font(DrawManager *drawManager, std::string fontName, int fontSize, bool isItalic, int fontWeight = FW_NORMAL);
 		Font(DrawManager *drawManager, std::string fontName, std::string fontPath, int fontSize, bool isItalic = false, int fontWeight = FW_NORMAL); //Load font from file
-		~Font();
+		virtual ~Font();
 		LPD3DXFONT GetDxFont() { return this->font; }
 		void Draw(double worldX, double worldY, std::string text, D3DCOLOR fontColor = DEFAULT_COLOR);
 

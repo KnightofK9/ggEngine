@@ -7,7 +7,7 @@ namespace ggEngine {
 	class StaticTimer :public GGObject {
 	public:
 		StaticTimer(void);
-		~StaticTimer(void);
+		virtual ~StaticTimer(void);
 		void SetTime(DWORD currentTime);
 		void SetDelta(DWORD dt);
 		bool StopWatch(DWORD ms);

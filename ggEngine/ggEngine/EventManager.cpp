@@ -14,6 +14,13 @@ ggEngine::EventManager::~EventManager()
 	Destroy();
 }
 
+void ggEngine::EventManager::RemoveEventFromAllManager(GameObject * go)
+{
+	this->trackingListCameraMap.erase(go);
+	this->receivedKeyBoardList.remove(go);
+	this->receivedMouseList.remove(go);
+}
+
 void ggEngine::EventManager::Destroy()
 {
 	Reset();
@@ -39,7 +46,7 @@ void ggEngine::EventManager::EnableCameraEvent(GameObject * go)
 void ggEngine::EventManager::DisableCameraEvent(GameObject * go)
 {
 	InitEvents(go);
-	game->cameraEventManager->RemoveTracking(go);
+	this->trackingListCameraMap.erase(go);
 }
 
 
@@ -72,10 +79,9 @@ void ggEngine::EventManager::DispatchKeyBoardEvent(char * keyStates)
 {
 	KeyBoardEventArg arg;
 	arg.keyState = keyStates;
-	for (std::list<GameObject*>::iterator it = receivedKeyBoardList.begin(); it != receivedKeyBoardList.end();) {
+	for (std::list<GameObject*>::iterator it = receivedKeyBoardList.begin(); it != receivedKeyBoardList.end();++it) {
 		if ((*it)->IsAlive()) {
 			if((*it)->events->onKeyPress!=nullptr) (*it)->events->onKeyPress((*it), arg);
-			++it;
 		}
 	}
 
@@ -84,10 +90,9 @@ void ggEngine::EventManager::DispatchKeyBoardEvent(char * keyStates)
 void ggEngine::EventManager::DispatchMouseEvent(double mouseX, double mouseY, bool isPress)
 {
 	MouseEventArg arg;
-	for (std::list<GameObject*>::iterator it = receivedMouseList.begin(); it != receivedMouseList.end();) {
+	for (std::list<GameObject*>::iterator it = receivedMouseList.begin(); it != receivedMouseList.end();++it) {
 		if ((*it)->IsAlive()) {
 			if ((*it)->events->onKeyPress != nullptr) (*it)->events->onMousePress((*it), arg);
-			++it;
 		}
 	}
 }
@@ -117,4 +122,5 @@ char ggEngine::EventManager::ScanToChar(DWORD scanCode) const
 void ggEngine::EventManager::Reset(){
 	this->receivedKeyBoardList.clear();
 	this->receivedMouseList.clear();
+	this->trackingListCameraMap.clear();
 }

@@ -9,7 +9,7 @@ namespace ggEngine {
 	class SpriteAnimation : public Sprite {
 	public:
 		SpriteAnimation(Game *game, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
-		~SpriteAnimation();
+		virtual ~SpriteAnimation();
 		void Draw() override;
 		void DrawRect() override;
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);

@@ -8,7 +8,7 @@ class Simon;
 class WeaponManager {
 public:
 	WeaponManager(CVGame *cvGame);
-	~WeaponManager();
+	virtual ~WeaponManager();
 
 	WeaponDagger* AddWeaponDagger(double x, double y, bool isLeft, Group *group);
 

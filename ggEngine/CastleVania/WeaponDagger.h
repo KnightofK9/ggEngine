@@ -5,7 +5,7 @@ using namespace ggEngine;
 class WeaponDagger : public WeaponBase {
 public:
 	WeaponDagger(CVGame *cvGame, SpriteInfo *image);
-	~WeaponDagger();
+	virtual ~WeaponDagger();
 
 	void FireWeapon(bool isLeft) override;
 	void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e) override;

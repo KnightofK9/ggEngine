@@ -41,8 +41,9 @@ void TestStateCastleVania::Create()
 		}
 	}
 	tileMap = this->cvAdd->TileMap(tileMapJson, false);
-
+	tileMap->name = "StupidTileMap";
 	Group* group = this->cvAdd->Group();
+	group->name = "StupidGroup";
 	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);
 	this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);
 	this->simon->SetHealth(1);

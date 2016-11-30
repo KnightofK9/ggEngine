@@ -16,13 +16,17 @@ ItemBaseAnim::ItemBaseAnim(CVGame * cvGame, SpriteInfo * image, int frameWidth, 
 			OnSimonContact(simon, e);
 		}
 	};
-	this->tag = ObjectType_Static;
+	this->tag = ObjectType_Item;
 	this->visible = false;
 	this->body->SetActive(false);
 }
 
 ItemBaseAnim::~ItemBaseAnim()
 {
+	if (cvGame->simon != nullptr) {
+		cvGame->simon->body->RemoveCheckCollisionWith(this);
+	}
+	if (timeEvent != nullptr) timeEvent->Destroy();
 }
 
 void ItemBaseAnim::SetLiveTime(unsigned int liveTime)
@@ -43,10 +47,7 @@ void ItemBaseAnim::OnSimonContact(Simon * simon, ColliderArg e)
 
 void ItemBaseAnim::Destroy()
 {
-	if (cvGame->simon != nullptr) {
-		cvGame->simon->body->RemoveCheckCollisionWith(this);
-	}
-	if (timeEvent != nullptr) timeEvent->Destroy();
+	
 	GameObject::Destroy();
 }
 

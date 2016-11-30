@@ -20,7 +20,7 @@ private:
 
 public:
 	PingPongState(Game *game);
-	~PingPongState();
+	virtual ~PingPongState();
 	void Init(); //Called after start a scene
 	void Preload(); //Called after int
 	void Create();//Called after preload complete
