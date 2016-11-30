@@ -93,6 +93,7 @@ namespace ggEngine {
 		void PreUpdate();
 		void SetActive(bool isActive) { this->isActive = isActive; }
 		bool IsActive() { return this->isActive; }
+		Rect GetRect();
 	private:
 		bool isActive = true;
 		bool PerformCollisionCheck(Vector currentVelocity);

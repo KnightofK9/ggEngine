@@ -17,6 +17,5 @@ namespace ggEngine {
 		bool IsTracking(GameObject *go);
 		Game* game;
 		std::map<GameObject*, bool> trackingListCameraMap;
-		std::list<GameObject*> gameObjectList;
 	};
 }

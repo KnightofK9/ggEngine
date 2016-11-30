@@ -229,6 +229,12 @@ namespace ggEngine {
 		}
 	}
 
+	Rect Body::GetRect()
+	{
+		Rect r(this->rigidBody->GetLeft(), this->rigidBody->GetUp(), this->rigidBody->GetRight(), this->rigidBody->GetDown());
+		return r;
+	}
+
 	bool Body::PerformCollisionCheck(Vector currentVelocity)
 	{
 		currentVelocity *= PIXEL_PER_CENTIMETER;

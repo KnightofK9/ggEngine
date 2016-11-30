@@ -90,17 +90,17 @@ namespace ggEngine {
 	{
 		int left, top, right, bottom;
 		if (isGetWorldRect) {
-			left = this->worldPosition.x + (1 - this->anchor.x)*GetWidth();
-			top = this->worldPosition.y + (1 - this->anchor.y)*GetHeight();
+			left = this->worldPosition.x + (-this->anchor.x)*GetWidth();
+			top = this->worldPosition.y + (-this->anchor.y)*GetHeight();
 		}
 		else {
-			left = this->position.x + (1 - this->anchor.x)*GetWidth();
-			top = this->position.y + (1 - this->anchor.y)*GetHeight();
+			left = this->position.x + (-this->anchor.x)*GetWidth();
+			top = this->position.y + (-this->anchor.y)*GetHeight();
 		}
 		
 		
-		right = left + (-anchor.x)*GetWidth();
-		bottom = top + (-anchor.y)*GetHeight();
+		right = left + (1-anchor.x)*GetWidth();
+		bottom = top + (1-anchor.y)*GetHeight();
 		return Rect(left, top, right, bottom);
 	}
 

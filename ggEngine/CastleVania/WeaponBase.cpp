@@ -28,9 +28,7 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame->G
 			break;
 		}
 	};
-	this->events->onOutOfCamera = [this](GameObject *go, EventArg e) {
-		OnOutOfCamera(e);
-	};
+	
 
 
 
@@ -67,6 +65,10 @@ void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
 
 void WeaponBase::Active()
 {
+	this->cvGame->eventManager->EnableCameraEvent(this);
+	this->events->onOutOfCamera = [this](GameObject *go, EventArg e) {
+		OnOutOfCamera(e);
+	};
 	this->visible = true;
 	this->body->SetActive(true);
 }
