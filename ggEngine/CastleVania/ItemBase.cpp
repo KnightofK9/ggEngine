@@ -2,7 +2,7 @@
 #include "CVGame.h"
 #include "Simon.h"
 #include "CVAdd.h"
-ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame->GetDrawManager(), image)
+ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame, image)
 {
 	this->cvGame = cvGame;
 	this->cvGame->physics->EnablePhysics(this);

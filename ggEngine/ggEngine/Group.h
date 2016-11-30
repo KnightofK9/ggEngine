@@ -6,9 +6,10 @@
 namespace ggEngine{
 	class Sprite;
 	class DrawManager;
+	class Game;
 	class Group : public GameObject, public IGetGroup{
 	public:
-		Group(DrawManager *drawManager);
+		Group(Game *game);
 		~Group();
 		void Destroy();
 		void AddGroup(Group* group);

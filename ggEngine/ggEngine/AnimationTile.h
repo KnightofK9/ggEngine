@@ -4,9 +4,10 @@
 namespace ggEngine {
 	class SingleTile;
 	class TileMap;
+	class Game;
 	class AnimationTile : public Sprite {
 	public:
-		AnimationTile(DrawManager *drawManager, TileMap *tileMap);
+		AnimationTile(Game *game, TileMap *tileMap);
 		~AnimationTile();
 		void AddTileAnimation(SingleTile* singleTile);
 		void Draw();

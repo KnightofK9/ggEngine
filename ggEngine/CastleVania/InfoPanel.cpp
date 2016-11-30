@@ -1,5 +1,6 @@
 #include "InfoPanel.h"
-InfoPanel::InfoPanel(DrawManager* drawManager) : ScreenGroup(drawManager)
+#include "CVGame.h"
+InfoPanel::InfoPanel(CVGame *cvGame) : ScreenGroup(cvGame)
 {
 }
 

@@ -1,8 +1,9 @@
 #include "ScreenGroup.h"
 #include "Sprite.h"
 #include "Text.h"
+#include "Game.h"
 namespace ggEngine {
-	ScreenGroup::ScreenGroup(DrawManager *drawManager) : Group(drawManager)
+	ScreenGroup::ScreenGroup(Game *game) : Group(game)
 	{
 
 	}

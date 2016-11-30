@@ -15,7 +15,7 @@
 #include <exception>
 #include <Math.h>
 namespace ggEngine {
-	QuadTree::QuadTree(Game * game): Group(game->GetDrawManager())
+	QuadTree::QuadTree(Game * game): Group(game)
 	{
 		this->game = game;
 	}

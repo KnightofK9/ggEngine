@@ -3,10 +3,11 @@
 namespace ggEngine {
 	class QuadNode;
 	class TileMap;
+	class Game;
 	class SingleTile : public Sprite {
 	public:
-		SingleTile(DrawManager *drawManager, TileMap *tileMap ,SpriteInfo *image);
-		SingleTile(DrawManager *drawManager, QuadNode *parentNode, SpriteInfo *image) :Sprite(drawManager) {}
+		SingleTile(Game *game, TileMap *tileMap ,SpriteInfo *image);
+		SingleTile(Game *game, QuadNode *parentNode, SpriteInfo *image) :Sprite(game) {}
 		~SingleTile();
 		void Draw();
 	private:

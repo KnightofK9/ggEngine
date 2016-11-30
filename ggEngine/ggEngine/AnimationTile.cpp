@@ -1,8 +1,9 @@
 #include "AnimationTile.h"
 #include "TileMap.h"
 #include "SingleTile.h"
+#include "Game.h"
 namespace ggEngine {
-	AnimationTile::AnimationTile(DrawManager * drawManager, TileMap *tileMap):Sprite(drawManager)
+	AnimationTile::AnimationTile(Game *game, TileMap *tileMap):Sprite(game)
 	{
 		SetAnchor(0, 0);
 		SetParentObject(tileMap);

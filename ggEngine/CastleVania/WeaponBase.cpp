@@ -1,7 +1,7 @@
 #include "WeaponBase.h"
 #include "CVGame.h"
 #include "EnemyBase.h"
-WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame->GetDrawManager(),image)
+WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame,image)
 {
 	this->cvGame = cvGame;
 	this->cvGame->physics->EnablePhysics(this);
@@ -39,6 +39,7 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame->G
 
 WeaponBase::~WeaponBase()
 {
+	
 }
 
 void WeaponBase::FireWeapon(bool isLeft)
@@ -53,7 +54,7 @@ void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 void WeaponBase::OnOutOfCamera(EventArg e)
 {
 	g_debug.Log("Out of camera!");
-	Destroy();
+	//Destroy();
 }
 
 
@@ -61,6 +62,12 @@ void WeaponBase::OnOutOfCamera(EventArg e)
 void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
 {
 	Destroy();
+}
+
+void WeaponBase::Destroy()
+{
+	
+	GameObject::Destroy();
 }
 
 void WeaponBase::Active()

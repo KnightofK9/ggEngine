@@ -1,9 +1,9 @@
 #include "StaticTile.h"
-
-StaticTile::StaticTile(Physics *physics, DrawManager * drawManager, TileMap * tileMap, SpriteInfo * image): TileBase(drawManager,tileMap,image)
+#include "CVGame.h"
+StaticTile::StaticTile(CVGame *cvGame, TileMap *tileMap, SpriteInfo *image): TileBase(cvGame,tileMap,image)
 {
 	this->tag = ObjectType_Static;
-	physics->AttachBodyTo(this);
+	cvGame->physics->AttachBodyTo(this);
 	this->body->CreateRectangleRigidBody(width, height);
 }
 

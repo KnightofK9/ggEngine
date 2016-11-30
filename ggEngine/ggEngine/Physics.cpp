@@ -18,6 +18,10 @@ namespace ggEngine {
 		this->bodyList.clear();
 		this->tileMapList.clear();
 	}
+	void Physics::Update(double dt)
+	{
+		UpdatePhysics();
+	}
 	void Physics::UpdatePhysics()
 	{
 		UpdateCollisionList();

@@ -1,6 +1,7 @@
 #include "Text.h"
 #include "Debug.h"
 #include "Helper.h"
+#include "Game.h"
 //Text::Text(LPDIRECT3DDEVICE9 device, int fontSize, char * fontFamily,
 //	int fontWeight, bool isItalic)
 //{
@@ -31,7 +32,7 @@
 //		RECT R = { posX, posY, 0, 0 };
 //		font->DrawTextA(0, lpString, -1, &R, DT_NOCLIP, color);
 //}
-ggEngine::Text::Text(DrawManager *drawManager,Font *font, double x, double y, double width, double height, std::string text, Style style):GameObject(drawManager)
+ggEngine::Text::Text(Game *game,Font *font, double x, double y, double width, double height, std::string text, Style style):GameObject(game)
 {
 	SetAnchor(0, 0);
 	SetPosition(x, y);

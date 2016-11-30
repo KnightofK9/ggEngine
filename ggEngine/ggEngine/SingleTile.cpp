@@ -2,7 +2,7 @@
 #include "TileMap.h"
 #include "QuadNode.h"
 namespace ggEngine {
-	SingleTile::SingleTile(DrawManager * drawManager, TileMap *tileMap , SpriteInfo * image) :Sprite(drawManager, image)
+	SingleTile::SingleTile(Game *game, TileMap *tileMap , SpriteInfo * image) :Sprite(game, image)
 	{
 		SetAnchor(0, 0);
 		SetPosition(0, 0);

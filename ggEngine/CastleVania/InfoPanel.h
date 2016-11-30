@@ -1,10 +1,11 @@
 #pragma once
 #include <ggEngine.h>
 #include "HealthBar.h"
+class CVGame;
 using namespace ggEngine;
 class InfoPanel : public ScreenGroup {
 public:
-	InfoPanel(DrawManager* drawManager);
+	InfoPanel(CVGame *cvGame);
 	~InfoPanel();
 	virtual void Draw() override;
 	void SetPlayerHealth(int health);

@@ -3,6 +3,7 @@
 #include "Events.h"
 #include "Debug.h"
 #include "Group.h"
+#include "Game.h"
 namespace ggEngine {
 	GameObject::GameObject()
 	{
@@ -14,16 +15,17 @@ namespace ggEngine {
 		this->events = NULL;
 		this->drawManager = nullptr;
 	}
-	GameObject::GameObject(DrawManager * drawManager)
+	GameObject::GameObject(Game *game)
 	{
 		SetPosition(VECTOR_ZERO);
 		SetScale(1, 1);
 		this->worldScale = Vector(1, 1);
+		this->game = game;
 		this->alive = true;
 		this->rotate = 0;
 		this->events = NULL;
-		this->drawManager = drawManager;
-		this->spriteHandle = drawManager->GetSpriteHandle();
+		this->drawManager = game->GetDrawManager();
+		this->spriteHandle = this->drawManager->GetSpriteHandle();
 	}
 	GameObject::~GameObject()
 	{

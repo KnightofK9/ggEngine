@@ -15,28 +15,30 @@
 #include "TimeBasedEventManager.h"
 #include "Grid.h"
 #include "EventManager.h"
+#include "Game.h"
 namespace ggEngine{
-	Add::Add(World *world, Cache *cache, TweenManager *tweenManager, DrawManager *drawManager, Camera *camera,  Physics* physics, TimeBasedEventManager *timeBasedEventManager, EventManager *eventManager){
-		this->cache = cache;
-		this->drawManager = drawManager;
+	Add::Add(Game *game){
+		this->game = game;
+		this->cache = game->cache;
+		this->drawManager = game->GetDrawManager();
 		this->device = drawManager->GetDevice();
-		this->world = world;
-		this->tweenManager = tweenManager;
-		this->camera = camera;
-		this->physics = physics;
-		this->timeBasedEventManager = timeBasedEventManager;
-		this->eventManager = eventManager;
+		this->world = game->world;
+		this->tweenManager = game->tweenManager;
+		this->camera = game->camera;
+		this->physics = game->physics;
+		this->timeBasedEventManager = game->timeBasedEventManager;
+		this->eventManager = game->eventManager;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
-		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->drawManager, inf);
+		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->game, inf);
 		sprite->SetPosition(x, y);
 		group->AddDrawObjectToList(sprite);
 		return sprite;
 	}
 	Grid * Add::Grid(double x, double y, int cellWidth, int cellHeight, int width, int height, ggEngine::Group * group)
 	{
-		ggEngine::Grid* grid = new ggEngine::Grid(this->camera,this->drawManager);
+		ggEngine::Grid* grid = new ggEngine::Grid(this->game);
 		grid->SetCellWidth(cellWidth);
 		grid->SetCellHeight(cellHeight);
 		grid->SetWidth(width);
@@ -47,25 +49,25 @@ namespace ggEngine{
 	SpriteAnimation* Add::SpriteAnimation(double x, double y, std::string textureKey, int frameWidth, int frameHeight, ggEngine::Group * group, int defaultFrame, int numberOfFrame , int msPerFrame)
 	{
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
-		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->drawManager, inf, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame);
+		ggEngine::SpriteAnimation *spriteAnimation = new ggEngine::SpriteAnimation(this->game, inf, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame);
 		spriteAnimation->SetPosition(x, y);
 		group->AddDrawObjectToList(spriteAnimation);
 		return spriteAnimation;
 	}
 	Group* Add::Group(){
-		ggEngine::Group *gr = new ggEngine::Group(this->drawManager);
+		ggEngine::Group *gr = new ggEngine::Group(this->game);
 		world->AddGroup(gr);
 		return gr;
 	}
 	ScreenGroup * Add::ScreenGroup()
 	{
-		ggEngine::ScreenGroup *gr = new ggEngine::ScreenGroup(this->drawManager);
+		ggEngine::ScreenGroup *gr = new ggEngine::ScreenGroup(this->game);
 		world->AddGroup(gr);
 		return gr;
 	}
 	TileMap * Add::TileMap(std::string tileMapJson,bool isLocation)
 	{
-		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->camera, this->drawManager,this->cache,this->physics);
+		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->game);
 		tileMap->BuildTree(tileMapJson, isLocation);
 		this->physics->AddTileMap(tileMap);
 		world->AddGroup(tileMap);
@@ -74,7 +76,7 @@ namespace ggEngine{
 	Text* Add::Text(double x, double y, std::string fontKey, double width, double height, std::string text, Style style, ggEngine::Group  *group)
 	{
 		Font* font = this->cache->GetFont(fontKey);
-		ggEngine::Text *textObject = new ggEngine::Text(this->drawManager,font, x, y, width, height, text, style);
+		ggEngine::Text *textObject = new ggEngine::Text(this->game,font, x, y, width, height, text, style);
 		group->AddDrawObjectToList(textObject);
 		return textObject;
 	}

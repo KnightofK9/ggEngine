@@ -10,9 +10,10 @@ namespace ggEngine {
 	class Camera;
 	class Physics;
 	class SingleTile;
+	class Game;
 	class TileMap : public Group{
 	public:
-		TileMap(Camera *camera, DrawManager* drawManager, Cache *cache, Physics *physics);
+		TileMap(Game *game);
 		~TileMap();
 		void Destroy();
 		void Update() override;

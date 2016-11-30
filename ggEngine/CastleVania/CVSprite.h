@@ -3,6 +3,6 @@
 using namespace ggEngine;
 class CVSprite : public Sprite {
 public:
-	CVSprite(DrawManager *drawManager, SpriteInfo *image);
+	CVSprite(Game *game, SpriteInfo *image);
 	~CVSprite();
 };

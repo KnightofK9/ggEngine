@@ -9,6 +9,7 @@
 //#pragma comment(lib, "d3dx9core.lib")
 
 namespace ggEngine {
+	class Game;
 	//Text use Style to define text style. Re-Define any property of this style default value as you want
 	enum Allign { Allign_Left, Allign_Middle, Allign_Right, Allign_Top, Allign_Bottom};
 	struct Style {
@@ -34,7 +35,7 @@ namespace ggEngine {
 	class Text : public GameObject {
 	public:
 		//Modify the constructor as you want, but must have those properties
-		Text(DrawManager *drawManager,Font *font, double x, double width, double height, double y, std::string text, Style style);
+		Text(Game *game,Font *font, double x, double width, double height, double y, std::string text, Style style);
 		//Release the font here
 		~Text();
 		//You MUST call the base GameObject::Destroy() in here. Destroy just set alive to false for collector take care

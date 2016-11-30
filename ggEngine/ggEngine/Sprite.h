@@ -8,10 +8,11 @@
 #include "GameObject.h"
 namespace ggEngine {
 	class Body;
+	class Game;
 	class Sprite : public GameObject {
 	public:
-		Sprite(DrawManager *drawManager, SpriteInfo *image);
-		Sprite(DrawManager *drawManager);
+		Sprite(Game *game, SpriteInfo *image);
+		Sprite(Game *game);
 		~Sprite();
 		virtual void Draw();
 		virtual void DrawRect();

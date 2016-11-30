@@ -10,12 +10,13 @@
 #include "TileSet.h"
 #include "Cache.h"
 #include "Debug.h"
+#include "Game.h"
 namespace ggEngine {
-	TileMap::TileMap(Camera *camera, DrawManager* drawManager, Cache *cache, Physics *physics) : Group(drawManager)
+	TileMap::TileMap(Game *game) : Group(game)
 	{
-		this->camera = camera;
-		this->physics = physics;
-		this->cache = cache;
+		this->camera = game->camera;
+		this->physics = game->physics;
+		this->cache = game->cache;
 		this->spriteHandle = drawManager->GetSpriteHandle();
 		SetScale(1, 1);
 	}
@@ -100,7 +101,7 @@ namespace ggEngine {
 				tileInfo = this->cache->GetDefaultSpriteInfo();
 			}
 			else tileInfo = tileSet->GetTileSetAt(tileId);
-			SingleTile *tile = new SingleTile(this->drawManager, this, tileInfo);
+			SingleTile *tile = new SingleTile(this->game, this, tileInfo);
 			tile->SetPosition(tileX, tileY);
 			tile->SetWidth(tileWidth);
 			tile->SetHeight(tileHeight);

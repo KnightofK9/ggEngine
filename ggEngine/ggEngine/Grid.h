@@ -2,9 +2,10 @@
 #include "GameObject.h"
 namespace ggEngine {
 	class Camera;
+	class Game;
 	class Grid : public GameObject {
 	public:
-		Grid(Camera* camera,DrawManager *drawManager);
+		Grid(Game *game);
 		~Grid();
 		void SetCellWidth(int cellWidth) { this->cellWidth = cellWidth; }
 		void SetCellHeight(int cellHeight) { this->cellHeight = cellHeight; }

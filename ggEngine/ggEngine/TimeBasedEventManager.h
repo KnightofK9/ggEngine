@@ -1,11 +1,11 @@
 #pragma once
-#include "GGObject.h"
+#include "ComponentBase.h"
 #include <list>
 #include <functional>
 namespace ggEngine {
 	class Game;
 	class TimeBasedEventInfo;
-	class TimeBasedEventManager : public GGObject {
+	class TimeBasedEventManager : public ComponentBase {
 	public:
 		TimeBasedEventManager(Game *game);
 		void Update(double deltaTimeInMs);

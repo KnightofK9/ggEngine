@@ -3,8 +3,9 @@
 #include "Sprite.h"
 #include "DrawManager.h"
 #include "Text.h"
+#include "Game.h"
 namespace ggEngine{
-	Group::Group(DrawManager *drawManager) : GameObject(drawManager)
+	Group::Group(Game *game) : GameObject(game)
 	{
 		SetOpacityAffectByParent(true);
 	}

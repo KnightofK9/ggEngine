@@ -2,9 +2,10 @@
 
 #include <ggEngine.h>
 using namespace ggEngine;
+class CVGame;
 class HealthBar : public ScreenGroup {
 public:
-	HealthBar(DrawManager *drawManager);
+	HealthBar(CVGame *cvGame);
 	~HealthBar();
 	int GetHealth() { return this->currentHealth; }
 	void SetHealth(int currentHealth);

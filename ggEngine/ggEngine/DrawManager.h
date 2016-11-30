@@ -1,5 +1,5 @@
 #pragma once
-#include "GGObject.h"
+#include "ComponentBase.h"
 #include "d3d9.h"
 #include "d3dx9.h"
 #include "ConstantEnum.h"
@@ -25,11 +25,14 @@ namespace ggEngine {
 	class GameObject;
 	class Camera;
 	class Shape;
-	class DrawManager:public GGObject{
+	class DrawManager:public ComponentBase {
 	public:
 		DrawManager(Game *game, Camera* camera);
 		~DrawManager();
 		void Destroy();
+		void Update(double dt) override;
+		void Reset() override;
+
 		void Render2D();
 		void DrawRectangleToWorld(double left, double top, double right, double bottom, D3DCOLOR fillColor = DEFAULT_COLOR);
 		void DrawRectangle(double left, double top, double right, double bottom, D3DCOLOR fillColor = DEFAULT_COLOR);

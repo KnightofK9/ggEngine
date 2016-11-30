@@ -23,7 +23,7 @@ void ggEngine::CameraEventManager::Track(GameObject * go)
 	bool isInCamera = Rect::intersect(r, cameraRect, ojectRect);
 	this->trackingListCameraMap[go] = isInCamera;
 }
-void ggEngine::CameraEventManager::Update()
+void ggEngine::CameraEventManager::Update(double dt)
 {
 	Rect cameraRect = this->game->camera->GetNormalRect();
 	for (auto it = this->trackingListCameraMap.begin(); it != this->trackingListCameraMap.end();++it) {
@@ -33,7 +33,7 @@ void ggEngine::CameraEventManager::Update()
 		bool wasInCamera = (*it).second;
 		bool isInCamera = Rect::intersect(r, cameraRect, ojectRect);
 		EventArg e;
-		if (isInCamera = !wasInCamera) {
+		if (isInCamera == !wasInCamera) {
 			(*it).second = isInCamera;
 			if (isInCamera) {
 				if (gameObject->events->onEnterCamera != nullptr) {

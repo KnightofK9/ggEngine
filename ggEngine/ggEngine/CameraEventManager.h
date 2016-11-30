@@ -1,18 +1,18 @@
 #pragma once
-#include "GGObject.h"
+#include "ComponentBase.h"
 #include <list>
 #include <map>
 namespace ggEngine {
 	class GameObject;
 	class Game;
-	class CameraEventManager : public GGObject {
+	class CameraEventManager : public ComponentBase {
 	public:
 		CameraEventManager(Game *game);
 		~CameraEventManager();
 		void RemoveTracking(GameObject *go);
 		void Track(GameObject *go);
-		void Update();
-		void Reset();
+		void Update(double dt) override;
+		void Reset() override;
 	private:
 		bool IsTracking(GameObject *go);
 		Game* game;

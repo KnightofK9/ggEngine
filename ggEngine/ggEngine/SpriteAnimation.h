@@ -5,9 +5,10 @@
 namespace ggEngine {
 	enum SpriteAnimationType { SA_RectangleSheet, SA_XMLSheet };
 	class Animator;
+	class Game;
 	class SpriteAnimation : public Sprite {
 	public:
-		SpriteAnimation(DrawManager *drawManager, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+		SpriteAnimation(Game *game, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 		~SpriteAnimation();
 		void Draw() override;
 		void DrawRect() override;

@@ -1,7 +1,7 @@
 #pragma once
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "GGObject.h"
+#include "ComponentBase.h"
 #include "ConstantEnum.h"
 #include "DrawManager.h"
 #include "StateManager.h"
@@ -9,12 +9,13 @@
 #pragma comment(lib,"d3dx9.lib")
 namespace ggEngine {
 	class Game;
-	class D3DManager :public GGObject{
+	class D3DManager :public ComponentBase {
 	public:
 		D3DManager(Game *game, HWND window, int width, int height, D3DCOLOR backgroundColor, bool isWindowed);
 		~D3DManager();
 		void Destroy();
-		void update();
+		void Update(double dt) override;
+		void Reset() override;
 		IDirect3DDevice9& getDevice() { return *d3ddv; }
 		IDirect3D9 &getContext() { return *d3d; }
 		void SetDrawManager(DrawManager *drawManager){ this->drawManager = drawManager; }

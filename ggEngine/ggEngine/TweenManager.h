@@ -1,5 +1,5 @@
 #pragma once
-#include "GGObject.h"
+#include "ComponentBase.h"
 #include <list>
 //#include <claw/tween/easing/easing_linear.hpp>
 //#include <claw/tween/single_tweener.hpp>
@@ -7,7 +7,7 @@
 namespace ggEngine {
 	class Tween;
 	class Game;
-	class TweenManager : public GGObject {
+	class TweenManager : public ComponentBase {
 	public:
 		TweenManager(Game *game);
 		~TweenManager();

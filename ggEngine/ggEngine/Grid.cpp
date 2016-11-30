@@ -1,11 +1,12 @@
 #include "Grid.h"
 #include "Camera.h"
 #include "NiseVector.h"
+#include "Game.h"
 namespace ggEngine {
-	Grid::Grid(Camera* camera, DrawManager * drawManager) :GameObject(drawManager)
+	Grid::Grid(Game *game) :GameObject(game)
 	{
 		SetAnchor(0, 0);
-		this->camera = camera;
+		this->camera = game->camera;
 	}
 
 	Grid::~Grid()

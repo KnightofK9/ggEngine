@@ -1,6 +1,6 @@
 #include "HealthBar.h"
-
-HealthBar::HealthBar(DrawManager * drawManager) : ScreenGroup(drawManager)
+#include "CVGame.h"
+HealthBar::HealthBar(CVGame *cvGame) : ScreenGroup(cvGame)
 {
 	this->SetMask(true);
 }

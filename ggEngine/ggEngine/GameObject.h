@@ -10,11 +10,12 @@
 #include "Rect.h"
 namespace ggEngine {
 	class Body;
+	class Game;
 	typedef unsigned int Tag;
 	class GameObject :public GGObject {
 	public:
 		GameObject();
-		GameObject(DrawManager *drawManager);
+		GameObject(Game *game);
 		~GameObject();
 		virtual void Draw();
 		virtual void DrawRect();
@@ -62,6 +63,7 @@ namespace ggEngine {
 		Tag tag = 0;
 		Rect GetRect(bool isGetWorldRect = false);
 	protected:
+		Game *game;
 		bool opacityAffectByParent = true;
 		int opacity = 255;
 		Group* parentObject = nullptr;

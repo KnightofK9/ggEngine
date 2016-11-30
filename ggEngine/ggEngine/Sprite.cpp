@@ -2,7 +2,7 @@
 #include "Body.h"
 #include "Texture.h"
 namespace ggEngine {
-	Sprite::Sprite(DrawManager *drawManager, SpriteInfo * image) : GameObject(drawManager)
+	Sprite::Sprite(Game *game, SpriteInfo * image) : GameObject(game)
 	{
 		SetImage(image);
 		this->anchor = Vector(0, 0);
@@ -11,7 +11,7 @@ namespace ggEngine {
 		this->style = D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE;
 	}
 
-	Sprite::Sprite(DrawManager* drawManager) : GameObject(drawManager)
+	Sprite::Sprite(Game *game) : GameObject(game)
 	{
 		this->color = D3DCOLOR_XRGB(255, 255, 255);
 		this->body = NULL;

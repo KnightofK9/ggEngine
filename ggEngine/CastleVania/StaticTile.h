@@ -2,8 +2,9 @@
 #include <ggEngine.h>
 #include "TileBase.h"
 using namespace ggEngine;
+class CVGame;
 class StaticTile :public TileBase {
 public:
-	StaticTile(Physics *physics, DrawManager *drawManager, TileMap *tileMap, SpriteInfo *image);
+	StaticTile(CVGame *cvGame, TileMap *tileMap, SpriteInfo *image);
 	~StaticTile();
 };

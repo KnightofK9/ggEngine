@@ -44,6 +44,15 @@ namespace ggEngine {
 		
 	}
 
+	void DrawManager::Update(double dt)
+	{
+		Render2D();
+	}
+
+	void DrawManager::Reset()
+	{
+	}
+
 	void DrawManager::Render2D()
 	{
 		Update2D();

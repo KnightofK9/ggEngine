@@ -58,6 +58,12 @@ namespace ggEngine {
 		if (d3ddv != NULL) { d3ddv->Release(); d3ddv = NULL; }
 	}
 
+
+
+	void D3DManager::Reset()
+	{
+	}
+
 	void D3DManager::errorCheck(HRESULT result, LPCTSTR debugInfo) {
 		if (result == D3D_OK) return;
 		int errorCode = ERROR_CODE_UNKNOWN;
@@ -72,7 +78,7 @@ namespace ggEngine {
 		d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, backgroundColor, 1.0f, 0);
 	}
 
-	void D3DManager::update()
+	void D3DManager::Update(double dt)
 	{
 		clearScene();
 		

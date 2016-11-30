@@ -2,8 +2,9 @@
 #include "Animator.h"
 #include "Texture.h"
 #include "Debug.h"
+#include "Game.h"
 namespace ggEngine {
-	SpriteAnimation::SpriteAnimation(DrawManager *drawManager, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) :Sprite(drawManager)
+	SpriteAnimation::SpriteAnimation(Game *game, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) :Sprite(game)
 	{
 		this->spriteAnimationType = SA_RectangleSheet;
 		this->currentFrame = defaultFrame;

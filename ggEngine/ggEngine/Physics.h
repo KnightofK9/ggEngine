@@ -1,5 +1,5 @@
 #pragma once
-#include "GGObject.h"
+#include "ComponentBase.h"
 #include <list>
 #include "ColliderArg.h"
 #include "GameObject.h"
@@ -11,15 +11,18 @@ namespace ggEngine {
 	class Game;
 	class Sprite;
 	class Body;
-	class Physics:public GGObject {
+	class Physics:public ComponentBase {
 	public:
 		Physics(Game *game,PhysicsMode physicsMode);
 		~Physics();
+
+		void Update(double dt) override;
+
 		void UpdatePhysics();
 		void EnablePhysics(GameObject * gameObject);
 		void AttachBodyTo(GameObject *gameObject);
 		void RemoveBodyFromList(Body *body);
-		void Reset();
+		void Reset() override;
 		void AddTileMap(TileMap* tileMap);
 		void RemoveTileMap(TileMap *tileMap);
 		std::list<Body*> GetBodyList() { return this->bodyList; }

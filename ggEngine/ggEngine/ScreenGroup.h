@@ -2,9 +2,10 @@
 #include "Group.h"
 namespace ggEngine {
 	class DrawManager;
+	class Game;
 	class ScreenGroup : public Group {
 	public:
-		ScreenGroup(DrawManager *drawManager);
+		ScreenGroup(Game *game);
 		~ScreenGroup();
 		virtual void AddDrawObjectToList(GameObject* drawObject) override;
 	};

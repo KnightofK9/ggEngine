@@ -12,6 +12,7 @@
 #include "TweenManager.h"
 #include "TimeBasedEventManager.h"
 #include "CameraEventManager.h"
+#include "MemoryManager.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
@@ -38,7 +39,8 @@ namespace ggEngine {
 			eventManager = new EventManager(this);
 			tweenManager = new TweenManager(this);
 			cameraEventManager = new CameraEventManager(this);
-			world = new World(this->drawManager);
+			memoryManager = new MemoryManager(this);
+			world = new World(this);
 			input = new Input(&hWnd);
 			g_debug.Init(this);
 
@@ -148,7 +150,7 @@ namespace ggEngine {
 			//
 			// Render go here
 			//
-			this->d3dManager->update();
+			this->d3dManager->Update(0.0);
 		}
 	}
 
@@ -170,20 +172,21 @@ namespace ggEngine {
 		//Debug::Log(frameRateReal);
 		//Debug::Log(std::to_string(logicTimer.getDeltaTime()));
 		if (isRunning) {
+			double dt = logicTimer.getDeltaTimeInMilisecond();
 			/*Handle input*/
 			input->PollKeyboard();
 			eventManager->DispatchKeyBoardEvent(input->keyStates);
-			timeBasedEventManager->Update(logicTimer.getDeltaTimeInMilisecond());
+			timeBasedEventManager->Update(dt);
 			/*State update*/
 			
 			State *state = stateManager->GetCurrentState();
 			state->Update();
 			/*Group update*/
 			RunGroupUpdate(world->GetGroupList());
-			tweenManager->Update(logicTimer.getDeltaTimeInMilisecond());
+			tweenManager->Update(dt);
 			/*Physics update*/
-			physics->UpdatePhysics();
-			cameraEventManager->Update();
+			physics->Update(dt);
+			cameraEventManager->Update(dt);
 		}
 	}
 	

@@ -649,7 +649,7 @@ namespace ggEngine {
 			if (this->sprite->events->onWorldBounds != nullptr)
 			{
 				ColliderArg e;
-				e.blockDirection = blocked;
+				e.blockDirection = worldBlocked;
 				Vector pivot = this->rigidBody->GetPivotPoint();
 				this->position->x = pivot.x;
 				this->position->y = pivot.y;

@@ -1,6 +1,6 @@
 #include "TileBase.h"
-
-TileBase::TileBase(DrawManager * drawManager, TileMap * tileMap, SpriteInfo * image)  : SingleTile(drawManager, tileMap, image)
+#include "CVGame.h"
+TileBase::TileBase(CVGame *cvGame, TileMap * tileMap, SpriteInfo * image)  : SingleTile(cvGame, tileMap, image)
 {
 }
 

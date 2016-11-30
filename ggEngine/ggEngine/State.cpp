@@ -30,7 +30,7 @@ namespace ggEngine {
 	}
 	void State::Load()
 	{
-		this->add = new ggEngine::Add(game->world, game->cache, game->tweenManager, game->GetDrawManager(), game->camera, game->physics, game->timeBasedEventManager, game->eventManager);
+		this->add = new ggEngine::Add(game);
 		this->preload = new ggEngine::Preload(game->cache);
 
 	}

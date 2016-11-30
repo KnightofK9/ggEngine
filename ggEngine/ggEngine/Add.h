@@ -24,9 +24,10 @@ namespace ggEngine{
 	class TimeBasedEventManager;
 	class TimeBasedEventInfo;
 	class EventManager;
+	class Game;
 	class Add:public GGObject  {
 	public:
-		Add(World *world,Cache *Cache,TweenManager *tweenManager, DrawManager *drawManager, Camera *camera, Physics *physics, TimeBasedEventManager *timeBasedEventManager, EventManager *eventManager);
+		Add(Game *game);
 		Sprite* Sprite(double x, double y, std::string textureKey, Group *group);
 		Grid *Grid(double x, double y,int cellWidth, int cellHeight, int width, int height, Group *group);
 		SpriteAnimation* SpriteAnimation(double x, double y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0, int msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -50,5 +51,6 @@ namespace ggEngine{
 		World *world;
 		TimeBasedEventManager *timeBasedEventManager;
 		EventManager *eventManager;
+		Game *game;
 	};
 }
