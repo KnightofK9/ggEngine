@@ -17,9 +17,7 @@ ggEngine::TileSet::~TileSet()
 	}
 }
 
-void ggEngine::TileSet::Destroy()
-{
-}
+
 
 void ggEngine::TileSet::ParseJson(std::string jsonChar)
 {

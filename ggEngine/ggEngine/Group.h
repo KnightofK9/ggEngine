@@ -11,7 +11,6 @@ namespace ggEngine{
 	public:
 		Group(Game *game);
 		~Group();
-		void Destroy();
 		void AddGroup(Group* group);
 		virtual void Update();
 		std::function<void(void)> update;

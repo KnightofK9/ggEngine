@@ -15,7 +15,6 @@ namespace ggEngine {
 	public:
 		TileMap(Game *game);
 		~TileMap();
-		void Destroy();
 		void Update() override;
 		void BuildTree(std::string jsonChar, bool isLocation = false);
 		std::list<GameObject*> *GetDrawList();

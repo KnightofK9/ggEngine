@@ -34,9 +34,7 @@ void ggEngine::Font::Draw(double worldX, double worldY,std::string text, D3DCOLO
 	font->DrawTextA(NULL, text.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP, fontColor);
 }
 
-void ggEngine::Font::Destroy()
-{
-}
+
 
 //bool ggEngine::Font::AddFontToResource(std::string filePath)
 //{

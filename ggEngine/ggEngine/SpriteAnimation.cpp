@@ -70,10 +70,6 @@ namespace ggEngine {
 			spriteHandle->End();
 		}
 	}
-	void SpriteAnimation::Destroy()
-	{
-		GameObject::Destroy();
-	}
 	void SpriteAnimation::CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop)
 	{
 		if (endFrame > this->numberOfFrame) {

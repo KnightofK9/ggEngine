@@ -12,7 +12,6 @@ namespace ggEngine {
 		~Font();
 		LPD3DXFONT GetDxFont() { return this->font; }
 		void Draw(double worldX, double worldY, std::string text, D3DCOLOR fontColor = DEFAULT_COLOR);
-		void Destroy();
 
 		//static bool AddFontToResource(std::string filePath);
 		//static bool RemoveFontFromResource(std::string fontName);

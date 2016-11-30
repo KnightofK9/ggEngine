@@ -51,8 +51,8 @@ bool ggEngine::Tween::IsFinished()
 
 void ggEngine::Tween::Destroy()
 {
-	this->isAlive = false;
 	this->isPlaying = false;
+	GGObject::Destroy();
 }
 
 double ggEngine::Tween::Update(double deltaTime)

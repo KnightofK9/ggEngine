@@ -21,7 +21,6 @@ namespace ggEngine {
 		virtual double GetWidth();
 		virtual double GetHeight();
 		void SetImage(SpriteInfo *image);
-		virtual void Destroy();
 		void Destroy(bool isClearCache);
 		SpriteInfo* GetImage() { return this->image; }
 		virtual void SetScale(double x, double y);

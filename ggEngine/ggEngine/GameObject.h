@@ -36,14 +36,14 @@ namespace ggEngine {
 		Vector GetAnchor() { return this->anchor; }
 		void SetVisible(bool visible) { this->visible = visible; }
 		bool IsVisible() { return this->visible; }
-		void Destroy();
+		virtual void Destroy();
 		Vector GetScale() { return this->scale; }
 		virtual void Transform(LPD3DXSPRITE spriteHandle);
 		virtual void SetScale(Vector vector) { this->scale = vector; }
 		virtual void SetScale(double x, double y){ this->scale.x = x; this->scale.y = y; }
 		virtual void SetRotate(double angle){ this->rotate = angle; }
 		double GetRotate(){ return this->rotate; }
-		bool IsAlive() { return this->alive; }
+		
 		void SetBody(Body* body) { this->body = body; }
 		Body* GetBody() { return this->body; }
 		Body* body = NULL;
@@ -71,7 +71,6 @@ namespace ggEngine {
 		double height;
 		Vector anchor;
 		Vector scale;
-		bool alive;
 		bool visible;
 		double rotate;
 		DrawManager *drawManager;

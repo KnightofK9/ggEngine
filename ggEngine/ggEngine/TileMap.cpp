@@ -24,10 +24,7 @@ namespace ggEngine {
 	{
 		this->physics->RemoveTileMap(this);
 	}
-	void TileMap::Destroy()
-	{
-		this->alive = false;
-	}
+
 	void TileMap::Update()
 	{
 		Group::Update();

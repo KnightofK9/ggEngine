@@ -21,9 +21,7 @@ namespace ggEngine{
 		}
 		drawList.clear();
 	}
-	void Group::Destroy(){
-		GameObject::Destroy();
-	}
+
 	void Group::AddGroup(Group * group)
 	{
 		Group* parentGroup = dynamic_cast<Group*>(group->GetParentObject());

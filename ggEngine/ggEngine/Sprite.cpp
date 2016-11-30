@@ -47,14 +47,11 @@ namespace ggEngine {
 			spriteHandle->End();
 		}
 	}
-	void Sprite::Destroy()
-	{
-		this->alive = false;
-	}
+	
 	void Sprite::Destroy(bool isClearCache)
 	{
 		this->image->Destroy();
-		Destroy();
+		GGObject::Destroy();
 	}
 	void Sprite::SetImage(SpriteInfo *image)
 	{

@@ -2,6 +2,13 @@
 namespace ggEngine {
 	class GGObject {
 	public:
-		virtual void Destroy(){}
+		GGObject();
+		~GGObject();
+		virtual void Destroy(){
+			this->alive = false;
+		}
+		bool IsAlive() { return this->alive; }
+	protected:
+		bool alive;
 	};
 }

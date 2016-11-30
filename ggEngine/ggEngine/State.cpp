@@ -34,7 +34,5 @@ namespace ggEngine {
 		this->preload = new ggEngine::Preload(game->cache);
 
 	}
-	void State::Destroy() {
 
-	}
 }

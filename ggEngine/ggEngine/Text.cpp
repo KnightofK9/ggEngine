@@ -51,10 +51,6 @@ ggEngine::Text::~Text()
 	
 }
 
-void ggEngine::Text::Destroy()
-{
-	GameObject::Destroy();
-}
 
 void ggEngine::Text::Draw()
 {

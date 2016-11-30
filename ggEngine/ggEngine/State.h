@@ -19,7 +19,6 @@ namespace ggEngine{
 		virtual void Load();
 		Add *add = nullptr;
 		Preload *preload = nullptr;
-		virtual void Destroy();
 		virtual void Init() = 0; //Called after start a State
 		virtual void Preload() = 0; //Called after init
 		virtual void Create() = 0;//Called after preload complete
