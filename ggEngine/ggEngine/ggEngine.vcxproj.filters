@@ -234,6 +234,9 @@
     <ClCompile Include="ScreenGroup.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CameraEventManager.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -457,6 +460,9 @@
     </ClInclude>
     <ClInclude Include="AnimationArg.h">
       <Filter>Header Files\Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraEventManager.h">
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

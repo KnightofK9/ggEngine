@@ -1,10 +1,9 @@
 #pragma once
 #include <ggEngine.h>
 #include "ItemBase.h"
-#include "CVGame.h"
-#include "CVAdd.h"
 
 using namespace ggEngine;
+class CVGame;
 class Heart : public ItemBase {
 public:
 	Heart(CVGame *cvgame, SpriteInfo *image);

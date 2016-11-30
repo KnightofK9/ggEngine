@@ -11,6 +11,7 @@
 #include "World.h"
 #include "TweenManager.h"
 #include "TimeBasedEventManager.h"
+#include "CameraEventManager.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
@@ -36,6 +37,7 @@ namespace ggEngine {
 			physics = new Physics(this, physicsMode);
 			eventManager = new EventManager(this);
 			tweenManager = new TweenManager(this);
+			cameraEventManager = new CameraEventManager(this);
 			world = new World(this->drawManager);
 			input = new Input(&hWnd);
 			g_debug.Init(this);
@@ -181,6 +183,7 @@ namespace ggEngine {
 			tweenManager->Update(logicTimer.getDeltaTimeInMilisecond());
 			/*Physics update*/
 			physics->UpdatePhysics();
+			cameraEventManager->Update();
 		}
 	}
 	

@@ -1,7 +1,6 @@
 #pragma once
 #include <ggEngine.h>
 #include "ItemBase.h"
-#include "HolyWater.h"
 
 using namespace ggEngine;
 class HolyWaterItem : public ItemBase {

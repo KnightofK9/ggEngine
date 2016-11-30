@@ -60,7 +60,7 @@ namespace ggEngine {
 		bool IsOpacityAffectByParent() {return this->opacityAffectByParent;}
 		void SetOpacity(int opacity) { if (opacity > 255) { this->opacity = 255; } else this->opacity = opacity; }
 		Tag tag = 0;
-		Rect GetRect();
+		Rect GetRect(bool isGetWorldRect = false);
 	protected:
 		bool opacityAffectByParent = true;
 		int opacity = 255;

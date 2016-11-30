@@ -2,10 +2,13 @@
 #include "CVGame.h"
 #include "CVPreload.h"
 #include "TextureConstant.h"
-ItemManager::ItemManager(CVGame *cvGame):CVAdd(nullptr,cvGame)
+
+ItemManager::ItemManager(CVGame * cvGame)
 {
 	this->cvGame = cvGame;
 	this->cvPreload = cvGame->cvPreload;
+	this->cvAdd = cvGame->cvAdd;
+	this->cache = cvGame->cache;
 }
 ItemManager::~ItemManager(){
 

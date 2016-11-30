@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include <d3d9.h>
+#include "Rect.h"
 namespace ggEngine {
 	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_RotateRight, CameraControl_RotateLeft, CameraControl_Reset, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown,CameraControl_ManualMove};
 	class Game;
@@ -24,6 +25,7 @@ namespace ggEngine {
 		void Follow(GameObject *go);
 		void UnFollow();
 		RECT GetRect();
+		Rect GetNormalRect();
 	private:
 		GameObject *follow = nullptr;
 		LPDIRECT3DDEVICE9 device;

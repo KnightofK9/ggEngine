@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "SpriteAnimation.h"
 #include "Events.h"
+#include "CameraEventManager.h"
 ggEngine::EventManager::EventManager(Game * game)
 {
 	this->game = game;
@@ -28,6 +29,20 @@ void ggEngine::EventManager::EnableSpriteAnimationEvent(SpriteAnimation * go)
 {
 	InitEvents(go);
 }
+
+void ggEngine::EventManager::EnableCameraEvent(GameObject * go)
+{
+	InitEvents(go);
+	game->cameraEventManager->Track(go);
+}
+
+void ggEngine::EventManager::DisableCameraEvent(GameObject * go)
+{
+	InitEvents(go);
+	game->cameraEventManager->RemoveTracking(go);
+}
+
+
 
 void ggEngine::EventManager::DisableKeyBoardInput(GameObject * go, bool isClearEvent)
 {

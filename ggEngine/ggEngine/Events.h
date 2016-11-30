@@ -22,7 +22,11 @@ namespace ggEngine {
 		std::function<void(GameObject*, EventArg)> onMoveComplete;
 		std::function<void(GameObject*, EventArg)> movementCallback;
 		std::function<void(GameObject*, AnimationArg)> onAnimationCompleted;
-		
+		std::function<void(GameObject*, EventArg)> onOutOfCamera;
+		std::function<void(GameObject*, EventArg)> onEnterCamera;
+
+
+
 		bool enable;
 	private:
 		Game *game;

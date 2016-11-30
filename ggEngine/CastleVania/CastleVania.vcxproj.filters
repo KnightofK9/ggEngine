@@ -129,6 +129,36 @@
     <ClInclude Include="EnemyBase.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="HolyWaterItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Cross.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="AxeItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleShot.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="InvinPotion.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="DaggerItem.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponBase.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -148,16 +178,10 @@
     <ClCompile Include="TileBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TimeBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TripleShot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VAudio.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WeaponBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WhipUpgradeItem.cpp">
@@ -217,9 +241,6 @@
     <ClCompile Include="HeartLarger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HolyWater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HolyWaterItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -268,5 +289,14 @@
     <ClCompile Include="StoryState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WEAPONBASE.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

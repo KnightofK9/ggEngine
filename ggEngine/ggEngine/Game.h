@@ -16,6 +16,7 @@ namespace ggEngine {
 	class Cache;
 	class Input;
 	class World;
+	class CameraEventManager;
 	class Game :public GGObject, public IGetGroup {
 	public:
 		Game(HWND hWnd, int width, int height, GameMode mode = GameMode_Windowed, PhysicsMode physicsMode = PhysicsMode_AABB,D3DCOLOR gameColor = D3DCOLOR_XRGB(0, 255, 255));
@@ -39,6 +40,7 @@ namespace ggEngine {
 		World *world;
 		TweenManager *tweenManager;
 		TimeBasedEventManager *timeBasedEventManager;
+		CameraEventManager *cameraEventManager;
 		Camera *camera;
 		HWND hWnd;
 	protected:

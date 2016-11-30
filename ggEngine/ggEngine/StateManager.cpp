@@ -8,6 +8,7 @@
 #include "World.h"
 #include "TweenManager.h"
 #include "TimeBasedEventManager.h"
+#include "CameraEventManager.h"
 namespace ggEngine {
 	StateManager::StateManager(Game * game)
 	{
@@ -113,6 +114,7 @@ namespace ggEngine {
 				game->eventManager->Reset();
 				game->timeBasedEventManager->Reset();
 				game->tweenManager->Reset();
+				game->cameraEventManager->Reset();
 				this->currentState->ShutDown();
 			}
 		}

@@ -111,7 +111,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	shot = 0;
 	score = 0;
 	stagePoint = 0;
-	lifePoint = 0;
+	heartPoint = 0;
 	pPoint = 0;
 }
 
@@ -235,14 +235,14 @@ void Simon::IncreaseState()
 
 void Simon::IncreaseLifePoint(int point)
 {
-	this->lifePoint += point;
-	this->infoPanel->SetLife(lifePoint);
+	this->heartPoint += point;
+	this->infoPanel->SetLife(heartPoint);
 }
 
 void Simon::DecreaseLifePoint(int point)
 {
-	this->lifePoint = (lifePoint - point <= 0) ? 0 : lifePoint - point;
-	this->infoPanel->SetLife(this->lifePoint);
+	this->heartPoint = (heartPoint - point <= 0) ? 0 : heartPoint - point;
+	this->infoPanel->SetLife(this->heartPoint);
 }
 
 void Simon::DescreasePPoint(int point)
@@ -251,16 +251,7 @@ void Simon::DescreasePPoint(int point)
 	this->infoPanel->SetLife(this->pPoint);
 }
 
-void Simon::SetWeapon(WeaponBase * weapon, SpriteInfo *image)
-{
-	this->weapon = weapon;
-}
 
-void Simon::SetSubWeapon(WeaponBase * subWeapon, SpriteInfo * image)
-{
-	this->subWeapon = subWeapon;
-	this->infoPanel->SetItemImage(image);
-}
 
 void Simon::SetShot(int shot, SpriteInfo * image)
 {

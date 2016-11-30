@@ -12,6 +12,9 @@ namespace ggEngine {
 		void Destroy();
 		void EnableKeyBoardInput(GameObject *go);
 		void EnableSpriteAnimationEvent(SpriteAnimation *go);
+		void EnableCameraEvent(GameObject *go);
+		void DisableCameraEvent(GameObject *go);
+
 		void DisableKeyBoardInput(GameObject *go,bool isClearEvent = false);
 		void EnableMouseInput(GameObject *go);
 		void DisableMouseInput(GameObject *go, bool isClearEvent = false);

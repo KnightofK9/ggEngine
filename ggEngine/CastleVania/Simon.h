@@ -3,7 +3,6 @@
 #include "CharacterBase.h"
 #include "CharacterConstant.h"
 #include "InfoPanel.h"
-#include "WeaponBase.h"
 using namespace ggEngine;
 class CVGame;
 class ItemBase;
@@ -39,8 +38,6 @@ public:
 	void IncreaseLifePoint(int point);
 	void DecreaseLifePoint(int point);
 	void DescreasePPoint(int point);
-	void SetWeapon(WeaponBase *weapon, SpriteInfo *image);
-	void SetSubWeapon(WeaponBase *subWeapon, SpriteInfo *image);
 	void SetShot(int shot, SpriteInfo *image);
 
 	//void ThrowWeapon();
@@ -52,11 +49,14 @@ public:
 private:
 	int health;
 	int maxHealth;
+
 	int score;
+	
 	int stagePoint;
-	int lifePoint;
+	
+	int heartPoint;
+	
 	int pPoint;
+	
 	int shot;
-	WeaponBase *weapon = nullptr;
-	WeaponBase *subWeapon = nullptr;
 };

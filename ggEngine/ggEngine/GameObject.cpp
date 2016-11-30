@@ -86,11 +86,19 @@ namespace ggEngine {
 		spriteHandle->SetTransform(&mat);
 	}
 
-	Rect GameObject::GetRect()
+	Rect GameObject::GetRect(bool isGetWorldRect)
 	{
 		int left, top, right, bottom;
-		left = this->position.x + (1 - this->anchor.x)*GetWidth();
-		top = this->position.y + (1 - this->anchor.y)*GetHeight();
+		if (isGetWorldRect) {
+			left = this->worldPosition.x + (1 - this->anchor.x)*GetWidth();
+			top = this->worldPosition.y + (1 - this->anchor.y)*GetHeight();
+		}
+		else {
+			left = this->position.x + (1 - this->anchor.x)*GetWidth();
+			top = this->position.y + (1 - this->anchor.y)*GetHeight();
+		}
+		
+		
 		right = left + (-anchor.x)*GetWidth();
 		bottom = top + (-anchor.y)*GetHeight();
 		return Rect(left, top, right, bottom);

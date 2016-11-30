@@ -1,33 +1,66 @@
 #include "WeaponBase.h"
-
-
-WeaponBase::WeaponBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
-	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
+#include "CVGame.h"
+#include "EnemyBase.h"
+WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame->GetDrawManager(),image)
 {
 	this->cvGame = cvGame;
 	this->cvGame->physics->EnablePhysics(this);
 	this->body->CreateRectangleRigidBody(this->image->GetWidth(), this->image->GetHeight());
 	this->body->allowGravity = true;
-	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
 
+
+	this->tag = ObjectType_Weapon;
+	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
+		switch (go->tag) {
+		case ObjectType_Enemy:
+			{
+				EnemyBase *enemy = dynamic_cast<EnemyBase*>(go);
+				if (enemy != nullptr) {
+					OnEnemyContact(enemy, e);
+					return;
+				}
+			}
+			break;
+		case ObjectType_Static:
+			OnStaticContact(go,e);
+			break;
+		default:
+			break;
+		}
 	};
-	this->tag = ObjectType_Simon;
+	this->events->onOutOfCamera = [this](GameObject *go, EventArg e) {
+		OnOutOfCamera(e);
+	};
+
+
+
+
 	this->visible = false;
 	this->body->SetActive(false);
 }
-
 
 WeaponBase::~WeaponBase()
 {
 }
 
-void WeaponBase::Active()
+void WeaponBase::FireWeapon(bool isLeft)
 {
-	this->visible = true;
-	this->body->SetActive(true);
 }
 
-void WeaponBase::Destroy()
+void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 {
+}
 
+void WeaponBase::OnOutOfCamera(EventArg e)
+{
+}
+
+
+
+void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
+{
+}
+
+void WeaponBase::Active()
+{
 }

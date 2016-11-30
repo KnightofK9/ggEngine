@@ -1,5 +1,6 @@
 #include "Heart.h"
 #include "Simon.h"
+#include "CVGame.h"
 Heart::Heart(CVGame *cvgame, SpriteInfo * image): ItemBase(cvgame,image)
 {
 	//audio = cvGame->cvAdd->Audio("Resource//Test//sound.wav");

@@ -24,7 +24,7 @@ using namespace ggEngine;
 class CVGame;
 class ggEngine::Group;
 class CVPreload;
-class ItemManager : protected CVAdd{
+class ItemManager{
 public:
 	ItemManager(CVGame *cvGame);
 	~ItemManager();
@@ -54,4 +54,6 @@ public:
 private:
 	CVPreload *cvPreload = nullptr;
 	CVGame *cvGame = nullptr;
+	CVAdd *cvAdd = nullptr;
+	Cache *cache = nullptr;
 };

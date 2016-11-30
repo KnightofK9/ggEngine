@@ -1,16 +1,22 @@
 #pragma once
 #include <ggEngine.h>
-#include "CVObject.h"
-#include "CVSpriteAnimation.h"
-#include "CVGame.h"
-
-class WeaponBase : public CVSpriteAnimation, CVObject
-{
+#include "CVSprite.h"
+#include "TypeEnum.h"
+using namespace ggEngine;
+class CVGame;
+class EnemyBase;
+class WeaponBase : public CVSprite {
 public:
-	WeaponBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+	WeaponBase(CVGame *cvGame, SpriteInfo *image);
 	~WeaponBase();
-	
-	virtual void Active();
-	virtual void Destroy();
-};
 
+	virtual void FireWeapon(bool isLeft);
+	virtual void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e);
+	virtual void OnOutOfCamera(EventArg e);
+	virtual void OnStaticContact(GameObject *staticObject, ColliderArg e);
+
+	virtual void Active();
+
+protected:
+	CVGame *cvGame;
+};

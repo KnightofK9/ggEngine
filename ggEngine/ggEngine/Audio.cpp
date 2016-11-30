@@ -2,35 +2,35 @@
 namespace ggEngine{
 	Audio::Audio(std::string audioKey)
 	{
-		soundBuffer.loadFromFile(audioKey);
-		sound.setBuffer(soundBuffer);
+		/*soundBuffer.loadFromFile(audioKey);
+		sound.setBuffer(soundBuffer);*/
 	}
 
 
 
 	void Audio::Play()
 	{
-		sound.play();
+		//sound.play();
 	}
 
 	void Audio::Stop()
 	{
-		sound.stop();
+		//sound.stop();
 	}
 	void Audio::Loop(bool isLoop)
 	{
-		sound.setLoop(isLoop);
+		//sound.setLoop(isLoop);
 	}
 	void Audio::Repeat(int numberOfRepeat)
 	{		
 	}
 	void Audio::Pause()
 	{
-		sound.pause();
+		//sound.pause();
 	}
 	void Audio::Resume()
 	{
-		sound.play();
+		//sound.play();
 	}
 	void Audio::Destroy(bool clearFromCache)
 	{
@@ -38,8 +38,8 @@ namespace ggEngine{
 	}
 	void Audio::Restart()
 	{
-		sound.setPosition(0, 0, 0);
-		sound.play();
+		/*sound.setPosition(0, 0, 0);
+		sound.play();*/
 	}
 
 	//Play the audio, or restart if is playing. 
@@ -51,6 +51,6 @@ namespace ggEngine{
 	//Fade to the specific volume
 	void Audio::FadeTo(float volume)	//with 100 levels
 	{
-		sound.setVolume(volume);
+		//sound.setVolume(volume);
 	}
 }

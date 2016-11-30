@@ -5,8 +5,8 @@
 #include <dsound.h>
 #include <stdio.h>
 #include <string>
-#include <SFML\Audio.hpp>
-#pragma comment (lib, "sfml-audio-d.lib")
+//#include <SFML\Audio.hpp>
+//#pragma comment (lib, "sfml-audio-d.lib")
 
 namespace ggEngine{
 	class Audio : public GGObject{
@@ -28,7 +28,7 @@ namespace ggEngine{
 		void FadeTo(float volume);
 
 	private:
-		sf::SoundBuffer soundBuffer;
-		sf::Sound sound;
+		/*sf::SoundBuffer soundBuffer;
+		sf::Sound sound;*/
 	};
 }
