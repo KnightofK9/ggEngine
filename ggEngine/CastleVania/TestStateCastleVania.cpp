@@ -5,14 +5,11 @@ TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 }
 TestStateCastleVania::~TestStateCastleVania()
 {
-	if (itemManager != nullptr) {
-		delete itemManager;
-		itemManager = nullptr;
-	}
+
 }
 void TestStateCastleVania::Init() {
 
-	this->itemManager = new ItemManager(cvgame);
+	this->itemManager = this->cvgame->itemManager;
 }
 void TestStateCastleVania::Preload() {
 	Json jsonFile("State/TestState.json", true);

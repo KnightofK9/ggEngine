@@ -242,6 +242,7 @@
     <ClCompile Include="TripleShot.cpp" />
     <ClCompile Include="VAudio.cpp" />
     <ClCompile Include="WEAPONBASE.CPP" />
+    <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WhipUpgradeItem.cpp" />
   </ItemGroup>
   <ItemGroup>
