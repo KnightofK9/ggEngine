@@ -11,6 +11,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->infoPanel = infoPanel;
 	this->SetPosition(0, 0);
 	this->SetAnchor(0.5, 0.5);
+	this->SetScale(1, 1);
 	this->SetHealth(health);
 	this->CreateAnimation("idle", 0, 0, true);
 	this->CreateAnimation("move", 0, 3, true);
@@ -137,14 +138,16 @@ void Simon::Idle()
 void Simon::MoveLeft()
 {
 	this->PlayAnimation("move");
-	this->SetScale(1, 1);
+	/*this->SetScale(1, 1);*/
+	ChangeFacingDirection(true);
 	this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
 }
 
 void Simon::MoveRight()
 {
 	this->PlayAnimation("move");
-	this->SetScale(-1, 1);
+	//this->SetScale(-1, 1);
+	ChangeFacingDirection(false);
 	this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
 }
 

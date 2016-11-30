@@ -18,5 +18,10 @@ public:
 	virtual void Active();
 
 protected:
+	Vector GetHorizontalDirection(bool isLeft);
+	Vector GetThrowDirection(bool isLeft);
+	virtual void FireHorizontal(bool isLeft);
+	virtual void FireAsThrow(bool isLeft);
 	CVGame *cvGame;
+	double throwForce = 100.0;
 };

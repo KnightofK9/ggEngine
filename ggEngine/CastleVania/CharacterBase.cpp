@@ -8,3 +8,22 @@ CharacterBase::CharacterBase(CVGame *cvGame, SpriteInfo * image, int frameWidth,
 CharacterBase::~CharacterBase()
 {
 }
+
+void CharacterBase::MoveLeft()
+{
+}
+
+void CharacterBase::MoveRight()
+{
+}
+
+void CharacterBase::ChangeFacingDirection(bool isLeft)
+{
+	this->isLeft = isLeft;
+	if (isLeft) {
+		this->SetScale(1, 1);
+	}
+	else {
+		this->SetScale(-1, 1);
+	}
+}

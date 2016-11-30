@@ -49,18 +49,54 @@ void WeaponBase::FireWeapon(bool isLeft)
 
 void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 {
+	Destroy();
 }
 
 void WeaponBase::OnOutOfCamera(EventArg e)
 {
+	g_debug.Log("Out of camera!");
+	Destroy();
 }
 
 
 
 void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
 {
+	Destroy();
 }
 
 void WeaponBase::Active()
 {
+	this->visible = true;
+	this->body->SetActive(true);
+}
+
+Vector WeaponBase::GetHorizontalDirection(bool isLeft)
+{
+	Vector direction(-1, 0);
+	if (!isLeft) {
+		direction.x = 1;
+	}
+	return direction;
+}
+
+Vector WeaponBase::GetThrowDirection(bool isLeft)
+{
+	Vector direction(-1, -1);
+	if (!isLeft) {
+		direction.x = 1;
+	}
+	return direction;
+}
+
+void WeaponBase::FireHorizontal(bool isLeft)
+{
+	Vector direction = GetHorizontalDirection(isLeft);
+	this->body->AddForce(throwForce, direction);
+}
+
+void WeaponBase::FireAsThrow(bool isLeft)
+{
+	Vector direction = GetThrowDirection(isLeft);
+	this->body->AddForce(throwForce, direction);
 }

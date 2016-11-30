@@ -189,6 +189,7 @@
     <ClInclude Include="ItemBase.h" />
     <ClInclude Include="TypeEnum.h" />
     <ClInclude Include="WeaponBase.h" />
+    <ClInclude Include="WeaponDagger.h" />
     <ClInclude Include="WeaponManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +243,7 @@
     <ClCompile Include="TripleShot.cpp" />
     <ClCompile Include="VAudio.cpp" />
     <ClCompile Include="WEAPONBASE.CPP" />
+    <ClCompile Include="WeaponDagger.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WhipUpgradeItem.cpp" />
   </ItemGroup>
