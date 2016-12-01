@@ -35,7 +35,7 @@ namespace ggEngine{
 		ScreenGroup *ScreenGroup();
 		TileMap* TileMap(std::string tileMapJson, bool isLocation = true);
 		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
-		Audio* Audio(std::string fileName);
+		Audio* Audio(std::string audioKey);
 		ggEngine::Tween* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction);
 		ggEngine::Tween* Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction, std::function<void(double)> update);
 		TimeBasedEventInfo* TimeOut(unsigned int delay , std::function<void(void)> function);

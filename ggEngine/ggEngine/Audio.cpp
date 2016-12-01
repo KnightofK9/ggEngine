@@ -1,36 +1,59 @@
 #include "Audio.h"
+#include "Game.h"
+
 namespace ggEngine{
-	Audio::Audio(std::string audioKey)
+	Audio::Audio(Game *game, AudioInfo *audioInfo)
 	{
-		/*soundBuffer.loadFromFile(audioKey);
-		sound.setBuffer(soundBuffer);*/
+		this->game = game;
+		this->audioInfo = audioInfo;
+	}
+
+	Audio::~Audio()
+	{
+		if (game != NULL){
+			delete game;
+			game = NULL;
+		}
+		if (audioInfo != NULL) {
+			delete audioInfo;
+			audioInfo = NULL;
+		}
 	}
 
 
 
 	void Audio::Play()
 	{
-		//sound.play();
+		HRESULT hr = audioInfo->sourceVoice->Start();
+		//BOOL isRunning = TRUE;
+		//while (SUCCEEDED(hr) && isRunning)
+		//{
+		//	XAUDIO2_VOICE_STATE state;
+		//	audioInfo->sourceVoice->GetState(&state);
+		//	isRunning = (state.BuffersQueued > 0) != 0;
+
+		//	Sleep(10);
+		//}
 	}
 
 	void Audio::Stop()
 	{
-		//sound.stop();
+		HRESULT hr = audioInfo->sourceVoice->Stop();
 	}
 	void Audio::Loop(bool isLoop)
 	{
-		//sound.setLoop(isLoop);
+		
 	}
 	void Audio::Repeat(int numberOfRepeat)
 	{		
 	}
 	void Audio::Pause()
 	{
-		//sound.pause();
+		
 	}
 	void Audio::Resume()
 	{
-		//sound.play();
+		
 	}
 	void Audio::Destroy(bool clearFromCache)
 	{
@@ -38,8 +61,7 @@ namespace ggEngine{
 	}
 	void Audio::Restart()
 	{
-		/*sound.setPosition(0, 0, 0);
-		sound.play();*/
+
 	}
 
 	//Play the audio, or restart if is playing. 
@@ -51,6 +73,6 @@ namespace ggEngine{
 	//Fade to the specific volume
 	void Audio::FadeTo(float volume)	//with 100 levels
 	{
-		//sound.setVolume(volume);
+		
 	}
 }

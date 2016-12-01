@@ -25,5 +25,6 @@ private:
 	Text* coLTD;
 	Text* licenceBy;
 	Text* INC;
+	Audio* audio;
 	void ChangeState();
 };

@@ -13,6 +13,7 @@ void IntroState::Preload() {
 	this->cvPreload->Texture("menu_bg", "Resource/Resources/MenuScene/menu_bg.png");
 	this->cvPreload->Texture("menu_anim", "Resource/Resources/MenuScene/menu_anim.png");
 	this->cvPreload->Font(TextureConstant::GAME_FONT_TEXTURE, TextureConstant::GAME_FONT_NAME, TextureConstant::GAME_FONT_TEXTURE_PATH, 22);
+	this->cvPreload->Audio("audio", "defaultAudio.wav");
 
 }
 void IntroState::Create()
@@ -20,6 +21,8 @@ void IntroState::Create()
 	Group* group = this->cvAdd->Group();
 	this->menu_bg = this->cvAdd->Sprite(128, 112, "menu_bg", group);
 	this->menu_bg->SetAnchor(0.5, 0.5);
+	this->audio = this->cvAdd->Audio("audio");
+	
 	
 	//this->cvgame->camera->RegisterControl(CameraControl_MoveUp, DIK_W);
 	//this->cvgame->camera->RegisterControl(CameraControl_MoveDown, DIK_S);
@@ -60,6 +63,8 @@ void IntroState::Create()
 					this->push->SetVisible(!this->push->IsVisible());
 				})->Start();
 
+				this->audio->Play();
+
 				this->cvAdd->TimeOut(1200, [this]() {
 					if (this->cvgame->stateManager->GetCurrentState() == this)
 						this->cvgame->stateManager->Start("TestStateCastleVania", true, true);
@@ -69,7 +74,6 @@ void IntroState::Create()
 	this->coLTD		= this->cvAdd->Text(384 - fontSize * 12, 456 + fontSize, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "KONAMI INDUSTRY CO.,LTD.", style, textGroup);
 	this->licenceBy = this->cvAdd->Text(384 - fontSize * 5, 456 + fontSize*2, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "LICENSED BY", style, textGroup);
 	this->INC		= this->cvAdd->Text(384 - fontSize * 12, 456 + fontSize*3, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "NINTENDO OF AMERICA INC.", style, textGroup);
-
 }
 void IntroState::Update()
 {

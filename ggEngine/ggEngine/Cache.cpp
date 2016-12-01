@@ -1,5 +1,6 @@
 #include "Cache.h"
 #include "Texture.h"
+#include "AudioInfo.h"
 #include "Game.h"
 #include "SpriteInfo.h"
 #include "XML.h"
@@ -35,6 +36,20 @@ namespace ggEngine {
 		}
 		return font;
 	}
+	AudioInfo * Cache::GetAudioInfo(std::string key)
+	{
+		std::map<std::string, AudioInfo*>::iterator it = this->audioInfoMap.find(key);
+		AudioInfo* audioInfo;
+		if (it != this->audioInfoMap.end())
+		{
+			audioInfo = it->second;
+		}
+		else {
+			g_debug.Warning("No audioInfo found with key " + key);
+			return defaultAudioInfo;
+		}
+		return audioInfo;
+	}
 	TileSet * Cache::GetTileMap(std::string key)
 	{
 		auto it = this->tileSetMap.find(key);
@@ -67,12 +82,14 @@ namespace ggEngine {
 		Texture* defaultTexture = new Texture(this->device, "default.bmp");
 		defaultSpriteInfo = new SpriteInfo(defaultTexture);
 		defaultFont = new Font(game->GetDrawManager(), "Arial", 25, false);
+		defaultAudioInfo = new AudioInfo("defaultAudio.wav");
 	}
 	Cache::~Cache()
 	{
 		ClearAll();
 		delete defaultSpriteInfo;
 		delete defaultFont;
+		delete defaultAudioInfo;
 	}
 
 	void Cache::ClearAll()
@@ -167,8 +184,19 @@ namespace ggEngine {
 		return true;
 	}
 
-	bool Cache::CreateAudioFromFile(std::string audioKey, std::string audioPath){
-		return false;
+	bool Cache::CreateAudioInfoFromFile(std::string audioKey, std::string audioPath){
+		std::map<std::string, AudioInfo*>::iterator  it = audioInfoMap.find(audioKey);
+		if (it != audioInfoMap.end() && (it->second) != NULL) {
+			g_debug.Warning("Audio " + audioKey + "has been loaded already!");
+			return false;
+		}
+		AudioInfo *audioInfo = new AudioInfo(audioPath);
+		if (audioInfo->GetXAudio2Engine() == NULL){
+			g_debug.Warning("Initialize audioInfo " + audioKey + " failed.");
+			return false;
+		}
+		audioInfoMap[audioKey] = audioInfo;
+		return true;
 	}
 	bool Cache::CreateTextureFromTileSetJson(std::string tileSetPath, std::string jsonPath, D3DCOLOR transColor)
 	{

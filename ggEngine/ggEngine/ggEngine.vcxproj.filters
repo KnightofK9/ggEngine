@@ -243,6 +243,9 @@
     <ClCompile Include="GGObject.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDKwavefile.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -475,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="ComponentBase.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKwavefile.h">
+      <Filter>Header Files\Umino</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,23 +1,29 @@
 #pragma once
 #include <xaudio2.h>
 #include <string>
+#include <stdio.h>
+#include <XAudio2.h>
+#include <string>
+#include "SDKwavefile.h"
+#include "Debug.h"
+#include "Helper.h"
 
-class AudioInfo
-{
-private:
-	WAVEFORMATEX waveFormat;
-	XAUDIO2_BUFFER buffer;
-	BYTE * waveData;
+namespace ggEngine {
+	class AudioInfo
+	{
+	public:
+		AudioInfo(std::string filePath);
+		virtual ~AudioInfo();
+		IXAudio2* GetXAudio2Engine() { return this->xaudio2; }
 
+		IXAudio2SourceVoice * sourceVoice = nullptr;
 
-public:
-	AudioInfo(std::string fileName = "");
-	virtual ~AudioInfo();
-
-	inline const XAUDIO2_BUFFER* GetBuffer() { return &buffer; }
-	inline const DWORD AudioInfo::GetChunkSize();
-	inline WAVEFORMATEX* GetWaveFormat() { return &waveFormat; }
-
-	bool Load(std::string fileName);
-};
-
+	private:
+		IXAudio2 *xaudio2 = nullptr;
+		IXAudio2MasteringVoice *masteringVoice = nullptr;
+		WAVEFORMATEX *wfx = nullptr;
+		XAUDIO2_BUFFER buffer;
+		Debug debug;
+		CWaveFile wav;
+	};
+}
