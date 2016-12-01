@@ -428,7 +428,7 @@ function Group() {
             }
             if(useQuadTree){
                 if(Constant.ENEMY_DICT.hasOwnProperty(sprite.type) && !my.isPutEnemyToQuadTree ){
-
+                    sprite.quadTreeId = -1;
                 }
                 else{
                     sprite.quadTreeId = my.getQuadTreeId(sprite);
