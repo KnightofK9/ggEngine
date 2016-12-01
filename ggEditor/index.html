@@ -65,10 +65,10 @@
         <button id="btn-export-tile-map" class="btn btn-default">
             <i class="glyphicon glyphicon-save"></i> Export Tile Map
         </button>
-        <button class="btn btn-default">
+        <button class="btn btn-default" onclick="movePicker()" >
             <i class="glyphicon glyphicon-move"></i> Move
         </button>
-        <button class="btn btn-default">
+        <button class="btn btn-default" onclick="removePicker()" >
             <i class="glyphicon glyphicon-remove"></i> Remove
         </button>
     </div>
@@ -247,7 +247,12 @@
             }]
         });
     }
-
+    function removePicker(){
+        sceneEditor.editState.pickRemove();
+    }
+    function movePicker(){
+        sceneEditor.editState.pickMove();
+    }
     function initSceneEditor() {
         BootstrapDialog.show({
             closable: true,

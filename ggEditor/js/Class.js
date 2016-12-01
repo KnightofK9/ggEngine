@@ -277,10 +277,10 @@ function TileMap() {
     this._destroy = function(){
         my.hierarchyIdDict[this._hierarchyId] = null;
         delete my.hierarchyIdDict[this._hierarchyId];
-        if(this.parent != null) {
-            for (var i = 0; i < this.parent._childList.length; i++) {
-                if (this.parent._childList[i] === this) {
-                    this.parent._childList.splice(i, 1);
+        if(this._parent != null) {
+            for (var i = 0; i < this._parent._childList.length; i++) {
+                if (this._parent._childList[i] === this) {
+                    this._parent._childList.splice(i, 1);
                     break;
                 }
             }
@@ -363,10 +363,10 @@ function Group() {
     this._destroy = function(){
         my.hierarchyIdDict[this._hierarchyId] = null;
         delete my.hierarchyIdDict[this._hierarchyId];
-        if(this.parent != null) {
-            for (var i = 0; i < this.parent._childList.length; i++) {
-                if (this.parent._childList[i] === this) {
-                    this.parent._childList.splice(i, 1);
+        if(this._parent != null) {
+            for (var i = 0; i < this._parent._childList.length; i++) {
+                if (this._parent._childList[i] === this) {
+                    this._parent._childList.splice(i, 1);
                     break;
                 }
             }
@@ -468,10 +468,10 @@ function Sprite(){
     this._destroy = function(){
         my.hierarchyIdDict[this._hierarchyId] = null;
         delete my.hierarchyIdDict[this._hierarchyId];
-        if(this.parent != null) {
-            for (var i = 0; i < this.parent._childList.length; i++) {
-                if (this.parent._childList[i] === this) {
-                    this.parent._childList.splice(i, 1);
+        if(this._parent != null) {
+            for (var i = 0; i < this._parent._childList.length; i++) {
+                if (this._parent._childList[i] === this) {
+                    this._parent._childList.splice(i, 1);
                     break;
                 }
             }

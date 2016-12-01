@@ -23,14 +23,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334">
-              <caret line="111" column="140" selection-start-line="111" selection-start-column="140" selection-end-line="111" selection-end-column="140" />
+            <state vertical-scroll-proportion="-7.5636363">
+              <caret line="67" column="61" selection-start-line="67" selection-start-column="61" selection-end-line="67" selection-end-column="61" />
               <folding>
-                <marker date="1480603877587" expanded="false" signature="12061:12075" placeholder="..." />
+                <marker date="1480605991372" expanded="false" signature="12264:12278" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditState.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4516129">
+              <caret line="737" column="40" selection-start-line="737" selection-start-column="40" selection-end-line="737" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HierarchyEditor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/HierarchyEditor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="78" column="36" selection-start-line="78" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#49#0" expanded="false" />
+                <marker date="1480604964235" expanded="true" signature="9123:9327" placeholder="..." />
+                <marker date="1480604964235" expanded="true" signature="9150:9321" placeholder="..." />
+                <marker date="1480604964235" expanded="true" signature="9420:9465" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="phaser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/Core/phaser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="46729" column="4" selection-start-line="46729" selection-start-column="4" selection-end-line="46729" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -72,21 +107,8 @@
         <entry file="file://$PROJECT_DIR$/js/Class.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="406" column="4" selection-start-line="406" selection-start-column="4" selection-end-line="406" selection-end-column="4" />
+              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ObjectList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/ObjectList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="20" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
-              <folding>
-                <marker date="1480591299002" expanded="false" signature="0:47" placeholder="/** Created by knightofk9 on 11/20/2016. ...*/" />
-                <marker date="1480591299002" expanded="true" signature="75:2616" placeholder="{...}" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -96,28 +118,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#49#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EditState.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.793103">
-              <caret line="193" column="35" selection-start-line="193" selection-start-column="35" selection-end-line="193" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HierarchyEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/HierarchyEditor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="221" column="13" selection-start-line="221" selection-start-column="13" selection-end-line="221" selection-end-column="13" />
               <folding>
                 <element signature="e#0#49#0" expanded="false" />
               </folding>
@@ -167,13 +167,13 @@
         <option value="$PROJECT_DIR$/js/TileMapManager.js" />
         <option value="$PROJECT_DIR$/js/ObjectList.js" />
         <option value="$PROJECT_DIR$/js/HierarchyInfo.js" />
-        <option value="$PROJECT_DIR$/js/HierarchyEditor.js" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/js/StateInfo.js" />
-        <option value="$PROJECT_DIR$/js/State/EditState.js" />
+        <option value="$PROJECT_DIR$/js/HierarchyEditor.js" />
         <option value="$PROJECT_DIR$/js/Class.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/State/EditState.js" />
       </list>
     </option>
   </component>
@@ -640,12 +640,12 @@
       <workItem from="1480253224313" duration="3442000" />
       <workItem from="1480300809162" duration="485000" />
       <workItem from="1480590872601" duration="628000" />
-      <workItem from="1480603511093" duration="360000" />
+      <workItem from="1480603511093" duration="2670000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112189000" />
+    <option name="totallyTimeSpent" value="114499000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -765,7 +765,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
           <folding>
-            <marker date="1480603877587" expanded="false" signature="12061:12075" placeholder="..." />
+            <marker date="1480605991372" expanded="false" signature="12264:12278" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -782,7 +782,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1480603877587" expanded="false" signature="12061:12075" placeholder="..." />
+            <marker date="1480605991372" expanded="false" signature="12264:12278" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1016,31 +1016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Core/phaser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="96572" column="8" selection-start-line="96572" selection-start-column="8" selection-end-line="96572" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/HierarchyInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/HierarchyEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="221" column="13" selection-start-line="221" selection-start-column="13" selection-end-line="221" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#49#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1057,14 +1032,6 @@
             <element signature="e#0#49#0" expanded="false" />
             <marker date="1480591299001" expanded="true" signature="935:3536" placeholder="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/Class.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="406" column="4" selection-start-line="406" selection-start-column="4" selection-end-line="406" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1086,21 +1053,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
+    <entry file="file://$PROJECT_DIR$/js/HierarchyInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.793103">
-          <caret line="193" column="35" selection-start-line="193" selection-start-column="35" selection-end-line="193" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/HierarchyEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="78" column="36" selection-start-line="78" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#49#0" expanded="false" />
+            <marker date="1480604964235" expanded="true" signature="9123:9327" placeholder="..." />
+            <marker date="1480604964235" expanded="true" signature="9150:9321" placeholder="..." />
+            <marker date="1480604964235" expanded="true" signature="9420:9465" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Class.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="111" column="140" selection-start-line="111" selection-start-column="140" selection-end-line="111" selection-end-column="140" />
+        <state vertical-scroll-proportion="-7.5636363">
+          <caret line="67" column="61" selection-start-line="67" selection-start-column="61" selection-end-line="67" selection-end-column="61" />
           <folding>
-            <marker date="1480603877587" expanded="false" signature="12061:12075" placeholder="..." />
+            <marker date="1480605991372" expanded="false" signature="12264:12278" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Core/phaser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46729" column="4" selection-start-line="46729" selection-start-column="4" selection-end-line="46729" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4516129">
+          <caret line="737" column="40" selection-start-line="737" selection-start-column="40" selection-end-line="737" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>

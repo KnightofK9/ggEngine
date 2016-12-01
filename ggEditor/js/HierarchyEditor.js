@@ -23,6 +23,8 @@ var HierarchyEditor = function () {
         var div = createLine(tileMap._hierarchyId,tileMap.getName());
         hierarchyListPanel.append(div);
         currentHTileMap = tileMap;
+
+        tileMap._item.hObject = tileMap;
         return tileMap;
     };
     this.add.staticTile = function(x,y,layer,tileMap){
@@ -41,6 +43,9 @@ var HierarchyEditor = function () {
 
         staticTile._item = tileMap.getTile(idX, idY, layer);
         staticTile.parent = currentHTileMap;
+
+
+        staticTile._item.hObject = staticTile;
         if(!currentHTileMap.addTypeTile(staticTile)){
             my.hierarchyIdCount-=1;
             return null;
@@ -62,6 +67,7 @@ var HierarchyEditor = function () {
         hGroup._item = group;
         hGroup.x = group.x;
         hGroup.y = group.y;
+        hGroup._item.hObject = hGroup;
         my.hierarchy._add(hGroup);
 
         var div = createLine(hGroup._hierarchyId,hGroup.getName());
@@ -71,6 +77,7 @@ var HierarchyEditor = function () {
     };
     this.add.sprite = function(sprite,hGroup){
         var hSprite = hGroup.addObject(sprite);
+        hSprite._item.hObject = hSprite;
         var div = createLine(hSprite._hierarchyId,hSprite.getName());
         var parentDiv = $("#hierarchy-"+ hGroup._hierarchyId);
         parentDiv.append(div);
