@@ -171,6 +171,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
+        my.isPutEnemyToQuadTree = stateInfo.isPutEnemyToQuadTree();
         var state = new State();
         state.name = name;
         state.width = game.width;

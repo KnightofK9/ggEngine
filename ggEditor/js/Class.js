@@ -6,6 +6,7 @@ var my = {};
 my.hierarchy = null;
 my.hierarchyIdDict = [];
 my.hierarchyIdCount = 0;
+my.isPutEnemyToQuadTree = false;
 
 var  hierarchyId = 0;
 var inheritsFrom = function (child, parent) {
@@ -426,7 +427,12 @@ function Group() {
                     break;
             }
             if(useQuadTree){
-                sprite.quadTreeId = my.getQuadTreeId(sprite);
+                if(Constant.ENEMY_DICT.hasOwnProperty(sprite.type) && !my.isPutEnemyToQuadTree ){
+
+                }
+                else{
+                    sprite.quadTreeId = my.getQuadTreeId(sprite);
+                }
             }
             json.itemList.push(sprite);
         }
