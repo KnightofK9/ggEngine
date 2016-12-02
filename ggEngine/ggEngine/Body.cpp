@@ -7,6 +7,8 @@
 #include <Windows.h>
 #include "Box.h"
 #include "Physics.h"
+#include "GameObject.h"
+#include "Group.h"
 namespace ggEngine {
 	Body::Body(Game* game,GameObject * gameObject)
 	{
@@ -25,7 +27,7 @@ namespace ggEngine {
 	}
 	Body::~Body()
 	{
-		this->game->physics->RemoveBodyFromList(this);
+		this->sprite->GetParentObject()->RemoveBodyFromList(this);
 		if (this->rigidBody != nullptr) {
 			delete this->rigidBody;
 			this->rigidBody = nullptr;

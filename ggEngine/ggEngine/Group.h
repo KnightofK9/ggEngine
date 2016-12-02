@@ -7,6 +7,7 @@ namespace ggEngine{
 	class Sprite;
 	class DrawManager;
 	class Game;
+	class Body;
 	class Group : public GameObject, public IGetGroup{
 	public:
 		Group(Game *game);
@@ -17,17 +18,23 @@ namespace ggEngine{
 		virtual void AddDrawObjectToList(GameObject* drawObject);
 		virtual std::list<GameObject*> *GetDrawList() { return &this->drawList; }
 		virtual std::list<Group*> *GetGroupList() { return &this->groupList; }
+		virtual std::list<Body*> GetBodyList();
 		virtual void Draw() override;
 		void Reset();
 		void SetMask(bool isUsedMask) { this->isUsedMask = isUsedMask; }
 		bool IsUsedMask() { return this->isUsedMask; }
 		void RemoveMask();
+
+		void AddBodyToList(Body *body);
+		void RemoveBodyFromList(Body *body);
 		void RemoveObjectFromList(GameObject*go);
+
 	protected:
 		RECT mask;
 		bool isUsedMask = false;
 		std::list<Group*> groupList;
 		std::list<GameObject*> drawList;
+		std::list<Body*> bodyList;
 	private:
 	};
 }

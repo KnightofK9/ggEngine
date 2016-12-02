@@ -33,7 +33,9 @@ namespace ggEngine {
 		//g_debug.Log("Deleting GameObject");
 
 		this->parentObject->RemoveObjectFromList(this);
-		if (body!=NULL) delete body;
+		if (body != nullptr) {
+			delete body;
+		}
 		if (events != NULL) delete events;
 	}
 	void GameObject::Draw()
@@ -91,6 +93,30 @@ namespace ggEngine {
 		/*if (this->body != NULL)
 			this->body->rigidBody->Transform(mat);*/
 		spriteHandle->SetTransform(&mat);
+	}
+
+	void GameObject::SetBody(Body * body)
+	{
+		if (this->body != nullptr) {
+			delete this->body;
+			this->body = nullptr;
+		}
+		if(this->parentObject != nullptr) this->parentObject->AddBodyToList(this->body);
+		this->body = body;
+	}
+
+	void GameObject::SetParentObject(Group * parentObject)
+	{
+		if (this->parentObject != nullptr) {
+			parentObject->GetDrawList()->remove(this);
+			if (this->body != nullptr) {
+				parentObject->RemoveBodyFromList(this->body);
+			}
+		}
+		this->parentObject = parentObject;
+		if (this->body != nullptr) {
+			parentObject->AddBodyToList(this->body);
+		}
 	}
 
 	Rect GameObject::GetRect(bool isGetWorldRect)

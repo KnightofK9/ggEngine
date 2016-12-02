@@ -6,6 +6,7 @@
 #include "TileMap.h"
 #include "Rect.h"
 #include <cmath>
+#include "World.h"
 namespace ggEngine {
 	double timeEntrySAABB;
 	Physics::Physics(Game * game, PhysicsMode physicsMode)
@@ -15,7 +16,7 @@ namespace ggEngine {
 	}
 	Physics::~Physics()
 	{
-		this->bodyList.clear();
+		//this->bodyList.clear();
 		this->tileMapList.clear();
 	}
 	void Physics::Update(double dt)
@@ -30,8 +31,8 @@ namespace ggEngine {
 	void Physics::EnablePhysics(GameObject * gameObject)
 	{
 		Body* body = new Body(game, gameObject);
-		bodyList.push_back(body);
 		gameObject->SetBody(body);
+		//bodyList.push_back(body);
 		if (gameObject->events == NULL){
 			gameObject->events = new Events(game, gameObject);
 		}
@@ -39,17 +40,18 @@ namespace ggEngine {
 
 	void Physics::AttachBodyTo(GameObject * gameObject)
 	{
-		Body* body = new Body(game, gameObject); gameObject->SetBody(body);
+		Body* body = new Body(game, gameObject);
+		gameObject->SetBody(body);
 		if (gameObject->events == NULL) {
 			gameObject->events = new Events(game, gameObject);
 		}
 	}
-	void Physics::RemoveBodyFromList(Body * body)
+	/*void Physics::RemoveBodyFromList(Body * body)
 	{
 		bodyList.remove(body);
-	}
+	}*/
 	void Physics::Reset(){
-		bodyList.clear();
+		//bodyList.clear();
 	}
 	void Physics::AddTileMap(TileMap * tileMap)
 	{
@@ -116,7 +118,8 @@ namespace ggEngine {
 	}
 	void Physics::UpdateBody()
 	{
-		for (auto it = this->bodyList.begin(); it != this->bodyList.end();++it) {
+		auto bodyList = this->game->world->GetBodyList();
+		for (auto it = bodyList.begin(); it != bodyList.end();++it) {
 			if ((*it)->IsAlive()) {
 				if ((*it)->IsEnable()) {
 					((*it))->AddListCheckCollisionTo(this->collisionList);
