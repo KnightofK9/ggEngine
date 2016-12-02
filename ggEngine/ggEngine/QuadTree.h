@@ -18,7 +18,8 @@ namespace ggEngine {
 		std::list<Body*> *GetActiveObject();
 		void RemoveObjectFromList(GameObject *gameObject);
 		void AddDrawObjectToList(GameObject* drawObject) override;
-		std::list<GameObject*> *GetDrawList() override;
+		std::list<GameObject*> GetDrawList() override;
+		void BuildTree(char * stateJson);
 	private:
 		int XYIndexTo1dIndex(int x, int y);
 		int leafWidth;

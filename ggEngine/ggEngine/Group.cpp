@@ -137,14 +137,21 @@ namespace ggEngine{
 		this->bodyList.push_back(body);
 	}
 
+	void Group::AddGameObjectToDrawList(GameObject * go)
+	{
+		this->drawList.push_back(go);
+	}
+
+	void Group::RemoveGameObjectFromDrawList(GameObject * go)
+	{
+		this->drawList.remove(go);
+	}
+
 	void Group::RemoveBodyFromList(Body * body)
 	{
 		this->bodyList.remove(body);
 	}
 
-	void Group::RemoveObjectFromList(GameObject *go)
-	{
-		this->drawList.remove(go);
-	}
+	
 	
 }

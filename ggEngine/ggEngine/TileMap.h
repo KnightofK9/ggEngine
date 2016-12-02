@@ -17,7 +17,7 @@ namespace ggEngine {
 		virtual ~TileMap();
 		void Update() override;
 		void BuildTree(std::string jsonChar, bool isLocation = false);
-		std::list<GameObject*> *GetDrawList();
+		std::list<GameObject*> GetDrawList();
 		std::list<GameObject*> GetCollisionCheckList();
 		void UpdateWorldPosition() override;
 	private:

@@ -61,9 +61,13 @@ namespace ggEngine {
 			}
 		}
 	}
-	std::list<GameObject*>* QuadTree::GetDrawList()
+	std::list<GameObject*> QuadTree::GetDrawList()
 	{
-		return nullptr;
+		return Group::GetDrawList();
+	}
+	void QuadTree::BuildTree(char * stateJson)
+	{
+
 	}
 	int QuadTree::XYIndexTo1dIndex(int x, int y)
 	{

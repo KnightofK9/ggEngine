@@ -16,7 +16,7 @@ namespace ggEngine{
 		virtual void Update();
 		std::function<void(void)> update;
 		virtual void AddDrawObjectToList(GameObject* drawObject);
-		virtual std::list<GameObject*> *GetDrawList() { return &this->drawList; }
+		virtual std::list<GameObject*> GetDrawList() { return this->drawList; }
 		virtual std::list<Group*> *GetGroupList() { return &this->groupList; }
 		virtual std::list<Body*> GetBodyList();
 		virtual void Draw() override;
@@ -26,8 +26,11 @@ namespace ggEngine{
 		void RemoveMask();
 		virtual void UpdatePhysics();
 		void AddBodyToList(Body *body);
+
+		void AddGameObjectToDrawList(GameObject *go);
+		void RemoveGameObjectFromDrawList(GameObject *go);
+
 		void RemoveBodyFromList(Body *body);
-		void RemoveObjectFromList(GameObject*go);
 
 	protected:
 		RECT mask;

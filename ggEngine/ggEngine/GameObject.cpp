@@ -32,7 +32,7 @@ namespace ggEngine {
 	{
 		//g_debug.Log("Deleting GameObject");
 
-		this->parentObject->RemoveObjectFromList(this);
+		this->parentObject->RemoveGameObjectFromDrawList(this);
 		if (body != nullptr) {
 			delete body;
 		}
@@ -108,7 +108,7 @@ namespace ggEngine {
 	void GameObject::SetParentObject(Group * parentObject)
 	{
 		if (this->parentObject != nullptr) {
-			parentObject->GetDrawList()->remove(this);
+			parentObject->RemoveGameObjectFromDrawList(this);
 			if (this->body != nullptr) {
 				parentObject->RemoveBodyFromList(this->body);
 			}
