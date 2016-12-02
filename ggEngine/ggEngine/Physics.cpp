@@ -118,20 +118,20 @@ namespace ggEngine {
 	}
 	void Physics::UpdateBody()
 	{
-		auto bodyList = this->game->world->GetBodyList();
-		for (auto it = bodyList.begin(); it != bodyList.end();++it) {
-			if ((*it)->IsAlive()) {
-				if ((*it)->IsEnable()) {
-					((*it))->AddListCheckCollisionTo(this->collisionList);
-					(*it)->Update();
-				}
-			}
-			/*else {
-				std::list<Body*>::iterator tempIt = it;
-				++it;
-				delete (*tempIt);
-				bodyList.erase(tempIt);
-			}*/
-		}
+		this->game->world->UpdatePhysics();
+		//for (auto it = bodyList.begin(); it != bodyList.end();++it) {
+		//	if ((*it)->IsAlive()) {
+		//		if ((*it)->IsEnable()) {
+		//			((*it))->AddListCheckCollisionTo(this->collisionList);
+		//			(*it)->Update();
+		//		}
+		//	}
+		//	/*else {
+		//		std::list<Body*>::iterator tempIt = it;
+		//		++it;
+		//		delete (*tempIt);
+		//		bodyList.erase(tempIt);
+		//	}*/
+		//}
 	}
 }

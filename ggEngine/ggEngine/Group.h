@@ -24,7 +24,7 @@ namespace ggEngine{
 		void SetMask(bool isUsedMask) { this->isUsedMask = isUsedMask; }
 		bool IsUsedMask() { return this->isUsedMask; }
 		void RemoveMask();
-
+		virtual void UpdatePhysics();
 		void AddBodyToList(Body *body);
 		void RemoveBodyFromList(Body *body);
 		void RemoveObjectFromList(GameObject*go);

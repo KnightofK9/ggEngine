@@ -116,6 +116,22 @@ namespace ggEngine{
 		this->isUsedMask = false;
 	}
 
+	void Group::UpdatePhysics()
+	{
+		for (auto it = bodyList.begin(); it != bodyList.end();++it) {
+			if ((*it)->IsAlive()) {
+				if ((*it)->IsEnable()) {
+					(*it)->Update();
+				}
+			}
+		}
+		for (auto it = this->groupList.begin(); it != this->groupList.end(); ++it) {
+			if ((*it)->IsAlive()) {
+				(*it)->UpdatePhysics();
+			}
+		}
+	}
+
 	void Group::AddBodyToList(Body * body)
 	{
 		this->bodyList.push_back(body);
