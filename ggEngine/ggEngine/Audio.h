@@ -1,11 +1,5 @@
 #pragma once
 #include "GGObject.h"
-#include <windows.h>
-#include <mmsystem.h>
-#include <stdio.h>
-#include <XAudio2.h>
-#include <string>
-#include "SDKwavefile.h"
 #include "Debug.h"
 #include "AudioInfo.h"
 

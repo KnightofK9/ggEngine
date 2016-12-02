@@ -289,6 +289,7 @@
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SDKwavefile.cpp" />
+    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SingleTile.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />

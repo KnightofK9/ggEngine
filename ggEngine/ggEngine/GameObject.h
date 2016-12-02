@@ -48,7 +48,7 @@ namespace ggEngine {
 		
 		void SetBody(Body* body) { this->body = body; }
 		Body* GetBody() { return this->body; }
-		Body* body = NULL;
+		Body* body = nullptr;
 		Events* events = NULL;
 		Vector position;
 		Vector worldPosition;

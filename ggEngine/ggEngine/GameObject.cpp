@@ -101,8 +101,8 @@ namespace ggEngine {
 			top = this->worldPosition.y + (-this->anchor.y)*GetHeight();
 		}
 		else {
-			left = this->position.x + (-this->anchor.x)*GetWidth();
-			top = this->position.y + (-this->anchor.y)*GetHeight();
+			left = this->position.x + (-this->anchor.x)*((GetWidth()));
+			top = this->position.y + (-this->anchor.y)*((GetHeight()));
 		}
 		
 		

@@ -3,12 +3,13 @@
 #include "EnemyBase.h"
 WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame,image)
 {
+	this->SetAnchor(0.5, 0.5);
 	this->cvGame = cvGame;
 	this->cvGame->physics->EnablePhysics(this);
 	this->body->CreateRectangleRigidBody(this->image->GetWidth(), this->image->GetHeight());
 	this->body->allowGravity = true;
 	this->body->syncBounds = false;
-
+	this->body->rigidBody->SetAnchor(0.5, 0.5);
 	this->tag = ObjectType_Weapon;
 	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
 		switch (go->tag) {

@@ -24,7 +24,6 @@ namespace ggEngine{
 
 	void Audio::Play()
 	{
-		HRESULT hr = audioInfo->sourceVoice->Start();
 		//BOOL isRunning = TRUE;
 		//while (SUCCEEDED(hr) && isRunning)
 		//{
@@ -38,7 +37,6 @@ namespace ggEngine{
 
 	void Audio::Stop()
 	{
-		HRESULT hr = audioInfo->sourceVoice->Stop();
 	}
 	void Audio::Loop(bool isLoop)
 	{

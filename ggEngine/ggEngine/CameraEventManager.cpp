@@ -29,7 +29,15 @@ void ggEngine::CameraEventManager::Update(double dt)
 	for (auto it = this->trackingListCameraMap->begin(); it != this->trackingListCameraMap->end();++it) {
 		GameObject *gameObject = (*it).first;
 		if (!gameObject->IsAlive()) continue;
-		Rect ojectRect = gameObject->GetRect();
+		Body *body = gameObject->body;
+		Rect ojectRect;
+		if (body != nullptr) {
+			ojectRect = body->rigidBody->GetRect();
+		}
+		else {
+			ojectRect = gameObject->GetRect();
+		}
+		
 		Rect r;
 		bool wasInCamera = (*it).second;
 		bool isInCamera = Rect::intersect(r, cameraRect, ojectRect);

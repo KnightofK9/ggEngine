@@ -85,6 +85,8 @@ ggEngine::Vector ggEngine::Rectangle::GetPivotPoint()
 	return pivot;
 }
 
+
+
 void ggEngine::Rectangle::Translate(Vector translate)
 {
 	pCenter += translate;

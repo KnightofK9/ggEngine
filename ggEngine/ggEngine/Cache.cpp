@@ -191,10 +191,10 @@ namespace ggEngine {
 			return false;
 		}
 		AudioInfo *audioInfo = new AudioInfo(audioPath);
-		if (audioInfo->GetXAudio2Engine() == NULL){
+		/*if (audioInfo->GetXAudio2Engine() == NULL){
 			g_debug.Warning("Initialize audioInfo " + audioKey + " failed.");
 			return false;
-		}
+		}*/
 		audioInfoMap[audioKey] = audioInfo;
 		return true;
 	}
