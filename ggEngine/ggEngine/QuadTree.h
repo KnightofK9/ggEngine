@@ -15,11 +15,14 @@ namespace ggEngine {
 		virtual ~QuadTree();
 
 		void Update() override;
-		std::list<Body*> *GetActiveObject();
 		void RemoveObjectFromList(GameObject *gameObject);
 		void AddDrawObjectToList(GameObject* drawObject) override;
 		std::list<GameObject*> GetDrawList() override;
 		void BuildTree(char * stateJson);
+
+
+		void UpdatePhysics() override;
+
 	private:
 		int XYIndexTo1dIndex(int x, int y);
 		int leafWidth;
