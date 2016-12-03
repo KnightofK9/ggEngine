@@ -65,10 +65,10 @@
         <button id="btn-export-tile-map" class="btn btn-default">
             <i class="glyphicon glyphicon-save"></i> Export Tile Map
         </button>
-        <button class="btn btn-default">
+        <button class="btn btn-default" onclick="movePicker()" >
             <i class="glyphicon glyphicon-move"></i> Move
         </button>
-        <button class="btn btn-default">
+        <button class="btn btn-default" onclick="removePicker()" >
             <i class="glyphicon glyphicon-remove"></i> Remove
         </button>
     </div>
@@ -109,7 +109,8 @@
             </div>
 
             <div id="gg-state-info" class="panel-body hierarchy">
-                <label class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox">Use quad tree</label>
+                <label class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox" checked>Use quad tree</label><br/>
+                <label class="checkbox-inline"><input id="gg-state-info-put-enemy-to-quad-tree" type="checkbox">Put enemy to quad tree</label>
             </div>
 
         </div>
@@ -246,7 +247,12 @@
             }]
         });
     }
-
+    function removePicker(){
+        sceneEditor.editState.pickRemove();
+    }
+    function movePicker(){
+        sceneEditor.editState.pickMove();
+    }
     function initSceneEditor() {
         BootstrapDialog.show({
             closable: true,

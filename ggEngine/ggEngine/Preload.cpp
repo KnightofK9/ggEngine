@@ -29,7 +29,7 @@ namespace ggEngine{
 		}
 	}
 	void Preload::Audio(std::string audioKey, std::string audioPath){
-		this->cache->CreateAudioFromFile(audioKey, audioPath);
+		this->cache->CreateAudioInfoFromFile(audioKey, audioPath);
 	}
 	void Preload::TileSet(std::string tileSetPath, std::string tileSetJsonPath)
 	{

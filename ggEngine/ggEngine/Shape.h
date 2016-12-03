@@ -3,6 +3,7 @@
 #include "Matrix.h"
 #include "ConstantEnum.h"
 #include "Vector.h"
+#include "Rect.h"
 namespace ggEngine {
 	class Shape: public GGObject {
 	public:
@@ -19,6 +20,7 @@ namespace ggEngine {
 			this->anchor.x = x;
 			this->anchor.y = y;
 		}
+		virtual Rect GetRect();
 		virtual double GetLeft() = 0;
 		virtual double GetRight() = 0;
 		virtual double GetUp() = 0;

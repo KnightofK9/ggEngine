@@ -6,6 +6,7 @@ var my = {};
 my.hierarchy = null;
 my.hierarchyIdDict = [];
 my.hierarchyIdCount = 0;
+my.isPutEnemyToQuadTree = false;
 
 var  hierarchyId = 0;
 var inheritsFrom = function (child, parent) {
@@ -276,10 +277,10 @@ function TileMap() {
     this._destroy = function(){
         my.hierarchyIdDict[this._hierarchyId] = null;
         delete my.hierarchyIdDict[this._hierarchyId];
-        if(this.parent != null) {
-            for (var i = 0; i < this.parent._childList.length; i++) {
-                if (this.parent._childList[i] === this) {
-                    this.parent._childList.splice(i, 1);
+        if(this._parent != null) {
+            for (var i = 0; i < this._parent._childList.length; i++) {
+                if (this._parent._childList[i] === this) {
+                    this._parent._childList.splice(i, 1);
                     break;
                 }
             }
@@ -362,10 +363,10 @@ function Group() {
     this._destroy = function(){
         my.hierarchyIdDict[this._hierarchyId] = null;
         delete my.hierarchyIdDict[this._hierarchyId];
-        if(this.parent != null) {
-            for (var i = 0; i < this.parent._childList.length; i++) {
-                if (this.parent._childList[i] === this) {
-                    this.parent._childList.splice(i, 1);
+        if(this._parent != null) {
+            for (var i = 0; i < this._parent._childList.length; i++) {
+                if (this._parent._childList[i] === this) {
+                    this._parent._childList.splice(i, 1);
                     break;
                 }
             }
@@ -426,7 +427,12 @@ function Group() {
                     break;
             }
             if(useQuadTree){
-                sprite.quadTreeId = my.getQuadTreeId(sprite);
+                if(Constant.ENEMY_DICT.hasOwnProperty(sprite.type) && !my.isPutEnemyToQuadTree ){
+                    sprite.quadTreeId = -1;
+                }
+                else{
+                    sprite.quadTreeId = my.getQuadTreeId(sprite);
+                }
             }
             json.itemList.push(sprite);
         }
@@ -462,10 +468,10 @@ function Sprite(){
     this._destroy = function(){
         my.hierarchyIdDict[this._hierarchyId] = null;
         delete my.hierarchyIdDict[this._hierarchyId];
-        if(this.parent != null) {
-            for (var i = 0; i < this.parent._childList.length; i++) {
-                if (this.parent._childList[i] === this) {
-                    this.parent._childList.splice(i, 1);
+        if(this._parent != null) {
+            for (var i = 0; i < this._parent._childList.length; i++) {
+                if (this._parent._childList[i] === this) {
+                    this._parent._childList.splice(i, 1);
                     break;
                 }
             }

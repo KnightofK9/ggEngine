@@ -34,14 +34,14 @@ namespace ggEngine {
 		RecursiveDraw(drawRect, this->quadTree->GetRootNode());*/
 	}
 
-	std::list<GameObject*>* TileMap::GetDrawList(){
+	std::list<GameObject*> TileMap::GetDrawList(){
 
 		this->drawList.clear();
 		//g_debug.Log("Current draw size " + std::to_string(this->drawList.size()));
 		for (auto it = this->tileList.begin(); it != this->tileList.end(); ++it) {
 			this->drawList.push_back(*it);
 		}
-		return &this->drawList;
+		return this->drawList;
 	}
 	std::list<GameObject*> TileMap::GetCollisionCheckList()
 	{

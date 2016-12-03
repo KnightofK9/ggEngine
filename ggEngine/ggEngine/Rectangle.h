@@ -23,6 +23,7 @@ namespace ggEngine {
 		// Inherited via Shape
 		virtual Vector GetPivotPoint() override;
 
+
 		// Inherited via Shape
 		virtual void Translate(Vector translate) override;
 	private:

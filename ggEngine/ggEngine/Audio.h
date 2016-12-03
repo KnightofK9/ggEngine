@@ -1,17 +1,14 @@
 #pragma once
 #include "GGObject.h"
-#include <windows.h>
-#include <mmsystem.h>
-#include <dsound.h>
-#include <stdio.h>
-#include <string>
-//#include <SFML\Audio.hpp>
-//#pragma comment (lib, "sfml-audio-d.lib")
+#include "Debug.h"
+#include "AudioInfo.h"
 
 namespace ggEngine{
+	class Game;
 	class Audio : public GGObject{
 	public:
-		Audio(std::string audioKey);
+		Audio(Game *game, AudioInfo *audioInfo);
+		virtual ~Audio();
 
 		void Play();
 		void Stop();
@@ -26,9 +23,9 @@ namespace ggEngine{
 		void FadeOut(int duration);
 		//Fade to the specific volume
 		void FadeTo(float volume);
-
+		
 	private:
-		/*sf::SoundBuffer soundBuffer;
-		sf::Sound sound;*/
+		Game *game = nullptr;
+		AudioInfo *audioInfo = nullptr;
 	};
 }

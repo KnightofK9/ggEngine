@@ -16,6 +16,8 @@
 #include "Grid.h"
 #include "EventManager.h"
 #include "Game.h"
+int (WINAPIV * __vsnprintf)(char *, size_t, const char*, va_list) = _vsnprintf;
+
 namespace ggEngine{
 	Add::Add(Game *game){
 		this->game = game;
@@ -82,7 +84,9 @@ namespace ggEngine{
 	}
 
 	Audio* Add::Audio(std::string audioKey){
-		return new ggEngine::Audio(audioKey);
+		AudioInfo *audioInfo = this->cache->GetAudioInfo(audioKey);
+		ggEngine::Audio *audio = new ggEngine::Audio(this->game, audioInfo);
+		return audio;
 	}
 	ggEngine::Tween * Add::Tween(float & val, double end, double duration, std::function<double(int,double,double,int)> easingFunction)
 	{

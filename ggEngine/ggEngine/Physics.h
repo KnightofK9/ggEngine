@@ -21,11 +21,11 @@ namespace ggEngine {
 		void UpdatePhysics();
 		void EnablePhysics(GameObject * gameObject);
 		void AttachBodyTo(GameObject *gameObject);
-		void RemoveBodyFromList(Body *body);
+		//void RemoveBodyFromList(Body *body);
 		void Reset() override;
 		void AddTileMap(TileMap* tileMap);
 		void RemoveTileMap(TileMap *tileMap);
-		std::list<Body*> GetBodyList() { return this->bodyList; }
+		//std::list<Body*> GetBodyList() { return this->bodyList; }
 		static Rect CreateSweptBroadPhaseRect(Box b);
 		static bool AABBCheck(Rect b1, Rect b2);
 		static Box CreateBoxFromObject(GameObject *go, Vector velocity);
@@ -35,7 +35,7 @@ namespace ggEngine {
 		void UpdateBody();
 		PhysicsMode physicsMode;
 		Game *game;
-		std::list<Body*> bodyList;
+		//std::list<Body*> bodyList;
 		std::list<GameObject*> collisionList;
 		std::vector<TileMap*> tileMapList;
 

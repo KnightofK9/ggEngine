@@ -172,6 +172,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
+        my.isPutEnemyToQuadTree = stateInfo.isPutEnemyToQuadTree();
         var state = new State();
         state.name = name;
         state.width = game.width;
@@ -619,6 +620,14 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                 break;
         }
     };
+    this.pickRemove = function(){
+        resetPick();
+        currentPickTile = "RemovePick";
+    };
+    this.pickMove = function(){
+        resetPick();
+        currentPickTile = "MovePick";
+    };
     this.selectGroup = function (hGroup) {
         currentSelectHGroup = hGroup;
     };
@@ -674,6 +683,15 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         if (game.input.mousePointer.isDown) {
             if (isBlockingClick) return;
             switch (currentPickTile) {
+                case  "RemovePick":
+                    //var targetObject = game.input.mousePointer.targetObject;
+                    //if (targetObject != null &&  targetObject._type !== "Tile") {
+                    //    var deleteSprite = function(){
+                    //        targetObject.hObject.callDestroy();
+                    //    };
+                    //    window.setTimeout(deleteSprite, 150);
+                    //}
+                    break;
                 case "ItemPick":
                     var key = currentPickName;
                     var targetObject = game.input.mousePointer.targetObject;
@@ -695,6 +713,59 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                         }
                         var sprite = game.add.sprite(posX, posY, currentPickName, hGroup._item);
                         sprite._type = currentPickName;
+                        sprite.inputEnabled = true;
+                        sprite.events.onInputOver.add(function(item){
+                            switch(currentPickTile) {
+                                case  "RemovePick":
+                                case "MovePick":
+                                    item.alpha = 0.5;
+                                default:
+                                    break;
+                            }
+                        },this);
+
+                        sprite.events.onInputOut.add(function(item){
+                            switch(currentPickTile) {
+                                case  "RemovePick":
+                                case "MovePick":
+                                    item.alpha = 1;
+                                default:
+                                    break;
+                            }
+
+                        },this);
+                        sprite.events.onInputDown.add(function(item){
+                            switch(currentPickTile){
+                                case  "RemovePick":
+                                    var hObjectId = item.hObject._hierarchyId;
+                                    if(item.hObject.callDestroy()){
+                                        $("#hierarchy-" + hObjectId).remove();
+                                    }
+                                    break;
+                                case "MovePick":
+                                    sprite.input.enableDrag(true);
+                                //    item.x = game.input.activePointer.worldX - item.width/2;
+                                //    item.y = game.input.activePointer.worldY - item.height/2;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        },this);
+                        sprite.events.onInputUp.add(function(item){
+                            switch(currentPickTile){
+                                case  "RemovePick":
+                                    break;
+                                case "MovePick":
+                                    sprite.input.enableDrag(false);
+                                //    item.x = game.input.activePointer.worldX - item.width/2;
+                                //    item.y = game.input.activePointer.worldY - item.height/2;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        },this);
                         if (Constant.ENEMY_DICT.hasOwnProperty(currentPickName)) {
                             var info = Constant.ENEMY_DICT[currentPickName];
                             var walk = sprite.animations.add('walk');
@@ -724,7 +795,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                     }
                     else {
                         if (currentLayer != null) {
-                            map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                            var tile = map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                            tile._type = "Tile";
                         }
                     }
                     break;

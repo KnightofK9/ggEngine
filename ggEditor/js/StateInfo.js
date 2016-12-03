@@ -5,6 +5,7 @@ function StateInfo(){
     var statePanel = $("#gg-state-info");
     var navTab = $("#gg-state-info-nav-tab");
     var useQuadTree = $("#gg-state-info-enable-quad-tree");
+    var putEnemyToQuadTree = $("#gg-state-info-put-enemy-to-quad-tree");
     this.setActive = function(isActive){
         if(isActive){
             statePanel.css("display","block");
@@ -16,5 +17,8 @@ function StateInfo(){
     };
     this.isUsedQuadTree = function(){
         return useQuadTree.is(":checked");
-    }
+    };
+    this.isPutEnemyToQuadTree = function(){
+        return putEnemyToQuadTree.is(":checked");
+    };
 }

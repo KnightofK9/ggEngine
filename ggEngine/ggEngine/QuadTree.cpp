@@ -25,10 +25,7 @@ namespace ggEngine {
 	void QuadTree::Update()
 	{
 	}
-	std::list<Body*>* QuadTree::GetActiveObject()
-	{
-		return nullptr;
-	}
+
 	void QuadTree::RemoveObjectFromList(GameObject * gameObject)
 	{
 		Rect r = gameObject->GetRect();
@@ -61,9 +58,16 @@ namespace ggEngine {
 			}
 		}
 	}
-	std::list<GameObject*>* QuadTree::GetDrawList()
+	std::list<GameObject*> QuadTree::GetDrawList()
 	{
-		return nullptr;
+		return Group::GetDrawList();
+	}
+	void QuadTree::BuildTree(char * stateJson)
+	{
+
+	}
+	void QuadTree::UpdatePhysics()
+	{
 	}
 	int QuadTree::XYIndexTo1dIndex(int x, int y)
 	{

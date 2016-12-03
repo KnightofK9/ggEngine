@@ -46,15 +46,15 @@ namespace ggEngine {
 		virtual void SetRotate(double angle){ this->rotate = angle; }
 		double GetRotate(){ return this->rotate; }
 		
-		void SetBody(Body* body) { this->body = body; }
+		void SetBody(Body* body);
 		Body* GetBody() { return this->body; }
-		Body* body = NULL;
+		Body* body = nullptr;
 		Events* events = NULL;
 		Vector position;
 		Vector worldPosition;
 		Vector worldScale;
 		std::string name = "";
-		void SetParentObject(Group *parentObject){this->parentObject = parentObject;}
+		void SetParentObject(Group *parentObject);
 		Group *GetParentObject(){ return this->parentObject; }
 		virtual double GetOrgWidth() { return this->width; }
 		virtual double GetOrgHeight() { return this->height; }

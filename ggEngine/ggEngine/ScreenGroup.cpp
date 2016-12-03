@@ -27,7 +27,6 @@ namespace ggEngine {
 
 
 		Group* parentGroup = (drawObject->GetParentObject());
-		if (parentGroup != nullptr) parentGroup->GetDrawList()->remove(drawObject);
 		drawObject->SetParentObject(this);
 		drawList.push_back(drawObject);
 

@@ -4,6 +4,7 @@
 #include "DrawManager.h"
 #include "Text.h"
 #include "Game.h"
+#include "Body.h"
 namespace ggEngine{
 	Group::Group(Game *game) : GameObject(game)
 	{
@@ -75,10 +76,19 @@ namespace ggEngine{
 
 
 
-		Group* parentGroup = dynamic_cast<Group*>(drawObject->GetParentObject());
-		if (parentGroup != nullptr) parentGroup->GetDrawList()->remove(drawObject);
+		//Group* parentGroup = dynamic_cast<Group*>(drawObject->GetParentObject());
+	
 		drawObject->SetParentObject(this);
 		drawList.push_back(drawObject);
+	}
+	std::list<Body*> Group::GetBodyList()
+	{
+		std::list<Body*> allBodyList = this->bodyList;
+		for (auto it = this->groupList.begin(); it != this->groupList.end(); ++it) {
+			auto tBodyList = (*it)->GetBodyList();
+			allBodyList.insert(allBodyList.end(), tBodyList.begin(), tBodyList.end());
+		}
+		return allBodyList;
 	}
 	void Group::Draw()
 	{
@@ -106,9 +116,42 @@ namespace ggEngine{
 		this->isUsedMask = false;
 	}
 
-	void Group::RemoveObjectFromList(GameObject *go)
+	void Group::UpdatePhysics()
+	{
+		for (auto it = bodyList.begin(); it != bodyList.end();++it) {
+			if ((*it)->IsAlive()) {
+				if ((*it)->IsEnable()) {
+					(*it)->Update();
+				}
+			}
+		}
+		for (auto it = this->groupList.begin(); it != this->groupList.end(); ++it) {
+			if ((*it)->IsAlive()) {
+				(*it)->UpdatePhysics();
+			}
+		}
+	}
+
+	void Group::AddBodyToList(Body * body)
+	{
+		this->bodyList.push_back(body);
+	}
+
+	void Group::AddGameObjectToDrawList(GameObject * go)
+	{
+		this->drawList.push_back(go);
+	}
+
+	void Group::RemoveGameObjectFromDrawList(GameObject * go)
 	{
 		this->drawList.remove(go);
 	}
+
+	void Group::RemoveBodyFromList(Body * body)
+	{
+		this->bodyList.remove(body);
+	}
+
+	
 	
 }

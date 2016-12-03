@@ -2,7 +2,6 @@
 #include <ggEngine.h>
 #include "CVState.h"
 #include "Simon.h"
-#include <boost\signal.hpp>
 using namespace ggEngine;
 class TestStateCastleVania : public CVState{
 public:

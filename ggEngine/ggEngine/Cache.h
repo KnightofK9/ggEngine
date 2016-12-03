@@ -9,6 +9,7 @@ namespace ggEngine {
 	class SpriteInfo;
 	class Game;
 	class TileSet;
+	class AudioInfo;
 	class Cache:public GGObject {
 	public:
 		Cache(Game* game);
@@ -18,11 +19,12 @@ namespace ggEngine {
 		bool CreateTextureFromAtlasXML(std::string atlasName, std::string atlatPath, std::string atlasDefPath, D3DCOLOR transColor = D3DCOLOR_RGBA(0, 0, 0, 255));
 		bool CreateFontToCache(std::string fontKey, std::string fontName, int fontSize, bool isItalic, int fontWeight);
 		bool CreateFontFromFile(std::string fontKey, std::string fontName, std::string fontPath, int fontSize, bool isItalic, int fontWeight);
-		bool CreateAudioFromFile(std::string audioKey, std::string audioPath);
+		bool CreateAudioInfoFromFile(std::string audioKey, std::string audioPath);
 		bool CreateTextureFromTileSetJson(std::string tileMapPath, std::string jsonPath, D3DCOLOR transColor = D3DCOLOR_RGBA(0, 0, 0, 255));
 		SpriteInfo* GetSpriteInfo(std::string key);
 		SpriteInfo* GetDefaultSpriteInfo() {return this->defaultSpriteInfo;}
 		Font* GetFont(std::string key);
+		AudioInfo* GetAudioInfo(std::string key);
 		TileSet* GetTileMap(std::string key);
 	private:
 		bool SetValueIfNotExists(std::string key, SpriteInfo* inf);
@@ -30,9 +32,11 @@ namespace ggEngine {
 		std::map<std::string, SpriteInfo*> spriteInfoMap;
 		std::map<std::string, Texture*> atlasMap;
 		std::map<std::string, TileSet*> tileSetMap;
+		std::map<std::string, AudioInfo*> audioInfoMap;
 		//Create a map hold info to the dx audio
 		SpriteInfo* defaultSpriteInfo;
 		Font* defaultFont;
+		AudioInfo *defaultAudioInfo;
 		Game *game;
 		LPDIRECT3DDEVICE9 device;
 	};
