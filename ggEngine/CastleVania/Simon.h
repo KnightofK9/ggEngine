@@ -16,6 +16,7 @@ public:
 	
 	void SetMaxHealth(int maxHealth) { this->maxHealth = maxHealth; }
 	int GetMaxHealth() { return this->maxHealth; }
+	int GetHeartPoint() { return this->heartPoint; }
 
 	void Attack() override;
 
@@ -37,8 +38,8 @@ public:
 	void GainHealth(int health);
 	void IncreaseScore(int score);
 	void IncreaseState();
-	void IncreaseLifePoint(int point);
-	void DecreaseLifePoint(int point);
+	void IncreaseHeartPoint(int point);
+	void DecreaseHeartPoint(int point);
 	void DescreasePPoint(int point);
 	void SetShot(int shot, SpriteInfo *image);
 

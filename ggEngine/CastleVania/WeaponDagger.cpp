@@ -1,4 +1,5 @@
 #include "WeaponDagger.h"
+#include "CVAdd.h"
 
 WeaponDagger::WeaponDagger(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvGame,image)
 {
@@ -14,7 +15,12 @@ WeaponDagger::~WeaponDagger()
 
 void WeaponDagger::FireWeapon(bool isLeft)
 {
-	FireHorizontal(isLeft, this->throwForce);
+	Simon *simon = this->cvGame->simon;
+	if (simon->GetHeartPoint() - this->heartConsumtion >= 0)
+	{
+		simon->DecreaseHeartPoint(this->heartConsumtion);
+		FireHorizontal(isLeft, this->throwForce);
+	}
 }
 
 void WeaponDagger::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)

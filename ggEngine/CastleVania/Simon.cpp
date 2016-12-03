@@ -249,13 +249,13 @@ void Simon::IncreaseState()
 	this->infoPanel->SetState(++this->stagePoint);
 }
 
-void Simon::IncreaseLifePoint(int point)
+void Simon::IncreaseHeartPoint(int point)
 {
 	this->heartPoint += point;
 	this->infoPanel->SetLife(heartPoint);
 }
 
-void Simon::DecreaseLifePoint(int point)
+void Simon::DecreaseHeartPoint(int point)
 {
 	this->heartPoint = (heartPoint - point <= 0) ? 0 : heartPoint - point;
 	this->infoPanel->SetLife(this->heartPoint);

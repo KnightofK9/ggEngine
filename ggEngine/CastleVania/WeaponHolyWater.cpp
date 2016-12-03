@@ -1,4 +1,5 @@
 #include "WeaponHolyWater.h"
+#include "CVAdd.h"
 
 WeaponHolyWater::WeaponHolyWater(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvGame,image)
 {
@@ -14,7 +15,12 @@ WeaponHolyWater::~WeaponHolyWater()
 
 void WeaponHolyWater::FireWeapon(bool isLeft)
 {
-	FireAsThrow(isLeft, this->throwForce);
+	Simon *simon = this->cvGame->simon;
+	if (simon->GetHeartPoint() - this->heartConsumtion >= 0)
+	{
+		simon->DecreaseHeartPoint(this->heartConsumtion);
+		FireAsThrow(isLeft, this->throwForce);
+	}
 }
 
 void WeaponHolyWater::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
