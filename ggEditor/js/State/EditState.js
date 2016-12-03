@@ -322,8 +322,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 game.debug.body(quadTreeHGroup._childList[i]._item);
             }
         }
-
-        game.debug.quadTree(phaserQuadTree,"#003815");
+        if(stateInfo.isRenderQuadTree()){
+            game.debug.quadTree(phaserQuadTree,"#003815");
+        }
 
     };
     var initTileMapAsJson = function (useQuadTre) {
