@@ -29,6 +29,8 @@ void TestStateCastleVania::Preload() {
 }
 void TestStateCastleVania::Create()
 {
+	this->cvgame->camera->SetScale(2.5, 2.5);
+
 	std::string tileMapJson = "";
 	{
 		Json state("State/TestState.json", true);

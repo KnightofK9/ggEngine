@@ -188,9 +188,13 @@
     <ClInclude Include="TileBase.h" />
     <ClInclude Include="ItemBase.h" />
     <ClInclude Include="TypeEnum.h" />
+    <ClInclude Include="WeaponAxe.h" />
     <ClInclude Include="WeaponBase.h" />
+    <ClInclude Include="WeaponBoomerang.h" />
     <ClInclude Include="WeaponDagger.h" />
+    <ClInclude Include="WeaponHolyWater.h" />
     <ClInclude Include="WeaponManager.h" />
+    <ClInclude Include="WeaponStopWatch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ggEngine\ggEngine.vcxproj">
@@ -242,9 +246,13 @@
     <ClCompile Include="ItemBase.cpp" />
     <ClCompile Include="TripleShot.cpp" />
     <ClCompile Include="VAudio.cpp" />
+    <ClCompile Include="WeaponAxe.cpp" />
     <ClCompile Include="WEAPONBASE.CPP" />
+    <ClCompile Include="WeaponBoomerang.cpp" />
     <ClCompile Include="WeaponDagger.cpp" />
+    <ClCompile Include="WeaponHolyWater.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
+    <ClCompile Include="WeaponStopWatch.cpp" />
     <ClCompile Include="WhipUpgradeItem.cpp" />
   </ItemGroup>
   <ItemGroup>
