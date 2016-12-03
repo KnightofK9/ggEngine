@@ -769,20 +769,26 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
 
     };
-
+    var layOutMarker = function(){
+        marker.x = Math.floor(game.input.activePointer.worldX/tileWidth) * tileWidth;
+        marker.y = Math.floor(game.input.activePointer.worldY/tileHeight) * tileHeight;
+    };
     var updateMarker = function (pointer, event) {
         switch (currentPickTile) {
             case "ItemPick":
-                mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
-                mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                if(Constant.STATIC_TILE_DICT.hasOwnProperty(currentPickName)){
+                    layOutMarker();
+                    mouseSprite.x = marker.x;
+                    mouseSprite.y = marker.y;
+                }else{
+                    mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
+                    mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                }
+
                 break;
             case "TilePick":
             default:
-                if (currentLayer != null) {
-                    marker.x = currentLayer.getTileX(game.input.activePointer.worldX) * tileWidth;
-                    marker.y = currentLayer.getTileY(game.input.activePointer.worldY) * tileHeight;
-
-                }
+                layOutMarker();
         }
 
         if (game.input.mousePointer.isDown) {
@@ -802,10 +808,15 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                     var posX = game.input.activePointer.worldX;
                     var posY = game.input.activePointer.worldY;
                     var setSprite = function () {
-                        that.createSpriteAt(posX,posY,currentPickName);
+                        if(Constant.STATIC_TILE_DICT.hasOwnProperty(currentPickName)){
+                            that.createSpriteAt(marker.x+tileWidth,marker.y+tileHeight,currentPickName);
+                        }
+                        else{
+                            that.createSpriteAt(posX,posY,currentPickName);
+                        }
                         isBlockingClick = false;
                     };
-                    window.setTimeout(setSprite, 150);
+                    window.setTimeout(setSprite, 50);
                     break;
                 case "TilePick":
                     switch (currentTileType){
