@@ -55,6 +55,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         right:-1,
         bottom:1
     };
+
+    var tileMapGroup = null;
     var resetCurrentPickRect = function(){
         currentPickRect = new Phaser.Rectangle();
     };
@@ -270,7 +272,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         //backgroundSprite = game.add.tileSprite(0,0,game.width,game.height,'bg');
         //backgroundSprite.tileWidth = tileWidth;
         //backgroundSprite.tileHheight = tileHeight;
-
+        tileMapGroup = game.add.group();
         phaserQuadTree = new Phaser.QuadTree(0, 0, game.width, game.height, quadTreeMaxObject, quadTreeMaxLevel, 0);
 
         var updateGroup = game.add.group();
@@ -599,6 +601,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     var addLayer = function (tileSetKey) {
         var layer = map.createBlankLayer(tileSetKey, game.width / tileWidth, game.height / tileHeight, tileWidth, tileHeight);
+        tileMapGroup.add(layer);
         layer.scrollFactorX = 0.5;
         layer.scrollFactorY = 0.5;
         layer.resizeWorld();
