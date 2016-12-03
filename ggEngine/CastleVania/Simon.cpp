@@ -139,7 +139,7 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
-	this->weaponManager->AddWeaponDagger(this->position.x, this->position.y, isLeft, this->parentObject);
+	this->weaponManager->AddWeaponBoomerang(this->position.x, this->position.y, isLeft, this->parentObject);
 }
 
 void Simon::Idle()

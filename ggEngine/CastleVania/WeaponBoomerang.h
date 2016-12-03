@@ -2,14 +2,17 @@
 #include <ggEngine.h>
 #include "WeaponBase.h"
 using namespace ggEngine;
-class WeaponDagger : public WeaponBase {
+class WeaponBoomerang : public WeaponBase {
 public:
-	WeaponDagger(CVGame *cvGame, SpriteInfo *image);
-	virtual ~WeaponDagger();
+	WeaponBoomerang(CVGame *cvGame, SpriteInfo *image);
+	virtual ~WeaponBoomerang();
 
 	void FireWeapon(bool isLeft) override;
 	void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e) override;
 private:
 	const int heartConsumtion = 1;
 	const double throwForce = 1.0;
+	const int timeToReturn = 1300;
+	bool isLeft;
+	bool contactedWorldBound = false;
 };

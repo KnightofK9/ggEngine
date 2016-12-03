@@ -90,26 +90,26 @@ Vector WeaponBase::GetHorizontalDirection(bool isLeft)
 	return direction;
 }
 
+void WeaponBase::FireHorizontal(bool isLeft, double throwForce)
+{
+	if (isLeft) {
+		this->SetScale(-1, 1);
+	}
+	Vector direction = GetHorizontalDirection(isLeft);
+	this->body->AddForce(throwForce, direction);
+}
+
 Vector WeaponBase::GetThrowDirection(bool isLeft)
 {
-	Vector direction(-1, -1);
+	Vector direction(-1, -1.5);
 	if (!isLeft) {
 		direction.x = 1;
 	}
 	return direction;
 }
 
-void WeaponBase::FireHorizontal(bool isLeft)
-{
-	if (isLeft) {
-		this->SetScale(-1, 1);
-	}
-	Vector direction = GetHorizontalDirection(isLeft);
-	this->body->AddForce(this->throwForce, direction);
-}
-
-void WeaponBase::FireAsThrow(bool isLeft)
+void WeaponBase::FireAsThrow(bool isLeft, double throwForce)
 {
 	Vector direction = GetThrowDirection(isLeft);
-	this->body->AddForce(this->throwForce, direction);
+	this->body->AddForce(throwForce, direction);
 }

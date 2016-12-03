@@ -162,6 +162,18 @@
     <ClInclude Include="WeaponDagger.h">
       <Filter>Header Files\Object\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponAxe.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponHolyWater.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponBoomerang.h">
+      <Filter>Header Files\Object\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponStopWatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -302,6 +314,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WeaponDagger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponAxe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponHolyWater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponBoomerang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponStopWatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

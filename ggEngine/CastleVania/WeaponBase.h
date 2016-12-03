@@ -21,8 +21,8 @@ public:
 protected:
 	Vector GetHorizontalDirection(bool isLeft);
 	Vector GetThrowDirection(bool isLeft);
-	virtual void FireHorizontal(bool isLeft);
-	virtual void FireAsThrow(bool isLeft);
+	virtual void FireHorizontal(bool isLeft, double throwForce);
+	virtual void FireAsThrow(bool isLeft, double throwForce);
 	CVGame *cvGame;
-	const double throwForce = 1.0;
+	//const double throwForce = 1.0;
 };
