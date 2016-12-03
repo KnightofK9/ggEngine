@@ -45,6 +45,15 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     var mouseGroup = null;
 
+    var currentPickRect = {
+        left:-1,
+        top:-1,
+        right:-1,
+        bottom:1
+    };
+    var resetCurrentPickRect = function(){
+        currentPickRect = new Phaser.Rectangle();
+    };
     this.getCurrentLayer = function () {
         return currentLayer;
     };
@@ -158,6 +167,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         mouseSprite = null;
         // currentLayer = null;
         currentTile = null;
+        resetCurrentPickRect();
     };
     var initPreloadList = function () {
         var preloadList = [];
@@ -212,7 +222,6 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         quadId = 0;
         objectList = [];
     };
-
     this.preload = function () {
         //var iBg = new Image();
         //iBg.src = bgData;
@@ -295,7 +304,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         showLayersKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         showLayersKey.onDown.add(changeLayer, this);
         game.input.addMoveCallback(updateMarker, this);
-
+        game.input.onUp.add(handleMouseUp);
         cursors = game.input.keyboard.createCursorKeys();
         //  Our painting marker
         marker = game.add.graphics();
@@ -314,8 +323,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
          */
         quadTreeHGroup =  createGroup("QuadTree");
         enemyHGroup = createGroup("Enemy");
+        resetCurrentPickRect();
 
     };
+
     this.render = function(){
         game.debug.reset();
         if(stateInfo.isRenderStaticBody()) {
@@ -326,6 +337,14 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if(stateInfo.isRenderQuadTree()){
             game.debug.quadTree(phaserQuadTree,"#003815");
         }
+        switch(currentPickTile){
+            case "SelectPick":
+                game.debug.geom(currentPickRect,null,false);
+                break;
+            default:
+                break;
+        }
+
 
     };
     var initTileMapAsJson = function (useQuadTre) {
@@ -655,6 +674,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     this.pickSelect = function(){
         resetPick();
+        currentPickTile = "SelectPick";
     };
     this.selectGroup = function (hGroup) {
         currentSelectHGroup = hGroup;
@@ -798,6 +818,19 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         marker.x = Math.floor(game.input.activePointer.worldX/tileWidth) * tileWidth;
         marker.y = Math.floor(game.input.activePointer.worldY/tileHeight) * tileHeight;
     };
+
+    var handleMouseUp = function(event){
+        switch (currentPickTile){
+            case "SelectPick":
+                resetCurrentPickRect();
+                break;
+            default:
+                break;
+        }
+    };
+    var updatePickRect = function(){
+        
+    };
     var updateMarker = function (pointer, event) {
         switch (currentPickTile) {
             case "ItemPick":
@@ -808,7 +841,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 }else{
                     mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
                     mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                    updatePickRect();
                 }
+
+                break;
+            case "SelectPick":
 
                 break;
             case "TilePick":
@@ -819,14 +856,20 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if (game.input.mousePointer.isDown) {
             if (isBlockingClick) return;
             switch (currentPickTile) {
+                case "SelectPick":
+                    var posX = game.input.activePointer.worldX;
+                    var posY = game.input.activePointer.worldY;
+
+                    if(currentPickRect.top === 0 && currentPickRect.left === 0){
+                        currentPickRect.left = posX;
+                        currentPickRect.top = posY;
+                    }else{
+                        currentPickRect.right = posX;
+                        currentPickRect.bottom = posY;
+                    }
+
+                    break;
                 case  "RemovePick":
-                    //var targetObject = game.input.mousePointer.targetObject;
-                    //if (targetObject != null &&  targetObject._type !== "Tile") {
-                    //    var deleteSprite = function(){
-                    //        targetObject.hObject.callDestroy();
-                    //    };
-                    //    window.setTimeout(deleteSprite, 150);
-                    //}
                     break;
                 case "ItemPick":
                     isBlockingClick = true;
