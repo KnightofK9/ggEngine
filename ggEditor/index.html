@@ -56,26 +56,35 @@
     <!--<button type="button" class="btn btn-primary" id="btn-export-tile-map">Export Tile Map</button>-->
 
     <div id="gg-tool-bar">
-        <button id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default">
-            <i class="glyphicon glyphicon-file"></i> New Scene
-        </button>
-        <button id="btn-net-tile-set" onclick="createNewTileSet()" class="btn btn-default">
-            <i class="glyphicon glyphicon-list-alt"></i> New Tile Set
-        </button>
-        <button id="btn-export-tile-map" class="btn btn-default">
-            <i class="glyphicon glyphicon-save"></i> Export Tile Map
-        </button>
-        <button class="btn btn-default" onclick="movePicker()" >
-            <i class="glyphicon glyphicon-move"></i> Move
-        </button>
-        <button class="btn btn-default" onclick="removePicker()" >
-            <i class="glyphicon glyphicon-remove"></i> Remove
-        </button>
-        <button class="btn btn-default" onclick="refreshState()" >
-            <i class="glyphicon glyphicon-refresh"></i> Refresh
-        </button>
+       <div id="press-field" class="btn-group" style="display: inline;">
+           <button id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default ">
+               <i class="glyphicon glyphicon-file"></i> New Scene
+           </button>
+           <button id="btn-net-tile-set" onclick="createNewTileSet()" class="btn btn-default">
+               <i class="glyphicon glyphicon-list-alt"></i> New Tile Set
+           </button>
+           <button id="btn-export-tile-map" class="btn btn-default">
+               <i class="glyphicon glyphicon-save"></i> Export Tile Map
+           </button>
+           <button class="btn btn-default" onclick="refreshState()" >
+               <i class="glyphicon glyphicon-refresh"></i> Refresh
+           </button>
+       </div>
+
+        <div id="picker-filed" class="btn-group" style="display: inline">
+            <button class="btn btn-primary" onclick="selectPicker()" >
+                <i class="glyphicon glyphicon-zoom-in"></i> Picker
+            </button>
+            <button class="btn btn-primary" onclick="movePicker()" >
+                <i class="glyphicon glyphicon-move"></i> Move Picker
+            </button>
+            <button class="btn btn-primary" onclick="removePicker()" >
+                <i class="glyphicon glyphicon-remove"></i> Remove Picker
+            </button>
+        </div>
+
     </div>
-    <div>
+    <div style="display: inline-block;" >
         <div id="gg-map-scene" class="panel panel-default">
             <div class="panel-body">
                 <div id="gg-phaser">
@@ -195,6 +204,15 @@
     var objectList = null;
     var stateInfo = null;
     $(document).ready(function () {
+        $("#picker-filed > .btn").click(function(){
+            $(this).addClass("active");
+        });
+        $("#press-field > .btn").click(function(){
+            $("#picker-filed > .btn").removeClass("active");
+        });
+
+
+
         ggConsole.init();
         stateInfo = new StateInfo();
         var nativeLog = console.log.bind(console) //store native function
@@ -257,6 +275,9 @@
     }
     function movePicker(){
         sceneEditor.editState.pickMove();
+    }
+    function selectPicker(){
+        sceneEditor.editState.pickSelect();
     }
     function initSceneEditor() {
         BootstrapDialog.show({

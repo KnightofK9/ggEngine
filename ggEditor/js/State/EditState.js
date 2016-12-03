@@ -150,6 +150,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     };
     var resetPick = function () {
+        $("#picker-filed > .btn").removeClass("active");
         currentTileType = "";
         currentPickTile = "";
         currentPickName = "";
@@ -651,6 +652,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     this.pickMove = function(){
         resetPick();
         currentPickTile = "MovePick";
+    };
+    this.pickSelect = function(){
+        resetPick();
     };
     this.selectGroup = function (hGroup) {
         currentSelectHGroup = hGroup;
