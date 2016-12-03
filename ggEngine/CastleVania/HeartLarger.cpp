@@ -12,6 +12,6 @@ HeartLarger::~HeartLarger()
 
 void HeartLarger::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	simon->IncreaseLifePoint(this->point);
+	simon->IncreaseHeartPoint(this->point);
 	Destroy();
 }

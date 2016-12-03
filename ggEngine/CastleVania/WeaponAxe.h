@@ -9,8 +9,10 @@ public:
 
 	void FireWeapon(bool isLeft) override;
 	void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e) override;
-private:
+
 	const int heartConsumtion = 1;
+
+private:
 	const double throwForce = 3;
 };
 

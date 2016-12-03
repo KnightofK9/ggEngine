@@ -195,6 +195,7 @@
     <ClInclude Include="WeaponHolyWater.h" />
     <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponStopWatch.h" />
+    <ClInclude Include="WeaponWhip.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ggEngine\ggEngine.vcxproj">
@@ -253,6 +254,7 @@
     <ClCompile Include="WeaponHolyWater.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WeaponStopWatch.cpp" />
+    <ClCompile Include="WeaponWhip.cpp" />
     <ClCompile Include="WhipUpgradeItem.cpp" />
   </ItemGroup>
   <ItemGroup>

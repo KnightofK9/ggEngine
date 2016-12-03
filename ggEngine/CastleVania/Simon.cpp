@@ -117,11 +117,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		}
 	};
 
-	shot = 0;
+	shot = 1;
 	score = 0;
-	stagePoint = 0;
-	heartPoint = 0;
-	pPoint = 0;
+	stagePoint = 1;
+	heartPoint = 5;
+	pPoint = 3;
 }
 
 Simon::~Simon()
@@ -139,7 +139,15 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
-	this->weaponManager->AddWeaponBoomerang(this->position.x, this->position.y, isLeft, this->parentObject);
+	auto *weapon = this->weaponManager->AddWeaponBoomerang(this->position.x, this->position.y, isLeft, this->parentObject);
+	if (this->heartPoint - weapon->heartConsumtion >= 0)
+	{
+		this->DecreaseHeartPoint(weapon->heartConsumtion);
+		weapon->Active();
+		weapon->FireWeapon(this->isLeft);
+	}
+	else
+		weapon->Destroy();
 }
 
 void Simon::Idle()

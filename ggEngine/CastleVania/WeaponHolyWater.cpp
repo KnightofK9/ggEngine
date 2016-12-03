@@ -15,12 +15,7 @@ WeaponHolyWater::~WeaponHolyWater()
 
 void WeaponHolyWater::FireWeapon(bool isLeft)
 {
-	Simon *simon = this->cvGame->simon;
-	if (simon->GetHeartPoint() - this->heartConsumtion >= 0)
-	{
-		simon->DecreaseHeartPoint(this->heartConsumtion);
-		FireAsThrow(isLeft, this->throwForce);
-	}
+	FireAsThrow(isLeft, this->throwForce);
 }
 
 void WeaponHolyWater::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)

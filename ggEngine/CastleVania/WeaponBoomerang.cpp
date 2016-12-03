@@ -20,19 +20,14 @@ WeaponBoomerang::~WeaponBoomerang()
 
 void WeaponBoomerang::FireWeapon(bool isLeft)
 {
-	Simon *simon = this->cvGame->simon;
-	if (simon->GetHeartPoint() - this->heartConsumtion >= 0)
-	{
-		simon->DecreaseHeartPoint(this->heartConsumtion);
-		this->isLeft = isLeft;
-		FireHorizontal(isLeft, this->throwForce);
+	this->isLeft = isLeft;
+	FireHorizontal(isLeft, this->throwForce);
 
-		if (this->contactedWorldBound == false) {
-			this->cvGame->cvAdd->TimeOut(this->timeToReturn, [this] {
-				Vector direction = GetHorizontalDirection(!this->isLeft);
-				this->body->SetForce(this->throwForce, direction);
-			})->Start();
-		}
+	if (this->contactedWorldBound == false) {
+		this->cvGame->cvAdd->TimeOut(this->timeToReturn, [this] {
+			Vector direction = GetHorizontalDirection(!this->isLeft);
+			this->body->SetForce(this->throwForce, direction);
+		})->Start();
 	}
 }
 

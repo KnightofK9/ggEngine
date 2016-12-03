@@ -15,12 +15,7 @@ WeaponDagger::~WeaponDagger()
 
 void WeaponDagger::FireWeapon(bool isLeft)
 {
-	Simon *simon = this->cvGame->simon;
-	if (simon->GetHeartPoint() - this->heartConsumtion >= 0)
-	{
-		simon->DecreaseHeartPoint(this->heartConsumtion);
-		FireHorizontal(isLeft, this->throwForce);
-	}
+	FireHorizontal(isLeft, this->throwForce);
 }
 
 void WeaponDagger::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
