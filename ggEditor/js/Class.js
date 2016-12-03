@@ -229,7 +229,7 @@ function StaticTile() {
         for(var i = 0;i<this._level;i++){
             space+="&nbsp;&nbsp;";
         }
-        return space + this._name +this._hierarchyId;
+        return space + this._name +"-" +this._hierarchyId;
     };
     this.callDestroy = function(){
         var tileMap = this.parent._item;
@@ -309,7 +309,7 @@ function TileMap() {
         for(var i = 0;i<this._level;i++){
             space+="&nbsp;&nbsp;";
         }
-        return space + this._name +this._hierarchyId;
+        return space + this._name +"-" +this._hierarchyId;
     };
     this.addTypeTile = function(hTile){
         //TO DO: put tile into game here
@@ -379,7 +379,7 @@ function Group() {
         for(var i = 0;i<this._level;i++){
             space+="&nbsp;&nbsp;";
         }
-        return space + this._name +this._hierarchyId;
+        return space + this._name +"-" +this._hierarchyId;
     };
     /**
      * End HierarchyObject
@@ -479,7 +479,7 @@ function Sprite(){
         for(var i = 0;i<this._level;i++){
             space+="&nbsp;&nbsp;";
         }
-        return space + this._name +this._hierarchyId;
+        return space + this._name +"-" +this._hierarchyId;
     };
     /**
      * End HierarchyObject

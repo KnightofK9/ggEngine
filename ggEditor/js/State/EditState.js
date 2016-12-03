@@ -35,7 +35,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
     var hierachyGrouplist = [];
     var currentPickTile = "";
     var mouseSprite = null;
-
+    var quadTreeHGroup = null;
+    var enemyHGroup = null;
     var isBlockingClick = false;
 
     var currentSelectHGroup = null;
@@ -46,7 +47,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         return currentLayer;
     };
     var createGroup = function (groupName) {
-        hierarchyEditor.add.group(groupName);
+        return hierarchyEditor.add.group(groupName);
 
     };
 
@@ -288,6 +289,13 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
 
         mouseGroup = game.add.group();
+
+
+        /**
+         * Add quad tree group and enemy group
+         */
+        quadTreeHGroup =  createGroup("QuadTree");
+        enemyHGroup = createGroup("Enemy");
 
     };
     var initTileMapAsJson = function (useQuadTre) {
@@ -676,12 +684,16 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                     var posX = game.input.activePointer.worldX;
                     var posY = game.input.activePointer.worldY;
                     var setSprite = function () {
-                        if (currentSelectHGroup === null) {
-                            ggConsole.alertNotification("Alert", "No group has been selected!");
-                            isBlockingClick = false;
-                            return;
+                        var hGroup = quadTreeHGroup;
+                        // if (currentSelectHGroup === null) {
+                        //     ggConsole.alertNotification("Alert", "No group has been selected!");
+                        //     isBlockingClick = false;
+                        //     return;
+                        // }
+                        if( Constant.ENEMY_DICT.hasOwnProperty(currentPickName) ){
+                            hGroup = enemyHGroup;
                         }
-                        var sprite = game.add.sprite(posX, posY, currentPickName, currentSelectHGroup._item);
+                        var sprite = game.add.sprite(posX, posY, currentPickName, hGroup._item);
                         sprite._type = currentPickName;
                         if (Constant.ENEMY_DICT.hasOwnProperty(currentPickName)) {
                             var info = Constant.ENEMY_DICT[currentPickName];
@@ -693,7 +705,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                             sprite.x -= sprite.width;
                             sprite.y -= sprite.height;
                         }
-                        hierarchyEditor.add.sprite(sprite, currentSelectHGroup);
+                        hierarchyEditor.add.sprite(sprite, hGroup);
 
 
                         isBlockingClick = false;
