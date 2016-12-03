@@ -374,6 +374,7 @@ function Group() {
         for(var i = 0; i<this._childList.length;i++){
             this._childList[i].callDestroy();
         }
+        $("#hierarchy-" + this._hierarchyId).remove();
     };
     this.getName = function(){
         var space = "";
@@ -390,10 +391,13 @@ function Group() {
     this.y = 0;
     this.callDestroy = function(){
         var that = this;
-
-        this._destroy();
-        that._item.destroy();
-        return true;
+        var cloneList = this._childList.slice();
+        for(var i = 0; i < cloneList.length; i++){
+            cloneList[i].callDestroy();
+        }
+        // this._destroy();
+        // that._item.destroy();
+        return false;
     };
     this.addObject = function(sprite){
         var hSprite = new Sprite();
@@ -479,6 +483,7 @@ function Sprite(){
                 this._childList[i].callDestroy();
             }
         }
+        $("#hierarchy-" + this._hierarchyId).remove();
     };
     this.getName = function(){
         var space = "";

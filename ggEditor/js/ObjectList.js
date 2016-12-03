@@ -46,12 +46,20 @@ var ObjectList = function(){
             }
         }
     };
+    var initStaticTileList = function(){
+        tileOption.html("");
+        for(var key in Constant.STATIC_TILE_DICT){
+            if(Constant.STATIC_TILE_DICT.hasOwnProperty(key)){
+                tileOption.append(initOption(key,Constant.STATIC_TILE_DICT[key].name));
+            }
+        }
+    };
     var handleClicked = function(select, picker_option, event){
         var type = select.node[0].textContent;
         switch(this[0].id){
             case "gg-object-tile-picker":
-                sceneEditor.editState.pickTypeTile(type);
-                break;
+                // sceneEditor.editState.pickTypeTile(type);
+                // break;
             case "gg-object-item-picker":
             case "gg-object-char-picker":
                 sceneEditor.editState.pickItem(type);
@@ -61,6 +69,7 @@ var ObjectList = function(){
     var init = function(){
         initEnemyList();
         initObjectList();
+        initStaticTileList();
         objectSelect.css("display","none");
         charSelect.css("display","none");
         tileSelect.css("display","none");

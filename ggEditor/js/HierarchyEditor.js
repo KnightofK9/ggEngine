@@ -27,38 +27,12 @@ var HierarchyEditor = function () {
         tileMap._item.hObject = tileMap;
         return tileMap;
     };
-    this.add.staticTile = function(x,y,layer,tileMap){
-        var staticTile = new StaticTile();
-        staticTile.layer = layer;
-        if(currentHTileMap._item !== tileMap){
-            ggConsole.alertNotification("Error","Current Tile Map different from add tile map!");
-            return null;
-        }
-        var idX = layer.getTileX(x);
-        var idY = layer.getTileY(y);
-        staticTile.x = x;
-        staticTile.y = y;
-        staticTile.idX = idX;
-        staticTile.idY = idY;
-
-        staticTile._item = tileMap.getTile(idX, idY, layer);
-        staticTile.parent = currentHTileMap;
-
-
-        staticTile._item.hObject = staticTile;
-        if(!currentHTileMap.addTypeTile(staticTile)){
-            my.hierarchyIdCount-=1;
-            return null;
-        }
-        // staticTile._item.alpha = 0.5;
-        layer.dirty = true;
-
-        var div = createChild(createHierarchyDiv(my.hierarchyIdDict[staticTile._hierarchyId]));
-        var parentDiv = $("#hierarchy-"+ currentHTileMap._hierarchyId);
-        parentDiv.append(div);
-        // reloadHierarchy();
-        return staticTile;
-
+    this.add.staticTile = function(sprite,hGroup){
+        // var hSprite = hGroup.addObject(sprite);
+        // hSprite._item.hObject = hSprite;
+        // var div = createLine(hSprite._hierarchyId,hSprite.getName());
+        // var parentDiv = $("#hierarchy-"+ hGroup._hierarchyId);
+        // parentDiv.append(div);
     };
     this.add.group = function(name){
         var group = game.add.group();
@@ -170,10 +144,10 @@ var HierarchyEditor = function () {
                 var parent = hObject._parent;
                 if(hObject.callDestroy){
                     if(hObject.callDestroy()){
-                        $("#hierarchy-" + hObjectId).remove();
+                        // $("#hierarchy-" + hObjectId).remove();
                         isReload = true;
                     }else{
-                        ggConsole.log("Failed");
+                        // ggConsole.log("Failed");
                     }
                 }else{
                     ggConsole.alertNotification("Warning",hObject.type+" has no destroy method!");
@@ -183,7 +157,7 @@ var HierarchyEditor = function () {
                     reloadHierarchy();
                 }
             };
-            showYesNoDialog("Group","Do you want to destroy this group and all it's child?",function(isYes){
+            showYesNoDialog("Group","Do you want to destroy  all it's child?",function(isYes){
                 if(isYes){
                     destroyFunction();
                 }

@@ -34,7 +34,7 @@ var MapEditor = function () {
 
     this.selectTileSet = function (tileSetKey) {
         var tileSet = Constant.TILE_SET_DICT[tileSetKey];
-        tilePanel.css("background", "url(" + Constant.TILE_SET_PATH + tileSet.name + ") no-repeat");
+        tilePanel.css("background", "url(" + tileSet.name + ") no-repeat");
         tilePanel.css("width", tileSet.width);
         tilePanel.css("height", tileSet.height);
 

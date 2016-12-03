@@ -6,11 +6,11 @@ var Constant = new function(){
     this.DEFAULT_URL = "";
     this.RESOURCE_PATH = this.DEFAULT_URL + "Resource/Resources/";
     this.TILE_SET_PATH = this.RESOURCE_PATH + "TileSet/";
-
+    this.STATIC_TILE_PATH = this.RESOURCE_PATH + "TileObject/";
 
     this.TILE_SET_DICT ={
         "level-2-tile-set":{
-            name:"level-2-tile-set.png",
+            name:this.TILE_SET_PATH + "level-2-tile-set.png",
             json:"level-2-tile-set.json",
             width:64,
             height:192,
@@ -20,7 +20,7 @@ var Constant = new function(){
             numberOfCellPerColumn:12
         },
         "level-3-tile-set":{
-            name:"level-3-tile-set.png",
+            name:this.TILE_SET_PATH + "level-3-tile-set.png",
             json:"level-3-tile-set.json",
             width:128,
             height:288,
@@ -37,6 +37,12 @@ var Constant = new function(){
             width:45,
             height:50
         }
+    };
+    this.STATIC_TILE_DICT = {
+        "TileBrick":{
+            name:this.STATIC_TILE_PATH+"TileBrick.png"
+        }
+
     };
     this.ENEMY_DICT = {
         "AxeKnight":{

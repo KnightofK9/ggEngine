@@ -215,10 +215,16 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         //iBg.src = bgData;
         //game.cache.addImage('bg', bgData, iBg);
 
+        for(var key in Constant.STATIC_TILE_DICT){
+            if(Constant.STATIC_TILE_DICT.hasOwnProperty(key)){
+                game.load.image(key,Constant.STATIC_TILE_DICT[key].name);
+            }
+        }
+
         for (var key in Constant.TILE_SET_DICT) {
             if (Constant.TILE_SET_DICT.hasOwnProperty(key)) {
                 var tileSet = Constant.TILE_SET_DICT[key];
-                game.load.image(key, Constant.TILE_SET_PATH + tileSet.name, tileSet.cellWidth, tileSet.cellHeight);
+                game.load.image(key, tileSet.name, tileSet.cellWidth, tileSet.cellHeight);
             }
         }
 
@@ -625,11 +631,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
     this.pickTypeTile = function (type) {
         resetPick();
         currentPickTile = "TilePick";
-        switch (type) {
-            case "StaticTile":
-                currentTileType = type;
-                break;
-        }
+        currentTileType = type;
     };
     this.pickRemove = function(){
         resetPick();
@@ -650,6 +652,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         //    currentTileSetKey = tileSetKey;
         //}
         currentPickTile = "TilePick";
+        currentTileType = "BackgroundTile";
         var tileSetIndex = map.getTilesetIndex(tileSetKey);
         if (tileSetIndex === null) {
             addTileSet(tileSetKey)
@@ -714,7 +717,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                 case  "RemovePick":
                     var hObjectId = item.hObject._hierarchyId;
                     if(item.hObject.callDestroy()){
-                        $("#hierarchy-" + hObjectId).remove();
+                        // $("#hierarchy-" + hObjectId).remove();
                     }
                     break;
                 case "MovePick":
@@ -795,11 +798,6 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                     //}
                     break;
                 case "ItemPick":
-                    var key = currentPickName;
-                    var targetObject = game.input.mousePointer.targetObject;
-                    if (targetObject != null && targetObject.type && targetObject.type == key) {
-                        return;
-                    }
                     isBlockingClick = true;
                     var posX = game.input.activePointer.worldX;
                     var posY = game.input.activePointer.worldY;
@@ -810,20 +808,21 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                     window.setTimeout(setSprite, 150);
                     break;
                 case "TilePick":
-                    if (currentTileType !== "") {
-                        switch (currentTileType) {
-                            case "StaticTile":
-                                hierarchyEditor.add.staticTile(marker.x, marker.y, currentLayer, map);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else {
-                        if (currentLayer != null) {
-                            var tile = map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
-                            tile._type = "Tile";
-                        }
+                    switch (currentTileType){
+                        case "BackgroundTile":
+                            if (currentLayer != null) {
+                                var tile = map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentTileSetKey);
+                                tile._type = "Tile";
+                            }
+                            break;
+                        default:
+                            // isBlockingClick = true;
+                            // var setStaticTile = function () {
+                            //     that.createSpriteAt(marker.x ,marker.y,currentTileType);
+                            //     isBlockingClick = false;
+                            // };
+                            // window.setTimeout(setStaticTile, 150);
+                            break;
                     }
                     break;
                 default:

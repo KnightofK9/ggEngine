@@ -8,7 +8,7 @@ function StateInfo(){
     var putEnemyToQuadTree = $("#gg-state-info-put-enemy-to-quad-tree");
     var renderStaticBody = $("#gg-state-info-render-static-body");
 
-    var isRenderStaticBody = true;
+    var isRenderStaticBody = renderStaticBody.is(":checked");
     this.setActive = function(isActive){
         if(isActive){
             statePanel.css("display","block");
