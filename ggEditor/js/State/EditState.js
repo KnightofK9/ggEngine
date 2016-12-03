@@ -1,7 +1,7 @@
 /**
  * Created by Knight of k9 on 12/11/2016.
  */
-var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quadNodeHeight, json) {
+var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, quadTreeMaxLevel, json) {
     var bgData = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABHNCSVQICAgIfAhkiAAAAFFJREFUWIXtzjERACAQBDFgMPOKzr8ScADFFlBsFKRX1WqfStLG68SNQcogZZAySBmkDFIGKYOUQcogZZAySBmkDFIGKYOUQcog9X1wJnl9ONrTcwPWLGFOywAAAABJRU5ErkJggg==";
     var backgroundSprite;
     var map;
@@ -40,6 +40,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
     var isBlockingClick = false;
 
     var currentSelectHGroup = null;
+
+    var phaserQuadTree;
 
     var mouseGroup = null;
 
@@ -240,12 +242,19 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         }
 
     };
+    this.refresh = function(){
+        phaserQuadTree.clear();
+        phaserQuadTree.populate(quadTreeHGroup._item);
+    };
     this.create = function () {
         ggConsole.log("Phaser load completed!");
         game.physics.startSystem(Phaser.Physics.ARCADE);
         //backgroundSprite = game.add.tileSprite(0,0,game.width,game.height,'bg');
         //backgroundSprite.tileWidth = tileWidth;
         //backgroundSprite.tileHheight = tileHeight;
+
+        phaserQuadTree = new Phaser.QuadTree(0, 0, game.width, game.height, quadTreeMaxObject, quadTreeMaxLevel, 0);
+
         var updateGroup = game.add.group();
         updateGroup.update = function () {
             if (remaingTileToupdate.length > 0) {
@@ -307,13 +316,14 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
     };
     this.render = function(){
-        if(!stateInfo.isRenderStaticBody()) {
-            game.debug.reset();
-            return;
+        game.debug.reset();
+        if(stateInfo.isRenderStaticBody()) {
+            for(var i = 0; i < quadTreeHGroup._childList.length; i++){
+                game.debug.body(quadTreeHGroup._childList[i]._item);
+            }
         }
-        for(var i = 0; i < quadTreeHGroup._childList.length; i++){
-            game.debug.body(quadTreeHGroup._childList[i]._item);
-        }
+
+        game.debug.quadTree(phaserQuadTree,"#003815");
 
     };
     var initTileMapAsJson = function (useQuadTre) {
@@ -744,11 +754,17 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
             }
 
         },this);
-
+        /**
+         * Use quad tree
+         */
+        sprite._quadTree = null;
         if(!isUnQuadTree){
             game.physics.enable(sprite, Phaser.Physics.ARCADE);
             sprite.body.allowGravity  = false;
             sprite.body.immovable   = true;
+            phaserQuadTree.insert(sprite);
+            sprite._quadTree = phaserQuadTree;
+
         }
 
         if (Constant.ENEMY_DICT.hasOwnProperty(type)) {

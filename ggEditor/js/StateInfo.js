@@ -33,4 +33,6 @@ function StateInfo(){
     renderStaticBody.change(function(){
         renderStaticBodyToggle();
     });
+
 }
+

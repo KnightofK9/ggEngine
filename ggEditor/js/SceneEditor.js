@@ -1,7 +1,7 @@
 /**
  * Created by Knight of k9 on 12/11/2016.
  */
-var SceneEditor = function(name, width,height,tileWidth, tileHeight, quadNodeWidth, quadNodeHeight,json){
+var SceneEditor = function(name, width,height,tileWidth, tileHeight, maxObject, maxLevel,json){
     overReset();
     this.editState = null;
     this.bootState = null;
@@ -9,7 +9,7 @@ var SceneEditor = function(name, width,height,tileWidth, tileHeight, quadNodeWid
     var init = function(){
         game = new Phaser.Game(width, height, Phaser.AUTO, 'gg-phaser');
         that.bootState = new Boot(game);
-        that.editState = new EditState(name, game,tileWidth, tileHeight, quadNodeWidth,quadNodeHeight,json);
+        that.editState = new EditState(name, game,tileWidth, tileHeight, maxObject,maxLevel,json);
         //if(json){
         //    that.editState.importState(json);
         //}
