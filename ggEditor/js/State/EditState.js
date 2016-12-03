@@ -699,7 +699,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if( isUnQuadTree ){
             hGroup = enemyHGroup;
         }
-        var sprite = game.add.sprite(posX, posY, type, hGroup._item);
+        var sprite = game.add.sprite(posX, posY, type, 0, hGroup._item);
         sprite._type = type;
         sprite.inputEnabled = true;
         sprite.events.onInputOver.add(function(item){
@@ -745,6 +745,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 case  "RemovePick":
                     break;
                 case "MovePick":
+                    if( Constant.STATIC_TILE_DICT.hasOwnProperty(sprite._type)){
+                        sprite.x = marker.x ;
+                        sprite.y = marker.y ;
+                    }
                     sprite.input.enableDrag(false);
                     //    item.x = game.input.activePointer.worldX - item.width/2;
                     //    item.y = game.input.activePointer.worldY - item.height/2;
