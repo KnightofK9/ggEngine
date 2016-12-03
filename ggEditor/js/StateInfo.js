@@ -6,6 +6,9 @@ function StateInfo(){
     var navTab = $("#gg-state-info-nav-tab");
     var useQuadTree = $("#gg-state-info-enable-quad-tree");
     var putEnemyToQuadTree = $("#gg-state-info-put-enemy-to-quad-tree");
+    var renderStaticBody = $("#gg-state-info-render-static-body");
+
+    var isRenderStaticBody = true;
     this.setActive = function(isActive){
         if(isActive){
             statePanel.css("display","block");
@@ -21,4 +24,13 @@ function StateInfo(){
     this.isPutEnemyToQuadTree = function(){
         return putEnemyToQuadTree.is(":checked");
     };
+    this.isRenderStaticBody = function(){
+        return isRenderStaticBody;
+    };
+    var renderStaticBodyToggle = function(){
+        isRenderStaticBody = renderStaticBody.is(":checked");
+    };
+    renderStaticBody.change(function(){
+        renderStaticBodyToggle();
+    });
 }

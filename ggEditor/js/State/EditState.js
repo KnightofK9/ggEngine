@@ -236,6 +236,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
     };
     this.create = function () {
         ggConsole.log("Phaser load completed!");
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         //backgroundSprite = game.add.tileSprite(0,0,game.width,game.height,'bg');
         //backgroundSprite.tileWidth = tileWidth;
         //backgroundSprite.tileHheight = tileHeight;
@@ -297,6 +298,16 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
          */
         quadTreeHGroup =  createGroup("QuadTree");
         enemyHGroup = createGroup("Enemy");
+
+    };
+    this.render = function(){
+        if(!stateInfo.isRenderStaticBody()) {
+            game.debug.reset();
+            return;
+        }
+        for(var i = 0; i < quadTreeHGroup._childList.length; i++){
+            game.debug.body(quadTreeHGroup._childList[i]._item);
+        }
 
     };
     var initTileMapAsJson = function (useQuadTre) {
@@ -671,7 +682,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
     this.createSpriteAt = function(posX,posY,type){
         var hGroup = quadTreeHGroup;
-        if( isUnQuadTreeObject(type) ){
+        var isUnQuadTree = isUnQuadTreeObject(type);
+        if( isUnQuadTree ){
             hGroup = enemyHGroup;
         }
         var sprite = game.add.sprite(posX, posY, type, hGroup._item);
@@ -729,6 +741,13 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
             }
 
         },this);
+
+        if(!isUnQuadTree){
+            game.physics.enable(sprite, Phaser.Physics.ARCADE);
+            sprite.body.allowGravity  = false;
+            sprite.body.immovable   = true;
+        }
+
         if (Constant.ENEMY_DICT.hasOwnProperty(type)) {
             var info = Constant.ENEMY_DICT[type];
             var walk = sprite.animations.add('walk');
@@ -739,6 +758,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
             sprite.x -= sprite.width;
             sprite.y -= sprite.height;
         }
+
+
+
         hierarchyEditor.add.sprite(sprite, hGroup);
 
 
