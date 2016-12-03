@@ -40,5 +40,12 @@ var Helper = new function () {
             callback(false,null);
         }
 
-    }
+    };
+
+    this.createWrapLegend = function(name,content){
+        return '<fieldset class="scheduler-border">'
+            +'<legend class="scheduler-border">' + name + '</legend>'
+            + content
+            +'</fieldset>'
+    };
 };

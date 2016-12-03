@@ -56,23 +56,35 @@
     <!--<button type="button" class="btn btn-primary" id="btn-export-tile-map">Export Tile Map</button>-->
 
     <div id="gg-tool-bar">
-        <button id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default">
-            <i class="glyphicon glyphicon-file"></i> New Scene
-        </button>
-        <button id="btn-net-tile-set" onclick="createNewTileSet()" class="btn btn-default">
-            <i class="glyphicon glyphicon-list-alt"></i> New Tile Set
-        </button>
-        <button id="btn-export-tile-map" class="btn btn-default">
-            <i class="glyphicon glyphicon-save"></i> Export Tile Map
-        </button>
-        <button class="btn btn-default" onclick="movePicker()" >
-            <i class="glyphicon glyphicon-move"></i> Move
-        </button>
-        <button class="btn btn-default" onclick="removePicker()" >
-            <i class="glyphicon glyphicon-remove"></i> Remove
-        </button>
+       <div id="press-field" class="btn-group" style="display: inline;">
+           <button id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default ">
+               <i class="glyphicon glyphicon-file"></i> New Scene
+           </button>
+           <button id="btn-net-tile-set" onclick="createNewTileSet()" class="btn btn-default">
+               <i class="glyphicon glyphicon-list-alt"></i> New Tile Set
+           </button>
+           <button id="btn-export-tile-map" class="btn btn-default">
+               <i class="glyphicon glyphicon-save"></i> Export Tile Map
+           </button>
+           <button class="btn btn-default" onclick="refreshState()" >
+               <i class="glyphicon glyphicon-refresh"></i> Refresh
+           </button>
+       </div>
+
+        <div id="picker-filed" class="btn-group" style="display: inline">
+            <button class="btn btn-primary" onclick="selectPicker()" >
+                <i class="glyphicon glyphicon-zoom-in"></i> Picker
+            </button>
+            <button class="btn btn-primary" onclick="movePicker()" >
+                <i class="glyphicon glyphicon-move"></i> Move Picker
+            </button>
+            <button class="btn btn-primary" onclick="removePicker()" >
+                <i class="glyphicon glyphicon-remove"></i> Remove Picker
+            </button>
+        </div>
+
     </div>
-    <div>
+    <div style="display: inline-block;" >
         <div id="gg-map-scene" class="panel panel-default">
             <div class="panel-body">
                 <div id="gg-phaser">
@@ -111,7 +123,8 @@
             <div id="gg-state-info" class="panel-body hierarchy">
                 <label class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox" checked>Use quad tree</label><br/>
                 <label class="checkbox-inline"><input id="gg-state-info-put-enemy-to-quad-tree" type="checkbox">Put enemy to quad tree</label><br/>
-                <label class="checkbox-inline"><input id="gg-state-info-render-static-body" type="checkbox" >Render static body</label>
+                <label class="checkbox-inline"><input id="gg-state-info-render-static-body" type="checkbox" >Render static body</label><br/>
+                <label class="checkbox-inline"><input id="gg-state-info-render-quad-tree" type="checkbox" >Render quad tree</label><br/>
             </div>
 
         </div>
@@ -191,6 +204,15 @@
     var objectList = null;
     var stateInfo = null;
     $(document).ready(function () {
+        $("#picker-filed > .btn").click(function(){
+            $(this).addClass("active");
+        });
+        $("#press-field > .btn").click(function(){
+            $("#picker-filed > .btn").removeClass("active");
+        });
+
+
+
         ggConsole.init();
         stateInfo = new StateInfo();
         var nativeLog = console.log.bind(console) //store native function
@@ -254,6 +276,9 @@
     function movePicker(){
         sceneEditor.editState.pickMove();
     }
+    function selectPicker(){
+        sceneEditor.editState.pickSelect();
+    }
     function initSceneEditor() {
         BootstrapDialog.show({
             closable: true,
@@ -263,18 +288,18 @@
             + 'Height <input id="dialog-height" type="number" class="form-control">'
             + 'Tile Width <input id="dialog-t-width" type="number" class="form-control">'
             + 'Tile Height <input id="dialog-t-height" type="number" class="form-control">'
-            + 'Quad Node Cell Width <input id="dialog-q-width" type="number" class="form-control">'
-            + 'Quad Node Cell Height <input id="dialog-q-height" type="number" class="form-control">'
+            + 'Quad Tree Max Object <input id="dialog-q-1" type="number" class="form-control">'
+            + 'Quad Tree Max Level<input id="dialog-q-2" type="number" class="form-control">'
             + '<input style="display: none;" type="file" accept=".json" id="dialog-up-file" />'
             ,
             onshow: function (dialogRef) {
                 dialogRef.getModalBody().find('#dialog-name').val("TestState");
                 dialogRef.getModalBody().find('#dialog-width').val(800);
                 dialogRef.getModalBody().find('#dialog-height').val(600);
-                dialogRef.getModalBody().find('#dialog-q-width').val(16);
-                dialogRef.getModalBody().find('#dialog-q-height').val(16);
                 dialogRef.getModalBody().find('#dialog-t-width').val(16);
                 dialogRef.getModalBody().find('#dialog-t-height').val(16);
+                dialogRef.getModalBody().find('#dialog-q-1').val(10);
+                dialogRef.getModalBody().find('#dialog-q-2').val(4);
                 dialogRef.getModalBody().find('#dialog-up-file').change(function (event) {
                     Helper.getJsonFromFile(event.target.files[0], function (isSuccess, json) {
                         if (isSuccess) {
@@ -320,12 +345,15 @@
 
 //            importState
     }
+    function refreshState(){
+        sceneEditor.editState.refresh();
+    }
     function createSceneFromDialog(dialogRef) {
         var name = (dialogRef.getModalBody().find('#dialog-name').val());
         var width = parseInt(dialogRef.getModalBody().find('#dialog-width').val());
         var height = parseInt(dialogRef.getModalBody().find('#dialog-height').val());
-        var qWidth = parseInt(dialogRef.getModalBody().find('#dialog-q-width').val());
-        var qHeight = parseInt(dialogRef.getModalBody().find('#dialog-q-height').val());
+        var maxObject = parseInt(dialogRef.getModalBody().find('#dialog-q-1').val());
+        var maxLevel = parseInt(dialogRef.getModalBody().find('#dialog-q-2').val());
         var tWidth = parseInt(dialogRef.getModalBody().find('#dialog-t-height').val());
         var tHeight = parseInt(dialogRef.getModalBody().find('#dialog-t-width').val());
         if (sceneEditor != null) {
@@ -335,7 +363,7 @@
         }
         hierarchyList.reset();
         hierarchyEditor.updateHierarchy();
-        sceneEditor = new SceneEditor(name, width, height, tWidth, tHeight, qWidth, qHeight);
+        sceneEditor = new SceneEditor(name, width, height, tWidth, tHeight, maxObject, maxLevel);
         dialogRef.close();
     }
     function switchToTab(tabName) {

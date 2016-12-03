@@ -1,7 +1,7 @@
 /**
  * Created by Knight of k9 on 12/11/2016.
  */
-var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quadNodeHeight, json) {
+var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, quadTreeMaxLevel, json) {
     var bgData = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABHNCSVQICAgIfAhkiAAAAFFJREFUWIXtzjERACAQBDFgMPOKzr8ScADFFlBsFKRX1WqfStLG68SNQcogZZAySBmkDFIGKYOUQcogZZAySBmkDFIGKYOUQcog9X1wJnl9ONrTcwPWLGFOywAAAABJRU5ErkJggg==";
     var backgroundSprite;
     var map;
@@ -41,8 +41,19 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
     var currentSelectHGroup = null;
 
+    var phaserQuadTree;
+
     var mouseGroup = null;
 
+    var currentPickRect = {
+        left:-1,
+        top:-1,
+        right:-1,
+        bottom:1
+    };
+    var resetCurrentPickRect = function(){
+        currentPickRect = new Phaser.Rectangle();
+    };
     this.getCurrentLayer = function () {
         return currentLayer;
     };
@@ -148,6 +159,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
 
     };
     var resetPick = function () {
+        $("#picker-filed > .btn").removeClass("active");
         currentTileType = "";
         currentPickTile = "";
         currentPickName = "";
@@ -155,6 +167,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         mouseSprite = null;
         // currentLayer = null;
         currentTile = null;
+        resetCurrentPickRect();
     };
     var initPreloadList = function () {
         var preloadList = [];
@@ -209,7 +222,6 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         quadId = 0;
         objectList = [];
     };
-
     this.preload = function () {
         //var iBg = new Image();
         //iBg.src = bgData;
@@ -240,12 +252,19 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         }
 
     };
+    this.refresh = function(){
+        phaserQuadTree.clear();
+        phaserQuadTree.populate(quadTreeHGroup._item);
+    };
     this.create = function () {
         ggConsole.log("Phaser load completed!");
         game.physics.startSystem(Phaser.Physics.ARCADE);
         //backgroundSprite = game.add.tileSprite(0,0,game.width,game.height,'bg');
         //backgroundSprite.tileWidth = tileWidth;
         //backgroundSprite.tileHheight = tileHeight;
+
+        phaserQuadTree = new Phaser.QuadTree(0, 0, game.width, game.height, quadTreeMaxObject, quadTreeMaxLevel, 0);
+
         var updateGroup = game.add.group();
         updateGroup.update = function () {
             if (remaingTileToupdate.length > 0) {
@@ -285,7 +304,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         showLayersKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         showLayersKey.onDown.add(changeLayer, this);
         game.input.addMoveCallback(updateMarker, this);
-
+        game.input.onUp.add(handleMouseUp);
         cursors = game.input.keyboard.createCursorKeys();
         //  Our painting marker
         marker = game.add.graphics();
@@ -304,16 +323,28 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
          */
         quadTreeHGroup =  createGroup("QuadTree");
         enemyHGroup = createGroup("Enemy");
+        resetCurrentPickRect();
 
     };
+
     this.render = function(){
-        if(!stateInfo.isRenderStaticBody()) {
-            game.debug.reset();
-            return;
+        game.debug.reset();
+        if(stateInfo.isRenderStaticBody()) {
+            for(var i = 0; i < quadTreeHGroup._childList.length; i++){
+                game.debug.body(quadTreeHGroup._childList[i]._item);
+            }
         }
-        for(var i = 0; i < quadTreeHGroup._childList.length; i++){
-            game.debug.body(quadTreeHGroup._childList[i]._item);
+        if(stateInfo.isRenderQuadTree()){
+            game.debug.quadTree(phaserQuadTree,"#003815");
         }
+        switch(currentPickTile){
+            case "SelectPick":
+                game.debug.geom(currentPickRect,null,false);
+                break;
+            default:
+                break;
+        }
+
 
     };
     var initTileMapAsJson = function (useQuadTre) {
@@ -641,6 +672,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         resetPick();
         currentPickTile = "MovePick";
     };
+    this.pickSelect = function(){
+        resetPick();
+        currentPickTile = "SelectPick";
+    };
     this.selectGroup = function (hGroup) {
         currentSelectHGroup = hGroup;
     };
@@ -689,7 +724,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         if( isUnQuadTree ){
             hGroup = enemyHGroup;
         }
-        var sprite = game.add.sprite(posX, posY, type, hGroup._item);
+        var sprite = game.add.sprite(posX, posY, type, 0, hGroup._item);
         sprite._type = type;
         sprite.inputEnabled = true;
         sprite.events.onInputOver.add(function(item){
@@ -735,6 +770,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                 case  "RemovePick":
                     break;
                 case "MovePick":
+                    if( Constant.STATIC_TILE_DICT.hasOwnProperty(sprite._type)){
+                        sprite.x = marker.x ;
+                        sprite.y = marker.y ;
+                    }
                     sprite.input.enableDrag(false);
                     //    item.x = game.input.activePointer.worldX - item.width/2;
                     //    item.y = game.input.activePointer.worldY - item.height/2;
@@ -744,11 +783,17 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
             }
 
         },this);
-
+        /**
+         * Use quad tree
+         */
+        sprite._quadTree = null;
         if(!isUnQuadTree){
             game.physics.enable(sprite, Phaser.Physics.ARCADE);
             sprite.body.allowGravity  = false;
             sprite.body.immovable   = true;
+            phaserQuadTree.insert(sprite);
+            sprite._quadTree = phaserQuadTree;
+
         }
 
         if (Constant.ENEMY_DICT.hasOwnProperty(type)) {
@@ -773,6 +818,19 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         marker.x = Math.floor(game.input.activePointer.worldX/tileWidth) * tileWidth;
         marker.y = Math.floor(game.input.activePointer.worldY/tileHeight) * tileHeight;
     };
+
+    var handleMouseUp = function(event){
+        switch (currentPickTile){
+            case "SelectPick":
+                resetCurrentPickRect();
+                break;
+            default:
+                break;
+        }
+    };
+    var updatePickRect = function(){
+        
+    };
     var updateMarker = function (pointer, event) {
         switch (currentPickTile) {
             case "ItemPick":
@@ -783,7 +841,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
                 }else{
                     mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
                     mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                    updatePickRect();
                 }
+
+                break;
+            case "SelectPick":
 
                 break;
             case "TilePick":
@@ -794,14 +856,20 @@ var EditState = function (name, game, tileWidth, tileHeight, quadNodeWidth, quad
         if (game.input.mousePointer.isDown) {
             if (isBlockingClick) return;
             switch (currentPickTile) {
+                case "SelectPick":
+                    var posX = game.input.activePointer.worldX;
+                    var posY = game.input.activePointer.worldY;
+
+                    if(currentPickRect.top === 0 && currentPickRect.left === 0){
+                        currentPickRect.left = posX;
+                        currentPickRect.top = posY;
+                    }else{
+                        currentPickRect.right = posX;
+                        currentPickRect.bottom = posY;
+                    }
+
+                    break;
                 case  "RemovePick":
-                    //var targetObject = game.input.mousePointer.targetObject;
-                    //if (targetObject != null &&  targetObject._type !== "Tile") {
-                    //    var deleteSprite = function(){
-                    //        targetObject.hObject.callDestroy();
-                    //    };
-                    //    window.setTimeout(deleteSprite, 150);
-                    //}
                     break;
                 case "ItemPick":
                     isBlockingClick = true;
