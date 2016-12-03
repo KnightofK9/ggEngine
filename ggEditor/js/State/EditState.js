@@ -258,6 +258,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     };
     this.refresh = function(){
+        wasMouseButtonDown = false;
+        clearArrayTile();
+        resetCurrentPickRect();
         phaserQuadTree.clear();
         phaserQuadTree.populate(quadTreeHGroup._item);
     };
@@ -829,7 +832,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 if(currentPickRect.x !== 0 && currentPickRect.y !== 0 && currentPickRect.width !==0 && currentPickRect.height != 0){
                     updatePickRect();
                 }
-                resetCurrentPickRect();
+                // resetCurrentPickRect();
                 break;
             default:
                 break;
