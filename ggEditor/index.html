@@ -73,7 +73,7 @@
 
         <div id="picker-filed" class="btn-group" style="display: inline">
             <button class="btn btn-primary" onclick="selectPicker()" >
-                <i class="glyphicon glyphicon-zoom-in"></i> Picker
+                <i class="glyphicon glyphicon-zoom-in"></i>Tile Picker
             </button>
             <button class="btn btn-primary" onclick="movePicker()" >
                 <i class="glyphicon glyphicon-move"></i> Move Picker
@@ -85,7 +85,7 @@
 
     </div>
     <div style="display: inline-block;" >
-        <div id="gg-map-scene" class="panel panel-default">
+        <div id="gg-map-scene" class="panel panel-default" >
             <div class="panel-body">
                 <div id="gg-phaser">
 
@@ -204,6 +204,12 @@
     var objectList = null;
     var stateInfo = null;
     $(document).ready(function () {
+
+        var doc =  $(document);
+        doc.on('paste', onPaste);
+        doc.on('copy', onCopy);
+        doc.on('cut', onCut);
+
         $("#picker-filed > .btn").click(function(){
             $(this).addClass("active");
         });
@@ -389,6 +395,15 @@
     function selectObjectList(objectListName) {
         $("#gg-object-panel > div").css("display", "none");
         $("#" + objectListName).css("display", "block");
+    }
+    function onCopy(){
+        sceneEditor.editState.copyTileInRect();
+    }
+    function onCut(){
+
+    }
+    function onPaste(){
+        sceneEditor.editState.pasteTileInRect();
     }
     function createTileSetFromDialog(dialogRef) {
         var id = (dialogRef.getModalBody().find('#dialog-text').val());

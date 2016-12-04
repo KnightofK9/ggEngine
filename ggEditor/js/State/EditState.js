@@ -49,12 +49,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     var mouseGroup = null;
 
-    var currentPickRect = {
-        left:-1,
-        top:-1,
-        right:-1,
-        bottom:1
-    };
+    var pickRectCompleted = false;
+
+    var currentPickRect = null;
+    var currentPickRectPos = {x:0,y:0};
 
     var tileMapGroup = null;
     var resetCurrentPickRect = function(){
@@ -172,6 +170,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if (mouseSprite != null) mouseSprite.destroy();
         mouseSprite = null;
         // currentLayer = null;
+        pickRectCompleted = false;
+        currentPickRectPos = {x:0,y:0};
         currentTile = null;
         resetCurrentPickRect();
         clearArrayTile()
@@ -832,9 +832,17 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var handleMouseUp = function(event){
         switch (currentPickTile){
             case "SelectPick":
-                if(currentPickRect.x !== 0 && currentPickRect.y !== 0 && currentPickRect.width !==0 && currentPickRect.height != 0){
-                    updatePickRect();
+                if(pickRectCompleted){
+                    currentPickRectPos.x = currentPickRectPos.y = 0;
                 }
+                else{
+                    if(currentPickRect.x !== 0 && currentPickRect.y !== 0 && currentPickRect.width !==0 && currentPickRect.height != 0){
+                        // updatePickRect();
+
+                        pickRectCompleted = true;
+                    }
+                }
+
                 // resetCurrentPickRect();
                 break;
             default:
@@ -843,20 +851,50 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     var updatePickRect = function(){
         if(currentLayer != null){
-            that.arrayTile = [];
-            var x = Math.floor(currentPickRect.x/tileWidth);
-            var y = Math.floor(currentPickRect.y/tileWidth);
-            var width = Math.round(currentPickRect.width/tileWidth);
-            var height = Math.round(currentPickRect.height/tileWidth);
-            map.forEach(function(tile){
-                that.arrayTile.push(tile);
-            },this,x,y,width,height,currentLayer);
+
+            var rectX = Math.floor(currentPickRect.x/tileWidth);
+            var rectY = Math.floor(currentPickRect.y/tileWidth);
+            var width = Math.floor(currentPickRect.width/tileWidth) + 1;
+            var height = Math.floor(currentPickRect.height/tileWidth) + 1;
+            clearArrayTile();
+            // that.arrayTile = new Array(height);
+            // for(var y = 0; y < height; y++){
+            //     that.arrayTile[y] = new Array(width);
+            //     for(var x = 0; x < width; x++){
+            //         that.arrayTile[y][x] = null;
+            //     }
+            // }
+            //
+            // map.forEach(function(tile){
+            //     var tileX = tile.x - rectX;
+            //     var tileY = tile.y - rectY;
+            //     that.arrayTile[tileY][tileX] = tile;
+            // },this,rectX,rectY,width,height,currentLayer);
+            that.arrayTile = map.copy(rectX,rectY,width,height,currentLayer);
+
             for(var i = 0;i<that.arrayTile.length;i++){
                 var tile = that.arrayTile[i];
                 tile.debug = true;
             }
             currentLayer.dirty = true;
         }
+    };
+    this.copyTileInRect = function(){
+        if(!pickRectCompleted) return;
+        updatePickRect();
+        // ggConsole.showNotification("Success", "Tiles in rect has been copied!");
+
+    };
+    this.pasteTileInRect = function(){
+        if(!pickRectCompleted || that.arrayTile.length <= 0) return;
+        var rectX = Math.floor(currentPickRect.x/tileWidth);
+        var rectY = Math.floor(currentPickRect.y/tileWidth);
+        var width = Math.floor(currentPickRect.width/tileWidth) + 1;
+        var height = Math.floor(currentPickRect.height/tileWidth) + 1;
+
+        map.paste(rectX,rectY,that.arrayTile,currentLayer);
+        // ggConsole.showNotification("Success", "Tiles has been pasted!");
+
     };
     var clearArrayTile = function(){
         for(var i = 0;i<that.arrayTile.length;i++){
@@ -865,6 +903,12 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         }
         if(currentLayer!=null) currentLayer.dirty = true;
         that.arrayTile = [];
+    };
+    var putTileArrayAt = function(x,y,width,height){
+        x = Math.floor(x/tileWidth);
+        y = Math.floor(y/tileWidth);
+        width = Math.round(width/tileWidth);
+        height = Math.round(height/tileWidth);
     };
     var updateMarker = function (pointer, event) {
         switch (currentPickTile) {
@@ -897,11 +941,24 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
                     if(currentPickRect.top === 0 && currentPickRect.left === 0){
                         clearArrayTile();
+                        pickRectCompleted = false;
                         currentPickRect.left = posX;
                         currentPickRect.top = posY;
                     }else{
-                        currentPickRect.right = posX;
-                        currentPickRect.bottom = posY;
+                        if(pickRectCompleted){
+                            if(currentPickRectPos.x === 0 && currentPickRectPos.y === 0){
+                                currentPickRectPos.x = posX;
+                                currentPickRectPos.y = posY;
+                            }else{
+                                currentPickRect.x += posX - currentPickRectPos.x;
+                                currentPickRect.y += posY - currentPickRectPos.y;
+                                currentPickRectPos.x = posX;
+                                currentPickRectPos.y = posY;
+                            }
+                        }else{
+                            currentPickRect.right = posX;
+                            currentPickRect.bottom = posY;
+                        }
                     }
 
                     break;
