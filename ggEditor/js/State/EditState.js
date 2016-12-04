@@ -49,12 +49,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     var mouseGroup = null;
 
-    var currentPickRect = {
-        left:-1,
-        top:-1,
-        right:-1,
-        bottom:1
-    };
+    var pickRectCompleted = false;
+
+    var currentPickRect = null;
+    var currentPickRectPos = {x:0,y:0};
 
     var tileMapGroup = null;
     var resetCurrentPickRect = function(){
@@ -172,6 +170,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if (mouseSprite != null) mouseSprite.destroy();
         mouseSprite = null;
         // currentLayer = null;
+        pickRectCompleted = false;
+        currentPickRectPos = {x:0,y:0};
         currentTile = null;
         resetCurrentPickRect();
         clearArrayTile()
@@ -832,9 +832,17 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var handleMouseUp = function(event){
         switch (currentPickTile){
             case "SelectPick":
-                if(currentPickRect.x !== 0 && currentPickRect.y !== 0 && currentPickRect.width !==0 && currentPickRect.height != 0){
-                    updatePickRect();
+                if(pickRectCompleted){
+                    currentPickRectPos.x = currentPickRectPos.y = 0;
                 }
+                else{
+                    if(currentPickRect.x !== 0 && currentPickRect.y !== 0 && currentPickRect.width !==0 && currentPickRect.height != 0){
+                        updatePickRect();
+
+                        pickRectCompleted = true;
+                    }
+                }
+
                 // resetCurrentPickRect();
                 break;
             default:
@@ -846,8 +854,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             that.arrayTile = [];
             var x = Math.floor(currentPickRect.x/tileWidth);
             var y = Math.floor(currentPickRect.y/tileWidth);
-            var width = Math.round(currentPickRect.width/tileWidth);
-            var height = Math.round(currentPickRect.height/tileWidth);
+            var width = Math.floor(currentPickRect.width/tileWidth) + 1;
+            var height = Math.floor(currentPickRect.height/tileWidth) + 1;
             map.forEach(function(tile){
                 that.arrayTile.push(tile);
             },this,x,y,width,height,currentLayer);
@@ -865,6 +873,12 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         }
         if(currentLayer!=null) currentLayer.dirty = true;
         that.arrayTile = [];
+    };
+    var putTileArrayAt = function(x,y,width,height){
+        x = Math.floor(x/tileWidth);
+        y = Math.floor(y/tileWidth);
+        width = Math.round(width/tileWidth);
+        height = Math.round(height/tileWidth);
     };
     var updateMarker = function (pointer, event) {
         switch (currentPickTile) {
@@ -897,11 +911,24 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
                     if(currentPickRect.top === 0 && currentPickRect.left === 0){
                         clearArrayTile();
+                        pickRectCompleted = false;
                         currentPickRect.left = posX;
                         currentPickRect.top = posY;
                     }else{
-                        currentPickRect.right = posX;
-                        currentPickRect.bottom = posY;
+                        if(pickRectCompleted){
+                            if(currentPickRectPos.x === 0 && currentPickRectPos.y === 0){
+                                currentPickRectPos.x = posX;
+                                currentPickRectPos.y = posY;
+                            }else{
+                                currentPickRect.x += posX - currentPickRectPos.x;
+                                currentPickRect.y += posY - currentPickRectPos.y;
+                                currentPickRectPos.x = posX;
+                                currentPickRectPos.y = posY;
+                            }
+                        }else{
+                            currentPickRect.right = posX;
+                            currentPickRect.bottom = posY;
+                        }
                     }
 
                     break;
