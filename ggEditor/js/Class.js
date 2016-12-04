@@ -583,3 +583,28 @@ function PreTileSet() {
 // inheritsFrom(StaticTile,HierarchyObject);
 // inheritsFrom(Group,HierarchyObject);
 // inheritsFrom(TileMap,HierarchyObject);
+Phaser.QuadTree.prototype.export = function(){
+    var quadTreeJson = {};
+    quadTreeJson.level = this.level;
+    quadTreeJson.bounds = this.bounds;
+    quadTreeJson.objects = [];
+    for(var i = 0; i <this.objects.length;i++){
+        var sprite = {};
+        var item = this.objects[i].sprite.hObject;
+        sprite.type = item.type;
+        sprite.name = item.name;
+        sprite.x = item.x;
+        sprite.y = item.y;
+        sprite.width = item._item.width;
+        sprite.height = item._item.height;
+        quadTreeJson.objects.push(sprite);
+    }
+    quadTreeJson.nodes = [];
+    if (this.nodes[0] != null){
+        for(var i = 0; i < 4;i++){
+            quadTreeJson.nodes.push(this.nodes[i].export());
+        }
+    }
+    return quadTreeJson;
+
+};

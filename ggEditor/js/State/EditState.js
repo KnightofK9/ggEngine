@@ -215,10 +215,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         return tileMap;
     };
     var exportQuadTreeGroup = function(){
-
+        return phaserQuadTree.export();
     };
     var exportMovingGroup = function(){
-
+        return enemyHGroup.exportAsJson();
     };
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
