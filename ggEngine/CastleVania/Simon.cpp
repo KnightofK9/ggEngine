@@ -139,15 +139,17 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
-	auto *weapon = this->weaponManager->AddWeaponBoomerang(this->position.x, this->position.y, isLeft, this->parentObject);
-	if (this->heartPoint - weapon->heartConsumtion >= 0)
-	{
-		this->DecreaseHeartPoint(weapon->heartConsumtion);
-		weapon->Active();
-		weapon->FireWeapon(this->isLeft);
-	}
-	else
-		weapon->Destroy();
+	//auto *weapon = this->weaponManager->AddWeaponBoomerang(this->position.x, this->position.y, isLeft, this->parentObject);
+	//if (this->heartPoint - weapon->heartConsumtion >= 0)
+	//{
+	//	this->DecreaseHeartPoint(weapon->heartConsumtion);
+	//	weapon->Active();
+	//	weapon->FireWeapon(this->isLeft);
+	//}
+	//else
+	//	weapon->Destroy();
+
+	this->weaponManager->AddWeaponWhip(this->position.x, this->position.y, isLeft, this->parentObject);
 }
 
 void Simon::Idle()

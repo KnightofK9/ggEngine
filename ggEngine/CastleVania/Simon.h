@@ -64,4 +64,5 @@ private:
 	int shot;
 
 	WeaponManager *weaponManager = nullptr;
+	//WeaponWhip *weaponWhip = nullptr;
 };

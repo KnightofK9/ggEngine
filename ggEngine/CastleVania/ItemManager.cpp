@@ -36,6 +36,7 @@ void ItemManager::PreloadAllItem(){
 	this->cvPreload->Texture(TextureConstant::STUFF_TEXTURE, TextureConstant::STUFF_TEXTURE_PATH);
 	this->cvPreload->Texture(TextureConstant::DOUBLESHOT_TEXTURE, TextureConstant::DOUBLESHOT_TEXTURE_PATH);
 	this->cvPreload->Texture(TextureConstant::TRIPLE_SHOT_TEXTURE, TextureConstant::TRIPLE_SHOT_TEXTURE_PATH);
+	this->cvPreload->Texture(TextureConstant::MAIN_WEAPON_TEXTURE, TextureConstant::MAIN_WEAPON_TEXTURE_PATH);
 }
 
 Heart * ItemManager::AddHeart(double x, double y, ggEngine::Group * group)
