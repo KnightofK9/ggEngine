@@ -20,8 +20,9 @@ void CVPreload::UIInfoPanel()
 	this->Texture(TextureConstant::LIFE_TEXTURE, TextureConstant::LIFE_TEXTURE_PATH);
 	this->Texture(TextureConstant::FULL_HEALTH_ENEMY_TEXTURE, TextureConstant::FULL_HEALTH_ENEMY_TEXTURE_PATH);
 	this->Texture(TextureConstant::ITEM_BOX_TEXTURE, TextureConstant::ITEM_BOX_TEXTURE_PATH);
+	this->Texture(TextureConstant::NONE_TEXTURE, TextureConstant::NONE_TEXTURE_PATH);
 
-	this->Texture("Holy_water", "Resource/Resources/Holy_water.png");
+	//this->Texture("Holy_water", "Resource/Resources/Holy_water.png");
 }
 
 void CVPreload::FontGame()

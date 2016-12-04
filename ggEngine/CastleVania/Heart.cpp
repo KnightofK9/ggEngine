@@ -12,7 +12,7 @@ Heart::~Heart()
 
 void Heart::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	//simon->GainHealth(healthGain);
 	simon->IncreaseHeartPoint(this->point);
 	Destroy();
+	simon->Hurt();
 }

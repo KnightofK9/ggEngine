@@ -172,10 +172,10 @@
       <Filter>Header Files\Object\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="WeaponStopWatch.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Object\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="WeaponWhip.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Object\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

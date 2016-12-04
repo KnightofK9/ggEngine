@@ -45,6 +45,8 @@ public:
 	void SetShot(int shot, SpriteInfo *image);
 	void UpgradeWhip();
 
+	void Blind();
+
 	//void ThrowWeapon();
 
 	void *HealthDown(int health) { this->health -= health; }
@@ -72,4 +74,7 @@ private:
 
 	string incompleteAnim;
 	WeaponManager *weaponManager = nullptr;
+
+
+	double hurtForce = 3;
 };

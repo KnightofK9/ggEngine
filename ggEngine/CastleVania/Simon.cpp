@@ -79,7 +79,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	};
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		//Simon *this = dynamic_cast<Simon*>(go);
-		this->isGrounding = true;
+		if (e.blockDirection.down)
+			this->isGrounding = true;
 	};
 
 	this->cvGame->eventManager->EnableKeyBoardInput(this);
@@ -203,6 +204,19 @@ void Simon::ClimbDown()
 void Simon::Hurt()
 {
 	this->PlayAnimation("hurt");
+
+	this->Blind();
+	//this->body->SetEnable(false);
+
+	Vector direction(3, -1);
+	if (isLeft)
+		direction.x = -1;
+	this->body->AddForce(hurtForce, direction);
+
+	this->cvGame->cvAdd->TimeOut(2000, [this] {
+		//this->body->SetEnable(true);
+	})->Start();
+
 }
 
 void Simon::Death()
@@ -292,4 +306,20 @@ void Simon::UpgradeWhip()
 	this->whipVersion++;
 	if (this->whipVersion > 3)
 		this->whipVersion = 1;
+
+	this->Blind();
+	// Will be changed to stopTime
+	this->cvGame->eventManager->DisableKeyBoardInput(this);
+	this->body->velocity.x = 0;
+	this->Idle();
+	this->cvGame->cvAdd->TimeOut(2000, [this] {
+		this->cvGame->eventManager->EnableKeyBoardInput(this);
+	})->Start();
+}
+
+void Simon::Blind()
+{
+	this->cvGame->cvAdd->Loop(100, 20, [this] {
+		this->SetVisible(!this->IsVisible());
+	})->Start();
 }

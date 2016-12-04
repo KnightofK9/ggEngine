@@ -3,6 +3,7 @@
 #include "ItemBase.h"
 
 using namespace ggEngine;
+class CVGame;
 class WhipUpgradeItem : public ItemBase {
 public:
 	WhipUpgradeItem(CVGame *cvgame, SpriteInfo *image);

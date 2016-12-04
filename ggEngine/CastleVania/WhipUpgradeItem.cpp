@@ -1,5 +1,5 @@
 #include "WhipUpgradeItem.h"
-#include "Simon.h"
+#include "CVAdd.h"
 
 WhipUpgradeItem::WhipUpgradeItem(CVGame * cvgame, SpriteInfo * image) : ItemBase(cvgame, image)
 {
