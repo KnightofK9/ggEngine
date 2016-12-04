@@ -4,6 +4,7 @@
 #include "WeaponAxe.h"
 #include "WeaponHolyWater.h"
 #include "WeaponBoomerang.h"
+#include "WeaponWhip.h"
 using namespace ggEngine;
 class CVGame;
 class CVAdd;
@@ -12,6 +13,8 @@ class WeaponManager {
 public:
 	WeaponManager(CVGame *cvGame);
 	virtual ~WeaponManager();
+
+	WeaponWhip* AddWeaponWhip(double x, double y, bool isLeft, Group *group);
 
 	WeaponDagger* AddWeaponDagger(double x, double y, bool isLeft, Group *group);
 	WeaponAxe* AddWeaponAxe(double x, double y, bool isLeft, Group *group);

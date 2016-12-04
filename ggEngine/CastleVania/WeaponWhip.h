@@ -1,8 +1,20 @@
 #pragma once
-class WeaponWhip
+#include <ggEngine.h>
+#include "CVSpriteAnimation.h"
+#include <string>
+
+using namespace ggEngine;
+class CVGame;
+class WeaponWhip : public CVSpriteAnimation
 {
 public:
-	WeaponWhip();
+	WeaponWhip(CVGame *game, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	~WeaponWhip();
+
+	void UpgradeWhip();
+	void Attack(bool isLeft);
+
+private:
+	int whipVersion;	// 1, 2, 3
 };
 

@@ -13,6 +13,18 @@ WeaponManager::~WeaponManager()
 {
 }
 
+WeaponWhip * WeaponManager::AddWeaponWhip(double x, double y, bool isLeft, Group * group)
+{
+	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::MAIN_WEAPON_TEXTURE);
+	WeaponWhip *weaponWhip = new WeaponWhip(this->cvGame, inf, 76, 27, 0, 9, 300);
+	weaponWhip->SetPosition(x, y);
+	weaponWhip->SetParentObject(group);
+	weaponWhip->Attack(isLeft);
+	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+	group->AddDrawObjectToList(weaponWhip);
+	return weaponWhip;
+}
+
 WeaponDagger* WeaponManager::AddWeaponDagger(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::DAGGER_TEXTURE);
@@ -41,7 +53,7 @@ WeaponAxe* WeaponManager::AddWeaponAxe(double x, double y, bool isLeft, Group * 
 
 WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLeft, Group * group)
 {
-	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::AXE_TEXTURE);
+	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::HOLY_WATER_TEXTURE);
 	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf);
 	weaponHolyWater->SetPosition(x, y);
 	weaponHolyWater->SetParentObject(group);
@@ -54,7 +66,7 @@ WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLe
 
 WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLeft, Group * group)
 {
-	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::AXE_TEXTURE);
+	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::BOOMERANG_TEXTURE);
 	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf);
 	weaponBoomerang->SetPosition(x, y);
 	weaponBoomerang->SetParentObject(group);
