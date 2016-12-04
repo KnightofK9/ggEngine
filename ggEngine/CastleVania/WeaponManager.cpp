@@ -17,6 +17,7 @@ WeaponWhip * WeaponManager::AddWeaponWhip(double x, double y, bool isLeft, int v
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::MAIN_WEAPON_TEXTURE);
 	WeaponWhip *weaponWhip = new WeaponWhip(this->cvGame, inf, 76, 27, 0, 9, 110);
+	weaponWhip->SetWhipVersion(version);
 	weaponWhip->SetPosition(x, y);
 	weaponWhip->SetParentObject(group);
 	weaponWhip->Attack(isLeft);

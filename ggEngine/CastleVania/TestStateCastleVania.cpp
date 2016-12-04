@@ -52,7 +52,7 @@ void TestStateCastleVania::Create()
 	this->cvgame->simon = this->simon;
 	this->itemManager->AddHeart(200, 100, group);
 	this->itemManager->AddHeart(250, 100, group);
-	this->itemManager->AddHeart(300, 100, group);
+	this->itemManager->AddWhipUpgrade(300, 100, group);
 	this->itemManager->AddHeart(450, 100, group);
 	this->itemManager->AddMoneyBag1000(150, 100, group);
 	this->itemManager->AddStuff(180, 100, group);

@@ -12,6 +12,6 @@ WhipUpgradeItem::~WhipUpgradeItem()
 
 void WhipUpgradeItem::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	simon->infoPanel->item->SetImage(this->image);
+	simon->UpgradeWhip();
 	Destroy();
 }
