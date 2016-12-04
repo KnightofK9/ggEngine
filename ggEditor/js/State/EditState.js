@@ -882,7 +882,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     this.copyTileInRect = function(){
         if(!pickRectCompleted) return;
         updatePickRect();
-        ggConsole.showNotification("Success", "Tiles in rect has been copied!");
+        // ggConsole.showNotification("Success", "Tiles in rect has been copied!");
 
     };
     this.pasteTileInRect = function(){
@@ -893,7 +893,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         var height = Math.floor(currentPickRect.height/tileWidth) + 1;
 
         map.paste(rectX,rectY,that.arrayTile,currentLayer);
-        ggConsole.showNotification("Success", "Tiles has been pasted!");
+        // ggConsole.showNotification("Success", "Tiles has been pasted!");
 
     };
     var clearArrayTile = function(){
