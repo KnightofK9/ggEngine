@@ -879,6 +879,18 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             currentLayer.dirty = true;
         }
     };
+    this.deleteTileInRect = function(){
+        if(!pickRectCompleted) return;
+        var rectX = Math.floor(currentPickRect.x/tileWidth);
+        var rectY = Math.floor(currentPickRect.y/tileWidth);
+        var width = Math.floor(currentPickRect.width/tileWidth) + 1;
+        var height = Math.floor(currentPickRect.height/tileWidth) + 1;
+
+        map.forEach(function(tile){
+            map.putTile(-1, tile.x, tile.y, currentLayer);
+            // map.removeTile(tile.x,tile.y,currentLayer);
+        },this,rectX,rectY,width,height,currentLayer);
+    };
     this.copyTileInRect = function(){
         if(!pickRectCompleted) return;
         updatePickRect();
