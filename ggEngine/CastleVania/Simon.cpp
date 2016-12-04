@@ -16,7 +16,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->SetAnchor(0.5, 0.5);
 	this->SetScale(1, 1);
 	this->SetHealth(health);
-	this->CreateAnimation("idle", 0, 0, false);
+	this->CreateAnimation("idle", 0, 0, true);
 	this->CreateAnimation("move", 0, 3, true);
 	this->CreateAnimation("kneel", 4, 4, true);
 	this->CreateAnimation("climbUp", 5, 6, true);
@@ -34,8 +34,10 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
 		if (e.animationName == "standAttack" || e.animationName == "kneelAttack"
 			|| e.animationName == "climbDownAttack" || e.animationName == "climbUpAttack") {
-			//this->isAllowManuallyControl = true;
+			
 			this->incompleteAnim = "";
+			this->ResetAnimation(e.animationName);
+			this->Idle();
 		}
 	};
 
@@ -211,6 +213,7 @@ void Simon::Death()
 
 void Simon::StandAttack()
 {
+	this->body->velocity.x = 0;
 	this->incompleteAnim = "standAttack";
 	this->PlayAnimation("standAttack");
 	this->Attack();

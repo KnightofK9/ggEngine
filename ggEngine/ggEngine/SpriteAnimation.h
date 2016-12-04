@@ -14,6 +14,7 @@ namespace ggEngine {
 		void DrawRect() override;
 		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
 		void PlayAnimation(std::string animationName);
+		void ResetAnimation(std::string animationName);
 		void SetImage(SpriteInfo *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
 		int GetNumberOfFrame() { return this->numberOfFrame; }
 		void SetWidth(double width);

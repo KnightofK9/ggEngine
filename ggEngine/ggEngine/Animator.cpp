@@ -40,7 +40,7 @@ namespace ggEngine {
 				this->currentFrame = this->startFrame;
 			}
 			else {
-				this->currentFrame--;
+				this->currentFrame = this->endFrame;
 				this->isFinished = true;
 				if (this->spriteAnimation->events->onAnimationCompleted != nullptr) {
 					AnimationArg e;

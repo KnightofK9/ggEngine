@@ -102,6 +102,10 @@ namespace ggEngine {
 			g_debug.Warning("No animation found  with key " + animationName);
 		}
 	}
+	void SpriteAnimation::ResetAnimation(std::string animationName)
+	{
+		this->animatorMap.find(animationName)->second->Reset();
+	}
 	void SpriteAnimation::SetImage(SpriteInfo * image, int frameWidth, int frameHeight, int numberOfFrame)
 	{
 		this->image = image;
