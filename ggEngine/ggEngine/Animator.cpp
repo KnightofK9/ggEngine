@@ -36,9 +36,11 @@ namespace ggEngine {
 		this->currentFrame++;
 		if (this->currentFrame > this->endFrame) {
 			if (this->isLoop) {
+
 				this->currentFrame = this->startFrame;
 			}
 			else {
+				this->currentFrame--;
 				this->isFinished = true;
 				if (this->spriteAnimation->events->onAnimationCompleted != nullptr) {
 					AnimationArg e;

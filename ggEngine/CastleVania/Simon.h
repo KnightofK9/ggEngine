@@ -7,6 +7,7 @@ using namespace ggEngine;
 class CVGame;
 class ItemBase;
 class WeaponManager;
+class WeaponWhip;
 class Simon :public CharacterBase {
 public:
 	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -42,13 +43,13 @@ public:
 	void DecreaseHeartPoint(int point);
 	void DescreasePPoint(int point);
 	void SetShot(int shot, SpriteInfo *image);
+	void UpgradeWhip();
 
 	//void ThrowWeapon();
 
 	void *HealthDown(int health) { this->health -= health; }
 
 	InfoPanel *infoPanel = nullptr;
-	bool isGrounding;	//for jump or for fall down or for hurt
 private:
 	int health;
 	int maxHealth;
@@ -63,6 +64,12 @@ private:
 	
 	int shot;
 
+	int whipVersion;	// 1: standard, 2: short, 3: long
+
+	bool isGrounding;	//for jump or for fall down or for hurt
+
+	//bool isAllowManuallyControl;
+
+	string incompleteAnim;
 	WeaponManager *weaponManager = nullptr;
-	//WeaponWhip *weaponWhip = nullptr;
 };

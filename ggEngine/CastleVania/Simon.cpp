@@ -7,7 +7,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 {
 	this->weaponManager = cvGame->weaponManager;
 
-
 	this->tag = ObjectType_Simon;
 	this->health = 16;
 	this->maxHealth = 16;
@@ -17,7 +16,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->SetAnchor(0.5, 0.5);
 	this->SetScale(1, 1);
 	this->SetHealth(health);
-	this->CreateAnimation("idle", 0, 0, true);
+	this->CreateAnimation("idle", 0, 0, false);
 	this->CreateAnimation("move", 0, 3, true);
 	this->CreateAnimation("kneel", 4, 4, true);
 	this->CreateAnimation("climbUp", 5, 6, true);
@@ -25,10 +24,20 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", 11, 11, true);
-	this->CreateAnimation("standAttack", 12, 14, true);
+	this->CreateAnimation("standAttack", 12, 14, false);
 	this->CreateAnimation("kneelAttack", 15, 17, true);
 	this->CreateAnimation("climbDownAttack", 18, 20, true);
 	this->CreateAnimation("climbUpAttack", 21, 23, true);
+
+
+	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
+	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
+		if (e.animationName == "standAttack" || e.animationName == "kneelAttack"
+			|| e.animationName == "climbDownAttack" || e.animationName == "climbUpAttack") {
+			//this->isAllowManuallyControl = true;
+			this->incompleteAnim = "";
+		}
+	};
 
 	this->cvGame->physics->EnablePhysics(this);
 	this->body->CreateRectangleRigidBody(20, GetHeight());
@@ -73,47 +82,46 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 	this->cvGame->eventManager->EnableKeyBoardInput(this);
 	this->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		double time = this->cvGame->logicTimer.getDeltaTime();
-		//double force = CharacterConstant::SIMON_MOVE_FORCE; //* time;
-		//double currentJumpForce = CharacterConstant::SIMON_JUMP_FORCE;// *time;																	  //Move right
+		if (this->incompleteAnim != "") {
+			this->PlayAnimation(incompleteAnim);
+		} else {
+			this->Idle();
 
-		this->Idle();
-
-		if (this->GetHealth() <= 0) {
-			this->Death();
-			return;
-		}
-
-		if (this->isGrounding == false) {
-			this->Kneel();
-		}
-
-		if (e.isPress(DIK_LEFT)) {
-			this->MoveLeft();
-		}
-		if (e.isPress(DIK_RIGHT)) {
-			this->MoveRight();
-		}
-
-		if (e.isPress(DIK_SPACE) && this->isGrounding == true) {
-			this->cvGame->cvAdd->TimeOut(500, [this] {
-				this->Idle();
-			});
-			this->Jump();
-			this->isGrounding = false;
-		}
-
-		if (e.isPress(DIK_E) && e.isPress(DIK_DOWN)) {
-			this->KneelAttack();
-		}
-		else {
-			if (e.isPress(DIK_DOWN))
+			if (this->GetHealth() <= 0) {
+				this->Death();
+				return;
+			}
+			if (this->isGrounding == false) {
 				this->Kneel();
-			if (e.isPress(DIK_E))
-				this->StandAttack();
-		}
-		if (e.isPress(DIK_Q)) {
-			Attack();
+			}
+
+			if (e.isPress(DIK_LEFT)) {
+				this->MoveLeft();
+			}
+			if (e.isPress(DIK_RIGHT)) {
+				this->MoveRight();
+			}
+
+			if (e.isPress(DIK_SPACE) && this->isGrounding == true) {
+				this->cvGame->cvAdd->TimeOut(500, [this] {
+					this->Idle();
+				});
+				this->Jump();
+				this->isGrounding = false;
+			}
+
+			if (e.isPress(DIK_E) && e.isPress(DIK_DOWN)) {
+				this->KneelAttack();
+			}
+			else {
+				if (e.isPress(DIK_DOWN))
+					this->Kneel();
+				if (e.isPress(DIK_E))
+					this->StandAttack();
+			}
+			if (e.isPress(DIK_Q)) {
+				Attack();
+			}
 		}
 	};
 
@@ -122,6 +130,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	stagePoint = 1;
 	heartPoint = 5;
 	pPoint = 3;
+	whipVersion = 1;
+	//isAllowManuallyControl = true;
 }
 
 Simon::~Simon()
@@ -139,17 +149,7 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
-	//auto *weapon = this->weaponManager->AddWeaponBoomerang(this->position.x, this->position.y, isLeft, this->parentObject);
-	//if (this->heartPoint - weapon->heartConsumtion >= 0)
-	//{
-	//	this->DecreaseHeartPoint(weapon->heartConsumtion);
-	//	weapon->Active();
-	//	weapon->FireWeapon(this->isLeft);
-	//}
-	//else
-	//	weapon->Destroy();
-
-	this->weaponManager->AddWeaponWhip(this->position.x, this->position.y, isLeft, this->parentObject);
+	this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, whipVersion, parentObject);
 }
 
 void Simon::Idle()
@@ -161,7 +161,6 @@ void Simon::Idle()
 void Simon::MoveLeft()
 {
 	this->PlayAnimation("move");
-	/*this->SetScale(1, 1);*/
 	ChangeFacingDirection(true);
 	this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
 }
@@ -169,7 +168,6 @@ void Simon::MoveLeft()
 void Simon::MoveRight()
 {
 	this->PlayAnimation("move");
-	//this->SetScale(-1, 1);
 	ChangeFacingDirection(false);
 	this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
 }
@@ -213,8 +211,9 @@ void Simon::Death()
 
 void Simon::StandAttack()
 {
+	this->incompleteAnim = "standAttack";
 	this->PlayAnimation("standAttack");
-	this->body->velocity.x = 0;
+	this->Attack();
 }
 
 void Simon::KneelAttack()
@@ -283,4 +282,11 @@ void Simon::SetShot(int shot, SpriteInfo * image)
 {
 	this->shot = shot;
 	this->infoPanel->itemShot->SetImage(image);
+}
+
+void Simon::UpgradeWhip()
+{
+	this->whipVersion++;
+	if (this->whipVersion > 3)
+		this->whipVersion = 1;
 }
