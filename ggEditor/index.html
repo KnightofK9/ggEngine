@@ -206,6 +206,11 @@
     $(document).ready(function () {
 
         var doc =  $(document);
+        doc.keyup(function(e){
+            if(e.keyCode == 46) {
+                onDelete();
+            }
+        });
         doc.on('paste', onPaste);
         doc.on('copy', onCopy);
         doc.on('cut', onCut);
@@ -221,7 +226,7 @@
 
         ggConsole.init();
         stateInfo = new StateInfo();
-        var nativeLog = console.log.bind(console) //store native function
+        var nativeLog = console.log.bind(console); //store native function
 
         console.log = function (text) { //override
             nativeLog("<<<" + text);
@@ -251,6 +256,9 @@
         $("#btn-export-tile-map").on('click', exportQuadTree);
 
     });
+    function onDelete(){
+        sceneEditor.editState.deleteTileInRect();
+    }
     function showYesNoDialog(title, body, callback) {
         BootstrapDialog.show({
             closable: true,
@@ -400,7 +408,7 @@
         sceneEditor.editState.copyTileInRect();
     }
     function onCut(){
-
+//        sceneEditor.editState.cutTileInRect();
     }
     function onPaste(){
         sceneEditor.editState.pasteTileInRect();

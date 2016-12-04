@@ -182,14 +182,44 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             for (var i = 0; i < layerList.length; i++) {
                 var preTileSet = new PreTileSet();
                 var key = layerList[i].name;
-                preTileSet.tileSetPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].name;
+                preTileSet.tileSetPath =  Constant.TILE_SET_DICT[key].name;
                 preTileSet.tileSetJsonPath = Constant.TILE_SET_PATH + Constant.TILE_SET_DICT[key].json;
                 preloadList.push(preTileSet);
             }
         }
         return preloadList;
     };
-
+    var exportTileMapBackground = function(){
+        var numberOfColumn = Math.floor(game.width / tileWidth);
+        var numberOfRow = Math.floor(game.height / tileHeight);
+        var tileMap = {};
+        tileMap.type = "TileMap";
+        tileMap.name = "Background";
+        tileMap.width = game.width;
+        tileMap.height = game.height;
+        tileMap.tileWidth = tileWidth;
+        tileMap.tileHeight = tileHeight;
+        tileMap.tileSetList = [];
+        for (var i = 0; i < map.tilesets.length; i++) {
+            tileMap.tileSetList.push(map.tilesets[i].name);
+        }
+        var tileMatrix = new Array(numberOfRow);
+        for (var y = 0; y < numberOfRow; y++) {
+            tileMatrix[y] = new Array(numberOfColumn);
+            for (var x = 0; x < numberOfColumn; x++) {
+                var t = map.getTile(x, y, currentLayer,true);
+                tileMatrix[y][x] = t.index;
+            }
+        }
+        tileMap.tileMatrix = tileMatrix;
+        return tileMap;
+    };
+    var exportQuadTreeGroup = function(){
+        return phaserQuadTree.export();
+    };
+    var exportMovingGroup = function(){
+        return enemyHGroup.exportAsJson();
+    };
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
         my.isPutEnemyToQuadTree = stateInfo.isPutEnemyToQuadTree();
@@ -200,34 +230,22 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         state.tileWidth = tileWidth;
         state.tileHeight = tileHeight;
 
-        my.quadTreeId = 0;
-        if(isUsedQuadTree){
-            my.quadTreeObjectList = [];
-            my.getQuadTreeId = function(object){
-                my.quadTreeObjectList.push(object);
-                return my.quadTreeId++;
-            }
-        }
 
 
-        var tileMap = initTileMapAsJson(isUsedQuadTree);
-        state.groupList.push(tileMap);
-        var groupList = initGroupListAsJson(isUsedQuadTree);
-        state.groupList = state.groupList.concat(groupList);
-        if (isUsedQuadTree) {
-            var quadTree = createQuadTree();
-            state.quadTree = quadTree;
-        }
-        else {
-        }
-        var preloadList = initPreloadList();
-        state.preloadList = preloadList;
-        if (isUsedQuadTree) state.quadTree = quadTree;
+        state.preloadList = initPreloadList();
+
+        state.groupList.push(exportTileMapBackground());
+        state.groupList.push(exportQuadTreeGroup());
+        state.groupList.push(exportMovingGroup());
+
+
+
 
 
         Helper.downloadJson(state, state.name);
         quadId = 0;
         objectList = [];
+        my.quadTreeId = 0;
     };
     this.preload = function () {
         //var iBg = new Image();
@@ -878,6 +896,32 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             }
             currentLayer.dirty = true;
         }
+    };
+    this.deleteTileInRect = function(){
+        if(!pickRectCompleted) return;
+        var rectX = Math.floor(currentPickRect.x/tileWidth);
+        var rectY = Math.floor(currentPickRect.y/tileWidth);
+        var width = Math.floor(currentPickRect.width/tileWidth) + 1;
+        var height = Math.floor(currentPickRect.height/tileWidth) + 1;
+
+        map.forEach(function(tile){
+            map.putTile(-1, tile.x, tile.y, currentLayer);
+            // map.removeTile(tile.x,tile.y,currentLayer);
+        },this,rectX,rectY,width,height,currentLayer);
+    };
+    this.cutTileInRect = function(){
+        if(!pickRectCompleted) return;
+        var rectX = Math.floor(currentPickRect.x/tileWidth);
+        var rectY = Math.floor(currentPickRect.y/tileWidth);
+        var width = Math.floor(currentPickRect.width/tileWidth) + 1;
+        var height = Math.floor(currentPickRect.height/tileWidth) + 1;
+        clearArrayTile();
+        that.arrayTile = map.copy(rectX,rectY,width,height,currentLayer);
+        map.forEach(function(tile){
+            map.putTile(-1, tile.x, tile.y, currentLayer);
+            // map.removeTile(tile.x,tile.y,currentLayer);
+        },this,rectX,rectY,width,height,currentLayer);
+
     };
     this.copyTileInRect = function(){
         if(!pickRectCompleted) return;
