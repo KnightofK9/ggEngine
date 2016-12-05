@@ -34,14 +34,14 @@ namespace ggEngine{
 	}
 	void Group::Update()
 	{
-		if (this->parentObject != nullptr) {
-			if (this->parentObject->IsUsedMask()) {
+		if (this->parentGroup != nullptr) {
+			if (this->parentGroup->IsUsedMask()) {
 				this->isUsedMask = true;
 				if (this->position.y < 0) {
 					this->position.x = 0;
 				}
 				else {
-					double tempHeight = this->parentObject->GetHeight() - this->GetHeight() + this->position.y;
+					double tempHeight = this->parentGroup->GetHeight() - this->GetHeight() + this->position.y;
 					if (this->GetHeight() == 0 || tempHeight <= 0) {
 						this->width = -tempHeight;
 					}
@@ -50,7 +50,7 @@ namespace ggEngine{
 					this->position.x = 0;
 				}
 				else {
-					double tempWidth = this->parentObject->GetWidth() - this->GetWidth() + this->position.x;
+					double tempWidth = this->parentGroup->GetWidth() - this->GetWidth() + this->position.x;
 					if (this->GetWidth() == 0 || tempWidth <= 0) {
 						this->width = -tempWidth;
 					}

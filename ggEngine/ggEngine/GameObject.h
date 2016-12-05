@@ -54,8 +54,8 @@ namespace ggEngine {
 		Vector worldPosition;
 		Vector worldScale;
 		std::string name = "";
-		void SetParentObject(Group *parentObject);
-		Group *GetParentObject(){ return this->parentObject; }
+		void SetParentObject(Group *parentGroup);
+		Group *GetParentObject(){ return this->parentGroup; }
 		virtual double GetOrgWidth() { return this->width; }
 		virtual double GetOrgHeight() { return this->height; }
 		int GetOpacity() { return this->opacity; }
@@ -64,11 +64,12 @@ namespace ggEngine {
 		void SetOpacity(int opacity) { if (opacity > 255) { this->opacity = 255; } else this->opacity = opacity; }
 		Tag tag = 0;
 		Rect GetRect(bool isGetWorldRect = false);
+		void SetTransformBasedOn(GameObject *basePositionObject);
 	protected:
 		Game *game;
 		bool opacityAffectByParent = true;
 		int opacity = 255;
-		Group* parentObject = nullptr;
+		Group* parentGroup = nullptr;
 		double width;
 		double height;
 		Vector anchor;
@@ -77,5 +78,7 @@ namespace ggEngine {
 		double rotate;
 		DrawManager *drawManager;
 		LPD3DXSPRITE spriteHandle;
+
+		GameObject* basePositionObject = nullptr;
 	};
 }

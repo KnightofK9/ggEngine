@@ -41,7 +41,7 @@ namespace ggEngine {
 		Transform(spriteHandle);
 		RECT srcRect = image->GetRect();
 		if (!visible) return;
-		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentObject);
+		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentGroup);
 		color = (color & 0x00FFFFFF) | (opacity << 24);
 		if (spriteHandle->Begin(style) == D3D_OK)
 		{
