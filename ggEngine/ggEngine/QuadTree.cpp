@@ -28,35 +28,11 @@ namespace ggEngine {
 
 	void QuadTree::RemoveObjectFromList(GameObject * gameObject)
 	{
-		Rect r = gameObject->GetRect();
-		int top, left, right, bottom;
-		left = (floor(r.left) + 1) / this->leafWidth;
-		top = (floor(r.top) + 1) / this->leafHeight;
-		right = (floor(r.right) + 1) / this->leafWidth;
-		bottom = (floor(r.bottom) + 1) / this->leafHeight;
-
-		for (int idY = top; idY <= bottom;idY++) {
-			for (int idX = left; idX <= right;idX++) {
-				int id = XYIndexTo1dIndex(idX, idY);
-				quadNodeList[id]->gameObjectList.remove(gameObject);
-			}
-		}
+	
 	}
 	void QuadTree::AddDrawObjectToList(GameObject * drawObject)
 	{
-		Rect r = drawObject->GetRect();
-		int top, left, right, bottom;
-		left = (floor(r.left) + 1) / this->leafWidth;
-		top = (floor(r.top) + 1) / this->leafHeight;
-		right = (floor(r.right) + 1) / this->leafWidth;
-		bottom = (floor(r.bottom) + 1) / this->leafHeight;
-
-		for (int idY = top; idY <= bottom;idY++) {
-			for (int idX = left; idX <= right;idX++) {
-				int id = XYIndexTo1dIndex(idX, idY);
-				//TO DO put game object to quad node here
-			}
-		}
+		
 	}
 	std::list<GameObject*> QuadTree::GetDrawList()
 	{
