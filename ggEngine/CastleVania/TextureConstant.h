@@ -30,6 +30,9 @@ public:
 	static constexpr const char* LIFE_TEXTURE = "LifeTexture";
 	static constexpr const char* LIFE_TEXTURE_PATH = "Resource/Resources/Heart2.png";
 
+	static constexpr const char* NONE_TEXTURE = "NoneTexture";
+	static constexpr const char* NONE_TEXTURE_PATH = "Resource/Resources/none.png";
+
 	static constexpr const char* HEART_MINI_TEXTURE = "HeartMiniTexture";
 	static constexpr const char* HEART_MINI_TEXTURE_PATH = "Resource/Resources/Heart1.png";
 

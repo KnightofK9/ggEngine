@@ -14,9 +14,10 @@ InvinPotion::~InvinPotion()
 
 void InvinPotion::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	simon->SetVisible(false);
+	//simon->SetVisible(false);
+	simon->SetOpacity(100);
 	this->cvGame->cvAdd->TimeOut(5000, [simon] {
-		simon->SetVisible(true);
+		simon->SetOpacity(255);
 	})->Start();
 
 	Destroy();
