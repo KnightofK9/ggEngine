@@ -47,6 +47,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     var phaserQuadTree;
 
+    var isAnyStaticTileBeneath = false;
+
     var mouseGroup = null;
 
     var pickRectCompleted = false;
@@ -101,66 +103,42 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             }]
         });
     };
-    this.importState = function (stateJson) {
-        for (var i = 0; i < stateJson.groupList.length; i++) {
-            var group = stateJson.groupList[i];
-            switch (group.type) {
-                case "TileMap":
-                    var tileMap = new TileMap();
-                    tileWidth = group.tileWidth;
-                    tileHeight = group.tileHeight;
-                    isUsedQuadTree = group.isUsedQuadTree;
-                    for (var d = 0; d < group.tileSetList.length; d++) {
-                        //var tileSetKey = group.tileSetList[d];
-                        //addTileSet(tileSetKey);
-                        //currentLayer = addLayer(tileSetKey);
-                        //currentTileSetKey = tileSetKey;
-                    }
-                    //changeMapTileSetArray(currentTileSetKey);
-                    for (var t = 0; t < group.tileList.length; t++) {
-                        var tile = group.tileList[t];
-                        switch (tile.type) {
-                            case  "SingleTile":
-                                //if(currentTileSetKey !== tile.tileSetKey){
-                                //    for(var layer in layerList){
-                                //        if(layer.name === tile.tileSetKey){
-                                //            currentTileSetKey = tile.tileSetKey;
-                                //            changeMapTileSetArray(currentTileSetKey);
-                                //            break;
-                                //        }
-                                //    }
-                                //}
-                                //if(tile.tileSetKey === "level-3-tile-set") {
-                                //    break;
-                                //}
-
-                                //that.pickTile(tile.tileSetKey,tile.tileId);
-                                //map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
-                                //window.setTimeout(function(){
-                                //    that.pickTile(tile.tileSetKey,tile.tileId);
-                                //    map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
-                                //},100);
-                                remaingTileToupdate.push(tile);
-                                //game.time.events.add(1000 , function(tile){
-                                //    that.pickTile(tile.tileSetKey,tile.tileId);
-                                //    map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
-                                //}, this,tile);
-
-                                break;
-                            default:
-                                console.log("No supported tile type " + tile.type);
-                                break;
-                        }
-                    }
-
-
-                    break;
-                default:
-                    console.log("No supported group type " + group.type);
-                    break;
+    var importTileMap = function(tileMapGroup){
+        var matrix = tileMapGroup.tileMatrix;
+        var tileSetKey  = "";
+        for(var i = 0;i < tileMapGroup.tileSetList.length; i++){
+            currentLayer = addLayer(tileMapGroup.tileSetList[i]);
+            tileSetKey = tileMapGroup.tileSetList[i];
+        }
+        for(var y = 0; y <matrix.length;y++){
+            for(var x = 0; x < matrix[y].length; x++){
+                that.pickTile(tileSetKey,matrix[y][x]);
+                map.putTile(matrix[y][x],x,y,currentLayer,tileSetKey);
             }
         }
-
+    };
+    var importQuadTreeGroup = function(quadTreeGroup){
+        importObjectFromNode(quadTreeGroup);
+    };
+    var importObjectFromNode = function(node){
+        for(var i = 0 ; i < node.objects.length; i++){
+            var item = node.objects[i];
+            that.createSpriteAt(item.x,item.y,item.type);
+        }
+        for(var i = 0; i < node.nodes.length; i++){
+            importObjectFromNode(node.nodes[i]);
+        }
+    };
+    var importMovingGroup = function(movingGroup){
+        for(var i = 0;i<movingGroup.itemList.length; i++){
+            var item = movingGroup.itemList[i];
+            that.createSpriteAt(item.x,item.y,item.type);
+        }
+    };
+    this.importState = function (stateJson) {
+        importTileMap(stateJson.groupList[0]);
+        importQuadTreeGroup(stateJson.groupList[1]);
+        importMovingGroup(stateJson.groupList[2]);
     };
     var resetPick = function () {
         $("#picker-filed > .btn").removeClass("active");
@@ -173,6 +151,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         pickRectCompleted = false;
         currentPickRectPos = {x:0,y:0};
         currentTile = null;
+        isAnyStaticTileBeneath = false;
         resetCurrentPickRect();
         clearArrayTile()
     };
@@ -223,6 +202,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
         my.isPutEnemyToQuadTree = stateInfo.isPutEnemyToQuadTree();
+        phaserQuadTree.clear();
+        phaserQuadTree.populate(quadTreeHGroup._item);
         var state = new State();
         state.name = name;
         state.width = game.width;
@@ -279,6 +260,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     this.refresh = function(){
         wasMouseButtonDown = false;
+        isAnyStaticTileBeneath = false;
         clearArrayTile();
         resetCurrentPickRect();
         phaserQuadTree.clear();
@@ -293,16 +275,16 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         tileMapGroup = game.add.group();
         phaserQuadTree = new Phaser.QuadTree(0, 0, game.width, game.height, quadTreeMaxObject, quadTreeMaxLevel, 0);
 
-        var updateGroup = game.add.group();
-        updateGroup.update = function () {
-            if (remaingTileToupdate.length > 0) {
-                var tile = remaingTileToupdate.pop();
-                that.pickTile(tile.tileSetKey, tile.tileId);
-                map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
-            } else {
-                this.destroy();
-            }
-        };
+        // var updateGroup = game.add.group();
+        // updateGroup.update = function () {
+        //     if (remaingTileToupdate.length > 0) {
+        //         var tile = remaingTileToupdate.pop();
+        //         that.pickTile(tile.tileSetKey, tile.tileId);
+        //         map.putTile(currentTile, currentLayer.getTileX(tile.x), currentLayer.getTileY(tile.y), currentTileSetKey);
+        //     } else {
+        //         this.destroy();
+        //     }
+        // };
         game.stage.backgroundColor = "#4488AA";
         map = hierarchyEditor.add.tilemap()._item;
         map.tileWidth = tileWidth;
@@ -337,11 +319,6 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         marker = game.add.graphics();
         marker.lineStyle(2, 0x000000, 1);
         marker.drawRect(0, 0, tileWidth, tileHeight);
-
-
-        if (json) this.importState(json);
-
-
         mouseGroup = game.add.group();
 
 
@@ -351,6 +328,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         quadTreeHGroup =  createGroup("QuadTree");
         enemyHGroup = createGroup("Enemy");
         resetCurrentPickRect();
+
+        if (json) this.importState(json);
+
+
+
 
     };
 
@@ -757,6 +739,14 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         sprite.inputEnabled = true;
         sprite.events.onInputOver.add(function(item){
             switch(currentPickTile) {
+                case "ItemPick":
+                    if(Constant.STATIC_TILE_DICT.hasOwnProperty(sprite._type)){
+                        isAnyStaticTileBeneath = true;
+                    }
+                    else{
+                        isAnyStaticTileBeneath = false;
+                    }
+                    break;
                 case  "RemovePick":
                 case "MovePick":
                     item.alpha = 0.5;
@@ -767,6 +757,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
         sprite.events.onInputOut.add(function(item){
             switch(currentPickTile) {
+                case "ItemPick":
+                    isAnyStaticTileBeneath = false;
+                    break;
                 case  "RemovePick":
                 case "MovePick":
                     item.alpha = 1;
@@ -1014,7 +1007,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                     var posY = game.input.activePointer.worldY;
                     var setSprite = function () {
                         if(Constant.STATIC_TILE_DICT.hasOwnProperty(currentPickName)){
-                            that.createSpriteAt(marker.x+tileWidth,marker.y+tileHeight,currentPickName);
+                            if(!isAnyStaticTileBeneath)
+                                that.createSpriteAt(marker.x+tileWidth,marker.y+tileHeight,currentPickName);
                         }
                         else{
                             that.createSpriteAt(posX,posY,currentPickName);
