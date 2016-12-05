@@ -10,7 +10,7 @@ class WeaponManager;
 class WeaponWhip;
 class Simon :public CharacterBase {
 public:
-	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, Group *group, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~Simon();
 	void SetHealth(int heath);
 	int GetHealth() { return this->health; }
@@ -66,15 +66,13 @@ private:
 	
 	int shot;
 
-	int whipVersion;	// 1: standard, 2: short, 3: long
-
 	bool isGrounding;	//for jump or for fall down or for hurt
 
 	//bool isAllowManuallyControl;
 
 	string incompleteAnim;
 	WeaponManager *weaponManager = nullptr;
-
+	WeaponWhip *weaponWhip = nullptr;
 
 	double hurtForce = 3;
 };

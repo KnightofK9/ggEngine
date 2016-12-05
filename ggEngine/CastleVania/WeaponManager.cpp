@@ -13,14 +13,13 @@ WeaponManager::~WeaponManager()
 {
 }
 
-WeaponWhip * WeaponManager::AddWeaponWhip(double x, double y, bool isLeft, int version, Group * group)
+WeaponWhip * WeaponManager::AddWeaponWhip(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::MAIN_WEAPON_TEXTURE);
-	WeaponWhip *weaponWhip = new WeaponWhip(this->cvGame, inf, 76, 27, 0, 9, 110);
-	weaponWhip->SetWhipVersion(version);
+	WeaponWhip *weaponWhip = new WeaponWhip(this->cvGame, inf, 76, 27, 0, 9, 120);
 	weaponWhip->SetPosition(x, y);
 	weaponWhip->SetParentObject(group);
-	weaponWhip->Attack(isLeft);
+	//weaponWhip->Attack(isLeft);
 	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
 	group->AddDrawObjectToList(weaponWhip);
 	return weaponWhip;

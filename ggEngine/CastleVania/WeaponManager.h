@@ -14,7 +14,7 @@ public:
 	WeaponManager(CVGame *cvGame);
 	virtual ~WeaponManager();
 
-	WeaponWhip* AddWeaponWhip(double x, double y, bool isLeft, int version, Group *group);
+	WeaponWhip* AddWeaponWhip(double x, double y, bool isLeft, Group *group);
 
 	WeaponDagger* AddWeaponDagger(double x, double y, bool isLeft, Group *group);
 	WeaponAxe* AddWeaponAxe(double x, double y, bool isLeft, Group *group);

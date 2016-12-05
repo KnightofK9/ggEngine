@@ -8,6 +8,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 {
 	this->SetAnchor(0.65, 0.25);
 	this->SetScale(1, 1);
+	this->SetVisible(false);
 	this->CreateAnimation("1", 0, 2, false);	//standardWhip
 	this->CreateAnimation("2", 3, 5, false);	//shortWhip
 	this->CreateAnimation("3", 6, 8, false);	//longWhip
@@ -20,7 +21,10 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 
 	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
 	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-		this->Destroy();
+		//this->Destroy();
+		this->SetVisible(false);
+		this->body->SetEnable(false);
+		this->ResetAnimation(e.animationName);
 	};
 	this->whipVersion = 1;
 }
@@ -50,5 +54,9 @@ void WeaponWhip::Attack(bool isLeft)
 {
 	if (!isLeft)
 		this->SetScale(-1, 1);
+
+	this->SetVisible(true);
+	this->body->SetEnable(true);
+
 	this->PlayAnimation(std::to_string(this->whipVersion));
 }

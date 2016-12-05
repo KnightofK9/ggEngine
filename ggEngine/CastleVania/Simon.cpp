@@ -3,9 +3,10 @@
 #include "CVAdd.h"
 #include "ItemManager.h"
 #include "WeaponManager.h"
-Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
+Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *group, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->weaponManager = cvGame->weaponManager;
+	this->weaponWhip = this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, group);
 
 	this->tag = ObjectType_Simon;
 	this->health = 16;
@@ -133,8 +134,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	stagePoint = 1;
 	heartPoint = 5;
 	pPoint = 3;
-	whipVersion = 1;
-	//isAllowManuallyControl = true;
 }
 
 Simon::~Simon()
@@ -152,7 +151,9 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
-	this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, whipVersion, parentObject);
+	//this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, whipVersion, parentObject);
+	this->weaponWhip->Attack(isLeft);
+	
 }
 
 void Simon::Idle()
@@ -181,6 +182,7 @@ void Simon::Jump()
 	{
 		this->PlayAnimation("kneel");
 		this->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
+		//this->weaponWhip->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
 		isGrounding = false;
 	}
 }
@@ -208,7 +210,7 @@ void Simon::Hurt()
 	this->Blind();
 	//this->body->SetEnable(false);
 
-	Vector direction(3, -1);
+	Vector direction(1, -3);
 	if (isLeft)
 		direction.x = -1;
 	this->body->AddForce(hurtForce, direction);
@@ -303,9 +305,7 @@ void Simon::SetShot(int shot, SpriteInfo * image)
 
 void Simon::UpgradeWhip()
 {
-	this->whipVersion++;
-	if (this->whipVersion > 3)
-		this->whipVersion = 1;
+	this->weaponWhip->UpgradeWhip();
 
 	this->Blind();
 	// Will be changed to stopTime
