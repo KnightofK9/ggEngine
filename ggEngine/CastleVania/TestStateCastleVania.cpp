@@ -31,19 +31,19 @@ void TestStateCastleVania::Create()
 {
 	this->cvgame->camera->SetScale(2.5, 2.5);
 
-	std::string tileMapJson = "";
-	{
-		Json state("State/TestState.json", true);
-		for (auto& it : state["groupList"].GetArray())
-		{
-			std::string type = it["type"].GetString();
-			if (type == "TileMap") {
-				tileMapJson = Json::GetCharArrayFromValue(it);
-			}
-		}
-	}
-	tileMap = this->cvAdd->TileMap(tileMapJson, false);
-	tileMap->name = "StupidTileMap";
+	//std::string tileMapJson = "";
+	//{
+	//	Json state("State/TestState.json", true);
+	//	for (auto& it : state["groupList"].GetArray())
+	//	{
+	//		std::string type = it["type"].GetString();
+	//		if (type == "TileMap") {
+	//			tileMapJson = Json::GetCharArrayFromValue(it);
+	//		}
+	//	}
+	//}
+	//tileMap = this->cvAdd->TileMap(tileMapJson, false);
+	//tileMap->name = "StupidTileMap";
 	Group* group = this->cvAdd->Group();
 	group->name = "StupidGroup";
 	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);

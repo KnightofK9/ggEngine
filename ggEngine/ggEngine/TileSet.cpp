@@ -1,8 +1,11 @@
 #include "TileSet.h"
 #include "SpriteInfo.h"
 #include "Texture.h"
-ggEngine::TileSet::TileSet(Texture * texture)
+#include "Tile.h"
+#include "Game.h"
+ggEngine::TileSet::TileSet(Game * game, Texture * texture)
 {
+	this->game = game;
 	this->texture = texture;
 }
 
@@ -15,6 +18,13 @@ ggEngine::TileSet::~TileSet()
 		delete this->texture;
 		this->texture = nullptr;
 	}
+}
+
+ggEngine::Tile * ggEngine::TileSet::GetTileAt(int id)
+{
+	SpriteInfo* inf = GetTileSetAt(id);
+	ggEngine::Tile *tile = new ggEngine::Tile(this->game, inf);
+	return tile;
 }
 
 

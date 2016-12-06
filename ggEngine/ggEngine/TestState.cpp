@@ -175,10 +175,10 @@ void TestState::PreRender()
 void TestState::Render()
 {
 	character->body->Render();
-	auto list = this->tileMap->GetCollisionCheckList();
+	/*auto list = this->tileMap->GetCollisionCheckList();
 	for (auto it = list.begin(); it != list.end(); ++it) {
 		(*it)->body->Render();
-	}
+	}*/
 }
 void TestState::Pause()
 {

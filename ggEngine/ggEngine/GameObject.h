@@ -41,6 +41,7 @@ namespace ggEngine {
 		bool IsVisible() { return this->visible; }
 		Vector GetScale() { return this->scale; }
 		virtual void Transform(LPD3DXSPRITE spriteHandle);
+		virtual void Transform(GameObject *go, LPD3DXSPRITE spriteHandle);
 		virtual void SetScale(Vector vector) { this->scale = vector; }
 		virtual void SetScale(double x, double y){ this->scale.x = x; this->scale.y = y; }
 		virtual void SetRotate(double angle){ this->rotate = angle; }

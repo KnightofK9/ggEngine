@@ -214,7 +214,7 @@ namespace ggEngine {
 			g_debug.Warning("No tileMap found with path " + tileSetPath);
 			return false;
 		}
-		TileSet *tileSet = new TileSet(tileMap);
+		TileSet *tileSet = new TileSet(this->game,tileMap);
 		tileSet->ParseJson(json.GetCharArray());
 		tileSetMap[tileMapKey] = tileSet;
 		return true;

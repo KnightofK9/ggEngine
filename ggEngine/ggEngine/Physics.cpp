@@ -111,10 +111,10 @@ namespace ggEngine {
 	
 	void Physics::UpdateCollisionList()
 	{
-		this->collisionList.clear();
-		for (auto it = this->tileMapList.begin(); it != this->tileMapList.end(); ++it) {
+		//this->collisionList.clear();
+	/*	for (auto it = this->tileMapList.begin(); it != this->tileMapList.end(); ++it) {
 			collisionList.splice(collisionList.end(), (*it)->GetCollisionCheckList());
-		}
+		}*/
 	}
 	void Physics::UpdateBody()
 	{

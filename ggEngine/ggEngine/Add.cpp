@@ -16,6 +16,8 @@
 #include "Grid.h"
 #include "EventManager.h"
 #include "Game.h"
+#include "Tile.h"
+#include "TileSet.h"
 int (WINAPIV * __vsnprintf)(char *, size_t, const char*, va_list) = _vsnprintf;
 
 namespace ggEngine{
@@ -30,6 +32,12 @@ namespace ggEngine{
 		this->physics = game->physics;
 		this->timeBasedEventManager = game->timeBasedEventManager;
 		this->eventManager = game->eventManager;
+	}
+	Tile * Add::Tile(std::string tileSetKey, int tileId)
+	{
+		SpriteInfo* inf = this->cache->GetTileMap(tileSetKey)->GetTileSetAt(tileId);
+		ggEngine::Tile *tile = new ggEngine::Tile(this->game, inf);
+		return tile;
 	}
 	Sprite* Add::Sprite(double x, double y, std::string textureKey, ggEngine::Group *group){
 		SpriteInfo* inf = this->cache->GetSpriteInfo(textureKey);
@@ -70,7 +78,7 @@ namespace ggEngine{
 	TileMap * Add::TileMap(std::string tileMapJson,bool isLocation)
 	{
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->game);
-		tileMap->BuildTree(tileMapJson, isLocation);
+		//tileMap->BuildTree(tileMapJson, isLocation);
 		this->physics->AddTileMap(tileMap);
 		world->AddGroup(tileMap);
 		return tileMap;

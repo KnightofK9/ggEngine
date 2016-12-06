@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "Body.h"
-#include "Texture.h"
+
+
 namespace ggEngine {
 	Sprite::Sprite(Game *game, SpriteInfo * image) : GameObject(game)
 	{

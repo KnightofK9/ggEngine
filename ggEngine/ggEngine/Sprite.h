@@ -6,6 +6,7 @@
 #include "Matrix.h"
 #include "SpriteType.h"
 #include "GameObject.h"
+#include "Texture.h"
 namespace ggEngine {
 	class Body;
 	class Game;

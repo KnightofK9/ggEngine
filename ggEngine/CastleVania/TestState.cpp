@@ -19,9 +19,9 @@ void TestState::Create()
 {
 	try {
 		//tileMap = this->add->TileMap("Json/scene.json");
-		tileMap = this->add->TileMap("TileMap/TileMap.json");
-		tileMap->name = "TileMap";
-		tileMap->SetScale(1.5, 1.5);
+		//tileMap = this->add->TileMap("TileMap/TileMap.json");
+		//tileMap->name = "TileMap";
+		//tileMap->SetScale(1.5, 1.5);
 	}
 	catch (exception &e)
 	{
@@ -166,10 +166,10 @@ void TestState::PreRender()
 void TestState::Render()
 {
 	character->body->Render();
-	auto list = this->tileMap->GetCollisionCheckList();
+	/*auto list = this->tileMap->GetCollisionCheckList();
 	for (auto it = list.begin(); it != list.end(); ++it) {
 		(*it)->body->Render();
-	}
+	}*/
 }
 void TestState::Pause()
 {
