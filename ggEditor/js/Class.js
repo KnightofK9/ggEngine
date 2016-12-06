@@ -586,6 +586,8 @@ function PreTileSet() {
 Phaser.QuadTree.prototype.export = function(){
     var quadTreeJson = {};
     quadTreeJson.type = "QuadTree";
+    quadTreeJson.maxLevels = this.maxLevels;
+    quadTreeJson.maxObjects = this.maxObjects;
     quadTreeJson.level = this.level;
     quadTreeJson.bounds = this.bounds;
     quadTreeJson.objects = [];
@@ -594,10 +596,13 @@ Phaser.QuadTree.prototype.export = function(){
         var item = this.objects[i].sprite.hObject;
         sprite.type = item.type;
         sprite.name = item.name;
-        sprite.x = item.x;
-        sprite.y = item.y;
         sprite.width = item._item.width;
         sprite.height = item._item.height;
+
+        sprite.x = item.x + sprite.width;
+        sprite.y = item.y + sprite.height;
+
+
         quadTreeJson.objects.push(sprite);
     }
     quadTreeJson.nodes = [];

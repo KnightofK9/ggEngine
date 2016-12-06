@@ -6,6 +6,9 @@
 #include "GameObject.h"
 namespace ggEngine {
 	class Group;
+	class Body;
+	class QuadTree;
+	class Game;
 	struct Bounds {
 		double x;
 		double y;
@@ -15,32 +18,30 @@ namespace ggEngine {
 		double subHeight;
 		double right;
 		double bottom;
-	/*width: width,
-		height : height,
-		subWidth : Math.floor(width / 2),
-		subHeight : Math.floor(height / 2),
-		right : Math.round(x) + Math.floor(width / 2),
-		bottom : Math.round(y) + Math.floor(height / 2)*/
 	};
 	class QuadNode {
 	public:
-		QuadNode(double x, double y, double width, double height, unsigned int maxObjects, unsigned int maxLevels);
+		QuadNode(Game *game, QuadTree *quadTree,double x, double y, double width, double height, unsigned int maxObjects, unsigned int maxLevels, unsigned int level);
+		QuadNode(Game *game, QuadTree *quadTree,const char* quadNodeJson);
 		~QuadNode();
 		void Reset(double x, double y, double width, double height, unsigned int maxObjects, unsigned int maxLevels, unsigned int level);
 		void Populate(Group *group);
 		void Split();
-		void Insert(GameObject *gameObject);
+		void Insert(Body * body);
 		int GetIndex(Rect rect);
-		void Retrieve(std::list<GameObject*> *retrieveList, Rect rect);
+		void Retrieve(std::list<Body*> *retrieveList, Rect source);
 		void Clear();
 		std::vector<QuadNode*> nodes;
 
 	private:
+		QuadTree *quadTree = nullptr;
+		void InsertFromDrawList(std::list<GameObject*> drawList);
 		unsigned int maxObjects;
 		unsigned int maxLevels;
 		unsigned int level;
-		std::vector<GameObject *> objects;
+		std::vector<Body *> objects;
 		Bounds bounds;
+		Game *game = nullptr;
 	};
 	
 }

@@ -135,4 +135,8 @@ namespace ggEngine{
 		this->timeBasedEventManager->AddEvent(e);
 		return e;
 	}
+	GameObject * Add::AddObjectBaseOnType(std::string type)
+	{
+		return nullptr;
+	}
 }

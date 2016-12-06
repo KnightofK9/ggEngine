@@ -26,27 +26,14 @@ namespace ggEngine {
 	{
 	}
 
-	void QuadTree::RemoveObjectFromList(GameObject * gameObject)
-	{
+
 	
-	}
-	void QuadTree::AddDrawObjectToList(GameObject * drawObject)
-	{
-		
-	}
-	std::list<GameObject*> QuadTree::GetDrawList()
-	{
-		return Group::GetDrawList();
-	}
-	void QuadTree::BuildTree(char * stateJson)
+	void QuadTree::BuildTree(const char * quadTreeJson)
 	{
 
 	}
 	void QuadTree::UpdatePhysics()
 	{
 	}
-	int QuadTree::XYIndexTo1dIndex(int x, int y)
-	{
-		return startOfLeafNodeId + x + this->numberOfNodePerRow*y;
-	}
+
 }

@@ -13,6 +13,8 @@
 #include "TimeBasedEventManager.h"
 #include "CameraEventManager.h"
 #include "MemoryManager.h"
+#include "Add.h"
+#include "Preload.h"
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
@@ -42,7 +44,13 @@ namespace ggEngine {
 			memoryManager = new MemoryManager(this);
 			world = new World(this);
 			input = new Input(&hWnd);
+			add = new Add(this);
+			preload = new Preload(cache);
+
 			g_debug.Init(this);
+
+
+
 
 			stateManager->SetCache(cache);
 			d3dManager->SetDrawManager(drawManager);

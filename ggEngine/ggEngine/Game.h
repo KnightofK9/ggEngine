@@ -18,6 +18,8 @@ namespace ggEngine {
 	class World;
 	class CameraEventManager;
 	class MemoryManager;
+	class Add;
+	class Preload;
 	class Game :public GGObject, public IGetGroup {
 	public:
 		Game(HWND hWnd, int width, int height, GameMode mode = GameMode_Windowed, PhysicsMode physicsMode = PhysicsMode_AABB,D3DCOLOR gameColor = D3DCOLOR_XRGB(0, 255, 255));
@@ -44,6 +46,8 @@ namespace ggEngine {
 		MemoryManager *memoryManager;
 		Camera *camera;
 		HWND hWnd;
+		Add* add;
+		Preload *preload;
 	protected:
 		//
 		// Private Method

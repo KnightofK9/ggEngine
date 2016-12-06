@@ -30,13 +30,15 @@ namespace ggEngine {
 			if (this->currentFrame > this->endFrame) this->currentFrame = this->startFrame;
 			return currentFrame;
 		}
+		int nextFrame = this->currentFrame;
+		this->currentFrame++;
 		if (this->currentFrame > this->endFrame) {
 			if (this->isLoop) {
 
 				this->currentFrame = this->startFrame;
 			}
 			else {
-				this->currentFrame = this->endFrame;
+				this->currentFrame = this->startFrame;
 				this->isFinished = true;
 				if (this->spriteAnimation->events->onAnimationCompleted != nullptr) {
 					AnimationArg e;
@@ -46,11 +48,8 @@ namespace ggEngine {
 				}
 			}
 		}
-		if (isFinished) {
-			return this->endFrame;
-		}
-		return this->currentFrame++;
-	
+		return nextFrame;
+		
 		//return currentFrame;
 	}
 }

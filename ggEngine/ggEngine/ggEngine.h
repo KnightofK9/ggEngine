@@ -34,3 +34,4 @@
 #include "Helper.h"
 #include "CameraEventManager.h"
 #include "Audio.h"
+#include "Animator.h"

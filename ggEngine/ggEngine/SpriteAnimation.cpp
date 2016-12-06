@@ -27,8 +27,8 @@ namespace ggEngine {
 	}
 	void SpriteAnimation::Draw()
 	{
-		Transform(spriteHandle);
 		if (!visible) return;
+		Transform(spriteHandle);
 		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {
 			this->animationTimer.SetDelta(g_debug.GetDtMs());
@@ -41,6 +41,8 @@ namespace ggEngine {
 		else {
 			
 		}
+
+		//if (!visible) return;
 		if (spriteHandle->Begin(this->style) == D3D_OK)
 		{
 			color = (color & 0x00FFFFFF) | (opacity << 24);
@@ -63,7 +65,7 @@ namespace ggEngine {
 		else {
 
 		}
-		if (!visible) return;
+		//if (!visible) return;
 		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentGroup);
 		if (spriteHandle->Begin(this->style) == D3D_OK)
 		{
@@ -89,7 +91,7 @@ namespace ggEngine {
 		this->nextAnimationName = animationName;
 		this->isRunningAnimation = true;
 	}
-	void SpriteAnimation::PlayAnimation(std::string animationName)
+	Animator* SpriteAnimation::PlayAnimation(std::string animationName)
 	{
 		std::map<std::string, Animator*>::iterator it = this->animatorMap.find(animationName);
 		if (it != this->animatorMap.end())
@@ -98,15 +100,17 @@ namespace ggEngine {
 				&& !this->currentAnimation->isFinished
 				){
 				//g_debug.Log("Animator " + it->first + " not finished!");
-				return;
+				return currentAnimation;
 			}
 			this->currentAnimation = (it->second);
 			this->currentAnimation->Reset();
+			this->SetFrame(this->currentAnimation->startFrame);
 			this->isRunningAnimation = true;
 		}
 		else {
 			g_debug.Warning("No animation found  with key " + animationName);
 		}
+		return currentAnimation;
 	}
 	void SpriteAnimation::ResetAnimation(std::string animationName)
 	{

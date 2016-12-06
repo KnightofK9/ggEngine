@@ -43,6 +43,7 @@ namespace ggEngine{
 		TimeBasedEventInfo* TimeOut(unsigned int delay , std::function<void(void)> function);
 		TimeBasedEventInfo* LoopInfinity(unsigned int delay, std::function<void(void)> function);
 		TimeBasedEventInfo* Loop(unsigned int delay, unsigned int numberOfLoops, std::function<void(void)> function);
+		GameObject* AddObjectBaseOnType(std::string type);
 	protected:
 		Physics *physics;
 		TweenManager *tweenManager;

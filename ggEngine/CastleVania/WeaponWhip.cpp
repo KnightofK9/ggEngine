@@ -57,10 +57,12 @@ void WeaponWhip::Attack(bool isLeft)
 	if (!isLeft)
 		this->SetScale(-1, 1);
 	else this->SetScale(1, 1);
-	this->SetVisible(true);
+	
 	//this->body->SetEnable(true);
 
-	this->PlayAnimation(std::to_string(this->whipVersion));
+	auto anim = this->PlayAnimation(std::to_string(this->whipVersion));
+	//this->SetFrame(anim->startFrame);
+	this->SetVisible(true);
 }
 
 void WeaponWhip::Draw()
