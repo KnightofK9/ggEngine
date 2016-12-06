@@ -24,7 +24,7 @@ void WeaponBoomerang::FireWeapon(bool isLeft)
 	FireHorizontal(isLeft, this->throwForce);
 
 	if (this->contactedWorldBound == false) {
-		this->cvGame->cvAdd->TimeOut(this->timeToReturn, [this] {
+		this->cvGame->add->TimeOut(this->timeToReturn, [this] {
 			Vector direction = GetHorizontalDirection(!this->isLeft);
 			this->body->SetForce(this->throwForce, direction);
 		})->Start();

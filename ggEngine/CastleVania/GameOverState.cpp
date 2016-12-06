@@ -12,17 +12,17 @@ void GameOverState::Init() {
 
 }
 void GameOverState::Preload() {
-	this->cvPreload->Font(TextureConstant::GAME_FONT_TEXTURE, TextureConstant::GAME_FONT_NAME, TextureConstant::GAME_FONT_TEXTURE_PATH, 22);
-	this->cvPreload->Texture(TextureConstant::HEART_MINI_TEXTURE, TextureConstant::HEART_MINI_TEXTURE_PATH);
+	this->preload->Font(TextureConstant::GAME_FONT_TEXTURE, TextureConstant::GAME_FONT_NAME, TextureConstant::GAME_FONT_TEXTURE_PATH, 22);
+	this->preload->Texture(TextureConstant::HEART_MINI_TEXTURE, TextureConstant::HEART_MINI_TEXTURE_PATH);
 }
 void GameOverState::Create()
 {
-	Group* group = this->cvAdd->Group();
+	Group* group = this->add->Group();
 	Style style;
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
 	int fontSize = 22;
 
-	this->heart = this->cvAdd->Sprite(394 - fontSize * 5, 420, TextureConstant::HEART_MINI_TEXTURE, group);
+	this->heart = this->add->Sprite(394 - fontSize * 5, 420, TextureConstant::HEART_MINI_TEXTURE, group);
 	this->heart->SetAnchor(0.5, 0.5);
 	this->heart->SetScale(3, 3);
 	this->cvgame->eventManager->EnableKeyBoardInput(this->heart);
@@ -48,9 +48,9 @@ void GameOverState::Create()
 		}
 	};
 
-	this->gameOver = this->cvAdd->Text(384 - fontSize * 4, 291, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "GAME OVER", style, group);
-	this->cont = this->cvAdd->Text(384 - fontSize * 3, 411, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "CONTINUE", style, group);
-	this->end = this->cvAdd->Text(384 - fontSize * 3, 483, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "END", style, group);
+	this->gameOver = this->add->Text(384 - fontSize * 4, 291, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "GAME OVER", style, group);
+	this->cont = this->add->Text(384 - fontSize * 3, 411, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "CONTINUE", style, group);
+	this->end = this->add->Text(384 - fontSize * 3, 483, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "END", style, group);
 }
 void GameOverState::Update()
 {

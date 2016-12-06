@@ -56,7 +56,7 @@ void ItemBaseAnim::Active()
 	this->visible = true;
 	this->body->SetActive(true);
 	if (this->liveTime != -1) {
-		this->timeEvent = this->cvGame->cvAdd->TimeOut(this->liveTime, [this]() {
+		this->timeEvent = this->cvGame->add->TimeOut(this->liveTime, [this]() {
 			Destroy();
 		});
 	}

@@ -16,14 +16,14 @@ CVState::CVState(CVGame * game, std::string statePath):State(game)
 
 CVState::~CVState()
 {
-	if (cvAdd != nullptr) {
+	/*if (cvAdd != nullptr) {
 		delete cvAdd;
 		cvAdd = nullptr;
 	}
 	if (cvPreload != nullptr) {
 		delete cvPreload;
 		cvPreload = nullptr;
-	}
+	}*/
 }
 
 void CVState::Init()
@@ -39,7 +39,7 @@ void CVState::Preload()
 		if (type == "PreTileSet") {
 			std::string tileSetPath = it["tileSetPath"].GetString();
 			std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
-			this->cvPreload->TileSet(tileSetPath, tileSetJsonPath);
+			this->preload->TileSet(tileSetPath, tileSetJsonPath);
 		}
 	}
 }

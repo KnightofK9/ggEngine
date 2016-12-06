@@ -115,7 +115,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 			}
 
 			if (e.isPress(controlKey[SimonControl_A]) && this->isGrounding == true) {
-				this->cvGame->cvAdd->TimeOut(500, [this] {
+				this->cvGame->add->TimeOut(500, [this] {
 					this->Idle();
 				});
 				this->Jump();
@@ -235,7 +235,7 @@ void Simon::Hurt()
 		direction.x = -1;
 	this->body->AddForce(hurtForce, direction);
 
-	this->cvGame->cvAdd->TimeOut(2000, [this] {
+	this->cvGame->add->TimeOut(2000, [this] {
 		//this->body->SetEnable(true);
 	})->Start();
 
@@ -332,14 +332,14 @@ void Simon::UpgradeWhip()
 	this->cvGame->eventManager->DisableKeyBoardInput(this);
 	this->body->velocity.x = 0;
 	this->Idle();
-	this->cvGame->cvAdd->TimeOut(2000, [this] {
+	this->cvGame->add->TimeOut(2000, [this] {
 		this->cvGame->eventManager->EnableKeyBoardInput(this);
 	})->Start();
 }
 
 void Simon::Blind()
 {
-	this->cvGame->cvAdd->Loop(100, 20, [this] {
+	this->cvGame->add->Loop(100, 20, [this] {
 		this->SetVisible(!this->IsVisible());
 	})->Start();
 }

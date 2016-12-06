@@ -2,6 +2,7 @@
 #include <d3d9.h>
 #include "SpriteAnimation.h"
 #include "GGObject.h"
+#include <functional>
 namespace ggEngine {
 	class Animator:public GGObject {
 	public:
@@ -19,7 +20,11 @@ namespace ggEngine {
 		int framePerRow;
 		int framePerColumn;
 		SpriteAnimation* spriteAnimation = nullptr;
+		void SetOnBegin(std::function<void(Animator* animator)> onAnimatorBegin) { this->onAnimatorBegin = onAnimatorBegin; }
+		void SetOnCompleted(std::function<void(Animator* animator)> onAnimatorComplete) { this->onAnimatorCompleted = onAnimatorCompleted; }
 	private:
+		std::function<void(Animator* animator)> onAnimatorBegin;
+		std::function<void(Animator* animator)> onAnimatorCompleted;
 		std::string name;
 		RECT *frameList;
 	};

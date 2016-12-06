@@ -4,10 +4,11 @@
 #include "CVState.h"
 #include "CharacterConstant.h"
 
-CVAdd::CVAdd(CVState* state , CVGame *cvgame):Add(cvgame)
+CVAdd::CVAdd(CVGame *cvgame)
 {
+	this->cache = cvgame->cache;
+	this->add = cvgame->add;
 	this->cvgame = cvgame;
-	this->state = state;
 }
 
 CVAdd::~CVAdd()
@@ -23,7 +24,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 
 	group->AddDrawObjectToList(simon);
 
-	this->camera->Follow(simon);
+	this->cvgame->camera->Follow(simon);
 
 	return simon;
 }
@@ -38,8 +39,8 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
 	
 #pragma region  First line
-	infoPanel->score		= this->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE—", style, infoPanel);
-	infoPanel->scorePoint	= this->Text(	10 + fontSize*6,
+	infoPanel->score		= this->add->Text(	margin, margin, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "SCORE—", style, infoPanel);
+	infoPanel->scorePoint	= this->add->Text(	10 + fontSize*6,
 											margin,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -48,7 +49,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->time			= this->Text(	GAME_WIDTH/2 - fontSize*4,
+	infoPanel->time			= this->add->Text(	GAME_WIDTH/2 - fontSize*4,
 											margin,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -57,7 +58,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->timePoint	= this->Text(	infoPanel->time->GetX() + fontSize*5, 
+	infoPanel->timePoint	= this->add->Text(	infoPanel->time->GetX() + fontSize*5, 
 											margin,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -66,7 +67,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 	
-	infoPanel->timeInfo = this->LoopInfinity(1000, [infoPanel] {
+	infoPanel->timeInfo = this->add->LoopInfinity(1000, [infoPanel] {
 		if (infoPanel->GetTime() <= 0)
 			infoPanel->StopTime();
 		else {
@@ -77,7 +78,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	infoPanel->StartTime();
 
 
-	infoPanel->stage		= this->Text(	GAME_WIDTH - fontSize*10, 
+	infoPanel->stage		= this->add->Text(	GAME_WIDTH - fontSize*10, 
 											margin,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -86,7 +87,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->stagePoint	= this->Text(	infoPanel->stage->GetX() + fontSize*6,
+	infoPanel->stagePoint	= this->add->Text(	infoPanel->stage->GetX() + fontSize*6,
 											margin,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -97,7 +98,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 #pragma endregion
 
 #pragma region  Second line
-	infoPanel->player		= this->Text(	margin,
+	infoPanel->player		= this->add->Text(	margin,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -109,7 +110,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	infoPanel->playerHealthBar = this->UIPlayerHealthBar(margin + fontSize*7, margin + fontSize, infoPanel);
 	infoPanel->playerHealthBar->SetScale(1.3, 1.3);
 
-	infoPanel->lifeIcon		= this->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
+	infoPanel->lifeIcon		= this->add->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
 											margin + fontSize + 10,
 											TextureConstant::LIFE_TEXTURE,
 											infoPanel);
@@ -118,7 +119,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 #pragma endregion
 
 #pragma region  Third line
-	infoPanel->enemy		= this->Text(	margin,
+	infoPanel->enemy		= this->add->Text(	margin,
 											margin + fontSize*2,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -131,7 +132,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 
 #pragma endregion
 	//P-H
-	infoPanel->life			= this->Text(	GAME_WIDTH / 2 + 100 + fontSize*2,
+	infoPanel->life			= this->add->Text(	GAME_WIDTH / 2 + 100 + fontSize*2,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -140,7 +141,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->lifePoint	= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
+	infoPanel->lifePoint	= this->add->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -148,7 +149,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											"05",
 											style,
 											infoPanel);
-	infoPanel->p			= this->Text(	GAME_WIDTH / 2 + 100 + fontSize,
+	infoPanel->p			= this->add->Text(	GAME_WIDTH / 2 + 100 + fontSize,
 											margin + fontSize * 2,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -157,7 +158,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->pPoint		= this->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
+	infoPanel->pPoint		= this->add->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
 											margin + fontSize * 2,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -166,15 +167,15 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->itemBox		= this->Sprite(419, 75, "ItemBox", infoPanel);
+	infoPanel->itemBox		= this->add->Sprite(419, 75, "ItemBox", infoPanel);
 	infoPanel->itemBox->SetAnchor(0.5, 0.5);
 	infoPanel->itemBox->SetScale(3, 3);
 
-	infoPanel->item = this->Sprite(408, 62, TextureConstant::NONE_TEXTURE, infoPanel);
+	infoPanel->item = this->add->Sprite(408, 62, TextureConstant::NONE_TEXTURE, infoPanel);
 	infoPanel->item->SetAnchor(0.5, 0.5);
 	infoPanel->item->SetScale(3, 3);
 
-	infoPanel->itemShot = this->Sprite(651, 52, TextureConstant::NONE_TEXTURE, infoPanel);
+	infoPanel->itemShot = this->add->Sprite(651, 52, TextureConstant::NONE_TEXTURE, infoPanel);
 	infoPanel->itemShot->SetAnchor(0.5, 0.5);
 	infoPanel->itemShot->SetScale(3, 3);
 
@@ -185,8 +186,8 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 HealthBar * CVAdd::UIPlayerHealthBar(double x, double y, ggEngine::Group* group)
 {
 	HealthBar *bar = new HealthBar(this->cvgame);
-	ggEngine::Sprite* emptyHealthBar = this->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
-	ggEngine::Sprite* healthBar = this->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, bar);
+	ggEngine::Sprite* emptyHealthBar = this->add->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
+	ggEngine::Sprite* healthBar = this->add->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, bar);
 	bar->SetEmptyHealthBar(emptyHealthBar);
 	bar->SetHealthBar(healthBar,16);
 	bar->SetPosition(x, y);
@@ -197,8 +198,8 @@ HealthBar * CVAdd::UIPlayerHealthBar(double x, double y, ggEngine::Group* group)
 HealthBar * CVAdd::UIEnemyHealthBar(double x, double y, ggEngine::Group* group)
 {
 	HealthBar *bar = new HealthBar(this->cvgame);
-	ggEngine::Sprite* emptyHealthBar = this->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
-	ggEngine::Sprite* healthBar = this->Sprite(0, 0, TextureConstant::FULL_HEALTH_ENEMY_TEXTURE, bar);
+	ggEngine::Sprite* emptyHealthBar = this->add->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
+	ggEngine::Sprite* healthBar = this->add->Sprite(0, 0, TextureConstant::FULL_HEALTH_ENEMY_TEXTURE, bar);
 	bar->SetEmptyHealthBar(emptyHealthBar);
 	bar->SetHealthBar(healthBar, 16);
 	bar->SetPosition(x, y);

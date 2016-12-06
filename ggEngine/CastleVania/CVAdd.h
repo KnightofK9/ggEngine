@@ -5,9 +5,9 @@
 #include "InfoPanel.h"
 using namespace ggEngine;
 class CVState;
-class CVAdd : public Add {
+class CVAdd{
 public:
-	CVAdd(CVState* state, CVGame *game);
+	CVAdd(CVGame *game);
 	virtual ~CVAdd();
 	Simon* CharSimon(double x, double y, int health, InfoPanel *infoPanel, ggEngine::Group *group);
 	InfoPanel* UIInfoPanel(ggEngine::Group *group);
@@ -15,7 +15,8 @@ public:
 	HealthBar *UIEnemyHealthBar(double x, double y, ggEngine::Group* group);
 
 private:
-	CVGame *cvgame;
-	CVState* state;
+	CVGame *cvgame = nullptr;
+	Cache *cache = nullptr;
 	ggEngine::Audio *audio;
+	Add *add = nullptr;
 };

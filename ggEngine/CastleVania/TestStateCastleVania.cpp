@@ -19,7 +19,7 @@ void TestStateCastleVania::Preload() {
 		if (type == "PreTileSet") {
 			std::string tileSetPath = it["tileSetPath"].GetString();
 			std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
-			this->cvPreload->TileSet(tileSetPath, tileSetJsonPath);
+			this->preload->TileSet(tileSetPath, tileSetJsonPath);
 		}
 	}
 	this->cvPreload->FontGame();
@@ -43,9 +43,9 @@ void TestStateCastleVania::Create()
 			}
 		}
 	}
-	tileMap = this->cvAdd->TileMap(tileMapJson.c_str(),this->game->world);
+	tileMap = this->add->TileMap(tileMapJson.c_str(),this->game->world);
 	tileMap->name = "StupidTileMap";
-	Group* group = this->cvAdd->Group();
+	Group* group = this->add->Group();
 	group->name = "StupidGroup";
 	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);
 	this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);

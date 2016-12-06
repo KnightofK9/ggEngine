@@ -16,7 +16,7 @@ WeaponAxe::~WeaponAxe()
 
 void WeaponAxe::FireWeapon(bool isLeft)
 {
-	this->cvGame->cvAdd->LoopInfinity(300, [this] {
+	this->cvGame->add->LoopInfinity(300, [this] {
 		
 	})->Start();
 	FireAsThrow(isLeft , this->throwForce);

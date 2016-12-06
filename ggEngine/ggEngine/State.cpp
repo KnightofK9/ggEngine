@@ -10,6 +10,8 @@ namespace ggEngine {
 		this->drawManager = game->GetDrawManager();
 		this->game = game;
 		this->world = game->world;
+		this->add = this->game->add;
+		this->preload = this->game->preload;
 		if(isLoadAutomatic) Load();
 	}
 	State::~State() {
@@ -30,8 +32,8 @@ namespace ggEngine {
 	}
 	void State::Load()
 	{
-		this->add = new ggEngine::Add(game);
-		this->preload = new ggEngine::Preload(game->cache);
+	/*	this->add = new ggEngine::Add(game);
+		this->preload = new ggEngine::Preload(game->cache);*/
 
 	}
 

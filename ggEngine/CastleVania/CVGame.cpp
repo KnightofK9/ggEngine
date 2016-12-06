@@ -5,8 +5,8 @@
 #include "WeaponManager.h"
 CVGame::CVGame(HWND hWnd, int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor) :Game(hWnd, width, height, mode, physicsMode, gameColor)
 {
-	this->cvPreload = new CVPreload(this->cache);
-	this->cvAdd = new CVAdd(nullptr, this);
+	this->cvPreload = new CVPreload(this);
+	this->cvAdd = new CVAdd(this);
 	this->itemManager = new ItemManager(this);
 	this->weaponManager = new WeaponManager(this);
 }

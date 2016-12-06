@@ -54,6 +54,8 @@ public:
 private:
 	CVPreload *cvPreload = nullptr;
 	CVGame *cvGame = nullptr;
+	Add* add = nullptr;
+	Preload *preload = nullptr;
 	CVAdd *cvAdd = nullptr;
 	Cache *cache = nullptr;
 };

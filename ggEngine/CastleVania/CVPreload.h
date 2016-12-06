@@ -1,12 +1,16 @@
 #pragma once
 #include <ggEngine.h>
 #include "TextureConstant.h"
+
 using namespace ggEngine;
-class CVPreload : public Preload {
+class CVGame;
+class CVPreload   {
 public:
-	CVPreload(Cache *cache);
+	CVPreload(CVGame *game);
 	virtual ~CVPreload();
 	void CharSimon();
 	void UIInfoPanel();
 	void FontGame();
+private:
+	Preload* preload = nullptr;
 };
