@@ -7,7 +7,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 {
 	this->weaponManager = cvGame->weaponManager;
 	this->weaponWhip = this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, group);
+	this->weaponWhip->SetAnchor(0.5, 0.5);
+	this->weaponWhip->SetPosition(position.x, position.y + 8);
 
+
+	this->weaponWhip->SetTransformBasedOn(this);
 	this->tag = ObjectType_Simon;
 	this->health = 16;
 	this->maxHealth = 16;
@@ -99,14 +103,14 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 				this->Kneel();
 			}
 
-			if (e.isPress(DIK_LEFT)) {
+			if (e.isPress(controlKey[SimonControl_Left])) {
 				this->MoveLeft();
 			}
-			if (e.isPress(DIK_RIGHT)) {
+			if (e.isPress(controlKey[SimonControl_Right])) {
 				this->MoveRight();
 			}
 
-			if (e.isPress(DIK_SPACE) && this->isGrounding == true) {
+			if (e.isPress(controlKey[SimonControl_A]) && this->isGrounding == true) {
 				this->cvGame->cvAdd->TimeOut(500, [this] {
 					this->Idle();
 				});
@@ -114,26 +118,28 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 				this->isGrounding = false;
 			}
 
-			if (e.isPress(DIK_E) && e.isPress(DIK_DOWN)) {
+			if (e.isPress(controlKey[SimonControl_B]) && e.isPress(controlKey[SimonControl_Down])) {
 				this->KneelAttack();
 			}
 			else {
-				if (e.isPress(DIK_DOWN))
+				if (e.isPress(controlKey[SimonControl_Down]))
 					this->Kneel();
-				if (e.isPress(DIK_E))
+				if (e.isPress(controlKey[SimonControl_B]))
 					this->StandAttack();
 			}
-			if (e.isPress(DIK_Q)) {
-				Attack();
+			if (e.isPress(controlKey[SimonControl_TurboB])) {
+				this->Attack();
+
 			}
 		}
 	};
-
-	shot = 1;
-	score = 0;
-	stagePoint = 1;
-	heartPoint = 5;
-	pPoint = 3;
+	
+	this->SetUpKeyControl();
+	this->shot = 1;
+	this->score = 0;
+	this->stagePoint = 1;
+	this->heartPoint = 5;
+	this->pPoint = 3;
 }
 
 Simon::~Simon()
@@ -151,9 +157,16 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
+	this->weaponManager->AddWeaponBoomerang(position.x, position.y, isLeft, this->parentGroup);
+
+	
+}
+
+void Simon::WhipAttack()
+{
 	//this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, whipVersion, parentObject);
 	this->weaponWhip->Attack(isLeft);
-	
+
 }
 
 void Simon::Idle()
@@ -232,7 +245,7 @@ void Simon::StandAttack()
 	this->body->velocity.x = 0;
 	this->incompleteAnim = "standAttack";
 	this->PlayAnimation("standAttack");
-	this->Attack();
+	this->WhipAttack();
 }
 
 void Simon::KneelAttack()
@@ -323,3 +336,16 @@ void Simon::Blind()
 		this->SetVisible(!this->IsVisible());
 	})->Start();
 }
+
+void Simon::SetUpKeyControl()
+{
+	controlKey[SimonControl_Left] = DIK_LEFT;
+	controlKey[SimonControl_Right] = DIK_RIGHT;
+	controlKey[SimonControl_Up] = DIK_UP;
+	controlKey[SimonControl_Down] = DIK_DOWN;
+	controlKey[SimonControl_TurboA] = DIK_C;
+	controlKey[SimonControl_TurboB] = DIK_V;
+	controlKey[SimonControl_A] = DIK_Z;
+	controlKey[SimonControl_B] = DIK_X;
+}
+

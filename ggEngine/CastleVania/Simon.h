@@ -8,6 +8,8 @@ class CVGame;
 class ItemBase;
 class WeaponManager;
 class WeaponWhip;
+enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
+					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB};
 class Simon :public CharacterBase {
 public:
 	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, Group *group, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -20,6 +22,7 @@ public:
 	int GetHeartPoint() { return this->heartPoint; }
 
 	void Attack() override;
+	void WhipAttack();
 
 	void Idle();
 	void MoveLeft();
@@ -75,4 +78,8 @@ private:
 	WeaponWhip *weaponWhip = nullptr;
 
 	double hurtForce = 3;
+
+
+	DWORD controlKey[8];
+	void SetUpKeyControl();
 };

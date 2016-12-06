@@ -70,8 +70,8 @@ WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLe
 	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf);
 	weaponBoomerang->SetPosition(x, y);
 	weaponBoomerang->SetParentObject(group);
-	//weaponBoomerang->Active();
-	//weaponBoomerang->FireWeapon(isLeft);
+	weaponBoomerang->Active();
+	weaponBoomerang->FireWeapon(isLeft);
 	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
 	group->AddDrawObjectToList(weaponBoomerang);
 	return weaponBoomerang;

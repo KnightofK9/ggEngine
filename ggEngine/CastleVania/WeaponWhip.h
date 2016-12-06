@@ -15,6 +15,8 @@ public:
 	void UpgradeWhip();
 	void ResetWhip() { this->whipVersion = 1; }
 	void Attack(bool isLeft);
+	void Draw();
+	void UpdateWorldPosition() override;
 
 private:
 	int whipVersion;	// 1, 2, 3

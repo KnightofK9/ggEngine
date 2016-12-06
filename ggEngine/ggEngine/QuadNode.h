@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "GameObject.h"
 namespace ggEngine {
+	class Group;
 	struct Bounds {
 		double x;
 		double y;
@@ -25,12 +26,19 @@ namespace ggEngine {
 	public:
 		QuadNode(double x, double y, double width, double height, unsigned int maxObjects, unsigned int maxLevels);
 		~QuadNode();
-		
+		void Reset(double x, double y, double width, double height, unsigned int maxObjects, unsigned int maxLevels, unsigned int level);
+		void Populate(Group *group);
+		void Split();
+		void Insert(GameObject *gameObject);
+		int GetIndex(Rect rect);
+		void Retrieve(std::list<GameObject*> *retrieveList, Rect rect);
+		void Clear();
+		std::vector<QuadNode*> nodes;
+
 	private:
 		unsigned int maxObjects;
 		unsigned int maxLevels;
 		unsigned int level;
-		std::vector<QuadNode*> nodes;
 		std::vector<GameObject *> objects;
 		Bounds bounds;
 	};
