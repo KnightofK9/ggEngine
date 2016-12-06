@@ -15,5 +15,6 @@ public:
 	Simon *simon;
 	ItemManager *itemManager;
 	WeaponManager *weaponManager;
+	GameObject* GetObjectInstance(const char* objectJson) override;
 private:
 };

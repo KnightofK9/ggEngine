@@ -32,12 +32,8 @@ namespace ggEngine {
 		Reset(x, y, width, height, maxObjects, maxLevels, level);
 
 		for (auto& obj : json["objects"].GetArray()) {
-			std::string type = obj["type"].GetString();
-			double x = obj["x"].GetDouble();
-			double y = obj["y"].GetDouble();
-			GameObject* go = game->add->AddObjectBaseOnType(type);
+			GameObject* go = game->GetObjectInstance(obj.GetString());
 			go->SetParentObject(this->quadTree);
-			go->SetPosition(x, y);
 			this->quadTree->AddDrawObjectToList(go);
 			this->objects.push_back(go->body);
 		}

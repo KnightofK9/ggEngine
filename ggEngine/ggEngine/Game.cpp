@@ -163,6 +163,11 @@ namespace ggEngine {
 		}
 	}
 
+	GameObject * Game::GetObjectInstance(const char * objectJson)
+	{
+		return nullptr;
+	}
+
 
 
 	void Game::GameCustomRender()

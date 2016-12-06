@@ -14,3 +14,12 @@ CVGame::CVGame(HWND hWnd, int width, int height, GameMode mode, PhysicsMode phys
 CVGame::~CVGame()
 {
 }
+
+GameObject * CVGame::GetObjectInstance(const char * objectJson)
+{
+	GameObject * go = Game::GetObjectInstance(objectJson);
+	if (go == nullptr) {
+	}
+	return go;
+
+}
