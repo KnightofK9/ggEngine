@@ -90,7 +90,7 @@ void ggEngine::Text::DrawRect()
 
 
 	RECT rect{ 0 , 0 , width, height };
-	RECT drawRect = Helper::intersectRectAndGroup(rect, this, this->parentObject);
+	RECT drawRect = Helper::intersectRectAndGroup(rect, this, this->parentGroup);
 	if (spriteHandle->Begin(this->drawStyle) == D3D_OK)
 	{
 

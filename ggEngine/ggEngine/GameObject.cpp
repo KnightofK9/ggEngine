@@ -32,7 +32,7 @@ namespace ggEngine {
 	{
 		//g_debug.Log("Deleting GameObject");
 
-		this->parentObject->RemoveGameObjectFromDrawList(this);
+		this->parentGroup->RemoveGameObjectFromDrawList(this);
 		if (body != nullptr) {
 			delete body;
 		}
@@ -101,21 +101,22 @@ namespace ggEngine {
 			delete this->body;
 			this->body = nullptr;
 		}
-		if(this->parentObject != nullptr) this->parentObject->AddBodyToList(this->body);
+		if(this->parentGroup != nullptr) this->parentGroup->AddBodyToList(this->body);
 		this->body = body;
 	}
 
-	void GameObject::SetParentObject(Group * parentObject)
+	void GameObject::SetParentObject(Group * parentGroup)
 	{
-		if (this->parentObject != nullptr) {
-			parentObject->RemoveGameObjectFromDrawList(this);
+		if (this->parentGroup != nullptr) {
+			parentGroup->RemoveGameObjectFromDrawList(this);
 			if (this->body != nullptr) {
-				parentObject->RemoveBodyFromList(this->body);
+				parentGroup->RemoveBodyFromList(this->body);
 			}
 		}
-		this->parentObject = parentObject;
+		this->parentGroup = parentGroup;
+		SetTransformBasedOn(parentGroup);
 		if (this->body != nullptr) {
-			parentObject->AddBodyToList(this->body);
+			parentGroup->AddBodyToList(this->body);
 		}
 	}
 
@@ -137,11 +138,16 @@ namespace ggEngine {
 		return Rect(left, top, right, bottom);
 	}
 
+	void GameObject::SetTransformBasedOn(GameObject * basePositionObject)
+	{
+		this->basePositionObject = basePositionObject;
+	}
+
 	void GameObject::UpdateWorldPosition(){
-		this->worldScale = Vector(this->scale.x*this->parentObject->worldScale.x, this->scale.y*this->parentObject->worldScale.y);
-		this->worldPosition = Vector(this->position.x*this->parentObject->worldScale.x, this->position.y*this->parentObject->worldScale.y) + this->parentObject->worldPosition;
+		this->worldScale = Vector(this->scale.x*this->basePositionObject->worldScale.x, this->scale.y*this->basePositionObject->worldScale.y);
+		this->worldPosition = Vector(this->position.x*this->basePositionObject->worldScale.x, this->position.y*this->basePositionObject->worldScale.y) + this->basePositionObject->worldPosition;
 		if (this->IsOpacityAffectByParent()) {
-			this->opacity = this->parentObject->GetOpacity();
+			this->opacity = this->basePositionObject->GetOpacity();
 		}
 	}
 }

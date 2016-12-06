@@ -62,7 +62,7 @@ namespace ggEngine {
 		else {
 
 		}
-		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentObject);
+		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentGroup);
 		if (spriteHandle->Begin(this->style) == D3D_OK)
 		{
 			color = (color & 0x00FFFFFF) | (opacity << 24);
