@@ -22,20 +22,20 @@ void TestState::Preload(){
 }
 void TestState::Create()
 {
-	std::string tileMapJson = "";
-	{
-		Json state("Json/ProtoTypeState.json", true);
-		for (auto& it : state["groupList"].GetArray())
-		{
-			std::string type = it["type"].GetString();
-			if (type == "TileMap") {
-				tileMapJson = Json::GetCharArrayFromValue(it);
-			}
-		}
-	}
-	tileMap = this->add->TileMap(tileMapJson, false);
-	//tileMap = this->add->TileMap("TileMap/TileMap.json");
-	tileMap->name = "TileMap";
+	//std::string tileMapJson = "";
+	//{
+	//	Json state("Json/ProtoTypeState.json", true);
+	//	for (auto& it : state["groupList"].GetArray())
+	//	{
+	//		std::string type = it["type"].GetString();
+	//		if (type == "TileMap") {
+	//			tileMapJson = Json::GetCharArrayFromValue(it);
+	//		}
+	//	}
+	//}
+	//tileMap = this->add->TileMap(tileMapJson, false);
+	////tileMap = this->add->TileMap("TileMap/TileMap.json");
+	//tileMap->name = "TileMap";
 	//tileMap->SetScale(1.5, 1.5);
 	this->game->world->SetOpacityAffectByParent(true);
 	group = this->add->Group();

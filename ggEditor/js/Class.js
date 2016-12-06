@@ -585,6 +585,7 @@ function PreTileSet() {
 // inheritsFrom(TileMap,HierarchyObject);
 Phaser.QuadTree.prototype.export = function(){
     var quadTreeJson = {};
+    quadTreeJson.type = "QuadTree";
     quadTreeJson.level = this.level;
     quadTreeJson.bounds = this.bounds;
     quadTreeJson.objects = [];

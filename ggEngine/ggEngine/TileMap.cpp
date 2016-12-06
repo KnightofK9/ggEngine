@@ -31,8 +31,9 @@ namespace ggEngine {
 		for (auto& it : json["tileSetList"].GetArray()) {
 			tileSetKey = it.GetString();
 		}
-		int numberOfCellPerRow = floor(this->width / this->tileWidth);
-		int numberOfCellPerColumn = floor(this->height / this->tileHeight);
+		this->tileSet = this->game->cache->GetTileMap(tileSetKey);
+		numberOfCellPerRow = floor(this->width / this->tileWidth);
+		numberOfCellPerColumn = floor(this->height / this->tileHeight);
 
 		this->tileList.resize(this->tileSet->GetNumberOfCell());
 		for (int i = 0; i < this->tileList.size(); i++) {
@@ -45,7 +46,7 @@ namespace ggEngine {
 			(*it).resize(numberOfCellPerRow);
 		}
 
-		this->tileSet = this->game->cache->GetTileMap(tileSetKey);
+	
 		int indexY = 0;
 		for (auto& itY : json["tileMatrix"].GetArray()) {
 			int indexX = 0;
@@ -65,7 +66,14 @@ namespace ggEngine {
 
 	void TileMap::Draw()
 	{
-		Transform(this->spriteHandle);
+		//Transform(this->spriteHandle);
+		//Scale from 0 0
+		Matrix mat;
+		mat = Matrix::CreateTranslateMatrix(-this->GetWidth()*(this->GetAnchor().x), -this->GetHeight()*(this->GetAnchor().y));
+
+		spriteHandle->SetTransform(&mat);
+
+
 		if (spriteHandle->Begin(style) == D3D_OK)
 		{
 			int x, y, xEnd, yEnd;
@@ -80,6 +88,11 @@ namespace ggEngine {
 			y += floor(this->basePositionObject->worldPosition.x);
 			xEnd += round(this->basePositionObject->worldPosition.y);
 			yEnd += round(this->basePositionObject->worldPosition.y);
+
+			if (x < 0) x = 0;
+			if (y < 0) y = 0;
+			if (xEnd >= numberOfCellPerRow) xEnd = numberOfCellPerRow - 1;
+			if (yEnd >= numberOfCellPerColumn) yEnd = numberOfCellPerColumn - 1;
 
 			DrawTileMap(x, y, xEnd, yEnd);
 

@@ -35,7 +35,7 @@ namespace ggEngine{
 		SpriteAnimation* SpriteAnimation(double x, double y, std::string textureKey ,int frameWidth, int frameHeight, Group *group, int defaultFrame = 0, int numberOfFrame = 0, int msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 		Group* Group();
 		ScreenGroup *ScreenGroup();
-		TileMap* TileMap(std::string tileMapJson, bool isLocation = true);
+		TileMap* TileMap(const char* jsonChar, ggEngine::Group *group);
 		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
 		Audio* Audio(std::string audioKey);
 		ggEngine::Tween* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction);

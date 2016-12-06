@@ -46,7 +46,7 @@ void CVState::Preload()
 
 void CVState::Create()
 {
-	Json jsonFile(this->json);
+	/*Json jsonFile(this->json);
 	for (auto& it : jsonFile["groupList"].GetArray())
 	{
 		std::string type = it["type"].GetString();
@@ -54,7 +54,7 @@ void CVState::Create()
 			std::string tileMapJson = Json::GetCharArrayFromValue(it);
 			this->cvAdd->TileMap(tileMapJson, false);
 		}
-	}
+	}*/
 }
 
 void CVState::Update()

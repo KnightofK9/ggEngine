@@ -75,12 +75,11 @@ namespace ggEngine{
 		world->AddGroup(gr);
 		return gr;
 	}
-	TileMap * Add::TileMap(std::string tileMapJson,bool isLocation)
+	TileMap * Add::TileMap(const char* jsonChar,ggEngine::Group *group)
 	{
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->game);
-		//tileMap->BuildTree(tileMapJson, isLocation);
-		this->physics->AddTileMap(tileMap);
-		world->AddGroup(tileMap);
+		tileMap->BuildTileMap(jsonChar);
+		group->AddGroup(tileMap);
 		return tileMap;
 	}
 	Text* Add::Text(double x, double y, std::string fontKey, double width, double height, std::string text, Style style, ggEngine::Group  *group)

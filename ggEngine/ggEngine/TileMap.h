@@ -20,7 +20,8 @@ namespace ggEngine {
 		std::vector<std::vector<int>> tileMatrix;
 		std::vector<Tile*> tileList;
 		TileSet *tileSet = nullptr;
-
+		int numberOfCellPerRow;
+		int numberOfCellPerColumn;
 		DWORD style = D3DXSPRITE_ALPHABLEND | D3DXSPRITE_OBJECTSPACE;
 	};
 }
