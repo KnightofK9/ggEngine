@@ -93,7 +93,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 		if (this->incompleteAnim != "") {
 			this->PlayAnimation(incompleteAnim);
 		} else {
-			this->Idle();
+			//this->Idle();
+			this->body->velocity.x = 0;
 
 			if (this->GetHealth() <= 0) {
 				this->Death();
@@ -106,8 +107,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 			if (e.isPress(controlKey[SimonControl_Left])) {
 				this->MoveLeft();
 			}
-			if (e.isPress(controlKey[SimonControl_Right])) {
+			else if (e.isPress(controlKey[SimonControl_Right])) {
 				this->MoveRight();
+			}
+			else {
+				this->Idle();
 			}
 
 			if (e.isPress(controlKey[SimonControl_A]) && this->isGrounding == true) {

@@ -36,7 +36,7 @@ namespace ggEngine {
 		this->currentFrame++;
 		if (this->currentFrame > this->endFrame) {
 			if (this->isLoop) {
-
+				
 				this->currentFrame = this->startFrame;
 			}
 			else {

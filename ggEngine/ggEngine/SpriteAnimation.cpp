@@ -33,6 +33,7 @@ namespace ggEngine {
 		if (this->isRunningAnimation) {
 			this->animationTimer.SetDelta(g_debug.GetDtMs());
 			if (this->animationTimer.StopWatch(this->msPerFrame)) {
+				//g_debug.Log("Getting next frame!");
 				int frameIndex = this->GetNextFrameIndex();
 				if(frameIndex!=-1) srcRect = frameList[frameIndex];
 			}
@@ -92,7 +93,10 @@ namespace ggEngine {
 		std::map<std::string, Animator*>::iterator it = this->animatorMap.find(animationName);
 		if (it != this->animatorMap.end())
 		{
-			if (this->currentAnimation == (it->second) && !this->currentAnimation->isFinished ){
+			if (this->currentAnimation == (it->second) 
+				&& !this->currentAnimation->isFinished
+				){
+				//g_debug.Log("Animator " + it->first + " not finished!");
 				return;
 			}
 			this->currentAnimation = (it->second);
