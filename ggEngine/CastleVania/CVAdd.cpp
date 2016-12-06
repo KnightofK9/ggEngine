@@ -23,7 +23,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 
 	group->AddDrawObjectToList(simon);
 
-	//this->camera->Follow(simon);
+	this->camera->Follow(simon);
 
 	return simon;
 }

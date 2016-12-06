@@ -92,10 +92,11 @@ namespace ggEngine {
 		std::map<std::string, Animator*>::iterator it = this->animatorMap.find(animationName);
 		if (it != this->animatorMap.end())
 		{
-			if (this->currentAnimation == (it->second) ){
+			if (this->currentAnimation == (it->second) && !this->currentAnimation->isFinished ){
 				return;
 			}
 			this->currentAnimation = (it->second);
+			this->currentAnimation->Reset();
 			this->isRunningAnimation = true;
 		}
 		else {

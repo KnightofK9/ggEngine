@@ -144,6 +144,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 
 Simon::~Simon()
 {
+	if (this->weaponWhip != nullptr) {
+		delete this->weaponWhip;
+	}
 }
 
 void Simon::SetHealth(int heath)

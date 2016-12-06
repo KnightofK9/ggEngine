@@ -99,7 +99,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\xampp\htdocs\Engine\ggEngine\DXUT\lib;E:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;C:\xampp\htdocs\Engine\ggEngine\Debug;C:\xampp\htdocs\Engine\ggEngine\ggEngine\Debug;E:\1-Study\DirectX\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\Debug;E:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;D:\3-Learning\NMPTG\Project\Git\ggEngine\ggEngine\Debug;E:\application\boost_1_62_0\lib32-msvc-12.0;E:\application\boost_1_62_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>DXUT.lib;ggEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ggEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

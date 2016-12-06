@@ -26,7 +26,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		//this->Destroy();
 		this->SetVisible(false);
 		//this->body->SetEnable(false);
-		this->ResetAnimation(e.animationName);
+		//this->ResetAnimation(e.animationName);
 	};
 	this->whipVersion = 1;
 }
