@@ -147,10 +147,10 @@ namespace ggEngine {
 	}
 
 	void GameObject::UpdateWorldPosition(){
-		this->worldScale = Vector(this->scale.x*this->basePositionObject->worldScale.x, this->scale.y*this->basePositionObject->worldScale.y);
-		this->worldPosition = Vector(this->position.x*this->basePositionObject->worldScale.x, this->position.y*this->basePositionObject->worldScale.y) + this->basePositionObject->worldPosition;
+		this->worldScale = Vector(this->scale.x*this->parentGroup->worldScale.x, this->scale.y*this->parentGroup->worldScale.y);
+		this->worldPosition = Vector(this->position.x*this->parentGroup->worldScale.x, this->position.y*this->parentGroup->worldScale.y) + this->basePositionObject->worldPosition;
 		if (this->IsOpacityAffectByParent()) {
-			this->opacity = this->basePositionObject->GetOpacity();
+			this->opacity = this->parentGroup->GetOpacity();
 		}
 	}
 }

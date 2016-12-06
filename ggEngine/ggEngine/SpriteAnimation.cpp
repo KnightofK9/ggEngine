@@ -51,7 +51,7 @@ namespace ggEngine {
 	void SpriteAnimation::DrawRect()
 	{
 		Transform(spriteHandle);
-		if (!visible) return;
+		
 		if (this->isRunningAnimation && this->currentAnimation->isFinished) this->isRunningAnimation = false;
 		if (this->isRunningAnimation) {
 			this->animationTimer.SetDelta(g_debug.GetDtMs());
@@ -63,6 +63,7 @@ namespace ggEngine {
 		else {
 
 		}
+		if (!visible) return;
 		RECT drawRect = Helper::intersectRectAndGroup(srcRect, this, this->parentGroup);
 		if (spriteHandle->Begin(this->style) == D3D_OK)
 		{

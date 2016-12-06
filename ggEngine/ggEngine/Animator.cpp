@@ -30,13 +30,9 @@ namespace ggEngine {
 			if (this->currentFrame > this->endFrame) this->currentFrame = this->startFrame;
 			return currentFrame;
 		}
-		if (isFinished) {
-			return startFrame;
-		}
-		this->currentFrame++;
 		if (this->currentFrame > this->endFrame) {
 			if (this->isLoop) {
-				
+
 				this->currentFrame = this->startFrame;
 			}
 			else {
@@ -50,6 +46,11 @@ namespace ggEngine {
 				}
 			}
 		}
-		return currentFrame;
+		if (isFinished) {
+			return this->endFrame;
+		}
+		return this->currentFrame++;
+	
+		//return currentFrame;
 	}
 }
