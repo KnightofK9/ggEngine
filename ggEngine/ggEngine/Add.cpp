@@ -46,6 +46,14 @@ namespace ggEngine{
 		group->AddDrawObjectToList(sprite);
 		return sprite;
 	}
+	ggEngine::Sprite * Add::Sprite(double x, double y, std::string tileSetKey, unsigned int tileId, ggEngine::Group * group)
+	{
+		SpriteInfo* inf = this->cache->GetTileMap(tileSetKey)->GetTileSetAt(tileId);
+		ggEngine::Sprite *sprite = new ggEngine::Sprite(this->game, inf);
+		sprite->SetPosition(x, y);
+		group->AddDrawObjectToList(sprite);
+		return sprite;
+	}
 	Grid * Add::Grid(double x, double y, int cellWidth, int cellHeight, int width, int height, ggEngine::Group * group)
 	{
 		ggEngine::Grid* grid = new ggEngine::Grid(this->game);
