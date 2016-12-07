@@ -7,6 +7,9 @@ CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 
 CVMap::~CVMap()
 {
+	delete this->tileMapGroup;
+	delete this->quadTreeGroup;
+	delete this->movingGroup;
 }
 
 void CVMap::BuildMap(const char * jsonChar)
@@ -33,18 +36,23 @@ void CVMap::BuildMap(const char * jsonChar)
 		}
 	}
 }
-
-void CVMap::Draw()
-{
-	this->tileMapGroup->Draw();
-	this->quadTreeGroup->Draw();
-}
-
 void CVMap::Update()
 {
 	this->quadTreeGroup->Update();
 }
+void CVMap::Draw()
+{
+	this->tileMapGroup->Draw();
+	this->quadTreeGroup->Draw();
+	auto drawList = this->quadTreeGroup->GetDrawList();
+	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
+		(*it)->body->Render();
+	}
+}
+
+
 
 void CVMap::UpdatePhysics()
 {
+	this->quadTreeGroup->UpdatePhysics();
 }

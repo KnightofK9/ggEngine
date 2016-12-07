@@ -217,6 +217,11 @@ namespace ggEngine {
 	}
 	void Body::PreUpdate()
 	{
+
+		if (this->immoveable) {
+			this->rigidBody->Transform(this->sprite->worldPosition);
+			return;
+		}
 		this->blocked.Reset();
 		this->shortestCollider.Reset();
 		//position = sprite->GetPosition();
@@ -547,6 +552,9 @@ namespace ggEngine {
 	}
 	void Body::CheckCollisionAndUpdateMovement()
 	{
+		if (this->immoveable) {
+			return;
+		}
 		//Debug::Log("Current position :" + std::to_string(position->y));
 		double timeStep = game->logicTimer.getDeltaTime();
 		Vector lastAcceleration = acceleration;
@@ -617,6 +625,7 @@ namespace ggEngine {
 	}
 	void Body::UpdateBounds()
 	{
+		if (this->immoveable) return;
 		if (allowWorldBound && CheckWorldBounds()) {
 			if (worldBlocked.down) {
 				if (velocity.y > 0) {
@@ -667,6 +676,10 @@ namespace ggEngine {
 	}
 	void Body::PostUpdate()
 	{
+
+		if (this->immoveable) {
+			return;
+		}
 		Vector pivot = this->rigidBody->GetPivotPoint();
 		this->position->x = pivot.x;
 		this->position->y = pivot.y;

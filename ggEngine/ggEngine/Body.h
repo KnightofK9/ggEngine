@@ -36,6 +36,7 @@ namespace ggEngine {
 		double mass = 0.4;
 		double gravity = 9.81;
 		bool allowGravity = true;
+		bool immoveable = false;
 		/*Vicious damping*/
 		double dampingCoeffecient = 0.4;
 		double alphaAngle = 0;
@@ -94,6 +95,7 @@ namespace ggEngine {
 		bool IsActive() { return this->isActive; }
 		Rect GetRect();
 	private:
+		bool isReady = false;
 		bool isActive = true;
 		bool PerformCollisionCheck(Vector currentVelocity);
 		std::list<Box> GetPossibleCollidedList(Box &b1, Vector currentVelocity);

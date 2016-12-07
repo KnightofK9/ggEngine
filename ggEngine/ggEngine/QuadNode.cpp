@@ -172,7 +172,15 @@ namespace ggEngine {
 
 	void QuadNode::Retrieve(std::list<GameObject*>* retrieveList, Rect source)
 	{
-		retrieveList->insert(retrieveList->end(), this->objects.begin(), this->objects.end());
+		for (auto it = this->objects.begin(); it != this->objects.end(); ++it) {
+			Rect r = (*it)->GetRect(true);
+			Rect v;
+			if (Rect::intersect(v, r, source)) {
+				retrieveList->push_back((*it));
+			}
+			
+		}
+		//retrieveList->insert(retrieveList->end(), this->objects.begin(), this->objects.end());
 
 		int index = this->GetIndex(source);
 

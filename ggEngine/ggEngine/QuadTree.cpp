@@ -28,9 +28,13 @@ namespace ggEngine {
 		this->drawList.clear();
 		Rect r = this->game->camera->GetNormalRect();
 		rootNode->Retrieve(&this->drawList, r);
+		//g_debug.Log(this->drawList.size());
 	}
 	void QuadTree::UpdatePhysics()
 	{
+		for (auto it = this->drawList.begin(); it != this->drawList.end(); ++it) {
+			(*it)->body->Update();
+		}
 	}
 
 	
