@@ -21,5 +21,6 @@ TileBrick * StaticTileManager::AddTileBrick(double x, double y, Group * group)
 	if (group != nullptr) {
 		group->AddDrawObjectToList(tileBrick);
 	}
+
 	return tileBrick;
 }

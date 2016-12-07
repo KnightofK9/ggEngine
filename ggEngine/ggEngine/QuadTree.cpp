@@ -32,9 +32,9 @@ namespace ggEngine {
 	}
 	void QuadTree::UpdatePhysics()
 	{
-		for (auto it = this->drawList.begin(); it != this->drawList.end(); ++it) {
+		/*for (auto it = this->drawList.begin(); it != this->drawList.end(); ++it) {
 			(*it)->body->Update();
-		}
+		}*/
 	}
 
 	

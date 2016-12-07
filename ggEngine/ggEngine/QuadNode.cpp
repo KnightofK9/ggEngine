@@ -37,6 +37,10 @@ namespace ggEngine {
 			GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str());
 			if (go != nullptr) {
 				go->SetParentObject(this->quadTree);
+				go->UpdateWorldPosition();
+				if (go->body != nullptr) {
+					go->body->rigidBody->Transform(go->worldPosition);
+				}
 				this->objects.push_back(go);
 			}
 			else {
