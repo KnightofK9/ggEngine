@@ -24,7 +24,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 
 	group->AddDrawObjectToList(simon);
 
-	this->cvgame->camera->Follow(simon);
+	//this->cvgame->camera->Follow(simon);
 
 	return simon;
 }
@@ -205,4 +205,12 @@ HealthBar * CVAdd::UIEnemyHealthBar(double x, double y, ggEngine::Group* group)
 	bar->SetPosition(x, y);
 	group->AddGroup(bar);
 	return bar;
+}
+
+CVMap * CVAdd::LoadMap(const char * json, ggEngine::Group * group)
+{
+	CVMap *cvMap = new CVMap(this->cvgame);
+	cvMap->BuildMap(json);
+	group->AddGroup(cvMap);
+	return cvMap;
 }

@@ -17,14 +17,10 @@ namespace ggEngine {
 		void Update() override;
 		void UpdatePhysics() override;
 		void BuildTree(const char * quadTreeJson);
+		void Draw() override;
 
 	private:
-		int leafWidth;
-		int leafHeight;
-		int numberOfNodePerRow;
-		int numberOfNodePerColumn;
-		int startOfLeafNodeId;
-		std::vector<QuadNode*> quadNodeList;
+		QuadNode* rootNode = nullptr;
 		Game *game;
 	};
 }

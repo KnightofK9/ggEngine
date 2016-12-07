@@ -171,6 +171,7 @@
     <ClInclude Include="DaggerItem.h" />
     <ClInclude Include="DoubleShot.h" />
     <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="HolyWaterItem.h" />
     <ClInclude Include="InfoPanel.h" />
@@ -178,15 +179,18 @@
     <ClInclude Include="Heart.h" />
     <ClInclude Include="InvinPotion.h" />
     <ClInclude Include="ItemManager.h" />
+    <ClInclude Include="CVMap.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />
+    <ClInclude Include="StaticTIleManager.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TestStateCastleVania.h" />
     <ClInclude Include="CVAdd.h" />
     <ClInclude Include="TextureConstant.h" />
     <ClInclude Include="TileBase.h" />
     <ClInclude Include="ItemBase.h" />
+    <ClInclude Include="TileBrick.h" />
     <ClInclude Include="TypeEnum.h" />
     <ClInclude Include="WeaponAxe.h" />
     <ClInclude Include="WeaponBase.h" />
@@ -213,6 +217,7 @@
     <ClCompile Include="Crown.cpp" />
     <ClCompile Include="CVAdd.cpp" />
     <ClCompile Include="CVGame.cpp" />
+    <ClCompile Include="CVMap.cpp" />
     <ClCompile Include="CVPreload.cpp" />
     <ClCompile Include="CVSprite.cpp" />
     <ClCompile Include="CVSpriteAnimation.cpp" />
@@ -220,6 +225,7 @@
     <ClCompile Include="DaggerItem.cpp" />
     <ClCompile Include="DoubleShot.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
+    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Heart.cpp" />
@@ -238,6 +244,7 @@
     <ClCompile Include="PotRoast.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="StaticTile.cpp" />
+    <ClCompile Include="StaticTIleManager.cpp" />
     <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="StoryState.cpp" />
     <ClCompile Include="Stuff.cpp" />
@@ -245,6 +252,7 @@
     <ClCompile Include="TestStateCastleVania.cpp" />
     <ClCompile Include="TileBase.cpp" />
     <ClCompile Include="ItemBase.cpp" />
+    <ClCompile Include="TileBrick.cpp" />
     <ClCompile Include="TripleShot.cpp" />
     <ClCompile Include="VAudio.cpp" />
     <ClCompile Include="WeaponAxe.cpp" />

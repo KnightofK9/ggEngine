@@ -10,7 +10,9 @@ namespace ggEngine {
 	public:
 		TileSet(Game * game,Texture *texture);
 		virtual ~TileSet();
-		SpriteInfo* GetTileSetAt(int id) { return this->tileInfoList[id]; }
+		SpriteInfo* GetTileSetAt(int id) { 
+			return this->tileInfoList[id];
+		}
 		Tile* GetTileAt(int id);
 		// Inherited via IJsonable
 		virtual void ParseJson(std::string jsonChar) override;

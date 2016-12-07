@@ -1,10 +1,13 @@
 #pragma once
 #include <ggEngine.h>
-#include "TileBase.h"
+#include "TypeEnum.h"
+#include "CVSprite.h"
 using namespace ggEngine;
 class CVGame;
-class StaticTile :public TileBase {
+class StaticTile :public CVSprite {
 public:
-	StaticTile(CVGame *cvGame, TileMap *tileMap, SpriteInfo *image);
+	StaticTile(CVGame *cvGame, SpriteInfo *image);
 	virtual ~StaticTile();
+protected:
+	
 };

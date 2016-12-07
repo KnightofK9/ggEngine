@@ -50,6 +50,7 @@ var HierarchyEditor = function () {
         return hGroup;
     };
     this.add.sprite = function(sprite,hGroup){
+        sprite.anchor = {x:0,y:0};
         var hSprite = hGroup.addObject(sprite);
         hSprite._item.hObject = hSprite;
         var div = createLine(hSprite._hierarchyId,hSprite.getName());

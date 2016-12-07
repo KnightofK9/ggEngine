@@ -23,6 +23,8 @@ namespace ggEngine {
 
 		maxLevels = json["maxLevels"].GetInt();
 		maxObjects = json["maxObjects"].GetInt();
+		level = json["level"].GetInt();
+
 		auto& bounds = json["bounds"];
 		x = bounds["x"].GetDouble();
 		y = bounds["y"].GetDouble();
@@ -32,17 +34,23 @@ namespace ggEngine {
 		Reset(x, y, width, height, maxObjects, maxLevels, level);
 
 		for (auto& obj : json["objects"].GetArray()) {
-			GameObject* go = game->GetObjectInstance(obj.GetString());
-			go->SetParentObject(this->quadTree);
-			this->quadTree->AddDrawObjectToList(go);
-			this->objects.push_back(go->body);
+			GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str());
+			if (go != nullptr) {
+				go->SetParentObject(this->quadTree);
+				this->objects.push_back(go);
+			}
+			else {
+				std::string type = obj["type"].GetString();
+				g_debug.Log("Type not found!" + type);
+			}
 		}
 		auto nodeArray = json["nodes"].GetArray();
 		if (nodeArray.Size() > 0) {
 			this->nodes.reserve(4);
 		}
 		for (auto& node : nodeArray) {
-			const char* nodeJson = node.GetString();
+			std::string v = Json::GetCharArrayFromValue(node).c_str();
+			const char* nodeJson = v.c_str();
 			this->nodes.push_back(new QuadNode(this->game, this->quadTree, nodeJson));
 		}
 	}
@@ -96,20 +104,21 @@ namespace ggEngine {
 
 	}
 
-	void QuadNode::Insert(Body * body)
+	void QuadNode::Insert(GameObject * gameObject)
 	{
 		int i = 0;
 		int index;
+		Rect r = gameObject->GetRect();
 		if (this->nodes.size() > 0) {
-			index = GetIndex(body->GetRect());
+			index = GetIndex(r);
 
 			if (index != -1) {
-				this->nodes[index]->Insert(body);
+				this->nodes[index]->Insert(gameObject);
 				return;
 			}
 		}
 
-		this->objects.push_back(body);
+		this->objects.push_back(gameObject);
 
 		if (this->objects.size() > this->maxObjects && this->level < this->maxLevels) {
 			if (this->nodes.size() > 0) {
@@ -161,7 +170,7 @@ namespace ggEngine {
 		return index;
 	}
 
-	void QuadNode::Retrieve(std::list<Body*>* retrieveList, Rect source)
+	void QuadNode::Retrieve(std::list<GameObject*>* retrieveList, Rect source)
 	{
 		retrieveList->insert(retrieveList->end(), this->objects.begin(), this->objects.end());
 
@@ -199,7 +208,7 @@ namespace ggEngine {
 	{
 		for (auto it = drawList.begin(); it != drawList.end(); ++it) {
 			if ((*it)->body != nullptr) {
-				this->Insert((*it)->body);
+				this->Insert((*it));
 			}
 		}
 	}

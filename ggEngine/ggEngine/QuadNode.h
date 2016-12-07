@@ -27,9 +27,9 @@ namespace ggEngine {
 		void Reset(double x, double y, double width, double height, unsigned int maxObjects, unsigned int maxLevels, unsigned int level);
 		void Populate(Group *group);
 		void Split();
-		void Insert(Body * body);
+		void Insert(GameObject * body);
 		int GetIndex(Rect rect);
-		void Retrieve(std::list<Body*> *retrieveList, Rect source);
+		void Retrieve(std::list<GameObject*> *retrieveList, Rect source);
 		void Clear();
 		std::vector<QuadNode*> nodes;
 
@@ -39,7 +39,7 @@ namespace ggEngine {
 		unsigned int maxObjects;
 		unsigned int maxLevels;
 		unsigned int level;
-		std::vector<Body *> objects;
+		std::vector<GameObject *> objects;
 		Bounds bounds;
 		Game *game = nullptr;
 	};

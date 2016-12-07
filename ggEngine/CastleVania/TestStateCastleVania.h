@@ -2,6 +2,7 @@
 #include <ggEngine.h>
 #include "CVState.h"
 #include "Simon.h"
+#include "CVMap.h"
 using namespace ggEngine;
 class TestStateCastleVania : public CVState{
 public:
@@ -20,4 +21,5 @@ private:
 	TileMap *tileMap;
 	Simon *simon;
 	ItemManager *itemManager = nullptr;
+	CVMap *cvMap = nullptr;
 };

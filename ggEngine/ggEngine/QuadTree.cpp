@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include <exception>
 #include <Math.h>
+#include "Camera.h"
 namespace ggEngine {
 	QuadTree::QuadTree(Game * game): Group(game)
 	{
@@ -24,16 +25,26 @@ namespace ggEngine {
 	}
 	void QuadTree::Update()
 	{
-	}
-
-
-	
-	void QuadTree::BuildTree(const char * quadTreeJson)
-	{
-
+		this->drawList.clear();
+		Rect r = this->game->camera->GetNormalRect();
+		rootNode->Retrieve(&this->drawList, r);
 	}
 	void QuadTree::UpdatePhysics()
 	{
 	}
+
+	
+	void QuadTree::BuildTree(const char * quadTreeJson)
+	{
+		rootNode = new QuadNode(this->game, this, quadTreeJson);
+	}
+	void QuadTree::Draw()
+	{
+		for (auto it = this->drawList.begin(); it != this->drawList.end(); ++it) {
+			(*it)->UpdateWorldPosition();
+			(*it)->Draw();
+		}
+	}
+
 
 }

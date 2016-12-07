@@ -5,6 +5,7 @@ class CVAdd;
 class CVPreload;
 class Simon;
 class ItemManager;
+class StaticTileManager;
 class WeaponManager;
 class CVGame : public Game {
 public:
@@ -15,6 +16,7 @@ public:
 	Simon *simon;
 	ItemManager *itemManager;
 	WeaponManager *weaponManager;
+	StaticTileManager *staticTileManager;
 	GameObject* GetObjectInstance(const char* objectJson) override;
 private:
 };

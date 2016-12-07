@@ -599,8 +599,10 @@ Phaser.QuadTree.prototype.export = function(){
         sprite.width = item._item.width;
         sprite.height = item._item.height;
 
-        sprite.x = item.x + sprite.width;
-        sprite.y = item.y + sprite.height;
+        // sprite.x = item.x + sprite.width;
+        // sprite.y = item.y + sprite.height;
+        sprite.x = this.objects[i].x;
+        sprite.y = this.objects[i].y;
 
 
         quadTreeJson.objects.push(sprite);

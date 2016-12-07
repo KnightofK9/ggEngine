@@ -125,4 +125,13 @@ public:
 
 	static constexpr const char* AI7_TEXTURE = "AI7Texture";
 	static constexpr const char* AI7_TEXTURE_PATH = "Resource/Resources/AI7.png";
+
+
+	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE = "level-2-tile-set";
+	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE_PATH = "Resource/Resources/TileSet/level-2-tile-setpng";
+
+	static constexpr const char* TILE_BRICK_TEXTURE = "TileBrickTexture";
+	static const int TILE_BRICK_TEXTURE_KEY = 40;
+
+
 };

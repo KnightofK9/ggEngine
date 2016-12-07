@@ -735,6 +735,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             hGroup = enemyHGroup;
         }
         var sprite = game.add.sprite(posX, posY, type, 0, hGroup._item);
+        sprite.anchor.x = 0;
+        sprite.anchor.y = 0;
         sprite._type = type;
         sprite.inputEnabled = true;
         sprite.events.onInputOver.add(function(item){
@@ -821,11 +823,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             var info = Constant.ENEMY_DICT[type];
             var walk = sprite.animations.add('walk');
             sprite.animations.play('walk', 24, true);
-            sprite.x -= info.frameWidth;
-            sprite.y -= info.frameHeight;
+            // sprite.x -= info.frameWidth;
+            // sprite.y -= info.frameHeight;
         } else {
-            sprite.x -= sprite.width;
-            sprite.y -= sprite.height;
+            // sprite.x -= sprite.width;
+            // sprite.y -= sprite.height;
         }
 
 
@@ -1008,7 +1010,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                     var setSprite = function () {
                         if(Constant.STATIC_TILE_DICT.hasOwnProperty(currentPickName)){
                             if(!isAnyStaticTileBeneath)
-                                that.createSpriteAt(marker.x+tileWidth,marker.y+tileHeight,currentPickName);
+                                // that.createSpriteAt(marker.x+tileWidth,marker.y+tileHeight,currentPickName);
+                                that.createSpriteAt(marker.x,marker.y,currentPickName);
                         }
                         else{
                             that.createSpriteAt(posX,posY,currentPickName);

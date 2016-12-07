@@ -3,6 +3,7 @@
 #include "Simon.h"
 #include "CVGame.h"
 #include "InfoPanel.h"
+#include "CVMap.h"
 using namespace ggEngine;
 class CVState;
 class CVAdd{
@@ -13,6 +14,7 @@ public:
 	InfoPanel* UIInfoPanel(ggEngine::Group *group);
 	HealthBar *UIPlayerHealthBar(double x, double y, ggEngine::Group* group);
 	HealthBar *UIEnemyHealthBar(double x, double y, ggEngine::Group* group);
+	CVMap *LoadMap(const char* json, ggEngine::Group* group);
 
 private:
 	CVGame *cvgame = nullptr;
