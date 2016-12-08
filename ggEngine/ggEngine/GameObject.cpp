@@ -110,17 +110,21 @@ namespace ggEngine {
 
 	void GameObject::SetParentObject(Group * parentGroup)
 	{
-		if (this->parentGroup != nullptr) {
-			parentGroup->RemoveGameObjectFromDrawList(this);
+		Group* group = dynamic_cast<Group*>(this);
+		if (group == nullptr) {
+			if (this->parentGroup != nullptr) {
+				parentGroup->RemoveGameObjectFromDrawList(this);
+				if (this->body != nullptr) {
+					parentGroup->RemoveBodyFromList(this->body);
+				}
+			}
 			if (this->body != nullptr) {
-				parentGroup->RemoveBodyFromList(this->body);
+				parentGroup->AddBodyToList(this->body);
 			}
 		}
 		this->parentGroup = parentGroup;
 		SetTransformBasedOn(parentGroup);
-		if (this->body != nullptr) {
-			parentGroup->AddBodyToList(this->body);
-		}
+		
 	}
 
 	Rect GameObject::GetRect(bool isGetWorldRect)

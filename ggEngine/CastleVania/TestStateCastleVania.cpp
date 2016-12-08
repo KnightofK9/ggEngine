@@ -52,9 +52,10 @@ void TestStateCastleVania::Create()
 	Group* group = this->add->Group();
 	group->name = "StupidGroup";
 	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);
-	this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);
-	this->simon->SetHealth(1);
-	this->cvgame->simon = this->simon;
+	cvMap->LoadSimon(infoPanel, nullptr);
+	//this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);
+	//this->simon->SetHealth(1);
+	//this->cvgame->simon = this->simon;
 	this->itemManager->AddHeart(200, 100, group);
 	this->itemManager->AddHeart(250, 100, group);
 	this->itemManager->AddWhipUpgrade(300, 100, group);
