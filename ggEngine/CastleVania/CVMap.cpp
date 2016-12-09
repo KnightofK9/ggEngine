@@ -90,6 +90,7 @@ void CVMap::Draw()
 void CVMap::UpdatePhysics()
 {
 	this->quadTreeGroup->UpdatePhysics();
+	this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->simonGroup->UpdatePhysics();
 }
 

@@ -58,6 +58,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		case ObjectType_Static:
 			
 			return true;
+		case ObjectType_LevelTwoBrick:
+			return true;
 		default:
 			return false;
 		}
@@ -68,6 +70,10 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		case ObjectType_LevelTwoBrick:
+			if (e.blockDirection.down)
+				this->isGrounding = true;
+			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
 			if (otherObject->events->onCollide != nullptr) {
