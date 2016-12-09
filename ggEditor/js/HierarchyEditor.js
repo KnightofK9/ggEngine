@@ -38,6 +38,7 @@ var HierarchyEditor = function () {
         var group = game.add.group();
         var hGroup = new Group();
         hGroup._name = name;
+        hGroup.type = name;
         hGroup._item = group;
         hGroup.x = group.x;
         hGroup.y = group.y;

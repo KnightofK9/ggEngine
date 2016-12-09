@@ -12,7 +12,7 @@ enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, 
 					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB};
 class Simon :public CharacterBase {
 public:
-	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, Group *group, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~Simon();
 	void SetHealth(int heath);
 	int GetHealth() { return this->health; }
@@ -23,6 +23,8 @@ public:
 
 	void Attack() override;
 	void WhipAttack();
+
+	void AddWhip();
 
 	void Idle();
 	void MoveLeft();

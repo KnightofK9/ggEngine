@@ -28,7 +28,7 @@ namespace ggEngine {
 		void GameRun();
 		D3DManager *GetD3DManager() { return this->d3dManager; }
 		DrawManager *GetDrawManager() { return this->drawManager; }
-		virtual GameObject *GetObjectInstance(const char *objectJson);
+		virtual GameObject *GetObjectInstance(const char *objectJson, Group *group = nullptr);
 		std::list<Group*> *GetGroupList() { return &this->topGroupList; }
 		Cache  *cache;
 		StateManager *stateManager;

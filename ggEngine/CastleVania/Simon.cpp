@@ -3,15 +3,13 @@
 #include "CVAdd.h"
 #include "ItemManager.h"
 #include "WeaponManager.h"
-Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *group, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
+Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->weaponManager = cvGame->weaponManager;
-	this->weaponWhip = this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, group);
-	this->weaponWhip->SetAnchor(0.5, 0.5);
-	this->weaponWhip->SetPosition(position.x, position.y + 8);
 
 
-	this->weaponWhip->SetTransformBasedOn(this);
+
+
 	this->tag = ObjectType_Simon;
 	this->health = 16;
 	this->maxHealth = 16;
@@ -158,7 +156,9 @@ void Simon::SetHealth(int heath)
 	this->health = heath;
 	if (this->health < 0) this->health = 0;
 	if (this->health > this->maxHealth) this->health = this->maxHealth;
-	infoPanel->SetPlayerHealth(this->health);
+	if (infoPanel != nullptr) {
+		infoPanel->SetPlayerHealth(this->health);
+	}
 	if (this->health == 0) Death();
 }
 
@@ -174,6 +174,13 @@ void Simon::WhipAttack()
 	//this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, whipVersion, parentObject);
 	this->weaponWhip->Attack(isLeft);
 
+}
+
+void Simon::AddWhip()
+{
+	this->weaponWhip = this->weaponManager->AddWeaponWhip(0, 8, isLeft, this->parentGroup);
+	this->weaponWhip->SetAnchor(0.725, 0.5);
+	this->weaponWhip->SetTransformBasedOn(this);
 }
 
 void Simon::Idle()
@@ -275,7 +282,9 @@ void Simon::LoseHealth(int health)
 {
 	this->health -= health;
 	if (this->health < 0) this->health = 0;
-	infoPanel->SetPlayerHealth(this->health);
+	if (infoPanel != nullptr) {
+		infoPanel->SetPlayerHealth(this->health);
+	}
 	if (this->health == 0) Death();
 }
 
@@ -283,7 +292,9 @@ void Simon::GainHealth(int health)
 {
 	this->health += health;
 	if (this->health > this->maxHealth) this->health = this->maxHealth;
-	infoPanel->SetPlayerHealth(this->health);
+	if (infoPanel != nullptr) {
+		infoPanel->SetPlayerHealth(this->health);
+	}
 }
 
 void Simon::IncreaseScore(int score)
@@ -294,25 +305,25 @@ void Simon::IncreaseScore(int score)
 
 void Simon::IncreaseState()
 {
-	this->infoPanel->SetState(++this->stagePoint);
+	if(infoPanel!=nullptr) this->infoPanel->SetState(++this->stagePoint);
 }
 
 void Simon::IncreaseHeartPoint(int point)
 {
 	this->heartPoint += point;
-	this->infoPanel->SetLife(heartPoint);
+	if (infoPanel != nullptr) this->infoPanel->SetLife(heartPoint);
 }
 
 void Simon::DecreaseHeartPoint(int point)
 {
 	this->heartPoint = (heartPoint - point <= 0) ? 0 : heartPoint - point;
-	this->infoPanel->SetLife(this->heartPoint);
+	if (infoPanel != nullptr) this->infoPanel->SetLife(this->heartPoint);
 }
 
 void Simon::DescreasePPoint(int point)
 {
 	this->pPoint = (pPoint - point <= 0) ? 0 : pPoint - point;
-	this->infoPanel->SetLife(this->pPoint);
+	if (infoPanel != nullptr) this->infoPanel->SetLife(this->pPoint);
 }
 
 
