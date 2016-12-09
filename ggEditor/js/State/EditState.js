@@ -40,7 +40,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var quadTreeHGroup = null;
     var enemyHGroup = null;
     var isBlockingClick = false;
-
+    var simonHGroup = null;
     var wasMouseButtonDown = false;
 
     var currentSelectHGroup = null;
@@ -199,6 +199,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var exportMovingGroup = function(){
         return enemyHGroup.exportAsJson();
     };
+    var exportSimonGroup = function(){
+        return simonHGroup.exportAsJson();
+    };
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
         my.isPutEnemyToQuadTree = stateInfo.isPutEnemyToQuadTree();
@@ -218,6 +221,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         state.groupList.push(exportTileMapBackground());
         state.groupList.push(exportQuadTreeGroup());
         state.groupList.push(exportMovingGroup());
+        state.groupList.push(exportSimonGroup());
 
 
 
@@ -327,6 +331,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
          */
         quadTreeHGroup =  createGroup("QuadTree");
         enemyHGroup = createGroup("Enemy");
+        simonHGroup = createGroup("Simon");
         resetCurrentPickRect();
 
         if (json) this.importState(json);
@@ -666,6 +671,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if (Constant.ENEMY_DICT.hasOwnProperty(itemKey)) {
             var walk = mouseSprite.animations.add('walk');
             mouseSprite.animations.play('walk', 24, true);
+            mouseSprite.anchor = {x:0.5,y:0.5}
         }
 
     };
@@ -732,7 +738,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         var hGroup = quadTreeHGroup;
         var isUnQuadTree = isUnQuadTreeObject(type);
         if( isUnQuadTree ){
-            hGroup = enemyHGroup;
+            if(type === "Simon"){
+                hGroup = simonHGroup;
+            }
+            else hGroup = enemyHGroup;
         }
         var sprite = game.add.sprite(posX, posY, type, 0, hGroup._item);
         sprite.anchor.x = 0;
@@ -825,6 +834,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             var info = Constant.ENEMY_DICT[type];
             var walk = sprite.animations.add('walk');
             sprite.animations.play('walk', 24, true);
+            sprite.anchor = {x:0.5,y:0.5};
             // sprite.x -= info.frameWidth;
             // sprite.y -= info.frameHeight;
         } else {
