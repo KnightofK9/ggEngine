@@ -135,10 +135,17 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             that.createSpriteAt(item.x,item.y,item.type);
         }
     };
+    var importSimonGroup = function(simonGroup){
+        for(var i = 0;i<simonGroup.itemList.length; i++){
+            var item = simonGroup.itemList[i];
+            that.createSpriteAt(item.x,item.y,item.type);
+        }
+    };
     this.importState = function (stateJson) {
         importTileMap(stateJson.groupList[0]);
         importQuadTreeGroup(stateJson.groupList[1]);
         importMovingGroup(stateJson.groupList[2]);
+        importSimonGroup(stateJson.groupList[3]);
     };
     var resetPick = function () {
         $("#picker-filed > .btn").removeClass("active");
@@ -969,8 +976,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                     mouseSprite.x = marker.x;
                     mouseSprite.y = marker.y;
                 }else{
-                    mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
-                    mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                    mouseSprite.x = game.input.activePointer.worldX - (1-mouseSprite.anchor.x)*mouseSprite.width;
+                    mouseSprite.y = game.input.activePointer.worldY - (1-mouseSprite.anchor.y)*mouseSprite.height;
                 }
 
                 break;
