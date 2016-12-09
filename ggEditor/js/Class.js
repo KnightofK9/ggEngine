@@ -422,8 +422,8 @@ function Group() {
             var sprite = {};
             sprite.type = item.type;
             sprite.name = item.name;
-            sprite.x = item.x;
-            sprite.y = item.y;
+            sprite.x = item._item.x;
+            sprite.y = item._item.y;
             sprite.width = item._item.width;
             sprite.height = item._item.height;
             switch(sprite.type){

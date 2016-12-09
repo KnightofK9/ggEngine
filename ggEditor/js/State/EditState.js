@@ -797,6 +797,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                         sprite.x = marker.x ;
                         sprite.y = marker.y ;
                     }
+
+
                     sprite.input.enableDrag(false);
                     //    item.x = game.input.activePointer.worldX - item.width/2;
                     //    item.y = game.input.activePointer.worldY - item.height/2;
@@ -1014,6 +1016,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                                 that.createSpriteAt(marker.x,marker.y,currentPickName);
                         }
                         else{
+                            posX-=mouseSprite.width;
+                            posY-=mouseSprite.height;
                             that.createSpriteAt(posX,posY,currentPickName);
                         }
                         isBlockingClick = false;
