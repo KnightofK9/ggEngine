@@ -53,7 +53,7 @@ namespace ggEngine {
 	}
 	void Body::AddListCheckCollisionTo(std::list<GameObject*> staticGoList)
 	{
-		//this->staticGoList = staticGoList;
+		this->staticGoList = staticGoList;
 	}
 	void Body::CheckCollisionTo(GameObject * staticGo)
 	{

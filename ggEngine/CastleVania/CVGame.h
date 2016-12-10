@@ -17,6 +17,6 @@ public:
 	ItemManager *itemManager;
 	WeaponManager *weaponManager;
 	StaticTileManager *staticTileManager;
-	GameObject* GetObjectInstance(const char* objectJson) override;
+	GameObject* GetObjectInstance(const char* objectJson, Group *group = nullptr) override;
 private:
 };

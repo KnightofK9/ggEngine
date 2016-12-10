@@ -2,6 +2,7 @@
 #include "CVGame.h"
 #include "CVAdd.h"
 #include "InfoPanel.h"
+#include "Simon.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
@@ -35,13 +36,38 @@ void CVMap::BuildMap(const char * jsonChar)
 			this->quadTreeGroup->BuildTree(value);
 			continue;
 		}
-		if (type == "Group") {
+		if (type == "Enemy") {
+			continue;
+		}
+		if (type == "Simon") {
+			this->simonGroup = this->add->Group();
+			this->AddGroup(this->simonGroup);
+			for (auto& obj : it["itemList"].GetArray()) {
+				std::string type = obj["type"].GetString();
+				GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str());
+				if (go != nullptr) {
+					if (type == "Simon") {
+						this->simon = dynamic_cast<Simon*>(go);
+						go->SetParentObject(this->simonGroup);
+						go->UpdateWorldPosition();
+						if (go->body != nullptr) {
+							go->body->rigidBody->Transform(go->worldPosition);
+						}
+						this->simonGroup->AddDrawObjectToList(go);
+						this->simon->AddWhip();
+						this->cvGame->simon = this->simon;
+						continue;
+					}
+				}
+				else {				
+					g_debug.Log("Type not found!" + type);
+				}
+			}
 			continue;
 		}
 	}
 
-	this->simonGroup = this->add->Group();
-	this->AddGroup(this->simonGroup);
+	
 }
 void CVMap::Update()
 {
@@ -64,19 +90,23 @@ void CVMap::Draw()
 void CVMap::UpdatePhysics()
 {
 	this->quadTreeGroup->UpdatePhysics();
+	this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->simonGroup->UpdatePhysics();
 }
 
 void CVMap::LoadSimon(InfoPanel * infoPanel, Simon * simon)
 {
 
-	if (simon == nullptr) {
-		this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT - 50, 16, infoPanel, simonGroup);
-		this->cvGame->simon = this->simon;
+	if (this->simon  == nullptr ) {
+		if (simon == nullptr) {
+			this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT - 50, 16, infoPanel, simonGroup);
+			this->cvGame->simon = this->simon;
+		}
+		else {
+			this->simon = simon;
+		}
 	}
 	else {
-		this->simon = simon;
-		this->simon->SetParentObject(this->simonGroup);
-		this->simonGroup->AddDrawObjectToList(simon);
+		this->simon->infoPanel = infoPanel;
 	}
 }

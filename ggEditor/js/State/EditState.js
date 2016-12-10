@@ -40,7 +40,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var quadTreeHGroup = null;
     var enemyHGroup = null;
     var isBlockingClick = false;
-
+    var simonHGroup = null;
     var wasMouseButtonDown = false;
 
     var currentSelectHGroup = null;
@@ -135,10 +135,17 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             that.createSpriteAt(item.x,item.y,item.type);
         }
     };
+    var importSimonGroup = function(simonGroup){
+        for(var i = 0;i<simonGroup.itemList.length; i++){
+            var item = simonGroup.itemList[i];
+            that.createSpriteAt(item.x,item.y,item.type);
+        }
+    };
     this.importState = function (stateJson) {
         importTileMap(stateJson.groupList[0]);
         importQuadTreeGroup(stateJson.groupList[1]);
         importMovingGroup(stateJson.groupList[2]);
+        importSimonGroup(stateJson.groupList[3]);
     };
     var resetPick = function () {
         $("#picker-filed > .btn").removeClass("active");
@@ -199,6 +206,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var exportMovingGroup = function(){
         return enemyHGroup.exportAsJson();
     };
+    var exportSimonGroup = function(){
+        return simonHGroup.exportAsJson();
+    };
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
         my.isPutEnemyToQuadTree = stateInfo.isPutEnemyToQuadTree();
@@ -218,6 +228,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         state.groupList.push(exportTileMapBackground());
         state.groupList.push(exportQuadTreeGroup());
         state.groupList.push(exportMovingGroup());
+        state.groupList.push(exportSimonGroup());
 
 
 
@@ -327,6 +338,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
          */
         quadTreeHGroup =  createGroup("QuadTree");
         enemyHGroup = createGroup("Enemy");
+        simonHGroup = createGroup("Simon");
         resetCurrentPickRect();
 
         if (json) this.importState(json);
@@ -666,6 +678,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if (Constant.ENEMY_DICT.hasOwnProperty(itemKey)) {
             var walk = mouseSprite.animations.add('walk');
             mouseSprite.animations.play('walk', 24, true);
+            mouseSprite.anchor = {x:0.5,y:0.5}
         }
 
     };
@@ -732,7 +745,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         var hGroup = quadTreeHGroup;
         var isUnQuadTree = isUnQuadTreeObject(type);
         if( isUnQuadTree ){
-            hGroup = enemyHGroup;
+            if(type === "Simon"){
+                hGroup = simonHGroup;
+            }
+            else hGroup = enemyHGroup;
         }
         var sprite = game.add.sprite(posX, posY, type, 0, hGroup._item);
         sprite.anchor.x = 0;
@@ -797,6 +813,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                         sprite.x = marker.x ;
                         sprite.y = marker.y ;
                     }
+
+
                     sprite.input.enableDrag(false);
                     //    item.x = game.input.activePointer.worldX - item.width/2;
                     //    item.y = game.input.activePointer.worldY - item.height/2;
@@ -823,6 +841,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             var info = Constant.ENEMY_DICT[type];
             var walk = sprite.animations.add('walk');
             sprite.animations.play('walk', 24, true);
+            sprite.anchor = {x:0.5,y:0.5};
             // sprite.x -= info.frameWidth;
             // sprite.y -= info.frameHeight;
         } else {
@@ -957,8 +976,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                     mouseSprite.x = marker.x;
                     mouseSprite.y = marker.y;
                 }else{
-                    mouseSprite.x = game.input.activePointer.worldX - mouseSprite.width;
-                    mouseSprite.y = game.input.activePointer.worldY - mouseSprite.height;
+                    mouseSprite.x = game.input.activePointer.worldX - (1-mouseSprite.anchor.x)*mouseSprite.width;
+                    mouseSprite.y = game.input.activePointer.worldY - (1-mouseSprite.anchor.y)*mouseSprite.height;
                 }
 
                 break;
@@ -1014,6 +1033,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                                 that.createSpriteAt(marker.x,marker.y,currentPickName);
                         }
                         else{
+                            posX-=mouseSprite.width;
+                            posY-=mouseSprite.height;
                             that.createSpriteAt(posX,posY,currentPickName);
                         }
                         isBlockingClick = false;

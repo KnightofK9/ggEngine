@@ -18,7 +18,7 @@ CVGame::~CVGame()
 {
 }
 
-GameObject * CVGame::GetObjectInstance(const char * objectJson)
+GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 {
 	GameObject * go = Game::GetObjectInstance(objectJson);
 	if (go != nullptr) {
@@ -34,9 +34,13 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson)
 	height = json["height"].GetDouble();
 
 	if (type == "TileBrick") {
-		go = this->staticTileManager->AddTileBrick(x, y);
+		go = this->staticTileManager->AddTileBrick(x, y, group);
+		return go;
 	}
-
+	if (type == "Simon") {
+		go =  this->cvAdd->CharSimon(x, y, 16, nullptr, group);
+		return go;
+	}
 
 
 	return go;

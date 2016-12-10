@@ -163,7 +163,7 @@ namespace ggEngine {
 		}
 	}
 
-	GameObject * Game::GetObjectInstance(const char * objectJson)
+	GameObject * Game::GetObjectInstance(const char * objectJson, Group *group)
 	{
 		return nullptr;
 	}

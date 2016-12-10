@@ -18,13 +18,16 @@ CVAdd::~CVAdd()
 Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SIMON_TEXTURE);
-	Simon *simon = new Simon(this->cvgame, inf,infoPanel, group, 45, 40, 0,0, 130);
-	simon->SetPosition(0, 0);
+	Simon *simon = new Simon(this->cvgame, inf,infoPanel, 45, 40, 0,0, 130);
+	simon->SetPosition(x, y);
 	simon->SetOpacityAffectByParent(false);
+	
+	if (group != nullptr) {
+		simon->SetParentObject(group);
+		group->AddDrawObjectToList(simon);
+	}
 
-	group->AddDrawObjectToList(simon);
-
-	//this->cvgame->camera->Follow(simon);
+	this->cvgame->camera->Follow(simon);
 
 	return simon;
 }
