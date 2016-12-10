@@ -75,6 +75,7 @@ private:
 
 	double hurtForce = 3;
 
+	string incompleteAnim = "";
 	WeaponManager *weaponManager = nullptr;
 	WeaponWhip *weaponWhip = nullptr;
 	

@@ -28,15 +28,27 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", 11, 11, true);
 	this->CreateAnimation("standAttack", 12, 14, false);
-	this->CreateAnimation("kneelAttack", 15, 17, true);
+	this->CreateAnimation("afterStandAttack", 14, 14, false);
+	this->CreateAnimation("kneelAttack", 15, 17, false);
+	this->CreateAnimation("afterKneelAttack", 17, 17, false);
 	this->CreateAnimation("climbDownAttack", 18, 20, true);
 	this->CreateAnimation("climbUpAttack", 21, 23, true);
 
 
 	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
 	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-	//	if (e.animationName == "standAttack" || e.animationName == "kneelAttack"
+		if (incompleteAnim != "") {
+			this->PlayAnimation(incompleteAnim);
+			incompleteAnim = "";
+		}
 
+		////} else {
+		//	if (e.animationName == "standAttack")
+		//		this->PlayAnimation("afterKneelAttack");
+
+		//	if (e.animationName == "kneelAttack")
+		//		this->PlayAnimation("afterKneelAttack");
+		////}
 	};
 
 	this->cvGame->physics->EnablePhysics(this);
@@ -94,12 +106,21 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			return;`
 		}*/
 
-		if (this->isGrounding == false) {
-		}
+		/*if (this->isGrounding == false) {
+		}*/
 
 		if (CheckKeyValid(e) == false)
 			this->Idle();
 		else {
+
+			if (e.isPress(controlKey[SimonControl_Left])) {
+				this->MoveLeft();
+			}
+
+			if (e.isPress(controlKey[SimonControl_Right])) {
+				this->MoveRight();
+			}
+
 			if (e.isPress(controlKey[SimonControl_B]) && e.isPress(controlKey[SimonControl_Down])) {
 				this->KneelAttack();
 			}
@@ -111,20 +132,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			}
 			if (e.isPress(controlKey[SimonControl_TurboB])) {
 				this->Attack();
-
 			}
 
 			if (e.isPress(controlKey[SimonControl_A]) && this->isGrounding == true) {
 				this->Jump();
 				this->isGrounding = false;
-			}
-
-			if (e.isPress(controlKey[SimonControl_Left])) {
-				this->MoveLeft();
-			}
-
-			if (e.isPress(controlKey[SimonControl_Right])) {
-				this->MoveRight();
 			}
 		}
 	};
@@ -248,6 +260,7 @@ void Simon::StandAttack()
 {
 	this->body->velocity.x = 0;
 	this->PlayAnimation("standAttack");
+	this->incompleteAnim = "standAttack";
 	this->WhipAttack();
 }
 
