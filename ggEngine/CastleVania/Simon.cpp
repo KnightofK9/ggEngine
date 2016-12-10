@@ -27,27 +27,20 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", 11, 11, true);
-	this->CreateAnimation("standAttack", 12, 14, false);
+	this->CreateAnimation("standAttack", 12, 14, false)->SetOnCompleted([this](Animator*) {
+		this->PlayAnimation("afterStandAttack");
+	});
+
+
 	this->CreateAnimation("afterStandAttack", 14, 14, false);
 	this->CreateAnimation("kneelAttack", 15, 17, false);
 	this->CreateAnimation("afterKneelAttack", 17, 17, false);
 	this->CreateAnimation("climbDownAttack", 18, 20, true);
 	this->CreateAnimation("climbUpAttack", 21, 23, true);
 
-
 	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
 	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-		if (incompleteAnim != "") {
-			this->PlayAnimation(incompleteAnim);
-		}
 
-		////} else {
-		//	if (e.animationName == "standAttack")
-		//		this->PlayAnimation("afterKneelAttack");
-
-		//	if (e.animationName == "kneelAttack")
-		//		this->PlayAnimation("afterKneelAttack");
-		////}
 	};
 
 	this->cvGame->physics->EnablePhysics(this);
@@ -259,7 +252,7 @@ void Simon::StandAttack()
 {
 	this->body->velocity.x = 0;
 	this->PlayAnimation("standAttack");
-	this->incompleteAnim = "standAttack";
+	//this->incompleteAnim = "standAttack";
 	this->WhipAttack();
 }
 

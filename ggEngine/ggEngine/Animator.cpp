@@ -69,7 +69,7 @@ namespace ggEngine {
 	}
 	Animator * Animator::SetOnCompleted(std::function<void(Animator*animator)> onAnimatorComplete)
 	{
-		this->onAnimatorBegin = onAnimatorComplete;
+		this->onAnimatorCompleted = onAnimatorComplete;
 		return this;
 	}
 }
