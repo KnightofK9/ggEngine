@@ -38,11 +38,57 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		return go;
 	}
 	if (type == "Simon") {
-		go =  this->cvAdd->CharSimon(x, y, 16, nullptr, group);
+		go = this->cvAdd->CharSimon(x, y, CharacterConstant::SIMON_MAX_HEALTH , nullptr, group);
 		return go;
 	}
-
-
+	if (type == "BigHeart") {
+		go = this->itemManager->AddHeartLarger(x, y, group);
+	}
+	if (type == "Heart") {
+		go = this->itemManager->AddHeart(x, y, group);
+	}
+	if (type == "HolyWater") {
+		go = this->itemManager->AddHolyWater(x, y, group);
+	}
+	if (type == "InvincibilityPotion") {
+		go = this->itemManager->AddInvinPotion(x, y, group);
+	}
+	if (type == "MoneyBag100") {
+		go = this->itemManager->AddMoneyBag100(x, y, group);
+	}
+	if (type == "MoneyBag400") {
+		go = this->itemManager->AddMoneyBag400(x, y, group);
+	}
+	if (type == "MoneyBag700") {
+		go = this->itemManager->AddMoneyBag700(x, y, group);
+	}
+	if (type == "PotRoast") {
+		go = this->itemManager->AddPotRoast(x, y, group);
+	}
+	if (type == "StopWatch") {
+		go = this->itemManager->AddStopWatch(x, y, group);
+	}
+	if (type == "TripleShot") {
+		go = this->itemManager->AddTripleShot(x, y, group);
+	}
+	if (type == "WhipUpgrade") {
+		go = this->itemManager->AddWhipUpgrade(x, y, group);
+	}
+	if (type == "Axe") {
+		go = this->itemManager->AddAxe(x, y, group);
+	}
+	if (type == "Boomerang") {
+		go = this->itemManager->AddBoomerang(x, y, group);
+	}
+	if (type == "Cross") {
+		go = this->itemManager->AddCross(x, y, group);
+	}
+	if (type == "Dagger") {
+		go = this->itemManager->AddDagger(x, y, group);
+	}
+	if (type == "DoubleShot") {
+		go = this->itemManager->AddDoubleShot(x, y, group);
+	}
 	return go;
 
 }
