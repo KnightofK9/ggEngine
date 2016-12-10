@@ -47,8 +47,11 @@ Heart * ItemManager::AddHeart(double x, double y, ggEngine::Group * group)
 	Heart * heart = new Heart(this->cvGame, inf);
 	heart->SetPosition(x, y);
 	heart->Active();
-	heart->CheckCollisionToSimon(this->cvGame->simon);
-	group->AddDrawObjectToList(heart);
+	//heart->CheckCollisionToSimon(this->cvGame->simon);
+	if (group != nullptr) {
+		heart->SetParentObject(group);
+		group->AddDrawObjectToList(heart);
+	}
 	return heart;
 }
 
@@ -58,9 +61,11 @@ AxeItem * ItemManager::AddAxe(double x, double y, ggEngine::Group * group)
 	AxeItem *axe = new AxeItem(this->cvGame, inf);
 	axe->SetPosition(x, y);
 	axe->Active();
-	axe->CheckCollisionToSimon(this->cvGame->simon);
-	group->AddDrawObjectToList(axe);
-
+	//axe->CheckCollisionToSimon(this->cvGame->simon);
+	if (group != nullptr) {
+		axe->SetParentObject(group);
+		group->AddDrawObjectToList(axe);
+	}
 	return axe;
 }
 
@@ -70,9 +75,11 @@ MoneyBag100 * ItemManager::AddMoneyBag100(double x, double y, ggEngine::Group * 
 	MoneyBag100 *moneyBag = new MoneyBag100(this->cvGame, inf);
 	moneyBag->SetPosition(x, y);
 	moneyBag->Active();
-	moneyBag->CheckCollisionToSimon(this->cvGame->simon);
-	group->AddDrawObjectToList(moneyBag);
-
+	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+	if (group != nullptr) {
+		moneyBag->SetParentObject(group);
+		group->AddDrawObjectToList(moneyBag);
+	}
 	return moneyBag;
 }
 
@@ -82,9 +89,11 @@ MoneyBag400 * ItemManager::AddMoneyBag400(double x, double y, ggEngine::Group * 
 	MoneyBag400 *moneyBag = new MoneyBag400(this->cvGame, inf);
 	moneyBag->SetPosition(x, y);
 	moneyBag->Active();
-	moneyBag->CheckCollisionToSimon(this->cvGame->simon);
-	group->AddDrawObjectToList(moneyBag);
-
+	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+	if (group != nullptr) {
+		moneyBag->SetParentObject(group);
+		group->AddDrawObjectToList(moneyBag);
+	}
 	return moneyBag;
 }
 
@@ -94,9 +103,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	MoneyBag700 *moneyBag = new MoneyBag700(this->cvGame, inf);
 	moneyBag->SetPosition(x, y);
 	moneyBag->Active();
-	moneyBag->CheckCollisionToSimon(this->cvGame->simon);
-	group->AddDrawObjectToList(moneyBag);
-
+	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+	if (group != nullptr) {
+		moneyBag->SetParentObject(group);
+		group->AddDrawObjectToList(moneyBag);
+	}
 	return moneyBag;
 }
 
@@ -108,9 +119,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	moneyBag->SetPosition(x, y);
 	moneyBag->PlayAnimation("moneyBag1000");
 	moneyBag->Active();
-	moneyBag->CheckCollisionToSimon(this->cvGame->simon);
-	group->AddDrawObjectToList(moneyBag);
-
+	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+	if (group != nullptr) {
+		moneyBag->SetParentObject(group);
+		group->AddDrawObjectToList(moneyBag);
+	}
 	return moneyBag;
 }
 
@@ -120,9 +133,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 HolyWaterItem *holyWater = new HolyWaterItem(this->cvGame, inf);
 	 holyWater->SetPosition(x, y);
 	 holyWater->Active();
-	 holyWater->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(holyWater);
-
+	 //holyWater->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 holyWater->SetParentObject(group);
+		 group->AddDrawObjectToList(holyWater);
+	 }
 	 return holyWater;
  }
 
@@ -132,9 +147,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 DaggerItem *dragger = new DaggerItem(this->cvGame, inf);
 	 dragger->SetPosition(x, y);
 	 dragger->Active();
-	 dragger->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(dragger);
-
+	 //dragger->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 dragger->SetParentObject(group);
+		 group->AddDrawObjectToList(dragger);
+	 }
 	 return dragger;
  }
 
@@ -144,9 +161,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 Cross *cross = new Cross(this->cvGame, inf);
 	 cross->SetPosition(x, y);
 	 cross->Active();
-	 cross->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(cross);
-
+	 //cross->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 cross->SetParentObject(group);
+		 group->AddDrawObjectToList(cross);
+	 }
 	 return cross;
  }
 
@@ -156,9 +175,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 Crown *crown = new Crown(this->cvGame, inf);
 	 crown->SetPosition(x, y);
 	 crown->Active();
-	 crown->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(crown);
-
+	 //crown->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 crown->SetParentObject(group);
+		 group->AddDrawObjectToList(crown);
+	 }
 	 return crown;
  }
 
@@ -168,9 +189,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 StopWatch *stopWatch = new StopWatch(this->cvGame, inf);
 	 stopWatch->SetPosition(x, y);
 	 stopWatch->Active();
-	 stopWatch->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(stopWatch);
-
+	 //stopWatch->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 stopWatch->SetParentObject(group);
+		 group->AddDrawObjectToList(stopWatch);
+	 }
 	 return stopWatch;
  }
 
@@ -180,9 +203,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 PotRoast *potRoast = new PotRoast(this->cvGame, inf);
 	 potRoast->SetPosition(x, y);
 	 potRoast->Active();
-	 potRoast->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(potRoast);
-
+	 //potRoast->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 potRoast->SetParentObject(group);
+		 group->AddDrawObjectToList(potRoast);
+	 }
 	 return potRoast;
  }
 
@@ -192,9 +217,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 InvinPotion *invinPotion = new InvinPotion(this->cvGame, inf);
 	 invinPotion->SetPosition(x, y);
 	 invinPotion->Active();
-	 invinPotion->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(invinPotion);
-
+	 //invinPotion->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 invinPotion->SetParentObject(group);
+		 group->AddDrawObjectToList(invinPotion);
+	 }
 	 return invinPotion;
  }
 
@@ -204,9 +231,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 HeartLarger *heartLarger = new HeartLarger(this->cvGame, inf);
 	 heartLarger->SetPosition(x, y);
 	 heartLarger->Active();
-	 heartLarger->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(heartLarger);
-
+	 //heartLarger->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 heartLarger->SetParentObject(group);
+		 group->AddDrawObjectToList(heartLarger);
+	 }
 	 return heartLarger;
  }
 
@@ -216,9 +245,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 WhipUpgradeItem *whip = new WhipUpgradeItem(this->cvGame, inf);
 	 whip->SetPosition(x, y);
 	 whip->Active();
-	 whip->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(whip);
-
+	 //whip->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 whip->SetParentObject(group);
+		 group->AddDrawObjectToList(whip);
+	 }
 	 return whip;
  }
 
@@ -230,9 +261,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 stuff->SetPosition(x, y);
 	 stuff->PlayAnimation("stuff");
 	 stuff->Active();
-	 stuff->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(stuff);
-
+	 //stuff->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 stuff->SetParentObject(group);
+		 group->AddDrawObjectToList(stuff);
+	 }
 	 return stuff;
  }
 
@@ -242,9 +275,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 BoomerangItem *boomerang = new BoomerangItem(this->cvGame, inf);
 	 boomerang->SetPosition(x, y);
 	 boomerang->Active();
-	 boomerang->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(boomerang);
-
+	 //boomerang->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 boomerang->SetParentObject(group);
+		 group->AddDrawObjectToList(boomerang);
+	 }
 	 return boomerang;
  } 
  
@@ -254,9 +289,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 DoubleShot *doubleShot = new DoubleShot(this->cvGame, inf);
 	 doubleShot->SetPosition(x, y);
 	 doubleShot->Active();
-	 doubleShot->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(doubleShot);
-
+	 //doubleShot->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 doubleShot->SetParentObject(group);
+		 group->AddDrawObjectToList(doubleShot);
+	 }
 	 return doubleShot;
  } 
  
@@ -266,8 +303,11 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 TripleShot *tripleShot = new TripleShot(this->cvGame, inf);
 	 tripleShot->SetPosition(x, y);
 	 tripleShot->Active();
-	 tripleShot->CheckCollisionToSimon(this->cvGame->simon);
-	 group->AddDrawObjectToList(tripleShot);
+	 //tripleShot->CheckCollisionToSimon(this->cvGame->simon);
+	 if (group != nullptr) {
+		 tripleShot->SetParentObject(group);
+		 group->AddDrawObjectToList(tripleShot);
+	 }
 
 	 return tripleShot;
  }
