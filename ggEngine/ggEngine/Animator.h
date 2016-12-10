@@ -27,5 +27,6 @@ namespace ggEngine {
 		std::function<void(Animator* animator)> onAnimatorCompleted;
 		std::string name;
 		RECT *frameList;
+		bool isBegin = false;
 	};
 }
