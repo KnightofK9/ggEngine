@@ -39,7 +39,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
 		if (incompleteAnim != "") {
 			this->PlayAnimation(incompleteAnim);
-			incompleteAnim = "";
 		}
 
 		////} else {

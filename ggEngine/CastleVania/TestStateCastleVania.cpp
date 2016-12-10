@@ -12,7 +12,7 @@ void TestStateCastleVania::Init() {
 	this->itemManager = this->cvgame->itemManager;
 }
 void TestStateCastleVania::Preload() {
-	Json jsonFile("State/TestState.json", true);
+	Json jsonFile("State/TestState_withItems.json", true);
 	for (auto& it : jsonFile["preloadList"].GetArray())
 	{
 		std::string type = it["type"].GetString();
@@ -33,7 +33,7 @@ void TestStateCastleVania::Create()
 
 	//std::string tileMapJson = "";
 	{
-		Json state("State/TestState.json", true);
+		Json state("State/TestState_withItems.json", true);
 
 		cvMap = this->cvAdd->LoadMap(state.GetCharArray().c_str(), this->cvgame->world);
 
@@ -57,7 +57,7 @@ void TestStateCastleVania::Create()
 	//this->simon->SetHealth(1);
 	//this->cvgame->simon = this->simon;
 	this->itemManager->AddHeart(200, 100, group);
-	this->itemManager->AddHeart(250, 100, group);
+	this->itemManager->AddCandle(250, 800, group);
 	this->itemManager->AddWhipUpgrade(300, 100, group);
 	this->itemManager->AddHeart(450, 100, group);
 	this->itemManager->AddMoneyBag1000(150, 100, group);

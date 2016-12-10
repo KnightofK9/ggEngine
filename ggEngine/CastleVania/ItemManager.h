@@ -19,7 +19,9 @@
 #include "Stuff.h"
 #include "DoubleShot.h"
 #include "TripleShot.h"
+#include "Candle.h"
 #include "ManagerBase.h"
+
 using namespace ggEngine;
 class ggEngine::Group;
 class CVPreload;
@@ -30,6 +32,7 @@ public:
 	virtual ~ItemManager();
 
 	void PreloadAllItem();
+	Candle* AddCandle(double x, double y, ggEngine::Group* group);
 	Heart* AddHeart(double x, double y, ggEngine::Group* group);
 	AxeItem* AddAxe(double x, double y, ggEngine::Group* group);
 	MoneyBag100* AddMoneyBag100(double x, double y, ggEngine::Group * group);

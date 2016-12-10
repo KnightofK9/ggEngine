@@ -107,8 +107,23 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		go = this->itemManager->AddDoubleShot(x, y, group);
 		return go;
 	}
-	if (type == "DoubleShot") {
-		go = this->itemManager->AddDoubleShot(x, y, group);
+
+
+	///Contans.js is missing some items in below:
+	if (type == "Candle") {
+		go = this->itemManager->AddCandle(x, y, group);
+		return go;
+	}
+	if (type == "Crown") {
+		go = this->itemManager->AddCrown(x, y, group);
+		return go;
+	}
+	if (type == "Stuff") {
+		go = this->itemManager->AddStuff(x, y, group);
+		return go;
+	}
+	if (type == "MoneyBag1000") {
+		go = this->itemManager->AddMoneyBag1000(x, y, group);
 		return go;
 	}
 }
