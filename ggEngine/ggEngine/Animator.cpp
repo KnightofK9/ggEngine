@@ -18,10 +18,11 @@ namespace ggEngine {
 	{
 	}
 
-	void Animator::Reset()
+	Animator* Animator::Reset()
 	{
 		this->currentFrame = this->startFrame;
 		this->isFinished = false;
+		return this;
 	}
 	int Animator::GetNextFrameIndex(bool forceGetNextFrame)
 	{
@@ -60,5 +61,15 @@ namespace ggEngine {
 		return nextFrame;
 		
 		//return currentFrame;
+	}
+	Animator * Animator::SetOnBegin(std::function<void(Animator*animator)> onAnimatorBegin)
+	{
+		this->onAnimatorBegin = onAnimatorBegin;
+		return this;
+	}
+	Animator * Animator::SetOnCompleted(std::function<void(Animator*animator)> onAnimatorComplete)
+	{
+		this->onAnimatorBegin = onAnimatorComplete;
+		return this;
 	}
 }

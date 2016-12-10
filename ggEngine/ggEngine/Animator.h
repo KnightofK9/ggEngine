@@ -8,7 +8,7 @@ namespace ggEngine {
 	public:
 		Animator(int startFrame, int endFrame, SpriteAnimation *spriteAnimation, std::string name, bool isLoop);
 		virtual ~Animator();
-		void Reset();
+		Animator* Reset();
 		int GetNextFrameIndex(bool forceGetNextFrame = false);
 		bool isFinished;
 		int frameWidth;
@@ -20,8 +20,8 @@ namespace ggEngine {
 		int framePerRow;
 		int framePerColumn;
 		SpriteAnimation* spriteAnimation = nullptr;
-		void SetOnBegin(std::function<void(Animator* animator)> onAnimatorBegin) { this->onAnimatorBegin = onAnimatorBegin; }
-		void SetOnCompleted(std::function<void(Animator* animator)> onAnimatorComplete) { this->onAnimatorCompleted = onAnimatorCompleted; }
+		Animator* SetOnBegin(std::function<void(Animator* animator)> onAnimatorBegin);
+		Animator* SetOnCompleted(std::function<void(Animator* animator)> onAnimatorComplete);
 	private:
 		std::function<void(Animator* animator)> onAnimatorBegin;
 		std::function<void(Animator* animator)> onAnimatorCompleted;

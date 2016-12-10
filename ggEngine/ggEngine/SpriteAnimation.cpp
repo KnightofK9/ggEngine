@@ -74,7 +74,7 @@ namespace ggEngine {
 			spriteHandle->End();
 		}
 	}
-	void SpriteAnimation::CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop)
+	Animator* SpriteAnimation::CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop)
 	{
 		if (endFrame > this->numberOfFrame) {
 			g_debug.Warning("End frame is bigger than number of frame.");
@@ -84,7 +84,9 @@ namespace ggEngine {
 			g_debug.Warning("Start frame must not be negative.");
 			startFrame = 0;
 		}
-		animatorMap[animationName] = new Animator(startFrame, endFrame, this, animationName, isLoop);
+		auto *animator = new Animator(startFrame, endFrame, this, animationName, isLoop);
+		animatorMap[animationName] = animator;
+		return animator;
 	}
 	void SpriteAnimation::NextAnimationFrame(std::string animationName)
 	{

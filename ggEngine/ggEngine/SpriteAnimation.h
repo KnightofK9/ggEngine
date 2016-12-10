@@ -12,7 +12,7 @@ namespace ggEngine {
 		virtual ~SpriteAnimation();
 		void Draw() override;
 		void DrawRect() override;
-		void CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
+		Animator* CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
 		Animator* PlayAnimation(std::string animationName);
 		void ResetAnimation(std::string animationName);
 		void SetImage(SpriteInfo *image, int frameWidth, int frameHeight, int numberOfFrame = 0);
