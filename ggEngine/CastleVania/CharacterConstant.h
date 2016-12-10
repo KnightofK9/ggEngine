@@ -8,4 +8,6 @@ public:
 
 	static constexpr const double SIMON_HURT_FORCE = 1.0f;
 	static constexpr const double SIMON_HURT_TIME = 500;
+
+	static constexpr const double SIMON_MAX_HEALTH = 16;
 };
