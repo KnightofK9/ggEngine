@@ -138,4 +138,7 @@ var Constant = new function () {
             name: this.RESOURCE_PATH + "DoubleShot.png"
         }
     }
+    this.ITEM_ANIMATION_DICT = {
+        
+    }
 };
