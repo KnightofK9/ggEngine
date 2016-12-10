@@ -43,52 +43,70 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	}
 	if (type == "BigHeart") {
 		go = this->itemManager->AddHeartLarger(x, y, group);
+		return go;
 	}
 	if (type == "Heart") {
 		go = this->itemManager->AddHeart(x, y, group);
+		return go;
 	}
 	if (type == "HolyWater") {
 		go = this->itemManager->AddHolyWater(x, y, group);
+		return go;
 	}
 	if (type == "InvincibilityPotion") {
 		go = this->itemManager->AddInvinPotion(x, y, group);
+		return go;
 	}
 	if (type == "MoneyBag100") {
 		go = this->itemManager->AddMoneyBag100(x, y, group);
+		return go;
 	}
 	if (type == "MoneyBag400") {
 		go = this->itemManager->AddMoneyBag400(x, y, group);
+		return go;
 	}
 	if (type == "MoneyBag700") {
 		go = this->itemManager->AddMoneyBag700(x, y, group);
+		return go;
 	}
 	if (type == "PotRoast") {
 		go = this->itemManager->AddPotRoast(x, y, group);
+		return go;
 	}
 	if (type == "StopWatch") {
 		go = this->itemManager->AddStopWatch(x, y, group);
+		return go;
 	}
 	if (type == "TripleShot") {
 		go = this->itemManager->AddTripleShot(x, y, group);
+		return go;
 	}
 	if (type == "WhipUpgrade") {
 		go = this->itemManager->AddWhipUpgrade(x, y, group);
+		return go;
 	}
 	if (type == "Axe") {
 		go = this->itemManager->AddAxe(x, y, group);
+		return go;
 	}
 	if (type == "Boomerang") {
 		go = this->itemManager->AddBoomerang(x, y, group);
+		return go;
 	}
 	if (type == "Cross") {
 		go = this->itemManager->AddCross(x, y, group);
+		return go;
 	}
 	if (type == "Dagger") {
 		go = this->itemManager->AddDagger(x, y, group);
+		return go;
 	}
 	if (type == "DoubleShot") {
 		go = this->itemManager->AddDoubleShot(x, y, group);
+		return go;
 	}
-	return go;
-
+	if (type == "DoubleShot") {
+		go = this->itemManager->AddDoubleShot(x, y, group);
+		return go;
+	}
 }
