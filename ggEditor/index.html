@@ -28,6 +28,7 @@
     <script type="text/javascript" src="js/ObjectList.js"></script>
     <script type="text/javascript" src="js/Helper.js"></script>
     <script type="text/javascript" src="js/ggConsole.js"></script>
+    <script type="text/javascript" src="js/ObjectInfo.js"></script>
     <script type="text/javascript" src="js/MapEditor.js"></script>
     <script type="text/javascript" src="js/StateInfo.js"></script>
     <script type="text/javascript" src="js/HierarchyEditor.js"></script>
@@ -56,36 +57,36 @@
     <!--<button type="button" class="btn btn-primary" id="btn-export-tile-map">Export Tile Map</button>-->
 
     <div id="gg-tool-bar">
-       <div id="press-field" class="btn-group" style="display: inline;">
-           <button id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default ">
-               <i class="glyphicon glyphicon-file"></i> New Scene
-           </button>
-           <button id="btn-net-tile-set" onclick="createNewTileSet()" class="btn btn-default">
-               <i class="glyphicon glyphicon-list-alt"></i> New Tile Set
-           </button>
-           <button id="btn-export-tile-map" class="btn btn-default">
-               <i class="glyphicon glyphicon-save"></i> Export Tile Map
-           </button>
-           <button class="btn btn-default" onclick="refreshState()" >
-               <i class="glyphicon glyphicon-refresh"></i> Refresh
-           </button>
-       </div>
+        <div id="press-field" class="btn-group" style="display: inline;">
+            <button id="btn-new-scene" onclick="initSceneEditor()" class="btn btn-default ">
+                <i class="glyphicon glyphicon-file"></i> New Scene
+            </button>
+            <button id="btn-net-tile-set" onclick="createNewTileSet()" class="btn btn-default">
+                <i class="glyphicon glyphicon-list-alt"></i> New Tile Set
+            </button>
+            <button id="btn-export-tile-map" class="btn btn-default">
+                <i class="glyphicon glyphicon-save"></i> Export Tile Map
+            </button>
+            <button class="btn btn-default" onclick="refreshState()">
+                <i class="glyphicon glyphicon-refresh"></i> Refresh
+            </button>
+        </div>
 
         <div id="picker-filed" class="btn-group" style="display: inline">
-            <button class="btn btn-primary" onclick="selectPicker()" >
+            <button class="btn btn-primary" onclick="selectPicker()">
                 <i class="glyphicon glyphicon-zoom-in"></i>Tile Picker
             </button>
-            <button class="btn btn-primary" onclick="movePicker()" >
+            <button class="btn btn-primary" onclick="movePicker()">
                 <i class="glyphicon glyphicon-move"></i> Move Picker
             </button>
-            <button class="btn btn-primary" onclick="removePicker()" >
+            <button class="btn btn-primary" onclick="removePicker()">
                 <i class="glyphicon glyphicon-remove"></i> Remove Picker
             </button>
         </div>
 
     </div>
-    <div style="display: inline-block;" >
-        <div id="gg-map-scene" class="panel panel-default" >
+    <div style="display: inline-block;">
+        <div id="gg-map-scene" class="panel panel-default">
             <div class="panel-body">
                 <div id="gg-phaser">
 
@@ -103,6 +104,8 @@
                     </li>
                     <li id="gg-state-info-nav-tab"><a href="#" onclick='switchToTab("gg-state-info")'>State Info</a>
                     </li>
+                    <li id="gg-object-info-nav-tab"><a href="#" onclick='switchToTab("gg-object-info")'>Object Info</a>
+                    </li>
                 </ul>
             </div>
 
@@ -110,9 +113,10 @@
                 <div class="just-padding">
 
                     <div id="gg-hierarchy-list" class="list-group list-group-root well">
-                        <div style="display: none" onclick="hierarchyEditor.onSelectLineClick(0)" id="hierarchy-0"><a class="list-group-item">
+                        <div style="display: none" onclick="hierarchyEditor.onSelectLineClick(0)" id="hierarchy-0"><a
+                                class="list-group-item">
                             &nbsp;&nbsp;Game<i onclick="hierarchyEditor.handleRemoveClick(0)"
-                                                   class="glyphicon glyphicon-remove gg-hierarchy-delete"></i></a></div>
+                                               class="glyphicon glyphicon-remove gg-hierarchy-delete"></i></a></div>
 
                     </div>
 
@@ -121,12 +125,21 @@
             </div>
 
             <div id="gg-state-info" class="panel-body hierarchy">
-                <label class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox" checked>Use quad tree</label><br/>
-                <label class="checkbox-inline"><input id="gg-state-info-put-enemy-to-quad-tree" type="checkbox">Put enemy to quad tree</label><br/>
-                <label class="checkbox-inline"><input id="gg-state-info-render-static-body" type="checkbox" >Render static body</label><br/>
-                <label class="checkbox-inline"><input id="gg-state-info-render-quad-tree" type="checkbox" >Render quad tree</label><br/>
+                <label class="checkbox-inline"><input id="gg-state-info-enable-quad-tree" type="checkbox" checked>Use
+                    quad tree</label><br/>
+                <label class="checkbox-inline"><input id="gg-state-info-put-enemy-to-quad-tree" type="checkbox">Put
+                    enemy to quad tree</label><br/>
+                <label class="checkbox-inline"><input id="gg-state-info-render-static-body" type="checkbox">Render
+                    static body</label><br/>
+                <label class="checkbox-inline"><input id="gg-state-info-render-quad-tree" type="checkbox">Render quad
+                    tree</label><br/>
             </div>
-
+            <div id="gg-object-info" class="panel-body hierarchy">
+                <label>x <input id="gg-object-info-x" type="number"
+                                class="form-control gg-object-info-input-field"></label>
+                <label>y<input id="gg-object-info-y" type="number"
+                               class="form-control gg-object-info-input-field"></label>
+            </div>
         </div>
 
         <div id="gg-map-panel" class="panel panel-default">
@@ -203,11 +216,12 @@
     var hierarchyEditor = null;
     var objectList = null;
     var stateInfo = null;
+    var objectInfo = null;
     $(document).ready(function () {
 
-        var doc =  $(document);
-        doc.keyup(function(e){
-            if(e.keyCode == 46) {
+        var doc = $(document);
+        doc.keyup(function (e) {
+            if (e.keyCode == 46) {
                 onDelete();
             }
         });
@@ -215,14 +229,20 @@
         doc.on('copy', onCopy);
         doc.on('cut', onCut);
 
-        $("#picker-filed > .btn").click(function(){
+        $("#picker-filed > .btn").click(function () {
             $(this).addClass("active");
         });
-        $("#press-field > .btn").click(function(){
+        $("#press-field > .btn").click(function () {
             $("#picker-filed > .btn").removeClass("active");
         });
-
-
+        objectInfo = new ObjectInfo();
+        $('#gg-object-info').keypress(function (e) {
+            if (e.which == 13) {
+                onEditingObjectInfo();
+                return false;
+            }
+            return true;
+        });
 
         ggConsole.init();
         stateInfo = new StateInfo();
@@ -256,7 +276,10 @@
         $("#btn-export-tile-map").on('click', exportQuadTree);
 
     });
-    function onDelete(){
+    function onEditingObjectInfo() {
+        alert("abc");
+    }
+    function onDelete() {
         sceneEditor.editState.deleteTileInRect();
     }
     function showYesNoDialog(title, body, callback) {
@@ -284,13 +307,13 @@
             }]
         });
     }
-    function removePicker(){
+    function removePicker() {
         sceneEditor.editState.pickRemove();
     }
-    function movePicker(){
+    function movePicker() {
         sceneEditor.editState.pickMove();
     }
-    function selectPicker(){
+    function selectPicker() {
         sceneEditor.editState.pickSelect();
     }
     function initSceneEditor() {
@@ -359,7 +382,7 @@
 
 //            importState
     }
-    function refreshState(){
+    function refreshState() {
         sceneEditor.editState.refresh();
     }
     function createSceneFromDialog(dialogRef) {
@@ -381,14 +404,22 @@
         dialogRef.close();
     }
     function switchToTab(tabName) {
+
         switch (tabName) {
+            case "gg-object-info":
+                hierarchyEditor.setActive(false);
+                stateInfo.setActive(false);
+                objectInfo.setActive(true);
+                break;
             case "gg-info-hierarchy":
                 hierarchyEditor.setActive(true);
                 stateInfo.setActive(false);
+                objectInfo.setActive(false);
                 break;
             case "gg-state-info":
                 hierarchyEditor.setActive(false);
                 stateInfo.setActive(true);
+                objectInfo.setActive(false);
                 break;
             case "gg-tool-map-panel":
                 mapEditor.setActive(true);
@@ -404,13 +435,13 @@
         $("#gg-object-panel > div").css("display", "none");
         $("#" + objectListName).css("display", "block");
     }
-    function onCopy(){
+    function onCopy() {
         sceneEditor.editState.copyTileInRect();
     }
-    function onCut(){
+    function onCut() {
 //        sceneEditor.editState.cutTileInRect();
     }
-    function onPaste(){
+    function onPaste() {
         sceneEditor.editState.pasteTileInRect();
     }
     function createTileSetFromDialog(dialogRef) {
