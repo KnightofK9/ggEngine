@@ -65,7 +65,6 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     var createGroup = function (groupName) {
         return hierarchyEditor.add.group(groupName);
-
     };
 
     var initGroupListAsJson = function(useQuadTree){
