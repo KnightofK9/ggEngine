@@ -1,8 +1,8 @@
 #include "CVPreload.h"
 #include "CVGame.h"
-CVPreload::CVPreload(CVGame * game)
+CVPreload::CVPreload(CVGame * game) : ManagerBase(game)
 {
-	this->preload = game->preload;
+	
 }
 
 CVPreload::~CVPreload()

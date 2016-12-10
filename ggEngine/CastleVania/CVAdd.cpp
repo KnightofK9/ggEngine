@@ -1,14 +1,11 @@
 #include "CVAdd.h"
 #include "TextureConstant.h"
 #include "TypeEnum.h"
-#include "CVState.h"
 #include "CharacterConstant.h"
 
-CVAdd::CVAdd(CVGame *cvgame)
+CVAdd::CVAdd(CVGame *cvGame) : ManagerBase(cvGame)
 {
-	this->cache = cvgame->cache;
-	this->add = cvgame->add;
-	this->cvgame = cvgame;
+
 }
 
 CVAdd::~CVAdd()
@@ -18,7 +15,7 @@ CVAdd::~CVAdd()
 Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SIMON_TEXTURE);
-	Simon *simon = new Simon(this->cvgame, inf,infoPanel, 45, 40, 0,0, 130);
+	Simon *simon = new Simon(this->cvGame, inf,infoPanel, 45, 40, 0,0, 130);
 	simon->SetPosition(x, y);
 	simon->SetOpacityAffectByParent(false);
 	
@@ -27,7 +24,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 		group->AddDrawObjectToList(simon);
 	}
 
-	this->cvgame->camera->Follow(simon);
+	this->cvGame->camera->Follow(simon);
 
 	return simon;
 }
@@ -35,7 +32,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 {
 
-	InfoPanel *infoPanel = new InfoPanel(this->cvgame);
+	InfoPanel *infoPanel = new InfoPanel(this->cvGame);
 	Style style;
 	int fontSize = 22;
 	int margin = 20;
@@ -188,7 +185,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 
 HealthBar * CVAdd::UIPlayerHealthBar(double x, double y, ggEngine::Group* group)
 {
-	HealthBar *bar = new HealthBar(this->cvgame);
+	HealthBar *bar = new HealthBar(this->cvGame);
 	ggEngine::Sprite* emptyHealthBar = this->add->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
 	ggEngine::Sprite* healthBar = this->add->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, bar);
 	bar->SetEmptyHealthBar(emptyHealthBar);
@@ -200,7 +197,7 @@ HealthBar * CVAdd::UIPlayerHealthBar(double x, double y, ggEngine::Group* group)
 
 HealthBar * CVAdd::UIEnemyHealthBar(double x, double y, ggEngine::Group* group)
 {
-	HealthBar *bar = new HealthBar(this->cvgame);
+	HealthBar *bar = new HealthBar(this->cvGame);
 	ggEngine::Sprite* emptyHealthBar = this->add->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, bar);
 	ggEngine::Sprite* healthBar = this->add->Sprite(0, 0, TextureConstant::FULL_HEALTH_ENEMY_TEXTURE, bar);
 	bar->SetEmptyHealthBar(emptyHealthBar);
@@ -212,7 +209,7 @@ HealthBar * CVAdd::UIEnemyHealthBar(double x, double y, ggEngine::Group* group)
 
 CVMap * CVAdd::LoadMap(const char * json, ggEngine::Group * group)
 {
-	CVMap *cvMap = new CVMap(this->cvgame);
+	CVMap *cvMap = new CVMap(this->cvGame);
 	cvMap->BuildMap(json);
 	group->AddGroup(cvMap);
 	return cvMap;

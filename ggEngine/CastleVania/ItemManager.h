@@ -19,12 +19,12 @@
 #include "Stuff.h"
 #include "DoubleShot.h"
 #include "TripleShot.h"
-
+#include "ManagerBase.h"
 using namespace ggEngine;
-class CVGame;
 class ggEngine::Group;
 class CVPreload;
-class ItemManager{
+class CVAdd;
+class ItemManager : public ManagerBase{
 public:
 	ItemManager(CVGame *cvGame);
 	virtual ~ItemManager();
@@ -53,9 +53,5 @@ public:
 
 private:
 	CVPreload *cvPreload = nullptr;
-	CVGame *cvGame = nullptr;
-	Add* add = nullptr;
-	Preload *preload = nullptr;
 	CVAdd *cvAdd = nullptr;
-	Cache *cache = nullptr;
 };

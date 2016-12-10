@@ -1,12 +1,8 @@
 #include "StaticTileManager.h"
-#include "CVGame.h"
 #include "TextureConstant.h"
-StaticTileManager::StaticTileManager(CVGame * cvGame)
+StaticTileManager::StaticTileManager(CVGame * cvGame) : ManagerBase(cvGame)
 {
-	this->cvGame = cvGame;
-	this->preload = cvGame->preload;
-	this->add = cvGame->add;
-	this->cache = cvGame->cache;
+
 }
 
 StaticTileManager::~StaticTileManager()

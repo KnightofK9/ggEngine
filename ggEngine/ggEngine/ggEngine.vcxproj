@@ -168,7 +168,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ActionManager.h" />
     <ClInclude Include="Add.h" />
     <ClInclude Include="AnimationArg.h" />
     <ClInclude Include="AnimationTile.h" />

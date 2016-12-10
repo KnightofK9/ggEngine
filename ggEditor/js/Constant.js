@@ -131,7 +131,6 @@ var Constant = new function () {
         "Cross": {
             name: this.RESOURCE_PATH + "Cross.png"
         },
-
         "Dagger": {
             name: this.RESOURCE_PATH + "Dagger.png"
         },

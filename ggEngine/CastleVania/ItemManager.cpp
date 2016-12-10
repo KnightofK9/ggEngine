@@ -1,16 +1,11 @@
 #include "ItemManager.h"
-#include "CVGame.h"
 #include "CVPreload.h"
 #include "TextureConstant.h"
 
-ItemManager::ItemManager(CVGame * cvGame)
+ItemManager::ItemManager(CVGame * cvGame) : ManagerBase(cvGame)
 {
-	this->cvGame = cvGame;
-	this->preload = cvGame->preload;
-	this->add = cvGame->add;
 	this->cvPreload = cvGame->cvPreload;
 	this->cvAdd = cvGame->cvAdd;
-	this->cache = cvGame->cache;
 }
 ItemManager::~ItemManager(){
 

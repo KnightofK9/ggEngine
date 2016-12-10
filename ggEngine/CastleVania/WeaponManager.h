@@ -5,11 +5,12 @@
 #include "WeaponHolyWater.h"
 #include "WeaponBoomerang.h"
 #include "WeaponWhip.h"
+#include "ManagerBase.h"
 using namespace ggEngine;
 class CVGame;
 class CVAdd;
 class Simon;
-class WeaponManager {
+class WeaponManager : public ManagerBase {
 public:
 	WeaponManager(CVGame *cvGame);
 	virtual ~WeaponManager();
@@ -23,7 +24,5 @@ public:
 
 
 private:
-	CVGame *cvGame = nullptr;
-	CVAdd *cvAdd = nullptr;
-	Cache *cache = nullptr;
+
 };

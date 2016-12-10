@@ -156,6 +156,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AxeItem.h" />
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="CharacterConstant.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="InvinPotion.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="CVMap.h" />
+    <ClInclude Include="ManagerBase.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="StaticTile.h" />
@@ -210,6 +212,7 @@
     <ResourceCompile Include="CastleVania.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AxeItem.cpp" />
     <ClCompile Include="BoomerangItem.cpp" />
     <ClCompile Include="CharacterBase.cpp" />
@@ -237,6 +240,7 @@
     <ClCompile Include="ItemBaseAnim.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ManagerBase.cpp" />
     <ClCompile Include="MoneyBag100.cpp" />
     <ClCompile Include="MoneyBag1000.cpp" />
     <ClCompile Include="MoneyBag400.cpp" />

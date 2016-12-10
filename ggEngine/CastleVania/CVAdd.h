@@ -1,12 +1,12 @@
 #pragma once
 #include <ggEngine.h>
 #include "Simon.h"
-#include "CVGame.h"
+#include "ManagerBase.h"
 #include "InfoPanel.h"
 #include "CVMap.h"
 using namespace ggEngine;
 class CVState;
-class CVAdd{
+class CVAdd : public ManagerBase {
 public:
 	CVAdd(CVGame *game);
 	virtual ~CVAdd();
@@ -17,8 +17,6 @@ public:
 	CVMap *LoadMap(const char* json, ggEngine::Group* group);
 
 private:
-	CVGame *cvgame = nullptr;
-	Cache *cache = nullptr;
+
 	ggEngine::Audio *audio;
-	Add *add = nullptr;
 };

@@ -189,6 +189,12 @@
     <ClInclude Include="CVMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ManagerBase.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -356,6 +362,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CVMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ManagerBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

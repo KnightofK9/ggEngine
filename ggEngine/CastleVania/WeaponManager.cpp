@@ -2,11 +2,9 @@
 #include "CVGame.h"
 #include "CVAdd.h"
 #include "TextureConstant.h"
-WeaponManager::WeaponManager(CVGame * cvGame)
+WeaponManager::WeaponManager(CVGame * cvGame) : ManagerBase(cvGame)
 {
-	this->cvGame = cvGame;
-	this->cvAdd = cvGame->cvAdd;
-	this->cache = cvGame->cache;
+
 }
 
 WeaponManager::~WeaponManager()

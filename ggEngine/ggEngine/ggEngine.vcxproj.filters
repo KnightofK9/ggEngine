@@ -488,9 +488,6 @@
     <ClInclude Include="SDKwavefile.h">
       <Filter>Header Files\Umino</Filter>
     </ClInclude>
-    <ClInclude Include="ActionManager.h">
-      <Filter>Header Files\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
