@@ -73,15 +73,12 @@ private:
 
 	bool isGrounding;	//for jump or for fall down or for hurt
 
-	//bool isAllowManuallyControl;
-
-	string incompleteAnim;
-	WeaponManager *weaponManager = nullptr;
-	WeaponWhip *weaponWhip = nullptr;
-
 	double hurtForce = 3;
 
-
+	WeaponManager *weaponManager = nullptr;
+	WeaponWhip *weaponWhip = nullptr;
+	
 	DWORD controlKey[8];
 	void SetUpKeyControl();
+	bool CheckKeyValid(KeyBoardEventArg e);
 };
