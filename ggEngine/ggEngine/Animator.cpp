@@ -31,6 +31,12 @@ namespace ggEngine {
 			return currentFrame;
 		}
 		int nextFrame = this->currentFrame;
+		if (!isBegin) {
+			isBegin = true;
+			if (this->onAnimatorBegin != nullptr) {
+				this->onAnimatorBegin(this);
+			}
+		}
 		this->currentFrame++;
 		if (this->currentFrame > this->endFrame) {
 			if (this->isLoop) {
@@ -40,12 +46,15 @@ namespace ggEngine {
 			else {
 				this->currentFrame = this->startFrame;
 				this->isFinished = true;
-				if (this->spriteAnimation->events->onAnimationCompleted != nullptr) {
+				if (this->onAnimatorCompleted != nullptr) {
+					this->onAnimatorCompleted(this);
+				}
+				/*if (this->spriteAnimation->events->onAnimationCompleted != nullptr) {
 					AnimationArg e;
 					e.animator = this;
 					e.animationName = this->name;
 					this->spriteAnimation->events->onAnimationCompleted(this->spriteAnimation, e);
-				}
+				}*/
 			}
 		}
 		return nextFrame;
