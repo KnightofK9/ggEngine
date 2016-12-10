@@ -159,6 +159,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AxeItem.h" />
     <ClInclude Include="BoomerangItem.h" />
+    <ClInclude Include="BreakableObjectBase.h" />
     <ClInclude Include="Candle.h" />
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="CharacterConstant.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AxeItem.cpp" />
     <ClCompile Include="BoomerangItem.cpp" />
+    <ClCompile Include="BreakableObjectBase.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Cross.cpp" />

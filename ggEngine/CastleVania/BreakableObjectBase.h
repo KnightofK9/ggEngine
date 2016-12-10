@@ -7,7 +7,7 @@ class CVGame;
 class WeaponWhip;
 class WeaponBase;
 
-class BreakableObjectBase : protected CVSpriteAnimation
+class BreakableObjectBase : public CVSpriteAnimation
 {
 public:
 	BreakableObjectBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
