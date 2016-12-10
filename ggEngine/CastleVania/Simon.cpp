@@ -22,7 +22,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 	this->SetScale(1, 1);
 	this->SetHealth(health);
 	this->CreateAnimation("idle", 0, 0, true);
-	this->CreateAnimation("move", 0, 3, true);
+	this->CreateAnimation("move", 1, 3, true);
 	this->CreateAnimation("kneel", 4, 4, true);
 	this->CreateAnimation("climbUp", 5, 6, true);
 	this->CreateAnimation("climbDown", 7, 8, true);
@@ -37,13 +37,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 
 	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
 	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-		if (e.animationName == "standAttack" || e.animationName == "kneelAttack"
-			|| e.animationName == "climbDownAttack" || e.animationName == "climbUpAttack") {
-			
-			this->incompleteAnim = "";
-			this->ResetAnimation(e.animationName);
-			this->Idle();
-		}
+	//	if (e.animationName == "standAttack" || e.animationName == "kneelAttack"
+
 	};
 
 	this->cvGame->physics->EnablePhysics(this);
@@ -83,45 +78,24 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 
 	};
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
-		//Simon *this = dynamic_cast<Simon*>(go);
 		if (e.blockDirection.down)
 			this->isGrounding = true;
 	};
 
 	this->cvGame->eventManager->EnableKeyBoardInput(this);
 	this->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		if (this->incompleteAnim != "") {
-			this->PlayAnimation(incompleteAnim);
-		} else {
-			//this->Idle();
-			this->body->velocity.x = 0;
 
-			if (this->GetHealth() <= 0) {
-				this->Death();
-				return;
-			}
-			if (this->isGrounding == false) {
-				this->Kneel();
-			}
+		/*if (this->GetHealth() <= 0) {
+			this->Death();
+			return;`
+		}*/
 
-			if (e.isPress(controlKey[SimonControl_Left])) {
-				this->MoveLeft();
-			}
-			else if (e.isPress(controlKey[SimonControl_Right])) {
-				this->MoveRight();
-			}
-			else {
-				this->Idle();
-			}
+		if (this->isGrounding == false) {
+		}
 
-			if (e.isPress(controlKey[SimonControl_A]) && this->isGrounding == true) {
-				this->cvGame->add->TimeOut(500, [this] {
-					this->Idle();
-				});
-				this->Jump();
-				this->isGrounding = false;
-			}
-
+		if (CheckKeyValid(e) == false)
+			this->Idle();
+		else {
 			if (e.isPress(controlKey[SimonControl_B]) && e.isPress(controlKey[SimonControl_Down])) {
 				this->KneelAttack();
 			}
@@ -134,6 +108,19 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, Group *gro
 			if (e.isPress(controlKey[SimonControl_TurboB])) {
 				this->Attack();
 
+			}
+
+			if (e.isPress(controlKey[SimonControl_A]) && this->isGrounding == true) {
+				this->Jump();
+				this->isGrounding = false;
+			}
+
+			if (e.isPress(controlKey[SimonControl_Left])) {
+				this->MoveLeft();
+			}
+
+			if (e.isPress(controlKey[SimonControl_Right])) {
+				this->MoveRight();
 			}
 		}
 	};
@@ -171,9 +158,7 @@ void Simon::Attack()
 
 void Simon::WhipAttack()
 {
-	//this->weaponManager->AddWeaponWhip(position.x, position.y, isLeft, whipVersion, parentObject);
 	this->weaponWhip->Attack(isLeft);
-
 }
 
 void Simon::Idle()
@@ -226,7 +211,6 @@ void Simon::ClimbDown()
 void Simon::Hurt()
 {
 	this->PlayAnimation("hurt");
-
 	this->Blind();
 	//this->body->SetEnable(false);
 
@@ -250,7 +234,6 @@ void Simon::Death()
 void Simon::StandAttack()
 {
 	this->body->velocity.x = 0;
-	this->incompleteAnim = "standAttack";
 	this->PlayAnimation("standAttack");
 	this->WhipAttack();
 }
@@ -259,6 +242,7 @@ void Simon::KneelAttack()
 {
 	this->PlayAnimation("kneelAttack");
 	this->body->velocity.x = 0;
+	this->WhipAttack();
 }
 
 void Simon::ClimbDownAttack()
@@ -354,5 +338,15 @@ void Simon::SetUpKeyControl()
 	controlKey[SimonControl_TurboB] = DIK_V;
 	controlKey[SimonControl_A] = DIK_Z;
 	controlKey[SimonControl_B] = DIK_X;
+}
+
+bool Simon::CheckKeyValid(KeyBoardEventArg e)
+{
+	int n = sizeof(controlKey) / sizeof(*controlKey);
+	for (int i = 0; i < n; i++) {
+		if (e.isPress(controlKey[i]))
+			return true;
+	}
+	return false;
 }
 

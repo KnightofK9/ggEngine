@@ -27,7 +27,6 @@ namespace ggEngine {
 		char ScanToChar(DWORD scanCode) const;
 		void Reset();
 
-
 		std::map<GameObject*, bool> trackingListCameraMap;
 	private:
 		void InitEvents(GameObject *go);

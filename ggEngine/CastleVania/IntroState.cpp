@@ -24,12 +24,12 @@ void IntroState::Create()
 	this->audio = this->add->Audio("audio");
 	
 	
-	//this->cvgame->camera->RegisterControl(CameraControl_MoveUp, DIK_W);
-	//this->cvgame->camera->RegisterControl(CameraControl_MoveDown, DIK_S);
-	//this->cvgame->camera->RegisterControl(CameraControl_MoveLeft, DIK_A);
-	//this->cvgame->camera->RegisterControl(CameraControl_MoveRight, DIK_D);
-	//this->cvgame->camera->RegisterControl(CameraControl_ZoomIn, DIK_1);
-	//this->cvgame->camera->RegisterControl(CameraControl_ZoomOut, DIK_2);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveUp, DIK_W);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveDown, DIK_S);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveLeft, DIK_A);
+	this->cvgame->camera->RegisterControl(CameraControl_MoveRight, DIK_D);
+	this->cvgame->camera->RegisterControl(CameraControl_ZoomIn, DIK_1);
+	this->cvgame->camera->RegisterControl(CameraControl_ZoomOut, DIK_2);
 
 
 	this->cvgame->camera->SetPoint(128, 112);
