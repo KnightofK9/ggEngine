@@ -3,12 +3,10 @@
 #include "CVAdd.h"
 #include "ItemManager.h"
 #include "WeaponManager.h"
-Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
+Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->weaponManager = cvGame->weaponManager;
-
-
-
 
 	this->tag = ObjectType_Simon;
 	this->health = 16;
@@ -27,21 +25,42 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", 11, 11, true);
+
+	//Create "after ... attack" to double the frame which whip is shown longest
+	//Stand Attack
 	this->CreateAnimation("standAttack", 12, 14, false)->SetOnCompleted([this](Animator*) {
-		this->PlayAnimation("afterStandAttack");
+		this->incompleteAnim = "afterStandAttack";
+	});
+	this->CreateAnimation("afterStandAttack", 14, 14, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "";
+	});
+
+	// Kneel Attack
+	this->CreateAnimation("kneelAttack", 15, 17, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "afterKneelAttack";
+	});
+	this->CreateAnimation("afterKneelAttack", 17, 17, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "";
+	});
+
+	//Climb Down Attack
+	this->CreateAnimation("climbDownAttack", 18, 20, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "afterStandAttack";
+	});
+	this->CreateAnimation("afterClimbDownAttack", 20, 20, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "";
+	});
+
+	//Climb Up Attack
+	this->CreateAnimation("climbUpAttack", 21, 23, true)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "afterClimbUpAttack";
+	});
+	this->CreateAnimation("afterClimbUpAttack", 23, 23, true)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "";
 	});
 
 
-	this->CreateAnimation("afterStandAttack", 14, 14, false);
-	this->CreateAnimation("kneelAttack", 15, 17, false);
-	this->CreateAnimation("afterKneelAttack", 17, 17, false);
-	this->CreateAnimation("climbDownAttack", 18, 20, true);
-	this->CreateAnimation("climbUpAttack", 21, 23, true);
 
-	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
-	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-
-	};
 
 	this->cvGame->physics->EnablePhysics(this);
 	this->body->CreateRectangleRigidBody(20, GetHeight());
@@ -100,6 +119,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 		/*if (this->isGrounding == false) {
 		}*/
+		
+		if (this->incompleteAnim != "") {
+			this->PlayAnimation(incompleteAnim);
+			return;
+		}
 
 		if (CheckKeyValid(e) == false)
 			this->Idle();
@@ -113,7 +137,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				this->MoveRight();
 			}
 
-			if (e.isPress(controlKey[SimonControl_B]) && e.isPress(controlKey[SimonControl_Down])) {
+			if (e.isPress(controlKey[SimonControl_B])
+				&& e.isPress(controlKey[SimonControl_Down])) {
 				this->KneelAttack();
 			}
 			else {
@@ -126,7 +151,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				this->Attack();
 			}
 
-			if (e.isPress(controlKey[SimonControl_A]) && this->isGrounding == true) {
+			if (e.isPress(controlKey[SimonControl_A])
+				&& this->isGrounding == true) {
 				this->Jump();
 				this->isGrounding = false;
 			}
@@ -162,8 +188,6 @@ void Simon::SetHealth(int heath)
 void Simon::Attack()
 {
 	this->weaponManager->AddWeaponBoomerang(position.x, position.y, isLeft, this->parentGroup);
-
-	
 }
 
 void Simon::WhipAttack()
@@ -174,7 +198,7 @@ void Simon::WhipAttack()
 void Simon::AddWhip()
 {
 	this->weaponWhip = this->weaponManager->AddWeaponWhip(0, 8, isLeft, this->parentGroup);
-	this->weaponWhip->SetAnchor(0.725, 0.5);
+	this->weaponWhip->SetAnchor(0.64, 0.5);
 	this->weaponWhip->SetTransformBasedOn(this);
 }
 
@@ -252,7 +276,7 @@ void Simon::StandAttack()
 {
 	this->body->velocity.x = 0;
 	this->PlayAnimation("standAttack");
-	//this->incompleteAnim = "standAttack";
+	this->incompleteAnim = "standAttack";
 	this->WhipAttack();
 }
 
