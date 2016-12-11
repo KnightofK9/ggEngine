@@ -32,12 +32,16 @@ function ObjectInfo(){
             }
         }
     };
-    var onInput = function(fieldName){
+    var onInput = function(fieldName,isExtraInfo){
         var value = currentInput[fieldName].val();
+        var editItem = currentInputHObject._item;
+        if(isExtraInfo){
+            editItem = currentInputHObject._item.extraInfo;
+        }
         if(!isNaN(value)){
-            currentInputHObject._item[fieldName] = parseFloat(value);
+            editItem[fieldName] = parseFloat(value);
         }else{
-            currentInputHObject._item[fieldName] = value;
+            editItem[fieldName] = value;
         }
     };
     var init = function(){
@@ -51,10 +55,11 @@ function ObjectInfo(){
 
         that.setShow(false);
     };
-    var createInputField = function(fieldName,value,isReadOnly){
+    var createInputField = function(fieldName,value,isExtraInfo, isReadOnly){
         if(isNull(isReadOnly)) isReadOnly = false;
+        if(isNull(isExtraInfo)) isExtraInfo = false;
         var optional = "";
-        if(!isNaN(value)){
+        if(value !== "" &&!isNaN(value)){
             optional += 'type="number" step="1"';
         }else{
             optional += 'type="text"';
@@ -74,7 +79,7 @@ function ObjectInfo(){
                     curInput.data("previousValue") != curInput.val()
                 )
                 {
-                    onInput(fieldName);
+                    onInput(fieldName,isExtraInfo);
                     curInput.data("previousValue", curInput.val());
                 }
 
@@ -91,12 +96,16 @@ function ObjectInfo(){
     this.setInputObject = function(hObject){
         that.reset();
         currentInputHObject = hObject;
-        createInputField("Name",hObject._name,true);
+        createInputField("Name",hObject._name,false,true);
         if(isNotNull(hObject._item.x)){
             createInputField("x",hObject._item.x);
         }
         if(isNotNull(hObject._item.y)){
             createInputField("y",hObject._item.y);
+        }
+        if(isNotNull(hObject._item.extraInfo)){
+            if(isNotNull(hObject._item.extraInfo.dropType))
+            createInputField("dropType",hObject._item.extraInfo.dropType,true);
         }
         that.setShow(true);
     };

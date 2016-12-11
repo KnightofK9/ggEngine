@@ -122,7 +122,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var importObjectFromNode = function(node){
         for(var i = 0 ; i < node.objects.length; i++){
             var item = node.objects[i];
-            that.createSpriteAt(item.x,item.y,item.type);
+            that.createSpriteAt(item.x,item.y,item.type,item.extraInfo);
         }
         for(var i = 0; i < node.nodes.length; i++){
             importObjectFromNode(node.nodes[i]);
@@ -751,7 +751,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         return Constant.ENEMY_DICT.hasOwnProperty(type);
     };
 
-    this.createSpriteAt = function(posX,posY,type){
+    this.createSpriteAt = function(posX,posY,type,extraInfo){
         var hGroup = quadTreeHGroup;
         var isUnQuadTree = isUnQuadTreeObject(type);
         if( isUnQuadTree ){
@@ -872,6 +872,18 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         }
 
 
+        if(isNotNull(extraInfo)){
+            sprite.extraInfo = extraInfo;
+        }else{
+            switch(type){
+                case "FireCandle":
+                    sprite.extraInfo = {};
+                    sprite.extraInfo.dropType = "";
+                    break;
+                default:
+                    break;
+            }
+        }
 
         hierarchyEditor.add.sprite(sprite, hGroup);
 
