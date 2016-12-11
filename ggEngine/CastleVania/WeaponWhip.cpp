@@ -9,10 +9,30 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	this->SetAnchor(0.65, 0.5);
 	this->SetScale(1, 1);
 	this->SetVisible(false);
-	this->CreateAnimation("1", 0, 2, false);	//standardWhip
-	this->CreateAnimation("2", 3, 5, false);	//shortWhip
-	this->CreateAnimation("3", 6, 8, false);	//longWhip
 
+	//standardWhip
+	this->CreateAnimation("1", 0, 2, false)->SetOnCompleted([this](Animator*) {
+		this->PlayAnimation("after1");
+	});
+	this->CreateAnimation("after1", 2, 2, false)->SetOnCompleted([this](Animator*) {
+		this->SetVisible(false);
+	});
+
+	//shortWhip
+	this->CreateAnimation("2", 3, 5, false)->SetOnCompleted([this](Animator*) {
+		this->PlayAnimation("after2");
+	});
+	this->CreateAnimation("after2", 5, 5, false)->SetOnCompleted([this](Animator*) {
+		this->SetVisible(false);
+	});
+
+	//longWhip
+	this->CreateAnimation("3", 6, 8, false)->SetOnCompleted([this](Animator*) {
+		this->PlayAnimation("after3");
+	});
+	this->CreateAnimation("after3", 8, 8, false)->SetOnCompleted([this](Animator*) {
+		this->SetVisible(false);
+	});
 
 	//this->cvGame->physics->EnablePhysics(this);
 	//this->body->CreateRectangleRigidBody(50, 50);//
@@ -21,13 +41,13 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	//this->body->rigidBody->SetAnchor(0.5, 0.5);
 	//this->body->SetActive(false);
 
-	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
-	this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-		//this->Destroy();
-		this->SetVisible(false);
-		//this->body->SetEnable(false);
-		//this->ResetAnimation(e.animationName);
-	};
+	//this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
+	//this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
+	//	//this->Destroy();
+	//	this->SetVisible(false);
+	//	//this->body->SetEnable(false);
+	//	//this->ResetAnimation(e.animationName);
+	//};
 	this->whipVersion = 1;
 }
 
@@ -67,7 +87,7 @@ void WeaponWhip::Attack(bool isLeft)
 
 void WeaponWhip::StandAttack(bool isLeft)
 {
-	this->SetAnchor(0.65, 0.5);
+	this->SetAnchor(0.64, 0.5);
 	this->Attack(isLeft);
 }
 
@@ -85,7 +105,7 @@ void WeaponWhip::ClimbDownAttack(bool isLeft)
 
 void WeaponWhip::KneelAttack(bool isLeft)
 {
-	this->SetAnchor(0.65, 0.25);
+	this->SetAnchor(0.64, 0.25);
 	this->Attack(isLeft);
 }
 
