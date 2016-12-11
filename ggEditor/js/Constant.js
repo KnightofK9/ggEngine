@@ -3,6 +3,7 @@
  */
 var Constant = new function () {
     //this.DEFAULT_URL = "http://localhost/ggEditor/";
+    this.exportWidthHeightForSprite = false;
     this.DEFAULT_URL = "";
     this.RESOURCE_PATH = this.DEFAULT_URL + "Resource/Resources/";
     this.TILE_SET_PATH = this.RESOURCE_PATH + "TileSet/";
@@ -41,6 +42,9 @@ var Constant = new function () {
     this.STATIC_TILE_DICT = {
         "TileBrick": {
             name: this.STATIC_TILE_PATH + "TileBrick.png"
+        },
+        "TileLadder": {
+            name: this.STATIC_TILE_PATH + "TileLadder.png"
         }
 
     };
@@ -81,12 +85,25 @@ var Constant = new function () {
             frameHeight: 16,
             numberOfFrame: 2
         },
+          "AI6": {
+            name: this.RESOURCE_PATH + "AI6.png",
+            frameWidth: 32,
+            frameHeight: 8,
+            numberOfFrame: 1
+        },
+          "AI7": {
+            name: this.RESOURCE_PATH + "AI7.png",
+            frameWidth: 32,
+            frameHeight: 64,
+            numberOfFrame: 1
+        },
         "Simon": {
             name: this.RESOURCE_PATH + "Character/simon.png",
             frameWidth: 45,
             frameHeight: 40,
             numberOfFrame: 25
         }
+
     };
     this.ITEM_DICT = {
         "Heart": {
@@ -137,8 +154,31 @@ var Constant = new function () {
         "DoubleShot": {
             name: this.RESOURCE_PATH + "DoubleShot.png"
         }
-    }
+    };
     this.ITEM_ANIMATION_DICT = {
-        
+        "MoneyBag1000": {
+            name: this.RESOURCE_PATH + "MoneyBag1000.png",
+            frameWidth: 14,
+            frameHeight: 15,
+            numberOfFrame: 3
+        },
+        "Stuff": {
+            name: this.RESOURCE_PATH + "Stuff.png",
+            frameWidth: 16,
+            frameHeight: 16,
+            numberOfFrame: 2
+        },
+        "Crown": {
+            name: this.RESOURCE_PATH + "Crown.png",
+            frameWidth: 15,
+            frameHeight: 16,
+            numberOfFrame: 3
+        },
+        "FireCandle": {
+            name: this.RESOURCE_PATH + "FireCandle.png",
+            frameWidth: 8,
+            frameHeight: 16,
+            numberOfFrame: 2
+        }
     }
 };

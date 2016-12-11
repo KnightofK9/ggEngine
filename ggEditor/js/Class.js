@@ -424,8 +424,11 @@ function Group() {
             sprite.name = item.name;
             sprite.x = item._item.x;
             sprite.y = item._item.y;
-            sprite.width = item._item.width;
-            sprite.height = item._item.height;
+            if(Constant.exportWidthHeightForSprite)
+            {
+                sprite.width = item._item.width;
+                sprite.height = item._item.height;
+            }
             switch(sprite.type){
                 default:
                     break;
@@ -596,8 +599,10 @@ Phaser.QuadTree.prototype.export = function(){
         var item = this.objects[i].sprite.hObject;
         sprite.type = item.type;
         sprite.name = item.name;
-        sprite.width = item._item.width;
-        sprite.height = item._item.height;
+        if(Constant.exportWidthHeightForSprite){
+            sprite.width = item._item.width;
+            sprite.height = item._item.height;
+        }
 
         // sprite.x = item.x + sprite.width;
         // sprite.y = item.y + sprite.height;

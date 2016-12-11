@@ -45,6 +45,11 @@ var ObjectList = function(){
                 itemOption.append( initOption(key, Constant.ITEM_DICT[key].name));
             }
         }
+        for(var key in Constant.ITEM_ANIMATION_DICT){
+            if(Constant.ITEM_ANIMATION_DICT.hasOwnProperty(key)){
+                itemOption.append( initOption(key, Constant.ITEM_ANIMATION_DICT[key].name));
+            }
+        }
     };
     var initStaticTileList = function(){
         tileOption.html("");

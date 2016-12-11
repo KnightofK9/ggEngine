@@ -266,6 +266,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 game.load.spritesheet(key, Constant.ENEMY_DICT[key].name, Constant.ENEMY_DICT[key].frameWidth, Constant.ENEMY_DICT[key].frameHeight, Constant.ENEMY_DICT[key].numberOfFrame);
             }
         }
+        for (var key in Constant.ITEM_ANIMATION_DICT) {
+            if (Constant.ITEM_ANIMATION_DICT.hasOwnProperty(key)) {
+                game.load.spritesheet(key, Constant.ITEM_ANIMATION_DICT[key].name, Constant.ITEM_ANIMATION_DICT[key].frameWidth, Constant.ITEM_ANIMATION_DICT[key].frameHeight, Constant.ITEM_ANIMATION_DICT[key].numberOfFrame);
+            }
+        }
 
     };
     this.refresh = function(){
@@ -844,6 +849,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             // sprite.x -= info.frameWidth;
             // sprite.y -= info.frameHeight;
         } else {
+            if(Constant.ITEM_ANIMATION_DICT.hasOwnProperty(type)){
+                var info = Constant.ENEMY_DICT[type];
+                var walk = sprite.animations.add('walk');
+                sprite.animations.play('walk', 24, true);
+            }
             // sprite.x -= sprite.width;
             // sprite.y -= sprite.height;
         }

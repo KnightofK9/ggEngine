@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ggEditor.iml" filepath="$PROJECT_DIR$/ggEditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ggEditor.iml" filepath="$PROJECT_DIR$/.idea/ggEditor.iml" />
     </modules>
   </component>
 </project>
