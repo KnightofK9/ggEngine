@@ -38,11 +38,13 @@ void IntroState::Create()
 
 	this->menu_anim = this->add->SpriteAnimation(220, 125, "menu_anim", 72, 58, group, 0, 15, 100);
 	this->cvgame->eventManager->EnableSpriteAnimationEvent(menu_anim);
-	this->menu_anim->CreateAnimation("batFly", 0, 13, false);
+	this->menu_anim->CreateAnimation("batFly", 0, 13, false)->SetOnCompleted([this](Animator* animator) {
+		animator->spriteAnimation->PlayAnimation("batFlyLoop");
+	});
 	this->menu_anim->CreateAnimation("batFlyLoop", 12, 13, true);
-	this->menu_anim->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-		e.animator->spriteAnimation->PlayAnimation("batFlyLoop");
-	};
+	//this->menu_anim->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
+	//	e.animator->spriteAnimation->PlayAnimation("batFlyLoop");
+	//};
 	this->menu_anim->PlayAnimation("batFly");
 	this->menu_anim->SetAnchor(0.5, 0.5);
 

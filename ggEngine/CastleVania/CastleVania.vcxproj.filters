@@ -231,6 +231,9 @@
     <ClInclude Include="Candle.h">
       <Filter>Header Files\Object\Breakable Objects</Filter>
     </ClInclude>
+    <ClInclude Include="TileLadder.h">
+      <Filter>Header Files\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -410,6 +413,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BreakableObjectBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileLadder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

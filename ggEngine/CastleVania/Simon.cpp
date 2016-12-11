@@ -73,8 +73,12 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		case ObjectType_LevelTwoLadderDownLeft:
+		case ObjectType_LevelTwoLadderDownRight:
+		case ObjectType_LevelTwoLadderUpLeft:
+		case ObjectType_LevelTwoLadderUpRight:
+			return true;
 		case ObjectType_Static:
-			
 			return true;
 		case ObjectType_LevelTwoBrick:
 			return true;
@@ -91,6 +95,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		case ObjectType_LevelTwoBrick:
 			if (e.blockDirection.down)
 				this->isGrounding = true;
+			break;
+		case ObjectType_LevelTwoLadderDownLeft:
+		case ObjectType_LevelTwoLadderDownRight:
+		case ObjectType_LevelTwoLadderUpLeft:
+		case ObjectType_LevelTwoLadderUpRight:
 			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
@@ -188,6 +197,10 @@ void Simon::SetHealth(int heath)
 void Simon::Attack()
 {
 	this->weaponManager->AddWeaponBoomerang(position.x, position.y, isLeft, this->parentGroup);
+}
+
+void Simon::WhipAttack()
+{
 }
 
 void Simon::AddWhip()

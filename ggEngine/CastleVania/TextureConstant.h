@@ -51,8 +51,8 @@ public:
 	static constexpr const char* BOOMERANG_TEXTURE = "BoomerangTexture";
 	static constexpr const char* BOONERANG_TEXTURE_PATH = "Resource/Resources/Boomerang.png";
 
-	static constexpr const char* CANDLE_TEXTURE = "CandleTexture";
-	static constexpr const char* CANDLE_TEXTURE_PATH = "Resource/Resources/Candle.png";
+	static constexpr const char* CANDLE_TEXTURE = "FireCandleTexture";
+	static constexpr const char* CANDLE_TEXTURE_PATH = "Resource/Resources/FireCandle.png";
 
 	static constexpr const char* CROWN_TEXTURE = "CrownTexture";
 	static constexpr const char* CROWN_TEXTURE_PATH = "Resource/Resources/Crown.png";
@@ -128,10 +128,22 @@ public:
 
 
 	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE = "level-2-tile-set";
-	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE_PATH = "Resource/Resources/TileSet/level-2-tile-setpng";
+	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE_PATH = "Resource/Resources/TileSet/level-2-tile-set.png";
 
 	static constexpr const char* TILE_BRICK_TEXTURE = "TileBrickTexture";
-	static const int TILE_BRICK_TEXTURE_KEY = 40;
+	static constexpr const char* TILE_BRICK_TEXTURE_PATH = "Resource/Resources/TileObject/TileBrick.png";
+
+	static constexpr const char* TILE_LADDER_DOWN_LEFT = "TileLadderDownLeft";
+	static constexpr const char* TILE_LADDER_DOWN_LEFT_PATH = "Resource/Resources/TileObject/TileLadderDownLeft.png";
+
+	static constexpr const char* TILE_LADDER_UP_RIGHT = "TileLadderUpRight";
+	static constexpr const char* TILE_LADDER_UP_RIGHT_PATH = "Resource/Resources/TileObject/TileBrick.png";
+
+	static constexpr const char* TILE_LADDER_DOWN_RIGHT = "TileLadderRight";
+	static constexpr const char* TILE_LADDER_DOWN_RIGHT_PATH = "Resource/Resources/TileObject/TileLadderUpRight.png";
+
+	static constexpr const char* TILE_LADDER_UP_LEFT = "TileLadderUpLeft";
+	static constexpr const char* TILE_LADDER_UP_LEFT_PATH = "Resource/Resources/TileObject/TileLadderUpLeft.png";
 
 
 };

@@ -39,6 +39,22 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		go = this->staticTileManager->AddTileBrick(x, y, group);
 		return go;
 	}
+	if (type == "TileLadderDownLeft") {
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderDownLeft , group);
+		return go;
+	}
+	if (type == "TileLadderDownRight") {
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderDownRight, group);
+		return go;
+	}
+	if (type == "TileLadderUpLeft") {
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderUpLeft, group);
+		return go;
+	}
+	if (type == "TileLadderUpRight") {
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderUpRight, group);
+		return go;
+	}
 	if (type == "Simon") {
 		go = this->cvAdd->CharSimon(x, y, CharacterConstant::SIMON_MAX_HEALTH , nullptr, group);
 		return go;

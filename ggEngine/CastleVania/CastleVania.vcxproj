@@ -202,6 +202,7 @@
     <ClInclude Include="TileBase.h" />
     <ClInclude Include="ItemBase.h" />
     <ClInclude Include="TileBrick.h" />
+    <ClInclude Include="TileLadder.h" />
     <ClInclude Include="TripleShot.h" />
     <ClInclude Include="TypeEnum.h" />
     <ClInclude Include="WeaponAxe.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="TileBase.cpp" />
     <ClCompile Include="ItemBase.cpp" />
     <ClCompile Include="TileBrick.cpp" />
+    <ClCompile Include="TileLadder.cpp" />
     <ClCompile Include="TripleShot.cpp" />
     <ClCompile Include="VAudio.cpp" />
     <ClCompile Include="WeaponAxe.cpp" />

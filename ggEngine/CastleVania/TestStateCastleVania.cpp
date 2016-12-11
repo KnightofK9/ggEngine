@@ -1,5 +1,5 @@
 #include "TestStateCastleVania.h"
-
+#include "StaticTIleManager.h"
 TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
 }
@@ -22,12 +22,14 @@ void TestStateCastleVania::Preload() {
 			std::string tileSetPath = it["tileSetPath"].GetString();
 			std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
 			this->preload->TileSet(tileSetPath, tileSetJsonPath);
+			continue;
 		}
 	}
 	this->cvPreload->FontGame();
 	this->cvPreload->UIInfoPanel();
 	this->cvPreload->CharSimon();
 	this->itemManager->PreloadAllItem();
+	this->cvgame->staticTileManager->PreloadAll();
 }
 void TestStateCastleVania::Create()
 {

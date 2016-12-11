@@ -43,8 +43,17 @@ var Constant = new function () {
         "TileBrick": {
             name: this.STATIC_TILE_PATH + "TileBrick.png"
         },
-        "TileLadder": {
-            name: this.STATIC_TILE_PATH + "TileLadder.png"
+        "TileLadderDownLeft": {
+            name: this.STATIC_TILE_PATH + "TileLadderDownLeft.png"
+        },
+        "TileLadderUpRight": {
+            name: this.STATIC_TILE_PATH + "TileLadderUpRight.png"
+        },
+        "TileLadderDownRight": {
+            name: this.STATIC_TILE_PATH + "TileLadderDownRight.png"
+        },
+        "TileLadderUpLeft": {
+            name: this.STATIC_TILE_PATH + "TileLadderUpLeft.png"
         }
 
     };
