@@ -38,7 +38,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var currentPickTile = "";
     var mouseSprite = null;
     var quadTreeHGroup = null;
-    var enemyHGroup = null;
+    var unQuadTreeHGroup = null;
     var isBlockingClick = false;
     var simonHGroup = null;
     var wasMouseButtonDown = false;
@@ -205,7 +205,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         return phaserQuadTree.export();
     };
     var exportMovingGroup = function(){
-        return enemyHGroup.exportAsJson();
+        return unQuadTreeHGroup.exportAsJson();
     };
     var exportSimonGroup = function(){
         return simonHGroup.exportAsJson();
@@ -343,7 +343,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
          * Add quad tree group and enemy group
          */
         quadTreeHGroup =  createGroup("QuadTree");
-        enemyHGroup = createGroup("Enemy");
+        unQuadTreeHGroup = createGroup("UnQuadTree");
         simonHGroup = createGroup("Simon");
         resetCurrentPickRect();
 
@@ -758,7 +758,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             if(type === "Simon"){
                 hGroup = simonHGroup;
             }
-            else hGroup = enemyHGroup;
+            else hGroup = unQuadTreeHGroup;
         }
         posX = Math.round(posX);
         posY = Math.round(posY);

@@ -36,7 +36,7 @@ void CVMap::BuildMap(const char * jsonChar)
 			this->quadTreeGroup->BuildTree(value);
 			continue;
 		}
-		if (type == "Enemy") {
+		if (type == "UnQuadTree") {
 			continue;
 		}
 		if (type == "Simon") {
