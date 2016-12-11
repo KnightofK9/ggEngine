@@ -10,6 +10,9 @@ class WeaponManager;
 class WeaponWhip;
 enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
 					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB};
+enum SimonGroundingType {GroundingBrick, GroundingLadder, GroundingNone};
+enum SimonLadder { LadderDownLeft, LadderDownRight, LadderUpLeft, LadderUpRight, LadderNone};
+
 class Simon :public CharacterBase {
 public:
 	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -31,14 +34,17 @@ public:
 	void MoveRight();
 	void Jump();
 	void Kneel();
-	void ClimbUp();
-	void ClimbDown();
+	void ClimbUpLeft();
+	void ClimbUpRight();
+	void ClimbDownLeft();
+	void ClimbDownRight();
 	void Hurt();
 	void Death();
 	void StandAttack();
 	void KneelAttack();
 	void ClimbDownAttack();
 	void ClimbUpAttack();
+	void ClimbAttack();
 
 	void LoseHealth(int health);
 	void GainHealth(int health);
@@ -71,8 +77,11 @@ private:
 	
 	int shot;
 
-	bool isGrounding;	//for jump or for fall down or for hurt
+	SimonGroundingType grounding = GroundingBrick;	//for jump or for fall down or for hurt
+	SimonLadder ladder = LadderNone;
 
+	bool isClimbingUp = true;
+	
 	double hurtForce = 3;
 
 	string incompleteAnim = "";
@@ -82,4 +91,11 @@ private:
 	DWORD controlKey[8];
 	void SetUpKeyControl();
 	bool CheckKeyValid(KeyBoardEventArg e);
+
+	void SetKeyPressNormal(KeyBoardEventArg e);
+	void SetKeyPressLadderDownLeft(KeyBoardEventArg e);
+	void SetKeyPressLadderDownRight(KeyBoardEventArg e);
+	void SetKeyPressLadderUpLeft(KeyBoardEventArg e);
+	void SetKeyPressLadderUpRight(KeyBoardEventArg e);
+
 };
