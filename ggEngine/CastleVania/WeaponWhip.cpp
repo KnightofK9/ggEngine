@@ -65,6 +65,30 @@ void WeaponWhip::Attack(bool isLeft)
 	this->SetVisible(true);
 }
 
+void WeaponWhip::StandAttack(bool isLeft)
+{
+	this->SetAnchor(0.65, 0.5);
+	this->Attack(isLeft);
+}
+
+void WeaponWhip::ClimbUpAttack(bool isLeft)
+{
+	this->SetAnchor(0.62, 0.5);
+	this->Attack(isLeft);
+}
+
+void WeaponWhip::ClimbDownAttack(bool isLeft)
+{
+	this->SetAnchor(0.64, 0.55);
+	this->Attack(isLeft);
+}
+
+void WeaponWhip::KneelAttack(bool isLeft)
+{
+	this->SetAnchor(0.65, 0.25);
+	this->Attack(isLeft);
+}
+
 void WeaponWhip::Draw()
 {
 	CVSpriteAnimation::Draw();

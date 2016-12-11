@@ -15,6 +15,11 @@ public:
 	void UpgradeWhip();
 	void ResetWhip() { this->whipVersion = 1; }
 	void Attack(bool isLeft);
+	void StandAttack(bool isLeft);
+	void ClimbUpAttack(bool isLeft);
+	void ClimbDownAttack(bool isLeft);
+	void KneelAttack(bool isLeft);
+
 	void Draw();
 	void UpdateWorldPosition() override;
 

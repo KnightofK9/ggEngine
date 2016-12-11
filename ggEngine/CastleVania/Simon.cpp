@@ -45,17 +45,17 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 	//Climb Down Attack
 	this->CreateAnimation("climbDownAttack", 18, 20, false)->SetOnCompleted([this](Animator*) {
-		this->incompleteAnim = "afterStandAttack";
+		this->incompleteAnim = "afterClimbDownAttack";
 	});
 	this->CreateAnimation("afterClimbDownAttack", 20, 20, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
 	});
 
 	//Climb Up Attack
-	this->CreateAnimation("climbUpAttack", 21, 23, true)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("climbUpAttack", 21, 23, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "afterClimbUpAttack";
 	});
-	this->CreateAnimation("afterClimbUpAttack", 23, 23, true)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("afterClimbUpAttack", 23, 23, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
 	});
 
@@ -190,11 +190,6 @@ void Simon::Attack()
 	this->weaponManager->AddWeaponBoomerang(position.x, position.y, isLeft, this->parentGroup);
 }
 
-void Simon::WhipAttack()
-{
-	this->weaponWhip->Attack(isLeft);
-}
-
 void Simon::AddWhip()
 {
 	this->weaponWhip = this->weaponManager->AddWeaponWhip(0, 8, isLeft, this->parentGroup);
@@ -277,24 +272,34 @@ void Simon::StandAttack()
 	this->body->velocity.x = 0;
 	this->PlayAnimation("standAttack");
 	this->incompleteAnim = "standAttack";
-	this->WhipAttack();
+	//this->WhipAttack();
+	this->weaponWhip->StandAttack(isLeft);
 }
 
 void Simon::KneelAttack()
 {
-	this->PlayAnimation("kneelAttack");
 	this->body->velocity.x = 0;
-	this->WhipAttack();
+	this->PlayAnimation("kneelAttack");
+	this->incompleteAnim = "kneelAttack";
+	this->weaponWhip->KneelAttack(isLeft);
 }
 
 void Simon::ClimbDownAttack()
 {
+	this->body->velocity.x = 0;
+	this->body->velocity.y = 0;
 	this->PlayAnimation("climbDownAttack");
+	this->incompleteAnim = "climbDownAttack";
+	this->weaponWhip->ClimbDownAttack(isLeft);
 }
 
 void Simon::ClimbUpAttack()
 {
+	this->body->velocity.x = 0;
+	this->body->velocity.y = 0;
 	this->PlayAnimation("climbUpAttack");
+	this->incompleteAnim = "climbUpAttack";
+	this->weaponWhip->ClimbUpAttack(isLeft);
 }
 
 void Simon::LoseHealth(int health)
