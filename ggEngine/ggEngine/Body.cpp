@@ -319,7 +319,7 @@ namespace ggEngine {
 				}
 			}
 			//break;
-			if (e.remainingTime == 0) break;
+			//if (e.remainingTime == 0) break;
 		}
 		if (isCollided && this->allowObjectBlock) {
 			this->rigidBody->Translate(currentVelocity*remainingTime);

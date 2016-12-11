@@ -61,7 +61,7 @@ void TestStateCastleVania::Create()
 	//this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);
 	//this->simon->SetHealth(1);
 	//this->cvgame->simon = this->simon;
-	this->itemManager->AddHeart(200, 100, group);
+	/*this->itemManager->AddHeart(200, 100, group);
 	this->itemManager->AddCandle(250, 800, group);
 	this->itemManager->AddWhipUpgrade(300, 100, group);
 	this->itemManager->AddHeart(450, 100, group);
@@ -71,7 +71,7 @@ void TestStateCastleVania::Create()
 	this->itemManager->AddInvinPotion(400, 100, group);
 	this->itemManager->AddPotRoast(280, 100, group);
 	this->itemManager->AddDoubleShot(260, 100, group);
-	this->itemManager->AddTripleShot(170, 100, group);
+	this->itemManager->AddTripleShot(170, 100, group);*/
 
 	
 

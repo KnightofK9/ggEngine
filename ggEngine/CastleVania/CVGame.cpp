@@ -126,8 +126,9 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 
 
 	///Contans.js is missing some items in below:
-	if (type == "Candle") {
-		go = this->itemManager->AddCandle(x, y, group);
+	if (type == "FireCandle") {
+		std::string dropType = json["extraInfo"]["dropType"].GetString();
+		go = this->itemManager->AddFireCandle(x, y, dropType, group);
 		return go;
 	}
 	if (type == "Crown") {

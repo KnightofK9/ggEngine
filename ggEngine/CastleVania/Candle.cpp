@@ -9,6 +9,7 @@ Candle::Candle(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeigh
 	: BreakableObjectBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->CreateAnimation("candle", 0, 1, true);
+	this->tag = ObjectType_Candle;
 }
 
 
