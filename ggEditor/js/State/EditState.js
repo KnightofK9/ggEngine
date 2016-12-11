@@ -148,6 +148,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     var resetPick = function () {
         $("#picker-filed > .btn").removeClass("active");
+        objectInfo.setShow(false);
         currentTileType = "";
         currentPickTile = "";
         currentPickName = "";
@@ -703,6 +704,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         resetPick();
         currentPickTile = "SelectPick";
     };
+    this.pickItemSelect = function(){
+        resetPick();
+        currentPickTile = "SelectItemPick";
+    };
     this.selectGroup = function (hGroup) {
         currentSelectHGroup = hGroup;
     };
@@ -754,6 +759,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             }
             else hGroup = enemyHGroup;
         }
+        posX = Math.round(posX);
+        posY = Math.round(posY);
         var sprite = game.add.sprite(posX, posY, type, 0, hGroup._item);
         sprite.anchor.x = 0;
         sprite.anchor.y = 0;
@@ -769,6 +776,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                         isAnyStaticTileBeneath = false;
                     }
                     break;
+                case "SelectItemPick":
                 case  "RemovePick":
                 case "MovePick":
                     item.alpha = 0.5;
@@ -784,6 +792,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                     break;
                 case  "RemovePick":
                 case "MovePick":
+                case "SelectItemPick":
                     item.alpha = 1;
                 default:
                     break;
@@ -792,6 +801,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         },this);
         sprite.events.onInputDown.add(function(item){
             switch(currentPickTile){
+                case "SelectItemPick":
+                    objectInfo.setInputObject(sprite.hObject);
+                    break;
                 case  "RemovePick":
                     var hObjectId = item.hObject._hierarchyId;
                     if(item.hObject.callDestroy()){

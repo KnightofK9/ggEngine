@@ -76,6 +76,9 @@
             <button class="btn btn-primary" onclick="selectPicker()">
                 <i class="glyphicon glyphicon-zoom-in"></i>Tile Picker
             </button>
+            <button class="btn btn-primary" onclick="selectItemPicker()">
+                <i class="glyphicon glyphicon-wrench"></i>Item Picker
+            </button>
             <button class="btn btn-primary" onclick="movePicker()">
                 <i class="glyphicon glyphicon-move"></i> Move Picker
             </button>
@@ -135,10 +138,7 @@
                     tree</label><br/>
             </div>
             <div id="gg-object-info" class="panel-body hierarchy">
-                <label>x <input id="gg-object-info-x" type="number"
-                                class="form-control gg-object-info-input-field"></label>
-                <label>y<input id="gg-object-info-y" type="number"
-                               class="form-control gg-object-info-input-field"></label>
+
             </div>
         </div>
 
@@ -236,13 +236,7 @@
             $("#picker-filed > .btn").removeClass("active");
         });
         objectInfo = new ObjectInfo();
-        $('#gg-object-info').keypress(function (e) {
-            if (e.which == 13) {
-                onEditingObjectInfo();
-                return false;
-            }
-            return true;
-        });
+
 
         ggConsole.init();
         stateInfo = new StateInfo();
@@ -276,9 +270,6 @@
         $("#btn-export-tile-map").on('click', exportQuadTree);
 
     });
-    function onEditingObjectInfo() {
-        alert("abc");
-    }
     function onDelete() {
         sceneEditor.editState.deleteTileInRect();
     }
@@ -312,6 +303,9 @@
     }
     function movePicker() {
         sceneEditor.editState.pickMove();
+    }
+    function selectItemPicker(){
+        sceneEditor.editState.pickItemSelect();
     }
     function selectPicker() {
         sceneEditor.editState.pickSelect();

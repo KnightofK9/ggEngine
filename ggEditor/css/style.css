@@ -5,7 +5,7 @@ legend.scheduler-border {
 }
 .gg-object-info-input-field{
     display: inline;
-    width: 50px;
+    width: 100px;
 }
 .btn-separator:after {
     content: ' ';
