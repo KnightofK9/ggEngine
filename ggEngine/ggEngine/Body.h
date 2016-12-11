@@ -124,5 +124,7 @@ namespace ggEngine {
 		void CheckCollisionAndUpdateMovement();
 		void PostUpdate();
 		bool isAlive;
+		Rect worldRect;
+
 	};
 }

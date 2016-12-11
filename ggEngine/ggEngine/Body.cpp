@@ -8,6 +8,7 @@
 #include "Box.h"
 #include "Physics.h"
 #include "GameObject.h"
+#include "World.h"
 #include "Group.h"
 namespace ggEngine {
 	Body::Body(Game* game,GameObject * gameObject)
@@ -23,6 +24,7 @@ namespace ggEngine {
 		this->isAlive = true;
 		this->rigidBody = nullptr;
 		this->colliderDirection.resize(4);
+		this->worldRect = this->game->world->GetRect();
 		SetPhysicsMode(PhysicsMode_AABBSwept);
 	}
 	Body::~Body()
@@ -696,16 +698,16 @@ namespace ggEngine {
 			isBlocked = true;
 		}
 		if (isBlocked) return isBlocked;*/
-		if (this->rigidBody->GetLeft() <= 0) {
+		if (this->rigidBody->GetLeft() <= this->worldRect.left) {
 			worldBlocked.left = true;
 		}
-		if (this->rigidBody->GetRight() >= GAME_WIDTH ) {
+		if (this->rigidBody->GetRight() >= this->worldRect.right ) {
 			worldBlocked.right = true;
 		}
-		if (this->rigidBody->GetDown() >= GAME_HEIGHT ) {
+		if (this->rigidBody->GetDown() >= this->worldRect.bottom ) {
 			worldBlocked.down = true;
 		}
-		if (this->rigidBody->GetUp() <= 0 ) {
+		if (this->rigidBody->GetUp() <= this->worldRect.top ) {
 			worldBlocked.up = true;
 		}
 		return worldBlocked.Any();
