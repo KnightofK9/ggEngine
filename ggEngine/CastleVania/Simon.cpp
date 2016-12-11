@@ -265,6 +265,7 @@ void Simon::Kneel()
 void Simon::ClimbUpLeft()
 {
 	this->PlayAnimation("climbUp");
+	this->isClimbingUp = true;
 	ChangeFacingDirection(true);
 	this->body->velocity.x = -CharacterConstant::SIMON_CLIMB_FORCE;
 	this->body->velocity.y = -CharacterConstant::SIMON_CLIMB_FORCE;
@@ -273,6 +274,7 @@ void Simon::ClimbUpLeft()
 void Simon::ClimbUpRight()
 {
 	this->PlayAnimation("climbUp");
+	this->isClimbingUp = true;
 	ChangeFacingDirection(false);
 	this->body->velocity.x = CharacterConstant::SIMON_CLIMB_FORCE;
 	this->body->velocity.y = -CharacterConstant::SIMON_CLIMB_FORCE;
@@ -281,6 +283,7 @@ void Simon::ClimbUpRight()
 void Simon::ClimbDownLeft()
 {
 	this->PlayAnimation("climbDown");
+	this->isClimbingUp = false;
 	ChangeFacingDirection(true);
 	this->body->velocity.x = -CharacterConstant::SIMON_CLIMB_FORCE;
 	this->body->velocity.y = CharacterConstant::SIMON_CLIMB_FORCE;
@@ -289,6 +292,7 @@ void Simon::ClimbDownLeft()
 void Simon::ClimbDownRight()
 {
 	this->PlayAnimation("climbDown");
+	this->isClimbingUp = false;
 	ChangeFacingDirection(false);
 	this->body->velocity.x = CharacterConstant::SIMON_CLIMB_FORCE;
 	this->body->velocity.y = CharacterConstant::SIMON_CLIMB_FORCE;
