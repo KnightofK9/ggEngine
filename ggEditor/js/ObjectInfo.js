@@ -4,13 +4,14 @@
 function ObjectInfo(){
     var objectInfoPanel = $("#gg-object-info");
     var navTab = $("#gg-object-info-nav-tab");
+    var nameLabel = $("#gg-object-info-name");
     var currentInputHObject = null;
     var currentInput = null;
     var that = this;
     var timeOutId = 0;
     this.setActive = function(isActive){
         if(isActive){
-            objectInfoPanel.css("display","block");
+            if(currentInputHObject !== null) objectInfoPanel.css("display","block");
             navTab.addClass("active");
         }else{
             objectInfoPanel.css("display","none");
@@ -40,38 +41,48 @@ function ObjectInfo(){
         }
     };
     var init = function(){
-        objectInfoPanel.keypress(function (e) {
-            if (e.which == 13) {
-                onCompletedEditInput();
-                return false;
-            }
-            return true;
-        });
+        // objectInfoPanel.keypress(function (e) {
+        //     if (e.which == 13) {
+        //         onCompletedEditInput();
+        //         return false;
+        //     }
+        //     return true;
+        // });
 
         that.setShow(false);
     };
-    var createInputField = function(fieldName,value){
+    var createInputField = function(fieldName,value,isReadOnly){
+        if(isNull(isReadOnly)) isReadOnly = false;
         var optional = "";
         if(!isNaN(value)){
-            optional = 'step="1"';
+            optional += 'type="number" step="1"';
+        }else{
+            optional += 'type="text"';
+        }
+        if(isReadOnly){
+            optional += 'readonly="readonly"';
         }
         var div = '<label>'
         + fieldName
-        +'<input id="gg-object-info-'+ fieldName +'" type="number" '+ optional +' class="form-control gg-object-info-input-field"></label>';
+        +'<input id="gg-object-info-'+ fieldName +'" '+ optional +' class="form-control gg-object-info-input-field"></label>';
         objectInfoPanel.append(div);
         var curInput = $("#gg-object-info-"+fieldName);
         curInput.val(value);
-        curInput.bind('keyup change click', function (e) {
-            if (! curInput.data("previousValue") ||
-                curInput.data("previousValue") != curInput.val()
-            )
-            {
-                onInput(fieldName);
-                curInput.data("previousValue", curInput.val());
-            }
+        if(!isReadOnly){
+            curInput.bind('keyup change click', function (e) {
+                if (! curInput.data("previousValue") ||
+                    curInput.data("previousValue") != curInput.val()
+                )
+                {
+                    onInput(fieldName);
+                    curInput.data("previousValue", curInput.val());
+                }
 
-        });
-        curInput.data("previousValue", curInput.val());
+            });
+
+            curInput.data("previousValue", curInput.val());
+        }
+
 
 
         currentInput[fieldName] = curInput;
@@ -80,6 +91,7 @@ function ObjectInfo(){
     this.setInputObject = function(hObject){
         that.reset();
         currentInputHObject = hObject;
+        createInputField("Name",hObject._name,true);
         if(isNotNull(hObject._item.x)){
             createInputField("x",hObject._item.x);
         }
@@ -91,6 +103,7 @@ function ObjectInfo(){
     this.reset = function(){
         currentInputHObject = null;
         currentInput = {};
+        that.setShow(false);
         objectInfoPanel.html("");
     };
     this.setShow = function(isShow){

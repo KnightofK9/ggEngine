@@ -159,6 +159,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         currentPickRectPos = {x:0,y:0};
         currentTile = null;
         isAnyStaticTileBeneath = false;
+        objectInfo.reset();
         resetCurrentPickRect();
         clearArrayTile()
     };
