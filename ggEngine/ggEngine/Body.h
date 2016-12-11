@@ -108,6 +108,7 @@ namespace ggEngine {
 		bool enable = true;
 		bool IsCollided(Box &b1,Box &b2);
 		PhysicsMode physicsMode;
+		void CheckCollisionAABB();
 		Game* game;
 		bool CheckWorldBounds();
 		Vector acceleration;

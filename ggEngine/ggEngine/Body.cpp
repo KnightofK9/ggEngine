@@ -217,6 +217,9 @@ namespace ggEngine {
 		Rect r2 = b2.GetRect();
 		return Physics::AABBCheck(broadPhaseRect, r2);
 	}
+	void Body::CheckCollisionAABB()
+	{
+	}
 	void Body::PreUpdate()
 	{
 
@@ -566,7 +569,7 @@ namespace ggEngine {
 		acceleration = (lastAcceleration + newAcceleration) / 2;
 		//Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
 		velocity += acceleration*timeStep;
-		if (PerformCollisionCheck(temp)) return;
+		
 
 
 		//bool isCollided = false;
@@ -622,7 +625,12 @@ namespace ggEngine {
 		//	return;
 		//}
 		if (this->physicsMode == PhysicsMode_AABBSwept) {
+			if (PerformCollisionCheck(temp)) return;
 			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
+		}
+		else {
+			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
+			CheckCollisionAABB();
 		}
 	}
 	void Body::UpdateBounds()
