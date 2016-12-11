@@ -38,7 +38,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var currentPickTile = "";
     var mouseSprite = null;
     var quadTreeHGroup = null;
-    var enemyHGroup = null;
+    var cameraActiveGroup = null;
     var isBlockingClick = false;
     var simonHGroup = null;
     var wasMouseButtonDown = false;
@@ -122,7 +122,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var importObjectFromNode = function(node){
         for(var i = 0 ; i < node.objects.length; i++){
             var item = node.objects[i];
-            that.createSpriteAt(item.x,item.y,item.type);
+            that.createSpriteAt(item.x,item.y,item.type,item.extraInfo);
         }
         for(var i = 0; i < node.nodes.length; i++){
             importObjectFromNode(node.nodes[i]);
@@ -148,6 +148,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     var resetPick = function () {
         $("#picker-filed > .btn").removeClass("active");
+        objectInfo.setShow(false);
         currentTileType = "";
         currentPickTile = "";
         currentPickName = "";
@@ -158,6 +159,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         currentPickRectPos = {x:0,y:0};
         currentTile = null;
         isAnyStaticTileBeneath = false;
+        objectInfo.reset();
         resetCurrentPickRect();
         clearArrayTile()
     };
@@ -203,7 +205,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         return phaserQuadTree.export();
     };
     var exportMovingGroup = function(){
-        return enemyHGroup.exportAsJson();
+        return cameraActiveGroup.exportAsJson();
     };
     var exportSimonGroup = function(){
         return simonHGroup.exportAsJson();
@@ -341,7 +343,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
          * Add quad tree group and enemy group
          */
         quadTreeHGroup =  createGroup("QuadTree");
-        enemyHGroup = createGroup("Enemy");
+        cameraActiveGroup = createGroup("CameraActiveGroup");
         simonHGroup = createGroup("Simon");
         resetCurrentPickRect();
 
@@ -703,6 +705,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         resetPick();
         currentPickTile = "SelectPick";
     };
+    this.pickItemSelect = function(){
+        resetPick();
+        currentPickTile = "SelectItemPick";
+    };
     this.selectGroup = function (hGroup) {
         currentSelectHGroup = hGroup;
     };
@@ -745,15 +751,17 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         return Constant.ENEMY_DICT.hasOwnProperty(type);
     };
 
-    this.createSpriteAt = function(posX,posY,type){
+    this.createSpriteAt = function(posX,posY,type,extraInfo){
         var hGroup = quadTreeHGroup;
         var isUnQuadTree = isUnQuadTreeObject(type);
         if( isUnQuadTree ){
             if(type === "Simon"){
                 hGroup = simonHGroup;
             }
-            else hGroup = enemyHGroup;
+            else hGroup = cameraActiveGroup;
         }
+        posX = Math.round(posX);
+        posY = Math.round(posY);
         var sprite = game.add.sprite(posX, posY, type, 0, hGroup._item);
         sprite.anchor.x = 0;
         sprite.anchor.y = 0;
@@ -769,6 +777,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                         isAnyStaticTileBeneath = false;
                     }
                     break;
+                case "SelectItemPick":
                 case  "RemovePick":
                 case "MovePick":
                     item.alpha = 0.5;
@@ -784,6 +793,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                     break;
                 case  "RemovePick":
                 case "MovePick":
+                case "SelectItemPick":
                     item.alpha = 1;
                 default:
                     break;
@@ -792,6 +802,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         },this);
         sprite.events.onInputDown.add(function(item){
             switch(currentPickTile){
+                case "SelectItemPick":
+                    objectInfo.setInputObject(sprite.hObject);
+                    break;
                 case  "RemovePick":
                     var hObjectId = item.hObject._hierarchyId;
                     if(item.hObject.callDestroy()){
@@ -859,6 +872,18 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         }
 
 
+        if(isNotNull(extraInfo)){
+            sprite.extraInfo = extraInfo;
+        }else{
+            switch(type){
+                case "FireCandle":
+                    sprite.extraInfo = {};
+                    sprite.extraInfo.dropType = "";
+                    break;
+                default:
+                    break;
+            }
+        }
 
         hierarchyEditor.add.sprite(sprite, hGroup);
 

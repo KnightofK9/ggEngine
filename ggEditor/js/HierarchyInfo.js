@@ -19,5 +19,4 @@ var hierarchyList = new function(){
         my.hierarchy = new HierarchyObject();
     };
     init();
-
 };

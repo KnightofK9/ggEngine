@@ -430,6 +430,9 @@ function Group() {
                 sprite.height = item._item.height;
             }
             switch(sprite.type){
+                case "FireCandle":
+                    sprite.extraInfo = item._item.extraInfo;
+                    break;
                 default:
                     break;
             }
@@ -608,7 +611,9 @@ Phaser.QuadTree.prototype.export = function(){
         // sprite.y = item.y + sprite.height;
         sprite.x = this.objects[i].x;
         sprite.y = this.objects[i].y;
-
+        if(isNotNull(item._item.extraInfo)){
+            sprite.extraInfo = item._item.extraInfo;
+        }
 
         quadTreeJson.objects.push(sprite);
     }
