@@ -35,3 +35,4 @@
 #include "CameraEventManager.h"
 #include "Audio.h"
 #include "Animator.h"
+#include "CameraActiveGroup.h"

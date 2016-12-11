@@ -14,7 +14,7 @@ CVMap::~CVMap()
 {
 	delete this->tileMapGroup;
 	delete this->quadTreeGroup;
-	delete this->movingGroup;
+	delete this->cameraActiveGroup;
 }
 
 void CVMap::BuildMap(const char * jsonChar)
@@ -37,6 +37,8 @@ void CVMap::BuildMap(const char * jsonChar)
 			continue;
 		}
 		if (type == "CameraActiveGroup") {
+			cameraActiveGroup = new CameraActiveGroup(this->cvGame);
+			this->cameraActiveGroup->SetParentObject(this);
 			continue;
 		}
 		if (type == "Simon") {
@@ -72,12 +74,14 @@ void CVMap::BuildMap(const char * jsonChar)
 void CVMap::Update()
 {
 	this->quadTreeGroup->Update();
+	this->cameraActiveGroup->Update();
 	this->simonGroup->Update();
 }
 void CVMap::Draw()
 {
 	this->tileMapGroup->Draw();
 	this->quadTreeGroup->Draw();
+	this->cameraActiveGroup->Draw();
 	this->simonGroup->Draw();
 	auto drawList = this->quadTreeGroup->GetDrawList();
 	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
@@ -90,6 +94,7 @@ void CVMap::Draw()
 void CVMap::UpdatePhysics()
 {
 	this->quadTreeGroup->UpdatePhysics();
+	this->cameraActiveGroup->UpdatePhysics();
 	this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->simonGroup->UpdatePhysics();
 }

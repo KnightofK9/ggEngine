@@ -16,7 +16,7 @@ public:
 	void LoadSimon(InfoPanel *infoPanel, Simon *simon = nullptr);
 	TileMap *tileMapGroup;
 	QuadTree *quadTreeGroup;
-	Group* movingGroup;
+	CameraActiveGroup* cameraActiveGroup;
 	Group *simonGroup;
 	Simon* simon;
 private:

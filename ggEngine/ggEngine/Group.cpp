@@ -61,6 +61,10 @@ namespace ggEngine{
 			}
 		}
 		if (this->update != nullptr) update();
+		for (std::list<Group*>::const_iterator it = groupList.begin(); it != groupList.end(); it++)
+		{
+			(*it)->Update();
+		}
 	}
 	void Group::AddDrawObjectToList(GameObject* drawObject){
 		Sprite *sprite = dynamic_cast<Sprite*>(drawObject);
