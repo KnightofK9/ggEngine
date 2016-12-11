@@ -178,6 +178,7 @@
     <ClInclude Include="Box.h" />
     <ClInclude Include="Cache.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraActiveGroup.h" />
     <ClInclude Include="CameraEventManager.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="ColliderArg.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Cache.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraActiveGroup.cpp" />
     <ClCompile Include="CameraEventManager.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="ColliderArg.cpp" />

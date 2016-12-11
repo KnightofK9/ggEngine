@@ -62,9 +62,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 
 	this->cvGame->physics->EnablePhysics(this);
-	this->body->CreateRectangleRigidBody(20, GetHeight());
+	this->body->CreateRectangleRigidBody(20, 30);
 	this->body->syncBounds = false;
-	this->body->rigidBody->SetAnchor(0.5, 0.5);
+	this->body->rigidBody->SetAnchor(0.5, 0.32);
 	this->body->allowGravity = true;
 	this->body->allowWorldBounciness = false;
 	this->body->allowWorldBlock = true;
@@ -98,6 +98,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				this->ladder = LadderNone;
 				this->grounding = GroundingBrick;
 			}
+			break;
+		case ObjectType_Candle:
+			//g_debug.Log("Collided with candle");
 			break;
 		/*case ObjectType_LadderDownLeft:
 			this->grounding = GroundingLadder_DownLeft;
