@@ -35,16 +35,16 @@ TileLadder * StaticTileManager::AddTileLadder(double x, double y,ObjectType ladd
 	std::string textureConstant = "";
 	Tag tag = ladderType;
 	switch (tag) {
-	case ObjectType_LevelTwoLadderDownLeft:
+	case ObjectType_LadderDownLeft:
 		textureConstant = TextureConstant::TILE_LADDER_DOWN_LEFT;
 		break;
-	case ObjectType_LevelTwoLadderUpLeft:
+	case ObjectType_LadderUpLeft:
 		textureConstant = TextureConstant::TILE_LADDER_UP_LEFT;
 		break;
-	case ObjectType_LevelTwoLadderDownRight:
+	case ObjectType_LadderDownRight:
 		textureConstant = TextureConstant::TILE_LADDER_DOWN_RIGHT;
 		break;
-	case ObjectType_LevelTwoLadderUpRight:
+	case ObjectType_LadderUpRight:
 		textureConstant = TextureConstant::TILE_LADDER_UP_RIGHT;
 		break;
 	default:

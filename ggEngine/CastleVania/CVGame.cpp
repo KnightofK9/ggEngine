@@ -40,19 +40,19 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		return go;
 	}
 	if (type == "TileLadderDownLeft") {
-		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderDownLeft , group);
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LadderDownLeft , group);
 		return go;
 	}
 	if (type == "TileLadderDownRight") {
-		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderDownRight, group);
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LadderDownRight, group);
 		return go;
 	}
 	if (type == "TileLadderUpLeft") {
-		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderUpLeft, group);
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LadderUpLeft, group);
 		return go;
 	}
 	if (type == "TileLadderUpRight") {
-		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LevelTwoLadderUpRight, group);
+		go = this->staticTileManager->AddTileLadder(x, y, ObjectType_LadderUpRight, group);
 		return go;
 	}
 	if (type == "Simon") {

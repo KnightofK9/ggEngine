@@ -73,10 +73,10 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
-		case ObjectType_LevelTwoLadderDownLeft:
-		case ObjectType_LevelTwoLadderDownRight:
-		case ObjectType_LevelTwoLadderUpLeft:
-		case ObjectType_LevelTwoLadderUpRight:
+		case ObjectType_LadderDownLeft:
+		case ObjectType_LadderDownRight:
+		case ObjectType_LadderUpLeft:
+		case ObjectType_LadderUpRight:
 			return true;
 		case ObjectType_Static:
 			return true;
@@ -96,10 +96,10 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			if (e.blockDirection.down)
 				this->isGrounding = true;
 			break;
-		case ObjectType_LevelTwoLadderDownLeft:
-		case ObjectType_LevelTwoLadderDownRight:
-		case ObjectType_LevelTwoLadderUpLeft:
-		case ObjectType_LevelTwoLadderUpRight:
+		case ObjectType_LadderDownLeft:
+		case ObjectType_LadderDownRight:
+		case ObjectType_LadderUpLeft:
+		case ObjectType_LadderUpRight:
 			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
