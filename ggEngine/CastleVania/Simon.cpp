@@ -64,7 +64,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 
 	this->cvGame->physics->EnablePhysics(this);
-	this->body->CreateRectangleRigidBody(20, 30);
+	this->body->CreateRectangleRigidBody(14, 26);
 	this->body->syncBounds = false;
 	this->body->rigidBody->SetAnchor(0.5, 0.32);
 	this->body->allowGravity = true;
@@ -81,10 +81,15 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			this->ladderState = LadderDownRight;
 			return false;
 		case ObjectType_LadderUpLeft:
-			this->ladderState = LadderUpLeft;
+			if (e.blockDirection.down) {
+				this->ladderState = LadderUpLeft;
+				this->grounding = GroundingBrick;
+				return true;
+			}
 			return false;
 		case ObjectType_LadderUpRight:
-			if (e.blockDirection.down) {
+			//if (e.blockDirection.down && this->isClimbingUp) {
+			if (this->isClimbingUp){
 				this->ladderState = LadderUpRight;
 				this->grounding = GroundingBrick;
 				return true;
@@ -120,10 +125,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		case ObjectType_LadderUpLeft:
 			break;
 		case ObjectType_LadderUpRight:
-			if (e.blockDirection.down) {
-				this->ladderState = LadderNone;
-				this->grounding = GroundingBrick;
-			}
 			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
@@ -156,15 +157,19 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		}
 		if (this->ladderState == LadderDownLeft && e.isPress(controlKey[SimonControl_Up])){
 			this->grounding = GroundingLadder;
+			this->isClimbingUp = true;
 		}
 		if (this->ladderState == LadderDownRight && e.isPress(controlKey[SimonControl_Up])) {
 			this->grounding = GroundingLadder;
+			this->isClimbingUp = true;
 		}
 		if (this->ladderState == LadderUpLeft && e.isPress(controlKey[SimonControl_Down])) {
 			this->grounding = GroundingLadder;
+			this->isClimbingUp = false;
 		}
 		if (this->ladderState == LadderUpRight && e.isPress(controlKey[SimonControl_Down])) {
 			this->grounding = GroundingLadder;
+			this->isClimbingUp = false;
 		}
 		
 		switch (this->grounding) {
