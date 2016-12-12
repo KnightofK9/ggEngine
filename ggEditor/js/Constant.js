@@ -21,14 +21,14 @@ var Constant = new function () {
             numberOfCellPerColumn: 16
         },
         "level-3-tile-set": {
-            name: this.TILE_SET_PATH + "level-3-tile-set.png",
-            json: "level-3-tile-set.json",
-            width: 128,
-            height: 288,
+            name: this.TILE_SET_PATH + "level-3.png",
+            json: "level-3.json",
+            width: 64,
+            height: 368,
             cellWidth: 16,
             cellHeight: 16,
-            numberOfCellPerRow: 8,
-            numberOfCellPerColumn: 18
+            numberOfCellPerRow: 4,
+            numberOfCellPerColumn: 23
         }
     };
     this.CHARACTER_DICT = {
