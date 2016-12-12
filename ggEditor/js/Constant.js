@@ -11,14 +11,14 @@ var Constant = new function () {
 
     this.TILE_SET_DICT = {
         "level-2-tile-set": {
-            name: this.TILE_SET_PATH + "level-2-tile-set.png",
-            json: "level-2-tile-set.json",
+            name: this.TILE_SET_PATH + "level-2.png",
+            json: "level-2.json",
             width: 64,
-            height: 192,
+            height: 256,
             cellWidth: 16,
             cellHeight: 16,
             numberOfCellPerRow: 4,
-            numberOfCellPerColumn: 12
+            numberOfCellPerColumn: 16
         },
         "level-3-tile-set": {
             name: this.TILE_SET_PATH + "level-3-tile-set.png",
