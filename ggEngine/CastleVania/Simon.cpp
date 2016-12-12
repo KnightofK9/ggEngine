@@ -20,7 +20,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("move", 1, 3, true);
 	this->CreateAnimation("kneel", 4, 4, true);
 	this->CreateAnimation("climbDown", 5, 6, true);
+	this->CreateAnimation("climbDownIdle", 5, 5, true);
 	this->CreateAnimation("climbUp", 7, 8, true);
+	this->CreateAnimation("climbUpIdle", 7, 7, true);
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", 11, 11, true);
@@ -73,12 +75,21 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		Tag type = otherObject->tag;
 		switch (type) {
 		case ObjectType_LadderDownLeft:
-				this->ladder = LadderDownLeft;
-			break;
+			this->ladderState = LadderDownLeft;
+			return false;
 		case ObjectType_LadderDownRight:
+			this->ladderState = LadderDownRight;
+			return false;
 		case ObjectType_LadderUpLeft:
+			this->ladderState = LadderUpLeft;
+			return false;
 		case ObjectType_LadderUpRight:
-			return true;
+			if (e.blockDirection.down) {
+				this->ladderState = LadderUpRight;
+				this->grounding = GroundingBrick;
+				return true;
+			}
+			return false;
 		case ObjectType_Static:
 			return true;
 		case ObjectType_LevelTwoBrick:
@@ -95,25 +106,25 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		switch (type) {
 		case ObjectType_LevelTwoBrick:
 			if (e.blockDirection.down) {
-				this->ladder = LadderNone;
+				this->ladderState = LadderNone;
 				this->grounding = GroundingBrick;
 			}
 			break;
 		case ObjectType_Candle:
 			//g_debug.Log("Collided with candle");
 			break;
-		/*case ObjectType_LadderDownLeft:
-			this->grounding = GroundingLadder_DownLeft;
+		case ObjectType_LadderDownLeft:
 			break;
 		case ObjectType_LadderDownRight:
-			this->grounding = GroundingLadder;
 			break;
 		case ObjectType_LadderUpLeft:
-			this->grounding = GroundingLadder;
 			break;
 		case ObjectType_LadderUpRight:
-			this->grounding = GroundingLadder;
-			break;*/
+			if (e.blockDirection.down) {
+				this->ladderState = LadderNone;
+				this->grounding = GroundingBrick;
+			}
+			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
 			if (otherObject->events->onCollide != nullptr) {
@@ -143,23 +154,32 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			this->PlayAnimation(incompleteAnim);
 			return;
 		}
-		if (this->ladder == LadderDownLeft && e.isPress(controlKey[SimonControl_Up])){
+		if (this->ladderState == LadderDownLeft && e.isPress(controlKey[SimonControl_Up])){
 			this->grounding = GroundingLadder;
 		}
-
-
-		if (CheckKeyValid(e) == false)
-			this->Idle();
-		else {
-			switch (this->grounding) {
+		if (this->ladderState == LadderDownRight && e.isPress(controlKey[SimonControl_Up])) {
+			this->grounding = GroundingLadder;
+		}
+		if (this->ladderState == LadderUpLeft && e.isPress(controlKey[SimonControl_Down])) {
+			this->grounding = GroundingLadder;
+		}
+		if (this->ladderState == LadderUpRight && e.isPress(controlKey[SimonControl_Down])) {
+			this->grounding = GroundingLadder;
+		}
+		
+		switch (this->grounding) {
 			case GroundingBrick:
 				this->body->allowGravity = true;
-				SetKeyPressNormal(e);
+				if (CheckKeyValid(e) == false)
+					this->Idle();
+				else {
+					SetKeyPressNormal(e);
+				}
 				break;
 
 			case GroundingLadder:
 				this->body->allowGravity = false;
-				switch (this->ladder) {
+				switch (this->ladderState) {
 				case LadderDownLeft:
 					SetKeyPressLadderDownLeft(e);
 					break;
@@ -173,14 +193,19 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 					break;
 
 				case LadderUpRight:
-					this->body->allowGravity = false;
 					SetKeyPressLadderUpRight(e);
 					break;
+
+				case LadderClimbFinish:
+					//SetKeyPressNormal(e);
+					break;
 				}
+				break;
+
 			case GroundingNone:
+				this->body->allowGravity = true;
 				break;
 			}
-		}
 	};
 	
 	this->SetUpKeyControl();
@@ -296,6 +321,25 @@ void Simon::ClimbDownRight()
 	ChangeFacingDirection(false);
 	this->body->velocity.x = CharacterConstant::SIMON_CLIMB_FORCE;
 	this->body->velocity.y = CharacterConstant::SIMON_CLIMB_FORCE;
+}
+
+void Simon::ClimbIdle()
+{
+	this->body->velocity.x = 0;
+	this->body->velocity.y = 0;
+
+	if (this->isClimbingUp)
+		PlayAnimation("climbUpIdle");
+	else
+		PlayAnimation("climbDownIdle");
+}
+
+void Simon::ClimbUpFinish()
+{
+	this->PlayAnimation("Idle");
+	this->body->velocity.x = 0;
+	this->body->velocity.y = 0;
+	this->grounding = GroundingBrick;
 }
 
 void Simon::Hurt()
@@ -528,6 +572,8 @@ void Simon::SetKeyPressLadderDownLeft(KeyBoardEventArg e)
 		this->ClimbAttack();
 		return;
 	}
+
+	this->ClimbIdle();
 }
 
 void Simon::SetKeyPressLadderDownRight(KeyBoardEventArg e) {
@@ -560,6 +606,8 @@ void Simon::SetKeyPressLadderDownRight(KeyBoardEventArg e) {
 		this->ClimbAttack();
 		return;
 	}
+
+	this->ClimbIdle();
 }
 
 void Simon::SetKeyPressLadderUpLeft(KeyBoardEventArg e) {
@@ -592,6 +640,8 @@ void Simon::SetKeyPressLadderUpLeft(KeyBoardEventArg e) {
 		this->ClimbAttack();
 		return;
 	}
+
+	this->ClimbIdle();
 }
 
 void Simon::SetKeyPressLadderUpRight(KeyBoardEventArg e) {
@@ -624,6 +674,8 @@ void Simon::SetKeyPressLadderUpRight(KeyBoardEventArg e) {
 		this->ClimbAttack();
 		return;
 	}
+
+	this->ClimbIdle();
 }
 
 

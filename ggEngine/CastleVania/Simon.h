@@ -11,7 +11,7 @@ class WeaponWhip;
 enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
 					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB};
 enum SimonGroundingType {GroundingBrick, GroundingLadder, GroundingNone};
-enum SimonLadder { LadderDownLeft, LadderDownRight, LadderUpLeft, LadderUpRight, LadderNone};
+enum SimonLadder { LadderDownLeft, LadderDownRight, LadderUpLeft, LadderUpRight, LadderNone, LadderClimbFinish};
 
 class Simon :public CharacterBase {
 public:
@@ -38,6 +38,8 @@ public:
 	void ClimbUpRight();
 	void ClimbDownLeft();
 	void ClimbDownRight();
+	void ClimbIdle();
+	void ClimbUpFinish();
 	void Hurt();
 	void Death();
 	void StandAttack();
@@ -78,7 +80,7 @@ private:
 	int shot;
 
 	SimonGroundingType grounding = GroundingBrick;	//for jump or for fall down or for hurt
-	SimonLadder ladder = LadderNone;
+	SimonLadder ladderState = LadderNone;
 
 	bool isClimbingUp = true;
 	
