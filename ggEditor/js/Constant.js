@@ -10,7 +10,7 @@ var Constant = new function () {
     this.STATIC_TILE_PATH = this.RESOURCE_PATH + "TileObject/";
 
     this.TILE_SET_DICT = {
-        "level-2-tile-set": {
+        "level-2": {
             name: this.TILE_SET_PATH + "level-2.png",
             json: "level-2.json",
             width: 64,
@@ -20,7 +20,7 @@ var Constant = new function () {
             numberOfCellPerRow: 4,
             numberOfCellPerColumn: 16
         },
-        "level-3-tile-set": {
+        "level-3": {
             name: this.TILE_SET_PATH + "level-3.png",
             json: "level-3.json",
             width: 64,

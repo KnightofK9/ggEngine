@@ -13,7 +13,7 @@ void TestStateCastleVania::Init() {
 }
 void TestStateCastleVania::Preload() {
 	//Json jsonFile("State/TestState.json", true);
-	Json jsonFile("State/TestState_ladder.json", true);
+	Json jsonFile("State/TestState_lv3.json", true);
 
 	for (auto& it : jsonFile["preloadList"].GetArray())
 	{
@@ -38,7 +38,7 @@ void TestStateCastleVania::Create()
 	//std::string tileMapJson = "";
 	{
 		//Json state("State/TestState.json", true);
-		Json state("State/TestState_ladder.json", true);
+		Json state("State/TestState_lv3.json", true);
 
 		cvMap = this->cvAdd->LoadMap(state.GetCharArray().c_str(), this->cvgame->world);
 
