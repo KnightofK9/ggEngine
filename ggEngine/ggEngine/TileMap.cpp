@@ -13,11 +13,19 @@
 #include "Game.h"
 #include "TileSet.h"
 #include "Tile.h"
+#include "Add.h"
+#include <d3d9.h>
 namespace ggEngine {
 	TileMap::TileMap(Game *game) : Group(game)
 	{
 
 	}
+
+	TileMap::~TileMap()
+	{
+
+	}
+
 	void TileMap::BuildTileMap(const char * jsonChar)
 	{
 		Json json(jsonChar);
@@ -57,18 +65,15 @@ namespace ggEngine {
 			
 			indexY++;
 		}
+		RenderTileMapToTexture();
 
 	}
-	TileMap::~TileMap()
-	{
-	
-	}
-
 	void TileMap::Draw()
 	{
+		Group::Draw();
 		//Transform(this->spriteHandle);
 		//Scale from 0 0
-		Matrix mat;
+		/*Matrix mat;
 		mat = Matrix::CreateTranslateMatrix(-this->GetWidth()*(this->GetAnchor().x), -this->GetHeight()*(this->GetAnchor().y));
 
 		spriteHandle->SetTransform(&mat);
@@ -97,16 +102,49 @@ namespace ggEngine {
 			DrawTileMap(x, y, xEnd, yEnd);
 
 			spriteHandle->End();
+		}*/
+	}
+
+	void TileMap::RenderTileMapToTexture()
+	{
+		this->game->cache->CreateEmptyTexture(this->name, this->width, this->height);
+		SpriteInfo *spriteInfo = this->game->cache->GetSpriteInfo(this->name);
+		Texture *texture = spriteInfo->GetTexture();
+		this->drawManager->ChangeRenderTargetTo(texture);
+		LPDIRECT3DDEVICE9 device = &this->game->GetD3DManager()->getDevice();
+		device->Clear(0, 0, D3DCLEAR_TARGET, D3DCOLOR_ARGB(255,0,0,0), 1.0, 0);
+		device->BeginScene();
+		device->Clear(0, 0, D3DCLEAR_ZBUFFER, 0, 1.0, 0);
+
+
+		Matrix mat;
+		mat = Matrix::CreateTranslateMatrix(0, 0);
+		spriteHandle->SetTransform(&mat);
+		if (spriteHandle->Begin(D3DXSPRITE_ALPHABLEND) == D3D_OK)
+		{
+			for (int yId = 0; yId < this->numberOfCellPerColumn; yId++) {
+				for (int xId = 0; xId < this->numberOfCellPerRow; xId++) {
+					tileList[tileMatrix[yId][xId]]->Draw(xId*tileWidth, yId*tileHeight);
+				}
+			}
+
+			spriteHandle->End();
 		}
+
+		device->EndScene();
+		this->drawManager->ResetRenderTarget();
+
+		this->game->add->Sprite(0, 0, this->name, this);
+
 	}
 
 	void TileMap::DrawTileMap(int x, int y, int xEnd, int yEnd)
 	{
-		for (int yId = y; yId <= yEnd; yId++) {
+		/*for (int yId = y; yId <= yEnd; yId++) {
 			for (int xId = x; xId <= xEnd; xId++) {
 				tileList[tileMatrix[yId][xId]]->Draw(xId*tileWidth, yId*tileHeight);
 			}
-		}
+		}*/
 	}
 	
 

@@ -44,6 +44,8 @@ namespace ggEngine {
 		D3DTLVERTEX CreateD3DTLVERTEX(double X, double Y, double Z, double RHW, D3DCOLOR color, double U, double V);
 		LPD3DXSPRITE GetSpriteHandle(){ return this->spriteHandle; }
 		LPDIRECT3DSURFACE9 GetColorSurface(){ return this->colorSurface; }
+		void ChangeRenderTargetTo(Texture *texture);
+		void ResetRenderTarget();
 	private:
 		LPD3DXSPRITE spriteHandle;
 		LPDIRECT3DSURFACE9 colorSurface;

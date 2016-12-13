@@ -35,7 +35,24 @@ namespace ggEngine {
 			g_debug.Warning("Creating image failed. Src:" + filename);
 			return;
 		}
+		this->width = info.Width;
+		this->height = info.Height;
 
+	}
+	Texture::Texture(LPDIRECT3DDEVICE9 device, int width, int height, D3DCOLOR transcolor)
+	{
+		D3DXCreateTexture(device,
+			width,
+			height,
+			1,
+			D3DUSAGE_RENDERTARGET,
+			D3DFMT_A8R8G8B8,
+			D3DPOOL_DEFAULT,
+			&texture
+		);
+		texture->GetSurfaceLevel(0, &textureSurface);
+		this->width = width;
+		this->height = height;
 	}
 	Texture::~Texture()
 	{
@@ -44,11 +61,11 @@ namespace ggEngine {
 	}
 	int Texture::GetWidth()
 	{
-		return info.Width;
+		return this->width;
 	}
 	int Texture::GetHeight()
 	{
-		return info.Height;
+		return this->height;
 	}
 	
 }

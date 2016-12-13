@@ -207,4 +207,14 @@ namespace ggEngine {
 
 		return v;
 	}
+	void DrawManager::ChangeRenderTargetTo(Texture * texture)
+	{
+		LPDIRECT3DSURFACE9 surfaceTexture = texture->GetSurfaceTexture();
+		device->SetRenderTarget(0, surfaceTexture);
+		device->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, true);
+	}
+	void DrawManager::ResetRenderTarget()
+	{
+		device->SetRenderTarget(0, backBuffer);
+	}
 }

@@ -9,11 +9,13 @@ namespace ggEngine {
 	class TileMap : public Group{
 	public:
 		TileMap(Game *game);
-		void BuildTileMap(const char * jsonChar);
 		virtual ~TileMap();
+
+		void BuildTileMap(const char * jsonChar);
 
 		void Draw() override;
 	private:
+		void RenderTileMapToTexture();
 		void DrawTileMap(int x, int y, int xEnd, int yEnd);
 		int tileWidth;
 		int tileHeight;

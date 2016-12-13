@@ -111,6 +111,12 @@ namespace ggEngine {
 		};
 		this->tileSetMap.clear();
 	}
+	bool Cache::CreateEmptyTexture(std::string key, int textureWidth, int textureHeight)
+	{
+		Texture *tex = new Texture(this->device, textureWidth, textureHeight);
+		SetValueIfNotExists(key, new SpriteInfo(tex));
+		return true;
+	}
 	bool Cache::CreateTexture(std::string key, std::string textureFile, D3DCOLOR transColor) {
 		Texture *tex = new Texture(this->device, textureFile,transColor);
 		if (tex->GetDxTexture() == NULL) {
