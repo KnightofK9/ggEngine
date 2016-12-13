@@ -29,34 +29,22 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 	//Create "after ... attack" to double the frame which whip is shown longest
 	//Stand Attack
-	this->CreateAnimation("standAttack", 12, 14, false)->SetOnCompleted([this](Animator*) {
-		this->incompleteAnim = "afterStandAttack";
-	});
-	this->CreateAnimation("afterStandAttack", 14, 14, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("standAttack", { 12,13,14,14 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
 	});
 
 	// Kneel Attack
-	this->CreateAnimation("kneelAttack", 15, 17, false)->SetOnCompleted([this](Animator*) {
-		this->incompleteAnim = "afterKneelAttack";
-	});
-	this->CreateAnimation("afterKneelAttack", 17, 17, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("kneelAttack", { 15,16,17,17 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
 	});
 
 	//Climb Down Attack
-	this->CreateAnimation("climbDownAttack", 18, 20, false)->SetOnCompleted([this](Animator*) {
-		this->incompleteAnim = "afterClimbDownAttack";
-	});
-	this->CreateAnimation("afterClimbDownAttack", 20, 20, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("climbDownAttack", { 18,19,20,20 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
 	});
 
 	//Climb Up Attack
-	this->CreateAnimation("climbUpAttack", 21, 23, false)->SetOnCompleted([this](Animator*) {
-		this->incompleteAnim = "afterClimbUpAttack";
-	});
-	this->CreateAnimation("afterClimbUpAttack", 23, 23, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("climbUpAttack", { 21,22,23,23 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
 	});
 
