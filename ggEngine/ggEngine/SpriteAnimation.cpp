@@ -88,6 +88,12 @@ namespace ggEngine {
 		animatorMap[animationName] = animator;
 		return animator;
 	}
+	Animator * SpriteAnimation::CreateAnimation(std::string animationName, std::vector<int> frameList, bool isLoop)
+	{
+		auto *animator = new Animator(frameList, this, animationName, isLoop);
+		animatorMap[animationName] = animator;
+		return animator;
+	}
 	void SpriteAnimation::NextAnimationFrame(std::string animationName)
 	{
 		this->nextAnimationName = animationName;
@@ -106,7 +112,7 @@ namespace ggEngine {
 			}
 			this->currentAnimation = (it->second);
 			this->currentAnimation->Reset();
-			this->SetFrame(this->currentAnimation->startFrame);
+			this->SetFrame(this->currentAnimation->frameList[0]);
 			this->isRunningAnimation = true;
 		}
 		else {

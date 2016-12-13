@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include <map>
 #include "StaticTimer.h"
+#include "Vector.h"
 namespace ggEngine {
 	enum SpriteAnimationType { SA_RectangleSheet, SA_XMLSheet };
 	class Animator;
@@ -13,6 +14,7 @@ namespace ggEngine {
 		void Draw() override;
 		void DrawRect() override;
 		Animator* CreateAnimation(std::string animationName, int startFrame, int endFrame, bool isLoop = true);
+		Animator* CreateAnimation(std::string animationName, std::vector<int> frameList, bool isLoop = true);
 		Animator* PlayAnimation(std::string animationName);
 		void ResetAnimation(std::string animationName);
 		void SetImage(SpriteInfo *image, int frameWidth, int frameHeight, int numberOfFrame = 0);

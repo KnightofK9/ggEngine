@@ -17,7 +17,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->SetScale(1, 1);
 	this->SetHealth(health);
 	this->CreateAnimation("idle", 0, 0, true);
-	this->CreateAnimation("move", 1, 3, true);
+	this->CreateAnimation("move", 1, 2, true);
 	this->CreateAnimation("kneel", 4, 4, true);
 	this->CreateAnimation("climbDown", 5, 6, true);
 	this->CreateAnimation("climbDownIdle", 5, 5, true);
