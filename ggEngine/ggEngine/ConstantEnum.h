@@ -32,7 +32,7 @@ const int ERROR_CODE_FAIL_INIT_DRAW_MANAGER_ERROR_UNKNOW = 404;
 const int ERROR_CODE_FAIL_INIT_SPRITE_HANDLER = 405;
 typedef LPCTSTR GGTEXT;
 enum GameMode { GameMode_FullScreen, GameMode_Windowed };
-enum PhysicsMode { PhysicsMode_AABB, PhysicsMode_AABBSwept, PhysicsMode_None };
+enum PhysicsMode { PhysicsMode_AABBSweptMix, PhysicsMode_AABB, PhysicsMode_AABBSwept, PhysicsMode_None };
 enum SoundMode {SoundMode_Enable, SoundMode_Disable};
 enum SoundType { SoundType_Sound, SoundType_Music };
 enum TileType {TileType_SingleTile = 0, TileType_AnimationType};

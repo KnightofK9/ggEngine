@@ -97,10 +97,10 @@ namespace ggEngine {
 	private:
 		bool isReady = false;
 		bool isActive = true;
-		bool PerformCollisionCheck(Vector currentVelocity);
-		std::list<Box> GetPossibleCollidedList(Box &b1, Vector currentVelocity);
+		bool PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB = false);
+		std::list<GameObject*> GetPossibleCollidedList(Box &b1, Vector currentVelocity);
 		std::vector<ColliderArg> colliderDirection;
-		ColliderArg GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<Box> &possibleCollidedList);
+		ColliderArg GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<GameObject*> &possibleCollidedList);
 		std::priority_queue<ColliderArg> GetCollidedArgList(Box &b1, Vector currentVelocity);
 		bool GetArgIfCollided(Box &b1, Box &b2, ColliderArg &e);
 		ColliderArg shortestCollider;
@@ -108,7 +108,7 @@ namespace ggEngine {
 		bool enable = true;
 		bool IsCollided(Box &b1,Box &b2);
 		PhysicsMode physicsMode;
-		void CheckCollisionAABB();
+		void CheckCollisionAABB(std::list<GameObject*> *gameObjectList);
 		Game* game;
 		bool CheckWorldBounds();
 		Vector acceleration;

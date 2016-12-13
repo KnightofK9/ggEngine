@@ -68,24 +68,23 @@ namespace ggEngine {
 		this->staticGoList.remove(staticGo);
 		//collisionObjectList.remove(std::find(collisionObjectList.begin(), collisionObjectList.end(), staticGo), collisionObjectList.end());
 	}
-	ColliderArg Body::GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<Box> &possibleCollidedList)
+	ColliderArg Body::GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<GameObject*> &possibleCollidedList)
 	{
 		ColliderArg shortestArg;
 		shortestArg.entryTime = 1;
+		GameObject* shortestGo = nullptr;
 		for (auto it = possibleCollidedList.begin(); it != possibleCollidedList.end(); ++it) {
 			ColliderArg e;
-			if (GetArgIfCollided(b1, (*it), e)) {
+			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+			if (GetArgIfCollided(b1, b2, e)) {
 				if (e < shortestArg) {
 					shortestArg = e;
+					shortestGo = b2.gameObject;
 				}
 			}
 		}
-		for (auto it = possibleCollidedList.begin(); it != possibleCollidedList.end(); ++it) {
-			if (*it == shortestArg.b) {
-				possibleCollidedList.remove(*it);
-				break;
-			}
-		}
+		if(shortestGo != nullptr)
+			possibleCollidedList.remove(shortestGo);
 		return shortestArg;
 	}
 	std::priority_queue<ColliderArg> Body::GetCollidedArgList(Box &b1, Vector currentVelocity)
@@ -217,8 +216,37 @@ namespace ggEngine {
 		Rect r2 = b2.GetRect();
 		return Physics::AABBCheck(broadPhaseRect, r2);
 	}
-	void Body::CheckCollisionAABB()
+	void Body::CheckCollisionAABB(std::list<GameObject*> *gameObjectList)
 	{
+		Rect r1 = this->rigidBody->GetRect();
+		for (auto it = gameObjectList->begin(); it != gameObjectList->end(); ++it) {
+			GameObject *go = (*it);
+			Rect r2 = go->body->GetRect();
+			Rect i;
+			if (Rect::intersect(i, r1, r2)) {
+				ColliderArg e;
+				e.colliderObject = go;
+				if (i.right - i.left > i.bottom - i.top) {
+					if (r1.top < r2.top) {
+						e.blockDirection.down = true;
+					}
+					else {
+						e.blockDirection.up = true;
+					}
+				}
+				else {
+					if (r1.left < r2.left) {
+						e.blockDirection.right = true;
+					}
+					else {
+						e.blockDirection.left = true;
+					}
+				}
+				if(this->sprite->events->onCollide != nullptr) 
+					this->sprite->events->onCollide(this->sprite, e);
+			}
+		}
+		gameObjectList->clear();
 	}
 	void Body::PreUpdate()
 	{
@@ -247,13 +275,13 @@ namespace ggEngine {
 		return r;
 	}
 
-	bool Body::PerformCollisionCheck(Vector currentVelocity)
+	bool Body::PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB)
 	{
-		currentVelocity *= PIXEL_PER_CENTIMETER;
+		//currentVelocity *= PIXEL_PER_CENTIMETER;
 		bool isCollided = false;
 		Box b1 = Physics::CreateBoxFromObject(this->sprite, currentVelocity);
 		//TO DO, box being move down so it won't recognized
-		std::list<Box> possibleCollidedList = GetPossibleCollidedList(b1, currentVelocity);
+		std::list<GameObject*> possibleCollidedList = GetPossibleCollidedList(b1, currentVelocity);
 		if (possibleCollidedList.empty()) {
 			return false;
 		}
@@ -338,20 +366,22 @@ namespace ggEngine {
 		/*if (isCollided && this->allowObjectBlock) {
 			this->rigidBody->Translate(currentVelocity*remainingTime);
 		}*/
-
+		if (isReCheckWithAABB) {
+			CheckCollisionAABB(&possibleCollidedList);
+		}
 		return isCollided;
 	}
 
-	std::list<Box> Body::GetPossibleCollidedList(Box &b1, Vector currentVelocity)
+	std::list<GameObject*> Body::GetPossibleCollidedList(Box &b1, Vector currentVelocity)
 	{
-		std::list<Box> possibleCollidedBoxList;
+		std::list<GameObject*> possibleCollidedBoxList;
 		Rect broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
 		for (auto it = staticGoList.begin(); it != staticGoList.end(); ++it) {
 			(*it)->body->PreUpdate();
 			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 			Rect result;
 			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
-				possibleCollidedBoxList.push_back(b2);
+				possibleCollidedBoxList.push_back(b2.gameObject);
 			}
 		}
 		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
@@ -359,7 +389,7 @@ namespace ggEngine {
 			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 			Rect result;
 			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
-				possibleCollidedBoxList.push_back(b2);
+				possibleCollidedBoxList.push_back(b2.gameObject);
 			}
 		}
 		return possibleCollidedBoxList;
@@ -514,15 +544,33 @@ namespace ggEngine {
 		acceleration = (lastAcceleration + newAcceleration) / 2;
 		//Debug::Log("Current acceleration " + std::to_string(acceleration.y) + "|Current blocked.down:" + std::to_string(blocked.down));
 		velocity += acceleration*timeStep;
-		
-		if (this->physicsMode == PhysicsMode_AABBSwept) {
+
+		temp *= PIXEL_PER_CENTIMETER;
+		switch (this->physicsMode) {
+		case PhysicsMode_AABBSweptMix:
+			if (PerformCollisionCheck(temp),true) break;
+			this->rigidBody->Translate(temp);
+			break;
+		case PhysicsMode_AABBSwept:
+			if (PerformCollisionCheck(temp)) break;
+			this->rigidBody->Translate(temp);
+			break;
+		case PhysicsMode_AABB:
+			this->rigidBody->Translate(temp);
+			//CheckCollisionAABB();
+			break;
+		case PhysicsMode_None:
+			this->rigidBody->Translate(temp);
+			break;
+		}
+	/*	if (this->physicsMode == PhysicsMode_AABBSwept) {
 			if (PerformCollisionCheck(temp)) return;
 			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
 		}
 		else {
 			this->rigidBody->Translate(temp * PIXEL_PER_CENTIMETER);
 			CheckCollisionAABB();
-		}
+		}*/
 	}
 	void Body::UpdateBounds()
 	{

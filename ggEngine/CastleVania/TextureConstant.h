@@ -137,10 +137,10 @@ public:
 	static constexpr const char* TILE_LADDER_DOWN_LEFT_PATH = "Resource/Resources/TileObject/TileLadderDownLeft.png";
 
 	static constexpr const char* TILE_LADDER_UP_RIGHT = "TileLadderUpRight";
-	static constexpr const char* TILE_LADDER_UP_RIGHT_PATH = "Resource/Resources/TileObject/TileBrick.png";
+	static constexpr const char* TILE_LADDER_UP_RIGHT_PATH = "Resource/Resources/TileObject/TileLadderUpRight.png";
 
-	static constexpr const char* TILE_LADDER_DOWN_RIGHT = "TileLadderRight";
-	static constexpr const char* TILE_LADDER_DOWN_RIGHT_PATH = "Resource/Resources/TileObject/TileLadderUpRight.png";
+	static constexpr const char* TILE_LADDER_DOWN_RIGHT = "TileLadderDownRight";
+	static constexpr const char* TILE_LADDER_DOWN_RIGHT_PATH = "Resource/Resources/TileObject/TileLadderDownRight.png";
 
 	static constexpr const char* TILE_LADDER_UP_LEFT = "TileLadderUpLeft";
 	static constexpr const char* TILE_LADDER_UP_LEFT_PATH = "Resource/Resources/TileObject/TileLadderUpLeft.png";
