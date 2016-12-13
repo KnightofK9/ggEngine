@@ -25,12 +25,12 @@ namespace ggEngine {
 		Animator* SetOnBegin(std::function<void(Animator* animator)> onAnimatorBegin);
 		Animator* SetOnCompleted(std::function<void(Animator* animator)> onAnimatorComplete);
 		std::vector<int> frameList;
+		std::string name;
 	private:
 		void SetFrameIndex(int index);
 		void Init(SpriteAnimation *spriteAnimation, std::string name, bool isLoop);
 		std::function<void(Animator* animator)> onAnimatorBegin;
 		std::function<void(Animator* animator)> onAnimatorCompleted;
-		std::string name;
 		bool isBegin = false;
 	};
 }

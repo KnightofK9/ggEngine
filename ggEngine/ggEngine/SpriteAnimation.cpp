@@ -176,7 +176,9 @@ namespace ggEngine {
 	int SpriteAnimation::GetNextFrameIndex()
 	{
 		if (this->currentAnimation != nullptr) {
-			return this->currentAnimation->GetNextFrameIndex();
+			int nextFrameIndex =  this->currentAnimation->GetNextFrameIndex();
+			
+			return nextFrameIndex;
 		}
 		g_debug.Error("No animation found for " + this->name);
 		return -1;

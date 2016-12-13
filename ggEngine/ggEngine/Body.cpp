@@ -246,7 +246,6 @@ namespace ggEngine {
 					this->sprite->events->onOverlap(this->sprite, e);
 			}
 		}
-		gameObjectList->clear();
 	}
 	void Body::PreUpdate()
 	{
@@ -557,7 +556,7 @@ namespace ggEngine {
 			break;
 		case PhysicsMode_AABB:
 			this->rigidBody->Translate(temp);
-			//CheckCollisionAABB();
+			CheckCollisionAABB(&this->staticGoList);
 			break;
 		case PhysicsMode_None:
 			this->rigidBody->Translate(temp);
@@ -663,7 +662,8 @@ namespace ggEngine {
 	
 	void Body::Render(D3DCOLOR color, bool filled)
 	{
-		this->game->GetDrawManager()->DrawShape(rigidBody);
+		if(this->IsEnable())
+			this->game->GetDrawManager()->DrawShape(rigidBody);
 	}
 	
 	void Body::Update()

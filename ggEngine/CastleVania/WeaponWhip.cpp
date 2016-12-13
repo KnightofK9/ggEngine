@@ -6,34 +6,40 @@
 WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
+	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
 	this->SetAnchor(0.65, 0.5);
 	this->SetScale(1, 1);
 	this->SetVisible(false);
-
+	this->cvGame->physics->EnablePhysics(this);
+	this->body->CreateRectangleRigidBody(frameWidth, frameHeight);
+	this->body->SetEnable(false);
+	this->body->immoveable = true;
 	//standardWhip
-	this->CreateAnimation("1", 0, 2, false)->SetOnCompleted([this](Animator*) {
-		this->PlayAnimation("after1");
-	});
-	this->CreateAnimation("after1", 2, 2, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("1", { 0,1,2,2 }, false)->SetOnCompleted([this](Animator*) {
+		body->SetEnable(false);
 		this->SetVisible(false);
 	});
 
 	//shortWhip
-	this->CreateAnimation("2", 3, 5, false)->SetOnCompleted([this](Animator*) {
-		this->PlayAnimation("after2");
-	});
-	this->CreateAnimation("after2", 5, 5, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("2", { 3,4,5,5 }, false)->SetOnCompleted([this](Animator*) {
+		body->SetEnable(false);
 		this->SetVisible(false);
 	});
 
 	//longWhip
-	this->CreateAnimation("3", 6, 8, false)->SetOnCompleted([this](Animator*) {
-		this->PlayAnimation("after3");
-	});
-	this->CreateAnimation("after3", 8, 8, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("3", { 6,7,8,8 }, false)->SetOnCompleted([this](Animator*) {
+		body->SetEnable(false);
 		this->SetVisible(false);
 	});
-
+	this->events->onAnimationCallBack = [this](GameObject*, AnimationArg e) {
+		if ((e.frameIndex + 1) % 3 == 0) {
+			body->SetEnable(true);
+		}
+		else {
+			body->SetEnable(false);
+		}
+		//g_debug.Log(e.animationName + "-" + std::to_string(e.frameIndex));
+	};
 	//this->cvGame->physics->EnablePhysics(this);
 	//this->body->CreateRectangleRigidBody(50, 50);//
 	//this->body->allowGravity = false;

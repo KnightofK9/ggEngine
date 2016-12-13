@@ -2,8 +2,6 @@
 namespace ggEngine {
 	Animator::Animator(int startFrame, int endFrame, SpriteAnimation *spriteAnimation,std::string name, bool isLoop)
 	{
-		this->name = name;
-
 		Init(spriteAnimation, name, isLoop);
 
 		this->frameList.reserve(endFrame - startFrame + 1);
@@ -69,15 +67,25 @@ namespace ggEngine {
 			else {
 				currentIndex = 0;
 				this->isFinished = true;
-				if (this->onAnimatorCompleted != nullptr) {
-					this->onAnimatorCompleted(this);
-				}
+			}
+		}
+		if (this->spriteAnimation->events != nullptr && this->spriteAnimation->events->onAnimationCallBack != nullptr) {
+			AnimationArg e;
+			e.animationName = this->name;
+			e.animator = this;
+			e.frameIndex = this->frameList[this->currentIndex];
+			this->spriteAnimation->events->onAnimationCallBack(this->spriteAnimation, e);
+		}
+		if (this->isFinished) {
+			if (this->onAnimatorCompleted != nullptr) {
+				this->onAnimatorCompleted(this);
 			}
 		}
 		this->currentFrame = this->frameList[this->currentIndex];
 	}
 	void Animator::Init(SpriteAnimation * spriteAnimation, std::string name, bool isLoop)
 	{
+		this->name = name;
 		this->frameHeight = spriteAnimation->GetFrameHeight();
 		this->frameWidth = spriteAnimation->GetFrameWidth();
 		this->framePerColumn = spriteAnimation->GetFramePerColumn();

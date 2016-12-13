@@ -7,6 +7,7 @@ namespace ggEngine {
 	class AnimationArg : public EventArg {
 	public:
 		std::string animationName = "";
+		int frameIndex;
 		Animator *animator;
 	};
 }
