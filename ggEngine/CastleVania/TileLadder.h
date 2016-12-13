@@ -7,5 +7,6 @@ class TileLadder : public StaticTile {
 public:
 	TileLadder(CVGame *cvGame, SpriteInfo *info);
 	void SetTag(Tag tag);
+	double GetMoveToPositionX(double deltaX);
 	~TileLadder();
 };

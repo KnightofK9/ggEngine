@@ -7,6 +7,7 @@ using namespace ggEngine;
 class CVGame;
 class ItemBase;
 class WeaponManager;
+class TileLadder;
 class WeaponWhip;
 enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
 					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB};
@@ -66,6 +67,7 @@ public:
 
 	InfoPanel *infoPanel = nullptr;
 private:
+	TileLadder *tileLadder = nullptr;
 	int health;
 	int maxHealth;
 

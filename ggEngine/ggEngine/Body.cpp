@@ -242,8 +242,8 @@ namespace ggEngine {
 						e.blockDirection.left = true;
 					}
 				}
-				if(this->sprite->events->onCollide != nullptr) 
-					this->sprite->events->onCollide(this->sprite, e);
+				if(this->sprite->events->onOverlap != nullptr) 
+					this->sprite->events->onOverlap(this->sprite, e);
 			}
 		}
 		gameObjectList->clear();

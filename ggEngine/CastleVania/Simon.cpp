@@ -3,6 +3,7 @@
 #include "CVAdd.h"
 #include "ItemManager.h"
 #include "WeaponManager.h"
+#include "TileLadder.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
@@ -52,6 +53,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 
 	this->cvGame->physics->EnablePhysics(this);
+	//this->body->SetPhysicsMode(PhysicsMode_AABBSweptMix);
 	this->body->CreateRectangleRigidBody(14, 26);
 	this->body->syncBounds = false;
 	this->body->rigidBody->SetAnchor(0.5, 0.32);
@@ -63,25 +65,25 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		Tag type = otherObject->tag;
 		switch (type) {
 		case ObjectType_LadderDownLeft:
-			this->ladderState = LadderDownLeft;
+			//this->ladderState = LadderDownLeft;
 			return false;
 		case ObjectType_LadderDownRight:
-			this->ladderState = LadderDownRight;
+			//this->ladderState = LadderDownRight;
 			return false;
 		case ObjectType_LadderUpLeft:
-			if (e.blockDirection.down) {
+			/*if (e.blockDirection.down) {
 				this->ladderState = LadderUpLeft;
 				this->grounding = GroundingBrick;
 				return true;
-			}
+			}*/
 			return false;
 		case ObjectType_LadderUpRight:
 			//if (e.blockDirection.down && this->isClimbingUp) {
-			if (this->isClimbingUp){
+			/*if (this->isClimbingUp){
 				this->ladderState = LadderUpRight;
 				this->grounding = GroundingBrick;
 				return true;
-			}
+			}*/
 			return false;
 		case ObjectType_Static:
 			return true;
@@ -107,12 +109,20 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			//g_debug.Log("Collided with candle");
 			break;
 		case ObjectType_LadderDownLeft:
+			tileLadder = dynamic_cast<TileLadder*>(otherObject);
+			g_debug.Log("Overlap with ladder!");
 			break;
 		case ObjectType_LadderDownRight:
+			tileLadder = dynamic_cast<TileLadder*>(otherObject);
+			g_debug.Log("Overlap with ladder!");
 			break;
 		case ObjectType_LadderUpLeft:
+			tileLadder = dynamic_cast<TileLadder*>(otherObject);
+			g_debug.Log("Overlap with ladder!");
 			break;
 		case ObjectType_LadderUpRight:
+			tileLadder = dynamic_cast<TileLadder*>(otherObject);
+			g_debug.Log("Overlap with ladder!");
 			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
@@ -126,6 +136,20 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		}
 
 	};
+	//this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
+	//	GameObject *otherObject = e.colliderObject;
+	//	Tag type = otherObject->tag;
+	//	this->tileLadder = nullptr;
+	//	switch (type) {
+	//	case ObjectType_LadderDownLeft:
+	//	case ObjectType_LadderDownRight:
+	//	case ObjectType_LadderUpLeft:
+	//	case ObjectType_LadderUpRight:
+	//		tileLadder = dynamic_cast<TileLadder*>(otherObject);
+	//		g_debug.Log("Overlap with ladder!");
+	//		break;
+	//	}
+	//};
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		if (e.blockDirection.down) {
 			this->grounding = GroundingBrick;

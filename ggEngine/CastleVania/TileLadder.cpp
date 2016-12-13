@@ -19,6 +19,23 @@ void TileLadder::SetTag(Tag tag)
 	}
 }
 
+double TileLadder::GetMoveToPositionX(double deltaX)
+{
+	switch (this->tag) {
+	case ObjectType_LadderDownLeft:
+	case ObjectType_LadderUpLeft:
+		return this->position.x - deltaX;
+		break;
+	case ObjectType_LadderUpRight:
+	case ObjectType_LadderDownRight:
+		return this->position.x + this->GetWidth() + deltaX;
+		break;
+		break;
+	}
+}
+
+
+
 TileLadder::~TileLadder()
 {
 }
