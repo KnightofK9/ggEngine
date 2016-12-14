@@ -41,12 +41,12 @@ namespace ggEngine{
 		TileMap* TileMap(const char* jsonChar, ggEngine::Group *group);
 		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
 		Audio* Audio(std::string audioKey);
-		ggEngine::TweenBase* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween);
-		ggEngine::TweenBase* Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, std::function<void(double)> update = [](double) {});
-		ggEngine::MultiTween* MultiTween(std::list<TweenBase*> tweenList);
+		ggEngine::TweenBase* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
+		ggEngine::TweenBase* Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, std::function<void(double)> update = [](double) {}, bool isAddToTweenManager = true);
+		ggEngine::MultiTween* MultiTween(std::list<TweenBase*> tweenList, bool isAddToTweenManager = true);
 		
-		ggEngine::TweenBase* MoveBy(GameObject *go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween);
-		ggEngine::TweenBase* MoveTo(GameObject *go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween);
+		ggEngine::TweenBase* MoveBy(GameObject *go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
+		ggEngine::TweenBase* MoveTo(GameObject *go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
 		
 		TimeBasedEventInfo* TimeOut(unsigned int delay , std::function<void(void)> function);
 		TimeBasedEventInfo* LoopInfinity(unsigned int delay, std::function<void(void)> function);

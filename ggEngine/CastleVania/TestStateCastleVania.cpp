@@ -91,10 +91,10 @@ void TestStateCastleVania::PreRender()
 }
 void TestStateCastleVania::Render()
 {
-	std::list<Body*> bodyList = this->cvgame->world->GetBodyList();
+	/*std::list<Body*> bodyList = this->cvgame->world->GetBodyList();
 	for (auto it = bodyList.begin(); it != bodyList.end(); ++it) {
 		(*it)->Render();
-	}
+	}*/
 }
 void TestStateCastleVania::Pause()
 {

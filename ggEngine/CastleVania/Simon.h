@@ -61,19 +61,26 @@ public:
 
 	void Blind();
 
+	WeaponWhip *weaponWhip = nullptr;
 	//void ThrowWeapon();
 
 	void *HealthDown(int health) { this->health -= health; }
 
 	InfoPanel *infoPanel = nullptr;
 private:
+	void StartClimbingLadder(bool isLeft, bool isUp);
+	void SetStateGoToLadder(bool active);
+
+	void OnLadderCompleted();
 	TileLadder *tileLadder = nullptr;
+	TileLadder *firstLadder = nullptr;
 	int health;
 	int maxHealth;
-	const double ladderMoveDistance = 15;
-	void MoveLadderUp(bool isLeft, double force = 15);
-	void MoveLadderDown(bool isLeft, double force = 15);
+	const double ladderMoveDistance = 16;
+	void MoveLadderUp(bool isLeft, double force = 16);
+	void MoveLadderDown(bool isLeft, double force = 16);
 	TweenBase* currentLadderTween = nullptr;
+	TweenBase* currentMoveToLadderTween = nullptr;
 	int score;
 	bool isClimbingLadder = false;
 	int stagePoint;
@@ -87,13 +94,11 @@ private:
 	SimonGroundingType grounding = GroundingBrick;	//for jump or for fall down or for hurt
 	SimonLadder ladderState = LadderNone;
 
-	bool isClimbingUp = true;
-	
+	bool isClimbingUp = false;
 	double hurtForce = 3;
 
 	string incompleteAnim = "";
 	WeaponManager *weaponManager = nullptr;
-	WeaponWhip *weaponWhip = nullptr;
 	
 	DWORD controlKey[8];
 	void SetUpKeyControl();
