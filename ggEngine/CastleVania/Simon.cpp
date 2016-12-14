@@ -101,7 +101,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		switch (type) {
 		case ObjectType_LevelTwoBrick:
 			if (e.blockDirection.down) {
-				this->ladderState = LadderNone;
+				//this->ladderState = LadderNone;
 				this->grounding = GroundingBrick;
 			}
 			break;
@@ -109,20 +109,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			//g_debug.Log("Collided with candle");
 			break;
 		case ObjectType_LadderDownLeft:
-			tileLadder = dynamic_cast<TileLadder*>(otherObject);
-			g_debug.Log("Overlap with ladder!");
-			break;
 		case ObjectType_LadderDownRight:
-			tileLadder = dynamic_cast<TileLadder*>(otherObject);
-			g_debug.Log("Overlap with ladder!");
-			break;
 		case ObjectType_LadderUpLeft:
-			tileLadder = dynamic_cast<TileLadder*>(otherObject);
-			g_debug.Log("Overlap with ladder!");
-			break;
 		case ObjectType_LadderUpRight:
-			tileLadder = dynamic_cast<TileLadder*>(otherObject);
-			g_debug.Log("Overlap with ladder!");
 			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
@@ -144,6 +133,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		case ObjectType_LadderDownRight:
 		case ObjectType_LadderUpLeft:
 		case ObjectType_LadderUpRight:
+			g_debug.Log("Overlap with ladder!");
 			tileLadder = dynamic_cast<TileLadder*>(e.colliderObject);
 			break;
 		}
@@ -167,11 +157,22 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		}
 		if (isClimbingLadder) {
 			this->body->allowGravity = false;
-			if (e.isPress(controlKey[SimonControl_Up])) {
-				MoveLadderUp(this->isLeft);
-			}
-			else if (e.isPress(controlKey[SimonControl_Down])) {
-				MoveLadderDown(this->isLeft);
+			bool isPressUp = e.isPress(controlKey[SimonControl_Up]);
+			bool isPressDown = e.isPress(controlKey[SimonControl_Down]);
+			switch (this->ladderState)
+			{
+				case LadderDownLeft:
+				case LadderUpRight:
+					if (isPressUp) MoveLadderUp(false);
+					else if (isPressDown) MoveLadderDown(true);
+					break;
+				case LadderDownRight:
+				case LadderUpLeft:
+					if (isPressUp) MoveLadderUp(true);
+					else if (isPressDown) MoveLadderDown(false);
+					break;
+				default:
+					break;
 			}
 			return;
 		}
@@ -180,50 +181,50 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				switch (this->tileLadder->tag)
 				{
 				case ObjectType_LadderDownLeft:
-					this->ladderState == LadderDownLeft;
+					this->ladderState = LadderDownLeft;
 					if (e.isPress(controlKey[SimonControl_Up])) {
 						this->grounding = GroundingLadder;
 						this->isClimbingUp = true;
 						this->isClimbingLadder = true;
 						this->body->allowGravity = false;
 						this->body->immoveable = true;
-						MoveLadderUp(false);
+						MoveLadderUp(false, ladderMoveDistance/2);
 						return;
 					}
 					break;
 				case ObjectType_LadderDownRight:
-					this->ladderState == LadderDownRight;
+					this->ladderState = LadderDownRight;
 					if (e.isPress(controlKey[SimonControl_Up])) {
 						this->grounding = GroundingLadder;
 						this->isClimbingUp = true;
 						this->isClimbingLadder = true;
 						this->body->allowGravity = false;
 						this->body->immoveable = true;
-						MoveLadderUp(true);
+						MoveLadderUp(true, ladderMoveDistance/2);
 						return;
 					}
 					break;
 				case ObjectType_LadderUpLeft:
-					this->ladderState == LadderUpLeft;
+					this->ladderState = LadderUpLeft;
 					if (e.isPress(controlKey[SimonControl_Up])) {
 						this->grounding = GroundingLadder;
 						this->isClimbingUp = false;
 						this->isClimbingLadder = true;
 						this->body->allowGravity = false;
 						this->body->immoveable = true;
-						MoveLadderDown(true);
+						MoveLadderDown(true, ladderMoveDistance/2);
 						return;
 					}
 					break;
 				case ObjectType_LadderUpRight:
-					this->ladderState == LadderUpRight;
+					this->ladderState = LadderUpRight;
 					if (e.isPress(controlKey[SimonControl_Up])) {
 						this->grounding = GroundingLadder;
 						this->isClimbingUp = false;
 						this->isClimbingLadder = true;
 						this->body->allowGravity = false;
 						this->body->immoveable = true;
-						MoveLadderDown(false);
+						MoveLadderDown(false, ladderMoveDistance/2);
 						return;
 					}
 					break;
@@ -233,7 +234,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 			}
 			else {
-				this->ladderState == LadderNone;
+				//this->ladderState == LadderNone;
 			}
 			
 			this->tileLadder = nullptr;
@@ -558,15 +559,15 @@ void Simon::Blind()
 	})->Start();
 }
 
-void Simon::MoveLadderUp(bool isLeft)
+void Simon::MoveLadderUp(bool isLeft,double force)
 {
 	if (this->currentLadderTween == nullptr) {
 		Vector distance;
 		if (isLeft) {
-			distance = Vector(-ladderMoveDistance, -ladderMoveDistance);
+			distance = Vector(-force, -force);
 		}
 		else {
-			distance = Vector(ladderMoveDistance, -ladderMoveDistance);
+			distance = Vector(force, -force);
 		}
 
 		ChangeFacingDirection(isLeft);
@@ -577,18 +578,18 @@ void Simon::MoveLadderUp(bool isLeft)
 	}
 }
 
-void Simon::MoveLadderDown(bool isLeft)
+void Simon::MoveLadderDown(bool isLeft, double force)
 {
 	if (this->currentLadderTween == nullptr) {
 		Vector distance;
 		if (isLeft) {
-			distance = Vector(-ladderMoveDistance, ladderMoveDistance);
+			distance = Vector(-force, force);
 		}
 		else {
-			distance = Vector(ladderMoveDistance, ladderMoveDistance);
+			distance = Vector(force, force);
 		}
 		ChangeFacingDirection(isLeft);
-		this->PlayAnimation("climbUp");
+		this->PlayAnimation("climbDown");
 		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 3)->SetOnFinish([this]() {
 			this->currentLadderTween = nullptr;
 		})->Start();
