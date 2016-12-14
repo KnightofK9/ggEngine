@@ -5,17 +5,18 @@
 //#include <claw/tween/single_tweener.hpp>
 //#include <claw/tween/tweener_group.hpp>
 namespace ggEngine {
-	class Tween;
+	class TweenBase;
 	class Game;
 	class TweenManager : public ComponentBase {
 	public:
 		TweenManager(Game *game);
 		virtual ~TweenManager();
 		void Update(double deltaTime);
-		void AddTween(Tween* tween);
+		void AddTween(TweenBase* tween);
+		void RemoveTween(TweenBase* tween);
 		void Reset();
 	private:
 		Game *game;
-		std::list<Tween*> tweenerList;
+		std::list<TweenBase*> tweenerList;
 	};
 }

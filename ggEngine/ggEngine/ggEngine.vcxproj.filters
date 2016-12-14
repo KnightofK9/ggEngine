@@ -255,6 +255,12 @@
     <ClCompile Include="CameraActiveGroup.cpp">
       <Filter>Resource Files\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TweenBase.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTween.cpp">
+      <Filter>Resource Files\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -496,6 +502,12 @@
     </ClInclude>
     <ClInclude Include="CameraActiveGroup.h">
       <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTween.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TweenBase.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

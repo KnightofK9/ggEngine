@@ -18,6 +18,7 @@
 #include "Game.h"
 #include "Tile.h"
 #include "TileSet.h"
+#include "MultiTween.h"
 int (WINAPIV * __vsnprintf)(char *, size_t, const char*, va_list) = _vsnprintf;
 
 namespace ggEngine{
@@ -103,17 +104,41 @@ namespace ggEngine{
 		ggEngine::Audio *audio = new ggEngine::Audio(this->game, audioInfo);
 		return audio;
 	}
-	ggEngine::Tween * Add::Tween(float & val, double end, double duration, std::function<double(int,double,double,int)> easingFunction)
+	ggEngine::TweenBase * Add::Tween(float & val, double end, double duration, std::function<double(int,double,double,int)> easingFunction)
 	{
 		ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, val, end, duration, easingFunction);
 		this->tweenManager->AddTween(tween);
 		return tween;
 	}
-	ggEngine::Tween * Add::Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction,  std::function<void(double)> update)
+	ggEngine::TweenBase * Add::Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction,  std::function<void(double)> update)
 	{
 		ggEngine::Tween* tween = new ggEngine::Tween(this->tweenManager, init, end, duration, update, easingFunction);
 		this->tweenManager->AddTween(tween);
 		return tween;
+	}
+	ggEngine::MultiTween * Add::MultiTween(std::list<TweenBase*> tweenList)
+	{
+		for (TweenBase *tween : tweenList) {
+			this->tweenManager->RemoveTween(tween);
+		}
+		ggEngine::MultiTween * tween = new ggEngine::MultiTween(tweenList,this->tweenManager);
+		this->tweenManager->AddTween(tween);
+		return tween;
+	}
+	ggEngine::TweenBase * Add::MoveBy(GameObject * go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunction)
+	{
+		Vector startPosition = go->position;
+		TweenBase* moveX = this->Tween(go->position.x, distance.x + startPosition.x, duration, easingFunction);
+		TweenBase* moveY = this->Tween(go->position.y, distance.y + startPosition.y, duration, easingFunction);
+		TweenBase* multiTween = this->MultiTween({ moveX,moveY });
+		return multiTween;
+	}
+	ggEngine::TweenBase * Add::MoveTo(GameObject * go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunction)
+	{
+		TweenBase* moveX = this->Tween(go->position.x, newPosition.x, duration, easingFunction);
+		TweenBase* moveY = this->Tween(go->position.y, newPosition.y, duration, easingFunction);
+		TweenBase* multiTween = this->MultiTween({ moveX,moveY });
+		return multiTween;
 	}
 	TimeBasedEventInfo * Add::TimeOut(unsigned int delay, std::function<void(void)> function)
 	{

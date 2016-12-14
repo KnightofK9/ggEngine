@@ -1,6 +1,6 @@
 #include "TweenManager.h"
 #include "Game.h"
-#include "Tween.h"
+#include "TweenBase.h"
 ggEngine::TweenManager::TweenManager(Game * game)
 {
 	this->game = game;
@@ -9,7 +9,7 @@ ggEngine::TweenManager::TweenManager(Game * game)
 void ggEngine::TweenManager::Update(double deltaTime)
 {
 	for (auto it = tweenerList.begin(); it != tweenerList.end(); ) {
-		Tween * tween = (*it);
+		TweenBase * tween = (*it);
 		if (tween->IsAlive()) {
 			if (tween->IsPlaying()) {
 				tween->Update(deltaTime);
@@ -31,11 +31,14 @@ void ggEngine::TweenManager::Update(double deltaTime)
 	}
 }
 
-void ggEngine::TweenManager::AddTween(Tween *tween)
+void ggEngine::TweenManager::AddTween(TweenBase *tween)
 {
 	tweenerList.push_back(tween);
 }
-
+void ggEngine::TweenManager::RemoveTween(TweenBase *tween)
+{
+	tweenerList.remove(tween);
+}
 void ggEngine::TweenManager::Reset()
 {
 	for (auto it = tweenerList.begin(); it != tweenerList.end(); ++it) {

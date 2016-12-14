@@ -36,3 +36,4 @@
 #include "Audio.h"
 #include "Animator.h"
 #include "CameraActiveGroup.h"
+#include "MultiTween.h"
