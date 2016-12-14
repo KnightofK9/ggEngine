@@ -93,7 +93,7 @@ void WeaponWhip::Attack(bool isLeft)
 
 void WeaponWhip::StandAttack(bool isLeft)
 {
-	this->SetAnchor(0.64, 0.5);
+	this->SetAnchor(0.64, 0.9);
 	this->Attack(isLeft);
 }
 
@@ -111,7 +111,7 @@ void WeaponWhip::ClimbDownAttack(bool isLeft)
 
 void WeaponWhip::KneelAttack(bool isLeft)
 {
-	this->SetAnchor(0.64, 0.25);
+	this->SetAnchor(0.64, 0.7);
 	this->Attack(isLeft);
 }
 

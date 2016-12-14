@@ -8,6 +8,7 @@ public:
 	virtual ~WeaponStopWatch();
 
 	void FireWeapon(bool isLeft) override;
+	int GetHeartConsumtion() override { return this->heartConsumtion; }
 
 private:
 	const int heartConsumtion = 5;

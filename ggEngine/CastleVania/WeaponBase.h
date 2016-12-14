@@ -17,6 +17,8 @@ public:
 	virtual void Destroy();
 
 	virtual void Active();
+	virtual int GetHeartConsumtion() { return 0; }
+	
 
 protected:
 	Vector GetHorizontalDirection(bool isLeft);
