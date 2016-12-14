@@ -69,6 +69,7 @@ public:
 	InfoPanel *infoPanel = nullptr;
 private:
 	void StartClimbingLadder(bool isLeft, bool isUp);
+	void StartClimbingLadderAuto(bool isLeft, bool isUp);
 	void SetStateGoToLadder(bool active);
 
 	void OnLadderCompleted();
@@ -80,11 +81,13 @@ private:
 	void MoveLadderUp(bool isLeft, double force = 16);
 	void MoveLadderDown(bool isLeft, double force = 16);
 	TweenBase* currentLadderTween = nullptr;
+	TweenBase* currentAutoLadderTweenAuto = nullptr;
 	TweenBase* currentMoveToLadderTween = nullptr;
 	int score;
 	bool isClimbingLadder = false;
 	int stagePoint;
-	
+	bool isSteppingOnLadder = false;
+	TileLadder *steppingTileLadder = nullptr;
 	int heartPoint;
 	
 	int pPoint;

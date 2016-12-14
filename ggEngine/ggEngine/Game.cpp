@@ -186,6 +186,7 @@ namespace ggEngine {
 			/*Handle input*/
 			input->PollKeyboard();
 			eventManager->DispatchKeyBoardEvent(input->keyStates);
+			eventManager->Update();
 			timeBasedEventManager->Update(dt);
 			/*State update*/
 			

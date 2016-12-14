@@ -124,3 +124,12 @@ void ggEngine::EventManager::Reset(){
 	this->receivedMouseList.clear();
 	this->trackingListCameraMap.clear();
 }
+
+void ggEngine::EventManager::Update()
+{
+	for (auto go : this->receivedKeyBoardList) {
+		if (go->events->resetEvent != nullptr) {
+			go->events->resetEvent();
+		}
+	}
+}

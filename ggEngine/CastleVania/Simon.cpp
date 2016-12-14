@@ -71,6 +71,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			return false;
 		case ObjectType_LadderUpLeft:
 		case ObjectType_LadderUpRight:
+			this->isSteppingOnLadder = true;
+			this->steppingTileLadder = dynamic_cast<TileLadder*>(otherObject);
 			return true;
 		case ObjectType_Static:
 			return true;
@@ -81,6 +83,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		}
 		return false;
 
+	};
+	this->events->resetEvent = [=]() {
+		this->tileLadder = nullptr;
+		this->isSteppingOnLadder = false;
+		this->steppingTileLadder = nullptr;
 	};
 	this->events->onCollide = [this](GameObject *object, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
@@ -138,27 +145,28 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			this->Death();
 			return;`
 		}*/
-
+		if (currentAutoLadderTweenAuto != nullptr) return;
 		if (this->incompleteAnim != "") {
 			this->PlayAnimation(incompleteAnim);
 			return;
 		}
 		if (isClimbingLadder) {
+			if (this->currentMoveToLadderTween != nullptr) {
+				delete this->currentMoveToLadderTween;
+				this->currentMoveToLadderTween = nullptr;
+			}
 			if (firstLadder == nullptr) firstLadder = tileLadder;
 			this->body->allowGravity = false;
 			bool isPressUp = e.isPress(controlKey[SimonControl_Up]);
 			bool isPressDown = e.isPress(controlKey[SimonControl_Down]);
-			if (tileLadder != nullptr ) {
+			if (tileLadder != nullptr  ) {
 				switch (tileLadder->tag) {
 				case ObjectType_LadderDownLeft:
 				case ObjectType_LadderDownRight:
 					if (isPressDown) OnLadderCompleted();
 					break;
-				/*case ObjectType_LadderUpLeft:
-				case ObjectType_LadderUpRight:
-					if (isPressUp) OnLadderCompleted();*/
-					break;
 				}
+				if(this->ladderState == LadderNone) return;
 			}
 
 			switch (this->ladderState)
@@ -177,40 +185,53 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 					break;
 			}
 
-			//this->tileLadder = nullptr;
 			return;
 		}
 		else {
+			if (this->isSteppingOnLadder) {
+				this->tileLadder = steppingTileLadder;
+				steppingTileLadder = nullptr;
+				isSteppingOnLadder = false;
+			}
 			if (this->tileLadder != nullptr) {
 				switch (this->tileLadder->tag)
 				{
 				case ObjectType_LadderDownLeft:
-					this->ladderState = LadderDownLeft;
+					
 					if (e.isPress(controlKey[SimonControl_Up])) {
+						this->ladderState = LadderDownLeft;
 						this->StartClimbingLadder(false, true);
 						return;
 					}
 					break;
 				case ObjectType_LadderDownRight:
-					this->ladderState = LadderDownRight;
+					
 					if (e.isPress(controlKey[SimonControl_Up])) {
+						this->ladderState = LadderDownRight;
 						this->StartClimbingLadder(true, true);
 						return;
 					}
 					break;
 				case ObjectType_LadderUpLeft:
-					this->ladderState = LadderUpLeft;
+					
+					/*this->StartClimbingLadder(false, false);
+					return;*/
 					if (e.isPress(controlKey[SimonControl_Down])) {
-						this->StartClimbingLadder(false, false);
+						this->ladderState = LadderUpLeft;
+						this->StartClimbingLadderAuto(false, false);
 						return;
 					}
 					break;
 				case ObjectType_LadderUpRight:
-					this->ladderState = LadderUpRight;
+					
+					/*this->StartClimbingLadder(true, false);
+					return;*/
 					if (e.isPress(controlKey[SimonControl_Down])) {
-						this->StartClimbingLadder(true, false);
+						this->ladderState = LadderUpRight;
+						this->StartClimbingLadderAuto(true, false);
 						return;
 					}
+					if (currentAutoLadderTweenAuto !=  nullptr) return;
 					break;
 				default:
 					break;
@@ -224,6 +245,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			
 			
 		}
+		isSteppingOnLadder = false;
 		switch (this->grounding) {
 			case GroundingBrick:
 				this->body->allowGravity = true;
@@ -553,7 +575,8 @@ void Simon::StartClimbingLadder(bool isLeft, bool isUp)
 			this->tileLadder->position+Vector(8,8),
 			max(abs((this->tileLadder->position.x - this->position.x) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame, abs((this->tileLadder->position.y - this->position.y) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame),
 			//10000,
-			Easing::linearTween, false)
+			Easing::linearTween,
+			false)
 			->SetOnFinish([this]() {
 			this->grounding = GroundingLadder;
 			this->isClimbingUp = true;
@@ -564,6 +587,27 @@ void Simon::StartClimbingLadder(bool isLeft, bool isUp)
 
 	
 
+}
+
+void Simon::StartClimbingLadderAuto(bool isLeft, bool isUp)
+{
+	SetStateGoToLadder(true);
+	if (this->currentAutoLadderTweenAuto == nullptr) {
+		this->PlayAnimation("climbDown");
+		this->currentAutoLadderTweenAuto = this->cvGame->add->MoveTo(
+			this,
+			this->tileLadder->position + Vector(8, 8),
+			//max(abs((this->tileLadder->position.x - this->position.x) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame, abs((this->tileLadder->position.y - this->position.y) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame),
+			this->msPerFrame*2,
+			Easing::linearTween,
+			true)
+			->SetOnFinish([this]() {
+			currentAutoLadderTweenAuto = nullptr;
+			this->grounding = GroundingLadder;
+			this->isClimbingUp = true;
+			this->isClimbingLadder = true;
+		})->Start();
+	}
 }
 
 void Simon::SetStateGoToLadder(bool active)
@@ -587,7 +631,8 @@ void Simon::OnLadderCompleted()
 	g_debug.Log("On ladder completed!");
 	this->isClimbingLadder = false;
 	this->ladderState = LadderNone;
-	firstLadder == nullptr;
+	firstLadder = nullptr;
+	tileLadder = nullptr;
 	this->body->allowGravity = true;
 	this->body->immoveable = false;
 }
@@ -604,15 +649,17 @@ void Simon::MoveLadderUp(bool isLeft,double force)
 		}
 		ChangeFacingDirection(isLeft);
 		this->PlayAnimation("climbUp");
+		bool isSteppingOnLadder2 = false;
+		if (this->tileLadder != nullptr) {
+			switch (this->tileLadder->tag) {
+			case ObjectType_LadderUpLeft:
+			case ObjectType_LadderUpRight:
+				isSteppingOnLadder2 = true;
+			}
+		}
 		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 2)->SetOnFinish([=]() {
-			if (this->tileLadder != nullptr) {
-				switch (this->tileLadder->tag) {
-				case ObjectType_LadderUpLeft:
-				case ObjectType_LadderUpRight:
-					if (this->position.y < tileLadder->position.y) {
-						this->OnLadderCompleted();
-					}
-				}
+			if (isSteppingOnLadder2) {
+				OnLadderCompleted();
 			}
 			this->currentLadderTween = nullptr;
 		})->Start();

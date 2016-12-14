@@ -26,6 +26,7 @@ namespace ggEngine {
 		void DispatchMouseEvent(double mouseX, double mouseY, bool isPress); 
 		char ScanToChar(DWORD scanCode) const;
 		void Reset();
+		void Update();
 
 		std::map<GameObject*, bool> trackingListCameraMap;
 	private:
