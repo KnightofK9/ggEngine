@@ -24,8 +24,8 @@ enum SimonControl {
 	SimonControl_Num9,
 	SimonControl_Num0
 };
-enum SimonGroundingType {GroundingBrick, GroundingLadder, GroundingNone};
-enum SimonLadder { LadderDownLeft, LadderDownRight, LadderUpLeft, LadderUpRight, LadderNone, LadderClimbFinish};
+enum SimonGroundingType {SimonGrounding_Brick, SimonGrounding_Ladder, SimonGrounding_None};
+enum SimonLadderType { SimonLadder_DownLeft, SimonLadder_DownRight, SimonLadder_UpLeft, SimonLadder_UpRight, SimonLadder_None};
 enum SimonSubWeaponType { SubWeapon_HolyWater, SubWeapon_Dagger, SubWeapon_Boomerang, SubWeapon_StopWatch, SubWeapon_Axe, SubWeapon_None };
 
 class Simon :public CharacterBase {
@@ -109,8 +109,8 @@ private:
 	
 	int shot;
 
-	SimonGroundingType grounding = GroundingBrick;	//for jump or for fall down or for hurt
-	SimonLadder ladderState = LadderNone;
+	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
+	SimonLadderType ladderState = SimonLadder_None;
 
 	bool isClimbingUp = false;
 	double hurtForce = 3;
