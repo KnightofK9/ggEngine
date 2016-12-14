@@ -70,20 +70,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			//this->ladderState = LadderDownRight;
 			return false;
 		case ObjectType_LadderUpLeft:
-			/*if (e.blockDirection.down) {
-				this->ladderState = LadderUpLeft;
-				this->grounding = GroundingBrick;
-				return true;
-			}*/
-			return false;
 		case ObjectType_LadderUpRight:
-			//if (e.blockDirection.down && this->isClimbingUp) {
-			/*if (this->isClimbingUp){
-				this->ladderState = LadderUpRight;
-				this->grounding = GroundingBrick;
-				return true;
-			}*/
-			return false;
+			return true;
 		case ObjectType_Static:
 			return true;
 		case ObjectType_LevelTwoBrick:
