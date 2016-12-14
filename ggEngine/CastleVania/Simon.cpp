@@ -293,7 +293,7 @@ void Simon::WhipAttack()
 void Simon::AddWhip()
 {
 	this->weaponWhip = this->weaponManager->AddWeaponWhip(0, 8, isLeft, this->parentGroup);
-	this->weaponWhip->SetAnchor(0.64, 0.5);
+	this->weaponWhip->SetAnchor(0.65, 0.5);
 	this->weaponWhip->SetTransformBasedOn(this);
 }
 
