@@ -96,10 +96,11 @@ private:
 	void SetUpKeyControl();
 	bool CheckKeyValid(KeyBoardEventArg e);
 
-	void SetKeyPressNormal(KeyBoardEventArg e);
-	void SetKeyPressLadderDownLeft(KeyBoardEventArg e);
-	void SetKeyPressLadderDownRight(KeyBoardEventArg e);
-	void SetKeyPressLadderUpLeft(KeyBoardEventArg e);
-	void SetKeyPressLadderUpRight(KeyBoardEventArg e);
+	void CheckKeyPressNormal(KeyBoardEventArg e);
+	void CheckKeyPressJumping(KeyBoardEventArg e);
+	void CheckKeyPressLadderDownLeft(KeyBoardEventArg e);
+	void CheckKeyPressLadderDownRight(KeyBoardEventArg e);
+	void CheckKeyPressLadderUpLeft(KeyBoardEventArg e);
+	void CheckKeyPressLadderUpRight(KeyBoardEventArg e);
 
 };
