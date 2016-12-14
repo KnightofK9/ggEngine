@@ -24,6 +24,7 @@ enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, 
 };
 enum SimonGroundingType {SimonGrounding_Brick, SimonGrounding_Ladder, SimonGrounding_None};
 enum SimonSubWeaponType { SubWeapon_HolyWater, SubWeapon_Dagger, SubWeapon_Boomerang, SubWeapon_StopWatch, SubWeapon_Axe, SubWeapon_None};
+enum SimonLadderType { SimonLadder_UpLeft, SimonLadder_UpRight, SimonLadder_DownLeft, SimonLadder_DownRight, SimonLadder_None};
 
 class Simon :public CharacterBase {
 public:
@@ -73,6 +74,7 @@ public:
 
 	void Blind();
 
+	WeaponWhip *weaponWhip = nullptr;
 	//void ThrowWeapon();
 
 	void *HealthDown(int health) { this->health -= health; }
@@ -81,12 +83,21 @@ public:
 	SimonSubWeaponType subWeapon;
 
 private:
+	void StartClimbingLadder(bool isLeft, bool isUp);
+	void SetStateGoToLadder(bool active);
+
+	void OnLadderCompleted();
 	TileLadder *tileLadder = nullptr;
+	TileLadder *firstLadder = nullptr;
 	int health;
 	int maxHealth;
-
+	const double ladderMoveDistance = 16;
+	void MoveLadderUp(bool isLeft, double force = 16);
+	void MoveLadderDown(bool isLeft, double force = 16);
+	TweenBase* currentLadderTween = nullptr;
+	TweenBase* currentMoveToLadderTween = nullptr;
 	int score;
-	
+	bool isClimbingLadder = false;
 	int stagePoint;
 	
 	int heartPoint;
@@ -95,12 +106,14 @@ private:
 	
 	int shot;
 
-	SimonGroundingType grounding;	//for jump or for fall down or for hurt	
+	SimonGroundingType grounding;	//for jump or for fall down or for hurt
+	SimonLadderType ladderState;
+
+	bool isClimbingUp = false;
 	double hurtForce = 3;
 
 	string incompleteAnim = "";
 	WeaponManager *weaponManager = nullptr;
-	WeaponWhip *weaponWhip = nullptr;
 	
 	DWORD controlKey[18];
 	void SetUpKeyControl();

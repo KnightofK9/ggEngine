@@ -3,6 +3,7 @@
 #include "CVAdd.h"
 #include "InfoPanel.h"
 #include "Simon.h"
+#include "WeaponWhip.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
@@ -83,6 +84,10 @@ void CVMap::Draw()
 	this->quadTreeGroup->Draw();
 	this->cameraActiveGroup->Draw();
 	this->simonGroup->Draw();
+	auto simonList = this->simonGroup->GetDrawList();
+	for (auto go : simonList) {
+		go->body->Render();
+	}
 	auto drawList = this->quadTreeGroup->GetDrawList();
 	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
 		(*it)->body->Render();

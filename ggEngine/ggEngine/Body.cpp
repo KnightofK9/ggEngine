@@ -98,14 +98,14 @@ namespace ggEngine {
 				collidedList.push(e);
 			}
 		}
-		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+	/*	for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
 			(*it)->body->PreUpdate();
 			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 			ColliderArg e;
 			if (GetArgIfCollided(b1, b2, e)) {
 				collidedList.push(e);
 			}
-		}
+		}*/
 		return collidedList;
 	}
 	bool Body::GetArgIfCollided(Box &b1, Box &b2, ColliderArg &e)
@@ -274,19 +274,22 @@ namespace ggEngine {
 		return r;
 	}
 
-	bool Body::PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB)
+	bool Body::PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB, std::list<GameObject*> *possibleCollidedList)
 	{
 		//currentVelocity *= PIXEL_PER_CENTIMETER;
 		bool isCollided = false;
 		Box b1 = Physics::CreateBoxFromObject(this->sprite, currentVelocity);
 		//TO DO, box being move down so it won't recognized
-		std::list<GameObject*> possibleCollidedList = GetPossibleCollidedList(b1, currentVelocity);
-		if (possibleCollidedList.empty()) {
+		if (possibleCollidedList == nullptr) {
+			possibleCollidedList = &GetPossibleCollidedList(b1, currentVelocity);
+		}
+		std::list<GameObject*> cloneList = (*possibleCollidedList);
+		if (cloneList.empty()) {
 			return false;
 		}
 		double remainingTime = 1;
-		while (!possibleCollidedList.empty() || b1.vx != 0 && b1.vy != 0) {
-			ColliderArg e = GetShortestEntryTimeCollidedFromPossibleCollidedList(b1, possibleCollidedList);
+		while (!cloneList.empty() || b1.vx != 0 && b1.vy != 0) {
+			ColliderArg e = GetShortestEntryTimeCollidedFromPossibleCollidedList(b1, cloneList);
 
 			isCollided = true;
 			if (e.entryTime == 1) {
@@ -365,9 +368,6 @@ namespace ggEngine {
 		/*if (isCollided && this->allowObjectBlock) {
 			this->rigidBody->Translate(currentVelocity*remainingTime);
 		}*/
-		if (isReCheckWithAABB) {
-			CheckCollisionAABB(&possibleCollidedList);
-		}
 		return isCollided;
 	}
 
@@ -383,14 +383,14 @@ namespace ggEngine {
 				possibleCollidedBoxList.push_back(b2.gameObject);
 			}
 		}
-		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+	/*	for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
 			(*it)->body->PreUpdate();
 			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 			Rect result;
 			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
 				possibleCollidedBoxList.push_back(b2.gameObject);
 			}
-		}
+		}*/
 		return possibleCollidedBoxList;
 	}
 
@@ -532,6 +532,14 @@ namespace ggEngine {
 	void Body::CheckCollisionAndUpdateMovement()
 	{
 		if (this->immoveable) {
+			if (this->physicsMode == PhysicsMode_AABBSweptMix || this->physicsMode == PhysicsMode_AABB) {
+				std::list<GameObject*> possibleCollidedList;
+				if (this->physicsMode != PhysicsMode_None) {
+					Box b1 = Physics::CreateBoxFromObject(this->sprite, Vector::Zero());
+					possibleCollidedList = GetPossibleCollidedList(b1, Vector::Zero());
+				}
+				CheckCollisionAABB(&possibleCollidedList);
+			}
 			return;
 		}
 		//Debug::Log("Current position :" + std::to_string(position->y));
@@ -545,18 +553,27 @@ namespace ggEngine {
 		velocity += acceleration*timeStep;
 
 		temp *= PIXEL_PER_CENTIMETER;
+		std::list<GameObject*> possibleCollidedList;
+		if (this->physicsMode != PhysicsMode_None) {
+			Box b1 = Physics::CreateBoxFromObject(this->sprite, temp);
+			possibleCollidedList = GetPossibleCollidedList(b1, temp);
+		}
 		switch (this->physicsMode) {
 		case PhysicsMode_AABBSweptMix:
-			if (PerformCollisionCheck(temp),true) break;
+			if (PerformCollisionCheck(temp,false,&possibleCollidedList)) {
+				CheckCollisionAABB(&possibleCollidedList);
+				break;
+			}
+			CheckCollisionAABB(&possibleCollidedList);
 			this->rigidBody->Translate(temp);
 			break;
 		case PhysicsMode_AABBSwept:
-			if (PerformCollisionCheck(temp)) break;
+			if (PerformCollisionCheck(temp, false, &possibleCollidedList)) break;
 			this->rigidBody->Translate(temp);
 			break;
 		case PhysicsMode_AABB:
 			this->rigidBody->Translate(temp);
-			CheckCollisionAABB(&this->staticGoList);
+			CheckCollisionAABB(&possibleCollidedList);
 			break;
 		case PhysicsMode_None:
 			this->rigidBody->Translate(temp);

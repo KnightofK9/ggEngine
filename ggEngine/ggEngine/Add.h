@@ -4,7 +4,7 @@
 #include <list>
 #include <d3d9.h>
 #include "Text.h"
-
+#include "Easing.h"
 namespace ggEngine{
 	class Tween;
 	class TweenManager;
@@ -25,6 +25,8 @@ namespace ggEngine{
 	class TimeBasedEventInfo;
 	class EventManager;
 	class Game;
+	class MultiTween;
+	class TweenBase;
 	class Tile;
 	class Add:public GGObject  {
 	public:
@@ -39,8 +41,13 @@ namespace ggEngine{
 		TileMap* TileMap(const char* jsonChar, ggEngine::Group *group);
 		Text* Text(double x, double y, std::string fontKey , double width, double height, std::string text, Style style, ggEngine::Group *group);
 		Audio* Audio(std::string audioKey);
-		ggEngine::Tween* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction);
-		ggEngine::Tween* Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction, std::function<void(double)> update);
+		ggEngine::TweenBase* Tween(float &val, double end, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
+		ggEngine::TweenBase* Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, std::function<void(double)> update = [](double) {}, bool isAddToTweenManager = true);
+		ggEngine::MultiTween* MultiTween(std::list<TweenBase*> tweenList, bool isAddToTweenManager = true);
+		
+		ggEngine::TweenBase* MoveBy(GameObject *go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
+		ggEngine::TweenBase* MoveTo(GameObject *go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
+		
 		TimeBasedEventInfo* TimeOut(unsigned int delay , std::function<void(void)> function);
 		TimeBasedEventInfo* LoopInfinity(unsigned int delay, std::function<void(void)> function);
 		TimeBasedEventInfo* Loop(unsigned int delay, unsigned int numberOfLoops, std::function<void(void)> function);

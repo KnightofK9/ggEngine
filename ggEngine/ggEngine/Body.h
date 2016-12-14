@@ -97,7 +97,7 @@ namespace ggEngine {
 	private:
 		bool isReady = false;
 		bool isActive = true;
-		bool PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB = false);
+		bool PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB = false, std::list<GameObject*> *possibleCollidedList = nullptr);
 		std::list<GameObject*> GetPossibleCollidedList(Box &b1, Vector currentVelocity);
 		std::vector<ColliderArg> colliderDirection;
 		ColliderArg GetShortestEntryTimeCollidedFromPossibleCollidedList(Box &b1,std::list<GameObject*> &possibleCollidedList);
@@ -114,7 +114,7 @@ namespace ggEngine {
 		Vector acceleration;
 		Vector temp;
 		std::list<GameObject*> staticGoList;
-		std::vector<GameObject*> collisionObjectList;
+		//std::vector<GameObject*> collisionObjectList;
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
 		Vector CalculateDampingForce();

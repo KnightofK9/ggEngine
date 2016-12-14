@@ -37,5 +37,9 @@ namespace ggEngine {
 
 		return boost::lexical_cast<string>(boost::format("% 0" + boost::lexical_cast<string>(numCharWidth) + "d") % number);
 	}
+	int Helper::GetRamdomIntNumber(int min, int max)
+	{
+		return floor(rand()*(max + 1 - min) + min);
+	}
 }
 

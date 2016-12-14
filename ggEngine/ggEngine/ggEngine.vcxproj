@@ -212,6 +212,7 @@
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MouseEventArg.h" />
+    <ClInclude Include="MultiTween.h" />
     <ClInclude Include="MyStackWalker.h" />
     <ClInclude Include="NiseVector.h" />
     <ClInclude Include="Physics.h" />
@@ -242,6 +243,7 @@
     <ClInclude Include="TimeBasedEventManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Tween.h" />
+    <ClInclude Include="TweenBase.h" />
     <ClInclude Include="TweenManager.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector3.h" />
@@ -284,6 +286,7 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="MultiTween.cpp" />
     <ClCompile Include="NiseVector.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PingPongState.cpp" />
@@ -312,6 +315,7 @@
     <ClCompile Include="TimeBasedEventInfo.cpp" />
     <ClCompile Include="TimeBasedEventManager.cpp" />
     <ClCompile Include="Tween.cpp" />
+    <ClCompile Include="TweenBase.cpp" />
     <ClCompile Include="TweenManager.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3.cpp" />
