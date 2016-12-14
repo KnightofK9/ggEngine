@@ -20,9 +20,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("idle", 0, 0, true);
 	this->CreateAnimation("move", 1, 2, true);
 	this->CreateAnimation("kneel", 4, 4, true);
-	this->CreateAnimation("climbDown", 5, 6, true);
+	this->CreateAnimation("climbDown", { 6,5,5 } ,false);
 	this->CreateAnimation("climbDownIdle", 5, 5, true);
-	this->CreateAnimation("climbUp", 7, 8, true);
+	this->CreateAnimation("climbUp", { 8,7,7 }, false);
 	this->CreateAnimation("climbUpIdle", 7, 7, true);
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
@@ -139,12 +139,12 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
-		this->tileLadder = nullptr;
 		switch (type) {
 		case ObjectType_LadderDownLeft:
 		case ObjectType_LadderDownRight:
 		case ObjectType_LadderUpLeft:
 		case ObjectType_LadderUpRight:
+			tileLadder = dynamic_cast<TileLadder*>(e.colliderObject);
 			break;
 		}
 	};
@@ -165,21 +165,78 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			this->PlayAnimation(incompleteAnim);
 			return;
 		}
-		if (this->ladderState == LadderDownLeft && e.isPress(controlKey[SimonControl_Up])){
-			this->grounding = GroundingLadder;
-			this->isClimbingUp = true;
+		if (isClimbingLadder) {
+			this->body->allowGravity = false;
+			if (e.isPress(controlKey[SimonControl_Up])) {
+				MoveLadderUp(this->isLeft);
+			}
+			else if (e.isPress(controlKey[SimonControl_Down])) {
+				MoveLadderDown(this->isLeft);
+			}
+			return;
 		}
-		if (this->ladderState == LadderDownRight && e.isPress(controlKey[SimonControl_Up])) {
-			this->grounding = GroundingLadder;
-			this->isClimbingUp = true;
-		}
-		if (this->ladderState == LadderUpLeft && e.isPress(controlKey[SimonControl_Down])) {
-			this->grounding = GroundingLadder;
-			this->isClimbingUp = false;
-		}
-		if (this->ladderState == LadderUpRight && e.isPress(controlKey[SimonControl_Down])) {
-			this->grounding = GroundingLadder;
-			this->isClimbingUp = false;
+		else {
+			if (this->tileLadder != nullptr) {
+				switch (this->tileLadder->tag)
+				{
+				case ObjectType_LadderDownLeft:
+					this->ladderState == LadderDownLeft;
+					if (e.isPress(controlKey[SimonControl_Up])) {
+						this->grounding = GroundingLadder;
+						this->isClimbingUp = true;
+						this->isClimbingLadder = true;
+						this->body->allowGravity = false;
+						this->body->immoveable = true;
+						MoveLadderUp(false);
+						return;
+					}
+					break;
+				case ObjectType_LadderDownRight:
+					this->ladderState == LadderDownRight;
+					if (e.isPress(controlKey[SimonControl_Up])) {
+						this->grounding = GroundingLadder;
+						this->isClimbingUp = true;
+						this->isClimbingLadder = true;
+						this->body->allowGravity = false;
+						this->body->immoveable = true;
+						MoveLadderUp(true);
+						return;
+					}
+					break;
+				case ObjectType_LadderUpLeft:
+					this->ladderState == LadderUpLeft;
+					if (e.isPress(controlKey[SimonControl_Up])) {
+						this->grounding = GroundingLadder;
+						this->isClimbingUp = false;
+						this->isClimbingLadder = true;
+						this->body->allowGravity = false;
+						this->body->immoveable = true;
+						MoveLadderDown(true);
+						return;
+					}
+					break;
+				case ObjectType_LadderUpRight:
+					this->ladderState == LadderUpRight;
+					if (e.isPress(controlKey[SimonControl_Up])) {
+						this->grounding = GroundingLadder;
+						this->isClimbingUp = false;
+						this->isClimbingLadder = true;
+						this->body->allowGravity = false;
+						this->body->immoveable = true;
+						MoveLadderDown(false);
+						return;
+					}
+					break;
+				default:
+					break;
+				}
+
+			}
+			else {
+				this->ladderState == LadderNone;
+			}
+			
+			this->tileLadder = nullptr;
 		}
 		
 		switch (this->grounding) {
@@ -193,28 +250,28 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				break;
 
 			case GroundingLadder:
-				this->body->allowGravity = false;
-				switch (this->ladderState) {
-				case LadderDownLeft:
-					CheckKeyPressLadderDownLeft(e);
-					break;
+				//this->body->allowGravity = false;
+				//switch (this->ladderState) {
+				//case LadderDownLeft:
+				//	CheckKeyPressLadderDownLeft(e);
+				//	break;
 
-				case LadderDownRight:
-					CheckKeyPressLadderDownRight(e);
-					break;
+				//case LadderDownRight:
+				//	CheckKeyPressLadderDownRight(e);
+				//	break;
 
-				case LadderUpLeft:
-					CheckKeyPressLadderUpLeft(e);
-					break;
+				//case LadderUpLeft:
+				//	CheckKeyPressLadderUpLeft(e);
+				//	break;
 
-				case LadderUpRight:
-					CheckKeyPressLadderUpRight(e);
-					break;
+				//case LadderUpRight:
+				//	CheckKeyPressLadderUpRight(e);
+				//	break;
 
-				case LadderClimbFinish:
-					//SetKeyPressNormal(e);
-					break;
-				}
+				//case LadderClimbFinish:
+				//	//SetKeyPressNormal(e);
+				//	break;
+				//}
 				break;
 
 			case GroundingNone:
@@ -499,6 +556,43 @@ void Simon::Blind()
 	this->cvGame->add->Loop(100, 20, [this] {
 		this->SetVisible(!this->IsVisible());
 	})->Start();
+}
+
+void Simon::MoveLadderUp(bool isLeft)
+{
+	if (this->currentLadderTween == nullptr) {
+		Vector distance;
+		if (isLeft) {
+			distance = Vector(-ladderMoveDistance, -ladderMoveDistance);
+		}
+		else {
+			distance = Vector(ladderMoveDistance, -ladderMoveDistance);
+		}
+
+		ChangeFacingDirection(isLeft);
+		this->PlayAnimation("climbUp");
+		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 2)->SetOnFinish([this]() {
+			this->currentLadderTween = nullptr;
+		})->Start();
+	}
+}
+
+void Simon::MoveLadderDown(bool isLeft)
+{
+	if (this->currentLadderTween == nullptr) {
+		Vector distance;
+		if (isLeft) {
+			distance = Vector(-ladderMoveDistance, ladderMoveDistance);
+		}
+		else {
+			distance = Vector(ladderMoveDistance, ladderMoveDistance);
+		}
+		ChangeFacingDirection(isLeft);
+		this->PlayAnimation("climbUp");
+		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 3)->SetOnFinish([this]() {
+			this->currentLadderTween = nullptr;
+		})->Start();
+	}
 }
 
 

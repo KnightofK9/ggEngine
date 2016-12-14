@@ -70,9 +70,12 @@ private:
 	TileLadder *tileLadder = nullptr;
 	int health;
 	int maxHealth;
-
+	const double ladderMoveDistance = 15;
+	void MoveLadderUp(bool isLeft);
+	void MoveLadderDown(bool isLeft);
+	TweenBase* currentLadderTween = nullptr;
 	int score;
-	
+	bool isClimbingLadder = false;
 	int stagePoint;
 	
 	int heartPoint;

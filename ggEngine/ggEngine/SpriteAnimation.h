@@ -31,7 +31,7 @@ namespace ggEngine {
 		void SetFrame(int frameIndex,bool isStopAnimation = true);
 		virtual double GetOrgWidth() { return this->frameWidth; }
 		virtual double GetOrgHeight() { return this->frameHeight; }
-	private:
+	protected:
 		///Deprecated
 		void NextAnimationFrame(std::string animationName);
 		std::string nextAnimationName = "";
