@@ -9,10 +9,24 @@ class ItemBase;
 class WeaponManager;
 class TileLadder;
 class WeaponWhip;
-enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
-					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB};
+
+enum SimonControl {
+	SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
+	SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB,
+	SimonControl_Num1,
+	SimonControl_Num2,
+	SimonControl_Num3,
+	SimonControl_Num4,
+	SimonControl_Num5,
+	SimonControl_Num6,
+	SimonControl_Num7,
+	SimonControl_Num8,
+	SimonControl_Num9,
+	SimonControl_Num0
+};
 enum SimonGroundingType {GroundingBrick, GroundingLadder, GroundingNone};
 enum SimonLadder { LadderDownLeft, LadderDownRight, LadderUpLeft, LadderUpRight, LadderNone, LadderClimbFinish};
+enum SimonSubWeaponType { SubWeapon_HolyWater, SubWeapon_Dagger, SubWeapon_Boomerang, SubWeapon_StopWatch, SubWeapon_Axe, SubWeapon_None };
 
 class Simon :public CharacterBase {
 public:
@@ -56,11 +70,12 @@ public:
 	void IncreaseHeartPoint(int point);
 	void DecreaseHeartPoint(int point);
 	void DescreasePPoint(int point);
+	void SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo *image);
 	void SetShot(int shot, SpriteInfo *image);
 	void UpgradeWhip();
 
 	void Blind();
-
+	SimonSubWeaponType subWeapon;
 	WeaponWhip *weaponWhip = nullptr;
 	//void ThrowWeapon();
 
@@ -103,9 +118,11 @@ private:
 	string incompleteAnim = "";
 	WeaponManager *weaponManager = nullptr;
 	
-	DWORD controlKey[8];
+	DWORD controlKey[18];
 	void SetUpKeyControl();
 	bool CheckKeyValid(KeyBoardEventArg e);
+	void SetUpTestKeyControl();
+	void CheckKeyWhenDebug(KeyBoardEventArg e);
 
 	void CheckKeyPressNormal(KeyBoardEventArg e);
 	void CheckKeyPressJumping(KeyBoardEventArg e);

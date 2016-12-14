@@ -23,12 +23,12 @@ void WeaponBoomerang::FireWeapon(bool isLeft)
 	this->isLeft = isLeft;
 	FireHorizontal(isLeft, this->throwForce);
 
-	if (this->contactedWorldBound == false) {
-		this->cvGame->add->TimeOut(this->timeToReturn, [this] {
-			Vector direction = GetHorizontalDirection(!this->isLeft);
-			this->body->SetForce(this->throwForce, direction);
-		})->Start();
-	}
+	//if (this->contactedWorldBound == false) {
+	//	this->cvGame->add->TimeOut(this->timeToReturn, [this] {
+	//		Vector direction = GetHorizontalDirection(!this->isLeft);
+	//		this->body->SetForce(this->throwForce, direction);
+	//	})->Start();
+	//}
 }
 
 void WeaponBoomerang::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)

@@ -253,6 +253,10 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 					this->Idle();
 				else {
 					CheckKeyPressNormal(e);
+#ifdef _DEBUG
+					CheckKeyWhenDebug(e);
+#endif // _DEBUG
+
 				}
 				break;
 
@@ -289,10 +293,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	};
 	
 	this->SetUpKeyControl();
+	this->SetUpTestKeyControl();
 	this->shot = 1;
 	this->score = 0;
 	this->stagePoint = 1;
-	this->heartPoint = 5;
+	this->heartPoint = 50;
 	this->pPoint = 3;
 }
 
@@ -316,7 +321,7 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
-	this->weaponManager->AddWeaponBoomerang(position.x, position.y, isLeft, this->parentGroup);
+	this->weaponManager->AddWeapon(this,position.x, position.y, isLeft, this->parentGroup);
 }
 
 void Simon::WhipAttack()
@@ -708,6 +713,56 @@ bool Simon::CheckKeyValid(KeyBoardEventArg e)
 			return true;
 	}
 	return false;
+}
+
+void Simon::SetUpTestKeyControl()
+{
+	controlKey[SimonControl_Num1] = DIK_1;
+	controlKey[SimonControl_Num2] = DIK_2;
+	controlKey[SimonControl_Num3] = DIK_3;
+	controlKey[SimonControl_Num4] = DIK_4;
+	controlKey[SimonControl_Num5] = DIK_5;
+	controlKey[SimonControl_Num6] = DIK_6;
+	controlKey[SimonControl_Num7] = DIK_7;
+	controlKey[SimonControl_Num8] = DIK_8;
+	controlKey[SimonControl_Num9] = DIK_9;
+	controlKey[SimonControl_Num0] = DIK_0;
+}
+
+void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
+{
+	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
+	if (e.isPress(controlKey[SimonControl_Num1])) {
+		this->subWeapon = SimonSubWeaponType::SubWeapon_Axe;
+	}
+	if (e.isPress(controlKey[SimonControl_Num2])) {
+		this->subWeapon = SimonSubWeaponType::SubWeapon_Boomerang;
+	}
+	if (e.isPress(controlKey[SimonControl_Num3])) {
+		this->subWeapon = SimonSubWeaponType::SubWeapon_Dagger;
+	}
+	if (e.isPress(controlKey[SimonControl_Num4])) {
+		this->subWeapon = SimonSubWeaponType::SubWeapon_HolyWater;
+	}
+	if (e.isPress(controlKey[SimonControl_Num5])) {
+		this->subWeapon = SimonSubWeaponType::SubWeapon_StopWatch;
+	}
+	if (e.isPress(controlKey[SimonControl_Num6])) {
+		return;
+	}
+	if (e.isPress(controlKey[SimonControl_Num7])) {
+		return;
+	}
+	if (e.isPress(controlKey[SimonControl_Num8])) {
+		return;
+	}
+	if (e.isPress(controlKey[SimonControl_Num9])) {
+		return;
+	}
+	if (e.isPress(controlKey[SimonControl_Num0])) {
+		return;
+	}
+	this->Attack();
 }
 
 void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
