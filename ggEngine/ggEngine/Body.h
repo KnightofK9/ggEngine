@@ -114,7 +114,7 @@ namespace ggEngine {
 		Vector acceleration;
 		Vector temp;
 		std::list<GameObject*> staticGoList;
-		std::vector<GameObject*> collisionObjectList;
+		//std::vector<GameObject*> collisionObjectList;
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
 		Vector CalculateDampingForce();

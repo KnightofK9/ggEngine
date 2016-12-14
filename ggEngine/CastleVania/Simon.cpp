@@ -53,7 +53,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 
 	this->cvGame->physics->EnablePhysics(this);
-	//this->body->SetPhysicsMode(PhysicsMode_AABBSweptMix);
+	this->body->SetPhysicsMode(PhysicsMode_AABBSweptMix);
 	this->body->CreateRectangleRigidBody(14, 26);
 	this->body->syncBounds = false;
 	this->body->rigidBody->SetAnchor(0.5, 0.32);
@@ -136,20 +136,18 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		}
 
 	};
-	//this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
-	//	GameObject *otherObject = e.colliderObject;
-	//	Tag type = otherObject->tag;
-	//	this->tileLadder = nullptr;
-	//	switch (type) {
-	//	case ObjectType_LadderDownLeft:
-	//	case ObjectType_LadderDownRight:
-	//	case ObjectType_LadderUpLeft:
-	//	case ObjectType_LadderUpRight:
-	//		tileLadder = dynamic_cast<TileLadder*>(otherObject);
-	//		g_debug.Log("Overlap with ladder!");
-	//		break;
-	//	}
-	//};
+	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
+		GameObject *otherObject = e.colliderObject;
+		Tag type = otherObject->tag;
+		this->tileLadder = nullptr;
+		switch (type) {
+		case ObjectType_LadderDownLeft:
+		case ObjectType_LadderDownRight:
+		case ObjectType_LadderUpLeft:
+		case ObjectType_LadderUpRight:
+			break;
+		}
+	};
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		if (e.blockDirection.down) {
 			this->grounding = GroundingBrick;
