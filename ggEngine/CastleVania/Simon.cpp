@@ -75,20 +75,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			//this->ladderState = LadderDownRight;
 			return false;
 		case ObjectType_LadderUpLeft:
-			/*if (e.blockDirection.down) {
-				this->ladderState = LadderUpLeft;
-				this->grounding = GroundingBrick;
-				return true;
-			}*/
-			return false;
 		case ObjectType_LadderUpRight:
-			//if (e.blockDirection.down && this->isClimbingUp) {
-			/*if (this->isClimbingUp){
-				this->ladderState = LadderUpRight;
-				this->grounding = GroundingBrick;
-				return true;
-			}*/
-			return false;
+			return true;
 		case ObjectType_Static:
 			return true;
 		case ObjectType_LevelTwoBrick:
@@ -171,14 +159,13 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				case ObjectType_LadderDownRight:
 					if (isPressDown) OnLadderCompleted();
 					break;
-				case ObjectType_LadderUpLeft:
+				/*case ObjectType_LadderUpLeft:
 				case ObjectType_LadderUpRight:
-					if (isPressUp) OnLadderCompleted();
+					if (isPressUp) OnLadderCompleted();*/
 					break;
 				}
 			}
 
-			this->tileLadder = nullptr;
 			switch (this->ladderState)
 			{
 				case SimonLadder_DownLeft:
@@ -194,6 +181,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				default:
 					break;
 			}
+
+			//this->tileLadder = nullptr;
 			return;
 		}
 		else {
@@ -610,7 +599,16 @@ void Simon::MoveLadderUp(bool isLeft,double force)
 		}
 		ChangeFacingDirection(isLeft);
 		this->PlayAnimation("climbUp");
-		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 2)->SetOnFinish([this]() {
+		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 2)->SetOnFinish([=]() {
+			if (this->tileLadder != nullptr) {
+				switch (this->tileLadder->tag) {
+				case ObjectType_LadderUpLeft:
+				case ObjectType_LadderUpRight:
+					if (this->position.y < tileLadder->position.y) {
+						this->OnLadderCompleted();
+					}
+				}
+			}
 			this->currentLadderTween = nullptr;
 		})->Start();
 	}
