@@ -23,6 +23,46 @@ WeaponWhip * WeaponManager::AddWeaponWhip(double x, double y, bool isLeft, Group
 	return weaponWhip;
 }
 
+WeaponBase * WeaponManager::AddWeapon(Simon *simon, double x, double y, bool isLeft, Group * group)
+{
+	WeaponBase *weapon;
+	switch (simon->subWeapon)
+	{
+	case SimonSubWeaponType::SubWeapon_Axe:
+		weapon = this->AddWeaponAxe(x, y, isLeft, group);
+		break;
+
+	case SimonSubWeaponType::SubWeapon_Boomerang:
+		weapon = this->AddWeaponBoomerang(x, y, isLeft, group);
+		break;
+
+	case SimonSubWeaponType::SubWeapon_Dagger:
+		weapon = this->AddWeaponDagger(x, y, isLeft, group);
+		break;
+
+	case SimonSubWeaponType::SubWeapon_HolyWater:
+		weapon = this->AddWeaponHolyWater(x, y, isLeft, group);
+		break;
+
+	case SimonSubWeaponType::SubWeapon_StopWatch:
+		return NULL;
+
+	case SimonSubWeaponType::SubWeapon_None:
+		return NULL;
+
+	default:
+		return NULL;
+	}
+
+	if (weapon->GetHeartConsumtion() <= simon->GetHeartPoint()) {
+		simon->DecreaseHeartPoint(weapon->GetHeartConsumtion());
+		return weapon;
+	} else {
+		weapon->Destroy();
+		return NULL;
+	}
+}
+
 WeaponDagger* WeaponManager::AddWeaponDagger(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::DAGGER_TEXTURE);

@@ -10,9 +10,20 @@ class WeaponManager;
 class TileLadder;
 class WeaponWhip;
 enum SimonControl { SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
-					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB};
-enum SimonGroundingType {GroundingBrick, GroundingLadder, GroundingNone};
-enum SimonLadder { LadderDownLeft, LadderDownRight, LadderUpLeft, LadderUpRight, LadderNone, LadderClimbFinish};
+					SimonControl_A, SimonControl_B, SimonControl_TurboA, SimonControl_TurboB,
+	SimonControl_Num1,
+	SimonControl_Num2, 
+	SimonControl_Num3, 
+	SimonControl_Num4,
+	SimonControl_Num5,
+	SimonControl_Num6,
+	SimonControl_Num7,
+	SimonControl_Num8,
+	SimonControl_Num9,
+	SimonControl_Num0
+};
+enum SimonGroundingType {SimonGrounding_Brick, SimonGrounding_Ladder, SimonGrounding_None};
+enum SimonSubWeaponType { SubWeapon_HolyWater, SubWeapon_Dagger, SubWeapon_Boomerang, SubWeapon_StopWatch, SubWeapon_Axe, SubWeapon_None};
 
 class Simon :public CharacterBase {
 public:
@@ -56,6 +67,7 @@ public:
 	void IncreaseHeartPoint(int point);
 	void DecreaseHeartPoint(int point);
 	void DescreasePPoint(int point);
+	void SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo *image);
 	void SetShot(int shot, SpriteInfo *image);
 	void UpgradeWhip();
 
@@ -66,6 +78,8 @@ public:
 	void *HealthDown(int health) { this->health -= health; }
 
 	InfoPanel *infoPanel = nullptr;
+	SimonSubWeaponType subWeapon;
+
 private:
 	TileLadder *tileLadder = nullptr;
 	int health;
@@ -81,26 +95,20 @@ private:
 	
 	int shot;
 
-	SimonGroundingType grounding = GroundingBrick;	//for jump or for fall down or for hurt
-	SimonLadder ladderState = LadderNone;
-
-	bool isClimbingUp = true;
-	
+	SimonGroundingType grounding;	//for jump or for fall down or for hurt	
 	double hurtForce = 3;
 
 	string incompleteAnim = "";
 	WeaponManager *weaponManager = nullptr;
 	WeaponWhip *weaponWhip = nullptr;
 	
-	DWORD controlKey[8];
+	DWORD controlKey[18];
 	void SetUpKeyControl();
+
+	void SetUpTestKeyControl();
+	void CheckKeyWhenDebug(KeyBoardEventArg e);
 	bool CheckKeyValid(KeyBoardEventArg e);
 
 	void CheckKeyPressNormal(KeyBoardEventArg e);
 	void CheckKeyPressJumping(KeyBoardEventArg e);
-	void CheckKeyPressLadderDownLeft(KeyBoardEventArg e);
-	void CheckKeyPressLadderDownRight(KeyBoardEventArg e);
-	void CheckKeyPressLadderUpLeft(KeyBoardEventArg e);
-	void CheckKeyPressLadderUpRight(KeyBoardEventArg e);
-
 };
