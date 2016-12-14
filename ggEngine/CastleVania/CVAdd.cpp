@@ -67,15 +67,15 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 	
-	infoPanel->timeInfo = this->add->LoopInfinity(1000, [infoPanel] {
-		if (infoPanel->GetTime() <= 0)
-			infoPanel->StopTime();
-		else {
-			infoPanel->SetTime(infoPanel->GetTime() - 1);
-			infoPanel->timePoint->SetText(ggEngine::Helper::IntToString(infoPanel->GetTime(), 4));
-		}
-	});
-	infoPanel->StartTime();
+	//infoPanel->timeInfo = this->add->LoopInfinity(1000, [infoPanel] {
+	//	if (infoPanel->GetTime() <= 0)
+	//		infoPanel->StopTime();
+	//	else {
+	//		infoPanel->SetTime(infoPanel->GetTime() - 1);
+	//		infoPanel->timePoint->SetText(ggEngine::Helper::IntToString(infoPanel->GetTime(), 4));
+	//	}
+	//})->Start();
+	//infoPanel->StartTime();
 
 
 	infoPanel->stage		= this->add->Text(	GAME_WIDTH - fontSize*10, 

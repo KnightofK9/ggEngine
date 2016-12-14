@@ -35,3 +35,8 @@ void WeaponBoomerang::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 {
 }
 
+void WeaponBoomerang::OnSimonContact(Simon * simon, ColliderArg e)
+{
+	this->Destroy();
+}
+

@@ -110,7 +110,6 @@ WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLe
 	weaponBoomerang->SetParentObject(group);
 	weaponBoomerang->Active();
 	weaponBoomerang->FireWeapon(isLeft);
-	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
 	group->AddDrawObjectToList(weaponBoomerang);
 	return weaponBoomerang;
 }

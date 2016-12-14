@@ -1,6 +1,7 @@
 #pragma once
 #include <ggEngine.h>
 #include "WeaponBase.h"
+#include "Simon.h"
 using namespace ggEngine;
 class WeaponBoomerang : public WeaponBase {
 public:
@@ -9,6 +10,7 @@ public:
 
 	void FireWeapon(bool isLeft) override;
 	void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e) override;
+	void OnSimonContact(Simon *simon, ColliderArg e);
 	int GetHeartConsumtion() override { return this->heartConsumtion; }
 
 private:

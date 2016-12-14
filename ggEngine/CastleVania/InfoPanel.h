@@ -15,6 +15,7 @@ public:
 	void SetState(const int& state);
 	void SetScore(const int& score);
 	void SetItemImage(SpriteInfo *spriteInfo);
+	TimeBasedEventInfo* CountDown(int timeBegin, std::function<void(void)> onTimeUp);
 
 	void StopTime();
 	void StartTime();
@@ -50,7 +51,9 @@ public:
 	Sprite *item = nullptr;
 	Sprite *itemShot = nullptr;
 
-	TimeBasedEventInfo* timeInfo = nullptr;
 private:
 	int curTime = 100;
+	CVGame *cvGame = nullptr;
+	std::function<void(void)> onTimeUp;
+	TimeBasedEventInfo* timeInfo = nullptr;
 };

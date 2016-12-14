@@ -2,6 +2,7 @@
 #include "CVGame.h"
 InfoPanel::InfoPanel(CVGame *cvGame) : ScreenGroup(cvGame)
 {
+	this->cvGame = cvGame;
 }
 
 InfoPanel::~InfoPanel()
@@ -51,9 +52,26 @@ void InfoPanel::SetItemImage(SpriteInfo *spriteInfo)
 	this->item->SetImage(spriteInfo);
 }
 
+TimeBasedEventInfo* InfoPanel::CountDown(int timeBegin, std::function<void(void)> onTimeUp)
+{
+	this->onTimeUp = onTimeUp;
+	this->curTime = timeBegin;
+	return this->timeInfo = this->cvGame->add->LoopInfinity(1000, [this] {
+		if (this->curTime <= 0) {
+			this->StopTime();
+			this->onTimeUp();
+		}
+		else {
+			this->SetTime(this->curTime - 1);
+			this->timePoint->SetText(ggEngine::Helper::IntToString(this->curTime, 4));
+		}
+	});
+}
+
 void InfoPanel::StopTime()
 {
-	this->timeInfo->Stop();
+	if (this->timeInfo != NULL)
+		this->timeInfo->Stop();
 }
 
 void InfoPanel::StartTime()
