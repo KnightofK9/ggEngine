@@ -44,20 +44,12 @@ BreakableObjectBase::~BreakableObjectBase()
 {
 }
 
-void BreakableObjectBase::CheckCollisionToWeaponWhip(WeaponWhip * whip)
-{
-	whip->body->CheckCollisionTo(this);
-}
 
 void BreakableObjectBase::OnWeaponWhipContact(WeaponWhip * whip, ColliderArg e)
 {
 	Destroy();
 }
 
-void BreakableObjectBase::CheckCollisionToSubWeapon(WeaponBase * weapon)
-{
-	weapon->body->CheckCollisionTo(this);
-}
 
 void BreakableObjectBase::OnSubWeaponContact(WeaponBase * weapon, ColliderArg e)
 {
