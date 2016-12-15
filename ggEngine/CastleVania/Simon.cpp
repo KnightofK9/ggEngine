@@ -1,6 +1,7 @@
 #include "Simon.h"
 #include "CVGame.h"
 #include "CVAdd.h"
+#include "TextureConstant.h"
 #include "ItemManager.h"
 #include "WeaponManager.h"
 #include "TileLadder.h"
@@ -291,7 +292,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->SetUpKeyControl();
 	this->SetUpTestKeyControl();
 	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
-	this->shot = 1;
+	this->shot = 3;
+	this->numberWeaponCanFire = this->shot;
+	this->isReadyToFireWeapon = true;
 	this->score = 0;
 	this->stagePoint = 1;
 	this->heartPoint = 50;
@@ -318,7 +321,25 @@ void Simon::SetHealth(int heath)
 
 void Simon::Attack()
 {
-	this->weaponManager->AddWeapon(this,position.x, position.y, isLeft, this->parentGroup);
+	if (!this->isReadyToFireWeapon || this->numberWeaponCanFire <= 0)
+		return;
+
+	this->isReadyToFireWeapon = false;
+	this->weaponManager->AddWeapon(this, position.x, position.y, isLeft, this->parentGroup);
+	this->numberWeaponCanFire--;
+
+
+	// Set time to wait
+	int timeToWaiting = CharacterConstant::SIMON_FIRE_LONG_TIME;
+	if (this->numberWeaponCanFire > 0)
+		timeToWaiting = CharacterConstant::SIMON_FIRE_SHORT_TIME;
+
+	this->cvGame->add->TimeOut(timeToWaiting, [this] {
+		this->isReadyToFireWeapon = true;
+	})->Start();
+
+	if (this->numberWeaponCanFire <= 0)
+		this->numberWeaponCanFire = this->shot;
 }
 
 void Simon::AddWhip()
@@ -713,30 +734,41 @@ void Simon::SetUpTestKeyControl()
 
 void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 {
-	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
+	SimonSubWeaponType weaponType = SimonSubWeaponType::SubWeapon_None;
+	SpriteInfo *inf = nullptr;
+
+
 	if (e.isPress(controlKey[SimonControl_Num1])) {
-		this->subWeapon = SimonSubWeaponType::SubWeapon_Axe;
+		this->shot = 1;
+		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num2])) {
-		this->subWeapon = SimonSubWeaponType::SubWeapon_Boomerang;
+		this->shot = 2;
+		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num3])) {
-		this->subWeapon = SimonSubWeaponType::SubWeapon_Dagger;
+		this->shot = 3;
+		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num4])) {
-		this->subWeapon = SimonSubWeaponType::SubWeapon_HolyWater;
+		weaponType = SimonSubWeaponType::SubWeapon_HolyWater;
+		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::HOLY_WATER_TEXTURE);
 	}
 	if (e.isPress(controlKey[SimonControl_Num5])) {
-		this->subWeapon = SimonSubWeaponType::SubWeapon_StopWatch;
+		weaponType = SimonSubWeaponType::SubWeapon_StopWatch;
+		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::STOPWATCH_TEXTURE);
 	}
 	if (e.isPress(controlKey[SimonControl_Num6])) {
-		return;
+		weaponType = SimonSubWeaponType::SubWeapon_Axe;
+		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::AXE_TEXTURE);
 	}
 	if (e.isPress(controlKey[SimonControl_Num7])) {
-		return;
+		weaponType = SimonSubWeaponType::SubWeapon_Boomerang;
+		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::BOOMERANG_TEXTURE);
 	}
 	if (e.isPress(controlKey[SimonControl_Num8])) {
-		return;
+		weaponType = SimonSubWeaponType::SubWeapon_Dagger;
+		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DAGGER_TEXTURE);
 	}
 	if (e.isPress(controlKey[SimonControl_Num9])) {
 		return;
@@ -744,7 +776,10 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 	if (e.isPress(controlKey[SimonControl_Num0])) {
 		return;
 	}
-	this->Attack();
+	if (weaponType != SubWeapon_None && inf != NULL) {
+		this->SetSubWeapon(weaponType, inf);
+		this->Attack();
+	}
 }
 
 void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
@@ -774,10 +809,6 @@ void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 	if (e.isPress(controlKey[SimonControl_TurboB])) {
 		this->Attack();
 	}
-
-
-
-
 }
 
 void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
@@ -811,6 +842,12 @@ void Simon::CheckKeyPressLadderDownLeft(KeyBoardEventArg e)
 	}
 
 	if (e.isPress(controlKey[SimonControl_TurboB])) {
+		if (isClimbingUp) {
+			this->PlayAnimation("climbUpAttack");
+		}
+		else {
+			this->PlayAnimation("climbDownAttack");
+		}
 		this->Attack();
 		return;
 	}
@@ -845,6 +882,11 @@ void Simon::CheckKeyPressLadderDownRight(KeyBoardEventArg e) {
 	}
 
 	if (e.isPress(controlKey[SimonControl_TurboB])) {
+		if (isClimbingUp) {
+			this->PlayAnimation("climbUpAttack");
+		} else {
+			this->PlayAnimation("climbDownAttack");
+		}
 		this->Attack();
 		return;
 	}
@@ -879,6 +921,12 @@ void Simon::CheckKeyPressLadderUpLeft(KeyBoardEventArg e) {
 	}
 
 	if (e.isPress(controlKey[SimonControl_TurboB])) {
+		if (isClimbingUp) {
+			this->PlayAnimation("climbUpAttack");
+		}
+		else {
+			this->PlayAnimation("climbDownAttack");
+		}
 		this->Attack();
 		return;
 	}
@@ -915,6 +963,12 @@ void Simon::CheckKeyPressLadderUpRight(KeyBoardEventArg e) {
 	}
 
 	if (e.isPress(controlKey[SimonControl_TurboB])) {
+		if (isClimbingUp) {
+			this->PlayAnimation("climbUpAttack");
+		}
+		else {
+			this->PlayAnimation("climbDownAttack");
+		}
 		this->Attack();
 		return;
 	}

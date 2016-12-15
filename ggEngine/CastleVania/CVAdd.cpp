@@ -171,9 +171,9 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	infoPanel->itemBox->SetAnchor(0.5, 0.5);
 	infoPanel->itemBox->SetScale(3, 3);
 
-	infoPanel->item = this->add->Sprite(408, 62, TextureConstant::NONE_TEXTURE, infoPanel);
+	infoPanel->item = this->add->Sprite(408, 65, TextureConstant::NONE_TEXTURE, infoPanel);
 	infoPanel->item->SetAnchor(0.5, 0.5);
-	infoPanel->item->SetScale(3, 3);
+	infoPanel->item->SetScale(2.5, 2.5);
 
 	infoPanel->itemShot = this->add->Sprite(651, 52, TextureConstant::NONE_TEXTURE, infoPanel);
 	infoPanel->itemShot->SetAnchor(0.5, 0.5);

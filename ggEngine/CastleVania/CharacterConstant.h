@@ -11,4 +11,9 @@ public:
 	static constexpr const double SIMON_HURT_TIME = 500;
 
 	static constexpr const double SIMON_MAX_HEALTH = 16;
+
+
+	static constexpr const int SIMON_FIRE_LONG_TIME = 2000;
+	static constexpr const int SIMON_FIRE_SHORT_TIME = 500;
+
 };

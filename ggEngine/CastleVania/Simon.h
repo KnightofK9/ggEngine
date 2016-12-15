@@ -99,11 +99,14 @@ private:
 	int stagePoint;
 	bool isSteppingOnLadder = false;
 	TileLadder *steppingTileLadder = nullptr;
+	
+	
 	int heartPoint;
-	
 	int pPoint;
-	
 	int shot;
+	int numberWeaponCanFire;
+	bool isReadyToFireWeapon;
+
 
 	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
 	SimonLadderType ladderState = SimonLadder_None;
