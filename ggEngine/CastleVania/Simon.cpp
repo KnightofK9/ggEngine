@@ -29,7 +29,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", 11, 11, true);
 	this->PlayAnimation("climbUp");
-	//Create "after ... attack" to double the frame which whip is shown longest
 	//Stand Attack
 	this->CreateAnimation("standAttack", { 12,13,14,14 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
@@ -130,7 +129,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 		case ObjectType_LadderDownRight:
 		case ObjectType_LadderUpLeft:
 		case ObjectType_LadderUpRight:
-			g_debug.Log("Overlap with ladder!" + std::to_string(Helper::GetRamdomIntNumber()));
+			//g_debug.Log("Overlap with ladder!" + std::to_string(Helper::GetRamdomIntNumber()));
 			tileLadder = dynamic_cast<TileLadder*>(e.colliderObject);
 			break;
 		}
@@ -322,10 +321,6 @@ void Simon::Attack()
 	this->weaponManager->AddWeapon(this,position.x, position.y, isLeft, this->parentGroup);
 }
 
-void Simon::WhipAttack()
-{
-}
-
 void Simon::AddWhip()
 {
 	this->weaponWhip = this->weaponManager->AddWeaponWhip(0, 8, isLeft, this->parentGroup);
@@ -359,7 +354,6 @@ void Simon::Jump()
 	{
 		this->PlayAnimation("kneel");
 		this->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
-		//this->weaponWhip->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
 		grounding = SimonGrounding_None;
 	}
 }
@@ -368,6 +362,7 @@ void Simon::Kneel()
 {
 	this->PlayAnimation("kneel");
 	this->body->velocity.x = 0;
+	this->body->velocity.y = 0;
 }
 
 void Simon::ClimbUpLeft()
@@ -417,14 +412,6 @@ void Simon::ClimbIdle()
 		PlayAnimation("climbDownIdle");
 }
 
-void Simon::ClimbUpFinish()
-{
-	this->PlayAnimation("Idle");
-	this->body->velocity.x = 0;
-	this->body->velocity.y = 0;
-	this->grounding = SimonGrounding_Brick;
-}
-
 void Simon::Hurt()
 {
 	this->PlayAnimation("hurt");
@@ -465,30 +452,21 @@ void Simon::KneelAttack()
 	this->weaponWhip->KneelAttack(isLeft);
 }
 
-void Simon::ClimbDownAttack()
-{
-	this->body->velocity.x = 0;
-	this->body->velocity.y = 0;
-	this->PlayAnimation("climbDownAttack");
-	this->incompleteAnim = "climbDownAttack";
-	this->weaponWhip->ClimbDownAttack(isLeft);
-}
-
-void Simon::ClimbUpAttack()
-{
-	this->body->velocity.x = 0;
-	this->body->velocity.y = 0;
-	this->PlayAnimation("climbUpAttack");
-	this->incompleteAnim = "climbUpAttack";
-	this->weaponWhip->ClimbUpAttack(isLeft);
-}
-
 void Simon::ClimbAttack()
 {
-	if (this->isClimbingUp)
-		this->ClimbUpAttack();
-	else
-		this->ClimbDownAttack();
+	this->body->velocity.x = 0;
+	this->body->velocity.y = 0;
+
+	if (this->isClimbingUp) {
+		this->PlayAnimation("climbUpAttack");
+		this->incompleteAnim = "climbUpAttack";
+		this->weaponWhip->ClimbUpAttack(isLeft);
+	}
+	else {
+		this->PlayAnimation("climbDownAttack");
+		this->incompleteAnim = "climbDownAttack";
+		this->weaponWhip->ClimbDownAttack(isLeft);
+	}
 }
 
 void Simon::LoseHealth(int health)
@@ -779,7 +757,15 @@ void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 		this->MoveRight();
 	}
 
-	else {
+	if (e.isPress(controlKey[SimonControl_A])) {
+		this->Jump();
+		this->grounding = SimonGrounding_None;
+	}
+
+	if (e.isPress(controlKey[SimonControl_B])
+		&& e.isPress(controlKey[SimonControl_Down])) {
+		this->KneelAttack();
+	} else {
 		if (e.isPress(controlKey[SimonControl_Down]))
 			this->Kneel();
 		if (e.isPress(controlKey[SimonControl_B]))
@@ -789,24 +775,17 @@ void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 		this->Attack();
 	}
 
-	if (e.isPress(controlKey[SimonControl_A])) {
-		this->Jump();
-		this->grounding = SimonGrounding_None;
-	}
 
-	if (e.isPress(controlKey[SimonControl_B])
-		&& e.isPress(controlKey[SimonControl_Down])) {
-		this->KneelAttack();
-	}
+
+
 }
 
 void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
 {
 	if (e.isPress(controlKey[SimonControl_B]))
 		this->StandAttack();
-	if (e.isPress(controlKey[SimonControl_TurboB])) {
+	if (e.isPress(controlKey[SimonControl_TurboB]))
 		this->Attack();
-	}
 }
 
 void Simon::CheckKeyPressLadderDownLeft(KeyBoardEventArg e)

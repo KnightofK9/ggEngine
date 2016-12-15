@@ -40,7 +40,6 @@ public:
 	int GetHeartPoint() { return this->heartPoint; }
 
 	void Attack() override;
-	void WhipAttack();
 
 	void AddWhip();
 
@@ -54,13 +53,10 @@ public:
 	void ClimbDownLeft();
 	void ClimbDownRight();
 	void ClimbIdle();
-	void ClimbUpFinish();
 	void Hurt();
 	void Death();
 	void StandAttack();
 	void KneelAttack();
-	void ClimbDownAttack();
-	void ClimbUpAttack();
 	void ClimbAttack();
 
 	void LoseHealth(int health);
