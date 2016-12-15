@@ -14,7 +14,26 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	this->body->CreateRectangleRigidBody(frameWidth, frameHeight);
 	this->body->SetEnable(false);
 	this->body->immoveable = true;
+	this->body->SetPhysicsMode(PhysicsMode_AABB);
 	this->body->SetLocalPosition(Vector(0, -22));
+	this->events->onOverlap = [this](GameObject* go, ColliderArg e) {
+		GameObject* otherObject = e.colliderObject;
+		Tag tag = otherObject->tag;
+		switch (tag)
+		{
+		case ObjectType_Candle:
+			g_debug.Log("Whip collider with candle!");
+			break;
+		default:
+			break;
+		}
+	};
+
+
+
+
+
+
 	//standardWhip
 	this->CreateAnimation("1", { 0,1,2,2 }, false)->SetOnCompleted([this](Animator*) {
 		body->SetEnable(false);

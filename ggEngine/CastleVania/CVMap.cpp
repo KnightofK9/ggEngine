@@ -101,6 +101,7 @@ void CVMap::UpdatePhysics()
 	this->quadTreeGroup->UpdatePhysics();
 	this->cameraActiveGroup->UpdatePhysics();
 	this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
+	this->simon->weaponWhip->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->simonGroup->UpdatePhysics();
 }
 
