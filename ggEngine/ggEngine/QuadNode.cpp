@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Game.h"
 #include "QuadTree.h"
+#include "EventManager.h"
 #include "Add.h"
 namespace ggEngine {
 	QuadNode::QuadNode(Game *game, QuadTree *quadTree, double x, double y, double width, double height, unsigned int maxObjects, unsigned int maxLevels, unsigned int level)
@@ -41,6 +42,10 @@ namespace ggEngine {
 				if (go->body != nullptr) {
 					go->body->rigidBody->Transform(go->worldPosition);
 				}
+				this->game->eventManager->EnableOnDestroyEvent(go);
+				go->events->onDestroy = [this](GameObject* go, EventArg e) {
+					this->objects.remove(go);
+				};
 				this->objects.push_back(go);
 			}
 			else {
@@ -128,8 +133,18 @@ namespace ggEngine {
 			if (this->nodes.size() > 0) {
 				Split();
 			}
+			for (auto go : this->objects) {
+				index = GetIndex(go->GetRect());
 
-			while (i < this->objects.size()) {
+				if (index != -1) {
+					this->nodes[index]->Insert(go);
+					this->objects.erase(std::remove(this->objects.begin(), this->objects.end(), go), this->objects.end());
+				}
+				else {
+					i++;
+				}
+			 }
+			/*while (i < this->objects.size()) {
 				index = GetIndex(this->objects[i]->GetRect());
 
 				if (index != -1) {
@@ -139,7 +154,7 @@ namespace ggEngine {
 				else {
 					i++;
 				}
-			}
+			}*/
 		}
 
 

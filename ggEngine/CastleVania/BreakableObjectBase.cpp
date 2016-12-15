@@ -8,11 +8,21 @@ BreakableObjectBase::BreakableObjectBase(CVGame *cvGame, SpriteInfo *image, int 
 	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->cvGame->physics->EnablePhysics(this);
-	this->body->CreateRectangleRigidBody(8, 16);
+	this->body->CreateRectangleRigidBody(16, 16);
 	this->body->allowGravity = false;
 
 	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
-		WeaponWhip *whip = dynamic_cast<WeaponWhip*>(e.colliderObject);
+		auto otherObject = e.colliderObject;
+		Tag tag = otherObject->tag;
+		switch (tag) {
+		case ObjectType_Weapon:
+			OnWeaponWhipContact(dynamic_cast<WeaponWhip*>(otherObject), e);
+			break;
+		case ObjectType_SubWeapon:
+			OnSubWeaponContact(dynamic_cast<WeaponBase*>(otherObject), e);
+			break;
+		}
+		/*WeaponWhip *whip = dynamic_cast<WeaponWhip*>(e.colliderObject);
 		if (whip != nullptr) {
 			OnWeaponWhipContact(whip, e);
 			return;
@@ -22,7 +32,7 @@ BreakableObjectBase::BreakableObjectBase(CVGame *cvGame, SpriteInfo *image, int 
 		if (weapon != nullptr) {
 			OnSubWeaponContact(weapon, e);
 			return;
-		}
+		}*/
 	};
 	this->tag = ObjectType_Item;
 	this->visible = false;

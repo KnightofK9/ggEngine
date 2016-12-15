@@ -27,8 +27,8 @@ namespace ggEngine{
 		virtual void UpdatePhysics();
 		void AddBodyToList(Body *body);
 
-		void AddGameObjectToDrawList(GameObject *go);
-		void RemoveGameObjectFromDrawList(GameObject *go);
+		virtual void AddGameObjectToDrawList(GameObject *go);
+		virtual void RemoveGameObjectFromDrawList(GameObject *go);
 
 		void RemoveBodyFromList(Body *body);
 

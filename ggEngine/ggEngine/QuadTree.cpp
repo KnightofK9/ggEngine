@@ -50,5 +50,10 @@ namespace ggEngine {
 		}
 	}
 
+	void QuadTree::RemoveGameObjectFromDrawList(GameObject * go)
+	{
+		Group::RemoveGameObjectFromDrawList(go);
+	}
+
 
 }

@@ -39,7 +39,7 @@ namespace ggEngine {
 		unsigned int maxObjects;
 		unsigned int maxLevels;
 		unsigned int level;
-		std::vector<GameObject *> objects;
+		std::list<GameObject *> objects;
 		Bounds bounds;
 		Game *game = nullptr;
 	};

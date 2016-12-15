@@ -43,6 +43,11 @@ void ggEngine::EventManager::EnableCameraEvent(GameObject * go)
 	game->cameraEventManager->Track(go);
 }
 
+void ggEngine::EventManager::EnableOnDestroyEvent(GameObject * go)
+{
+	InitEvents(go);
+}
+
 void ggEngine::EventManager::DisableCameraEvent(GameObject * go)
 {
 	InitEvents(go);

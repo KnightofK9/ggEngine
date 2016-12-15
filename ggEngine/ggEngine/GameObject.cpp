@@ -13,7 +13,7 @@ namespace ggEngine {
 		this->worldScale = Vector(1, 1);
 		this->alive = true;
 		this->rotate = 0;
-		this->events = NULL;
+		this->events = nullptr;
 		this->drawManager = nullptr;
 	}
 	GameObject::GameObject(Game *game)
@@ -24,7 +24,7 @@ namespace ggEngine {
 		this->game = game;
 		this->alive = true;
 		this->rotate = 0;
-		this->events = NULL;
+		this->events = nullptr;
 		this->drawManager = game->GetDrawManager();
 		this->spriteHandle = this->drawManager->GetSpriteHandle();
 	}
@@ -36,7 +36,7 @@ namespace ggEngine {
 		if (body != nullptr) {
 			delete body;
 		}
-		if (events != NULL) delete events;
+		if (events != nullptr) delete events;
 	}
 	void GameObject::Draw()
 	{

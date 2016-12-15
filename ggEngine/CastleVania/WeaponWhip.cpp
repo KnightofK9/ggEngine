@@ -6,6 +6,7 @@
 WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
+	this->tag = ObjectType_Weapon;
 	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
 	this->SetAnchor(0.65, 0.5);
 	this->SetScale(1, 1);
@@ -22,7 +23,11 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		switch (tag)
 		{
 		case ObjectType_Candle:
-			g_debug.Log("Whip collider with candle!");
+			//g_debug.Log("Whip collider with candle!");
+			{
+				ColliderArg	o = Physics::CreateOppositeColliderArg(e, this);
+				otherObject->events->onCollide(otherObject, o);
+			}	
 			break;
 		default:
 			break;

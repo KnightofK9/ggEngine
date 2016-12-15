@@ -19,6 +19,7 @@ namespace ggEngine {
 		void BuildTree(const char * quadTreeJson);
 		void Draw() override;
 
+		void RemoveGameObjectFromDrawList(GameObject *go) override;
 	private:
 		QuadNode* rootNode = nullptr;
 		Game *game;

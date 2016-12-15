@@ -17,6 +17,10 @@ void ggEngine::MemoryManager::Update(double dt)
 	this->removeQueue.clear();*/
 	while (!this->removeQueue.empty()) {
 		GameObject* go = this->removeQueue.front();
+		if (go->events != nullptr && go->events->onDestroy != nullptr) {
+			EventArg e;
+			go->events->onDestroy(go, e);
+		}
 		delete go;
 		this->removeQueue.pop();
 	}
