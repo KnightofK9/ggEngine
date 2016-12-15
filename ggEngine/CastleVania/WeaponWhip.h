@@ -19,7 +19,6 @@ public:
 	void ClimbUpAttack(bool isLeft);
 	void ClimbDownAttack(bool isLeft);
 	void KneelAttack(bool isLeft);
-
 	void Draw();
 	void UpdateWorldPosition() override;
 

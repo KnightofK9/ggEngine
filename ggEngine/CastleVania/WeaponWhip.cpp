@@ -14,6 +14,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	this->body->CreateRectangleRigidBody(frameWidth, frameHeight);
 	this->body->SetEnable(false);
 	this->body->immoveable = true;
+	this->body->SetLocalPosition(Vector(0, -22));
 	//standardWhip
 	this->CreateAnimation("1", { 0,1,2,2 }, false)->SetOnCompleted([this](Animator*) {
 		body->SetEnable(false);
@@ -54,7 +55,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	//	//this->body->SetEnable(false);
 	//	//this->ResetAnimation(e.animationName);
 	//};
-	this->whipVersion = 1;
+	this->SetWhipVersion(1);
 }
 
 
@@ -69,6 +70,19 @@ void WeaponWhip::SetWhipVersion(int version)
 		this->whipVersion = 1;
 	if (this->whipVersion > 3)
 		this->whipVersion = 3;
+	switch (this->whipVersion)
+	{
+	case 1:
+	case 2:
+		this->body->rigidBody->width = 30;
+		this->body->rigidBody->height = 12;
+	case 3:
+		this->body->rigidBody->width = 36;
+		this->body->rigidBody->height = 12;
+		break;
+	default:
+		break;
+	}
 }
 
 void WeaponWhip::UpgradeWhip()
@@ -80,9 +94,15 @@ void WeaponWhip::UpgradeWhip()
 
 void WeaponWhip::Attack(bool isLeft)
 {
-	if (!isLeft)
+	if (isLeft)
+	{
+		this->SetScale(1, 1);
+		this->SetBodyAnchor(Vector(1, 0));
+	}
+	else {
 		this->SetScale(-1, 1);
-	else this->SetScale(1, 1);
+		this->SetBodyAnchor(Vector(0, 0));
+	}
 	
 	//this->body->SetEnable(true);
 

@@ -26,7 +26,7 @@ namespace ggEngine {
 		int height;
 		int orgWidth;
 		int orgHeight;
-		Shape* rigidBody;
+		Rectangle* rigidBody;
 		//Force modifier
 		/*Air*/
 		double airDensity = 0.1;
@@ -94,6 +94,8 @@ namespace ggEngine {
 		void SetActive(bool isActive) { this->isActive = isActive; }
 		bool IsActive() { return this->isActive; }
 		Rect GetRect();
+		void SetLocalPosition(Vector localPosition);
+		Vector GetLocalPosition();
 	private:
 		bool isReady = false;
 		bool isActive = true;
@@ -126,6 +128,6 @@ namespace ggEngine {
 		void PostUpdate();
 		bool isAlive;
 		Rect worldRect;
-
+		Vector localPosition;
 	};
 }

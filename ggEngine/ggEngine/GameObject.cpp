@@ -69,6 +69,30 @@ namespace ggEngine {
 		GGObject::Destroy();
 		this->game->memoryManager->AddObjectToRemoveQueue(this);
 	}
+	void GameObject::SetBodyAnchor(Vector anchor)
+	{
+		if (this->body == nullptr) {
+			g_debug.Log("Error, no body for object + " + this->name);
+			return;
+		}
+		if (this->body->rigidBody == nullptr) {
+			g_debug.Log("Error, no rigid body for object + " + this->name);
+			return;
+		}
+		this->body->rigidBody->SetAnchor(anchor);
+	}
+	Vector GameObject::GetBodyAnchor()
+	{
+		if (this->body == nullptr) {
+			g_debug.Log("Error, no body for object + " + this->name);
+			return Vector::Zero();
+		}
+		if (this->body->rigidBody == nullptr) {
+			g_debug.Log("Error, no rigid body for object + " + this->name);
+			return Vector::Zero();
+		}
+		return this->body->rigidBody->GetAnchor();
+	}
 	void GameObject::Transform(LPD3DXSPRITE spriteHandle)
 	{
 		//Scale from 0 0

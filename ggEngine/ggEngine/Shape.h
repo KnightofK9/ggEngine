@@ -32,7 +32,9 @@ namespace ggEngine {
 		virtual void Translate(double x, double y) {
 			Translate(new Vector(x, y));
 		}
+		Vector GetAnchor() { return this->anchor; }
 	protected:
+
 		Vector anchor;
 	};
 }

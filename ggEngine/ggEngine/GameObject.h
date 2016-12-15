@@ -40,6 +40,8 @@ namespace ggEngine {
 		void SetVisible(bool visible) { this->visible = visible; }
 		bool IsVisible() { return this->visible; }
 		Vector GetScale() { return this->scale; }
+		virtual void SetBodyAnchor(Vector anchor);
+		virtual Vector GetBodyAnchor();
 		virtual void Transform(LPD3DXSPRITE spriteHandle);
 		virtual void Transform(GameObject *go, LPD3DXSPRITE spriteHandle);
 		virtual void SetScale(Vector vector) { this->scale = vector; }

@@ -8,6 +8,7 @@
 #include "Box.h"
 #include "Physics.h"
 #include "GameObject.h"
+#include "Camera.h"
 #include "World.h"
 #include "Group.h"
 namespace ggEngine {
@@ -251,7 +252,7 @@ namespace ggEngine {
 	{
 
 		if (this->immoveable) {
-			this->rigidBody->Transform(this->sprite->worldPosition);
+			this->rigidBody->Transform(this->sprite->worldPosition + this->localPosition);
 			return;
 		}
 		this->blocked.Reset();
@@ -263,8 +264,8 @@ namespace ggEngine {
 		}
 		if (this->rigidBody != nullptr) {
 			this->sprite->UpdateWorldPosition();
-			if(this->syncBounds) this->rigidBody->Transform(this->sprite->worldPosition, this->width, this->height);
-			else this->rigidBody->Transform(this->sprite->worldPosition);
+			if(this->syncBounds) this->rigidBody->Transform(this->sprite->worldPosition + this->localPosition, this->width, this->height);
+			else this->rigidBody->Transform(this->sprite->worldPosition + this->localPosition);
 		}
 	}
 
@@ -272,6 +273,16 @@ namespace ggEngine {
 	{
 		Rect r(this->rigidBody->GetLeft(), this->rigidBody->GetUp(), this->rigidBody->GetRight(), this->rigidBody->GetDown());
 		return r;
+	}
+
+	void Body::SetLocalPosition(Vector localPosition)
+	{
+		this->localPosition = localPosition;
+	}
+
+	Vector Body::GetLocalPosition()
+	{
+		return this->localPosition;
 	}
 
 	bool Body::PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB, std::list<GameObject*> *possibleCollidedList)
@@ -679,8 +690,10 @@ namespace ggEngine {
 	
 	void Body::Render(D3DCOLOR color, bool filled)
 	{
-		if(this->IsEnable())
+		if (this->IsEnable())
+		{
 			this->game->GetDrawManager()->DrawShape(rigidBody);
+		}
 	}
 	
 	void Body::Update()
@@ -709,7 +722,7 @@ namespace ggEngine {
 	}
 	void Body::CreateCircleRigidBody(double radius)
 	{
-		this->rigidBody = new Circle(radius);
+		//this->rigidBody = new Circle(radius);
 	}
 	void Body::CreateRectangleRigidBody(double width, double height)
 	{

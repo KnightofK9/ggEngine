@@ -16,7 +16,7 @@ namespace ggEngine {
 		void Update();
 		void SetScale(double x, double y);
 		void SetPoint(double x, double y);
-		Matrix GetTranslatedMatrix() { return this->translatedMatrix; }
+		Matrix GetTranslatedMatrix() { return this->viewMatrix; }
 		void RegisterControl(CameraControl controlKeyCode, DWORD key);
 		void EnableManualMove();
 		void DisableManualMove();
