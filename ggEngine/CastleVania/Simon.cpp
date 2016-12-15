@@ -612,7 +612,7 @@ void Simon::StartClimbingLadderAuto(bool isLeft, bool isUp)
 			->SetOnFinish([this]() {
 			currentAutoLadderTweenAuto = nullptr;
 			this->grounding = SimonGrounding_Ladder;
-			this->isClimbingUp = true;
+			this->isClimbingUp = false;
 			this->isClimbingLadder = true;
 		})->Start();
 	}
