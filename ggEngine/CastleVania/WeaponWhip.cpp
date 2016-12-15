@@ -99,13 +99,13 @@ void WeaponWhip::StandAttack(bool isLeft)
 
 void WeaponWhip::ClimbUpAttack(bool isLeft)
 {
-	this->SetAnchor(0.62, 0.5);
+	this->SetAnchor(0.62, 0.9);
 	this->Attack(isLeft);
 }
 
 void WeaponWhip::ClimbDownAttack(bool isLeft)
 {
-	this->SetAnchor(0.64, 0.55);
+	this->SetAnchor(0.64, 0.98);
 	this->Attack(isLeft);
 }
 

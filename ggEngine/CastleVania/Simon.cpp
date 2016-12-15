@@ -22,7 +22,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->CreateAnimation("move", 1, 2, true);
 	this->CreateAnimation("kneel", 4, 4, true);
 	this->CreateAnimation("climbDown", { 6,5,5 } ,false);
+	this->CreateAnimation("climbDownIdle", 5, 5, true);
 	this->CreateAnimation("climbUp", { 8,7,7 }, false);
+	this->CreateAnimation("climbUpIdle", 7, 7, true);
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", 11, 11, true);
@@ -185,7 +187,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 					break;
 			}
 
-			return;
+			//return;
 		}
 		else {
 			if (this->isSteppingOnLadder) {
@@ -261,28 +263,23 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				break;
 
 			case SimonGrounding_Ladder:
-				//this->body->allowGravity = false;
-				//switch (this->ladderState) {
-				//case LadderDownLeft:
-				//	CheckKeyPressLadderDownLeft(e);
-				//	break;
+				switch (this->ladderState) {
+				case SimonLadder_DownLeft:
+					CheckKeyPressLadderDownLeft(e);
+					break;
 
-				//case LadderDownRight:
-				//	CheckKeyPressLadderDownRight(e);
-				//	break;
+				case SimonLadder_DownRight:
+					CheckKeyPressLadderDownRight(e);
+					break;
 
-				//case LadderUpLeft:
-				//	CheckKeyPressLadderUpLeft(e);
-				//	break;
+				case SimonLadder_UpLeft:
+					CheckKeyPressLadderUpLeft(e);
+					break;
 
-				//case LadderUpRight:
-				//	CheckKeyPressLadderUpRight(e);
-				//	break;
-
-				//case LadderClimbFinish:
-				//	//SetKeyPressNormal(e);
-				//	break;
-				//}
+				case SimonLadder_UpRight:
+					CheckKeyPressLadderUpRight(e);
+					break;
+				}
 				break;
 
 			case SimonGrounding_None:
@@ -294,6 +291,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	
 	this->SetUpKeyControl();
 	this->SetUpTestKeyControl();
+	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
 	this->shot = 1;
 	this->score = 0;
 	this->stagePoint = 1;
@@ -806,19 +804,22 @@ void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
 {
 	if (e.isPress(controlKey[SimonControl_B]))
 		this->StandAttack();
+	if (e.isPress(controlKey[SimonControl_TurboB])) {
+		this->Attack();
+	}
 }
 
 void Simon::CheckKeyPressLadderDownLeft(KeyBoardEventArg e)
 {
-	if (e.isPress(controlKey[SimonControl_Left])) {
-		this->ClimbDownLeft();
-		return;
-	}
+	//if (e.isPress(controlKey[SimonControl_Left])) {
+	//	this->ClimbDownLeft();
+	//	return;
+	//}
 
-	if (e.isPress(controlKey[SimonControl_Right])) {
-		this->ClimbUpRight();
-		return;
-	}
+	//if (e.isPress(controlKey[SimonControl_Right])) {
+	//	this->ClimbUpRight();
+	//	return;
+	//}
 
 	if (e.isPress(controlKey[SimonControl_Down])) {
 		this->ClimbDownLeft();
@@ -844,15 +845,15 @@ void Simon::CheckKeyPressLadderDownLeft(KeyBoardEventArg e)
 }
 
 void Simon::CheckKeyPressLadderDownRight(KeyBoardEventArg e) {
-	if (e.isPress(controlKey[SimonControl_Left])) {
-		this->ClimbUpLeft();
-		return;
-	}
+	//if (e.isPress(controlKey[SimonControl_Left])) {
+	//	this->ClimbUpLeft();
+	//	return;
+	//}
 
-	if (e.isPress(controlKey[SimonControl_Right])) {
-		this->ClimbDownRight();
-		return;
-	}
+	//if (e.isPress(controlKey[SimonControl_Right])) {
+	//	this->ClimbDownRight();
+	//	return;
+	//}
 
 	if (e.isPress(controlKey[SimonControl_Down])) {
 		this->ClimbDownRight();
@@ -878,15 +879,15 @@ void Simon::CheckKeyPressLadderDownRight(KeyBoardEventArg e) {
 }
 
 void Simon::CheckKeyPressLadderUpLeft(KeyBoardEventArg e) {
-	if (e.isPress(controlKey[SimonControl_Left])) {
-		this->ClimbUpLeft();
-		return;
-	}
+	//if (e.isPress(controlKey[SimonControl_Left])) {
+	//	this->ClimbUpLeft();
+	//	return;
+	//}
 
-	if (e.isPress(controlKey[SimonControl_Right])) {
-		this->ClimbDownRight();
-		return;
-	}
+	//if (e.isPress(controlKey[SimonControl_Right])) {
+	//	this->ClimbDownRight();
+	//	return;
+	//}
 
 	if (e.isPress(controlKey[SimonControl_Down])) {
 		this->ClimbDownRight();
@@ -912,15 +913,17 @@ void Simon::CheckKeyPressLadderUpLeft(KeyBoardEventArg e) {
 }
 
 void Simon::CheckKeyPressLadderUpRight(KeyBoardEventArg e) {
-	if (e.isPress(controlKey[SimonControl_Left])) {
-		this->ClimbDownLeft();
-		return;
-	}
 
-	if (e.isPress(controlKey[SimonControl_Right])) {
-		this->ClimbUpRight();
-		return;
-	}
+
+	//if (e.isPress(controlKey[SimonControl_Left])) {
+	//	this->ClimbDownLeft();
+	//	return;
+	//}
+
+	//if (e.isPress(controlKey[SimonControl_Right])) {
+	//	this->ClimbUpRight();
+	//	return;
+	//}
 
 	if (e.isPress(controlKey[SimonControl_Down])) {
 		this->ClimbDownLeft();
