@@ -106,8 +106,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			break;
 		case ObjectType_LadderDownLeft:
 		case ObjectType_LadderDownRight:
+			break;
 		case ObjectType_LadderUpLeft:
 		case ObjectType_LadderUpRight:
+			if (e.blockDirection.down)
+				this->grounding = SimonGrounding_Brick;
 			break;
 		case ObjectType_Static:
 		case ObjectType_Item:
@@ -143,10 +146,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 
 	this->cvGame->eventManager->EnableKeyBoardInput(this);
 	this->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		/*if (this->GetHealth() <= 0) {
-			this->Death();
-			return;`
-		}*/
+		if (this->health <= 0)
+			return;
+
 		if (currentAutoLadderTweenAuto != nullptr) return;
 		if (this->incompleteAnim != "") {
 			this->PlayAnimation(incompleteAnim);
@@ -247,7 +249,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			
 			
 		}
-		isSteppingOnLadder = false;
+		isSteppingOnLadder = false; 
 		switch (this->grounding) {
 			case SimonGrounding_Brick:
 				this->body->allowGravity = true;
@@ -279,6 +281,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				case SimonLadder_UpRight:
 					CheckKeyPressLadderUpRight(e);
 					break;
+
+				//case SimonLadder_None:
+				//	g_debug.Log("Ladder none");
+				//	this->Idle();
+				//	break;
 				}
 				break;
 
@@ -295,6 +302,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->shot = 3;
 	this->numberWeaponCanFire = this->shot;
 	this->isReadyToFireWeapon = true;
+	this->isAlive = true;
 	this->score = 0;
 	this->stagePoint = 1;
 	this->heartPoint = 50;
@@ -454,6 +462,8 @@ void Simon::Death()
 {
 	this->PlayAnimation("death");
 	this->body->velocity.x = 0;
+	this->body->velocity.y = 0;
+	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 }
 
 void Simon::StandAttack()
@@ -493,11 +503,13 @@ void Simon::ClimbAttack()
 void Simon::LoseHealth(int health)
 {
 	this->health -= health;
-	if (this->health < 0) this->health = 0;
+	if (this->health <= 0) {
+		this->health = 0;
+		this->Death();
+	}
 	if (infoPanel != nullptr) {
 		infoPanel->SetPlayerHealth(this->health);
 	}
-	if (this->health == 0) Death();
 }
 
 void Simon::GainHealth(int health)
@@ -771,9 +783,11 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DAGGER_TEXTURE);
 	}
 	if (e.isPress(controlKey[SimonControl_Num9])) {
+		this->GainHealth(1);
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num0])) {
+		this->LoseHealth(1);
 		return;
 	}
 	if (weaponType != SubWeapon_None && inf != NULL) {
