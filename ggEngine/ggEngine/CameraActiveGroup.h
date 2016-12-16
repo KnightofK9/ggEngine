@@ -10,6 +10,8 @@ namespace ggEngine {
 		
 		void Update() override;
 		void UpdatePhysics() override;
+
+		void CheckCollisionTo(std::list<GameObject*> staticGoList);
 		void Draw() override;
 		std::list<GameObject*> GetDrawList() override;
 	private:

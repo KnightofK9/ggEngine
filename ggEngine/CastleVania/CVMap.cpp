@@ -71,6 +71,8 @@ void CVMap::BuildMap(const char * jsonChar)
 		}
 	}
 
+	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
+
 	
 }
 void CVMap::Update()
@@ -78,6 +80,7 @@ void CVMap::Update()
 	this->quadTreeGroup->Update();
 	this->cameraActiveGroup->Update();
 	this->simonGroup->Update();
+	this->simon->Update();
 }
 void CVMap::Draw()
 {
@@ -100,6 +103,7 @@ void CVMap::Draw()
 void CVMap::UpdatePhysics()
 {
 	this->quadTreeGroup->UpdatePhysics();
+	this->cameraActiveGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->cameraActiveGroup->UpdatePhysics();
 	this->simonGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	//this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());

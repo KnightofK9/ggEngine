@@ -40,9 +40,10 @@ public:
 	int GetHeartPoint() { return this->heartPoint; }
 
 	void Attack() override;
-
+	void Update();
 	void AddWhip();
-
+	void SetGroupToCheckCollision(Group *checkingCollisionGroup) { this->checkingCollisionGroup = checkingCollisionGroup; }
+	Group* GetGroupToCheckCollision() { return this->checkingCollisionGroup; }
 	void Idle();
 	void MoveLeft();
 	void MoveRight();
@@ -82,7 +83,7 @@ private:
 	void StartClimbingLadder(bool isLeft, bool isUp);
 	void StartClimbingLadderAuto(bool isLeft, bool isUp);
 	void SetStateGoToLadder(bool active);
-
+	Group* checkingCollisionGroup = nullptr;
 	void OnLadderCompleted();
 	TileLadder *tileLadder = nullptr;
 	TileLadder *firstLadder = nullptr;

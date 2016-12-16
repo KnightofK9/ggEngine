@@ -113,11 +113,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 				this->grounding = SimonGrounding_Brick;
 			break;
 		case ObjectType_Static:
-		case ObjectType_Item:
-			if (otherObject->events->onCollide != nullptr) {
-				ColliderArg	o = Physics::CreateOppositeColliderArg(e, object);
-				otherObject->events->onCollide(otherObject, o);
-			}
+		
 			break;
 		default:
 			break;
@@ -136,6 +132,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 			//g_debug.Log("Overlap with ladder!" + std::to_string(Helper::GetRamdomIntNumber()));
 			tileLadder = dynamic_cast<TileLadder*>(e.colliderObject);
 			break;
+		case ObjectType_Item:
+			if (otherObject->events->onCollide != nullptr) {
+				ColliderArg	o = Physics::CreateOppositeColliderArg(e, this);
+				otherObject->events->onCollide(otherObject, o);
+			}
 		}
 	};
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
@@ -348,6 +349,11 @@ void Simon::Attack()
 
 	if (this->numberWeaponCanFire <= 0)
 		this->numberWeaponCanFire = this->shot;
+}
+
+void Simon::Update()
+{
+	this->body->AddGroupCheckCollisionTo(this->checkingCollisionGroup);
 }
 
 void Simon::AddWhip()

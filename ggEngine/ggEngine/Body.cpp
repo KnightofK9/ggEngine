@@ -58,6 +58,16 @@ namespace ggEngine {
 	{
 		this->staticGoList = staticGoList;
 	}
+	void Body::AddGroupCheckCollisionTo(Group * group)
+	{
+		this->collisionObjectList.clear();
+		this->groupCollision = group;
+		for (auto go : this->groupCollision->GetDrawList()) {
+			if (go->body != nullptr) {
+				this->collisionObjectList.push_back(go);
+			}
+		}
+	}
 	void Body::CheckCollisionTo(GameObject * staticGo)
 	{
 		//collisionObjectList.push_back(staticGo);
@@ -99,14 +109,14 @@ namespace ggEngine {
 				collidedList.push(e);
 			}
 		}
-	/*	for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
 			(*it)->body->PreUpdate();
 			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 			ColliderArg e;
 			if (GetArgIfCollided(b1, b2, e)) {
 				collidedList.push(e);
 			}
-		}*/
+		}
 		return collidedList;
 	}
 	bool Body::GetArgIfCollided(Box &b1, Box &b2, ColliderArg &e)
@@ -250,7 +260,6 @@ namespace ggEngine {
 	}
 	void Body::PreUpdate()
 	{
-
 		if (this->immoveable) {
 			this->rigidBody->Transform(this->sprite->worldPosition + this->localPosition);
 			return;
@@ -394,14 +403,14 @@ namespace ggEngine {
 				possibleCollidedBoxList.push_back(b2.gameObject);
 			}
 		}
-	/*	for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
 			(*it)->body->PreUpdate();
 			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 			Rect result;
 			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
 				possibleCollidedBoxList.push_back(b2.gameObject);
 			}
-		}*/
+		}
 		return possibleCollidedBoxList;
 	}
 
