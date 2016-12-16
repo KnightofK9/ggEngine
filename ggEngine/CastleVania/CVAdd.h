@@ -4,6 +4,7 @@
 #include "ManagerBase.h"
 #include "InfoPanel.h"
 #include "CVMap.h"
+#include "SimonGroup.h"
 using namespace ggEngine;
 class CVState;
 class CVAdd : public ManagerBase {
@@ -15,6 +16,7 @@ public:
 	HealthBar *UIPlayerHealthBar(double x, double y, ggEngine::Group* group);
 	HealthBar *UIEnemyHealthBar(double x, double y, ggEngine::Group* group);
 	CVMap *LoadMap(const char* json, ggEngine::Group* group);
+	SimonGroup *AddSimonGroup();
 
 private:
 

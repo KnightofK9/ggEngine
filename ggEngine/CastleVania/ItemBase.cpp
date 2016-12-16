@@ -14,6 +14,15 @@ ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame, image)
 			OnSimonContact(simon,e);
 		}
 	};
+	this->events->onCheckingCollide = [this](GameObject *go, ColliderArg e) {
+		auto otherGo = e.colliderObject;
+		Tag tag = otherGo->tag;
+		switch (tag) {
+		case ObjectType_LevelTwoBrick:
+			return true;
+		}
+		return false;
+	};
 	this->tag = ObjectType_Item;
 	this->visible = false;
 	this->body->SetActive(false);

@@ -214,3 +214,8 @@ CVMap * CVAdd::LoadMap(const char * json, ggEngine::Group * group)
 	group->AddGroup(cvMap);
 	return cvMap;
 }
+
+SimonGroup * CVAdd::AddSimonGroup()
+{
+	return new SimonGroup(this->cvGame);
+}

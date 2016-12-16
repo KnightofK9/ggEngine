@@ -14,9 +14,11 @@ public:
 
 	void OnWeaponWhipContact(WeaponWhip *whip, ColliderArg e) override;
 	void OnSubWeaponContact(WeaponBase *weapon, ColliderArg e) override;
-
+	void SetDropItem(std::string itemJson);
 	void Active() override;
 private:
+	void DropItem();
+	std::string itemJson = "";
 	//CVGame *cvGame;
 
 };

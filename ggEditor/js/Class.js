@@ -613,6 +613,13 @@ Phaser.QuadTree.prototype.export = function(){
         sprite.y = this.objects[i].y;
         if(isNotNull(item._item.extraInfo)){
             sprite.extraInfo = item._item.extraInfo;
+            switch(item.type){
+                case "FireCandle":
+                    sprite.extraInfo.dropType.name = sprite.extraInfo.dropType.type;
+                    sprite.extraInfo.dropType.x = sprite.x;
+                    sprite.extraInfo.dropType.y = sprite.y;
+                    break;
+            }
         }
 
         quadTreeJson.objects.push(sprite);

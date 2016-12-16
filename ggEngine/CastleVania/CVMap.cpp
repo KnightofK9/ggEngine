@@ -4,6 +4,7 @@
 #include "InfoPanel.h"
 #include "Simon.h"
 #include "WeaponWhip.h"
+#include "SimonGroup.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
@@ -43,7 +44,7 @@ void CVMap::BuildMap(const char * jsonChar)
 			continue;
 		}
 		if (type == "Simon") {
-			this->simonGroup = this->add->Group();
+			this->simonGroup = this->cvAdd->AddSimonGroup();
 			this->AddGroup(this->simonGroup);
 			for (auto& obj : it["itemList"].GetArray()) {
 				std::string type = obj["type"].GetString();
@@ -100,8 +101,9 @@ void CVMap::UpdatePhysics()
 {
 	this->quadTreeGroup->UpdatePhysics();
 	this->cameraActiveGroup->UpdatePhysics();
-	this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
-	this->simon->weaponWhip->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
+	this->simonGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
+	//this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
+	//this->simon->weaponWhip->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->simonGroup->UpdatePhysics();
 }
 

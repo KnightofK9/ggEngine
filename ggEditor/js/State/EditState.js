@@ -873,12 +873,25 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
 
         if(isNotNull(extraInfo)){
+            switch(type){
+                case "FireCandle":
+                    if(isNull(extraInfo.dropType.type)){
+                        var type = extraInfo.dropType;
+                        extraInfo.dropType = {};
+                        extraInfo.dropType.type = type;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
             sprite.extraInfo = extraInfo;
         }else{
             switch(type){
                 case "FireCandle":
                     sprite.extraInfo = {};
-                    sprite.extraInfo.dropType = "";
+                    sprite.extraInfo.dropType = {};
+                    sprite.extraInfo.dropType.type = "";
                     break;
                 default:
                     break;
