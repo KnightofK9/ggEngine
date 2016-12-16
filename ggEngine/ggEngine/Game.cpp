@@ -159,7 +159,6 @@ namespace ggEngine {
 			//
 			// Render go here
 			//
-			this->d3dManager->Update(0.0);
 		}
 	}
 
@@ -198,6 +197,7 @@ namespace ggEngine {
 			/*Physics update*/
 			physics->Update(dt);
 			cameraEventManager->Update(dt);
+			this->d3dManager->Update(0.0);
 			memoryManager->Update(dt);
 		}
 	}

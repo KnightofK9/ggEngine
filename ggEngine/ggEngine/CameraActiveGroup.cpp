@@ -39,9 +39,23 @@ namespace ggEngine {
 			}
 		}
 	}
+	void CameraActiveGroup::CheckCollisionTo(std::list<GameObject*> staticGoList)
+	{
+		for (auto go : this->drawList) {
+			if (go->body != nullptr) {
+				go->body->AddListCheckCollisionTo(staticGoList);
+			}
+		}
+	}
 	void CameraActiveGroup::Draw()
 	{
-		Group::Draw();
+		this->UpdateWorldPosition();
+		if ((this)->IsVisible()) {
+			this->drawManager->DrawList(this->activeGameObjectList, this->isUsedMask);
+			for (auto it = this->groupList.begin(); it != this->groupList.end();++it) {
+				(*it)->Draw();
+			}
+		}
 	}
 	std::list<GameObject*> CameraActiveGroup::GetDrawList()
 	{

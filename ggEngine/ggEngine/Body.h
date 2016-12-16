@@ -88,6 +88,7 @@ namespace ggEngine {
 		void SetEnable(bool enable) { this->enable = enable; }
 		bool IsEnable() { return this->enable; }
 		void AddListCheckCollisionTo(std::list<GameObject*> staticGoList);
+		void AddGroupCheckCollisionTo(Group* group);
 		void CheckCollisionTo(GameObject *staticGo);
 		void RemoveCheckCollisionWith(GameObject *staticGo);
 		void PreUpdate();
@@ -115,8 +116,9 @@ namespace ggEngine {
 		bool CheckWorldBounds();
 		Vector acceleration;
 		Vector temp;
+		Group* groupCollision = nullptr;
 		std::list<GameObject*> staticGoList;
-		//std::vector<GameObject*> collisionObjectList;
+		std::list<GameObject*> collisionObjectList;
 		Vector CalculateAirForce();
 		Vector CalculateGravityForce();
 		Vector CalculateDampingForce();
