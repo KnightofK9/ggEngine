@@ -156,6 +156,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AxeItem.h" />
     <ClInclude Include="BoomerangItem.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="SimonGroup.h" />
+    <ClInclude Include="StateConstant.h" />
     <ClInclude Include="StaticTile.h" />
     <ClInclude Include="StaticTIleManager.h" />
     <ClInclude Include="StopWatch.h" />
@@ -225,6 +227,7 @@
     <ResourceCompile Include="CastleVania.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AxeItem.cpp" />
     <ClCompile Include="BoomerangItem.cpp" />
@@ -244,7 +247,6 @@
     <ClCompile Include="DoubleShot.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="Factory.cpp" />
-    <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="HeartLarger.cpp" />

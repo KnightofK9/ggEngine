@@ -1,18 +1,20 @@
 #pragma once
 #include <ggEngine.h>
 #include "HealthBar.h"
+#include "GameOverScreen.h"
+
 class CVGame;
 using namespace ggEngine;
 class InfoPanel : public ScreenGroup {
 public:
-	InfoPanel(CVGame *cvGame);
+	InfoPanel(GameOverScreen *goScreen, CVGame *cvGame);
 	virtual ~InfoPanel();
 	virtual void Draw() override;
 	void SetPlayerHealth(int health);
 	void SetEnemyHealth(const int& health);
-	void SetLife(const int& point);
-	void SetPoint(const int& point);
-	void SetState(const int& state);
+	void SetHeartPoint(const int& point);
+	void SetPPoint(const int& point);
+	void SetStatePoint(const int& state);
 	void SetScore(const int& score);
 	void SetItemImage(SpriteInfo *spriteInfo);
 	TimeBasedEventInfo* CountDown(int timeBegin, std::function<void(void)> onTimeUp);
@@ -37,9 +39,9 @@ public:
 	Text *enemy = nullptr;
 	Text *enemyPoint = nullptr;
 
-	Sprite* lifeIcon = nullptr;
-	Text *life = nullptr;
-	Text *lifePoint = nullptr;
+	Sprite* heartIcon = nullptr;
+	Text *heart = nullptr;
+	Text *heartPoint = nullptr;
 
 	Text *p = nullptr;
 	Text *pPoint = nullptr;
@@ -56,4 +58,5 @@ private:
 	CVGame *cvGame = nullptr;
 	std::function<void(void)> onTimeUp;
 	TimeBasedEventInfo* timeInfo = nullptr;
+	GameOverScreen *goScreen = nullptr;
 };

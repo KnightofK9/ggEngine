@@ -56,11 +56,13 @@ void TestStateCastleVania::Create()
 	tileMap->name = "StupidTileMap";*/
 	Group* group = this->add->Group();
 	group->name = "StupidGroup";
-	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(group);
-	infoPanel->CountDown(100, [this] {
-		//if (this->cvgame->stateManager->GetCurrentState() == this)
-		//	this->cvgame->stateManager->Start("GameOverState", false, false);
-	})->Start();
+
+	GameOverScreen *goScreen = this->cvAdd->UIGameOverScreen(group);
+
+	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);
+
+	
+	
 
 	cvMap->LoadSimon(infoPanel, nullptr);
 	//this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);

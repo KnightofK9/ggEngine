@@ -237,6 +237,12 @@
     <ClInclude Include="SimonGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StateConstant.h">
+      <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScreen.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -305,9 +311,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOverState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HealthBar.cpp">
@@ -422,6 +425,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SimonGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

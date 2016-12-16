@@ -2,6 +2,7 @@
 #include "TextureConstant.h"
 #include "TypeEnum.h"
 #include "CharacterConstant.h"
+#include "StateConstant.h"
 
 CVAdd::CVAdd(CVGame *cvGame) : ManagerBase(cvGame)
 {
@@ -29,10 +30,10 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 	return simon;
 }
 
-InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
+InfoPanel* CVAdd::UIInfoPanel(GameOverScreen *goScreen, ggEngine::Group *group)
 {
 
-	InfoPanel *infoPanel = new InfoPanel(this->cvGame);
+	InfoPanel *infoPanel = new InfoPanel(goScreen, this->cvGame);
 	Style style;
 	int fontSize = 22;
 	int margin = 20;
@@ -110,12 +111,12 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	infoPanel->playerHealthBar = this->UIPlayerHealthBar(margin + fontSize*7, margin + fontSize, infoPanel);
 	infoPanel->playerHealthBar->SetScale(1.3, 1.3);
 
-	infoPanel->lifeIcon		= this->add->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
+	infoPanel->heartIcon		= this->add->Sprite(	GAME_WIDTH / 2 + 110 + fontSize,
 											margin + fontSize + 10,
 											TextureConstant::LIFE_TEXTURE,
 											infoPanel);
-	infoPanel->lifeIcon->SetAnchor(0.5, 0.5);
-	infoPanel->lifeIcon->SetScale(2.5, 2.5);
+	infoPanel->heartIcon->SetAnchor(0.5, 0.5);
+	infoPanel->heartIcon->SetScale(2.5, 2.5);
 #pragma endregion
 
 #pragma region  Third line
@@ -132,7 +133,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 
 #pragma endregion
 	//P-H
-	infoPanel->life			= this->add->Text(	GAME_WIDTH / 2 + 100 + fontSize*2,
+	infoPanel->heart			= this->add->Text(	GAME_WIDTH / 2 + 100 + fontSize*2,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -141,7 +142,7 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 											style,
 											infoPanel);
 
-	infoPanel->lifePoint	= this->add->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
+	infoPanel->heartPoint	= this->add->Text(	GAME_WIDTH/2 + 100 + fontSize*3,
 											margin + fontSize,
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
@@ -178,6 +179,11 @@ InfoPanel* CVAdd::UIInfoPanel(ggEngine::Group *group)
 	infoPanel->itemShot = this->add->Sprite(651, 52, TextureConstant::NONE_TEXTURE, infoPanel);
 	infoPanel->itemShot->SetAnchor(0.5, 0.5);
 	infoPanel->itemShot->SetScale(3, 3);
+
+
+	infoPanel->CountDown(StateConstant::MAX_TIME_IN_LEVEL_1, [goScreen] {
+		goScreen->SetEnable(true);
+	})->Start();
 
 	group->AddGroup(infoPanel);
 	return infoPanel;
@@ -218,4 +224,30 @@ CVMap * CVAdd::LoadMap(const char * json, ggEngine::Group * group)
 SimonGroup * CVAdd::AddSimonGroup()
 {
 	return new SimonGroup(this->cvGame);
+}
+
+GameOverScreen * CVAdd::UIGameOverScreen(ggEngine::Group * group)
+{
+	GameOverScreen *goScreen = new GameOverScreen(this->cvGame);
+	Style style;
+	style.fontColor = D3DCOLOR_RGBA(255, 255, 255, 255);
+	int fontSize = 22;
+
+	goScreen->heart = this->add->Sprite(394 - fontSize * 5, 420, TextureConstant::HEART_MINI_TEXTURE, goScreen);
+	goScreen->heart->SetAnchor(0.5, 0.5);
+	goScreen->heart->SetScale(3, 3);
+
+	goScreen->gameOver = this->add->Text(384 - fontSize * 4, 291, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "GAME OVER", style, goScreen);
+	goScreen->cont = this->add->Text(384 - fontSize * 3, 411, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "CONTINUE", style, goScreen);
+	goScreen->end = this->add->Text(384 - fontSize * 3, 483, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "END", style, goScreen);
+
+	goScreen->SetEventToggleHeart([this] {
+
+	}, [this]{
+
+	});
+	goScreen->SetEnable(false);
+
+	group->AddGroup(goScreen);
+	return goScreen;
 }

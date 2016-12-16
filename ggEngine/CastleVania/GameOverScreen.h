@@ -1,15 +1,16 @@
 #pragma once
 #include <ggEngine.h>
-#include "CVState.h"
 
+using namespace ggEngine;
+class CVGame;
 class GameOverScreen : public ScreenGroup {
 public:
 	GameOverScreen(CVGame *game);
 	virtual ~GameOverScreen();
 	virtual void Draw() override;
-	void ToggleHeart(bool up);
+	void ToggleHeart(bool isUp);
+	void SetEnable(bool isEnable);
 	void SetEventToggleHeart(std::function<void(void)> onToggleUp, std::function<void(void)> onToggleDown);
-	void SetVisibility(bool isVisible);
 
 	Text *gameOver;
 	Text *cont;
@@ -23,4 +24,6 @@ public:
 	std::function<void(void)> onToggleDown;
 
 private:
+	CVGame *cvGame = nullptr;
+	bool isEnableKey;
 };

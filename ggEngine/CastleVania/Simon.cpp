@@ -535,25 +535,25 @@ void Simon::IncreaseScore(int score)
 
 void Simon::IncreaseState()
 {
-	if(infoPanel!=nullptr) this->infoPanel->SetState(++this->stagePoint);
+	if(infoPanel!=nullptr) this->infoPanel->SetStatePoint(++this->stagePoint);
 }
 
 void Simon::IncreaseHeartPoint(int point)
 {
 	this->heartPoint += point;
-	if (infoPanel != nullptr) this->infoPanel->SetLife(heartPoint);
+	if (infoPanel != nullptr) this->infoPanel->SetHeartPoint(heartPoint);
 }
 
 void Simon::DecreaseHeartPoint(int point)
 {
 	this->heartPoint = (heartPoint - point <= 0) ? 0 : heartPoint - point;
-	if (infoPanel != nullptr) this->infoPanel->SetLife(this->heartPoint);
+	if (infoPanel != nullptr) this->infoPanel->SetHeartPoint(this->heartPoint);
 }
 
 void Simon::DescreasePPoint(int point)
 {
 	this->pPoint = (pPoint - point <= 0) ? 0 : pPoint - point;
-	if (infoPanel != nullptr) this->infoPanel->SetLife(this->pPoint);
+	if (infoPanel != nullptr) this->infoPanel->SetHeartPoint(this->pPoint);
 }
 
 void Simon::SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo * image)

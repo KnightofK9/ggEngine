@@ -1,7 +1,10 @@
 #include "GameOverScreen.h"
+#include "CVGame.h"
 
 GameOverScreen::GameOverScreen(CVGame *game) : ScreenGroup(game)
 {
+	this->cvGame = game;
+	this->isEnableKey = false;
 }
 
 GameOverScreen::~GameOverScreen()
@@ -10,9 +13,10 @@ GameOverScreen::~GameOverScreen()
 
 void GameOverScreen::Draw()
 {
-	this->drawManager->DrawRectangleToWorld(0, 0, GAME_WIDTH, GAME_HEIGHT / 6, D3DCOLOR_RGBA(0, 0, 0, 255));
-
-	ScreenGroup::Draw();
+	if (this->isEnableKey) {
+		this->drawManager->DrawRectangleToWorld(0, 0, GAME_WIDTH, GAME_HEIGHT, D3DCOLOR_RGBA(0, 0, 0, 255));
+		ScreenGroup::Draw();
+	}
 }
 
 //void GameOverScreen::Preload() {
@@ -57,14 +61,20 @@ void GameOverScreen::Draw()
 //	this->end = this->add->Text(384 - fontSize * 3, 483, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "END", style, group);
 //}
 
-void GameOverScreen::ToggleHeart(bool up)
+void GameOverScreen::ToggleHeart(bool isUp)
 {
 	int fontSize = 22;
 
-	if (up)
+	if (isUp)
 		heart->SetPosition(394 - fontSize * 5, 420);
 	else
 		heart->SetPosition(394 - fontSize * 5, 493);
+}
+
+void GameOverScreen::SetEnable(bool isEnable)
+{
+	this->SetVisible(isEnable);
+	this->isEnableKey = isEnable;
 }
 
 void GameOverScreen::SetEventToggleHeart(std::function<void(void)> onToggleUp, std::function<void(void)> onToggleDown)
@@ -74,7 +84,11 @@ void GameOverScreen::SetEventToggleHeart(std::function<void(void)> onToggleUp, s
 	this->onToggleUp = onToggleUp;
 	this->onToggleDown = onToggleDown;
 
+	this->cvGame->eventManager->EnableKeyBoardInput(this->heart);
 	this->heart->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
+		if (!this->isEnableKey)
+			return;
+
 		Sprite  *current = dynamic_cast<Sprite*>(go);
 		if (current != NULL)
 		{
@@ -85,6 +99,7 @@ void GameOverScreen::SetEventToggleHeart(std::function<void(void)> onToggleUp, s
 				else {
 					this->onToggleDown();
 				}
+				this->SetEnable(false);
 			}
 
 			if (e.isPress(DIK_R) && isKeyPressed == false) {
