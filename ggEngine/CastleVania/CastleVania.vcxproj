@@ -192,6 +192,7 @@
     <ClInclude Include="MoneyBag700.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Simon.h" />
+    <ClInclude Include="SimonGroup.h" />
     <ClInclude Include="StaticTile.h" />
     <ClInclude Include="StaticTIleManager.h" />
     <ClInclude Include="StopWatch.h" />
@@ -261,6 +262,7 @@
     <ClCompile Include="MoneyBag700.cpp" />
     <ClCompile Include="PotRoast.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="SimonGroup.cpp" />
     <ClCompile Include="StaticTile.cpp" />
     <ClCompile Include="StaticTIleManager.cpp" />
     <ClCompile Include="StopWatch.cpp" />

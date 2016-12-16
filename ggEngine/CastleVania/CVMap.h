@@ -5,6 +5,7 @@ using namespace ggEngine;
 class CVGame;
 class CVAdd;
 class InfoPanel;
+class SimonGroup;
 class CVMap : public Group {
 public:
 	CVMap(CVGame *cvGame);
@@ -17,7 +18,7 @@ public:
 	TileMap *tileMapGroup;
 	QuadTree *quadTreeGroup;
 	CameraActiveGroup* cameraActiveGroup;
-	Group *simonGroup;
+	SimonGroup *simonGroup;
 	Simon* simon;
 private:
 	InfoPanel *infoPanel;

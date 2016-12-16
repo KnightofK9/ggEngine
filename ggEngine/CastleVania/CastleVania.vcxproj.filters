@@ -234,6 +234,9 @@
     <ClInclude Include="TileLadder.h">
       <Filter>Header Files\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="SimonGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -416,6 +419,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TileLadder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SimonGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

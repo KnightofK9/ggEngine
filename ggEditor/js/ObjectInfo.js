@@ -105,7 +105,7 @@ function ObjectInfo(){
         }
         if(isNotNull(hObject._item.extraInfo)){
             if(isNotNull(hObject._item.extraInfo.dropType))
-            createInputField("dropType",hObject._item.extraInfo.dropType,true);
+            createInputField("dropType",hObject._item.extraInfo.dropType.type,true);
         }
         that.setShow(true);
     };

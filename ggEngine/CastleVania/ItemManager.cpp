@@ -36,7 +36,7 @@ void ItemManager::PreloadAllItem(){
 	this->preload->Texture(TextureConstant::MAIN_WEAPON_TEXTURE, TextureConstant::MAIN_WEAPON_TEXTURE_PATH);
 }
 
-Candle * ItemManager::AddFireCandle(double x, double y, std::string dropType, ggEngine::Group * group)
+Candle * ItemManager::AddFireCandle(double x, double y, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::CANDLE_TEXTURE);
 	Candle *candle = new Candle(this->cvGame, inf, 8, 16, 0, 2, 150);

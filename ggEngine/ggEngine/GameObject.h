@@ -72,8 +72,8 @@ namespace ggEngine {
 		Game *game;
 		bool opacityAffectByParent = true;
 		int opacity = 255;
-		Group* parentGroup = nullptr;
 		double width;
+		Group* parentGroup = nullptr;
 		double height;
 		Vector anchor;
 		Vector scale;

@@ -32,7 +32,7 @@ public:
 	virtual ~ItemManager();
 
 	void PreloadAllItem();
-	Candle* AddFireCandle(double x, double y, std::string dropType, ggEngine::Group* group);
+	Candle* AddFireCandle(double x, double y, ggEngine::Group* group);
 	Heart* AddHeart(double x, double y, ggEngine::Group* group);
 	AxeItem* AddAxe(double x, double y, ggEngine::Group* group);
 	MoneyBag100* AddMoneyBag100(double x, double y, ggEngine::Group * group);
