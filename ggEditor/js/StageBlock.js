@@ -59,6 +59,7 @@ function StageBlock() {
         if(isBlock) divId = "gg-block-id-";
         else{
             divId = "gg-stage-id-";
+            divClass+=" list-group-item-info";
         }
         divId += name;
         var div = '<div id="'+divId+'" ><a  class="' + divClass + '">' + name
