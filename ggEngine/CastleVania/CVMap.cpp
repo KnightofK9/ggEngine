@@ -5,6 +5,8 @@
 #include "Simon.h"
 #include "WeaponWhip.h"
 #include "SimonGroup.h"
+#include "CVStage.h"
+#include "CVBlock.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
@@ -18,11 +20,31 @@ CVMap::~CVMap()
 	delete this->tileMapGroup;
 	delete this->quadTreeGroup;
 	delete this->cameraActiveGroup;
+	for (auto stage : this->stageList) {
+		delete stage;
+	}
 }
 
 void CVMap::BuildMap(const char * jsonChar)
 {
 	Json state(jsonChar);
+
+	for (auto& stageJson : state["stageList"].GetArray()) 
+	{
+		CVStage* stage = new CVStage(Json::GetCharArrayFromValue(stageJson));
+		this->stageList.push_back(stage);
+	}
+
+	this->simonGroup = this->cvAdd->AddSimonGroup();
+	this->AddGroup(this->simonGroup);
+
+	/*simon->SetParentObject(this->simonGroup);
+	simon->UpdateWorldPosition();
+	if (simon->body != nullptr) {
+		simon->body->rigidBody->Transform(simon->worldPosition);
+	}
+	this->simonGroup->AddDrawObjectToList(simon);*/
+
 	for (auto& it : state["groupList"].GetArray())
 	{
 		std::string type = it["type"].GetString();
@@ -45,9 +67,8 @@ void CVMap::BuildMap(const char * jsonChar)
 			continue;
 		}
 		if (type == "Simon") {
-			this->simonGroup = this->cvAdd->AddSimonGroup();
-			this->AddGroup(this->simonGroup);
-			for (auto& obj : it["itemList"].GetArray()) {
+			
+			/*for (auto& obj : it["itemList"].GetArray()) {
 				std::string type = obj["type"].GetString();
 				GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str());
 				if (go != nullptr) {
@@ -67,13 +88,11 @@ void CVMap::BuildMap(const char * jsonChar)
 				else {				
 					g_debug.Log("Type not found!" + type);
 				}
-			}
+			}*/
 			continue;
 		}
 	}
 
-	this->camera->SetPoint(this->simon->worldPosition);
-	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
 	
 	this->camera->FollowX(this->simon);
 }
@@ -116,18 +135,21 @@ void CVMap::UpdatePhysics()
 void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * simon)
 {
 
-	if (this->simon  == nullptr ) {
-		if (simon == nullptr) {
-			this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT - 50, 16, infoPanel, goScreen, simonGroup);
-			this->cvGame->simon = this->simon;
-			simon = this->simon;
-		}
-		else {
-			this->simon = simon;
-		}
+	this->simon = simon;	
+	this->simon->infoPanel = infoPanel;
+	this->simon->goScreen = goScreen;
+	this->simon->SetParentObject(this->simonGroup);
+	this->simonGroup->AddDrawObjectToList(this->simon);
+
+	this->simon->UpdateWorldPosition();
+
+	if (simon->weaponWhip != nullptr) {
+		simon->weaponWhip->SetParentObject(this->simonGroup);
+		this->simonGroup->AddDrawObjectToList(simon->weaponWhip);
+		simon->weaponWhip->SetTransformBasedOn(this->simon);
 	}
-	else {
-		this->simon->infoPanel = infoPanel;
-		this->simon->goScreen = goScreen;
-	}
+
+	this->camera->SetPoint(this->simon->worldPosition);
+	this->camera->FollowX(this->simon);
+	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
 }

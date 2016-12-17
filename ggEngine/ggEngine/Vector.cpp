@@ -2,6 +2,12 @@
 #include "Matrix.h"
 #include "Debug.h"
 namespace ggEngine {
+	Vector::Vector(std::string json)
+	{
+		Json vectorJson(json);
+		this->x = vectorJson["x"].GetDouble();
+		this->y = vectorJson["y"].GetDouble();
+	}
 	Vector::Vector(double x, double y) : D3DXVECTOR2(x, y) {
 		this->x = x;
 		this->y = y;

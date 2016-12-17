@@ -4,13 +4,14 @@
 using namespace ggEngine;
 class CVBlock : public Rect {
 public:
-	CVBlock(double left, double top, double right, double bottom, std::string name);
+	CVBlock(std::string json);
 	~CVBlock();
 private:
 	std::string name;
 	int stageNumber;
 	int levelNumber;
 	Vector simonSpawnPosition;
+	Vector cameraSpawnPosition;
 	SimonGroundingType simonGroundingType;
 	SimonLadderType simonLadderType;
 };

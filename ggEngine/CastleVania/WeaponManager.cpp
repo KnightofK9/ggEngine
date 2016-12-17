@@ -16,10 +16,10 @@ WeaponWhip * WeaponManager::AddWeaponWhip(double x, double y, bool isLeft, Group
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::MAIN_WEAPON_TEXTURE);
 	WeaponWhip *weaponWhip = new WeaponWhip(this->cvGame, inf, 76, 27, 0, 9, 120);
 	weaponWhip->SetPosition(x, y);
-	weaponWhip->SetParentObject(group);
-	//weaponWhip->Attack(isLeft);
-	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
-	group->AddDrawObjectToList(weaponWhip);
+	if (group != nullptr) {
+		weaponWhip->SetParentObject(group);
+		group->AddDrawObjectToList(weaponWhip);
+	}
 	return weaponWhip;
 }
 

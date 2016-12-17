@@ -2,11 +2,13 @@
 #include <d3dx9.h>
 #include <cmath>
 #include "Vector3.h"
+#include "Json.h"
 #include <string>
 namespace ggEngine {
 	class Matrix;
 	class Vector :public D3DXVECTOR2 {
 	public:
+		Vector(std::string json);
 		Vector(double x, double y);
 		Vector(double f);
 		Vector(const Vector& v);

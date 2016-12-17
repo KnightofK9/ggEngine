@@ -6,6 +6,8 @@ class CVGame;
 class CVAdd;
 class InfoPanel;
 class SimonGroup;
+class CVStage;
+class CVBlock;
 class CVMap : public Group {
 public:
 	CVMap(CVGame *cvGame);
@@ -26,4 +28,5 @@ private:
 	CVAdd* cvAdd;
 	CVGame* cvGame;
 	Camera* camera;
+	std::vector<CVStage*> stageList;
 };

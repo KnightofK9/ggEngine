@@ -36,11 +36,25 @@ void TestStateCastleVania::Create()
 	this->cvgame->camera->SetScale(2.5, 2.5);
 
 	//std::string tileMapJson = "";
+	
+	/*tileMap = this->add->TileMap(tileMapJson.c_str(),this->game->world);
+	tileMap->name = "StupidTileMap";*/
+	Group* group = this->add->Group();
+	group->name = "StupidGroup";
+
+	GameOverScreen *goScreen = this->cvAdd->UIGameOverScreen(group);
+	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);	
+
+
+	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
+	this->simon->AddWhip();
+	this->cvgame->simon = this->simon;
+
 	{
 		//Json state("State/TestState.json", true);
 		Json state("State/TestState.json", true);
 
-		cvMap = this->cvAdd->LoadMap(state.GetCharArray().c_str(), this->cvgame->world);
+		cvMap = this->cvAdd->LoadMap(state.GetCharArray().c_str(),  this->cvgame->world);
 
 
 		/*for (auto& it : state["groupList"].GetArray())
@@ -52,24 +66,13 @@ void TestStateCastleVania::Create()
 			}
 		}*/
 	}
-	/*tileMap = this->add->TileMap(tileMapJson.c_str(),this->game->world);
-	tileMap->name = "StupidTileMap";*/
-	Group* group = this->add->Group();
-	group->name = "StupidGroup";
 
-	GameOverScreen *goScreen = this->cvAdd->UIGameOverScreen(group);
-	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);	
-
-	cvMap->LoadSimon(infoPanel, goScreen, nullptr);
-
-	Simon *simon = this->cvgame->simon;
-	infoPanel->CountDown(infoPanel->GetTime(), [simon] {
+	cvMap->LoadSimon(infoPanel, goScreen, this->simon);
+	infoPanel->CountDown(infoPanel->GetTime(), [this] {
 		simon->Death();
 	})->Start();
 
-	//this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);
-	//this->simon->SetHealth(1);
-	//this->cvgame->simon = this->simon;
+	
 	/*this->itemManager->AddHeart(200, 100, group);
 	this->itemManager->AddCandle(250, 800, group);
 	this->itemManager->AddWhipUpgrade(300, 100, group);
