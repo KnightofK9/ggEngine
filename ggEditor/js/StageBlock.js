@@ -8,12 +8,13 @@ function StageBlock() {
     var that = this;
     var blockId = 0;
     var stageId = 0;
+    var drawBlockList = [];
     var addBlock = function(dialogRef,currentBlock){
         var name = dialogRef.getModalBody().find('#dialog-t1').val();
-        var x = dialogRef.getModalBody().find('#dialog-n1').val();
-        var y = dialogRef.getModalBody().find('#dialog-n2').val();
-        var width = dialogRef.getModalBody().find('#dialog-n3').val();
-        var height = dialogRef.getModalBody().find('#dialog-n4').val();
+        var x = parseFloat(dialogRef.getModalBody().find('#dialog-n1').val());
+        var y = parseFloat(dialogRef.getModalBody().find('#dialog-n2').val());
+        var width = parseFloat(dialogRef.getModalBody().find('#dialog-n3').val());
+        var height = parseFloat(dialogRef.getModalBody().find('#dialog-n4').val());
         if(!currentBlock){
             currentBlock = new CVBlock();
         }
@@ -62,7 +63,10 @@ function StageBlock() {
             divClass+=" list-group-item-info";
         }
         divId += name;
+        var additionalOption = '<i onclick="stageBlock.onSelectViewClick(' + isBlock + ',\'' + name + '\')" class="glyphicon glyphicon-eye-open gg-hierarchy-view"></i>';
+        if(!isBlock) additionalOption = "";
         var div = '<div id="'+divId+'" ><a  class="' + divClass + '">' + name
+            + additionalOption
             + '<i onclick="stageBlock.onSelectLineClick(' + isBlock + ',\'' + name + '\')" class="glyphicon glyphicon-zoom-in gg-hierarchy-select"></i>'
             + '<i onclick="stageBlock.handleRemoveClick(' + isBlock + ',\'' + name + '\')" class="glyphicon glyphicon-remove gg-hierarchy-delete"></i>'
             + '</a></div>';
@@ -79,6 +83,11 @@ function StageBlock() {
             navTab.removeClass("active");
         }
     };
+
+    this.getBlockList = function(){
+        return drawBlockList;
+    };
+
     this.addBlock = function (currentBlock) {
         var label = 'Create';
         if(currentBlock) label = 'Update';
@@ -95,8 +104,8 @@ function StageBlock() {
                 var name = "Block";
                 var x = 0;
                 var y = 0;
-                var width = 0;
-                var height = 0;
+                var width = 100;
+                var height = 100;
                 if(currentBlock){
                     name = currentBlock.name;
                     x = currentBlock.x;
@@ -149,6 +158,29 @@ function StageBlock() {
             }]
         });
     };
+    this.onSelectViewClick = function(isBlock,name){
+        if(!isBlock) return;
+        var block = null;
+        for(var i = 0;  i<blockList.length; i++){
+            if(blockList[i].name === name){
+                block = blockList[i];
+                break;
+            }
+        }
+        var index = -1;
+        for(var i = 0;i < drawBlockList.length; i++){
+            if(drawBlockList[i].name === name){
+                index = i;
+                break;
+            }
+        }
+        if(index > -1){
+            drawBlockList.splice(index,1);
+        }else{
+            drawBlockList.push(block);
+        }
+        sceneEditor.editState.refreshDrawBlock();
+    };
     this.onSelectLineClick = function(isBlock,name){
         var element = null;
         var array = stageList;
@@ -190,6 +222,7 @@ function StageBlock() {
         stageList = [];
         blockId = 0;
         stageId = 0;
+        drawBlockList = [];
     };
     var init = function () {
         that.reset();

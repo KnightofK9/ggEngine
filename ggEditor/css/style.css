@@ -72,6 +72,11 @@ table {
     height:100%;
 }
 /*Hierarchy*/
+.gg-hierarchy-view{
+    position: absolute;
+    right: 35px;
+    top: 13px;
+}
 .gg-hierarchy-select{
     position: absolute;
     right: 20px;

@@ -45,6 +45,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     var currentSelectHGroup = null;
 
+    var drawBlockRectList = null;
+
     var phaserQuadTree;
 
     var isAnyStaticTileBeneath = false;
@@ -82,7 +84,15 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         }
         return groupList;
     };
-
+    this.refreshDrawBlock = function(){
+        drawBlockRectList = [];
+        var blockList = stageBlock.getBlockList();
+        for(var i = 0; i < blockList.length; i++){
+            var block = blockList[i];
+            var r = new Phaser.Rectangle(block.x, block.y, block.x + block.width, block.y + block.height);
+            drawBlockRectList.push(r);
+        }
+    };
     this.showCreateGroup = function () {
         BootstrapDialog.show({
             closable: true,
@@ -286,6 +296,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     this.create = function () {
         ggConsole.log("Phaser load completed!");
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        drawBlockRectList = [];
         //backgroundSprite = game.add.tileSprite(0,0,game.width,game.height,'bg');
         //backgroundSprite.tileWidth = tileWidth;
         //backgroundSprite.tileHheight = tileHeight;
@@ -371,7 +382,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             default:
                 break;
         }
-
+        if(drawBlockRectList.length > 0){
+            for(var i = 0;i < drawBlockRectList.length; i++){
+                game.debug.geom(drawBlockRectList[i],0x005ff9,false);
+            }
+        }
 
     };
     var initTileMapAsJson = function (useQuadTre) {
@@ -664,6 +679,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     this.reset = function () {
         hierarchyId = 0;
+        drawBlockRectList = [];
     };
 
     var changeMapTileSetArray = function (tileSetKey) {
