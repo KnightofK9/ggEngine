@@ -12,7 +12,7 @@ class CVAdd : public ManagerBase {
 public:
 	CVAdd(CVGame *game);
 	virtual ~CVAdd();
-	Simon* CharSimon(double x, double y, int health, InfoPanel *infoPanel, ggEngine::Group *group);
+	Simon* CharSimon(double x, double y, int health, InfoPanel *infoPanel, GameOverScreen *goScreen, ggEngine::Group *group);
 	InfoPanel* UIInfoPanel(GameOverScreen *goScreen , ggEngine::Group *group);
 	HealthBar *UIPlayerHealthBar(double x, double y, ggEngine::Group* group);
 	HealthBar *UIEnemyHealthBar(double x, double y, ggEngine::Group* group);

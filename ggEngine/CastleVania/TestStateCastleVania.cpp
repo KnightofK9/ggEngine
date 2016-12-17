@@ -58,13 +58,15 @@ void TestStateCastleVania::Create()
 	group->name = "StupidGroup";
 
 	GameOverScreen *goScreen = this->cvAdd->UIGameOverScreen(group);
+	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);	
 
-	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);
+	cvMap->LoadSimon(infoPanel, goScreen, nullptr);
 
-	
-	
+	Simon *simon = this->cvgame->simon;
+	infoPanel->CountDown(infoPanel->GetTime(), [simon] {
+		simon->Death();
+	})->Start();
 
-	cvMap->LoadSimon(infoPanel, nullptr);
 	//this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT-50, 16, infoPanel, group);
 	//this->simon->SetHealth(1);
 	//this->cvgame->simon = this->simon;

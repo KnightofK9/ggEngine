@@ -5,7 +5,8 @@
 #include "ItemManager.h"
 #include "WeaponManager.h"
 #include "TileLadder.h"
-Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
+	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->weaponManager = cvGame->weaponManager;
@@ -14,21 +15,25 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image,InfoPanel *infoPanel, int frameW
 	this->health = 16;
 	this->maxHealth = 16;
 	this->infoPanel = infoPanel;
+	this->goScreen = goScreen;
 	this->SetPosition(0, 0);
-	Vector anchor(0.5, 20/25.0);
+	Vector anchor(0.5, 20 / 25.0);
 	this->SetAnchor(anchor.x, anchor.y);
 	this->SetScale(1, 1);
 	this->SetHealth(health);
 	this->CreateAnimation("idle", 0, 0, true);
 	this->CreateAnimation("move", 1, 2, true);
 	this->CreateAnimation("kneel", 4, 4, true);
-	this->CreateAnimation("climbDown", { 6,5,5 } ,false);
+	this->CreateAnimation("climbDown", { 6,5,5 }, false);
 	this->CreateAnimation("climbDownIdle", 5, 5, true);
 	this->CreateAnimation("climbUp", { 8,7,7 }, false);
 	this->CreateAnimation("climbUpIdle", 7, 7, true);
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
-	this->CreateAnimation("death", 11, 11, true);
+	this->CreateAnimation("death", { 11, 11, 11 }, false)->SetOnCompleted([this](Animator*) {
+		this->DescreasePPoint(1);
+		//this->SetHealth(CharacterConstant::SIMON_MAX_HEALTH);
+	});
 	this->PlayAnimation("climbUp");
 	//Stand Attack
 	this->CreateAnimation("standAttack", { 12,13,14,14 }, false)->SetOnCompleted([this](Animator*) {
@@ -325,7 +330,6 @@ void Simon::SetHealth(int heath)
 	if (infoPanel != nullptr) {
 		infoPanel->SetPlayerHealth(this->health);
 	}
-	if (this->health == 0) Death();
 }
 
 void Simon::Attack()
@@ -541,7 +545,7 @@ void Simon::IncreaseState()
 void Simon::IncreaseHeartPoint(int point)
 {
 	this->heartPoint += point;
-	if (infoPanel != nullptr) this->infoPanel->SetHeartPoint(heartPoint);
+	if (infoPanel != nullptr) this->infoPanel->SetHeartPoint(this->heartPoint);
 }
 
 void Simon::DecreaseHeartPoint(int point)
@@ -552,8 +556,13 @@ void Simon::DecreaseHeartPoint(int point)
 
 void Simon::DescreasePPoint(int point)
 {
-	this->pPoint = (pPoint - point <= 0) ? 0 : pPoint - point;
-	if (infoPanel != nullptr) this->infoPanel->SetHeartPoint(this->pPoint);
+	this->pPoint = pPoint - point;
+	if (this->pPoint < 0) {
+		this->pPoint = 0;
+		this->goScreen->SetEnable(true);
+	}
+
+	if (infoPanel != nullptr) this->infoPanel->SetPPoint(this->pPoint);
 }
 
 void Simon::SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo * image)

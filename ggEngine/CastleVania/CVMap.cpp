@@ -111,13 +111,14 @@ void CVMap::UpdatePhysics()
 	this->simonGroup->UpdatePhysics();
 }
 
-void CVMap::LoadSimon(InfoPanel * infoPanel, Simon * simon)
+void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * simon)
 {
 
 	if (this->simon  == nullptr ) {
 		if (simon == nullptr) {
-			this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT - 50, 16, infoPanel, simonGroup);
+			this->simon = this->cvAdd->CharSimon(100, GAME_HEIGHT - 50, 16, infoPanel, goScreen, simonGroup);
 			this->cvGame->simon = this->simon;
+			simon = this->simon;
 		}
 		else {
 			this->simon = simon;
@@ -125,5 +126,6 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, Simon * simon)
 	}
 	else {
 		this->simon->infoPanel = infoPanel;
+		this->simon->goScreen = goScreen;
 	}
 }

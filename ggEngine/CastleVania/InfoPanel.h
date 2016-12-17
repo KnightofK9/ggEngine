@@ -1,13 +1,13 @@
 #pragma once
 #include <ggEngine.h>
 #include "HealthBar.h"
-#include "GameOverScreen.h"
+#include "StateConstant.h"
 
 class CVGame;
 using namespace ggEngine;
 class InfoPanel : public ScreenGroup {
 public:
-	InfoPanel(GameOverScreen *goScreen, CVGame *cvGame);
+	InfoPanel(CVGame *cvGame);
 	virtual ~InfoPanel();
 	virtual void Draw() override;
 	void SetPlayerHealth(int health);
@@ -54,9 +54,8 @@ public:
 	Sprite *itemShot = nullptr;
 
 private:
-	int curTime = 100;
+	int curTime = StateConstant::MAX_TIME_IN_LEVEL_1;
 	CVGame *cvGame = nullptr;
 	std::function<void(void)> onTimeUp;
 	TimeBasedEventInfo* timeInfo = nullptr;
-	GameOverScreen *goScreen = nullptr;
 };

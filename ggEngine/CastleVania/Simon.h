@@ -3,6 +3,7 @@
 #include "CharacterBase.h"
 #include "CharacterConstant.h"
 #include "InfoPanel.h"
+#include "GameOverScreen.h"
 using namespace ggEngine;
 class CVGame;
 class ItemBase;
@@ -30,7 +31,7 @@ enum SimonSubWeaponType { SubWeapon_HolyWater, SubWeapon_Dagger, SubWeapon_Boome
 
 class Simon :public CharacterBase {
 public:
-	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+	Simon(CVGame *cvGame, SpriteInfo *image, InfoPanel *infoPanel, GameOverScreen *goScreen, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~Simon();
 	void SetHealth(int heath);
 	int GetHealth() { return this->health; }
@@ -79,6 +80,7 @@ public:
 	void *HealthDown(int health) { this->health -= health; }
 
 	InfoPanel *infoPanel = nullptr;
+	GameOverScreen *goScreen = nullptr;
 private:
 	void StartClimbingLadder(bool isLeft, bool isUp);
 	void StartClimbingLadderAuto(bool isLeft, bool isUp);

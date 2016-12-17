@@ -13,10 +13,10 @@ CVAdd::~CVAdd()
 {
 }
 
-Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, ggEngine::Group * group)
+Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, GameOverScreen *goScreen, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SIMON_TEXTURE);
-	Simon *simon = new Simon(this->cvGame, inf,infoPanel, 45, 40, 0,0, 130);
+	Simon *simon = new Simon(this->cvGame, inf,infoPanel, goScreen, 45, 40, 0,0, 130);
 	simon->SetPosition(x, y);
 	simon->SetOpacityAffectByParent(false);
 	
@@ -33,7 +33,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, gg
 InfoPanel* CVAdd::UIInfoPanel(GameOverScreen *goScreen, ggEngine::Group *group)
 {
 
-	InfoPanel *infoPanel = new InfoPanel(goScreen, this->cvGame);
+	InfoPanel *infoPanel = new InfoPanel(this->cvGame);
 	Style style;
 	int fontSize = 22;
 	int margin = 20;
@@ -64,7 +64,7 @@ InfoPanel* CVAdd::UIInfoPanel(GameOverScreen *goScreen, ggEngine::Group *group)
 											TextureConstant::GAME_FONT_TEXTURE,
 											50,
 											50,
-											ggEngine::Helper::IntToString(infoPanel->GetTime(), 4),
+											ggEngine::Helper::IntToString(StateConstant::MAX_TIME_IN_LEVEL_1, 4),
 											style,
 											infoPanel);
 	
@@ -181,9 +181,7 @@ InfoPanel* CVAdd::UIInfoPanel(GameOverScreen *goScreen, ggEngine::Group *group)
 	infoPanel->itemShot->SetScale(3, 3);
 
 
-	infoPanel->CountDown(StateConstant::MAX_TIME_IN_LEVEL_1, [goScreen] {
-		goScreen->SetEnable(true);
-	})->Start();
+
 
 	group->AddGroup(infoPanel);
 	return infoPanel;

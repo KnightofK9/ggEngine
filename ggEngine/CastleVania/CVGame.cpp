@@ -56,7 +56,7 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		return go;
 	}
 	if (type == "Simon") {
-		go = this->cvAdd->CharSimon(x, y, CharacterConstant::SIMON_MAX_HEALTH , nullptr, group);
+		go = this->cvAdd->CharSimon(x, y, CharacterConstant::SIMON_MAX_HEALTH , nullptr, nullptr, group);
 		return go;
 	}
 	if (type == "BigHeart") {

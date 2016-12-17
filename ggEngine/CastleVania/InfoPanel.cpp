@@ -1,9 +1,8 @@
 #include "InfoPanel.h"
 #include "CVGame.h"
-InfoPanel::InfoPanel(GameOverScreen *goScreen, CVGame *cvGame) : ScreenGroup(cvGame)
+InfoPanel::InfoPanel(CVGame *cvGame) : ScreenGroup(cvGame)
 {
 	this->cvGame = cvGame;
-	this->goScreen = goScreen;
 }
 
 InfoPanel::~InfoPanel()
@@ -36,9 +35,6 @@ void InfoPanel::SetHeartPoint(const int& point)
 void InfoPanel::SetPPoint(const int& point)
 {
 	this->pPoint->SetText(ggEngine::Helper::IntToString(point, 2));
-	if (point == 0) {
-		this->goScreen->SetEnable(true);
-	}
 }
 
 void InfoPanel::SetStatePoint(const int& state)

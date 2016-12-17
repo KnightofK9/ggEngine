@@ -14,7 +14,7 @@ public:
 	void Draw() override;
 	void Update() override;
 	void UpdatePhysics() override;
-	void LoadSimon(InfoPanel *infoPanel, Simon *simon = nullptr);
+	void LoadSimon(InfoPanel *infoPanel, GameOverScreen *goScreen, Simon *simon = nullptr);
 	TileMap *tileMapGroup;
 	QuadTree *quadTreeGroup;
 	CameraActiveGroup* cameraActiveGroup;
