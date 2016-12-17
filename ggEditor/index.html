@@ -87,6 +87,9 @@
             <button class="btn btn-primary" onclick="removePicker()">
                 <i class="glyphicon glyphicon-remove"></i> Remove Picker
             </button>
+            <button class="btn btn-primary" onclick="blockMovePicker()">
+                <i class="glyphicon glyphicon-move"></i> Block Move Picker
+            </button>
         </div>
 
     </div>
@@ -317,6 +320,9 @@
             }]
         });
     }
+    function blockMovePicker(){
+        sceneEditor.editState.pickBlockMove();
+    };
     function removePicker() {
         sceneEditor.editState.pickRemove();
     }

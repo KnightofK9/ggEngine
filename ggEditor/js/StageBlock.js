@@ -34,8 +34,11 @@ function StageBlock() {
             blockList.push(currentBlock);
             createLine(currentBlock.name,true);
         }
+        that.refreshDrawBlockIfExists(name);
+        sceneEditor.editState.refreshDrawBlock();
 
     };
+
     var addStage = function(dialogRef,currentState){
         var name = dialogRef.getModalBody().find('#dialog-t1').val();
         if(!currentState){
@@ -83,7 +86,15 @@ function StageBlock() {
             navTab.removeClass("active");
         }
     };
-
+    this.updateBlock = function(block){
+        for(var i = 0; i <blockList.length; i++){
+            if(blockList[i].name === block.name){
+                blockList[i] = block;
+                return;
+            }
+        }
+        ggConsole.alertNotification("Error","No block found with name " + block.name);
+    };
     this.getBlockList = function(){
         return drawBlockList;
     };
@@ -94,6 +105,7 @@ function StageBlock() {
         BootstrapDialog.show({
             closable: true,
             title: "Add block",
+            draggable: true,
             message: 'Name <input id="dialog-t1" type="text" class="form-control">'
             + 'x <input id="dialog-n1" type="number" class="form-control">'
             + 'y <input id="dialog-n2" type="number" class="form-control">'
@@ -126,7 +138,7 @@ function StageBlock() {
                 label: label,
                 action: function (dialogRef,currentBlock) {
                     addBlock(dialogRef);
-                    dialogRef.close();
+                    if(label === 'Create') dialogRef.close();
                 }
             }]
         });
@@ -178,6 +190,29 @@ function StageBlock() {
             drawBlockList.splice(index,1);
         }else{
             drawBlockList.push(block);
+        }
+        sceneEditor.editState.refreshDrawBlock();
+    };
+    this.refreshDrawBlockIfExists = function(name){
+        var block = null;
+        for(var i = 0;  i<blockList.length; i++){
+            if(blockList[i].name === name){
+                block = blockList[i];
+                break;
+            }
+        }
+        var index = -1;
+        for(var i = 0;i < drawBlockList.length; i++){
+            if(drawBlockList[i].name === name){
+                index = i;
+                break;
+            }
+        }
+        if(index > -1){
+            drawBlockList[i] = block;
+            // drawBlockList.splice(index,1);
+        }else{
+            // drawBlockList.push(block);
         }
         sceneEditor.editState.refreshDrawBlock();
     };

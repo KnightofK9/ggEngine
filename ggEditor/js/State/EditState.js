@@ -43,10 +43,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var simonHGroup = null;
     var wasMouseButtonDown = false;
 
+
     var currentSelectHGroup = null;
 
     var drawBlockRectList = null;
-
+    var currentUpdateBlock = null;
     var phaserQuadTree;
 
     var isAnyStaticTileBeneath = false;
@@ -89,7 +90,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         var blockList = stageBlock.getBlockList();
         for(var i = 0; i < blockList.length; i++){
             var block = blockList[i];
-            var r = new Phaser.Rectangle(block.x, block.y, block.x + block.width, block.y + block.height);
+            var r = new Phaser.Rectangle(block.x, block.y, block.width,  block.height);
+            r.block = block;
             drawBlockRectList.push(r);
         }
     };
@@ -169,6 +171,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         currentPickRectPos = {x:0,y:0};
         currentTile = null;
         isAnyStaticTileBeneath = false;
+        currentUpdateBlock = null;
         objectInfo.reset();
         resetCurrentPickRect();
         clearArrayTile()
@@ -709,6 +712,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         currentPickTile = "TilePick";
         currentTileType = type;
     };
+    this.pickBlockMove = function(){
+        resetPick();
+        currentPickTile = "BlockMovePick";
+    };
     this.pickRemove = function(){
         resetPick();
         currentPickTile = "RemovePick";
@@ -926,6 +933,16 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
     var handleMouseUp = function(event){
         switch (currentPickTile){
+            case "BlockMovePick":
+                if(currentUpdateBlock !== null ){
+                    currentUpdateBlock.block.x = currentUpdateBlock.x;
+                    currentUpdateBlock.block.y = currentUpdateBlock.y;
+                    currentUpdateBlock.block.width = currentUpdateBlock.width;
+                    currentUpdateBlock.block.height = currentUpdateBlock.height;
+                    // stageBlock.updateBlock(currentUpdateBlock.block);
+                    currentUpdateBlock = null;
+                }
+                break;
             case "SelectPick":
                 if(pickRectCompleted){
                     currentPickRectPos.x = currentPickRectPos.y = 0;
@@ -1055,7 +1072,25 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         if (game.input.mousePointer.isDown) {
             wasMouseButtonDown = true;
             if (isBlockingClick) return;
-            switch (currentPickTile) {
+            switch (currentPickTile){
+                case "BlockMovePick":
+                    if(currentUpdateBlock === null){
+                        for(var i = 0; i< drawBlockRectList.length; i++){
+                            var r = drawBlockRectList[i];
+                            if(Phaser.Rectangle.contains(r,game.input.activePointer.worldX,game.input.activePointer.worldY)){
+                                currentUpdateBlock = r;
+                                break;
+                            }
+                        }
+                    }else{
+                        var posX = marker.x;
+                        var posY = marker.y;
+                        currentUpdateBlock.x += posX - currentUpdateBlock.x;
+                        currentUpdateBlock.y += posY - currentUpdateBlock.y;
+                        currentUpdateBlock.x = posX;
+                        currentUpdateBlock.y = posY;
+                    }
+                    break;
                 case "SelectPick":
                     var posX = game.input.activePointer.worldX;
                     var posY = game.input.activePointer.worldY;

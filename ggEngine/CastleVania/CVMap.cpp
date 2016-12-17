@@ -104,7 +104,7 @@ void CVMap::Draw()
 
 void CVMap::UpdatePhysics()
 {
-	this->quadTreeGroup->UpdatePhysics();
+	//this->quadTreeGroup->UpdatePhysics();
 	this->cameraActiveGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->cameraActiveGroup->UpdatePhysics();
 	this->simonGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
