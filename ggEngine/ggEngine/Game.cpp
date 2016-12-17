@@ -81,6 +81,7 @@ namespace ggEngine {
 		d3dManager = NULL;
 	}
 
+
 	void Game::ErrorCheck(int errorCode)
 	{
 		switch (errorCode) {

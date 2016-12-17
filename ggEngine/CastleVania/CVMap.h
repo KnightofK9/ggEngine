@@ -25,4 +25,5 @@ private:
 	Add* add;
 	CVAdd* cvAdd;
 	CVGame* cvGame;
+	Camera* camera;
 };

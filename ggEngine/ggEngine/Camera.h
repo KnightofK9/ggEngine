@@ -8,6 +8,7 @@ namespace ggEngine {
 	enum CameraControl {CameraControl_ZoomIn = 0, CameraControl_ZoomOut, CameraControl_RotateRight, CameraControl_RotateLeft, CameraControl_Reset, CameraControl_MoveLeft, CameraControl_MoveRight, CameraControl_MoveUp, CameraControl_MoveDown,CameraControl_ManualMove};
 	class Game;
 	class GameObject;
+	enum CameraFollowType { XOnly,YOnly, Normal, None};
 	class Camera : public GGObject {
 	public:
 		Camera(Game *game, int width, int height,double x = 0, double y = 0, bool enableManualMove = false);
@@ -16,17 +17,24 @@ namespace ggEngine {
 		void Update();
 		void SetScale(double x, double y);
 		void SetPoint(double x, double y);
+		void SetPoint(Vector position);
 		Matrix GetTranslatedMatrix() { return this->viewMatrix; }
 		void RegisterControl(CameraControl controlKeyCode, DWORD key);
 		void EnableManualMove();
 		void DisableManualMove();
 		void ResetView();
 		void Follow(GameObject *go);
+		void FollowX(GameObject *go);
 		void UnFollow();
 		RECT GetRect();
 		Rect GetNormalRect();
-	private:
+		void SetWidth(double width);
+		void SetHeight(double height);
+		void SetOrgWidth(double width);
+		void SetOrgHeight(double height);
+	protected:
 		GameObject *follow = nullptr;
+		CameraFollowType followType = CameraFollowType::None;
 		LPDIRECT3DDEVICE9 device;
 		void SetUpKeyControl();
 		bool enableManualMove;

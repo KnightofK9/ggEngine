@@ -33,6 +33,7 @@
     <script type="text/javascript" src="js/MapEditor.js"></script>
     <script type="text/javascript" src="js/StateInfo.js"></script>
     <script type="text/javascript" src="js/HierarchyEditor.js"></script>
+    <script type="text/javascript" src="js/StageBlock.js"></script>
     <script type="text/javascript" src="js/HierarchyInfo.js"></script>
     <script type="text/javascript" src="js/Constant.js"></script>
     <script type="text/javascript" src="js/SceneEditor.js"></script>
@@ -110,6 +111,8 @@
                     </li>
                     <li id="gg-object-info-nav-tab"><a href="#" onclick='switchToTab("gg-object-info")'>Object Info</a>
                     </li>
+                    <li id="gg-stage-block-nav-tab"><a href="#" onclick='switchToTab("gg-stage-block")'>Stage Block</a>
+                    </li>
                 </ul>
             </div>
 
@@ -139,6 +142,8 @@
                     tree</label><br/>
             </div>
             <div id="gg-object-info" class="panel-body hierarchy">
+            </div>
+            <div id="gg-stage-panel" class="panel-body hierarchy">
             </div>
         </div>
 
@@ -214,6 +219,7 @@
     var mapEditor = null;
     var sceneEditor = null;
     var hierarchyEditor = null;
+    var stageBlock = null;
     var objectList = null;
     var stateInfo = null;
     var objectInfo = null;
@@ -250,6 +256,7 @@
         hierarchyEditor = new HierarchyEditor();
         mapEditor = new MapEditor();
         objectList = new ObjectList();
+        stageBlock = new StageBlock();
         var create = function () {
             currentTileMap = new TileMapManager(512, 512, 32, 32, "scene", 40);
             currentTileMap.createTileMap();
@@ -404,16 +411,25 @@
                 hierarchyEditor.setActive(false);
                 stateInfo.setActive(false);
                 objectInfo.setActive(true);
+                stageBlock.setActive(false);
                 break;
             case "gg-info-hierarchy":
                 hierarchyEditor.setActive(true);
                 stateInfo.setActive(false);
                 objectInfo.setActive(false);
+                stageBlock.setActive(false);
                 break;
             case "gg-state-info":
                 hierarchyEditor.setActive(false);
                 stateInfo.setActive(true);
                 objectInfo.setActive(false);
+                stageBlock.setActive(false);
+                break;
+            case "gg-stage-block":
+                hierarchyEditor.setActive(false);
+                stateInfo.setActive(false);
+                objectInfo.setActive(false);
+                stageBlock.setActive(true);
                 break;
             case "gg-tool-map-panel":
                 mapEditor.setActive(true);

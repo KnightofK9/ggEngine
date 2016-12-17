@@ -10,6 +10,7 @@ CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 	this->cvGame = cvGame;
 	this->add = cvGame->add;
 	this->cvAdd = cvGame->cvAdd;
+	this->camera = cvGame->camera;
 }
 
 CVMap::~CVMap()
@@ -71,9 +72,10 @@ void CVMap::BuildMap(const char * jsonChar)
 		}
 	}
 
+	this->camera->SetPoint(this->simon->worldPosition);
 	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
-
 	
+	this->camera->FollowX(this->simon);
 }
 void CVMap::Update()
 {

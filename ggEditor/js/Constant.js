@@ -189,5 +189,5 @@ var Constant = new function () {
             frameHeight: 16,
             numberOfFrame: 2
         }
-    }
+    };
 };

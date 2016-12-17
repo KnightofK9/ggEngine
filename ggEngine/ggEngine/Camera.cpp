@@ -48,9 +48,17 @@ namespace ggEngine {
 	}
 	void Camera::Update()
 	{
-		/*if (game->GetInput()->KeyDown(controlKey[CameraControl_ManualMove])) {
-			this->enableManualMove = !this->enableManualMove;
-		}*/
+		switch (this->followType)
+		{
+		case CameraFollowType::Normal:
+			point = this->follow->worldPosition;
+			return;
+		case CameraFollowType::XOnly:
+			point.x = this->follow->worldPosition.x;
+			return;
+		default:
+			break;
+		}
 		if (this->enableManualMove) {
 			if (game->GetInput()->KeyDown(controlKey[CameraControl_ZoomIn])) {
 				scale.x += SCALE_SPEED*scale.x;
@@ -88,9 +96,6 @@ namespace ggEngine {
 				rotate += ROTATE_SPEED;
 			}
 		}
-		else if (this->follow != nullptr) {
-			point = this->follow->worldPosition;
-		}
 	}
 	void Camera::SetScale(double x, double y)
 	{
@@ -101,6 +106,10 @@ namespace ggEngine {
 	void Camera::SetPoint(double x, double y)
 	{
 		this->point = Vector(x, y);
+	}
+	void Camera::SetPoint(Vector position)
+	{
+		this->point = point;
 	}
 	void Camera::RegisterControl(CameraControl controlKeyCode, DWORD key)
 	{
@@ -124,11 +133,19 @@ namespace ggEngine {
 	{
 		this->enableManualMove = false;
 		this->follow = go;
+		this->followType = CameraFollowType::Normal;
+	}
+	void Camera::FollowX(GameObject * go)
+	{
+		this->enableManualMove = false;
+		this->follow = go;
+		this->followType = CameraFollowType::XOnly;
 	}
 	void Camera::UnFollow()
 	{
 		this->enableManualMove = true;
 		this->follow = nullptr;
+		this->followType = CameraFollowType::None;
 	}
 	RECT Camera::GetRect()
 	{
@@ -138,6 +155,28 @@ namespace ggEngine {
 	{
 		Rect r(point.x - width / 2, point.y - height / 2, point.x + width / 2, point.y + height / 2);
 		return r;
+	}
+	void Camera::SetWidth(double width)
+	{
+		this->scale.x =  orgWidth / width;
+		this->width = width;
+	}
+	void Camera::SetHeight(double height)
+	{
+		this->scale.y =  orgHeight/height;
+		this->height = height;
+	}
+	void Camera::SetOrgWidth(double width)
+	{
+		this->orgWidth = width;
+		this->width = width;
+		this->scale.x = 1;
+	}
+	void Camera::SetOrgHeight(double height)
+	{
+		this->orgHeight = height;
+		this->height = height;
+		this->scale.y = 1;
 	}
 	void Camera::SetUpKeyControl()
 	{

@@ -243,6 +243,9 @@
     <ClInclude Include="GameOverScreen.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CVCamera.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -428,6 +431,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameOverScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
