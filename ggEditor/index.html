@@ -143,7 +143,19 @@
             </div>
             <div id="gg-object-info" class="panel-body hierarchy">
             </div>
-            <div id="gg-stage-panel" class="panel-body hierarchy">
+            <div id="gg-stage-block" class="panel-body hierarchy">
+                <button style="display: inline" class="btn btn-primary" onclick="stageBlock.addStage()">
+                    <i class="glyphicon glyphicon-indent-left"></i> Add Stage
+                </button>
+                <button style="display: inline"  class="btn btn-primary" onclick="stageBlock.addBlock()">
+                    <i class="glyphicon glyphicon-list"></i> Add Block
+                </button>
+                <div style="margin-top:30px" class="sortable" id="gg-stage-block-list">
+                    <div class="list-group-item" >abc</div>
+                    <div class="list-group-item" >xyz</div>
+                    <div class="list-group-item" >123</div>
+                    <div class="list-group-item" >456</div>
+                </div>
             </div>
         </div>
 
@@ -378,6 +390,7 @@
             hierarchyEditor.clearAll();
         }
         hierarchyList.reset();
+        stageBlock.reset();
         hierarchyEditor.updateHierarchy();
         sceneEditor = new SceneEditor(name, width, height, tWidth, tHeight, qWidth, qHeight, json);
 
@@ -400,6 +413,7 @@
             if (hierarchyEditor != null) hierarchyEditor.clearAll();
         }
         hierarchyList.reset();
+        stageBlock.reset();
         hierarchyEditor.updateHierarchy();
         sceneEditor = new SceneEditor(name, width, height, tWidth, tHeight, maxObject, maxLevel);
         dialogRef.close();
