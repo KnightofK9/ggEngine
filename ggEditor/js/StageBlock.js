@@ -80,6 +80,8 @@ function StageBlock() {
         }
     };
     this.addBlock = function (currentBlock) {
+        var label = 'Create';
+        if(currentBlock) label = 'Update';
         BootstrapDialog.show({
             closable: true,
             title: "Add block",
@@ -112,7 +114,7 @@ function StageBlock() {
 
             },
             buttons: [{
-                label: 'Create',
+                label: label,
                 action: function (dialogRef,currentBlock) {
                     addBlock(dialogRef);
                     dialogRef.close();
@@ -121,6 +123,8 @@ function StageBlock() {
         });
     };
     this.addStage = function (currentStage) {
+        var label = 'Create';
+        if(currentStage) label = 'Update';
         BootstrapDialog.show({
             closable: true,
             title: "Add block",
@@ -137,7 +141,7 @@ function StageBlock() {
 
             },
             buttons: [{
-                label: 'Create',
+                label: label,
                 action: function (dialogRef,currentStage) {
                     addStage(dialogRef);
                     dialogRef.close();
@@ -146,7 +150,22 @@ function StageBlock() {
         });
     };
     this.onSelectLineClick = function(isBlock,name){
-
+        var element = null;
+        var array = stageList;
+        if(isBlock){
+            array = blockList;
+        }
+        for(var i = 0; i < array.length; i++){
+            if(array[i].name == name){
+                element = array[i];
+                break;
+            }
+        }
+        if(isBlock){
+            that.addBlock(element);
+        }else{
+            that.addStage(element);
+        }
     };
     this.handleRemoveClick = function(isBlock,name){
         var divId = "";
