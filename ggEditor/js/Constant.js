@@ -111,6 +111,12 @@ var Constant = new function () {
             frameWidth: 45,
             frameHeight: 40,
             numberOfFrame: 25
+        },
+        "Camera": {
+            name: this.RESOURCE_PATH + "Bogdan-Rosu-Camera-Icon.png",
+            frameWidth: 24,
+            frameHeight: 24,
+            numberOfFrame: 1
         }
 
     };
