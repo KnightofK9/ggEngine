@@ -72,6 +72,11 @@ table {
     height:100%;
 }
 /*Hierarchy*/
+.gg-hierarchy-select{
+    position: absolute;
+    right: 20px;
+    top: 13px;
+}
 .gg-hierarchy-delete{
     position: absolute;
     right: 7px;

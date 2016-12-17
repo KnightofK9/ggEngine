@@ -633,3 +633,20 @@ Phaser.QuadTree.prototype.export = function(){
     return quadTreeJson;
 
 };
+function CVBlock(){
+    this.type = "CVBlock";
+    this.name = "Block";
+    this.x = 0;
+    this.y = 0;
+    this.width = 0;
+    this.height = 0;
+    this.simonSpawnPoint = {x:0,y:0};
+    this.simonSpawnState = "Grounding";
+    this.stageNumber = -1;
+    this.levelNumber = -1;
+}
+function CVStage(){
+    this.type = "CVStage";
+    this.number = -1;
+    this.blockList = [];
+}
