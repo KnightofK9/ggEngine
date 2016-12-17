@@ -72,10 +72,10 @@
           <file leaf-file-name="EditState.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="332">
-                  <caret line="156" column="25" selection-start-line="156" selection-start-column="25" selection-end-line="156" selection-end-column="25" />
+                <state relative-caret-position="740">
+                  <caret line="252" column="25" selection-start-line="252" selection-start-column="25" selection-end-line="252" selection-end-column="25" />
                   <folding>
-                    <element signature="e#12105#12232#0" expanded="false" />
+                    <element signature="e#12981#13108#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -99,9 +99,12 @@
           <file leaf-file-name="Class.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/Class.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="308">
-                  <caret line="513" column="17" selection-start-line="513" selection-start-column="17" selection-end-line="513" selection-end-column="17" />
-                  <folding />
+                <state relative-caret-position="723">
+                  <caret line="636" column="18" selection-start-line="636" selection-start-column="18" selection-end-line="636" selection-end-column="18" />
+                  <folding>
+                    <element signature="e#11059#12065#0" expanded="false" />
+                    <element signature="n#!!block;n#CVBlock#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -173,9 +176,9 @@
         <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/StageBlock.js" />
         <option value="$PROJECT_DIR$/js/Class.js" />
         <option value="$PROJECT_DIR$/js/State/EditState.js" />
-        <option value="$PROJECT_DIR$/js/StageBlock.js" />
       </list>
     </option>
   </component>
@@ -695,12 +698,12 @@
       <workItem from="1481433207985" duration="1851000" />
       <workItem from="1481447067256" duration="10212000" />
       <workItem from="1481923915491" duration="10163000" />
-      <workItem from="1481977931753" duration="6539000" />
+      <workItem from="1481977931753" duration="8098000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28765000" />
+    <option name="totallyTimeSpent" value="30324000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="-5" width="1930" height="1050" extended-state="6" />
@@ -785,7 +788,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#12105#12232#0" expanded="false" />
+            <element signature="e#12981#13108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -807,7 +810,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6732">
           <caret line="396" column="9" selection-start-line="396" selection-start-column="9" selection-end-line="396" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="e#11059#12065#0" expanded="false" />
+            <element signature="n#!!block;n#CVBlock#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -850,7 +856,7 @@
         <state relative-caret-position="2006">
           <caret line="118" column="14" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="14" />
           <folding>
-            <element signature="e#12105#12232#0" expanded="false" />
+            <element signature="e#12981#13108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -875,7 +881,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10166">
           <caret line="598" column="30" selection-start-line="598" selection-start-column="30" selection-end-line="598" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#11059#12065#0" expanded="false" />
+            <element signature="n#!!block;n#CVBlock#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -939,7 +948,7 @@
         <state relative-caret-position="3995">
           <caret line="235" column="20" selection-start-line="235" selection-start-column="20" selection-end-line="235" selection-end-column="20" />
           <folding>
-            <element signature="e#12105#12232#0" expanded="false" />
+            <element signature="e#12981#13108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -948,7 +957,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10251">
           <caret line="603" column="46" selection-start-line="603" selection-start-column="46" selection-end-line="603" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#11059#12065#0" expanded="false" />
+            <element signature="n#!!block;n#CVBlock#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1049,18 +1061,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/Class.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="513" column="17" selection-start-line="513" selection-start-column="17" selection-end-line="513" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="723">
+          <caret line="636" column="18" selection-start-line="636" selection-start-column="18" selection-end-line="636" selection-end-column="18" />
+          <folding>
+            <element signature="e#11059#12065#0" expanded="false" />
+            <element signature="n#!!block;n#CVBlock#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="156" column="25" selection-start-line="156" selection-start-column="25" selection-end-line="156" selection-end-column="25" />
+        <state relative-caret-position="740">
+          <caret line="252" column="25" selection-start-line="252" selection-start-column="25" selection-end-line="252" selection-end-column="25" />
           <folding>
-            <element signature="e#12105#12232#0" expanded="false" />
+            <element signature="e#12981#13108#0" expanded="false" />
           </folding>
         </state>
       </provider>

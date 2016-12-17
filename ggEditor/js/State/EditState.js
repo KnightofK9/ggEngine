@@ -230,6 +230,26 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     };
     var exportCompletedStageList = function(){
         var stageList = stageBlock.getCompletedStageList();
+        var simonList = [];
+        for(var i = 0; i < simonHGroup._childList.length; i++){
+            var hSimon = simonHGroup._childList[i];
+            var simon = hSimon._item;
+            var blockContain = null;
+            for(var s = 0; s < stageList.length; s++){
+                for(var t = 0; t < stageList[s].blockList.length; t++){
+                    var block = stageList[s].blockList[t];
+                    var r = new Phaser.Rectangle(block.x,block.y,block.width,block.height);
+                    if(Phaser.Rectangle.contains(r,simon.x,simon.y)){
+                        blockContain = block;
+                        break;
+                    }
+                }
+                if(blockContain !== null) break;
+            }
+            if(blockContain!=null){
+                blockContain.simonPosition  = {x:simon.x,y:simon.y};
+            }
+        }
         return stageList;
     };
     this.exportTileMap = function () {

@@ -436,14 +436,14 @@ function Group() {
                 default:
                     break;
             }
-            if(useQuadTree){
-                if(Constant.ENEMY_DICT.hasOwnProperty(sprite.type) && !my.isPutEnemyToQuadTree ){
-                    sprite.quadTreeId = -1;
-                }
-                else{
-                    sprite.quadTreeId = my.getQuadTreeId(sprite);
-                }
-            }
+            // if(useQuadTree){
+            //     if(Constant.ENEMY_DICT.hasOwnProperty(sprite.type) && !my.isPutEnemyToQuadTree ){
+            //         sprite.quadTreeId = -1;
+            //     }
+            //     else{
+            //         sprite.quadTreeId = my.getQuadTreeId(sprite);
+            //     }
+            // }
             json.itemList.push(sprite);
         }
         return json;
@@ -641,6 +641,8 @@ function CVBlock(){
     this.y = 0;
     this.width = 0;
     this.height = 0;
+    this.simonPosition = {x:0,y:0};
+    this.cameraPosition = {x:0,y:0};
 }
 function CVStage(){
     this.type = "CVStage";
