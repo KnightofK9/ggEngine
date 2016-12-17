@@ -152,8 +152,13 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             that.createSpriteAt(item.x,item.y,item.type);
         }
     };
+    var importStageList = function (stageList) {
+        if(isNull(stageList)) stageList = [];
+        stageBlock.importStageList(stageList);
+    };
     this.importState = function (stateJson) {
         importTileMap(stateJson.groupList[0]);
+        importStageList(stateJson.stageList);
         importQuadTreeGroup(stateJson.groupList[1]);
         importMovingGroup(stateJson.groupList[2]);
         importSimonGroup(stateJson.groupList[3]);
@@ -223,6 +228,10 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var exportSimonGroup = function(){
         return simonHGroup.exportAsJson();
     };
+    var exportCompletedStageList = function(){
+        var stageList = stageBlock.getCompletedStageList();
+        return stageList;
+    };
     this.exportTileMap = function () {
         isUsedQuadTree = stateInfo.isUsedQuadTree();
         my.isPutEnemyToQuadTree = stateInfo.isPutEnemyToQuadTree();
@@ -238,6 +247,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
 
         state.preloadList = initPreloadList();
+
+        state.stageList = exportCompletedStageList();
+        if(state.stageList === null) return;
 
         state.groupList.push(exportTileMapBackground());
         state.groupList.push(exportQuadTreeGroup());

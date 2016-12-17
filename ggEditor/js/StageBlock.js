@@ -98,7 +98,56 @@ function StageBlock() {
     this.getBlockList = function(){
         return drawBlockList;
     };
-
+    this.getStageByName = function(name){
+        for(var i = 0; i < stageList.length; i++){
+            if(stageList[i].name === name) return stageList[i];
+        }
+        return null;
+    };
+    this.getBlockByName = function(name){
+        for(var i = 0; i < blockList.length; i++){
+            if(blockList[i].name === name) return blockList[i];
+        }
+        return null;
+    };
+    this.importStageList = function(stageListJson){
+        for(var i = 0;i < stageListJson.length; i++){
+            var stage = stageListJson[i];
+            stageList.push(stage);
+            createLine(stage.name,false);
+            for(var t = 0; t < stage.blockList.length; t++) {
+                var block = stage.blockList[t];
+                blockList.push(block);
+                createLine(block.name, true);
+            }
+            stage.blockList = [];
+        }
+    };
+    this.getCompletedStageList = function(){
+        var completedStageList = [];
+        var nextStage = null;
+        var stageNumber = 0;
+        stageBlockList.children('div').each(function(){
+           var childDiv = $(this);
+            var name = childDiv[0].textContent;
+            var isBlock = name.indexOf("Block") > -1;
+            if(isBlock){
+                if(nextStage === null){
+                    ggConsole.alertNotification("Error","There must be a stage on top!");
+                    return null;
+                }
+                var block = that.getBlockByName(name);
+                nextStage.blockList.push(block);
+            }else{
+                nextStage = that.getStageByName(name);
+                nextStage.blockList = [];
+                nextStage.number = stageNumber;
+                stageNumber++;
+                completedStageList.push(nextStage);
+            }
+        });
+        return completedStageList;
+    };
     this.addBlock = function (currentBlock) {
         var label = 'Create';
         if(currentBlock) label = 'Update';
@@ -106,7 +155,7 @@ function StageBlock() {
             closable: true,
             title: "Add block",
             draggable: true,
-            message: 'Name <input id="dialog-t1" type="text" class="form-control">'
+            message: 'Name <input id="dialog-t1" type="text" class="form-control" readonly="readonly" >'
             + 'x <input id="dialog-n1" type="number" class="form-control">'
             + 'y <input id="dialog-n2" type="number" class="form-control">'
             + 'Width <input id="dialog-n3" type="number" class="form-control">'
@@ -149,7 +198,7 @@ function StageBlock() {
         BootstrapDialog.show({
             closable: true,
             title: "Add block",
-            message: 'Name <input id="dialog-t1" type="text" class="form-control">'
+            message: 'Name <input id="dialog-t1" type="text" class="form-control" readonly="readonly">'
             ,
             onshow: function (dialogRef) {
                 var name = "Stage";
