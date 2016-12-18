@@ -82,6 +82,7 @@ public:
 
 	InfoPanel *infoPanel = nullptr;
 	GameOverScreen *goScreen = nullptr;
+	bool allowControl = true;
 private:
 	void StartClimbingLadder(bool isLeft, bool isUp);
 	void StartClimbingLadderAuto(bool isLeft, bool isUp);

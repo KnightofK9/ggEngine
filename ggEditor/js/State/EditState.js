@@ -237,9 +237,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var exportSimonGroup = function () {
         return simonHGroup.exportAsJson();
     };
-    var exportCameraGroup = function () {
-        return cameraHGroup.exportAsJson();
-    };
+    // var exportCameraGroup = function () {
+    //     return cameraHGroup.exportAsJson();
+    // };
     var exportCompletedStageList = function () {
         var stageList = stageBlock.getCompletedStageList();
         for (var i = 0; i < simonHGroup._childList.length; i++) {

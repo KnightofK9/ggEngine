@@ -8,10 +8,10 @@ public:
 	~CVBlock();
 	Vector simonSpawnPosition;
 	Vector cameraSpawnPosition;
+	int stageIndex;
+	int blockIndex;
 private:
 	std::string name;
-	int stageNumber;
-	int levelNumber;
 	SimonGroundingType simonGroundingType;
 	SimonLadderType simonLadderType;
 };

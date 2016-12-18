@@ -8,7 +8,7 @@ public:
 	CVStage(std::vector<CVBlock*> blockList, int stageNumber);
 	~CVStage();
 	std::vector<CVBlock*> blockList;
+	int stageIndex;
 private:
 	CVBlock* primaryBlock = nullptr;
-	int stageNumber;
 };

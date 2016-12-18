@@ -26,8 +26,9 @@ CVMap::~CVMap()
 	}
 }
 
-void CVMap::BuildMap(const char * jsonChar)
+void CVMap::BuildMap(const char * jsonChar, int level)
 {
+	this->levelNumber = level;
 	Json state(jsonChar);
 
 	for (auto& stageJson : state["stageList"].GetArray()) 
@@ -97,6 +98,7 @@ void CVMap::BuildMap(const char * jsonChar)
 }
 void CVMap::Update()
 {
+	CheckIfSimonOutOfBlock();
 	this->quadTreeGroup->Update();
 	this->cameraActiveGroup->Update();
 	this->simonGroup->Update();
@@ -149,8 +151,7 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->infoPanel = infoPanel;
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
 	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
-
-	SetStage(1, 0);
+	SetStage(0, 0);
 }
 
 void CVMap::SetStage(int stageNumber, int blockNumber)
@@ -164,11 +165,57 @@ void CVMap::SetBlock(int blockNumber)
 	this->currentBlock = this->currentStage->blockList[blockNumber];
 	this->simon->ResetState();
 	this->simon->position = this->currentBlock->simonSpawnPosition;
-	this->simon->UpdateWorldPosition();
+	this->simon->body->PreUpdate();
 
 	this->camera->SetBlock(this->currentBlock);
-	this->camera->SetPoint(this->currentBlock->cameraSpawnPosition);
+	//this->camera->SetPoint(this->currentBlock->cameraSpawnPosition);
 	this->camera->Follow(this->simon);
 
 
 }
+
+void CVMap::OnOutOfBlock()
+{
+	int nextBlock = this->currentBlock->blockIndex + 1;
+	if (this->currentStage->blockList.size() == nextBlock) {
+		int nextStage = this->currentStage->stageIndex + 1;
+		if (nextStage == this->stageList.size()) {
+			OnNextLevel(++this->levelNumber);
+			return;
+		}
+		this->OnNextStage(nextStage);
+		return;
+	}
+	this->OnNextBlock(nextBlock);
+}
+
+void CVMap::OnNextLevel(int levelIndex)
+{
+	g_debug.Log("On Next Level" + std::to_string(levelIndex));
+	if (levelIndex == 0) {
+		SetStage(0, 0);
+	}
+}
+
+void CVMap::OnNextBlock(int blockIndex)
+{
+	g_debug.Log("On Next Block" + std::to_string(blockIndex));
+	SetBlock(blockIndex);
+}
+
+void CVMap::OnNextStage(int stageIndex)
+{
+	g_debug.Log("On Next Stage" + std::to_string(stageIndex));
+	SetStage(stageIndex, 0);
+}
+
+void CVMap::CheckIfSimonOutOfBlock()
+{
+	Rect r = simon->body->GetRect();
+	Rect i;
+	if (!Rect::intersect(i, r, (*currentBlock))) {
+		OnOutOfBlock();
+	}
+
+}
+

@@ -13,7 +13,7 @@ class CVMap : public Group {
 public:
 	CVMap(CVGame *cvGame);
 	virtual ~CVMap();
-	void BuildMap(const char* jsonChar);
+	void BuildMap(const char* jsonChar, int level = -1);
 	void Draw() override;
 	void Update() override;
 	void UpdatePhysics() override;
@@ -25,7 +25,13 @@ public:
 	Simon* simon;
 	void SetStage(int stageNumber,int blockNumber = 0);
 	void SetBlock(int blockNumber);
+	void OnOutOfBlock();
+	void OnNextLevel(int levelIndex);
+	void OnNextBlock(int blockIndex);
+	void OnNextStage(int stageIndex);
 private:
+	void CheckIfSimonOutOfBlock();
+	int levelNumber;
 	CVStage* currentStage = nullptr;
 	CVBlock* currentBlock = nullptr;
 	InfoPanel *infoPanel;

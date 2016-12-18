@@ -349,13 +349,13 @@ namespace ggEngine {
 			if (this->sprite->events->onCheckingCollide != nullptr) {
 				objectBlock = this->sprite->events->onCheckingCollide(e.b.gameObject, e);
 			}
-			if (e.b.gameObject->tag == 6) {
+			/*if (e.b.gameObject->tag == 6) {
 				g_debug.Log("Found canle");
 
 				if (true) {
 					g_debug.Log(currentVelocity.ToString());
 				}
-			}
+			}*/
 			if (objectBlock) {
 				this->rigidBody->Translate(currentVelocity*e.entryTime*remainingTime);
 				//remainingTime -= e.entryTime;

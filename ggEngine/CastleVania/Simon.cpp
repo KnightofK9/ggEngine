@@ -160,7 +160,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
 		if (this->health <= 0)
 			return;
-
+		if (!allowControl) return;
 		if (currentAutoLadderTweenAuto != nullptr) return;
 		if (this->incompleteAnim != "") {
 			this->PlayAnimation(incompleteAnim);
@@ -518,12 +518,32 @@ void Simon::ClimbAttack()
 
 void Simon::ResetState()
 {
+	if (this->currentLadderTween != nullptr) {
+		this->currentLadderTween->Stop();
+		this->currentLadderTween = nullptr;
+	}
+	if (this->currentAutoLadderTweenAuto != nullptr) {
+		this->currentAutoLadderTweenAuto->Stop();
+		this->currentAutoLadderTweenAuto = nullptr;
+	}
+	if (this->currentMoveToLadderTween != nullptr) {
+		currentMoveToLadderTween->Stop();
+		delete currentMoveToLadderTween;
+		currentMoveToLadderTween = nullptr;
+	}
+	this->firstLadder = nullptr;
+	this->allowControl = true;
+	this->isSteppingOnLadder = false;
+	this->tileLadder = nullptr;
+	this->steppingTileLadder = nullptr;
 	this->isClimbingLadder = false;
 	this->incompleteAnim = "";
 	this->grounding = SimonGrounding_Brick;
 	this->ladderState = SimonLadderType::SimonLadder_None;
 	this->PlayAnimation("idle");
-	this->body->velocity = Vector::Zero();
+	//this->body->allowGravity = true;
+	this->body->immoveable = false;
+	//this->body->velocity = Vector::Zero();
 }
 
 void Simon::LoseHealth(int health)
@@ -679,7 +699,7 @@ void Simon::SetStateGoToLadder(bool active)
 
 void Simon::OnLadderCompleted()
 {
-	g_debug.Log("On ladder completed!");
+	//g_debug.Log("On ladder completed!");
 	this->isClimbingLadder = false;
 	this->ladderState = SimonLadder_None;
 	firstLadder = nullptr;
