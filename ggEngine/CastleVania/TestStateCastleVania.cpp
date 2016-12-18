@@ -57,47 +57,20 @@ void TestStateCastleVania::Create()
 
 	{
 		//Json state("State/TestState.json", true);
-		Json state("State/level2-tilemap.json", true);
+		//Json state("State/level2-tilemap.json", true);
+		//cvMap1 = this->cvAdd->LoadMap(state.GetCharArray().c_str(),  this->cvgame->world);
+		Json state2("State/level3-tilemap.json", true);
+		cvMap1 = this->cvAdd->LoadMap(state2.GetCharArray().c_str(), this->cvgame->world);
 
-		cvMap = this->cvAdd->LoadMap(state.GetCharArray().c_str(),  this->cvgame->world);
-
-
-		/*for (auto& it : state["groupList"].GetArray())
-		{
-			std::string type = it["type"].GetString();
-			if (type == "TileMap") {
-				tileMapJson = Json::GetCharArrayFromValue(it);
-				break;
-			}
-		}*/
+	
 	}
-
-	cvMap->LoadSimon(infoPanel, goScreen, this->simon);
+	//cvMap = cvMap1;
+	cvMap1->LoadSimon(infoPanel, goScreen, this->simon);
 	//infoPanel->CountDown(infoPanel->GetTime(), [this] {
 	//	simon->Death();
 	//})->Start();
 
-	
-	/*this->itemManager->AddHeart(200, 100, group);
-	this->itemManager->AddCandle(250, 800, group);
-	this->itemManager->AddWhipUpgrade(300, 100, group);
-	this->itemManager->AddHeart(450, 100, group);
-	this->itemManager->AddMoneyBag1000(150, 100, group);
-	this->itemManager->AddStuff(180, 100, group);
-	this->itemManager->AddDagger(230, 100, group);
-	this->itemManager->AddInvinPotion(400, 100, group);
-	this->itemManager->AddPotRoast(280, 100, group);
-	this->itemManager->AddDoubleShot(260, 100, group);
-	this->itemManager->AddTripleShot(170, 100, group);*/
 
-	
-
-	//cath event when player lose health or gain health
-	//this->simon->healthSignal.connect(boost::bind(&InfoPanel::SetPlayerHealth, infoPanel, _1));
-	//Group *b = this->cvAdd->Group();
-	//HealthBar *healthBar = this->cvAdd->UIPlayerHealthBar(100, 100, group);
-	/*ggEngine::Sprite* emptyHealthBar = this->cvAdd->Sprite(0, 0, TextureConstant::EMPTY_HEALTH_TEXTURE, b);
-	ggEngine::Sprite* healthBar = this->cvAdd->Sprite(0, 0, TextureConstant::FULL_HEALTH_PLAYER_TEXTURE, b);*/
 }
 void TestStateCastleVania::Update()
 {

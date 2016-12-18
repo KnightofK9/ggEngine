@@ -22,4 +22,6 @@ private:
 	Simon *simon;
 	ItemManager *itemManager = nullptr;
 	CVMap *cvMap = nullptr;
+	CVMap *cvMap1 = nullptr;
+	CVMap *cvMap2 = nullptr;
 };
