@@ -76,6 +76,7 @@ public:
 	void SetShot(int shot, SpriteInfo *image);
 	void UpgradeWhip();
 
+	bool isClimbingLadder = false;
 	void Blind();
 	SimonSubWeaponType subWeapon;
 	WeaponWhip *weaponWhip = nullptr;
@@ -104,7 +105,6 @@ private:
 	TweenBase* currentAutoLadderTweenAuto = nullptr;
 	TweenBase* currentMoveToLadderTween = nullptr;
 	int score;
-	bool isClimbingLadder = false;
 	int stagePoint;
 	bool isSteppingOnLadder = false;
 	TileLadder *steppingTileLadder = nullptr;

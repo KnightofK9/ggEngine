@@ -98,11 +98,11 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 }
 void CVMap::Update()
 {
-	CheckIfSimonOutOfBlock();
 	this->quadTreeGroup->Update();
 	this->cameraActiveGroup->Update();
 	this->simonGroup->Update();
 	this->simon->Update();
+
 }
 void CVMap::Draw()
 {
@@ -118,6 +118,8 @@ void CVMap::Draw()
 	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
 		(*it)->body->Render();
 	}
+
+	CheckIfSimonOutOfBlock();
 }
 
 
@@ -179,7 +181,7 @@ void CVMap::SetBlock(int blockNumber,bool isRestartState)
 				this->simon->currentLadderTween = nullptr;
 			});*/
 		}
-		this->SetSimonPositionOnChangeBlock();
+		if(simon->isClimbingLadder) this->SetSimonPositionOnChangeBlock();
 		/*switch (this->levelNumber) {
 		case -1:
 			switch (blockNumber) {
@@ -234,7 +236,7 @@ void CVMap::OnOutOfBlock()
 		return;
 	}
 	if (this->currentStage->stageIndex != nextStage) {
-		OnNextStage(nextStage);
+		OnNextStage(nextStage,nextBlock);
 		return;
 	}
 	this->OnNextBlock(nextBlock);
@@ -254,10 +256,10 @@ void CVMap::OnNextBlock(int blockIndex)
 	SetBlock(blockIndex);
 }
 
-void CVMap::OnNextStage(int stageIndex)
+void CVMap::OnNextStage(int stageIndex, int blockIndex)
 {
-	g_debug.Log("On Next Stage" + std::to_string(stageIndex));
-	SetStage(stageIndex, 0);
+	g_debug.Log("On Next Stage" + std::to_string(stageIndex) +" at block "+ std::to_string(blockIndex));
+	SetStage(stageIndex, blockIndex,true);
 }
 
 void CVMap::OnFallOutOfMap()
