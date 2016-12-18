@@ -62,6 +62,9 @@ public:
 	void ClimbAttack();
 	void ResetState();
 
+	void JumpLeft();
+	void JumpRight();
+
 	void LoseHealth(int health);
 	void GainHealth(int health);
 	void IncreaseScore(int score);

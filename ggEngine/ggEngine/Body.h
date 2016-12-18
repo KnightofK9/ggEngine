@@ -80,6 +80,7 @@ namespace ggEngine {
 		void AddForce(double force, Vector angleInVector);
 		void SetForce(double force, float angleInRadian);
 		void SetForce(double force, Vector angleInVector);
+		void SetForce(Vector force, Vector angleInVector);
 
 		void CreateCircleRigidBody(double radius);
 		void CreateRectangleRigidBody(double width, double height);

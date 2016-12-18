@@ -745,6 +745,10 @@ namespace ggEngine {
 	{
 		velocity = angleInVector.Normalize() *force;
 	}
+	void Body::SetForce(Vector force, Vector angleInVector)
+	{
+		velocity = angleInVector.Normalize() *force;
+	}
 	void Body::CreateCircleRigidBody(double radius)
 	{
 		//this->rigidBody = new Circle(radius);

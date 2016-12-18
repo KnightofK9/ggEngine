@@ -26,6 +26,7 @@ namespace ggEngine {
 		static Vector3 CrossProduct(const Vector3& a, const Vector3& b);
 		std::string ToString();
 		static Vector Zero(){ return Vector(0, 0); }
+		Vector operator * (Vector) const;
 	private:
 	};
 }

@@ -546,6 +546,26 @@ void Simon::ResetState()
 	//this->body->velocity = Vector::Zero();
 }
 
+void Simon::JumpLeft()
+{
+	if (grounding == SimonGrounding_Brick)
+	{
+		this->PlayAnimation("jump");
+		this->body->SetForce(CharacterConstant::SIMON_JUMP_FORCE,Vector(-0.25,-1));
+		grounding = SimonGrounding_None;
+	}
+}
+
+void Simon::JumpRight()
+{
+	if (grounding == SimonGrounding_Brick)
+	{
+		this->PlayAnimation("jump");
+		this->body->SetForce(CharacterConstant::SIMON_JUMP_FORCE, Vector(0.25, -1));
+		grounding = SimonGrounding_None;
+	}
+}
+
 void Simon::LoseHealth(int health)
 {
 	this->health -= health;
@@ -850,26 +870,44 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 {
 	if (e.isPress(controlKey[SimonControl_Left])) {
+		if (e.isPress(controlKey[SimonControl_A])) {
+			this->JumpLeft();
+			return;
+		}
 		this->MoveLeft();
+		return;
 	}
 
 	if (e.isPress(controlKey[SimonControl_Right])) {
+		if (e.isPress(controlKey[SimonControl_A])) {
+			this->JumpRight();
+			return;
+		}
 		this->MoveRight();
+		return;
 	}
 
 	if (e.isPress(controlKey[SimonControl_A])) {
 		this->Jump();
 		this->grounding = SimonGrounding_None;
+		return;
 	}
 
 	if (e.isPress(controlKey[SimonControl_B])
 		&& e.isPress(controlKey[SimonControl_Down])) {
 		this->KneelAttack();
+		return;
 	} else {
 		if (e.isPress(controlKey[SimonControl_Down]))
+		{
 			this->Kneel();
+			return;
+		}
 		if (e.isPress(controlKey[SimonControl_B]))
+		{
 			this->StandAttack();
+			return;
+		}
 	}
 	if (e.isPress(controlKey[SimonControl_TurboB])) {
 		this->Attack();

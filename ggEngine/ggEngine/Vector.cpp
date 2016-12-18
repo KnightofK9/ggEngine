@@ -62,6 +62,10 @@ namespace ggEngine {
 	{
 		return std::to_string(this->x) + "-" + std::to_string(this->y);
 	}
+	Vector Vector::operator*(Vector v) const
+	{
+		return Vector(this->x*v.x,this->y*v.y);
+	}
 	Vector Vector::Rotate(const Vector& vector, double angle) {
 		double x = this->x - vector.x;
 		double y = this->y - vector.y;
