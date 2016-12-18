@@ -29,6 +29,7 @@ public:
 	void OnNextLevel(int levelIndex);
 	void OnNextBlock(int blockIndex);
 	void OnNextStage(int stageIndex);
+	void OnFallOutOfMap();
 private:
 	void CheckIfSimonOutOfBlock();
 	int levelNumber;

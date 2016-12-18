@@ -151,6 +151,9 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->infoPanel = infoPanel;
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
 	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
+	this->simon->body->allowWorldBlock = false;
+	this->simon->body->allowWorldBound = false;
+	this->simon->body->allowWorldBounciness = false;
 	SetStage(0, 0, true);
 }
 
@@ -208,7 +211,7 @@ void CVMap::SetBlock(int blockNumber,bool isRestartState)
 
 void CVMap::OnOutOfBlock()
 {
-	int nextBlock = this->currentBlock->blockIndex + 1;
+	int nextBlock = -1;
 	Rect r = this->simon->body->GetRect();
 	int nextStage = this->currentStage->stageIndex;
 	for (auto stage : this->stageList) {
@@ -221,7 +224,10 @@ void CVMap::OnOutOfBlock()
 			}
 		}
 	}
-	
+	if (nextBlock == -1) {
+		OnFallOutOfMap();
+		return;
+	}
 	
 	if (nextStage == this->stageList.size()) {
 		OnNextLevel(++this->levelNumber);
@@ -252,6 +258,10 @@ void CVMap::OnNextStage(int stageIndex)
 {
 	g_debug.Log("On Next Stage" + std::to_string(stageIndex));
 	SetStage(stageIndex, 0);
+}
+
+void CVMap::OnFallOutOfMap()
+{
 }
 
 void CVMap::CheckIfSimonOutOfBlock()

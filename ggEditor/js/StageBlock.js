@@ -113,10 +113,12 @@ function StageBlock() {
     this.importStageList = function(stageListJson){
         for(var i = 0;i < stageListJson.length; i++){
             var stage = stageListJson[i];
+            stageId++;
             stageList.push(stage);
             createLine(stage.name,false);
             for(var t = 0; t < stage.blockList.length; t++) {
                 var block = stage.blockList[t];
+                blockId++;
                 blockList.push(block);
                 createLine(block.name, true);
             }
@@ -165,8 +167,8 @@ function StageBlock() {
                 var name = "Block";
                 var x = 0;
                 var y = 0;
-                var width = 100;
-                var height = 100;
+                var width = 256;
+                var height = 176;
                 if(currentBlock){
                     name = currentBlock.name;
                     x = currentBlock.x;

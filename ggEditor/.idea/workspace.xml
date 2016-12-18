@@ -26,8 +26,8 @@
           <file leaf-file-name="StageBlock.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/StageBlock.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="292">
-                  <caret line="123" column="9" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
+                <state relative-caret-position="434">
+                  <caret line="120" column="26" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
                   <folding>
                     <element signature="e#3821#3974#0" expanded="false" />
                   </folding>
@@ -134,7 +134,7 @@
           <file leaf-file-name="Constant.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/Constant.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="312">
+                <state relative-caret-position="1938">
                   <caret line="114" column="7" selection-start-line="114" selection-start-column="7" selection-end-line="120" selection-end-column="12" />
                   <folding />
                 </state>
@@ -175,10 +175,10 @@
         <option value="$PROJECT_DIR$/js/ObjectInfo.js" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/js/StageBlock.js" />
         <option value="$PROJECT_DIR$/js/Class.js" />
         <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/js/State/EditState.js" />
+        <option value="$PROJECT_DIR$/js/StageBlock.js" />
       </list>
     </option>
   </component>
@@ -222,8 +222,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -309,6 +307,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -702,11 +702,12 @@
       <workItem from="1482021012381" duration="599000" />
       <workItem from="1482036313722" duration="593000" />
       <workItem from="1482049215403" duration="1834000" />
+      <workItem from="1482060623360" duration="458000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35140000" />
+    <option name="totallyTimeSpent" value="35598000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="-5" width="1930" height="1050" extended-state="6" />
@@ -1192,19 +1193,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/Constant.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
+        <state relative-caret-position="1938">
           <caret line="114" column="7" selection-start-line="114" selection-start-column="7" selection-end-line="120" selection-end-column="12" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/StageBlock.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="123" column="9" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
-          <folding>
-            <element signature="e#3821#3974#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1214,6 +1205,16 @@
           <caret line="307" column="0" selection-start-line="307" selection-start-column="0" selection-end-line="307" selection-end-column="0" />
           <folding>
             <element signature="e#14451#14578#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/StageBlock.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="120" column="26" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
+          <folding>
+            <element signature="e#3821#3974#0" expanded="false" />
           </folding>
         </state>
       </provider>

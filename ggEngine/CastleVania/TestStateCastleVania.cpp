@@ -13,18 +13,20 @@ void TestStateCastleVania::Init() {
 }
 void TestStateCastleVania::Preload() {
 	//Json jsonFile("State/TestState.json", true);
-	Json jsonFile("State/TestState.json", true);
+	//Json jsonFile("State/TestState.json", true);
 
-	for (auto& it : jsonFile["preloadList"].GetArray())
-	{
-		std::string type = it["type"].GetString();
-		if (type == "PreTileSet") {
-			std::string tileSetPath = it["tileSetPath"].GetString();
-			std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
-			this->preload->TileSet(tileSetPath, tileSetJsonPath);
-			continue;
-		}
-	}
+	//for (auto& it : jsonFile["preloadList"].GetArray())
+	//{
+	//	std::string type = it["type"].GetString();
+	//	if (type == "PreTileSet") {
+	//		std::string tileSetPath = it["tileSetPath"].GetString();
+	//		std::string tileSetJsonPath = it["tileSetJsonPath"].GetString();
+	//		this->preload->TileSet(tileSetPath, tileSetJsonPath);
+	//		continue;
+	//	}
+	//}
+	this->preload->TileSet(TextureConstant::TILE_SET_LEVEL_2_TEXTURE_PATH, TextureConstant::TILE_SET_LEVEL_2_JSON_PATH);
+	this->preload->TileSet(TextureConstant::TILE_SET_LEVEL_3_TEXTURE_PATH, TextureConstant::TILE_SET_LEVEL_3_JSON_PATH);
 	this->cvPreload->FontGame();
 	this->cvPreload->UIInfoPanel();
 	this->cvPreload->CharSimon();
@@ -55,7 +57,7 @@ void TestStateCastleVania::Create()
 
 	{
 		//Json state("State/TestState.json", true);
-		Json state("State/TestState.json", true);
+		Json state("State/level2-tilemap.json", true);
 
 		cvMap = this->cvAdd->LoadMap(state.GetCharArray().c_str(),  this->cvgame->world);
 

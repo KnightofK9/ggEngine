@@ -8,6 +8,7 @@ ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame, image)
 	this->cvGame->physics->EnablePhysics(this);
 	this->body->CreateRectangleRigidBody(this->image->GetWidth(), this->image->GetHeight());
 	this->body->allowGravity = true;
+	this->body->allowWorldBound = false;
 	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
 		Simon * simon = dynamic_cast<Simon*>(e.colliderObject);
 		if (simon != nullptr) {

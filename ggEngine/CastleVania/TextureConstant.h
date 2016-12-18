@@ -131,8 +131,14 @@ public:
 	static constexpr const char* AI7_TEXTURE_PATH = "Resource/Resources/AI7.png";
 
 
-	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE = "level-2-tile-set";
-	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE_PATH = "Resource/Resources/TileSet/level-2-tile-set.png";
+	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE = "level-2";
+	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE_PATH = "Resource/Resources/TileSet/level-2.png";
+	static constexpr const char* TILE_SET_LEVEL_2_JSON_PATH = "Resource/Resources/TileSet/level-2.json";
+
+	static constexpr const char* TILE_SET_LEVEL_3_TEXTURE = "level-3";
+	static constexpr const char* TILE_SET_LEVEL_3_TEXTURE_PATH = "Resource/Resources/TileSet/level-3.png";
+	static constexpr const char* TILE_SET_LEVEL_3_JSON_PATH = "Resource/Resources/TileSet/level-3.json";
+
 
 	static constexpr const char* TILE_BRICK_TEXTURE = "TileBrickTexture";
 	static constexpr const char* TILE_BRICK_TEXTURE_PATH = "Resource/Resources/TileObject/TileBrick.png";

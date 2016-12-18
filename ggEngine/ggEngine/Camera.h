@@ -17,6 +17,7 @@ namespace ggEngine {
 		virtual void Update();
 		void SetScale(double x, double y);
 		void SetPoint(double x, double y);
+		Vector GetPoint() { return this->point; }
 		void SetPoint(Vector position);
 		Matrix GetTranslatedMatrix() { return this->viewMatrix; }
 		void RegisterControl(CameraControl controlKeyCode, DWORD key);
@@ -30,6 +31,8 @@ namespace ggEngine {
 		Rect GetNormalRect();
 		void SetWidth(double width);
 		void SetHeight(double height);
+		double GetWidth() { return this->width; }
+		double GetHeight() { return this->height; }
 		void SetOrgWidth(double width);
 		void SetOrgHeight(double height);
 		void SetMask(Rect rect);

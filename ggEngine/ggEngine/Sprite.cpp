@@ -27,9 +27,9 @@ namespace ggEngine {
 	}
 	void Sprite::Draw()
 	{
+		if (!visible) return;
 		Transform(spriteHandle);
 		RECT srcRect = image->GetRect();
-		if (!visible) return;
 		color = (color & 0x00FFFFFF) | (opacity << 24);
 		if (spriteHandle->Begin(style) == D3D_OK)
 		{

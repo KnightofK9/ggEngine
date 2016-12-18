@@ -87,10 +87,15 @@ namespace ggEngine {
 		if (rect != NULL) {
 			int width = rect->p3.x-rect->p1.x;
 			int height = rect->p3.y-rect->p1.y;
-			DrawLine(rect->p1, Vector(rect->p1.x+ width,rect->p1.y));
-			DrawLine(Vector(rect->p1.x + width, rect->p1.y), rect->p3);
-			DrawLine(rect->p3, Vector(rect->p1.x, rect->p1.y + height));
-			DrawLine(Vector(rect->p1.x, rect->p1.y + height), rect->p1);
+			Vector p1 = rect->p1;
+			Vector p3 = rect->p3;
+			Vector translated = this->camera->GetPoint() - Vector(this->camera->GetWidth()/2,this->camera->GetHeight()/2);
+			p1 -= translated;
+			p3 -= translated;
+			DrawLine(p1, Vector(p1.x+ width,p1.y));
+			DrawLine(Vector(p1.x + width,p1.y),p3);
+			DrawLine(p3, Vector(p1.x, p1.y + height));
+			DrawLine(Vector(p1.x, p1.y + height),p1);
 		}
 		else {
 			Circle *circle = dynamic_cast<Circle*>(shape);
