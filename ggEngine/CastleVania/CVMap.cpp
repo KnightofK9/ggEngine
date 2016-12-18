@@ -93,8 +93,6 @@ void CVMap::BuildMap(const char * jsonChar)
 		}
 	}
 
-	
-	this->camera->FollowX(this->simon);
 }
 void CVMap::Update()
 {
@@ -109,9 +107,9 @@ void CVMap::Draw()
 	this->quadTreeGroup->Draw();
 	this->cameraActiveGroup->Draw();
 	this->simonGroup->Draw();
-	auto simonList = this->simonGroup->GetDrawList();
-	for (auto go : simonList) {
-		go->body->Render();
+	auto bodyList = this->simonGroup->GetBodyList();
+	for (auto body : bodyList) {
+		body->Render();
 	}
 	auto drawList = this->quadTreeGroup->GetDrawList();
 	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
@@ -148,7 +146,8 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 		this->simonGroup->AddDrawObjectToList(simon->weaponWhip);
 		simon->weaponWhip->SetTransformBasedOn(this->simon);
 	}
-
+	this->infoPanel = infoPanel;
+	this->simonGroup->AddDrawObjectToList(this->infoPanel);
 	this->camera->SetPoint(this->simon->worldPosition);
 	this->camera->FollowX(this->simon);
 	this->simon->SetGroupToCheckCollision(cameraActiveGroup);

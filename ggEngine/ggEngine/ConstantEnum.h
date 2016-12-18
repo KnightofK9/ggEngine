@@ -3,8 +3,8 @@
 #include "Vector.h"
 #define GAME_WIDTH ((int)768) //((int)1000) //((int)1366) //(int)650 //((int)800)
 #define GAME_HEIGHT ((int)672) //((int)1000) //((int)600)				----------//Ti le screen la 8/7
-#define WINDOW_WIDTH ((int)800)
-#define WINDOW_HEIGHT ((int)800)
+#define WINDOW_WIDTH ((int)768)
+#define WINDOW_HEIGHT ((int)672)
 #define MILISECOND_PER_UPDATE ((int)2)
 #define DEFAULT_MS_PER_FRAME_FOR_ANIMATION 14
 #define VECTOR_ZERO (Vector(0,0))

@@ -25,7 +25,7 @@ Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, Ga
 		group->AddDrawObjectToList(simon);
 	}
 
-	this->cvGame->camera->Follow(simon);
+	//this->cvGame->camera->Follow(simon);
 
 	return simon;
 }

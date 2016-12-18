@@ -32,6 +32,8 @@ namespace ggEngine {
 		void SetHeight(double height);
 		void SetOrgWidth(double width);
 		void SetOrgHeight(double height);
+		void SetMask(Rect rect);
+		Rect GetMask();
 	protected:
 		GameObject *follow = nullptr;
 		CameraFollowType followType = CameraFollowType::None;
@@ -41,6 +43,7 @@ namespace ggEngine {
 		double rotate;
 		Vector point;
 		Vector scale;
+		Rect mask;
 		Matrix translatedMatrix;
 		Game *game;
 		DWORD controlKey[10];

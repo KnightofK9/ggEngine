@@ -178,6 +178,14 @@ namespace ggEngine {
 		this->height = height;
 		this->scale.y = 1;
 	}
+	void Camera::SetMask(Rect rect)
+	{
+		this->mask = rect;
+	}
+	Rect Camera::GetMask()
+	{
+		return this->mask;
+	}
 	void Camera::SetUpKeyControl()
 	{
 		controlKey[CameraControl_ZoomIn] = DIK_NUMPAD3;

@@ -33,7 +33,10 @@ void TestStateCastleVania::Preload() {
 }
 void TestStateCastleVania::Create()
 {
-	this->cvgame->camera->SetScale(2.5, 2.5);
+	//this->cvgame->camera->SetWidth(256);
+	//this->cvgame->camera->SetHeight(176);
+	this->cvgame->camera->SetScale(3, 3);
+	this->cvgame->camera->SetPoint(0, 65);
 
 	//std::string tileMapJson = "";
 	
@@ -68,9 +71,9 @@ void TestStateCastleVania::Create()
 	}
 
 	cvMap->LoadSimon(infoPanel, goScreen, this->simon);
-	infoPanel->CountDown(infoPanel->GetTime(), [this] {
-		simon->Death();
-	})->Start();
+	//infoPanel->CountDown(infoPanel->GetTime(), [this] {
+	//	simon->Death();
+	//})->Start();
 
 	
 	/*this->itemManager->AddHeart(200, 100, group);
