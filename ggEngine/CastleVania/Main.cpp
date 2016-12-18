@@ -78,7 +78,7 @@ void programLoop() {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		else update();
+		 update();
 	}
 	onExit();
 }

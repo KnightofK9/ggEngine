@@ -151,20 +151,52 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->infoPanel = infoPanel;
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
 	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
-	SetStage(0, 0);
+	SetStage(0, 0, true);
 }
 
-void CVMap::SetStage(int stageNumber, int blockNumber)
+void CVMap::SetStage(int stageNumber, int blockNumber,bool isRestartState)
 {
 	this->currentStage = this->stageList[stageNumber];
-	SetBlock(blockNumber);
+	SetBlock(blockNumber, isRestartState);
 }
 
-void CVMap::SetBlock(int blockNumber)
+void CVMap::SetBlock(int blockNumber,bool isRestartState)
 {
 	this->currentBlock = this->currentStage->blockList[blockNumber];
-	this->simon->ResetState();
-	this->simon->position = this->currentBlock->simonSpawnPosition;
+	if (isRestartState && blockNumber == 0) {
+		this->simon->ResetState();
+		this->simon->position = this->currentBlock->simonSpawnPosition;
+	}
+	else {
+		if (this->simon->currentLadderTween != nullptr) {
+			this->simon->currentLadderTween->CallFinish()->Stop();
+			this->simon->currentLadderTween = nullptr;
+			/*this->simon->currentLadderTween->SetOnFinish([this]() {
+				this->SetSimonPositionOnChangeBlock();
+				this->simon->currentLadderTween = nullptr;
+			});*/
+		}
+		this->SetSimonPositionOnChangeBlock();
+		/*switch (this->levelNumber) {
+		case -1:
+			switch (blockNumber) {
+			case 0:
+				this->simon->position.x += 32;
+				this->simon->position.y += 16;
+				break;
+			case 1:
+				this->simon->position.x -= 32;
+				this->simon->position.y -= 16;
+				break;
+			}
+
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		}*/
+	}
 	this->simon->body->PreUpdate();
 
 	this->camera->SetBlock(this->currentBlock);
@@ -177,13 +209,26 @@ void CVMap::SetBlock(int blockNumber)
 void CVMap::OnOutOfBlock()
 {
 	int nextBlock = this->currentBlock->blockIndex + 1;
-	if (this->currentStage->blockList.size() == nextBlock) {
-		int nextStage = this->currentStage->stageIndex + 1;
-		if (nextStage == this->stageList.size()) {
-			OnNextLevel(++this->levelNumber);
-			return;
+	Rect r = this->simon->body->GetRect();
+	int nextStage = this->currentStage->stageIndex;
+	for (auto stage : this->stageList) {
+		for (auto block : stage->blockList) {
+			Rect i;
+			if (Rect::intersect(i, r, (*block))) {
+				nextBlock = block->blockIndex;
+				nextStage = stage->stageIndex;
+				break;
+			}
 		}
-		this->OnNextStage(nextStage);
+	}
+	
+	
+	if (nextStage == this->stageList.size()) {
+		OnNextLevel(++this->levelNumber);
+		return;
+	}
+	if (this->currentStage->stageIndex != nextStage) {
+		OnNextStage(nextStage);
 		return;
 	}
 	this->OnNextBlock(nextBlock);
@@ -217,5 +262,22 @@ void CVMap::CheckIfSimonOutOfBlock()
 		OnOutOfBlock();
 	}
 
+}
+
+void CVMap::SetSimonPositionOnChangeBlock()
+{
+	if (this->simon->isLeft) {
+		this->simon->position.x += 16;
+	}
+	else {
+		this->simon->position.x -= 16;
+	}
+
+	if (this->simon->isClimbingUp) {
+		this->simon->position.y -= 16;
+	}
+	else {
+		this->simon->position.y += 16;
+	}
 }
 

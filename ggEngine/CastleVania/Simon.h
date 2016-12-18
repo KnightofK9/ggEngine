@@ -83,6 +83,8 @@ public:
 	InfoPanel *infoPanel = nullptr;
 	GameOverScreen *goScreen = nullptr;
 	bool allowControl = true;
+	bool isClimbingUp = false;
+	TweenBase* currentLadderTween = nullptr;
 private:
 	void StartClimbingLadder(bool isLeft, bool isUp);
 	void StartClimbingLadderAuto(bool isLeft, bool isUp);
@@ -96,7 +98,6 @@ private:
 	const double ladderMoveDistance = 16;
 	void MoveLadderUp(bool isLeft, double force = 16);
 	void MoveLadderDown(bool isLeft, double force = 16);
-	TweenBase* currentLadderTween = nullptr;
 	TweenBase* currentAutoLadderTweenAuto = nullptr;
 	TweenBase* currentMoveToLadderTween = nullptr;
 	int score;
@@ -117,7 +118,6 @@ private:
 	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
 	SimonLadderType ladderState = SimonLadder_None;
 
-	bool isClimbingUp = false;
 	double hurtForce = 3;
 
 	string incompleteAnim = "";

@@ -304,7 +304,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         state.groupList.push(exportQuadTreeGroup());
         state.groupList.push(exportMovingGroup());
         state.groupList.push(exportSimonGroup());
-        state.groupList.push(exportCameraGroup());
+        // state.groupList.push(exportCameraGroup());
 
 
         Helper.downloadJson(state, state.name);

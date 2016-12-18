@@ -23,8 +23,8 @@ public:
 	CameraActiveGroup* cameraActiveGroup;
 	SimonGroup *simonGroup;
 	Simon* simon;
-	void SetStage(int stageNumber,int blockNumber = 0);
-	void SetBlock(int blockNumber);
+	void SetStage(int stageNumber, int blockNumber = 0, bool isRestartState = false);
+	void SetBlock(int blockNumber, bool isRestartState = false);
 	void OnOutOfBlock();
 	void OnNextLevel(int levelIndex);
 	void OnNextBlock(int blockIndex);
@@ -33,6 +33,7 @@ private:
 	void CheckIfSimonOutOfBlock();
 	int levelNumber;
 	CVStage* currentStage = nullptr;
+	void SetSimonPositionOnChangeBlock();
 	CVBlock* currentBlock = nullptr;
 	InfoPanel *infoPanel;
 	Add* add;
