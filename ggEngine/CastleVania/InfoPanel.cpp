@@ -1,5 +1,6 @@
 #include "InfoPanel.h"
 #include "CVGame.h"
+#include "Constant.h"
 InfoPanel::InfoPanel(CVGame *cvGame) : ScreenGroup(cvGame)
 {
 	this->cvGame = cvGame;
@@ -12,7 +13,7 @@ InfoPanel::~InfoPanel()
 void InfoPanel::Draw()
 {
 	//this->drawManager->DrawRectangleToWorld(0, 0, GAME_WIDTH, GAME_HEIGHT / 5.0f - GAME_HEIGHT / 40.0f, D3DCOLOR_RGBA(0, 0, 0, 255));
-	this->drawManager->DrawRectangleToWorld(0, 0, GAME_WIDTH, 145, D3DCOLOR_RGBA(0, 0, 0, 255));
+	this->drawManager->DrawRectangleToWorld(0, 0, Constant::UI_INFO_PANEL_BACKGROUND_WIDTH, Constant::UI_INFO_PANEL_BACKGROUND_HEIGHT, D3DCOLOR_RGBA(0, 0, 0, 255));
 
 	ScreenGroup::Draw();
 }

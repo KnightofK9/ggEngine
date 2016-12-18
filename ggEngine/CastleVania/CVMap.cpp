@@ -150,7 +150,7 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
 	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
 
-	SetStage(0, 0);
+	SetStage(1, 0);
 }
 
 void CVMap::SetStage(int stageNumber, int blockNumber)
@@ -168,7 +168,7 @@ void CVMap::SetBlock(int blockNumber)
 
 	this->camera->SetBlock(this->currentBlock);
 	this->camera->SetPoint(this->currentBlock->cameraSpawnPosition);
-	this->camera->FollowX(this->simon);
+	this->camera->Follow(this->simon);
 
 
 }
