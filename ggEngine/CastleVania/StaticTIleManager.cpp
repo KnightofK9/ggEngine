@@ -12,10 +12,10 @@ StaticTileManager::~StaticTileManager()
 void StaticTileManager::PreloadAll()
 {
 	this->preload->Texture(TextureConstant::TILE_BRICK_TEXTURE, TextureConstant::TILE_BRICK_TEXTURE_PATH);
-	this->preload->Texture(TextureConstant::TILE_LADDER_DOWN_LEFT, TextureConstant::TILE_LADDER_DOWN_LEFT_PATH);
-	this->preload->Texture(TextureConstant::TILE_LADDER_DOWN_RIGHT, TextureConstant::TILE_LADDER_DOWN_RIGHT_PATH);
-	this->preload->Texture(TextureConstant::TILE_LADDER_UP_LEFT, TextureConstant::TILE_LADDER_UP_LEFT_PATH);
-	this->preload->Texture(TextureConstant::TILE_LADDER_UP_RIGHT, TextureConstant::TILE_LADDER_UP_RIGHT_PATH);
+	//this->preload->Texture(TextureConstant::TILE_LADDER_DOWN_LEFT, TextureConstant::TILE_LADDER_DOWN_LEFT_PATH);
+	//this->preload->Texture(TextureConstant::TILE_LADDER_DOWN_RIGHT, TextureConstant::TILE_LADDER_DOWN_RIGHT_PATH);
+	//this->preload->Texture(TextureConstant::TILE_LADDER_UP_LEFT, TextureConstant::TILE_LADDER_UP_LEFT_PATH);
+	//this->preload->Texture(TextureConstant::TILE_LADDER_UP_RIGHT, TextureConstant::TILE_LADDER_UP_RIGHT_PATH);
 }
 
 TileBrick * StaticTileManager::AddTileBrick(double x, double y, Group * group)
@@ -57,6 +57,9 @@ TileLadder * StaticTileManager::AddTileLadder(double x, double y,ObjectType ladd
 	if (group != nullptr) {
 		group->AddDrawObjectToList(go);
 	}
-
+	go->SetWidth(16);
+	go->SetHeight(16);
+	go->body->SetWidth(16);
+	go->body->SetHeight(16);
 	return go;
 }
