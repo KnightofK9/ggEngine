@@ -18,8 +18,36 @@
 namespace ggEngine {
 	Game::Game(HWND hWnd ,int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor)
 	{
-		bool isWindowed = false;
+
 		isRunning = false;
+		
+		this->hWnd = hWnd;
+		this->width = width;
+		this->height = height;
+		this->mode = mode;
+		this->physicsMode = physicsMode;
+		this->gameColor = gameColor;
+		//
+		// Init default value
+		//
+		this->frameCountCore = 0;
+		this->frameCountReal = 0;
+		this->frameRateCore = 0;
+		this->frameRateReal = 0;
+		this->maximizeProcessor = false;
+		this->pauseMode = false;
+
+	}
+	Game::~Game()
+	{
+		d3dManager->Destroy();
+		d3dManager = NULL;
+	}
+
+
+	void Game::LoadComponent()
+	{
+		bool isWindowed = false;
 		switch (mode) {
 		case GameMode_FullScreen:
 			isWindowed = false;
@@ -32,10 +60,10 @@ namespace ggEngine {
 		}
 		try {
 			timeBasedEventManager = new TimeBasedEventManager(this);
-			d3dManager = new D3DManager(this,hWnd, width, height, gameColor, isWindowed);
+			d3dManager = new D3DManager(this, hWnd, width, height, gameColor, isWindowed);
 			stateManager = new StateManager(this);
-			camera = new Camera(this, width, height,0,0,true);
-			drawManager = new DrawManager(this,camera);
+			camera = new Camera(this, width, height, 0, 0, true);
+			drawManager = new DrawManager(this, camera);
 			cache = new Cache(this);
 			physics = new Physics(this, physicsMode);
 			eventManager = new EventManager(this);
@@ -63,24 +91,7 @@ namespace ggEngine {
 		catch (int errorCode) {
 			ErrorCheck(errorCode);
 		}
-		this->hWnd = hWnd;
-		//
-		// Init default value
-		//
-		this->frameCountCore = 0;
-		this->frameCountReal = 0;
-		this->frameRateCore = 0;
-		this->frameRateReal = 0;
-		this->maximizeProcessor = false;
-		this->pauseMode = false;
-
 	}
-	Game::~Game()
-	{
-		d3dManager->Destroy();
-		d3dManager = NULL;
-	}
-
 
 	void Game::ErrorCheck(int errorCode)
 	{

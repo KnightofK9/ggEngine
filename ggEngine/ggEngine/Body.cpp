@@ -294,6 +294,22 @@ namespace ggEngine {
 		return this->localPosition;
 	}
 
+	void Body::SetWidth(double width)
+	{
+		this->width = width;
+		if (this->rigidBody != nullptr) {
+			this->rigidBody->width = width;
+		}
+	}
+
+	void Body::SetHeight(double height)
+	{
+		this->height = height;
+		if (this->rigidBody != nullptr) {
+			this->rigidBody->height = height;
+		}
+	}
+
 	bool Body::PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB, std::list<GameObject*> *possibleCollidedList)
 	{
 		//currentVelocity *= PIXEL_PER_CENTIMETER;

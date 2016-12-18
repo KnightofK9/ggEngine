@@ -14,7 +14,7 @@ namespace ggEngine {
 		Camera(Game *game, int width, int height,double x = 0, double y = 0, bool enableManualMove = false);
 		virtual ~Camera();
 		void Draw();
-		void Update();
+		virtual void Update();
 		void SetScale(double x, double y);
 		void SetPoint(double x, double y);
 		void SetPoint(Vector position);

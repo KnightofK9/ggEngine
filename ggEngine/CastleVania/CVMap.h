@@ -7,6 +7,7 @@ class CVAdd;
 class InfoPanel;
 class SimonGroup;
 class CVStage;
+class CVCamera;
 class CVBlock;
 class CVMap : public Group {
 public:
@@ -22,11 +23,15 @@ public:
 	CameraActiveGroup* cameraActiveGroup;
 	SimonGroup *simonGroup;
 	Simon* simon;
+	void SetStage(int stageNumber,int blockNumber = 0);
+	void SetBlock(int blockNumber);
 private:
+	CVStage* currentStage = nullptr;
+	CVBlock* currentBlock = nullptr;
 	InfoPanel *infoPanel;
 	Add* add;
 	CVAdd* cvAdd;
 	CVGame* cvGame;
-	Camera* camera;
+	CVCamera* camera;
 	std::vector<CVStage*> stageList;
 };

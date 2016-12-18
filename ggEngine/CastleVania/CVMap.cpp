@@ -7,12 +7,13 @@
 #include "SimonGroup.h"
 #include "CVStage.h"
 #include "CVBlock.h"
+#include "CVCamera.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
 	this->add = cvGame->add;
 	this->cvAdd = cvGame->cvAdd;
-	this->camera = cvGame->camera;
+	this->camera = dynamic_cast<CVCamera*>(cvGame->camera);
 }
 
 CVMap::~CVMap()
@@ -139,7 +140,6 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->simon->SetParentObject(this->simonGroup);
 	this->simonGroup->AddDrawObjectToList(this->simon);
 
-	this->simon->UpdateWorldPosition();
 
 	if (simon->weaponWhip != nullptr) {
 		simon->weaponWhip->SetParentObject(this->simonGroup);
@@ -148,7 +148,27 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	}
 	this->infoPanel = infoPanel;
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
-	this->camera->SetPoint(this->simon->worldPosition);
-	this->camera->FollowX(this->simon);
 	this->simon->SetGroupToCheckCollision(cameraActiveGroup);
+
+	SetStage(0, 0);
+}
+
+void CVMap::SetStage(int stageNumber, int blockNumber)
+{
+	this->currentStage = this->stageList[stageNumber];
+	SetBlock(blockNumber);
+}
+
+void CVMap::SetBlock(int blockNumber)
+{
+	this->currentBlock = this->currentStage->blockList[blockNumber];
+	this->simon->ResetState();
+	this->simon->position = this->currentBlock->simonSpawnPosition;
+	this->simon->UpdateWorldPosition();
+
+	this->camera->SetBlock(this->currentBlock);
+	this->camera->SetPoint(this->currentBlock->cameraSpawnPosition);
+	this->camera->FollowX(this->simon);
+
+
 }

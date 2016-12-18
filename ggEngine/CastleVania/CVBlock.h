@@ -6,12 +6,12 @@ class CVBlock : public Rect {
 public:
 	CVBlock(std::string json);
 	~CVBlock();
+	Vector simonSpawnPosition;
+	Vector cameraSpawnPosition;
 private:
 	std::string name;
 	int stageNumber;
 	int levelNumber;
-	Vector simonSpawnPosition;
-	Vector cameraSpawnPosition;
 	SimonGroundingType simonGroundingType;
 	SimonLadderType simonLadderType;
 };

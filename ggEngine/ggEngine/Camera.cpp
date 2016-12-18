@@ -109,7 +109,7 @@ namespace ggEngine {
 	}
 	void Camera::SetPoint(Vector position)
 	{
-		this->point = point;
+		this->point = position;
 	}
 	void Camera::RegisterControl(CameraControl controlKeyCode, DWORD key)
 	{

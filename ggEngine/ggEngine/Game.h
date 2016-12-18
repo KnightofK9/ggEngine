@@ -46,9 +46,10 @@ namespace ggEngine {
 		CameraEventManager *cameraEventManager;
 		MemoryManager *memoryManager;
 		Camera *camera;
-		HWND hWnd;
 		Add* add;
 		Preload *preload;
+		virtual void LoadComponent();
+		HWND hWnd;
 	protected:
 		//
 		// Private Method
@@ -75,6 +76,10 @@ namespace ggEngine {
 		bool maximizeProcessor;
 		Timer timeUpdate;
 
+		int width; int height;
+		GameMode mode;
+		PhysicsMode physicsMode;
+		D3DCOLOR gameColor;
 
 	};
 }

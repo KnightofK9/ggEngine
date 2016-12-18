@@ -20,5 +20,6 @@ public:
 	StaticTileManager *staticTileManager;
 	AnimationManager *animationManager;
 	GameObject* GetObjectInstance(const char* objectJson, Group *group = nullptr) override;
+	void LoadComponent() override;
 private:
 };

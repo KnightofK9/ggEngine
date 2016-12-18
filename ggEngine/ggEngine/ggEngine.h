@@ -37,3 +37,5 @@
 #include "Animator.h"
 #include "CameraActiveGroup.h"
 #include "MultiTween.h"
+#include "TweenManager.h"
+#include "MemoryManager.h"

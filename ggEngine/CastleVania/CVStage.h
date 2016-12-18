@@ -7,8 +7,8 @@ public:
 	CVStage(std::string json);
 	CVStage(std::vector<CVBlock*> blockList, int stageNumber);
 	~CVStage();
-private:
 	std::vector<CVBlock*> blockList;
+private:
 	CVBlock* primaryBlock = nullptr;
 	int stageNumber;
 };

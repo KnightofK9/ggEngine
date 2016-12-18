@@ -60,6 +60,7 @@ public:
 	void StandAttack();
 	void KneelAttack();
 	void ClimbAttack();
+	void ResetState();
 
 	void LoseHealth(int health);
 	void GainHealth(int health);

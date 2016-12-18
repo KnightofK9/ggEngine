@@ -25,6 +25,7 @@ int main() {
 		//window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, GAME_WIDTH, GAME_HEIGHT, GameMode_Windowed);
 		//game = new Game(window->getHandle(), GAME_WIDTH, GAME_HEIGHT, GameMode_Windowed, D3DCOLOR_XRGB(0,0,0));
 		game = new CVGame(window->getHandle(), GAME_WIDTH, GAME_HEIGHT, GameMode_Windowed, PhysicsMode_AABBSwept, D3DCOLOR_XRGB(177, 177, 177));
+		game->LoadComponent();
 	}
 	catch (LPCTSTR error) {
 		quitWithError(error);

@@ -24,6 +24,12 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->CreateAnimation("idle", 0, 0, true);
 	this->CreateAnimation("move", 1, 2, true);
 	this->CreateAnimation("kneel", 4, 4, true);
+	this->CreateAnimation("jump", 4, 4, true);
+	/*->SetOnBegin([this](Animator*) {
+		this->body->SetHeight(12);
+	})->SetOnCompleted([this](Animator*) {
+		this->body->SetHeight(25);
+	});*/
 	this->CreateAnimation("climbDown", { 6,5,5 }, false);
 	this->CreateAnimation("climbDownIdle", 5, 5, true);
 	this->CreateAnimation("climbUp", { 8,7,7 }, false);
@@ -391,7 +397,7 @@ void Simon::Jump()
 {
 	if (grounding == SimonGrounding_Brick)
 	{
-		this->PlayAnimation("kneel");
+		this->PlayAnimation("jump");
 		this->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
 		grounding = SimonGrounding_None;
 	}
@@ -508,6 +514,16 @@ void Simon::ClimbAttack()
 		this->incompleteAnim = "climbDownAttack";
 		this->weaponWhip->ClimbDownAttack(isLeft);
 	}
+}
+
+void Simon::ResetState()
+{
+	this->isClimbingLadder = false;
+	this->incompleteAnim = "";
+	this->grounding = SimonGrounding_Brick;
+	this->ladderState = SimonLadderType::SimonLadder_None;
+	this->PlayAnimation("idle");
+	this->body->velocity = Vector::Zero();
 }
 
 void Simon::LoseHealth(int health)

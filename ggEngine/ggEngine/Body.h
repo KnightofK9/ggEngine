@@ -97,6 +97,8 @@ namespace ggEngine {
 		Rect GetRect();
 		void SetLocalPosition(Vector localPosition);
 		Vector GetLocalPosition();
+		void SetWidth(double width);
+		void SetHeight(double height);
 	private:
 		bool isReady = false;
 		bool isActive = true;

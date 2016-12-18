@@ -9,14 +9,7 @@
 #include "CVCamera.h"
 CVGame::CVGame(HWND hWnd, int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor) :Game(hWnd, width, height, mode, physicsMode, gameColor)
 {
-	this->cvPreload = new CVPreload(this);
-	this->cvAdd = new CVAdd(this);
-	this->itemManager = new ItemManager(this);
-	this->weaponManager = new WeaponManager(this);
-	this->staticTileManager = new StaticTileManager(this);
-	this->animationManager = new AnimationManager(this);
-	delete this->camera;
-	this->camera = new CVCamera(this, width, height, 0, 0, true);
+	
 }
 
 CVGame::~CVGame()
@@ -147,5 +140,63 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	if (type == "MoneyBag1000") {
 		go = this->itemManager->AddMoneyBag1000(x, y, group);
 		return go;
+	}
+}
+
+void CVGame::LoadComponent()
+{
+	bool isWindowed = false;
+	switch (mode) {
+	case GameMode_FullScreen:
+		isWindowed = false;
+		break;
+	case GameMode_Windowed:
+		isWindowed = true;
+		break;
+	default:
+		break;
+	}
+	try {
+		timeBasedEventManager = new TimeBasedEventManager(this);
+		d3dManager = new D3DManager(this, hWnd, width, height, gameColor, isWindowed);
+		stateManager = new StateManager(this);
+		camera = new CVCamera(this, width, height, 0, 0, true);
+		drawManager = new DrawManager(this, camera);
+		cache = new Cache(this);
+		physics = new Physics(this, physicsMode);
+		eventManager = new EventManager(this);
+		tweenManager = new ggEngine::TweenManager(this);
+		cameraEventManager = new CameraEventManager(this);
+		memoryManager = new MemoryManager(this);
+		world = new World(this);
+		input = new Input(&hWnd);
+		add = new Add(this);
+		preload = new Preload(cache);
+
+		g_debug.Init(this);
+
+
+
+
+		stateManager->SetCache(cache);
+		d3dManager->SetDrawManager(drawManager);
+		d3dManager->SetStateManager(stateManager);
+
+		input->InitKeyboard();
+		input->InitMouse();
+
+
+		this->cvPreload = new CVPreload(this);
+		this->cvAdd = new CVAdd(this);
+		this->itemManager = new ItemManager(this);
+		this->weaponManager = new WeaponManager(this);
+		this->staticTileManager = new StaticTileManager(this);
+		this->animationManager = new AnimationManager(this);
+
+
+
+	}
+	catch (int errorCode) {
+		ErrorCheck(errorCode);
 	}
 }
