@@ -38,10 +38,17 @@ function ObjectInfo(){
         if(isExtraInfo){
             editItem = currentInputHObject._item.extraInfo;
         }
-        if(!isNaN(value)){
+        if(value !== "" && !isNaN(value)){
             editItem[fieldName] = parseFloat(value);
         }else{
-            editItem[fieldName] = value;
+            if(fieldName == "dropType")
+            {
+                if(isNull(editItem[fieldName].type)) editItem[fieldName] = {};
+                editItem[fieldName].type = value;
+            }
+            else{
+                editItem[fieldName] = value;
+            }
         }
     };
     var init = function(){

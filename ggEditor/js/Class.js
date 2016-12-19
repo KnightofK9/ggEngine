@@ -429,12 +429,10 @@ function Group() {
                 sprite.width = item._item.width;
                 sprite.height = item._item.height;
             }
-            switch(sprite.type){
-                case "FireCandle":
-                    sprite.extraInfo = item._item.extraInfo;
-                    break;
-                default:
-                    break;
+            if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(sprite.type)){
+                sprite.extraInfo.dropType.name = sprite.extraInfo.dropType.type;
+                sprite.extraInfo.dropType.x = sprite.x;
+                sprite.extraInfo.dropType.y = sprite.y;
             }
             // if(useQuadTree){
             //     if(Constant.ENEMY_DICT.hasOwnProperty(sprite.type) && !my.isPutEnemyToQuadTree ){
@@ -614,12 +612,10 @@ Phaser.QuadTree.prototype.export = function(){
         sprite.y = this.objects[i].y;
         if(isNotNull(item._item.extraInfo)){
             sprite.extraInfo = item._item.extraInfo;
-            switch(item.type){
-                case "FireCandle":
-                    sprite.extraInfo.dropType.name = sprite.extraInfo.dropType.type;
-                    sprite.extraInfo.dropType.x = sprite.x;
-                    sprite.extraInfo.dropType.y = sprite.y;
-                    break;
+            if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(sprite.type)){
+                sprite.extraInfo.dropType.name = sprite.extraInfo.dropType.type;
+                sprite.extraInfo.dropType.x = sprite.x;
+                sprite.extraInfo.dropType.y = sprite.y;
             }
         }
 

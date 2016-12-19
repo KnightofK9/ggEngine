@@ -39,7 +39,14 @@ var Constant = new function () {
             height: 50
         }
     };
+    this.BREAKABLE_DROP_DICT = {
+        "FireCandle":null,
+        "BreakableTileBrick":null
+    };
     this.STATIC_TILE_DICT = {
+        "BreakableTileBrick": {
+            name: this.STATIC_TILE_PATH + "TileBrick.png"
+        },
         "TileBrick": {
             name: this.STATIC_TILE_PATH + "TileBrick.png"
         },
@@ -54,6 +61,9 @@ var Constant = new function () {
         },
         "TileLadderUpLeft": {
             name: this.STATIC_TILE_PATH + "TileLadderUpLeft.png"
+        },
+        "Door": {
+            name: this.STATIC_TILE_PATH + "door.png"
         }
 
     };

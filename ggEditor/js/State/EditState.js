@@ -947,9 +947,6 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             var walk = sprite.animations.add('walk');
             sprite.animations.play('walk', 24, true);
             sprite.anchor = {x: 0.5, y: 0.5};
-            if(type === "Simon"){
-                sprite.anchor = {x: 0.5, y: 0.7};
-            }
             // sprite.x -= info.frameWidth;
             // sprite.y -= info.frameHeight;
         } else {
@@ -964,31 +961,33 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
 
         if (isNotNull(extraInfo)) {
-            switch (type) {
-                case "FireCandle":
-                    if (isNull(extraInfo.dropType.type)) {
-                        var type = extraInfo.dropType;
-                        extraInfo.dropType = {};
-                        extraInfo.dropType.type = type;
-                    }
-                    break;
-                default:
-                    break;
+            if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(type)){
+                if (isNull(extraInfo.dropType.type)) {
+                    var type = extraInfo.dropType;
+                    extraInfo.dropType = {};
+                    extraInfo.dropType.type = type;
+                }
             }
 
             sprite.extraInfo = extraInfo;
         } else {
-            switch (type) {
-                case "FireCandle":
-                    sprite.extraInfo = {};
-                    sprite.extraInfo.dropType = {};
-                    sprite.extraInfo.dropType.type = "";
-                    break;
-                default:
-                    break;
+            if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(type))
+            {
+                sprite.extraInfo = {};
+                sprite.extraInfo.dropType = {};
+                sprite.extraInfo.dropType.type = "";
             }
         }
-
+        switch (type) {
+            case "Simon":
+                sprite.anchor = {x: 0.5, y: 0.7};
+                break;
+            case "Door":
+                sprite.anchor =  {x:0.25,y:0};
+                break;
+            default:
+                break;
+        }
         hierarchyEditor.add.sprite(sprite, hGroup);
 
 

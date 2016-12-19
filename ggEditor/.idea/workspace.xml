@@ -23,11 +23,23 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="StageBlock.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="EditState.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="510">
+                  <caret line="973" column="53" lean-forward="false" selection-start-line="973" selection-start-column="53" selection-end-line="973" selection-end-column="53" />
+                  <folding>
+                    <element signature="e#14451#14578#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="StageBlock.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/StageBlock.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="296">
-                  <caret line="153" column="27" lean-forward="false" selection-start-line="153" selection-start-column="27" selection-end-line="153" selection-end-column="27" />
+                  <caret line="152" column="9" lean-forward="false" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
                   <folding>
                     <element signature="e#3821#3974#0" expanded="false" />
                     <marker date="1482111328784" expanded="true" signature="2618:3018" ph="..." />
@@ -71,18 +83,6 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="EditState.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="177">
-                  <caret line="950" column="47" lean-forward="false" selection-start-line="950" selection-start-column="47" selection-end-line="950" selection-end-column="47" />
-                  <folding>
-                    <element signature="e#14451#14578#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
@@ -100,24 +100,21 @@
           <file leaf-file-name="Class.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/Class.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="8415">
-                  <caret line="523" column="24" lean-forward="false" selection-start-line="523" selection-start-column="24" selection-end-line="523" selection-end-column="24" />
+                <state relative-caret-position="462">
+                  <caret line="617" column="55" lean-forward="true" selection-start-line="617" selection-start-column="55" selection-end-line="617" selection-end-column="55" />
                   <folding>
-                    <element signature="e#11059#12065#0" expanded="false" />
                     <element signature="n#!!block;n#CVBlock#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ObjectInfo.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="ObjectInfo.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/ObjectInfo.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-                  <folding>
-                    <element signature="n#!!block;n#ObjectInfo#0" expanded="false" />
-                  </folding>
+                <state relative-caret-position="311">
+                  <caret line="45" column="78" lean-forward="false" selection-start-line="45" selection-start-column="78" selection-end-line="45" selection-end-column="78" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -135,8 +132,8 @@
           <file leaf-file-name="Constant.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/Constant.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="527">
-                  <caret line="114" column="7" lean-forward="false" selection-start-line="114" selection-start-column="7" selection-end-line="120" selection-end-column="12" />
+                <state relative-caret-position="306">
+                  <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
@@ -145,7 +142,7 @@
           <file leaf-file-name="HierarchyEditor.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/HierarchyEditor.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3927">
+                <state relative-caret-position="17">
                   <caret line="231" column="0" lean-forward="false" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
                   <folding />
                 </state>
@@ -166,6 +163,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>createSpriteAt</find>
+      <find>mouseSprite =</find>
+      <find>exportAs</find>
+      <find>createInputField(&quot;dropType&quot;,hObject._item.extraInfo.dropType.type,true);</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -178,13 +178,13 @@
       <list>
         <option value="$PROJECT_DIR$/js/ObjectList.js" />
         <option value="$PROJECT_DIR$/js/HierarchyInfo.js" />
-        <option value="$PROJECT_DIR$/js/ObjectInfo.js" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/js/Class.js" />
-        <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/js/StageBlock.js" />
+        <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/js/State/EditState.js" />
+        <option value="$PROJECT_DIR$/js/Class.js" />
+        <option value="$PROJECT_DIR$/js/ObjectInfo.js" />
       </list>
     </option>
   </component>
@@ -487,12 +487,12 @@
       <workItem from="1482049215403" duration="1834000" />
       <workItem from="1482060623360" duration="2254000" />
       <workItem from="1482111623049" duration="5000" />
-      <workItem from="1482160977564" duration="629000" />
+      <workItem from="1482160977564" duration="2728000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38028000" />
+    <option name="totallyTimeSpent" value="40127000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
@@ -555,14 +555,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="74" column="18" lean-forward="false" selection-start-line="74" selection-start-column="18" selection-end-line="74" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/Constant.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -642,7 +634,6 @@
         <state relative-caret-position="0">
           <caret line="523" column="24" lean-forward="false" selection-start-line="523" selection-start-column="24" selection-end-line="523" selection-end-column="24" />
           <folding>
-            <element signature="e#11059#12065#0" expanded="false" />
             <element signature="n#!!block;n#CVBlock#0" expanded="false" />
           </folding>
         </state>
@@ -652,9 +643,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-          <folding>
-            <element signature="n#!!block;n#ObjectInfo#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -745,7 +734,6 @@
         <state relative-caret-position="0">
           <caret line="396" column="9" lean-forward="false" selection-start-line="396" selection-start-column="9" selection-end-line="396" selection-end-column="9" />
           <folding>
-            <element signature="e#11059#12065#0" expanded="false" />
             <element signature="n#!!block;n#CVBlock#0" expanded="false" />
           </folding>
         </state>
@@ -755,9 +743,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-          <folding>
-            <element signature="n#!!block;n#ObjectInfo#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -816,7 +802,6 @@
         <state relative-caret-position="0">
           <caret line="598" column="30" lean-forward="false" selection-start-line="598" selection-start-column="30" selection-end-line="598" selection-end-column="30" />
           <folding>
-            <element signature="e#11059#12065#0" expanded="false" />
             <element signature="n#!!block;n#CVBlock#0" expanded="false" />
           </folding>
         </state>
@@ -826,9 +811,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#ObjectInfo#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -891,7 +874,6 @@
         <state relative-caret-position="0">
           <caret line="603" column="46" lean-forward="false" selection-start-line="603" selection-start-column="46" selection-end-line="603" selection-end-column="46" />
           <folding>
-            <element signature="e#11059#12065#0" expanded="false" />
             <element signature="n#!!block;n#CVBlock#0" expanded="false" />
           </folding>
         </state>
@@ -902,16 +884,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/ObjectInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-          <folding>
-            <element signature="n#!!block;n#ObjectInfo#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -974,29 +946,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Class.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8415">
-          <caret line="523" column="24" lean-forward="false" selection-start-line="523" selection-start-column="24" selection-end-line="523" selection-end-column="24" />
-          <folding>
-            <element signature="e#11059#12065#0" expanded="false" />
-            <element signature="n#!!block;n#CVBlock#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/HierarchyEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3927">
-          <caret line="231" column="0" lean-forward="false" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/StageBlock.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
-          <caret line="153" column="27" lean-forward="false" selection-start-line="153" selection-start-column="27" selection-end-line="153" selection-end-column="27" />
+          <caret line="152" column="9" lean-forward="false" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
           <folding>
             <element signature="e#3821#3974#0" expanded="false" />
             <marker date="1482111328784" expanded="true" signature="2618:3018" ph="..." />
@@ -1005,21 +958,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/HierarchyEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="231" column="0" lean-forward="false" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/Constant.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="114" column="7" lean-forward="false" selection-start-line="114" selection-start-column="7" selection-end-line="120" selection-end-column="12" />
+        <state relative-caret-position="306">
+          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Class.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="617" column="55" lean-forward="true" selection-start-line="617" selection-start-column="55" selection-end-line="617" selection-end-column="55" />
+          <folding>
+            <element signature="n#!!block;n#CVBlock#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="950" column="47" lean-forward="false" selection-start-line="950" selection-start-column="47" selection-end-line="950" selection-end-column="47" />
+        <state relative-caret-position="510">
+          <caret line="973" column="53" lean-forward="false" selection-start-line="973" selection-start-column="53" selection-end-line="973" selection-end-column="53" />
           <folding>
             <element signature="e#14451#14578#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/ObjectInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="45" column="78" lean-forward="false" selection-start-line="45" selection-start-column="78" selection-end-line="45" selection-end-column="78" />
+          <folding />
         </state>
       </provider>
     </entry>
