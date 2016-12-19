@@ -137,6 +137,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 
 		switch (type) {
 		case ObjectType_LadderDownLeft:
+			if (this->isClimbingLadder && this->isClimbingUp) break;
 		case ObjectType_LadderDownRight:
 		case ObjectType_LadderUpLeft:
 		case ObjectType_LadderUpRight:
@@ -201,7 +202,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 					break;
 			}
 
-			//return;
+			return;
 		}
 		else {
 			if (this->isSteppingOnLadder) {
