@@ -947,6 +947,9 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             var walk = sprite.animations.add('walk');
             sprite.animations.play('walk', 24, true);
             sprite.anchor = {x: 0.5, y: 0.5};
+            if(type === "Simon"){
+                sprite.anchor = {x: 0.5, y: 0.7};
+            }
             // sprite.x -= info.frameWidth;
             // sprite.y -= info.frameHeight;
         } else {
