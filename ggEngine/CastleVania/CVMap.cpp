@@ -225,6 +225,7 @@ void CVMap::OnOutOfBlock()
 				break;
 			}
 		}
+		if (nextBlock != -1) break;
 	}
 	if (nextBlock == -1) {
 		OnFallOutOfMap();
@@ -286,6 +287,7 @@ void CVMap::SetSimonPositionOnChangeBlock()
 	}
 
 	if (this->simon->isClimbingUp) {
+		//ERROR
 		this->simon->position.y -= 16;
 	}
 	else {

@@ -89,7 +89,7 @@ namespace ggEngine {
 			int height = rect->p3.y-rect->p1.y;
 			Vector p1 = rect->p1;
 			Vector p3 = rect->p3;
-			Vector translated = this->camera->GetPoint() - Vector(this->camera->GetWidth()/2,this->camera->GetHeight()/2);
+			Vector translated = this->camera->GetPoint() - Vector(this->camera->GetWidth(),this->camera->GetHeight());
 			p1 -= translated;
 			p3 -= translated;
 			DrawLine(p1, Vector(p1.x+ width,p1.y));

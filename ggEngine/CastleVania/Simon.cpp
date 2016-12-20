@@ -137,7 +137,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 
 		switch (type) {
 		case ObjectType_LadderDownLeft:
-			if (this->isClimbingLadder && this->isClimbingUp) break;
+			//if (this->isClimbingLadder && this->isClimbingUp) break;
 		case ObjectType_LadderDownRight:
 		case ObjectType_LadderUpLeft:
 		case ObjectType_LadderUpRight:
@@ -731,6 +731,7 @@ void Simon::OnLadderCompleted()
 
 void Simon::MoveLadderUp(bool isLeft,double force)
 {
+	this->isClimbingUp = true;
 	if (this->currentLadderTween == nullptr) {
 		Vector distance;
 		if (isLeft) {
@@ -760,6 +761,7 @@ void Simon::MoveLadderUp(bool isLeft,double force)
 
 void Simon::MoveLadderDown(bool isLeft, double force)
 {
+	this->isClimbingUp = false;
 	if (this->currentLadderTween == nullptr) {
 		Vector distance;
 		if (isLeft) {
