@@ -22,6 +22,8 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		Tag tag = otherObject->tag;
 		switch (tag)
 		{
+
+		case ObjectType_BreakableTileBrick:
 		case ObjectType_Candle:
 			//g_debug.Log("Whip collider with candle!");
 			{

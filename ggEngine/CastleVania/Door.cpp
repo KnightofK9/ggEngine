@@ -15,3 +15,25 @@ Door::Door(CVGame * cvGame, SpriteInfo * image) : CVSpriteAnimation(cvGame, imag
 Door::~Door()
 {
 }
+
+void Door::OpenDoor(bool isLeft)
+{
+	SetFacingDirection(isLeft);
+	this->PlayAnimation("OpenDoor");
+}
+
+void Door::CloseDoor()
+{
+	SetFacingDirection(isLeft);
+	this->PlayAnimation("CloseDoor");
+}
+
+void Door::ResetDoor()
+{
+	this->PlayAnimation("default");
+}
+
+void Door::SetFacingDirection(bool isLeft)
+{
+	this->isLeft = isLeft;
+}

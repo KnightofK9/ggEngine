@@ -28,6 +28,10 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	type = json["type"].GetString();
 	x = json["x"].GetDouble();
 	y = json["y"].GetDouble();
+	if (type == "BreakableTileBrick") {
+		go = this->itemManager->AddBreakableTileBrick(x, y, group);
+		return go;
+	}
 	if (type == "Random") {
 		go = this->itemManager->AddHeart(x, y, group);
 		return go;

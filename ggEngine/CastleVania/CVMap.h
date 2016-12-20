@@ -9,6 +9,7 @@ class SimonGroup;
 class CVStage;
 class CVCamera;
 class CVBlock;
+class Door;
 class CVMap : public Group {
 public:
 	CVMap(CVGame *cvGame);
@@ -25,13 +26,15 @@ public:
 	Simon* simon;
 	void SetStage(int stageNumber, int blockNumber = 0, bool isRestartState = false);
 	void SetBlock(int blockNumber, bool isRestartState = false);
-	void OnOutOfBlock();
+	void OnOutOfBlock(Rect r = Rect(-1,-1,-1,-1));
 	void OnNextLevel(int levelIndex);
 	void OnNextBlock(int blockIndex);
 	void OnNextStage(int stageIndex, int blockIndex = 0);
 	void OnFallOutOfMap();
+	void OnEnterDoor(Door *door);
 private:
 	void CheckIfSimonOutOfBlock();
+	void StartSwitchingState();
 	int levelNumber;
 	CVStage* currentStage = nullptr;
 	void SetSimonPositionOnChangeBlock();
@@ -41,5 +44,7 @@ private:
 	CVAdd* cvAdd;
 	CVGame* cvGame;
 	CVCamera* camera;
+	bool isSwitchingStage = false;
 	std::vector<CVStage*> stageList;
+	Door* door = nullptr;
 };

@@ -28,7 +28,7 @@ namespace ggEngine {
 		void FollowX(GameObject *go);
 		void UnFollow();
 		RECT GetRect();
-		Rect GetNormalRect();
+		virtual Rect GetNormalRect();
 		void SetWidth(double width);
 		void SetHeight(double height);
 		double GetWidth() { return this->width; }
@@ -37,6 +37,7 @@ namespace ggEngine {
 		void SetOrgHeight(double height);
 		void SetMask(Rect rect);
 		Rect GetMask();
+		Vector point;
 	protected:
 		GameObject *follow = nullptr;
 		CameraFollowType followType = CameraFollowType::None;
@@ -44,7 +45,6 @@ namespace ggEngine {
 		void SetUpKeyControl();
 		bool enableManualMove;
 		double rotate;
-		Vector point;
 		Vector scale;
 		Rect mask;
 		Matrix translatedMatrix;
