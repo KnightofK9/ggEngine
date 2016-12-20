@@ -12,10 +12,23 @@ StaticTileManager::~StaticTileManager()
 void StaticTileManager::PreloadAll()
 {
 	this->preload->Texture(TextureConstant::TILE_BRICK_TEXTURE, TextureConstant::TILE_BRICK_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::DOOR_TEXTURE, TextureConstant::DOOR_TEXTURE_PATH);
 	//this->preload->Texture(TextureConstant::TILE_LADDER_DOWN_LEFT, TextureConstant::TILE_LADDER_DOWN_LEFT_PATH);
 	//this->preload->Texture(TextureConstant::TILE_LADDER_DOWN_RIGHT, TextureConstant::TILE_LADDER_DOWN_RIGHT_PATH);
 	//this->preload->Texture(TextureConstant::TILE_LADDER_UP_LEFT, TextureConstant::TILE_LADDER_UP_LEFT_PATH);
 	//this->preload->Texture(TextureConstant::TILE_LADDER_UP_RIGHT, TextureConstant::TILE_LADDER_UP_RIGHT_PATH);
+}
+
+Door * StaticTileManager::AddDoor(double x, double y, Group * group)
+{
+	SpriteInfo* spriteInfo = this->cache->GetSpriteInfo(TextureConstant::DOOR_TEXTURE);
+	Door* go = new Door(this->cvGame, spriteInfo);
+	go->SetPosition(x, y);
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+
+	return go;
 }
 
 TileBrick * StaticTileManager::AddTileBrick(double x, double y,double width, double height, Group * group)

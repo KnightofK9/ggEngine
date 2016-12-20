@@ -28,6 +28,14 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	type = json["type"].GetString();
 	x = json["x"].GetDouble();
 	y = json["y"].GetDouble();
+	if (type == "Random") {
+		go = this->itemManager->AddHeart(x, y, group);
+		return go;
+	}
+	if (type == "Door") {
+		go = this->staticTileManager->AddDoor(x, y, group);
+		return go;
+	}
 
 	if (type == "TileBrick") {
 		width = json["width"].GetDouble();

@@ -34,6 +34,7 @@ namespace ggEngine {
 		virtual void SetHeight(double height){ this->height = height; }
 		virtual double GetWidth(){ return this->width; }
 		virtual double GetHeight(){ return this->height; }
+		void SetAnchor(Vector anchor) { this->anchor = anchor; }
 		void SetAnchor(double x, double y) { this->anchor.x = x; this->anchor.y = y; }
 		virtual void UpdateWorldPosition();
 		Vector GetAnchor() { return this->anchor; }

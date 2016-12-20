@@ -17,8 +17,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->infoPanel = infoPanel;
 	this->goScreen = goScreen;
 	this->SetPosition(0, 0);
-	Vector anchor(0.5, 20 / 25.0);
-	this->SetAnchor(anchor.x, anchor.y);
+	Vector anchor();
+	this->SetAnchor(originalAnchor.x,originalAnchor.y);
 	this->SetScale(1, 1);
 	this->SetHealth(health);
 	this->CreateAnimation("idle", 0, 0, true);
@@ -70,7 +70,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->body->SetPhysicsMode(PhysicsMode_AABBSweptMix);
 	this->body->CreateRectangleRigidBody(14, 25);
 	this->body->syncBounds = false;
-	this->body->rigidBody->SetAnchor(anchor.x, anchor.y - 0.1);
+	this->body->rigidBody->SetAnchor(originalAnchor.x, originalAnchor.y - 0.1);
 	this->body->allowGravity = true;
 	this->body->allowWorldBounciness = false;
 	this->body->allowWorldBlock = true;
@@ -687,6 +687,15 @@ void Simon::StartClimbingLadder(bool isLeft, bool isUp)
 {
 	SetStateGoToLadder(true);
 	if (this->currentMoveToLadderTween == nullptr) {
+		if (this->enableChangeLadderAnchor) {
+			if (isLeft) {
+				this->SetAnchor(this->leftLadderAnchor);
+			}
+			else {
+				this->SetAnchor(this->rightLadderAnchor);
+			}
+		}
+	
 		this->currentMoveToLadderTween = this->cvGame->add->MoveTo(
 			this, 
 			this->tileLadder->position+Vector(8,8),
@@ -711,6 +720,14 @@ void Simon::StartClimbingLadderAuto(bool isLeft, bool isUp)
 	SetStateGoToLadder(true);
 	if (this->currentAutoLadderTweenAuto == nullptr) {
 		this->PlayAnimation("climbDown");
+		if (this->enableChangeLadderAnchor) {
+			if (isLeft) {
+				this->SetAnchor(this->leftLadderAnchor);
+			}
+			else {
+				this->SetAnchor(this->rightLadderAnchor);
+			}
+		}
 		this->currentAutoLadderTweenAuto = this->cvGame->add->MoveTo(
 			this,
 			this->tileLadder->position + Vector(8, 8),
@@ -748,6 +765,7 @@ void Simon::OnLadderCompleted()
 	//g_debug.Log("On ladder completed!");
 	this->isClimbingLadder = false;
 	this->ladderState = SimonLadder_None;
+	this->SetAnchor(originalAnchor.x, originalAnchor.y);
 	firstLadder = nullptr;
 	tileLadder = nullptr;
 	this->body->allowGravity = true;
@@ -766,6 +784,14 @@ void Simon::MoveLadderUp(bool isLeft,double force)
 			distance = Vector(force, -force);
 		}
 		ChangeFacingDirection(isLeft);
+		if (this->enableChangeLadderAnchor) {
+			if (isLeft) {
+				this->SetAnchor(this->leftLadderAnchor);
+			}
+			else {
+				this->SetAnchor(this->rightLadderAnchor);
+			}
+		}
 		this->PlayAnimation("climbUp");
 		bool isSteppingOnLadder2 = false;
 		if (this->tileLadder != nullptr) {
@@ -796,6 +822,14 @@ void Simon::MoveLadderDown(bool isLeft, double force)
 			distance = Vector(force, force);
 		}
 		ChangeFacingDirection(isLeft);
+		if (this->enableChangeLadderAnchor) {
+			if (isLeft) {
+				this->SetAnchor(this->leftLadderAnchor);
+			}
+			else {
+				this->SetAnchor(this->rightLadderAnchor);
+			}
+		}
 		this->PlayAnimation("climbDown");
 		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 3)->SetOnFinish([this]() {
 			this->currentLadderTween = nullptr;

@@ -159,6 +159,7 @@
     <ClInclude Include="CVBlock.h" />
     <ClInclude Include="CVCamera.h" />
     <ClInclude Include="CVStage.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AxeItem.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="CVBlock.cpp" />
     <ClCompile Include="CVCamera.cpp" />
     <ClCompile Include="CVStage.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AxeItem.cpp" />

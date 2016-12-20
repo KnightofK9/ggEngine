@@ -140,8 +140,11 @@ public:
 	static constexpr const char* TILE_SET_LEVEL_3_JSON_PATH = "Resource/Resources/TileSet/level-3.json";
 
 
-	static constexpr const char* TILE_BRICK_TEXTURE = "TileBrickTexture";
-	static constexpr const char* TILE_BRICK_TEXTURE_PATH = "Resource/Resources/TileObject/TileBrick.png";
+	static constexpr const char* TILE_BRICK_TEXTURE = "DoorTexture";
+	static constexpr const char* TILE_BRICK_TEXTURE_PATH = "Resource/Resources/door.png";
+
+	static constexpr const char* DOOR_TEXTURE = "TileBrickTexture";
+	static constexpr const char* DOOR_TEXTURE_PATH = "Resource/Resources/TileObject/TileBrick.png";
 
 	static constexpr const char* TILE_LADDER_DOWN_LEFT = "NoneTexture";
 	static constexpr const char* TILE_LADDER_DOWN_LEFT_PATH = "Resource/Resources/TileObject/TileLadderDownLeft.png";

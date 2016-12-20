@@ -90,6 +90,10 @@ public:
 	bool isClimbingUp = false;
 	TweenBase* currentLadderTween = nullptr;
 private:
+	const bool enableChangeLadderAnchor = false;
+	const Vector originalAnchor = Vector(0.5, 20 / 25.0);
+	const Vector leftLadderAnchor = Vector(0.8, 20 / 25.0);
+	const Vector rightLadderAnchor = Vector(0.4, 20 / 25.0);
 	void StartClimbingLadder(bool isLeft, bool isUp);
 	void StartClimbingLadderAuto(bool isLeft, bool isUp);
 	void SetStateGoToLadder(bool active);
