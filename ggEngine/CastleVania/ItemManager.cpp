@@ -77,6 +77,19 @@ AxeItem * ItemManager::AddAxe(double x, double y, ggEngine::Group * group)
 	return axe;
 }
 
+BreakableTileBrick * ItemManager::AddBreakableTileBrick(double x, double y, ggEngine::Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::TILE_BRICK_TEXTURE);
+	BreakableTileBrick *go = new BreakableTileBrick(this->cvGame, inf);
+	go->SetPosition(x, y);
+	go->Active();
+	if (group != nullptr) {
+		go->SetParentObject(group);
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
+
 MoneyBag100 * ItemManager::AddMoneyBag100(double x, double y, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::MONEY_BAG_100_TEXTURE);

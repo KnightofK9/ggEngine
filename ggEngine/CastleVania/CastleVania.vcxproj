@@ -156,6 +156,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BreakableTileBrick.h" />
     <ClInclude Include="CVBlock.h" />
     <ClInclude Include="CVCamera.h" />
     <ClInclude Include="CVStage.h" />
@@ -231,6 +232,7 @@
     <ResourceCompile Include="CastleVania.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BreakableTileBrick.cpp" />
     <ClCompile Include="CVBlock.cpp" />
     <ClCompile Include="CVCamera.cpp" />
     <ClCompile Include="CVStage.cpp" />
