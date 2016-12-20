@@ -78,6 +78,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		case ObjectType_BreakableTileBrick:
+			return true;
 		case ObjectType_LadderDownLeft:
 			//this->ladderState = LadderDownLeft;
 			return false;
