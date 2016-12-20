@@ -412,19 +412,23 @@ namespace ggEngine {
 		std::list<GameObject*> possibleCollidedBoxList;
 		Rect broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
 		for (auto it = staticGoList.begin(); it != staticGoList.end(); ++it) {
-			(*it)->body->PreUpdate();
-			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
-			Rect result;
-			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
-				possibleCollidedBoxList.push_back(b2.gameObject);
+			if ((*it)->IsAlive() && (*it)->body->IsEnable() && (*it)->body->IsActive()) {
+				(*it)->body->PreUpdate();
+				Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+				Rect result;
+				if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
+					possibleCollidedBoxList.push_back(b2.gameObject);
+				}
 			}
 		}
 		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
-			(*it)->body->PreUpdate();
-			Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
-			Rect result;
-			if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
-				possibleCollidedBoxList.push_back(b2.gameObject);
+			if ((*it)->IsAlive() && (*it)->body->IsEnable() && (*it)->body->IsActive()) {
+				(*it)->body->PreUpdate();
+				Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+				Rect result;
+				if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
+					possibleCollidedBoxList.push_back(b2.gameObject);
+				}
 			}
 		}
 		return possibleCollidedBoxList;

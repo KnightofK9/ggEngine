@@ -341,7 +341,7 @@ void CVMap::StartSwitchingState()
 		this->camera->SetBlock(this->currentBlock);
 	})->Start();
 
-
+	Vector moveFrom = this->simon->position;
 	this->add->Tween(this->simon->position.x, moveToPosition.x, 2000)->SetOnFinish([this]() {
 		this->simon->PlayAnimation("idle");
 	})->Start();
