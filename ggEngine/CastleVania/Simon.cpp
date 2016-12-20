@@ -54,11 +54,13 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	////Climb Down Attack
 	this->CreateAnimation("climbDownAttack", { 18,19,20,20 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
+		this->PlayAnimation("climbDownIdle");
 	});
 
 	////Climb Up Attack
 	this->CreateAnimation("climbUpAttack", { 21,22,23,23 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
+		this->PlayAnimation("climbUpIdle");
 	});
 
 
@@ -176,6 +178,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			this->body->allowGravity = false;
 			bool isPressUp = e.isPress(controlKey[SimonControl_Up]);
 			bool isPressDown = e.isPress(controlKey[SimonControl_Down]);
+			bool isPressAttack = e.isPress(controlKey[SimonControl_A]);
+			bool isPressBAttack = e.isPress(controlKey[SimonControl_B]);
 			if (tileLadder != nullptr  ) {
 				switch (tileLadder->tag) {
 				case ObjectType_LadderDownLeft:
@@ -185,24 +189,45 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 				}
 				if(this->ladderState == SimonLadder_None) return;
 			}
-
+			bool isMoving = false;
 			switch (this->ladderState)
 			{
 				case SimonLadder_DownLeft:
 				case SimonLadder_UpRight:
-					if (isPressUp) MoveLadderUp(false);
-					else if (isPressDown) MoveLadderDown(true);
+					if (isPressUp) {
+						MoveLadderUp(false);
+						isMoving = true;
+					}
+					else if (isPressDown) {
+						MoveLadderDown(true);
+						isMoving = true;
+					}
 					break;
 				case SimonLadder_DownRight:
 				case SimonLadder_UpLeft:
-					if (isPressUp) MoveLadderUp(true);
-					else if (isPressDown) MoveLadderDown(false);
+					if (isPressUp) {
+						MoveLadderUp(true);
+						isMoving = true;
+					}
+					else if (isPressDown) {
+						MoveLadderDown(false);
+						isMoving = true;
+					}
 					break;
 				default:
 					break;
 			}
-
-			//return;
+			if (!isMoving) {
+				if (isPressAttack) {
+					this->ClimbAttack();
+					return;
+				}
+				if (isPressBAttack) {
+					this->Attack();
+					return;
+				}
+			}
+			return;
 		}
 		else {
 			if (this->isSteppingOnLadder) {
