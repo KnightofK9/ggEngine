@@ -202,7 +202,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 					break;
 			}
 
-			return;
+			//return;
 		}
 		else {
 			if (this->isSteppingOnLadder) {
