@@ -255,6 +255,9 @@
     <ClInclude Include="Door.h">
       <Filter>Header Files\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="BreakableTileBrick.h">
+      <Filter>Header Files\Object\Breakable Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -452,6 +455,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Door.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BreakableTileBrick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -45,6 +45,6 @@ void Candle::DropItem()
 {
 	if (this->itemJson == "") return;
 	auto go = this->cvGame->GetObjectInstance(this->itemJson.c_str(),this->cvGame->simon->GetGroupToCheckCollision());
-	auto itemBase = dynamic_cast<ItemBase*>(go);
+	//auto itemBase = dynamic_cast<ItemBase*>(go);
 	//itemBase->CheckCollisionToSimon(this->cvGame->simon);
 }

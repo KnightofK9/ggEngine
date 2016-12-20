@@ -21,6 +21,7 @@
 #include "TripleShot.h"
 #include "Candle.h"
 #include "ManagerBase.h"
+#include "BreakableTileBrick.h"
 
 using namespace ggEngine;
 class ggEngine::Group;
@@ -35,6 +36,7 @@ public:
 	Candle* AddFireCandle(double x, double y, ggEngine::Group* group);
 	Heart* AddHeart(double x, double y, ggEngine::Group* group);
 	AxeItem* AddAxe(double x, double y, ggEngine::Group* group);
+	BreakableTileBrick* AddBreakableTileBrick(double x, double y, ggEngine::Group* group);
 	MoneyBag100* AddMoneyBag100(double x, double y, ggEngine::Group * group);
 	MoneyBag400* AddMoneyBag400(double x, double y, ggEngine::Group * group);
 	MoneyBag700* AddMoneyBag700(double x, double y, ggEngine::Group * group);
