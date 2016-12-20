@@ -18,10 +18,12 @@ void StaticTileManager::PreloadAll()
 	//this->preload->Texture(TextureConstant::TILE_LADDER_UP_RIGHT, TextureConstant::TILE_LADDER_UP_RIGHT_PATH);
 }
 
-TileBrick * StaticTileManager::AddTileBrick(double x, double y, Group * group)
+TileBrick * StaticTileManager::AddTileBrick(double x, double y,double width, double height, Group * group)
 {
 	SpriteInfo* spriteInfo = this->cache->GetSpriteInfo(TextureConstant::TILE_BRICK_TEXTURE);
 	TileBrick* go = new TileBrick(this->cvGame, spriteInfo);
+	go->body->SetWidth(width);
+	go->body->SetHeight(height);
 	go->SetPosition(x, y);
 	if (group != nullptr) {
 		group->AddDrawObjectToList(go);

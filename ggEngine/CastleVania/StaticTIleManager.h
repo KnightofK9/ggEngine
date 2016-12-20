@@ -11,7 +11,7 @@ public:
 	StaticTileManager(CVGame *cvGame);
 	virtual ~StaticTileManager();
 	void PreloadAll();
-	TileBrick* AddTileBrick(double x, double y, Group *group = nullptr);
+	TileBrick* AddTileBrick(double x, double y,double width, double height, Group *group = nullptr);
 	TileLadder* AddTileLadder(double x, double y, ObjectType ladderType, Group *group = nullptr);
 private:
 };

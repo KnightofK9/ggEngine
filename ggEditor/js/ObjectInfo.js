@@ -110,9 +110,16 @@ function ObjectInfo(){
         if(isNotNull(hObject._item.y)){
             createInputField("y",hObject._item.y);
         }
+
+        if(isNotNull(hObject._item.width)){
+            createInputField("width",hObject._item.width);
+        }
+        if(isNotNull(hObject._item.height)){
+            createInputField("height",hObject._item.height);
+        }
         if(isNotNull(hObject._item.extraInfo)){
             if(isNotNull(hObject._item.extraInfo.dropType))
-            createInputField("dropType",hObject._item.extraInfo.dropType.type,true);
+                createInputField("dropType",hObject._item.extraInfo.dropType.type,true);
         }
         that.setShow(true);
     };

@@ -28,11 +28,11 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	type = json["type"].GetString();
 	x = json["x"].GetDouble();
 	y = json["y"].GetDouble();
-	//width = json["width"].GetDouble();
-	//height = json["height"].GetDouble();
 
 	if (type == "TileBrick") {
-		go = this->staticTileManager->AddTileBrick(x, y, group);
+		width = json["width"].GetDouble();
+		height = json["height"].GetDouble();
+		go = this->staticTileManager->AddTileBrick(x, y,width,height, group);
 		return go;
 	}
 	if (type == "TileLadderDownLeft") {

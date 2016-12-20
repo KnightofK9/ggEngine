@@ -610,6 +610,12 @@ Phaser.QuadTree.prototype.export = function(){
         // sprite.y = item.y + sprite.height;
         sprite.x = this.objects[i].x;
         sprite.y = this.objects[i].y;
+        switch(sprite.type){
+            case "TileBrick":
+                sprite.width = this.objects[i].width;
+                sprite.height = this.objects[i].height;
+                break;
+        }
         if(isNotNull(item._item.extraInfo)){
             sprite.extraInfo = item._item.extraInfo;
             if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(sprite.type)){
