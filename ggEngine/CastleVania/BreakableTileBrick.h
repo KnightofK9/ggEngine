@@ -16,6 +16,7 @@ public:
 	void OnSubWeaponContact(WeaponBase *weapon, ColliderArg e) override;
 	void SetDropItem(std::string itemJson);
 	void Active() override;
+	void Draw() override;
 private:
 	void DropItem();
 	std::string itemJson = "";

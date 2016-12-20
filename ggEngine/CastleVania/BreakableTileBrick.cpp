@@ -34,6 +34,11 @@ void BreakableTileBrick::Active()
 	BreakableObjectBase::Active();
 }
 
+void BreakableTileBrick::Draw()
+{
+	BreakableObjectBase::Draw();
+}
+
 void BreakableTileBrick::DropItem()
 {
 	if (this->itemJson == "") return;

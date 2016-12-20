@@ -8,7 +8,7 @@ BreakableObjectBase::BreakableObjectBase(CVGame *cvGame, SpriteInfo *image, int 
 	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->cvGame->physics->EnablePhysics(this);
-	this->body->CreateRectangleRigidBody(16, 16);
+	this->body->CreateRectangleRigidBody(GetWidth(), GetHeight());
 	this->body->allowGravity = false;
 
 	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
