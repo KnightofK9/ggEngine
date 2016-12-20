@@ -5,6 +5,8 @@
 #include "ItemManager.h"
 #include "WeaponManager.h"
 #include "TileLadder.h"
+#include "CVMap.h"
+#include "StaticTIleManager.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
 	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -110,6 +112,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		/*case ObjectType_Door:
+			currentMap->OnEnterDoor(dynamic_cast<Door*>(otherObject));
+			break;*/
 		case ObjectType_LevelTwoBrick:
 			if (e.blockDirection.down) {
 				//this->ladderState = LadderNone;
@@ -138,8 +143,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
-
+		if (!otherObject->body->IsActive()) return;
 		switch (type) {
+			case ObjectType_Door:
+				currentMap->OnEnterDoor(dynamic_cast<Door*>(otherObject));
+				break;
 		case ObjectType_LadderDownLeft:
 			if (this->isClimbingLadder && this->isClimbingUp) break;
 		case ObjectType_LadderDownRight:

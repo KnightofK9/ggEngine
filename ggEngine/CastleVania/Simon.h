@@ -10,6 +10,7 @@ class ItemBase;
 class WeaponManager;
 class TileLadder;
 class WeaponWhip;
+class CVMap;
 
 enum SimonControl {
 	SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
@@ -89,6 +90,7 @@ public:
 	bool allowControl = true;
 	bool isClimbingUp = false;
 	TweenBase* currentLadderTween = nullptr;
+	CVMap* currentMap = nullptr;
 private:
 	const bool enableChangeLadderAnchor = false;
 	const Vector originalAnchor = Vector(0.5, 20 / 25.0);
@@ -120,7 +122,6 @@ private:
 	int numberWeaponCanFire;
 	bool isReadyToFireWeapon;
 	bool isAlive;
-
 
 	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
 	SimonLadderType ladderState = SimonLadder_None;

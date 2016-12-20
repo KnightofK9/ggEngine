@@ -16,17 +16,24 @@ Door::~Door()
 {
 }
 
-void Door::OpenDoor()
+void Door::OpenDoor(bool isLeft)
 {
+	SetFacingDirection(isLeft);
 	this->PlayAnimation("OpenDoor");
 }
 
 void Door::CloseDoor()
 {
+	SetFacingDirection(isLeft);
 	this->PlayAnimation("CloseDoor");
 }
 
 void Door::ResetDoor()
 {
 	this->PlayAnimation("default");
+}
+
+void Door::SetFacingDirection(bool isLeft)
+{
+	this->isLeft = isLeft;
 }

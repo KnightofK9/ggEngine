@@ -7,7 +7,9 @@
 #include "SimonGroup.h"
 #include "CVStage.h"
 #include "CVBlock.h"
+#include "Constant.h"
 #include "CVCamera.h"
+#include "StaticTIleManager.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
@@ -143,7 +145,7 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->simon->goScreen = goScreen;
 	this->simon->SetParentObject(this->simonGroup);
 	this->simonGroup->AddDrawObjectToList(this->simon);
-
+	this->simon->currentMap = this;
 
 	if (simon->weaponWhip != nullptr) {
 		simon->weaponWhip->SetParentObject(this->simonGroup);
@@ -173,6 +175,10 @@ void CVMap::SetBlock(int blockNumber,bool isRestartState)
 		this->simon->position = this->currentBlock->simonSpawnPosition;
 	}
 	else {
+		if (blockNumber == 0 && door != nullptr) {
+			StartSwitchingState();
+			return;
+		}
 		if (this->simon->currentLadderTween != nullptr) {
 			this->simon->currentLadderTween->CallFinish()->Stop();
 			this->simon->currentLadderTween = nullptr;
@@ -211,10 +217,10 @@ void CVMap::SetBlock(int blockNumber,bool isRestartState)
 
 }
 
-void CVMap::OnOutOfBlock()
+void CVMap::OnOutOfBlock(Rect r)
 {
 	int nextBlock = -1;
-	Rect r = this->simon->body->GetRect();
+	if(r.top == -1) r = this->simon->body->GetRect();
 	int nextStage = this->currentStage->stageIndex;
 	for (auto stage : this->stageList) {
 		for (auto block : stage->blockList) {
@@ -260,21 +266,85 @@ void CVMap::OnNextBlock(int blockIndex)
 void CVMap::OnNextStage(int stageIndex, int blockIndex)
 {
 	g_debug.Log("On Next Stage" + std::to_string(stageIndex) +" at block "+ std::to_string(blockIndex));
-	SetStage(stageIndex, blockIndex,true);
+	SetStage(stageIndex, blockIndex,false);
 }
 
 void CVMap::OnFallOutOfMap()
 {
 }
 
+void CVMap::OnEnterDoor(Door *door)
+{
+	Rect r = this->simon->body->GetRect();
+	Vector translate = (this->simon->worldPosition - door->worldPosition) * 2;
+	bool isLeft = this->simon->isLeft;
+	r.top -= translate.x;
+	r.left -= translate.x;
+	r.right -= translate.x;
+	r.bottom -= translate.x;
+	door->OpenDoor(isLeft);
+	this->door = door;
+	OnOutOfBlock(r);
+}
+
 void CVMap::CheckIfSimonOutOfBlock()
 {
+	if (isSwitchingStage) return;
+	if (!simon->isClimbingLadder) return;
 	Rect r = simon->body->GetRect();
 	Rect i;
 	if (!Rect::intersect(i, r, (*currentBlock))) {
 		OnOutOfBlock();
 	}
 
+}
+
+void CVMap::StartSwitchingState()
+{
+	this->isSwitchingStage = true;
+	this->door->body->SetActive(false);
+	Vector moveToPosition = this->currentBlock->simonSpawnPosition;
+	Vector point = moveToPosition;
+	Rect r(point.x - this->camera->GetWidth() / 2, point.y - this->camera->GetHeight() / 2,
+		point.x + this->camera->GetWidth() / 2, point.y + this->camera->GetHeight() / 2);
+	auto block = this->currentBlock;
+	double blockTop = block->top - floor(Constant::UI_INFO_PANEL_BACKGROUND_HEIGHT / this->scale.y);
+	if (r.left < block->left)
+		point.x += block->left - r.left;
+	if (r.right > block->right)
+		point.x -= r.right - block->right;
+	if (r.top < blockTop)
+		point.y += blockTop - r.top;
+	if (r.bottom > block->bottom)
+		point.y -= r.bottom - block->bottom;
+
+	this->simon->ResetState();
+	this->simon->PlayAnimation("move");
+	this->simon->body->velocity = Vector::Zero();
+
+	this->simon->allowControl = false;
+	this->simon->body->allowGravity = false;
+	this->simon->body->immoveable = true;
+	this->camera->SetBlock(nullptr);
+	this->camera->UnFollow();
+
+
+
+	this->add->Tween(this->camera->point.x, point.x, 3000)->SetOnFinish([this]() {
+		this->isSwitchingStage = false;
+		this->simon->allowControl = true;
+		this->simon->body->immoveable = false;
+		this->door->body->SetActive(true);
+		this->simon->body->allowGravity = true;
+		this->door = nullptr;
+		this->camera->Follow(this->simon);
+		this->camera->SetBlock(this->currentBlock);
+	})->Start();
+
+
+	this->add->Tween(this->simon->position.x, moveToPosition.x, 2000)->SetOnFinish([this]() {
+		this->simon->PlayAnimation("idle");
+	})->Start();
 }
 
 void CVMap::SetSimonPositionOnChangeBlock()
