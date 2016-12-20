@@ -319,7 +319,11 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
 
         for (var key in Constant.STATIC_TILE_DICT) {
             if (Constant.STATIC_TILE_DICT.hasOwnProperty(key)) {
-                game.load.image(key, Constant.STATIC_TILE_DICT[key].name);
+                var item = Constant.STATIC_TILE_DICT[key];
+                if(isNotNull(item.numberOfFrame)){
+                    game.load.spritesheet(key, item.name, item.frameWidth, item.frameHeight, item.numberOfFrame);
+                }
+                else game.load.image(key, item.name);
             }
         }
 
@@ -337,12 +341,14 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
         }
         for (var key in Constant.ENEMY_DICT) {
             if (Constant.ENEMY_DICT.hasOwnProperty(key)) {
-                game.load.spritesheet(key, Constant.ENEMY_DICT[key].name, Constant.ENEMY_DICT[key].frameWidth, Constant.ENEMY_DICT[key].frameHeight, Constant.ENEMY_DICT[key].numberOfFrame);
+                var item = Constant.ENEMY_DICT[key];
+                game.load.spritesheet(key, item.name, item.frameWidth, item.frameHeight, item.numberOfFrame);
             }
         }
         for (var key in Constant.ITEM_ANIMATION_DICT) {
             if (Constant.ITEM_ANIMATION_DICT.hasOwnProperty(key)) {
-                game.load.spritesheet(key, Constant.ITEM_ANIMATION_DICT[key].name, Constant.ITEM_ANIMATION_DICT[key].frameWidth, Constant.ITEM_ANIMATION_DICT[key].frameHeight, Constant.ITEM_ANIMATION_DICT[key].numberOfFrame);
+                var item = Constant.ITEM_ANIMATION_DICT[key];
+                game.load.spritesheet(key, item.name, item.frameWidth, item.frameHeight, item.numberOfFrame);
             }
         }
 
@@ -983,7 +989,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 sprite.anchor = {x: 0.5, y: 0.7};
                 break;
             case "Door":
-                sprite.anchor =  {x:0.25,y:0};
+                sprite.anchor = {x: 0.5, y: 0};
                 break;
             default:
                 break;

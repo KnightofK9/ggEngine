@@ -63,7 +63,10 @@ var Constant = new function () {
             name: this.STATIC_TILE_PATH + "TileLadderUpLeft.png"
         },
         "Door": {
-            name: this.STATIC_TILE_PATH + "door.png"
+            name: this.STATIC_TILE_PATH + "door.png",
+            frameWidth: 22,
+            frameHeight: 48,
+            numberOfFrame: 3
         }
 
     };
