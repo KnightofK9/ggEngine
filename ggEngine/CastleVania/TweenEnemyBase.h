@@ -11,6 +11,7 @@ public:
 	void SetMoveY(double moveY);
 	void SetMoveX(double moveX);
 	void SetSpeed(double speed);
+	double GetSpeed();
 	virtual void SetPosition(Vector position) override;
 protected:
 	Vector startPosition;

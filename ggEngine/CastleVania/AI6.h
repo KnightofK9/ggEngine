@@ -9,9 +9,9 @@ public:
 	void RunRight() override;
 	void Update() override;
 	void Active() override;
+	bool isLeft;
 
 	void OnBrickContact(TileBrick* brick, ColliderArg e) override;
 private:
 	bool isRunning;
-	bool isLeft;
 };

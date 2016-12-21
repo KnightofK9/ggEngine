@@ -8,6 +8,7 @@ AI6::AI6(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame,sprit
 	this->body->allowGravity = false;
 	this->body->SetPhysicsMode(PhysicsMode_AABB);
 	this->isRunning = false;
+	this->tag = ObjectType_AI6;
 }
 
 AI6::~AI6()
