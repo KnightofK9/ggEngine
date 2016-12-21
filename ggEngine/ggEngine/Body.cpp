@@ -260,12 +260,12 @@ namespace ggEngine {
 	}
 	void Body::PreUpdate()
 	{
+		this->blocked.Reset();
+		this->shortestCollider.Reset();
 		if (this->immoveable) {
 			this->rigidBody->Transform(this->sprite->worldPosition + this->localPosition);
 			return;
 		}
-		this->blocked.Reset();
-		this->shortestCollider.Reset();
 		//position = sprite->GetPosition();
 		if (this->syncBounds) {
 			this->width = sprite->GetOrgWidth() * (sprite->worldScale.x);
