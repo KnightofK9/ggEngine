@@ -31,7 +31,7 @@ namespace ggEngine {
 		bool isPlaying;
 		bool isAlive;
 		bool isFinished;
-		bool isLoop = false;
+		bool isLoop;
 		TweenManager* tweenManager;
 
 		std::function<void()> onFinish = nullptr;
