@@ -1,6 +1,7 @@
 #pragma once
 #include <ggEngine.h>
 #include "CVSpriteAnimation.h"
+class TileBrick;
 using namespace ggEngine;
 class Simon;
 class EnemyBase : public CVSpriteAnimation {
@@ -12,6 +13,7 @@ public:
 	virtual void Active();
 	virtual bool OnCheckingCollide(ColliderArg e);
 	virtual void Update();
+	virtual void OnBrickContact(TileBrick *tileBrick, ColliderArg e);
 protected:
 	bool isLeft;
 	void ChangeFacingDirection(bool isLeft);

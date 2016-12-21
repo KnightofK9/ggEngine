@@ -156,6 +156,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI6.h" />
     <ClInclude Include="AxeKnight.h" />
     <ClInclude Include="BatEnemy.h" />
     <ClInclude Include="DropObjectBase.h" />
@@ -240,6 +241,7 @@
     <ResourceCompile Include="CastleVania.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AI6.cpp" />
     <ClCompile Include="AxeKnight.cpp" />
     <ClCompile Include="BatEnemy.cpp" />
     <ClCompile Include="DropObjectBase.cpp" />

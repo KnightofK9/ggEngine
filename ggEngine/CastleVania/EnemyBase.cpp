@@ -1,6 +1,7 @@
 #include "EnemyBase.h"
 #include "Simon.h"
 #include "CVGame.h"
+#include "TileBrick.h"
 EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->tag = ObjectType_Enemy;
@@ -16,6 +17,8 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 		auto otherObject = e.colliderObject;
 		Tag tag = otherObject->tag;
 		switch (tag) {
+		case ObjectType_LevelTwoBrick:
+			OnBrickContact(dynamic_cast<TileBrick*>(otherObject), e);
 		case ObjectType_Simon:
 			OnSimonContact(dynamic_cast<Simon*>(otherObject), e);
 			break;
@@ -51,6 +54,9 @@ bool EnemyBase::OnCheckingCollide(ColliderArg e)
 	return false;
 }
 void EnemyBase::Update()
+{
+}
+void EnemyBase::OnBrickContact(TileBrick *tileBrick, ColliderArg e)
 {
 }
 void EnemyBase::ChangeFacingDirection(bool isLeft)
