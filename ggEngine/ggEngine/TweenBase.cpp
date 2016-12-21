@@ -24,6 +24,11 @@ namespace ggEngine {
 		return this->isFinished;
 	}
 
+	bool TweenBase::IsLoop()
+	{
+		return this->isLoop;
+	}
+
 	void TweenBase::Destroy()
 	{
 		this->isPlaying = false;
@@ -68,12 +73,20 @@ namespace ggEngine {
 		this->isAlive = false;
 		return this;
 	}
-	TweenBase * TweenBase::Reset()
+	TweenBase * TweenBase::Restart()
 	{
-		return nullptr;
+		this->currentTime = 0;
+		this->isPlaying = true;
+		this->isFinished = false;
+		return this;
+	}
+	TweenBase * TweenBase::SetLoop(bool isLoop)
+	{
+		this->isLoop = isLoop;
+		return this;
 	}
 	TweenBase * TweenBase::GetRevert()
 	{
-		return nullptr;
+		return this;
 	}
 }

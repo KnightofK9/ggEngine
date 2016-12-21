@@ -15,10 +15,15 @@ void ggEngine::TweenManager::Update(double deltaTime)
 				tween->Update(deltaTime);
 				++it;
 			}else if(tween->IsFinished()){
-				auto tempIt = it;
-				++it;
-				delete (*tempIt);
-				tweenerList.erase(tempIt);
+				if (tween->IsLoop()) {
+					tween->Restart();
+				}
+				else {
+					auto tempIt = it;
+					++it;
+					delete (*tempIt);
+					tweenerList.erase(tempIt);
+				}
 			}
 			
 		}

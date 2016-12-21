@@ -13,12 +13,14 @@ namespace ggEngine {
 		virtual TweenBase* Resume();
 		virtual TweenBase* CallFinish();
 		virtual TweenBase* Stop();
+		virtual TweenBase* Restart();
+		virtual TweenBase* SetLoop(bool isLoop);
 
 		//TO DO
-		virtual TweenBase* Reset();
 		virtual TweenBase* GetRevert();
 		bool IsPlaying();
 		bool IsFinished();
+		bool IsLoop();
 
 		void Destroy();
 		virtual double Update(double deltaTime);
@@ -29,6 +31,7 @@ namespace ggEngine {
 		bool isPlaying;
 		bool isAlive;
 		bool isFinished;
+		bool isLoop;
 		TweenManager* tweenManager;
 
 		std::function<void()> onFinish = nullptr;
