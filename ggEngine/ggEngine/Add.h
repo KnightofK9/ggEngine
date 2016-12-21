@@ -45,8 +45,8 @@ namespace ggEngine{
 		ggEngine::TweenBase* Tween(double init, double end, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, std::function<void(double)> update = [](double) {}, bool isAddToTweenManager = true);
 		ggEngine::MultiTween* MultiTween(std::list<TweenBase*> tweenList, bool isAddToTweenManager = true);
 		
-		ggEngine::TweenBase* MoveBy(GameObject *go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
-		ggEngine::TweenBase* MoveTo(GameObject *go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunction = Easing::linearTween, bool isAddToTweenManager = true);
+		ggEngine::TweenBase* MoveBy(GameObject *go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunctionX = Easing::linearTween, std::function<double(int, double, double, int)> easingFunctionY = Easing::linearTween, bool isAddToTweenManager = true);
+		ggEngine::TweenBase* MoveTo(GameObject *go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunctionX = Easing::linearTween, std::function<double(int, double, double, int)> easingFunctionY = Easing::linearTween, bool isAddToTweenManager = true);
 		
 		TimeBasedEventInfo* TimeOut(unsigned int delay , std::function<void(void)> function);
 		TimeBasedEventInfo* LoopInfinity(unsigned int delay, std::function<void(void)> function);

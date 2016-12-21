@@ -713,6 +713,7 @@ void Simon::StartClimbingLadder(bool isLeft, bool isUp)
 			max(abs((this->tileLadder->position.x - this->position.x) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame, abs((this->tileLadder->position.y - this->position.y) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame),
 			//10000,
 			Easing::linearTween,
+			Easing::linearTween,
 			false)
 			->SetOnFinish([this]() {
 			this->grounding = SimonGrounding_Ladder;
@@ -744,6 +745,7 @@ void Simon::StartClimbingLadderAuto(bool isLeft, bool isUp)
 			this->tileLadder->position + Vector(8, 8),
 			//max(abs((this->tileLadder->position.x - this->position.x) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame, abs((this->tileLadder->position.y - this->position.y) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame),
 			this->msPerFrame*2,
+			Easing::linearTween,
 			Easing::linearTween,
 			true)
 			->SetOnFinish([this]() {

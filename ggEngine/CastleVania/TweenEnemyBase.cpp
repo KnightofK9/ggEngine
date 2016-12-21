@@ -47,7 +47,7 @@ void TweenEnemyBase::SetMoveX(double moveX)
 
 void TweenEnemyBase::SetSpeed(double speed)
 {
-	this->speed = 0.25;
+	this->speed = speed;
 }
 
 void TweenEnemyBase::SetPosition(Vector position)

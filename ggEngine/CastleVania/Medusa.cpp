@@ -7,7 +7,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame
 	this->CreateAnimation("idle", 0, 0, false);
 	SetMoveY(10);
 	SetMoveX(0.5);
-	SetSpeed(5);
+	SetSpeed(0.25);
 }
 
 Medusa::~Medusa()
