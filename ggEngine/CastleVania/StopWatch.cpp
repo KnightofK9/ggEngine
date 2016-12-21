@@ -12,5 +12,6 @@ StopWatch::~StopWatch()
 
 void StopWatch::OnSimonContact(Simon * simon, ColliderArg e)
 {
+	simon->SetSubWeapon(SimonSubWeaponType::SubWeapon_StopWatch, this->image);
 	Destroy();
 }

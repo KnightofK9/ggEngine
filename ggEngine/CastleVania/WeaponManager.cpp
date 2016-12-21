@@ -66,50 +66,60 @@ WeaponBase * WeaponManager::AddWeapon(Simon *simon, double x, double y, bool isL
 WeaponDagger* WeaponManager::AddWeaponDagger(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::DAGGER_TEXTURE);
-	WeaponDagger *weaponDagger = new WeaponDagger(this->cvGame, inf);
+	WeaponDagger *weaponDagger = new WeaponDagger(this->cvGame, inf, 17, 9, 0, 1);
 	weaponDagger->SetPosition(x, y);
 	weaponDagger->SetParentObject(group);
 	weaponDagger->Active();
+	weaponDagger->CreateAnimation("fireAnim", 0, 0, true);
+	weaponDagger->PlayAnimation("fireAnim");
 	weaponDagger->FireWeapon(isLeft);
-	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+
 	group->AddDrawObjectToList(weaponDagger);
 	return weaponDagger;
 }
 
 WeaponAxe* WeaponManager::AddWeaponAxe(double x, double y, bool isLeft, Group * group)
 {
-	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::AXE_TEXTURE);
-	WeaponAxe *weaponAxe = new WeaponAxe(this->cvGame, inf);
+	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::AXE_WEAPON_TEXTURE);
+	WeaponAxe *weaponAxe = new WeaponAxe(this->cvGame, inf, 60, 14, 0, 4, 100);
 	weaponAxe->SetPosition(x, y);
 	weaponAxe->SetParentObject(group);
 	weaponAxe->Active();
+	weaponAxe->CreateAnimation("fireAnim", 0, 3, true);
+	weaponAxe->PlayAnimation("fireAnim");
 	weaponAxe->FireWeapon(isLeft);
-	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+
 	group->AddDrawObjectToList(weaponAxe);
 	return weaponAxe;
 }
 
 WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLeft, Group * group)
 {
-	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::HOLY_WATER_TEXTURE);
-	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf);
+	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::HOLY_WATER_WEAPON_TEXTURE);
+	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf, 48, 13, 0, 3, 100);
 	weaponHolyWater->SetPosition(x, y);
 	weaponHolyWater->SetParentObject(group);
 	weaponHolyWater->Active();
-	weaponHolyWater->FireWeapon(isLeft);
-	//moneyBag->CheckCollisionToSimon(this->cvGame->simon);
+	weaponHolyWater->CreateAnimation("fireAnim", 0, 0, true);
+	weaponHolyWater->CreateAnimation("blockContact", 1, 2, true);
+	//weaponHolyWater->FireWeapon(isLeft);
+	weaponHolyWater->PlayAnimation("fireAnim");
+
 	group->AddDrawObjectToList(weaponHolyWater);
 	return weaponHolyWater;
 }
 
 WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLeft, Group * group)
 {
-	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::BOOMERANG_TEXTURE);
-	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf);
+	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::BOOMERANG_WEAPON_TEXTURE);
+	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf, 45, 14, 0, 4, 100);
 	weaponBoomerang->SetPosition(x, y);
 	weaponBoomerang->SetParentObject(group);
 	weaponBoomerang->Active();
+	weaponBoomerang->CreateAnimation("fireAnim", 0, 3, true);
+	weaponBoomerang->PlayAnimation("fireAnim");
 	weaponBoomerang->FireWeapon(isLeft);
+
 	group->AddDrawObjectToList(weaponBoomerang);
 	return weaponBoomerang;
 }

@@ -1,7 +1,8 @@
 #include "WeaponStopWatch.h"
 #include "CVAdd.h"
 
-WeaponStopWatch::WeaponStopWatch(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvGame, image)
+WeaponStopWatch::WeaponStopWatch(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: WeaponBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 
 }

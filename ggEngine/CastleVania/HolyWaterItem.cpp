@@ -14,6 +14,6 @@ HolyWaterItem::~HolyWaterItem()
 void HolyWaterItem::OnSimonContact(Simon * simon, ColliderArg e)
 {
 	//HolyWater *holyWater = new HolyWater(simon->)
-	
+	simon->SetSubWeapon(SimonSubWeaponType::SubWeapon_HolyWater, this->image);
 	Destroy();
 }

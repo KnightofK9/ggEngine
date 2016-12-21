@@ -4,7 +4,7 @@
 using namespace ggEngine;
 class WeaponDagger : public WeaponBase {
 public:
-	WeaponDagger(CVGame *cvGame, SpriteInfo *image);
+	WeaponDagger(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~WeaponDagger();
 
 	void FireWeapon(bool isLeft) override;

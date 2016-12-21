@@ -4,7 +4,7 @@
 using namespace ggEngine;
 class WeaponStopWatch : public WeaponBase {
 public:
-	WeaponStopWatch(CVGame *cvGame, SpriteInfo *image);
+	WeaponStopWatch(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~WeaponStopWatch();
 
 	void FireWeapon(bool isLeft) override;

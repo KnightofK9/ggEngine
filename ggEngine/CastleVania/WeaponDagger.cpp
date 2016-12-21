@@ -1,7 +1,8 @@
 #include "WeaponDagger.h"
 #include "CVAdd.h"
 
-WeaponDagger::WeaponDagger(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvGame,image)
+WeaponDagger::WeaponDagger(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: WeaponBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->body->allowGravity = false;
 }

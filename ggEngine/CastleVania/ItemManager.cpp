@@ -34,6 +34,10 @@ void ItemManager::PreloadAllItem(){
 	this->preload->Texture(TextureConstant::DOUBLESHOT_TEXTURE, TextureConstant::DOUBLESHOT_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::TRIPLE_SHOT_TEXTURE, TextureConstant::TRIPLE_SHOT_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::MAIN_WEAPON_TEXTURE, TextureConstant::MAIN_WEAPON_TEXTURE_PATH);
+
+	this->preload->Texture(TextureConstant::AXE_WEAPON_TEXTURE, TextureConstant::AXE_WEAPON_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::HOLY_WATER_WEAPON_TEXTURE, TextureConstant::HOLY_WATER_WEAPON_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::BOOMERANG_WEAPON_TEXTURE, TextureConstant::BOOMERANG_WEAPON_TEXTURE_PATH);
 }
 
 Candle * ItemManager::AddFireCandle(double x, double y, ggEngine::Group * group)

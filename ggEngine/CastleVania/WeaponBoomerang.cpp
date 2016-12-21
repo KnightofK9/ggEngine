@@ -1,7 +1,8 @@
 #include "WeaponBoomerang.h"
 #include "CVAdd.h"
 
-WeaponBoomerang::WeaponBoomerang(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvGame, image)
+WeaponBoomerang::WeaponBoomerang(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: WeaponBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->body->allowGravity = false;
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {

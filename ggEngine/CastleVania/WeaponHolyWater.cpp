@@ -1,7 +1,8 @@
 #include "WeaponHolyWater.h"
 #include "CVAdd.h"
 
-WeaponHolyWater::WeaponHolyWater(CVGame * cvGame, SpriteInfo * image) : WeaponBase(cvGame,image)
+WeaponHolyWater::WeaponHolyWater(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: WeaponBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->body->allowGravity = true;
 }
