@@ -258,6 +258,18 @@
     <ClInclude Include="BreakableTileBrick.h">
       <Filter>Header Files\Object\Breakable Objects</Filter>
     </ClInclude>
+    <ClInclude Include="WalkingEnemyBase.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGroup.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AxeKnight.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -458,6 +470,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BreakableTileBrick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkingEnemyBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AxeKnight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

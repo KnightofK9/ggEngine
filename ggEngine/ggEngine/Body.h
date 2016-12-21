@@ -49,7 +49,7 @@ namespace ggEngine {
 		bool allowWorldBounciness = false;
 		bool allowWorldBlock = true;
 
-		bool allowWorldBound = true;
+		bool allowWorldBound = false;
 
 		bool allowObjectBounciness = false;
 
@@ -60,7 +60,7 @@ namespace ggEngine {
 		Vector *position;
 		Direction blocked;
 		Direction worldBlocked;
-		bool syncBounds = true;
+		bool syncBounds = false;
 		bool isMoving = false;
 		Vector velocity;
 		//Public method 

@@ -9,6 +9,7 @@ class SimonGroup;
 class CVStage;
 class CVCamera;
 class CVBlock;
+class EnemyGroup;
 class Door;
 class CVMap : public Group {
 public:
@@ -21,9 +22,10 @@ public:
 	void LoadSimon(InfoPanel *infoPanel, GameOverScreen *goScreen, Simon *simon = nullptr);
 	TileMap *tileMapGroup;
 	QuadTree *quadTreeGroup;
-	CameraActiveGroup* cameraActiveGroup;
+	//CameraActiveGroup* cameraActiveGroup;
 	SimonGroup *simonGroup;
 	Simon* simon;
+	EnemyGroup *enemyGroup;
 	void SetStage(int stageNumber, int blockNumber = 0, bool isRestartState = false);
 	void SetBlock(int blockNumber, bool isRestartState = false);
 	void OnOutOfBlock(Rect r = Rect(-1,-1,-1,-1));

@@ -8,13 +8,13 @@ namespace ggEngine {
 		CameraActiveGroup(Game *game);
 		~CameraActiveGroup();
 		
-		void Update() override;
-		void UpdatePhysics() override;
+		virtual void Update() override;
+		virtual void UpdatePhysics() override;
 
-		void CheckCollisionTo(std::list<GameObject*> staticGoList);
-		void Draw() override;
+		virtual void CheckCollisionTo(std::list<GameObject*> staticGoList);
+		virtual void Draw() override;
 		std::list<GameObject*> GetDrawList() override;
-	private:
+	protected:
 		Camera *camera = nullptr;
 		std::list<GameObject*> activeGameObjectList;
 

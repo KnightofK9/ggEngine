@@ -16,7 +16,7 @@ namespace ggEngine {
 		Rect r = this->camera->GetNormalRect();
 		for (auto it = this->drawList.begin(); it != this->drawList.end(); ++it) {
 			GameObject* go = (*it);
-			Rect r2 = go->GetRect();
+			Rect r2 = go->body->GetRect();
 			Rect i;
 			if (Rect::intersect(i, r2, r)) {
 				this->activeGameObjectList.push_back(go);

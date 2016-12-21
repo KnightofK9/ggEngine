@@ -26,8 +26,8 @@
           <file leaf-file-name="EditState.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1360">
-                  <caret line="186" column="39" selection-start-line="186" selection-start-column="39" selection-end-line="186" selection-end-column="39" />
+                <state relative-caret-position="-127">
+                  <caret line="956" column="41" selection-start-line="956" selection-start-column="41" selection-end-line="956" selection-end-column="41" />
                   <folding />
                 </state>
               </provider>
@@ -173,9 +173,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/js/StageBlock.js" />
-        <option value="$PROJECT_DIR$/js/State/EditState.js" />
         <option value="$PROJECT_DIR$/js/ObjectInfo.js" />
         <option value="$PROJECT_DIR$/js/Class.js" />
+        <option value="$PROJECT_DIR$/js/State/EditState.js" />
       </list>
     </option>
   </component>
@@ -222,8 +222,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -308,6 +306,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -706,12 +706,13 @@
       <workItem from="1482221731629" duration="674000" />
       <workItem from="1482222415415" duration="3307000" />
       <workItem from="1482234002199" duration="667000" />
-      <workItem from="1482241053237" duration="601000" />
+      <workItem from="1482241053237" duration="1197000" />
+      <workItem from="1482309907165" duration="609000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42643000" />
+    <option name="totallyTimeSpent" value="43848000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="-5" width="1930" height="1050" extended-state="0" />
@@ -1200,8 +1201,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="186" column="39" selection-start-line="186" selection-start-column="39" selection-end-line="186" selection-end-column="39" />
+        <state relative-caret-position="-127">
+          <caret line="956" column="41" selection-start-line="956" selection-start-column="41" selection-end-line="956" selection-end-column="41" />
           <folding />
         </state>
       </provider>

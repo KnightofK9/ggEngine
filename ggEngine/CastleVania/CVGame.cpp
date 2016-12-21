@@ -7,6 +7,7 @@
 #include "StaticTileManager.h"
 #include "AnimationManager.h"
 #include "CVCamera.h"
+#include "EnemyManager.h"
 CVGame::CVGame(HWND hWnd, int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor) :Game(hWnd, width, height, mode, physicsMode, gameColor)
 {
 	
@@ -28,6 +29,10 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	type = json["type"].GetString();
 	x = json["x"].GetDouble();
 	y = json["y"].GetDouble();
+	if (type == "AxeKnight") {
+		go = this->enemyManager->AddAxeKnight(x, y, group);
+		return go;
+	}
 	if (type == "BreakableTileBrick") {
 		go = this->itemManager->AddBreakableTileBrick(x, y, group);
 		return go;
@@ -204,7 +209,7 @@ void CVGame::LoadComponent()
 		this->weaponManager = new WeaponManager(this);
 		this->staticTileManager = new StaticTileManager(this);
 		this->animationManager = new AnimationManager(this);
-
+		this->enemyManager = new EnemyManager(this);
 
 
 	}
