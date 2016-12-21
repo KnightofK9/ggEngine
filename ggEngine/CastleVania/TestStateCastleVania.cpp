@@ -1,5 +1,6 @@
 #include "TestStateCastleVania.h"
 #include "StaticTIleManager.h"
+#include "EnemyManager.h"
 TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
 }
@@ -32,6 +33,7 @@ void TestStateCastleVania::Preload() {
 	this->cvPreload->CharSimon();
 	this->itemManager->PreloadAllItem();
 	this->cvgame->staticTileManager->PreloadAll();
+	this->cvgame->enemyManager->PreloadAll();
 }
 void TestStateCastleVania::Create()
 {
@@ -56,6 +58,7 @@ void TestStateCastleVania::Create()
 	this->cvgame->simon = this->simon;
 
 	{
+		//Json state("State/TestState.json", true);
 		//Json state("State/TestState.json", true);
 		Json state("State/level2-tilemap.json", true);
 		//Json state("State/level3-tilemap.json", true);

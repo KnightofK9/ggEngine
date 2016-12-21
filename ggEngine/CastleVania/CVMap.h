@@ -22,7 +22,7 @@ public:
 	void LoadSimon(InfoPanel *infoPanel, GameOverScreen *goScreen, Simon *simon = nullptr);
 	TileMap *tileMapGroup;
 	QuadTree *quadTreeGroup;
-	CameraActiveGroup* cameraActiveGroup;
+	//CameraActiveGroup* cameraActiveGroup;
 	SimonGroup *simonGroup;
 	Simon* simon;
 	EnemyGroup *enemyGroup;

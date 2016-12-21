@@ -267,6 +267,9 @@
     <ClInclude Include="EnemyGroup.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="AxeKnight.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -476,6 +479,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemyGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AxeKnight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

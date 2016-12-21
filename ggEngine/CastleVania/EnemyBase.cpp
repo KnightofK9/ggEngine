@@ -1,12 +1,14 @@
 #include "EnemyBase.h"
 #include "Simon.h"
 #include "CVGame.h"
-EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image,  int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, image->GetWidth(),image->GetHeight(), defaultFrame, numberOfFrame, msPerFrame)
+EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->tag = ObjectType_Enemy;
 	cvGame->physics->AttachBodyTo(this);
+	this->SetAnchor(0.5, 0);
 	this->body->SetPhysicsMode(PhysicsMode_AABBSwept);
 	this->body->CreateRectangleRigidBody(GetWidth(), GetHeight());
+	//this->body->immoveable = false;
 	this->events->onCheckingCollide = [this](GameObject* go, ColliderArg e) {
 		return OnCheckingCollide(e);
 	};
@@ -50,7 +52,7 @@ bool EnemyBase::OnCheckingCollide(ColliderArg e)
 	Tag tag = otherObject->tag;
 	switch (tag) {
 	case ObjectType_LevelTwoBrick:
-		if (e.blockDirection.up) return true;
+		if (e.blockDirection.down) return true;
 		return false;
 	default:
 		return false;

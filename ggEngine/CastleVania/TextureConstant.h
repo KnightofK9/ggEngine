@@ -46,8 +46,6 @@ public:
 	static constexpr const char* ITEM_BOX_TEXTURE = "ItemBox";
 	static constexpr const char* ITEM_BOX_TEXTURE_PATH = "Resource/Resources/item_box.png";
 
-	static constexpr const char* BAT_ENEMY_TEXTURE = "BatEnemyTexture";
-	static constexpr const char* BAT_ENEMY_TEXTURE_PATH = "Resource/Resources/BatEnemy.png";
 
 	static constexpr const char* AXE_TEXTURE = "AxeTexture";
 	static constexpr const char* AXE_TEXTURE_PATH = "Resource/Resources/Axe.png";
@@ -158,5 +156,23 @@ public:
 	static constexpr const char* TILE_LADDER_UP_LEFT = "NoneTexture";
 	static constexpr const char* TILE_LADDER_UP_LEFT_PATH = "Resource/Resources/TileObject/TileLadderUpLeft.png";
 
+	/**
+	* Enemy
+	**/
+	static constexpr const char* AXE_KNIGHT_TEXTURE = "AxeKnightTexture";
+	static constexpr const char* AXE_KNIGHT_TEXTURE_PATH = "Resource/Resources/AxeKnight.png";
+
+	static constexpr const char* BONE_PILLAR_TEXTURE = "BonePillar";
+	static constexpr const char* BONE_PILLAR_TEXTURE_PATH = "Resource/Resources/BonePillar.png";
+
+
+	static constexpr const char* BAT_ENEMY_TEXTURE = "BatEnemy";
+	static constexpr const char* BAT_ENEMY_TEXTURE_PATH = "Resource/Resources/BatEnemy.png";
+
+	static constexpr const char* GHOST_TEXTURE = "Ghost";
+	static constexpr const char* GHOST_TEXTURE_PATH = "Resource/Resources/Ghost.png";
+
+	static constexpr const char* BOSS_TEXTURE = "Boss";
+	static constexpr const char* BOSS_TEXTURE_PATH = "Resource/Resources/Boss.png";
 
 };

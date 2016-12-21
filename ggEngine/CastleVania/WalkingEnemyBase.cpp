@@ -1,7 +1,7 @@
 #include "WalkingEnemyBase.h"
 
 
-WalkingEnemyBase::WalkingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo,  int defaultFrame, int numberOfFrame, DWORD msPerFrame) : EnemyBase(cvGame,spriteInfo,defaultFrame,numberOfFrame,msPerFrame)
+WalkingEnemyBase::WalkingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo,int frameWidth,int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : EnemyBase(cvGame,spriteInfo, frameWidth, frameHeight, defaultFrame,numberOfFrame,msPerFrame)
 {
 	
 }
@@ -17,7 +17,7 @@ bool WalkingEnemyBase::OnCheckingCollide(ColliderArg e)
 	switch (tag) {
 	case ObjectType_LevelTwoBrick:
 		if(this->steppingTile == nullptr) this->steppingTile = dynamic_cast<StaticTile*>(otherObject);
-		if (e.blockDirection.up) return true;
+		if (e.blockDirection.down) return true;
 		return false;
 	default:
 		return false;
@@ -42,11 +42,23 @@ void WalkingEnemyBase::Update()
 	if (this->steppingTile != nullptr) {
 		if (this->position.x < this->steppingTile->position.x + 8) {
 			RunRight();
+			return;
 		}
-		else if (this->position.x > this->steppingTile->position.x + this->steppingTile->GetWidth() - 8) {
+		if (this->position.x > this->steppingTile->position.x + this->steppingTile->GetWidth() - 8) {
 			RunLeft();
+			return;
+		}
+		if (!this->isRunning) {
+			this->isRunning = true;
+			RunLeft();
+			return;
 		}
 	}
+}
+
+void WalkingEnemyBase::Active()
+{
+	EnemyBase::Active();
 }
 
 void WalkingEnemyBase::SetMoveForce(double moveForce)

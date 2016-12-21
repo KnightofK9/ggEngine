@@ -248,7 +248,7 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 
  HeartLarger* ItemManager::AddHeartLarger(double x, double y, ggEngine::Group * group)
  {
-	 SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::MONEY_BAG_100_TEXTURE);
+	 SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::HEART_LARGER_TEXTURE);
 	 HeartLarger *heartLarger = new HeartLarger(this->cvGame, inf);
 	 heartLarger->SetPosition(x, y);
 	 heartLarger->Active();

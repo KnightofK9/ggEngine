@@ -954,7 +954,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             var info = Constant.ENEMY_DICT[type];
             var walk = sprite.animations.add('walk');
             sprite.animations.play('walk', 24, true);
-            sprite.anchor = {x: 0.5, y: 0.5};
+            sprite.anchor = {x: 0.5, y: 0};
             // sprite.x -= info.frameWidth;
             // sprite.y -= info.frameHeight;
         } else {
