@@ -91,7 +91,6 @@ void WeaponBase::OnOutOfCamera(EventArg e)
 
 void WeaponBase::OnSimonContact(Simon * simon, ColliderArg e)
 {
-
 }
 
 
@@ -109,6 +108,11 @@ void WeaponBase::OnBrickContact(GameObject * brick, ColliderArg e)
 void WeaponBase::Destroy()
 {
 	GameObject::Destroy();
+}
+
+void WeaponBase::CheckCollisionToSimon(Simon * simon)
+{
+	simon->body->CheckCollisionTo(this);
 }
 
 void WeaponBase::Active()

@@ -81,6 +81,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		Tag type = otherObject->tag;
 		switch (type) {
 		case ObjectType_BreakableTileBrick:
+			if (e.blockDirection.up) return false;
 			return true;
 		case ObjectType_LadderDownLeft:
 			//this->ladderState = LadderDownLeft;
@@ -122,6 +123,10 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 				this->grounding = SimonGrounding_Brick;
 			}
 			break;
+		case ObjectType_BreakableTileBrick:
+			if (e.blockDirection.down) {
+				this->grounding = SimonGrounding_Brick;
+			}
 		case ObjectType_Candle:
 			//g_debug.Log("Collided with candle");
 			break;

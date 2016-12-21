@@ -22,8 +22,8 @@ void WeaponBoomerang::FireWeapon(bool isLeft)
 
 
 	this->tweenOut = this->cvGame->add->Tween(this->position.x, this->position.x + desX, this->timeToReturn, Easing::linearTween)->SetOnFinish([this]() {
+		//this->preReturn();
 		this->SetScale(-1, 1);
-		
 		int desX = 1000;
 		if (!this->isLeft) desX *= -1;
 		this->tweenReturn = this->cvGame->add->Tween(this->position.x, this->position.x + desX, 13000, Easing::linearTween)->Start();
@@ -59,5 +59,10 @@ void WeaponBoomerang::OnOutOfCamera(EventArg e)
 		if (!this->isLeft) desX *= -1;
 		this->tweenReturn = this->cvGame->add->Tween(this->position.x, this->position.x + desX, 13000, Easing::linearTween)->Start();
 	}
+}
+
+void WeaponBoomerang::SetPreparerForReturn(std::function<void()> preReturn)
+{
+	this->preReturn = preReturn;
 }
 

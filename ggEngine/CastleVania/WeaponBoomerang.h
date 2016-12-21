@@ -14,6 +14,8 @@ public:
 	void OnOutOfCamera(EventArg e) override;
 	int GetHeartConsumtion() override { return this->heartConsumtion; }
 
+	void SetPreparerForReturn(std::function<void()> preReturn);
+
 private:
 	const int heartConsumtion = 1;
 	const double throwForce = 1.0;
@@ -24,4 +26,6 @@ private:
 
 	TweenBase *tweenOut = nullptr;
 	TweenBase *tweenReturn = nullptr;
+
+	std::function<void()> preReturn;
 };
