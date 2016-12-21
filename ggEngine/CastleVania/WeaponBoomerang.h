@@ -17,6 +17,8 @@ private:
 	const int heartConsumtion = 1;
 	const double throwForce = 1.0;
 	const int timeToReturn = 1300;
+	const int distanceToReturn = 100;
+	int distanceCal = distanceToReturn;
 	bool isLeft;
 	bool contactedWorldBound = false;
 };

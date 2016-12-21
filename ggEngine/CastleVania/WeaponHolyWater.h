@@ -15,5 +15,5 @@ public:
 
 private:
 	const int heartConsumtion = 1;
-	const double throwForce = 1.0;
+	const double throwForce = 3;
 };
