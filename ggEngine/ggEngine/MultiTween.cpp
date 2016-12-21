@@ -25,6 +25,14 @@ namespace ggEngine {
 		}
 		return this;
 	}
+	TweenBase * MultiTween::Restart()
+	{
+		TweenBase::Restart();
+		for (TweenBase* tween : this->tweenList) {
+			tween->Restart();
+		}
+		return this;
+	}
 	double MultiTween::Update(double dt)
 	{
 		for (TweenBase* tween : this->tweenList) {

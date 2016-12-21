@@ -8,7 +8,9 @@ namespace ggEngine {
 		~MultiTween();
 
 		TweenBase* Start() override;
+		TweenBase* Restart() override;
 		double Update(double dt) override;
+		
 	private:
 		std::list<TweenBase*> tweenList;
 	};

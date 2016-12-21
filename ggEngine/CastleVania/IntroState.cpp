@@ -37,9 +37,9 @@ void IntroState::Create()
 
 
 	this->menu_anim = this->add->SpriteAnimation(220, 125, "menu_anim", 72, 58, group, 0, 15, 100);
-	this->add->MoveBy(this->menu_anim, Vector(50, 100), 4000)->SetOnFinish([this]() {
-		this->add->MoveTo(this->menu_anim, Vector(12, 125), 4000)->Start();
-	})->Start();
+	auto tween1 = this->add->MoveBy(this->menu_anim, Vector(50, 100), 4000);
+	auto tween2 = this->add->MoveTo(this->menu_anim, Vector(12, 125), 4000);
+	auto tween3 = this->add->MultiTween({ tween1,tween2 })->SetLoop(true)->Start();
 	this->cvgame->eventManager->EnableSpriteAnimationEvent(menu_anim);
 	this->menu_anim->CreateAnimation("batFly", 0, 13, false)->SetOnCompleted([this](Animator* animator) {
 		animator->spriteAnimation->PlayAnimation("batFlyLoop");

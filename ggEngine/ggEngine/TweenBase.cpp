@@ -6,6 +6,7 @@ namespace ggEngine {
 		this->isAlive = true;
 		this->isFinished = false;
 		this->isPlaying = false;
+		this->isLoop = false;
 		this->duration = duration;
 	}
 	TweenBase* TweenBase::SetOnFinish(std::function<void()> onFinish)
@@ -22,6 +23,11 @@ namespace ggEngine {
 	bool TweenBase::IsFinished()
 	{
 		return this->isFinished;
+	}
+
+	bool TweenBase::IsLoop()
+	{
+		return this->isLoop;
 	}
 
 	void TweenBase::Destroy()
@@ -68,12 +74,20 @@ namespace ggEngine {
 		this->isAlive = false;
 		return this;
 	}
-	TweenBase * TweenBase::Reset()
+	TweenBase * TweenBase::Restart()
 	{
-		return nullptr;
+		this->currentTime = 0;
+		this->isPlaying = true;
+		this->isFinished = false;
+		return this;
+	}
+	TweenBase * TweenBase::SetLoop(bool isLoop)
+	{
+		this->isLoop = isLoop;
+		return this;
 	}
 	TweenBase * TweenBase::GetRevert()
 	{
-		return nullptr;
+		return this;
 	}
 }

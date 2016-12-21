@@ -215,6 +215,7 @@
     <ClInclude Include="TileBrick.h" />
     <ClInclude Include="TileLadder.h" />
     <ClInclude Include="TripleShot.h" />
+    <ClInclude Include="TweenEnemyBase.h" />
     <ClInclude Include="TypeEnum.h" />
     <ClInclude Include="WalkingEnemyBase.h" />
     <ClInclude Include="WeaponAxe.h" />
@@ -294,6 +295,7 @@
     <ClCompile Include="TileBrick.cpp" />
     <ClCompile Include="TileLadder.cpp" />
     <ClCompile Include="TripleShot.cpp" />
+    <ClCompile Include="TweenEnemyBase.cpp" />
     <ClCompile Include="VAudio.cpp" />
     <ClCompile Include="WalkingEnemyBase.cpp" />
     <ClCompile Include="WeaponAxe.cpp" />
