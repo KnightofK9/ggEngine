@@ -6,6 +6,7 @@ namespace ggEngine {
 		this->isAlive = true;
 		this->isFinished = false;
 		this->isPlaying = false;
+		this->isLoop = false;
 		this->duration = duration;
 	}
 	TweenBase* TweenBase::SetOnFinish(std::function<void()> onFinish)
