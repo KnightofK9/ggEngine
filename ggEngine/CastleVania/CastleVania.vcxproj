@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AxeKnight.h" />
+    <ClInclude Include="Medusa.h" />
     <ClInclude Include="BreakableTileBrick.h" />
     <ClInclude Include="CVBlock.h" />
     <ClInclude Include="CVCamera.h" />
@@ -238,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AxeKnight.cpp" />
+    <ClCompile Include="Medusa.cpp" />
     <ClCompile Include="BreakableTileBrick.cpp" />
     <ClCompile Include="CVBlock.cpp" />
     <ClCompile Include="CVCamera.cpp" />

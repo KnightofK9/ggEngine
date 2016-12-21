@@ -69,6 +69,7 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 			for (auto & obj : it["itemList"].GetArray()) {
 				GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str(), enemyGroup);
 				if (go != nullptr) {
+					if (go->body != nullptr) go->body->PreUpdate();
 					/*enemyGroup->AddDrawObjectToList(go);
 					go->UpdateWorldPosition();
 					auto enemy = dynamic_cast<EnemyBase*>(go);

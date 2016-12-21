@@ -61,8 +61,7 @@ namespace ggEngine {
 	}
 	void GameObject::SetPosition(double x, double y)
 	{
-		this->position.x = x;
-		this->position.y = y;
+		SetPosition(Vector(x, y));
 	}
 	void GameObject::Destroy()
 	{
