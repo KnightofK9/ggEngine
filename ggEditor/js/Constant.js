@@ -9,6 +9,11 @@ var Constant = new function () {
     this.TILE_SET_PATH = this.RESOURCE_PATH + "TileSet/";
     this.STATIC_TILE_PATH = this.RESOURCE_PATH + "TileObject/";
 
+    this.EXPORT_WIDTH_HEIGHT_DICT = {
+        "TileBrick":null,
+        "AI6":null
+    };
+
     this.TILE_SET_DICT = {
         "level-2": {
             name: this.TILE_SET_PATH + "level-2.png",

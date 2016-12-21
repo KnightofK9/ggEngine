@@ -10,8 +10,10 @@ public:
 	void Update() override;
 	void Active() override;
 	bool isLeft;
-
-	void OnBrickContact(TileBrick* brick, ColliderArg e) override;
+	void SetMoveWidth(double moveWidth);
+	void SetPosition(Vector position);
 private:
 	bool isRunning;
+	double moveWidth;
+	Vector startPosition;
 };

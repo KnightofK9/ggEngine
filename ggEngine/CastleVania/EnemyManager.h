@@ -15,7 +15,7 @@ public:
 	AxeKnight* AddAxeKnight(double x, double y, Group *group);
 	Medusa* AddMedusa(double x, double y, Group *group);
 	BatEnemy* AddBatEnemy(double x, double y, Group* group);
-	AI6* AddAI6(double x, double y, Group* group);
+	AI6* AddAI6(double x, double y, double moveWidth, Group* group);
 
 private:
 };

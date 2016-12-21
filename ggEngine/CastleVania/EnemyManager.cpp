@@ -56,12 +56,13 @@ BatEnemy * EnemyManager::AddBatEnemy(double x, double y, Group * group)
 	return go;
 }
 
-AI6 * EnemyManager::AddAI6(double x, double y, Group * group)
+AI6 * EnemyManager::AddAI6(double x, double y, double moveWidth, Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::AI6_TEXTURE);
 	AI6 *go = new AI6(this->cvGame, inf);
 	go->SetPosition(Vector(x, y));
 	go->Active();
+	go->SetMoveWidth(moveWidth);
 	if (group != nullptr) {
 		group->AddDrawObjectToList(go);
 	}

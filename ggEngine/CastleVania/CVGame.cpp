@@ -30,7 +30,7 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	x = json["x"].GetDouble();
 	y = json["y"].GetDouble();
 	if (type == "AI6") {
-		go = this->enemyManager->AddAI6(x, y, group);
+		go = this->enemyManager->AddAI6(x, y, json["width"].GetDouble(), group);
 		return go;
 	}
 	if (type == "BatEnemy") {

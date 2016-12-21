@@ -144,20 +144,20 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
     var importMovingGroup = function (movingGroup) {
         for (var i = 0; i < movingGroup.itemList.length; i++) {
             var item = movingGroup.itemList[i];
-            that.createSpriteAt(item.x, item.y, item.type, item.width, item.height);
+            that.createSpriteAt(item.x, item.y, item.type, item.extraInfo, item.width, item.height);
         }
     };
     var importSimonGroup = function (simonGroup) {
         for (var i = 0; i < simonGroup.itemList.length; i++) {
             var item = simonGroup.itemList[i];
-            that.createSpriteAt(item.x, item.y, item.type, item.width, item.height);
+            that.createSpriteAt(item.x, item.y, item.type,item.extraInfo, item.width, item.height);
         }
     };
     var importCameraGroup = function (cameraGroup) {
         if (isNull(cameraGroup)) return;
         for (var i = 0; i < cameraGroup.itemList.length; i++) {
             var item = cameraGroup.itemList[i];
-            that.createSpriteAt(item.x, item.y, item.type, item.width, item.height);
+            that.createSpriteAt(item.x, item.y, item.type,item.extraInfo, item.width, item.height);
         }
     };
     var importStageList = function (stageList) {
@@ -986,6 +986,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 sprite.extraInfo.dropType.type = "";
             }
         }
+
         switch (type) {
             case "Simon":
                 sprite.anchor = {x: 0.5, y: 0.7};
@@ -993,6 +994,8 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
             case "Door":
                 sprite.anchor = {x: 0, y: 0};
                 break;
+            case "AI6":
+                sprite.anchor = {x:0,y:0};
             default:
                 break;
         }
