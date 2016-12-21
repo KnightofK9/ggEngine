@@ -65,10 +65,10 @@ public:
 	static constexpr const char* DEAD_TEXTURE = "DeadTexture";
 	static constexpr const char* DEAD_TEXTURE_PATH = "Resource/Resources/dead.png";
 
-	static constexpr const char* BOOMERANG_WEAPON_TEXTURE = "BoomerangTexture";
+	static constexpr const char* BOOMERANG_WEAPON_TEXTURE = "WeaponBoomerangTexture";
 	static constexpr const char* BOOMERANG_WEAPON_TEXTURE_PATH = "Resource/Resources/BoomerangAnimation.png";
 
-	static constexpr const char* AXE_WEAPON_TEXTURE = "AxeTexture";
+	static constexpr const char* AXE_WEAPON_TEXTURE = "WeaponAxeTexture";
 	static constexpr const char* AXE_WEAPON_TEXTURE_PATH = "Resource/Resources/AxeAnimation.png";
 
 	static constexpr const char* MAIN_WEAPON_TEXTURE = "MainWeaponTexture";
