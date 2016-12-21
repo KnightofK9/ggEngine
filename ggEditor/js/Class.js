@@ -429,6 +429,10 @@ function Group() {
                 sprite.width = item._item.width;
                 sprite.height = item._item.height;
             }
+            if(Constant.EXPORT_WIDTH_HEIGHT_DICT.hasOwnProperty(sprite.type)){
+                sprite.width = item._item.width;
+                sprite.height = item._item.height;
+            }
             if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(sprite.type)){
                 sprite.extraInfo.dropType.name = sprite.extraInfo.dropType.type;
                 sprite.extraInfo.dropType.x = sprite.x;
@@ -610,12 +614,16 @@ Phaser.QuadTree.prototype.export = function(){
         // sprite.y = item.y + sprite.height;
         sprite.x = this.objects[i].x;
         sprite.y = this.objects[i].y;
-        switch(sprite.type){
-            case "TileBrick":
-                sprite.width = this.objects[i].width;
-                sprite.height = this.objects[i].height;
-                break;
+        if(Constant.EXPORT_WIDTH_HEIGHT_DICT.hasOwnProperty(sprite.type)){
+            sprite.width = this.objects[i].width;
+            sprite.height = this.objects[i].height;
         }
+        // switch(sprite.type){
+        //     case "TileBrick":
+        //         sprite.width = this.objects[i].width;
+        //         sprite.height = this.objects[i].height;
+        //         break;
+        // }
         if(isNotNull(item._item.extraInfo)){
             sprite.extraInfo = item._item.extraInfo;
             if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(sprite.type)){

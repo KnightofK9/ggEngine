@@ -9,9 +9,11 @@ public:
 	void RunRight() override;
 	void Update() override;
 	void Active() override;
-
-	void OnBrickContact(TileBrick* brick, ColliderArg e) override;
+	bool isLeft;
+	void SetMoveWidth(double moveWidth);
+	void SetPosition(Vector position);
 private:
 	bool isRunning;
-	bool isLeft;
+	double moveWidth;
+	Vector startPosition;
 };

@@ -6,6 +6,7 @@
 #include "WeaponManager.h"
 #include "TileLadder.h"
 #include "CVMap.h"
+#include "EnemyManager.h"
 #include "StaticTIleManager.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
 	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
@@ -80,6 +81,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		case ObjectType_AI6:
+			return true;
 		case ObjectType_BreakableTileBrick:
 			if (e.blockDirection.up) return false;
 			return true;
@@ -114,6 +117,17 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		case ObjectType_AI6:
+		{
+			auto ai6 = dynamic_cast<AI6*>(otherObject);
+			if (ai6->isLeft) {
+				this->position.x -= ai6->GetSpeed();
+			}
+			else {
+				this->position.x += ai6->GetSpeed();
+			}
+		}
+		break;
 		/*case ObjectType_Door:
 			currentMap->OnEnterDoor(dynamic_cast<Door*>(otherObject));
 			break;*/
@@ -150,7 +164,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
-			case ObjectType_Door:
+		case ObjectType_Door:
 				if(this->grounding == SimonGrounding_Brick)
 					currentMap->OnEnterDoor(dynamic_cast<Door*>(otherObject));
 				break;
