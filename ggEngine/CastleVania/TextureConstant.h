@@ -166,6 +166,9 @@ public:
 	static constexpr const char* BONE_PILLAR_TEXTURE_PATH = "Resource/Resources/BonePillar.png";
 
 
+	static constexpr const char* MEDUSA_HEAD_TEXTURE = "MedusaHead";
+	static constexpr const char* MEDUSA_HEAD_TEXTURE_PATH = "Resource/Resources/MedusaHead.png";
+
 	static constexpr const char* BAT_ENEMY_TEXTURE = "BatEnemy";
 	static constexpr const char* BAT_ENEMY_TEXTURE_PATH = "Resource/Resources/BatEnemy.png";
 

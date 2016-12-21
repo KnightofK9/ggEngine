@@ -48,15 +48,6 @@ void EnemyBase::Active()
 
 bool EnemyBase::OnCheckingCollide(ColliderArg e)
 {
-	auto otherObject = e.colliderObject;
-	Tag tag = otherObject->tag;
-	switch (tag) {
-	case ObjectType_LevelTwoBrick:
-		if (e.blockDirection.down) return true;
-		return false;
-	default:
-		return false;
-	}
 	return false;
 }
 void EnemyBase::Update()

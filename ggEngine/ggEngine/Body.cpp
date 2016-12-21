@@ -260,12 +260,12 @@ namespace ggEngine {
 	}
 	void Body::PreUpdate()
 	{
+		this->blocked.Reset();
+		this->shortestCollider.Reset();
 		if (this->immoveable) {
 			this->rigidBody->Transform(this->sprite->worldPosition + this->localPosition);
 			return;
 		}
-		this->blocked.Reset();
-		this->shortestCollider.Reset();
 		//position = sprite->GetPosition();
 		if (this->syncBounds) {
 			this->width = sprite->GetOrgWidth() * (sprite->worldScale.x);
@@ -412,7 +412,7 @@ namespace ggEngine {
 		std::list<GameObject*> possibleCollidedBoxList;
 		Rect broadPhaseRect = Physics::CreateSweptBroadPhaseRect(b1);
 		for (auto it = staticGoList.begin(); it != staticGoList.end(); ++it) {
-			if ((*it)->IsAlive() && (*it)->body->IsEnable() && (*it)->body->IsActive()) {
+			if ((*it)->IsAlive() && (*it)->body->IsEnable() ) {
 				(*it)->body->PreUpdate();
 				Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 				Rect result;
@@ -422,7 +422,7 @@ namespace ggEngine {
 			}
 		}
 		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
-			if ((*it)->IsAlive() && (*it)->body->IsEnable() && (*it)->body->IsActive()) {
+			if ((*it)->IsAlive() && (*it)->body->IsEnable()) {
 				(*it)->body->PreUpdate();
 				Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
 				Rect result;

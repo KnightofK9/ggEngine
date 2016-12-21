@@ -69,6 +69,7 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 			for (auto & obj : it["itemList"].GetArray()) {
 				GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str(), enemyGroup);
 				if (go != nullptr) {
+					if (go->body != nullptr) go->body->PreUpdate();
 					/*enemyGroup->AddDrawObjectToList(go);
 					go->UpdateWorldPosition();
 					auto enemy = dynamic_cast<EnemyBase*>(go);
@@ -303,7 +304,7 @@ void CVMap::CheckIfSimonOutOfBlock()
 void CVMap::StartSwitchingState()
 {
 	this->isSwitchingStage = true;
-	this->door->body->SetActive(false);
+	this->door->body->SetEnable(false);
 	Vector moveToPosition = this->currentBlock->simonSpawnPosition;
 	Vector point = moveToPosition;
 	Rect r(point.x - this->camera->GetWidth() / 2, point.y - this->camera->GetHeight() / 2,
@@ -335,7 +336,7 @@ void CVMap::StartSwitchingState()
 		this->isSwitchingStage = false;
 		this->simon->allowControl = true;
 		this->simon->body->immoveable = false;
-		this->door->body->SetActive(true);
+		this->door->body->SetEnable(true);
 		this->simon->body->allowGravity = true;
 		this->door = nullptr;
 		this->camera->Follow(this->simon);
