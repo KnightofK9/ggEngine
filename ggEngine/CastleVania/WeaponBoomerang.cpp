@@ -22,7 +22,18 @@ WeaponBoomerang::~WeaponBoomerang()
 void WeaponBoomerang::FireWeapon(bool isLeft)
 {
 	this->isLeft = isLeft;
-	FireHorizontal(isLeft, this->throwForce);
+	//FireHorizontal(isLeft, this->throwForce);
+
+	this->distanceCal = this->distanceToReturn;
+	if (isLeft)
+		this->distanceCal *= -1;
+
+	this->cvGame->add->Tween(this->position.x, this->position.x + this->distanceCal, this->timeToReturn, Easing::linearTween)->SetOnFinish([this]() {
+		this->distanceCal *= -1;
+		this->cvGame->add->Tween(this->position.x, this->position.x + this->distanceCal, this->timeToReturn, Easing::linearTween)->Start()->SetOnFinish([this]() {
+			this->Destroy();
+		});
+	})->Start();
 
 	//if (this->contactedWorldBound == false) {
 	//	this->cvGame->add->TimeOut(this->timeToReturn, [this] {
