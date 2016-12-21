@@ -15,26 +15,41 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int 
 	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
 		switch (go->tag) {
 		case ObjectType_Enemy:
-			{
-				EnemyBase *enemy = dynamic_cast<EnemyBase*>(go);
-				if (enemy != nullptr) {
-					OnEnemyContact(enemy, e);
-					return;
-				}
+		{	EnemyBase *enemy = dynamic_cast<EnemyBase*>(go);
+			if (enemy != nullptr) {
+				OnEnemyContact(enemy, e);
+				return;
 			}
-			break;
+		}
+		break;
+
 		case ObjectType_Static:
 			OnStaticContact(go,e);
 			break;
+
+		default:
+			break;
+		}
+	};
+
+	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
+		GameObject *otherObject = e.colliderObject;
+		Tag type = otherObject->tag;
+		switch (type) {
+		case ObjectType_Enemy:
+		{	EnemyBase *enemy = dynamic_cast<EnemyBase*>(go);
+			if (enemy != nullptr) {
+				OnEnemyContact(enemy, e);
+				return;
+			}
+		}
+		break;
+
 		default:
 			break;
 		}
 	};
 	
-
-
-
-
 	this->visible = false;
 	this->body->SetActive(false);
 }
@@ -50,7 +65,8 @@ void WeaponBase::FireWeapon(bool isLeft)
 
 void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 {
-	Destroy();
+	g_debug.Log("Contact enemy!");
+	//Destroy();
 }
 
 void WeaponBase::OnOutOfCamera(EventArg e)
@@ -68,7 +84,6 @@ void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
 
 void WeaponBase::Destroy()
 {
-	
 	GameObject::Destroy();
 }
 

@@ -15,6 +15,7 @@ public:
 	virtual void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e);
 	virtual void OnOutOfCamera(EventArg e);
 	virtual void OnStaticContact(GameObject *staticObject, ColliderArg e);
+	//virtual void OnBrickContact(GameObject *brick, ColliderArg e);
 	virtual void Destroy();
 
 	virtual void Active();

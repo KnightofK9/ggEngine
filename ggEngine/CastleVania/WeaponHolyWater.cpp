@@ -22,3 +22,4 @@ void WeaponHolyWater::FireWeapon(bool isLeft)
 void WeaponHolyWater::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 {
 }
+

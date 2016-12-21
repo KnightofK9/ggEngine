@@ -81,7 +81,7 @@ WeaponDagger* WeaponManager::AddWeaponDagger(double x, double y, bool isLeft, Gr
 WeaponAxe* WeaponManager::AddWeaponAxe(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::AXE_WEAPON_TEXTURE);
-	WeaponAxe *weaponAxe = new WeaponAxe(this->cvGame, inf, 60, 14, 0, 4, 100);
+	WeaponAxe *weaponAxe = new WeaponAxe(this->cvGame, inf, 15, 14, 0, 4, 200);
 	weaponAxe->SetPosition(x, y);
 	weaponAxe->SetParentObject(group);
 	weaponAxe->Active();
@@ -96,14 +96,26 @@ WeaponAxe* WeaponManager::AddWeaponAxe(double x, double y, bool isLeft, Group * 
 WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::HOLY_WATER_WEAPON_TEXTURE);
-	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf, 48, 13, 0, 3, 100);
+	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf, 16, 13, 0, 3, 200);
 	weaponHolyWater->SetPosition(x, y);
 	weaponHolyWater->SetParentObject(group);
 	weaponHolyWater->Active();
 	weaponHolyWater->CreateAnimation("fireAnim", 0, 0, true);
-	weaponHolyWater->CreateAnimation("blockContact", 1, 2, true);
-	//weaponHolyWater->FireWeapon(isLeft);
+	weaponHolyWater->CreateAnimation("blockContact", { 1, 2, 1, 2, 1, 2, 1 }, false);
+	weaponHolyWater->FireWeapon(isLeft);
 	weaponHolyWater->PlayAnimation("fireAnim");
+
+	//weaponHolyWater->events->onCollide = [weaponHolyWater](GameObject *go, ColliderArg e) {
+	//	GameObject *otherObject = e.colliderObject;
+	//	Tag type = otherObject->tag;
+	//	switch (type) {
+	//	case ObjectType_LevelTwoBrick:
+	//		weaponHolyWater->PlayAnimation("blockContact");
+	//		break;
+	//	default:
+	//		return;
+	//	}
+	//};
 
 	group->AddDrawObjectToList(weaponHolyWater);
 	return weaponHolyWater;
@@ -112,11 +124,11 @@ WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLe
 WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::BOOMERANG_WEAPON_TEXTURE);
-	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf, 45, 14, 0, 4, 100);
+	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf, 15, 14, 0, 3, 200);
 	weaponBoomerang->SetPosition(x, y);
 	weaponBoomerang->SetParentObject(group);
 	weaponBoomerang->Active();
-	weaponBoomerang->CreateAnimation("fireAnim", 0, 3, true);
+	weaponBoomerang->CreateAnimation("fireAnim", 0, 2, true);
 	weaponBoomerang->PlayAnimation("fireAnim");
 	weaponBoomerang->FireWeapon(isLeft);
 
