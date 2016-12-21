@@ -1,7 +1,8 @@
 #include "WeaponBase.h"
 #include "CVGame.h"
 #include "EnemyBase.h"
-WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image) : CVSprite(cvGame,image)
+WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->SetAnchor(0.5, 0.5);
 	this->cvGame = cvGame;

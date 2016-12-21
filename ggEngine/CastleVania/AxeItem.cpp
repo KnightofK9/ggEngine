@@ -12,5 +12,6 @@ AxeItem::~AxeItem()
 
 void AxeItem::OnSimonContact(Simon * simon, ColliderArg e)
 {
+	simon->SetSubWeapon(SimonSubWeaponType::SubWeapon_Axe, this->image);
 	Destroy();
 }

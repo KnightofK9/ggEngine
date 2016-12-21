@@ -12,6 +12,6 @@ BoomerangItem::~BoomerangItem()
 
 void BoomerangItem::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	simon->infoPanel->item->SetImage(this->image);
+	simon->SetSubWeapon(SimonSubWeaponType::SubWeapon_Boomerang, this->image);
 	Destroy();
 }
