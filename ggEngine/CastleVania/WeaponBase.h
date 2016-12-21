@@ -6,6 +6,7 @@
 using namespace ggEngine;
 class CVGame;
 class EnemyBase;
+class Simon;
 class WeaponBase : public CVSpriteAnimation, public CVObject {
 public:
 	WeaponBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 50, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -15,6 +16,7 @@ public:
 	virtual void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e);
 	virtual void OnOutOfCamera(EventArg e);
 	virtual void OnStaticContact(GameObject *staticObject, ColliderArg e);
+	virtual void OnSimonContact(Simon *simon, ColliderArg e);
 	virtual void OnBrickContact(GameObject *brick, ColliderArg e);
 	virtual void Destroy();
 

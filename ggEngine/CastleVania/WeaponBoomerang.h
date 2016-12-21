@@ -10,7 +10,8 @@ public:
 
 	void FireWeapon(bool isLeft) override;
 	void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e) override;
-	void OnSimonContact(Simon *simon, ColliderArg e);
+	void OnSimonContact(Simon *simon, ColliderArg e) override;
+	void OnOutOfCamera(EventArg e) override;
 	int GetHeartConsumtion() override { return this->heartConsumtion; }
 
 private:
@@ -18,7 +19,9 @@ private:
 	const double throwForce = 1.0;
 	const int timeToReturn = 1300;
 	const int distanceToReturn = 100;
-	int distanceCal = distanceToReturn;
 	bool isLeft;
 	bool contactedWorldBound = false;
+
+	TweenBase *tweenOut = nullptr;
+	TweenBase *tweenReturn = nullptr;
 };

@@ -1,6 +1,7 @@
 #include "WeaponBase.h"
 #include "CVGame.h"
 #include "EnemyBase.h"
+#include "Simon.h"
 WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
@@ -30,6 +31,15 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int 
 		case ObjectType_LevelTwoBrick:
 			OnBrickContact(go, e);
 			break;
+
+		case ObjectType_Simon:
+		{	Simon *simon = dynamic_cast<Simon*>(go);
+			if (simon != nullptr) {
+				OnSimonContact(simon, e);
+				return;
+			}
+		}
+		break;
 
 		default:
 			break;
@@ -75,8 +85,13 @@ void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 
 void WeaponBase::OnOutOfCamera(EventArg e)
 {
-	g_debug.Log("Out of camera!");
+	//g_debug.Log("Out of camera!");
 	Destroy();
+}
+
+void WeaponBase::OnSimonContact(Simon * simon, ColliderArg e)
+{
+
 }
 
 

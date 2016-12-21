@@ -5,11 +5,6 @@ WeaponBoomerang::WeaponBoomerang(CVGame * cvGame, SpriteInfo * image, int frameW
 	: WeaponBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->body->allowGravity = false;
-	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
-		this->contactedWorldBound = true;
-		Vector direction = GetHorizontalDirection(!this->isLeft);
-		this->body->AddForce(throwForce, direction);
-	};
 }
 
 WeaponBoomerang::~WeaponBoomerang()
@@ -22,25 +17,20 @@ WeaponBoomerang::~WeaponBoomerang()
 void WeaponBoomerang::FireWeapon(bool isLeft)
 {
 	this->isLeft = isLeft;
-	//FireHorizontal(isLeft, this->throwForce);
+	int desX = this->distanceToReturn;
+	if (isLeft) desX *= -1;
 
-	this->distanceCal = this->distanceToReturn;
-	if (isLeft)
-		this->distanceCal *= -1;
 
-	this->cvGame->add->Tween(this->position.x, this->position.x + this->distanceCal, this->timeToReturn, Easing::linearTween)->SetOnFinish([this]() {
-		this->distanceCal *= -1;
-		this->cvGame->add->Tween(this->position.x, this->position.x + this->distanceCal, this->timeToReturn, Easing::linearTween)->Start()->SetOnFinish([this]() {
-			this->Destroy();
-		});
+	this->tweenOut = this->cvGame->add->Tween(this->position.x, this->position.x + desX, this->timeToReturn, Easing::linearTween)->SetOnFinish([this]() {
+		this->SetScale(-1, 1);
+		
+		int desX = 1000;
+		if (!this->isLeft) desX *= -1;
+		this->tweenReturn = this->cvGame->add->Tween(this->position.x, this->position.x + desX, 13000, Easing::linearTween)->Start();
 	})->Start();
 
-	//if (this->contactedWorldBound == false) {
-	//	this->cvGame->add->TimeOut(this->timeToReturn, [this] {
-	//		Vector direction = GetHorizontalDirection(!this->isLeft);
-	//		this->body->SetForce(this->throwForce, direction);
-	//	})->Start();
-	//}
+	
+
 }
 
 void WeaponBoomerang::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
@@ -49,6 +39,25 @@ void WeaponBoomerang::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 
 void WeaponBoomerang::OnSimonContact(Simon * simon, ColliderArg e)
 {
+	this->tweenOut->Stop();
+	if (this->tweenReturn != nullptr)
+		this->tweenReturn->Stop();
 	this->Destroy();
+}
+
+void WeaponBoomerang::OnOutOfCamera(EventArg e)
+{
+	if (this->tweenReturn != nullptr) {
+		this->tweenReturn->Stop();
+		this->Destroy();
+	}
+	else {
+		this->tweenOut->Stop();
+		this->SetScale(-1, 1);
+
+		int desX = 1000;
+		if (!this->isLeft) desX *= -1;
+		this->tweenReturn = this->cvGame->add->Tween(this->position.x, this->position.x + desX, 13000, Easing::linearTween)->Start();
+	}
 }
 
