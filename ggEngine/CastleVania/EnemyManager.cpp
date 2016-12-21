@@ -41,3 +41,15 @@ Medusa * EnemyManager::AddMedusa(double x, double y, Group * group)
 	}
 	return go;
 }
+
+BatEnemy * EnemyManager::AddBatEnemy(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::BAT_ENEMY_TEXTURE);
+	BatEnemy *go = new BatEnemy(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}

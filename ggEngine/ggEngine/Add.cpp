@@ -125,18 +125,18 @@ namespace ggEngine{
 		if (isAddToTweenManager) this->tweenManager->AddTween(tween);
 		return tween;
 	}
-	ggEngine::TweenBase * Add::MoveBy(GameObject * go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunction, bool isAddToTweenManager)
+	ggEngine::TweenBase * Add::MoveBy(GameObject * go, Vector distance, double duration, std::function<double(int, double, double, int)> easingFunctionX, std::function<double(int, double, double, int)> easingFunctionY, bool isAddToTweenManager)
 	{
 		Vector startPosition = go->position;
-		TweenBase* moveX = this->Tween(go->position.x, distance.x + startPosition.x, duration, easingFunction);
-		TweenBase* moveY = this->Tween(go->position.y, distance.y + startPosition.y, duration, easingFunction);
+		TweenBase* moveX = this->Tween(go->position.x, distance.x + startPosition.x, duration, easingFunctionX);
+		TweenBase* moveY = this->Tween(go->position.y, distance.y + startPosition.y, duration, easingFunctionY);
 		TweenBase* multiTween = this->MultiTween({ moveX,moveY }, isAddToTweenManager);
 		return multiTween;
 	}
-	ggEngine::TweenBase * Add::MoveTo(GameObject * go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunction, bool isAddToTweenManager)
+	ggEngine::TweenBase * Add::MoveTo(GameObject * go, Vector newPosition, double duration, std::function<double(int, double, double, int)> easingFunctionX, std::function<double(int, double, double, int)> easingFunctionY, bool isAddToTweenManager)
 	{
-		TweenBase* moveX = this->Tween(go->position.x, newPosition.x, duration, easingFunction);
-		TweenBase* moveY = this->Tween(go->position.y, newPosition.y, duration, easingFunction);
+		TweenBase* moveX = this->Tween(go->position.x, newPosition.x, duration, easingFunctionX);
+		TweenBase* moveY = this->Tween(go->position.y, newPosition.y, duration, easingFunctionY);
 		TweenBase* multiTween = this->MultiTween({ moveX,moveY }, isAddToTweenManager);
 		return multiTween;
 	}
