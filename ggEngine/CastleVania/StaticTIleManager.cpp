@@ -35,6 +35,8 @@ TileBrick * StaticTileManager::AddTileBrick(double x, double y,double width, dou
 {
 	SpriteInfo* spriteInfo = this->cache->GetSpriteInfo(TextureConstant::TILE_BRICK_TEXTURE);
 	TileBrick* go = new TileBrick(this->cvGame, spriteInfo);
+	go->SetWidth(width);
+	go->SetHeight(height);
 	go->body->SetWidth(width);
 	go->body->SetHeight(height);
 	go->SetPosition(x, y);

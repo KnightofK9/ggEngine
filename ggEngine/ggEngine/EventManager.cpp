@@ -48,6 +48,11 @@ void ggEngine::EventManager::EnableOnDestroyEvent(GameObject * go)
 	InitEvents(go);
 }
 
+void ggEngine::EventManager::EnableEventUpdate(GameObject * go, bool isCallByEventManager)
+{
+	InitEvents(go);
+}
+
 void ggEngine::EventManager::DisableCameraEvent(GameObject * go)
 {
 	InitEvents(go);

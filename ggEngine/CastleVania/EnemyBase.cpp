@@ -1,7 +1,7 @@
 #include "EnemyBase.h"
 #include "Simon.h"
 #include "CVGame.h"
-EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
+EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image,  int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, image->GetWidth(),image->GetHeight(), defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->tag = ObjectType_Enemy;
 	cvGame->physics->AttachBodyTo(this);
@@ -18,6 +18,10 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 			OnSimonContact(dynamic_cast<Simon*>(otherObject), e);
 			break;
 		}
+	};
+	this->cvGame->eventManager->EnableEventUpdate(this, false);
+	this->events->onUpdate = [this](GameObject*) {
+		Update();
 	};
 
 	this->SetAlive(false);
@@ -52,4 +56,17 @@ bool EnemyBase::OnCheckingCollide(ColliderArg e)
 		return false;
 	}
 	return false;
+}
+void EnemyBase::Update()
+{
+}
+void EnemyBase::ChangeFacingDirection(bool isLeft)
+{
+	this->isLeft = isLeft;
+	if (isLeft) {
+		this->SetScale(1, 1);
+	}
+	else {
+		this->SetScale(-1, 1);
+	}
 }

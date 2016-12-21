@@ -18,6 +18,7 @@ namespace ggEngine {
 		void EnableSpriteAnimationEvent(SpriteAnimation *go);
 		void EnableCameraEvent(GameObject *go);
 		void EnableOnDestroyEvent(GameObject *go);
+		void EnableEventUpdate(GameObject *go, bool isCallByEventManager = true);
 		void DisableCameraEvent(GameObject *go);
 
 		void DisableKeyBoardInput(GameObject *go,bool isClearEvent = false);

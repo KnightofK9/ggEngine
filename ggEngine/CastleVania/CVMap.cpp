@@ -9,6 +9,7 @@
 #include "CVBlock.h"
 #include "Constant.h"
 #include "CVCamera.h"
+#include "EnemyGroup.h"
 #include "StaticTIleManager.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
@@ -42,12 +43,8 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 	this->simonGroup = this->cvAdd->AddSimonGroup();
 	this->AddGroup(this->simonGroup);
 
-	/*simon->SetParentObject(this->simonGroup);
-	simon->UpdateWorldPosition();
-	if (simon->body != nullptr) {
-		simon->body->rigidBody->Transform(simon->worldPosition);
-	}
-	this->simonGroup->AddDrawObjectToList(simon);*/
+	cameraActiveGroup = new CameraActiveGroup(this->cvGame);
+	this->cameraActiveGroup->SetParentObject(this);
 
 	for (auto& it : state["groupList"].GetArray())
 	{
@@ -66,33 +63,11 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 			continue;
 		}
 		if (type == "CameraActiveGroup") {
-			cameraActiveGroup = new CameraActiveGroup(this->cvGame);
-			this->cameraActiveGroup->SetParentObject(this);
+			this->enemyGroup = new EnemyGroup(this->cvGame);
+			this->enemyGroup->SetParentObject(this);
 			continue;
 		}
 		if (type == "Simon") {
-			
-			/*for (auto& obj : it["itemList"].GetArray()) {
-				std::string type = obj["type"].GetString();
-				GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str());
-				if (go != nullptr) {
-					if (type == "Simon") {
-						this->simon = dynamic_cast<Simon*>(go);
-						go->SetParentObject(this->simonGroup);
-						go->UpdateWorldPosition();
-						if (go->body != nullptr) {
-							go->body->rigidBody->Transform(go->worldPosition);
-						}
-						this->simonGroup->AddDrawObjectToList(go);
-						this->simon->AddWhip();
-						this->cvGame->simon = this->simon;
-						continue;
-					}
-				}
-				else {				
-					g_debug.Log("Type not found!" + type);
-				}
-			}*/
 			continue;
 		}
 	}
