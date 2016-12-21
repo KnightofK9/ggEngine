@@ -1,12 +1,12 @@
 #pragma once
 #include <ggEngine.h>
-#include "BreakableObjectBase.h"
+#include "DropObjectBase.h"
 
 using namespace ggEngine;
 class CVGame;
 class WeaponWhip;
 class WeaponBase;
-class BreakableTileBrick : public BreakableObjectBase
+class BreakableTileBrick : public DropObjectBase
 {
 public:
 	BreakableTileBrick(CVGame *cvGame, SpriteInfo *image);
@@ -14,13 +14,9 @@ public:
 
 	void OnWeaponWhipContact(WeaponWhip *whip, ColliderArg e) override;
 	void OnSubWeaponContact(WeaponBase *weapon, ColliderArg e) override;
-	void SetDropItem(std::string itemJson);
 	void Active() override;
 	void Draw() override;
 private:
-	void DropItem();
-	std::string itemJson = "";
-	//CVGame *cvGame;
 
 };
 
