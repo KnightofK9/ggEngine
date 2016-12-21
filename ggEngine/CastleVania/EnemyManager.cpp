@@ -16,6 +16,8 @@ void EnemyManager::PreloadAll()
 	this->preload->Texture(TextureConstant::BAT_ENEMY_TEXTURE, TextureConstant::BAT_ENEMY_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::GHOST_TEXTURE, TextureConstant::GHOST_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::BOSS_TEXTURE, TextureConstant::BOSS_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::AI6_TEXTURE, TextureConstant::AI6_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::AI7_TEXTURE, TextureConstant::AI7_TEXTURE_PATH);
 }
 
 AxeKnight* EnemyManager::AddAxeKnight(double x, double y, Group * group)
@@ -46,6 +48,18 @@ BatEnemy * EnemyManager::AddBatEnemy(double x, double y, Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::BAT_ENEMY_TEXTURE);
 	BatEnemy *go = new BatEnemy(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
+
+AI6 * EnemyManager::AddAI6(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::AI6_TEXTURE);
+	AI6 *go = new AI6(this->cvGame, inf);
 	go->SetPosition(Vector(x, y));
 	go->Active();
 	if (group != nullptr) {

@@ -122,13 +122,6 @@ public:
 	static constexpr const char* TRIPLE_SHOT_TEXTURE = "TripleShotTexture";
 	static constexpr const char* TRIPLE_SHOT_TEXTURE_PATH = "Resource/Resources/TripleShot.png";
 
-	static constexpr const char* AI6_TEXTURE = "AI6Texture";
-	static constexpr const char* AI6_TEXTURE_PATH = "Resource/Resources/AI6.png";
-
-	static constexpr const char* AI7_TEXTURE = "AI7Texture";
-	static constexpr const char* AI7_TEXTURE_PATH = "Resource/Resources/AI7.png";
-
-
 	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE = "level-2";
 	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE_PATH = "Resource/Resources/TileSet/level-2.png";
 	static constexpr const char* TILE_SET_LEVEL_2_JSON_PATH = "Resource/Resources/TileSet/level-2.json";
@@ -159,6 +152,12 @@ public:
 	/**
 	* Enemy
 	**/
+	static constexpr const char* AI6_TEXTURE = "AI6";
+	static constexpr const char* AI6_TEXTURE_PATH = "Resource/Resources/AI6.png";
+
+	static constexpr const char* AI7_TEXTURE = "AI7";
+	static constexpr const char* AI7_TEXTURE_PATH = "Resource/Resources/AI7.png";
+
 	static constexpr const char* AXE_KNIGHT_TEXTURE = "AxeKnightTexture";
 	static constexpr const char* AXE_KNIGHT_TEXTURE_PATH = "Resource/Resources/AxeKnight.png";
 

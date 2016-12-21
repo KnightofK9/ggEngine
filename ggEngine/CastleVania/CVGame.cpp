@@ -29,6 +29,10 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	type = json["type"].GetString();
 	x = json["x"].GetDouble();
 	y = json["y"].GetDouble();
+	if (type == "AI6") {
+		go = this->enemyManager->AddAI6(x, y, group);
+		return go;
+	}
 	if (type == "BatEnemy") {
 		go = this->enemyManager->AddBatEnemy(x, y, group);
 		return go;
