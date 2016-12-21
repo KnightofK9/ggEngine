@@ -348,7 +348,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->SetUpKeyControl();
 	this->SetUpTestKeyControl();
 	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
-	this->shot = 3;
+	this->shot = 1;
 	this->numberWeaponCanFire = this->shot;
 	this->isReadyToFireWeapon = true;
 	this->isAlive = true;

@@ -81,11 +81,11 @@ WeaponDagger* WeaponManager::AddWeaponDagger(double x, double y, bool isLeft, Gr
 WeaponAxe* WeaponManager::AddWeaponAxe(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::AXE_WEAPON_TEXTURE);
-	WeaponAxe *weaponAxe = new WeaponAxe(this->cvGame, inf, 15, 14, 0, 4, 200);
+	WeaponAxe *weaponAxe = new WeaponAxe(this->cvGame, inf, 15, 14, 0, 4, 70);
 	weaponAxe->SetPosition(x, y);
 	weaponAxe->SetParentObject(group);
 	weaponAxe->Active();
-	weaponAxe->CreateAnimation("fireAnim", 0, 3, true);
+	weaponAxe->CreateAnimation("fireAnim", 0, 2, true);
 	weaponAxe->PlayAnimation("fireAnim");
 	weaponAxe->FireWeapon(isLeft);
 
@@ -96,12 +96,14 @@ WeaponAxe* WeaponManager::AddWeaponAxe(double x, double y, bool isLeft, Group * 
 WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::HOLY_WATER_WEAPON_TEXTURE);
-	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf, 16, 13, 0, 3, 200);
+	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf, 16, 13, 0, 3, 70);
 	weaponHolyWater->SetPosition(x, y);
 	weaponHolyWater->SetParentObject(group);
 	weaponHolyWater->Active();
 	weaponHolyWater->CreateAnimation("fireAnim", 0, 0, true);
-	weaponHolyWater->CreateAnimation("blockContact", { 1, 2, 1, 2, 1, 2, 1 }, false);
+	weaponHolyWater->CreateAnimation("brickContact", { 1, 2, 1, 2, 1, 2, 1 }, false)->SetOnCompleted([weaponHolyWater](Animator*) {
+		weaponHolyWater->Destroy();
+	});
 	weaponHolyWater->FireWeapon(isLeft);
 	weaponHolyWater->PlayAnimation("fireAnim");
 
@@ -124,7 +126,7 @@ WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLe
 WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::BOOMERANG_WEAPON_TEXTURE);
-	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf, 15, 14, 0, 3, 200);
+	WeaponBoomerang *weaponBoomerang = new WeaponBoomerang(this->cvGame, inf, 15, 14, 0, 3, 70);
 	weaponBoomerang->SetPosition(x, y);
 	weaponBoomerang->SetParentObject(group);
 	weaponBoomerang->Active();

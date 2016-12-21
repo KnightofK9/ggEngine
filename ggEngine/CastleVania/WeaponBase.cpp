@@ -7,7 +7,7 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int 
 	this->SetAnchor(0.5, 0.5);
 	this->cvGame = cvGame;
 	this->cvGame->physics->EnablePhysics(this);
-	this->body->CreateRectangleRigidBody(this->image->GetWidth(), this->image->GetHeight());
+	this->body->CreateRectangleRigidBody(frameWidth, frameHeight);
 	this->body->allowGravity = true;
 	this->body->syncBounds = false;
 	this->body->rigidBody->SetAnchor(0.5, 0.5);
@@ -25,6 +25,10 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int 
 
 		case ObjectType_Static:
 			OnStaticContact(go,e);
+			break;
+
+		case ObjectType_LevelTwoBrick:
+			OnBrickContact(go, e);
 			break;
 
 		default:
@@ -80,6 +84,11 @@ void WeaponBase::OnOutOfCamera(EventArg e)
 void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
 {
 	Destroy();
+}
+
+void WeaponBase::OnBrickContact(GameObject * brick, ColliderArg e)
+{
+
 }
 
 void WeaponBase::Destroy()

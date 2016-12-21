@@ -8,14 +8,14 @@ class CVGame;
 class EnemyBase;
 class WeaponBase : public CVSpriteAnimation, public CVObject {
 public:
-	WeaponBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
+	WeaponBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 50, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~WeaponBase();
 
 	virtual void FireWeapon(bool isLeft);
 	virtual void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e);
 	virtual void OnOutOfCamera(EventArg e);
 	virtual void OnStaticContact(GameObject *staticObject, ColliderArg e);
-	//virtual void OnBrickContact(GameObject *brick, ColliderArg e);
+	virtual void OnBrickContact(GameObject *brick, ColliderArg e);
 	virtual void Destroy();
 
 	virtual void Active();
