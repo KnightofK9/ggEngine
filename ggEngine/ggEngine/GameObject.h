@@ -49,7 +49,7 @@ namespace ggEngine {
 		virtual void SetScale(double x, double y){ this->scale.x = x; this->scale.y = y; }
 		virtual void SetRotate(double angle){ this->rotate = angle; }
 		double GetRotate(){ return this->rotate; }
-		
+		void SetAlive(bool alive) { this->alive = alive; }
 		void SetBody(Body* body);
 		Body* GetBody() { return this->body; }
 		Body* body = nullptr;
