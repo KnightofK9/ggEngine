@@ -145,7 +145,7 @@ void WeaponBase::FireHorizontal(bool isLeft, double throwForce)
 
 Vector WeaponBase::GetThrowDirection(bool isLeft)
 {
-	Vector direction(-1, -1.5);
+	Vector direction(-1, -2);
 	if (!isLeft) {
 		direction.x = 1;
 	}

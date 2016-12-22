@@ -969,9 +969,7 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 
 void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 {
-	if (e.isPress(controlKey[SimonControl_TurboB])) {
-		this->Attack();
-	}
+
 
 	if (e.isPress(controlKey[SimonControl_Left])) {
 		if (e.isPress(controlKey[SimonControl_A])) {
@@ -1014,14 +1012,28 @@ void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 		}
 	}
 
+	if (e.isPress(controlKey[SimonControl_TurboB])) {
+		this->Attack();
+	}
 }
 
 void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
 {
 	if (e.isPress(controlKey[SimonControl_B]))
 		this->StandAttack();
+
 	if (e.isPress(controlKey[SimonControl_TurboB]))
 		this->Attack();
+
+	if (e.isPress(controlKey[SimonControl_Left])) {
+		ChangeFacingDirection(true);
+		this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
+	}
+
+	if (e.isPress(controlKey[SimonControl_Right])) {
+		ChangeFacingDirection(false);
+		this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
+	}
 }
 
 void Simon::CheckKeyPressLadderDownLeft(KeyBoardEventArg e)

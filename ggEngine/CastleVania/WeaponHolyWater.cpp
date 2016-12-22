@@ -25,6 +25,7 @@ void WeaponHolyWater::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 
 void WeaponHolyWater::OnBrickContact(GameObject * go, ColliderArg e)
 {
+	g_debug.Log("Contacting Brick");
 	//this->PlayAnimation("brickContact");
 }
 

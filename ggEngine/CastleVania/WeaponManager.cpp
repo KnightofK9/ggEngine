@@ -130,11 +130,11 @@ WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLe
 	weaponBoomerang->SetPosition(x, y);
 	weaponBoomerang->SetParentObject(group);
 	weaponBoomerang->Active();
-	weaponBoomerang->CheckCollisionToSimon(this->cvGame->simon);
 	weaponBoomerang->CreateAnimation("fireAnim", 0, 2, true);
 	weaponBoomerang->PlayAnimation("fireAnim");
 	weaponBoomerang->FireWeapon(isLeft);
 
 	group->AddDrawObjectToList(weaponBoomerang);
+	this->cvGame->simon->GetGroupToCheckCollision()->AddDrawObjectToList(weaponBoomerang);
 	return weaponBoomerang;
 }
