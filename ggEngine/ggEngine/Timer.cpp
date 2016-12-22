@@ -1,5 +1,5 @@
 #include "Timer.h"
-
+#include "DebugDefine.h"
 namespace ggEngine {
 	Timer::Timer(void)
 	{
@@ -41,11 +41,19 @@ namespace ggEngine {
 	}
 	double Timer::getDeltaTime()
 	{
-		return (double)deltaTime/1000;
+#ifdef DEBUG_FRAME
+		return (double)14.4 / 1000;
+#else
+		return (double)deltaTime / 1000;
+#endif
 	}
 	double Timer::getDeltaTimeInMilisecond()
 	{
+#ifdef DEBUG_FRAME
+		return 14.4;
+#else
 		return (double)deltaTime;
+#endif
 	}
 	void Timer::updateDeltaTime()
 	{

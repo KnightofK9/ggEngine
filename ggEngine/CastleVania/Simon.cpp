@@ -47,24 +47,26 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	//Stand Attack
 	this->CreateAnimation("standAttack", { 12,13,14,14 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
-
 		this->incompleteAction = {};
 	});
 
 	//// Kneel Attack
 	this->CreateAnimation("kneelAttack", { 15,16,17,17 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
+		this->incompleteAction = {};
 	});
 
 	////Climb Down Attack
 	this->CreateAnimation("climbDownAttack", { 18,19,20,20 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
+		this->incompleteAction = {};
 		this->PlayAnimation("climbDownIdle");
 	});
 
 	////Climb Up Attack
 	this->CreateAnimation("climbUpAttack", { 21,22,23,23 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
+		this->incompleteAction = {};
 		this->PlayAnimation("climbUpIdle");
 	});
 

@@ -37,6 +37,7 @@ namespace ggEngine {
 		void SetOrgHeight(double height);
 		void SetMask(Rect rect);
 		Rect GetMask();
+		Vector GetScale() { return this->scale; }
 		Vector point;
 	protected:
 		GameObject *follow = nullptr;

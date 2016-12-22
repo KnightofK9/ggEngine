@@ -61,6 +61,7 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 			this->quadTreeGroup = new QuadTree(this->game);
 			this->quadTreeGroup->SetParentObject(this);
 			this->quadTreeGroup->BuildTree(value);
+			this->quadTreeGroup->SetTopModifier(Constant::UI_INFO_PANEL_BACKGROUND_HEIGHT / (this->camera->GetScale().y));
 			continue;
 		}
 		if (type == "CameraActiveGroup") {
@@ -281,10 +282,10 @@ void CVMap::OnEnterDoor(Door *door)
 	Rect r = this->simon->body->GetRect();
 	Vector translate = (door->worldPosition - this->simon->worldPosition) * 10;
 	bool isLeft = this->simon->isLeft;
-	r.top += translate.x;
+	//r.top += translate.x;
 	r.left += translate.x;
 	r.right += translate.x;
-	r.bottom += translate.x;
+	//r.bottom += translate.x;
 	door->OpenDoor(isLeft);
 	this->door = door;
 	OnOutOfBlock(r);
@@ -350,11 +351,13 @@ void CVMap::StartSwitchingState()
 	this->simon->body->acceleration = Vector::Zero();
 	double distance = abs(moveToPosition.x - this->simon->position.x)*DEFAULT_MS_PER_FRAME_FOR_ANIMATION;
 	double time = 2000;
-	this->simon->body->velocity.x = distance/time;
+	this->simon->body->velocity.x = modifier*distance/time;
 	/*this->add->Tween(this->simon->position.x, moveToPosition.x, 2000)->SetOnFinish([this]() {
 		this->simon->PlayAnimation("idle");
 	})->Start();*/
+	this->simon->isSwitchingState = true;
 	this->add->TimeOut(time, [this]() {
+		this->simon->isSwitchingState = false;
 		this->simon->body->velocity.x = 0;
 		this->simon->PlayAnimation("idle");
 	})->Start();

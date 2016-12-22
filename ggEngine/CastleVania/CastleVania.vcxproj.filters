@@ -285,6 +285,12 @@
     <ClInclude Include="AI6.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="CVDebugDefine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AI7.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -512,6 +518,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AI6.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AI7.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
