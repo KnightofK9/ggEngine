@@ -61,6 +61,7 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 			this->quadTreeGroup = new QuadTree(this->game);
 			this->quadTreeGroup->SetParentObject(this);
 			this->quadTreeGroup->BuildTree(value);
+			this->quadTreeGroup->SetTopModifier(Constant::UI_INFO_PANEL_BACKGROUND_HEIGHT / (this->camera->GetScale().y));
 			continue;
 		}
 		if (type == "CameraActiveGroup") {

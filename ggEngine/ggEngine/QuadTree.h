@@ -18,10 +18,11 @@ namespace ggEngine {
 		void UpdatePhysics() override;
 		void BuildTree(const char * quadTreeJson);
 		void Draw() override;
-
+		void SetTopModifier(double topModifier) { this->topModifier = topModifier; }
 		void RemoveGameObjectFromDrawList(GameObject *go) override;
 	private:
 		QuadNode* rootNode = nullptr;
 		Game *game;
+		double topModifier = 0;
 	};
 }
