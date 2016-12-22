@@ -119,6 +119,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		switch (type) {
 		case ObjectType_AI6:
 		{
+			if (isSwitchingState) return;
 			auto ai6 = dynamic_cast<AI6*>(otherObject);
 			if (ai6->isLeft) {
 				this->position.x -= ai6->GetSpeed();

@@ -186,6 +186,7 @@
     <ClInclude Include="ConstantEnum.h" />
     <ClInclude Include="D3DManager.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="DebugDefine.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="DXInput.h" />

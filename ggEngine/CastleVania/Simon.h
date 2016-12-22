@@ -91,6 +91,7 @@ public:
 	bool isClimbingUp = false;
 	TweenBase* currentLadderTween = nullptr;
 	CVMap* currentMap = nullptr;
+	bool isSwitchingState = false;
 private:
 	const bool enableChangeLadderAnchor = false;
 	const Vector originalAnchor = Vector(0.5, 20 / 25.0);

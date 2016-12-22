@@ -14,6 +14,7 @@
 #define MATH_PI (double(3.1415926535897))
 #define DEFAULT_COLOR D3DCOLOR_RGBA(170, 255, 0, 255)
 #define PIXEL_PER_CENTIMETER 100
+#define DEBUG_FRAME
 #define RAPIDJSON_PARSE_ERROR_NORETURN(parseErrorCode,offset) \
    throw ParseException(parseErrorCode, #parseErrorCode, offset)
 #include <stdexcept>               // std::runtime_error
