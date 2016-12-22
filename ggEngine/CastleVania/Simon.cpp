@@ -47,6 +47,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	//Stand Attack
 	this->CreateAnimation("standAttack", { 12,13,14,14 }, false)->SetOnCompleted([this](Animator*) {
 		this->incompleteAnim = "";
+
+		this->incompleteAction = {};
 	});
 
 	//// Kneel Attack
@@ -200,6 +202,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		if (currentAutoLadderTweenAuto != nullptr) return;
 		if (this->incompleteAnim != "") {
 			this->PlayAnimation(incompleteAnim);
+			
+			if (this->incompleteAction)
+				this->incompleteAction();
 			return;
 		}
 		if (isClimbingLadder) {
@@ -457,7 +462,7 @@ void Simon::Jump()
 	if (grounding == SimonGrounding_Brick)
 	{
 		this->PlayAnimation("jump");
-		this->body->velocity.y = -CharacterConstant::SIMON_JUMP_FORCE;
+		this->body->velocity.y = -CharacterConstant::SIMON_JUMP_Y_FORCE;
 		grounding = SimonGrounding_None;
 	}
 }
@@ -520,10 +525,11 @@ void Simon::Hurt()
 {
 	this->PlayAnimation("hurt");
 	this->Blind();
+	this->body->allowGravity = true;
 	//this->body->SetEnable(false);
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 
-	Vector direction(-1, -2);
+	Vector direction(-1, -1);
 	if (!this->isLeft)
 		direction.x = 1;
 	this->body->AddForce(hurtForce, direction);
@@ -612,7 +618,7 @@ void Simon::JumpLeft()
 	if (grounding == SimonGrounding_Brick)
 	{
 		this->PlayAnimation("jump");
-		this->body->SetForce(CharacterConstant::SIMON_JUMP_FORCE,Vector(-0.25,-1));
+		this->body->SetForce(CharacterConstant::SIMON_JUMP_Y_FORCE,Vector(-0.25,-1));
 		grounding = SimonGrounding_None;
 	}
 }
@@ -622,7 +628,7 @@ void Simon::JumpRight()
 	if (grounding == SimonGrounding_Brick)
 	{
 		this->PlayAnimation("jump");
-		this->body->SetForce(CharacterConstant::SIMON_JUMP_FORCE, Vector(0.25, -1));
+		this->body->SetForce(CharacterConstant::SIMON_JUMP_Y_FORCE, Vector(0.25, -1));
 		grounding = SimonGrounding_None;
 	}
 }
@@ -1032,33 +1038,21 @@ void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 
 void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
 {
+	
 	if (e.isPress(controlKey[SimonControl_B])) {
-		this->StandAttack();
-
-		if (e.isPress(controlKey[SimonControl_Left])) {
-			ChangeFacingDirection(true);
-			this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
-		}
-
-		if (e.isPress(controlKey[SimonControl_Right])) {
-			ChangeFacingDirection(false);
-			this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
-		}
+//		this->StandAttack();
+		this->PlayAnimation("standAttack");
+		this->incompleteAnim = "standAttack";
+		this->incompleteAction = ([this] {
+			if (this->grounding != SimonGrounding_None)
+				this->body->velocity.x = 0;
+		});
+		this->weaponWhip->StandAttack(isLeft);
+//		groundingBefore = SimonGrounding_None;
 	}
 
-	if (e.isPress(controlKey[SimonControl_TurboB])) {
+	if (e.isPress(controlKey[SimonControl_TurboB]))
 		this->Attack();
-
-		if (e.isPress(controlKey[SimonControl_Left])) {
-			ChangeFacingDirection(true);
-			this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
-		}
-
-		if (e.isPress(controlKey[SimonControl_Right])) {
-			ChangeFacingDirection(false);
-			this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
-		}
-	}
 }
 
 void Simon::CheckKeyPressLadderDownLeft(KeyBoardEventArg e)

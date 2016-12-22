@@ -124,11 +124,13 @@ private:
 	bool isAlive;
 
 	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
+	SimonGroundingType groundingBefore = SimonGrounding_Brick;
 	SimonLadderType ladderState = SimonLadder_None;
 
 	double hurtForce = 1;
 
 	string incompleteAnim = "";
+	std::function<void()> incompleteAction;
 	WeaponManager *weaponManager = nullptr;
 	
 	DWORD controlKey[18];
