@@ -12,6 +12,6 @@ TripleShot::~TripleShot()
 
 void TripleShot::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	simon->SetShot(this->shot, this->image);
+	simon->SetShot(this->shot);
 	Destroy();
 }

@@ -74,7 +74,7 @@ public:
 	void DecreaseHeartPoint(int point);
 	void DescreasePPoint(int point);
 	void SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo *image);
-	void SetShot(int shot, SpriteInfo *image);
+	void SetShot(int shot);
 	void UpgradeWhip();
 
 	bool isClimbingLadder = false;

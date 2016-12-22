@@ -31,13 +31,15 @@ void ItemManager::PreloadAllItem(){
 	this->preload->Texture(TextureConstant::POT_ROAST_TEXTURE, TextureConstant::POT_ROAST_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::STOPWATCH_TEXTURE, TextureConstant::STOPWATCH_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::STUFF_TEXTURE, TextureConstant::STUFF_TEXTURE_PATH);
-	this->preload->Texture(TextureConstant::DOUBLESHOT_TEXTURE, TextureConstant::DOUBLESHOT_TEXTURE_PATH);
-	this->preload->Texture(TextureConstant::TRIPLE_SHOT_TEXTURE, TextureConstant::TRIPLE_SHOT_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::DOUBLESHOT_ITEM_TEXTURE, TextureConstant::DOUBLESHOT_ITEM_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::TRIPLESHOT_ITEM_TEXTURE, TextureConstant::TRIPLESHOT_ITEM_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::MAIN_WEAPON_TEXTURE, TextureConstant::MAIN_WEAPON_TEXTURE_PATH);
 
 	this->preload->Texture(TextureConstant::AXE_WEAPON_TEXTURE, TextureConstant::AXE_WEAPON_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::HOLY_WATER_WEAPON_TEXTURE, TextureConstant::HOLY_WATER_WEAPON_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::BOOMERANG_WEAPON_TEXTURE, TextureConstant::BOOMERANG_WEAPON_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::TRIPLESHOT_TEXTURE, TextureConstant::TRIPLESHOT_TEXTURE);
+	this->preload->Texture(TextureConstant::DOUBLESHOT_TEXTURE, TextureConstant::DOUBLESHOT_TEXTURE_PATH);
 }
 
 Candle * ItemManager::AddFireCandle(double x, double y, ggEngine::Group * group)
@@ -310,7 +312,7 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
  
  DoubleShot* ItemManager::AddDoubleShot(double x, double y, ggEngine::Group * group)
  {
-	 SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
+	 SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_ITEM_TEXTURE);
 	 DoubleShot *doubleShot = new DoubleShot(this->cvGame, inf);
 	 doubleShot->SetPosition(x, y);
 	 doubleShot->Active();
@@ -324,7 +326,7 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
  
  TripleShot* ItemManager::AddTripleShot(double x, double y, ggEngine::Group * group)
  {
-	 SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::TRIPLE_SHOT_TEXTURE);
+	 SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::TRIPLESHOT_ITEM_TEXTURE);
 	 TripleShot *tripleShot = new TripleShot(this->cvGame, inf);
 	 tripleShot->SetPosition(x, y);
 	 tripleShot->Active();
