@@ -31,6 +31,7 @@ namespace ggEngine {
 		void SetFrame(int frameIndex,bool isStopAnimation = true);
 		virtual double GetOrgWidth() { return this->frameWidth; }
 		virtual double GetOrgHeight() { return this->frameHeight; }
+		DWORD msPerFrame;
 	protected:
 		///Deprecated
 		void NextAnimationFrame(std::string animationName);
@@ -49,7 +50,6 @@ namespace ggEngine {
 		bool isRunningAnimation;
 		Animator *currentAnimation = nullptr;
 		int numberOfFrame;
-		DWORD msPerFrame;
 		std::map<std::string, Animator*> animatorMap;
 		SpriteAnimationType spriteAnimationType;
 	};
