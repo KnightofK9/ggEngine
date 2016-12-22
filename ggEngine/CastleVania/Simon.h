@@ -127,7 +127,7 @@ private:
 	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
 	SimonLadderType ladderState = SimonLadder_None;
 
-	double hurtForce = 3;
+	double hurtForce = 1;
 
 	string incompleteAnim = "";
 	WeaponManager *weaponManager = nullptr;
