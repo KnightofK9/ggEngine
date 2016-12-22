@@ -685,10 +685,18 @@ void Simon::SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo * image)
 
 
 
-void Simon::SetShot(int shot, SpriteInfo * image)
+void Simon::SetShot(int shot)
 {
 	this->shot = shot;
-	this->infoPanel->itemShot->SetImage(image);
+	
+	SpriteInfo *inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
+	if (shot == 2)
+		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
+	if (shot == 3)
+		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::TRIPLESHOT_TEXTURE);
+
+	this->infoPanel->itemShot->SetImage(inf);
+
 }
 
 void Simon::UpgradeWhip()
@@ -918,19 +926,18 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 	if (e.isPress(controlKey[SimonControl_Num1])) {
 		this->shot = 1;
 		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
-		this->SetShot(1, inf);
+		this->SetShot(1);
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num2])) {
 		this->shot = 2;
 		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
-		this->SetShot(2, inf);
+		this->SetShot(2);
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num3])) {
 		this->shot = 3;
-		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::TRIPLE_SHOT_TEXTURE);
-		this->SetShot(3, inf);
+		this->SetShot(3);
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num4])) {
@@ -1019,20 +1026,32 @@ void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 
 void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
 {
-	if (e.isPress(controlKey[SimonControl_B]))
+	if (e.isPress(controlKey[SimonControl_B])) {
 		this->StandAttack();
 
-	if (e.isPress(controlKey[SimonControl_TurboB]))
-		this->Attack();
+		if (e.isPress(controlKey[SimonControl_Left])) {
+			ChangeFacingDirection(true);
+			this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
+		}
 
-	if (e.isPress(controlKey[SimonControl_Left])) {
-		ChangeFacingDirection(true);
-		this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
+		if (e.isPress(controlKey[SimonControl_Right])) {
+			ChangeFacingDirection(false);
+			this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
+		}
 	}
 
-	if (e.isPress(controlKey[SimonControl_Right])) {
-		ChangeFacingDirection(false);
-		this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
+	if (e.isPress(controlKey[SimonControl_TurboB])) {
+		this->Attack();
+
+		if (e.isPress(controlKey[SimonControl_Left])) {
+			ChangeFacingDirection(true);
+			this->body->velocity.x = -CharacterConstant::SIMON_MOVE_FORCE;
+		}
+
+		if (e.isPress(controlKey[SimonControl_Right])) {
+			ChangeFacingDirection(false);
+			this->body->velocity.x = CharacterConstant::SIMON_MOVE_FORCE;
+		}
 	}
 }
 

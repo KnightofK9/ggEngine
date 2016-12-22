@@ -89,8 +89,14 @@ public:
 	static constexpr const char* HIT_TEXTURE = "HitTexture";
 	static constexpr const char* HIT_TEXTURE_PATH = "Resource/Resources/hit.png";
 
+	static constexpr const char* DOUBLESHOT_ITEM_TEXTURE = "DoubleShotItemTexture";
+	static constexpr const char* DOUBLESHOT_ITEM_TEXTURE_PATH = "Resource/Resources/ItemDoubleShot.png";
+
 	static constexpr const char* DOUBLESHOT_TEXTURE = "DoubleShotTexture";
 	static constexpr const char* DOUBLESHOT_TEXTURE_PATH = "Resource/Resources/DoubleShot.png";
+
+	static constexpr const char* TRIPLESHOT_TEXTURE = "TripleShotTexture";
+	static constexpr const char* TRIPLESHOT_TEXTURE_PATH = "Resource/Resources/TripleShot.png";
 
 	static constexpr const char* INVIN_POTION_TEXTURE = "InvinPositionTexture";
 	static constexpr const char* INVIN_POTION_TEXTURE_PATH = "Resource/Resources/invincibility_potion.png";
@@ -119,8 +125,8 @@ public:
 	static constexpr const char* STUFF_TEXTURE = "StuffTexture";
 	static constexpr const char* STUFF_TEXTURE_PATH = "Resource/Resources/Stuff.png";
 
-	static constexpr const char* TRIPLE_SHOT_TEXTURE = "TripleShotTexture";
-	static constexpr const char* TRIPLE_SHOT_TEXTURE_PATH = "Resource/Resources/TripleShot.png";
+	static constexpr const char* TRIPLESHOT_ITEM_TEXTURE = "TripleShotItemTexture";
+	static constexpr const char* TRIPLESHOT_ITEM_TEXTURE_PATH = "Resource/Resources/ItemTripleShot.png";
 
 	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE = "level-2";
 	static constexpr const char* TILE_SET_LEVEL_2_TEXTURE_PATH = "Resource/Resources/TileSet/level-2.png";
