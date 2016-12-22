@@ -24,5 +24,7 @@ public:
 
 private:
 	int whipVersion;	// 1, 2, 3
+	int rgbKey = 1;	//1: r, 2: g, 3:b
+	TimeBasedEventInfo *timeInfoFlicker;
 };
 

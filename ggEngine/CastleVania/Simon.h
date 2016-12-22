@@ -78,7 +78,6 @@ public:
 	void UpgradeWhip();
 
 	bool isClimbingLadder = false;
-	void Blind();
 	SimonSubWeaponType subWeapon;
 	WeaponWhip *weaponWhip = nullptr;
 	//void ThrowWeapon();

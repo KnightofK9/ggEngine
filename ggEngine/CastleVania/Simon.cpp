@@ -526,7 +526,7 @@ void Simon::ClimbIdle()
 void Simon::Hurt()
 {
 	this->PlayAnimation("hurt");
-	this->Blind();
+	this->FlickeringAnimation(100, 2000)->Start();
 	this->body->allowGravity = true;
 	//this->body->SetEnable(false);
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
@@ -716,7 +716,7 @@ void Simon::UpgradeWhip()
 {
 	this->weaponWhip->UpgradeWhip();
 
-	this->Blind();
+	this->FlickeringAnimation(100, 2000)->Start();
 	// Will be changed to stopTime
 	this->cvGame->eventManager->DisableKeyBoardInput(this);
 	this->body->velocity.x = 0;
@@ -725,14 +725,6 @@ void Simon::UpgradeWhip()
 		this->cvGame->eventManager->EnableKeyBoardInput(this);
 	})->Start();
 }
-
-void Simon::Blind()
-{
-	this->cvGame->add->Loop(100, 20, [this] {
-		this->SetVisible(!this->IsVisible());
-	})->Start();
-}
-
 
 void Simon::StartClimbingLadder(bool isLeft, bool isUp)
 {

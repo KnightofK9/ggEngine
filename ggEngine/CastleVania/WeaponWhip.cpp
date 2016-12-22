@@ -57,6 +57,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	this->CreateAnimation("3", { 6,7,8,8 }, false)->SetOnCompleted([this](Animator*) {
 		body->SetEnable(false);
 		this->SetVisible(false);
+		//this->timeInfoFlicker->Pause();
 	});
 	this->events->onAnimationCallBack = [this](GameObject*, AnimationArg e) {
 		if ((e.frameIndex + 1) % 3 == 0) {
@@ -81,7 +82,9 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	//	//this->body->SetEnable(false);
 	//	//this->ResetAnimation(e.animationName);
 	//};
-	this->SetWhipVersion(1);
+	this->SetWhipVersion(3);
+	this->timeInfoFlicker = this->FlickeringChangeColorAnimationInfinity(5);
+
 }
 
 
@@ -131,9 +134,10 @@ void WeaponWhip::Attack(bool isLeft)
 	}
 	
 	//this->body->SetEnable(true);
+	if (this->whipVersion == 3)
+		this->timeInfoFlicker->Start();
 
 	auto anim = this->PlayAnimation(std::to_string(this->whipVersion));
-	//this->SetFrame(anim->startFrame);
 	this->SetVisible(true);
 }
 
