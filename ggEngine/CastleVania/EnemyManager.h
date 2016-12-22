@@ -5,6 +5,7 @@
 #include "Medusa.h"
 #include "BatEnemy.h"
 #include "AI6.h"
+#include "AI7.h"
 using namespace ggEngine;
 class EnemyManager : ManagerBase {
 public:
@@ -16,6 +17,7 @@ public:
 	Medusa* AddMedusa(double x, double y, Group *group);
 	BatEnemy* AddBatEnemy(double x, double y, Group* group);
 	AI6* AddAI6(double x, double y, double moveWidth, Group* group);
+	AI7* AddAI7(double x, double y, Group* group);
 
 private:
 };

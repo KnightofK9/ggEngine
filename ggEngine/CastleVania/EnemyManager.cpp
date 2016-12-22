@@ -68,3 +68,15 @@ AI6 * EnemyManager::AddAI6(double x, double y, double moveWidth, Group * group)
 	}
 	return go;
 }
+
+AI7 * EnemyManager::AddAI7(double x, double y,  Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::AI7_TEXTURE);
+	AI7 *go = new AI7(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}

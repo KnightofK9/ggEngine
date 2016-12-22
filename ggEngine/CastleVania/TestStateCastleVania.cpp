@@ -58,9 +58,8 @@ void TestStateCastleVania::Create()
 	this->cvgame->simon = this->simon;
 
 	{
-		//Json state("State/TestState.json", true);
-		//Json state("State/TestState.json", true);
-		Json state("State/level2-tilemap.json", true);
+		Json state("State/TestState.json", true);
+		//Json state("State/level2-tilemap.json", true);
 		//Json state("State/level3-tilemap.json", true);
 		cvMap1 = this->cvAdd->LoadMap(state.GetCharArray().c_str(),  this->cvgame->world);
 		//Json state2("State/level3-tilemap.json", true);
