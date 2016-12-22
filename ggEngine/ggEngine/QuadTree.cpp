@@ -27,6 +27,7 @@ namespace ggEngine {
 	{
 		this->drawList.clear();
 		Rect r = this->game->camera->GetNormalRect();
+		r.top += floor(145 / 3);
 		rootNode->Retrieve(&this->drawList, r);
 		//g_debug.Log(this->drawList.size());
 	}

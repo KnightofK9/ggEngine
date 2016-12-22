@@ -26,7 +26,7 @@
           <file leaf-file-name="EditState.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="570">
+                <state relative-caret-position="17">
                   <caret line="159" column="73" selection-start-line="159" selection-start-column="73" selection-end-line="159" selection-end-column="73" />
                   <folding />
                 </state>
@@ -97,8 +97,8 @@
           <file leaf-file-name="Class.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/Class.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="219">
-                  <caret line="411" column="46" selection-start-line="411" selection-start-column="46" selection-end-line="411" selection-end-column="46" />
+                <state relative-caret-position="389">
+                  <caret line="421" column="28" selection-start-line="421" selection-start-column="28" selection-end-line="421" selection-end-column="28" />
                   <folding>
                     <element signature="n#!!block;n#CVBlock#0" expanded="false" />
                   </folding>
@@ -109,7 +109,7 @@
           <file leaf-file-name="ObjectInfo.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/ObjectInfo.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="332">
+                <state relative-caret-position="1989">
                   <caret line="117" column="60" selection-start-line="117" selection-start-column="60" selection-end-line="117" selection-end-column="60" />
                   <folding>
                     <marker date="1482223800220" expanded="true" signature="1771:1781" ph="{...}" />
@@ -222,6 +222,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -306,9 +307,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -707,12 +707,13 @@
       <workItem from="1482222415415" duration="3307000" />
       <workItem from="1482234002199" duration="667000" />
       <workItem from="1482241053237" duration="1197000" />
-      <workItem from="1482309907165" duration="4314000" />
+      <workItem from="1482309907165" duration="4912000" />
+      <workItem from="1482372519046" duration="98000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47553000" />
+    <option name="totallyTimeSpent" value="48249000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="-5" width="1930" height="1050" extended-state="0" />
@@ -1173,7 +1174,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/ObjectInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
+        <state relative-caret-position="1989">
           <caret line="117" column="60" selection-start-line="117" selection-start-column="60" selection-end-line="117" selection-end-column="60" />
           <folding>
             <marker date="1482223800220" expanded="true" signature="1771:1781" ph="{...}" />
@@ -1191,8 +1192,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/Class.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="411" column="46" selection-start-line="411" selection-start-column="46" selection-end-line="411" selection-end-column="46" />
+        <state relative-caret-position="389">
+          <caret line="421" column="28" selection-start-line="421" selection-start-column="28" selection-end-line="421" selection-end-column="28" />
           <folding>
             <element signature="n#!!block;n#CVBlock#0" expanded="false" />
           </folding>
@@ -1201,7 +1202,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/State/EditState.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
+        <state relative-caret-position="17">
           <caret line="159" column="73" selection-start-line="159" selection-start-column="73" selection-end-line="159" selection-end-column="73" />
           <folding />
         </state>

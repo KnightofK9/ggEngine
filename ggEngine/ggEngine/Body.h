@@ -100,6 +100,7 @@ namespace ggEngine {
 		Vector GetLocalPosition();
 		void SetWidth(double width);
 		void SetHeight(double height);
+		Vector acceleration;
 	private:
 		bool isReady = false;
 		bool isActive = true;
@@ -117,7 +118,6 @@ namespace ggEngine {
 		void CheckCollisionAABB(std::list<GameObject*> *gameObjectList);
 		Game* game;
 		bool CheckWorldBounds();
-		Vector acceleration;
 		Vector temp;
 		Group* groupCollision = nullptr;
 		std::list<GameObject*> staticGoList;
