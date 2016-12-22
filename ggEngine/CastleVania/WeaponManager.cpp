@@ -135,6 +135,6 @@ WeaponBoomerang* WeaponManager::AddWeaponBoomerang(double x, double y, bool isLe
 	weaponBoomerang->FireWeapon(isLeft);
 
 	group->AddDrawObjectToList(weaponBoomerang);
-	this->cvGame->simon->GetGroupToCheckCollision()->AddDrawObjectToList(weaponBoomerang);
+	//this->cvGame->simon->GetGroupToCheckCollision()->AddDrawObjectToList(weaponBoomerang);
 	return weaponBoomerang;
 }

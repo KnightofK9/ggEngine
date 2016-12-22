@@ -126,21 +126,24 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			else {
 				this->position.x += ai6->GetSpeed();
 			}
+
+			if (e.blockDirection.down) {
+				//this->ladderState = LadderNone;
+				this->grounding = SimonGrounding_Brick;
+			}
 		}
 		break;
 		/*case ObjectType_Door:
 			currentMap->OnEnterDoor(dynamic_cast<Door*>(otherObject));
 			break;*/
+
+		case ObjectType_BreakableTileBrick:
 		case ObjectType_LevelTwoBrick:
 			if (e.blockDirection.down) {
 				//this->ladderState = LadderNone;
 				this->grounding = SimonGrounding_Brick;
 			}
 			break;
-		case ObjectType_BreakableTileBrick:
-			if (e.blockDirection.down) {
-				this->grounding = SimonGrounding_Brick;
-			}
 		case ObjectType_Candle:
 			//g_debug.Log("Collided with candle");
 			break;
@@ -518,14 +521,16 @@ void Simon::Hurt()
 	this->PlayAnimation("hurt");
 	this->Blind();
 	//this->body->SetEnable(false);
+	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 
-	Vector direction(1, -3);
-	if (isLeft)
-		direction.x = -1;
+	Vector direction(-1, -2);
+	if (!this->isLeft)
+		direction.x = 1;
 	this->body->AddForce(hurtForce, direction);
 
-	this->cvGame->add->TimeOut(2000, [this] {
+	this->cvGame->add->TimeOut(500, [this] {
 		//this->body->SetEnable(true);
+		//this->cvGame->eventManager->EnableKeyBoardInput(this);
 	})->Start();
 
 }
@@ -926,7 +931,8 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 	if (e.isPress(controlKey[SimonControl_Num1])) {
 		this->shot = 1;
 		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
-		this->SetShot(1);
+		//this->SetShot(1);
+		this->Hurt();
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num2])) {

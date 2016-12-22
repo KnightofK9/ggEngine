@@ -38,7 +38,7 @@ void ItemManager::PreloadAllItem(){
 	this->preload->Texture(TextureConstant::AXE_WEAPON_TEXTURE, TextureConstant::AXE_WEAPON_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::HOLY_WATER_WEAPON_TEXTURE, TextureConstant::HOLY_WATER_WEAPON_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::BOOMERANG_WEAPON_TEXTURE, TextureConstant::BOOMERANG_WEAPON_TEXTURE_PATH);
-	this->preload->Texture(TextureConstant::TRIPLESHOT_TEXTURE, TextureConstant::TRIPLESHOT_TEXTURE);
+	this->preload->Texture(TextureConstant::TRIPLESHOT_TEXTURE, TextureConstant::TRIPLESHOT_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::DOUBLESHOT_TEXTURE, TextureConstant::DOUBLESHOT_TEXTURE_PATH);
 }
 
