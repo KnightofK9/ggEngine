@@ -30,7 +30,7 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 	};
 
 	this->SetAlive(false);
-	this->body->SetActive(false);
+	this->body->SetEnable(false);
 }
 
 EnemyBase::~EnemyBase()
@@ -46,7 +46,7 @@ void EnemyBase::Active()
 {
 
 	this->SetAlive(true);
-	this->body->SetActive(true);
+	this->body->SetEnable(true);
 }
 
 bool EnemyBase::OnCheckingCollide(ColliderArg e)
@@ -54,6 +54,42 @@ bool EnemyBase::OnCheckingCollide(ColliderArg e)
 	return false;
 }
 void EnemyBase::Update()
+{
+	if (allowToDetectSimon) {
+		Vector simon = this->cvGame->simon->position;
+		bool isInX = abs(simon.x - this->position.x) < this->simonDetectRange;
+		bool isInY = abs(simon.y - this->position.y) < this->simonDetectRange;
+		bool isInDetectXRange = this->position.y < simon.y && this->position.y + GetHeight() > simon.y;
+		bool isInDetectYRange = this->position.x < simon.x && this->position.x + GetWidth() > simon.x;
+		bool isSimonRight = simon.x > this->position.x;
+		if ((detectX && detectY && isInX && isInY)		
+			|| (detectX && !detectY && isInDetectXRange && isInX )
+			|| (detectY && !detectX && isInDetectYRange && isInY)
+			){
+			OnSimonEnterRange(this->cvGame->simon, !isSimonRight);
+		}
+		else {
+			OnSimonOutOfRange(this->cvGame->simon, !isSimonRight);
+		}
+	}
+}
+void EnemyBase::RunLeft()
+{
+}
+void EnemyBase::RunRight()
+{
+}
+void EnemyBase::OnSimonEnterRange(Simon * simon,bool isLeft)
+{
+	if (isLeft) {
+		RunLeft();
+	}
+	else {
+		RunRight();
+	}
+	//this->allowToDetectSimon = false;
+}
+void EnemyBase::OnSimonOutOfRange(Simon * simon, bool isLeft)
 {
 }
 void EnemyBase::OnBrickContact(TileBrick *tileBrick, ColliderArg e)

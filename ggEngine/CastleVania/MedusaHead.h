@@ -1,14 +1,15 @@
 #pragma once
 #include "TweenEnemyBase.h"
-class BatEnemy : public TweenEnemyBase {
+class MedusaHead : public TweenEnemyBase {
 public:
-	BatEnemy(CVGame *cvGame, SpriteInfo *spriteInfo);
-	virtual ~BatEnemy();
+	MedusaHead(CVGame* cvGame, SpriteInfo *spriteInfo);
+	virtual ~MedusaHead();
+
 	void RunLeft() override;
 	void RunRight() override;
 	void Update() override;
 
+
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
 private:
-	void AddTween(bool isLeft);
 };

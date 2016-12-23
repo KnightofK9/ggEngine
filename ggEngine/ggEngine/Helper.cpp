@@ -39,7 +39,11 @@ namespace ggEngine {
 	}
 	int Helper::GetRamdomIntNumber(int min, int max)
 	{
-		return floor(rand()*(max + 1 - min) + min);
+		return floor(rand()%(max + 1 - min) + min);
+	}
+	double Helper::GetRamdomDoubleNumber(double min, double max)
+	{
+		return Helper::GetRamdomIntNumber(min, max);
 	}
 }
 

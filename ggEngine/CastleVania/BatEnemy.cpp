@@ -3,10 +3,12 @@
 #include "Simon.h"
 BatEnemy::BatEnemy(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame,spriteInfo,16,16,0,4,400)
 {
+	this->name = "BatEnemy";
 	this->CreateAnimation("move", { 1,2,3,2 }, true);
 	this->CreateAnimation("idle", 0, 0, false);
 	SetMoveX(40);
 	SetSpeed(0.5);
+	this->allowToDetectSimon = true;
 }
 
 BatEnemy::~BatEnemy()
@@ -31,7 +33,8 @@ void BatEnemy::RunRight()
 
 void BatEnemy::Update()
 {
-	if (!this->isMoving) {
+	EnemyBase::Update();
+	/*if (!this->isMoving) {
 		Vector simon = this->cvGame->simon->position;
 		if (abs(simon.x - this->position.x) < this->simonDetectRange && abs(simon.y - this->position.y) < this->simonDetectRange) {
 			if (simon.x > this->position.x) {
@@ -41,8 +44,16 @@ void BatEnemy::Update()
 				RunLeft();
 			}
 		}
-	}
+	}*/
 }
+
+void BatEnemy::OnSimonEnterRange(Simon * simon, bool isLeft)
+{
+	EnemyBase::OnSimonEnterRange(simon, isLeft);
+	this->allowToDetectSimon = false;
+}
+
+
 
 void BatEnemy::AddTween(bool isLeft)
 {

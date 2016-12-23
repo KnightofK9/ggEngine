@@ -273,9 +273,6 @@
     <ClInclude Include="TweenEnemyBase.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Medusa.h">
-      <Filter>Header Files\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="DropObjectBase.h">
       <Filter>Header Files\Object\Breakable Objects</Filter>
     </ClInclude>
@@ -289,6 +286,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AI7.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MedusaHead.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BonePillar.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
@@ -508,9 +514,6 @@
     <ClCompile Include="TweenEnemyBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Medusa.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DropObjectBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -521,6 +524,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AI7.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MedusaHead.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BonePillar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

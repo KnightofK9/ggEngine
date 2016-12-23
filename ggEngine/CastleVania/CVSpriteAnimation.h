@@ -17,4 +17,5 @@ protected:
 
 private:
 	int rgbKey = 1;	//1: r, 2: g, 3:b, 4: v
+	TimeBasedEventInfo* flickeringChangeColorAnim = nullptr;
 };

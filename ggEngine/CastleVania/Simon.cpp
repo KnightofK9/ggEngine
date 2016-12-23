@@ -6,8 +6,8 @@
 #include "WeaponManager.h"
 #include "TileLadder.h"
 #include "CVMap.h"
-#include "EnemyManager.h"
 #include "StaticTIleManager.h"
+#include "CVDebugDefine.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
 	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -125,10 +125,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onCollide = [this](GameObject *object, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
-		//this->groundingBefore = this->grounding;
-		//if (this->groundingBefore == SimonGrounding_None)
-		//	g_debug.Log("NOne");
-
 
 		switch (type) {
 		case ObjectType_AI6:
@@ -142,7 +138,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			}
 
 			if (e.blockDirection.down) {
-				//this->ladderState = LadderNone;
 				this->grounding = SimonGrounding_Brick;
 			}
 		}
@@ -156,13 +151,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			if (e.blockDirection.down) {
 				//this->ladderState = LadderNone;
 				this->grounding = SimonGrounding_Brick;
-
-				if (this->isFalling) {
-					this->PlayAnimation("longKneel");
-					this->incompleteAnim = "longKneel";
-					this->body->velocity = { 0, 0 };
-					this->isFalling = false;
-				}
 			}
 			break;
 		case ObjectType_Candle:
@@ -183,14 +171,17 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			break;
 		}
 
-		//if (this->groundingBefore == SimonGrounding_None) {
-		//	this->allowControl = true;
-		//}
+		if (this->grounding != SimonGrounding_None) {
+			
+		}
 	};
 	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		case ObjectType_Enemy:
+			OnEnemyContact(dynamic_cast<EnemyBase*>(otherObject), e);
+			break;
 		case ObjectType_Door:
 				if(this->grounding == SimonGrounding_Brick)
 					currentMap->OnEnterDoor(dynamic_cast<Door*>(otherObject));
@@ -213,6 +204,12 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		if (e.blockDirection.down) {
 			this->grounding = SimonGrounding_Brick;
+			if (this->isFalling) {
+				this->PlayAnimation("longKneel");
+				this->incompleteAnim = "longKneel";
+				this->body->velocity = { 0, 0 };
+				this->isFalling = false;
+			}
 		}
 	};
 
@@ -737,14 +734,23 @@ void Simon::UpgradeWhip()
 {
 	this->weaponWhip->UpgradeWhip();
 
-	this->FlickeringAnimation(100, 2000)->Start();
+	this->FlickeringChangeColorAnimation(30, 2000)->Start();
 	// Will be changed to stopTime
-	this->cvGame->eventManager->DisableKeyBoardInput(this);
+	this->allowControl = false;
 	this->body->velocity.x = 0;
 	this->Idle();
 	this->cvGame->add->TimeOut(2000, [this] {
-		this->cvGame->eventManager->EnableKeyBoardInput(this);
+		this->allowControl = true;
+
 	})->Start();
+}
+
+void Simon::OnEnemyContact(EnemyBase * enemy, ColliderArg e)
+{
+#ifdef DEBUG_CONTACT_WITH_ENEMY
+	g_debug.Log("Contact with enemy " + enemy->name);
+#endif // DEBUG_CONTACT_WITH_ENEMY
+
 }
 
 void Simon::StartClimbingLadder(bool isLeft, bool isUp)
@@ -950,16 +956,18 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 
 
 	if (e.isPress(controlKey[SimonControl_Num1])) {
-		this->shot = 1;
-		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
+		//this->shot = 1;
 		//this->SetShot(1);
+		//inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
 		this->Hurt();
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num2])) {
-		this->shot = 2;
-		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
-		this->SetShot(2);
+		//this->shot = 2;
+		//inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
+		//this->SetShot(2);
+		this->UpgradeWhip();
+		this->weaponWhip->SetWhipVersion(1);
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num3])) {

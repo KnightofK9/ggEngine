@@ -160,9 +160,11 @@
     <ClInclude Include="AI7.h" />
     <ClInclude Include="AxeKnight.h" />
     <ClInclude Include="BatEnemy.h" />
+    <ClInclude Include="BonePillar.h" />
     <ClInclude Include="CVDebugDefine.h" />
     <ClInclude Include="DropObjectBase.h" />
-    <ClInclude Include="Medusa.h" />
+    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="MedusaHead.h" />
     <ClInclude Include="BreakableTileBrick.h" />
     <ClInclude Include="CVBlock.h" />
     <ClInclude Include="CVCamera.h" />
@@ -247,8 +249,10 @@
     <ClCompile Include="AI7.cpp" />
     <ClCompile Include="AxeKnight.cpp" />
     <ClCompile Include="BatEnemy.cpp" />
+    <ClCompile Include="BonePillar.cpp" />
     <ClCompile Include="DropObjectBase.cpp" />
-    <ClCompile Include="Medusa.cpp" />
+    <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="MedusaHead.cpp" />
     <ClCompile Include="BreakableTileBrick.cpp" />
     <ClCompile Include="CVBlock.cpp" />
     <ClCompile Include="CVCamera.cpp" />

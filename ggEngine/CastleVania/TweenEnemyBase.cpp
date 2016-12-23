@@ -28,6 +28,7 @@ void TweenEnemyBase::RunRight()
 
 void TweenEnemyBase::Update()
 {
+	EnemyBase::Update();
 	if (isMoving) {
 		double x = this->position.x - this->startPosition.x;
 		double increaseY = this->moveY*(sin(x*moveX));

@@ -12,7 +12,6 @@ namespace ggEngine {
 		SetImage(image, frameWidth, frameHeight, numberOfFrame);
 		InitFrameList();
 		srcRect = frameList[defaultFrame];
-		this->CreateAnimation("default", { defaultFrame,defaultFrame }, false);
 		SetAnchor(0, 0);
 		this->msPerFrame = msPerFrame;
 		//SetCurrentSrcRect();

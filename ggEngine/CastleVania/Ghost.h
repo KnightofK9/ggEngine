@@ -1,9 +1,9 @@
 #pragma once
 #include "TweenEnemyBase.h"
-class BatEnemy : public TweenEnemyBase {
+class Ghost : public TweenEnemyBase {
 public:
-	BatEnemy(CVGame *cvGame, SpriteInfo *spriteInfo);
-	virtual ~BatEnemy();
+	Ghost(CVGame *cvGame, SpriteInfo *spriteInfo);
+	virtual ~Ghost();
 	void RunLeft() override;
 	void RunRight() override;
 	void Update() override;
@@ -11,4 +11,7 @@ public:
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
 private:
 	void AddTween(bool isLeft);
+	TweenBase* currentTween = nullptr;
+	double minX = 10;
+	double minY = -10;
 };

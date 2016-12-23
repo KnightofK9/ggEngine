@@ -13,10 +13,18 @@ public:
 	virtual void Active();
 	virtual bool OnCheckingCollide(ColliderArg e);
 	virtual void Update();
+	virtual void RunLeft();
+	virtual void RunRight();
+	virtual void OnSimonEnterRange(Simon* simon,bool isLeft);
+	virtual void OnSimonOutOfRange(Simon* simon, bool isLeft);
 	virtual void OnBrickContact(TileBrick *tileBrick, ColliderArg e);
 protected:
 	bool isLeft;
 	void ChangeFacingDirection(bool isLeft);
 	unsigned int health;
 	unsigned int maxHealth;
+	double simonDetectRange = 50.0f;
+	bool allowToDetectSimon = false;
+	bool detectX = true;
+	bool detectY = true;
 };

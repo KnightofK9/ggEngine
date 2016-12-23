@@ -91,8 +91,8 @@ var Constant = new function () {
         "BonePillar": {
             name: this.RESOURCE_PATH + "BonePillar.png",
             frameWidth: 16,
-            frameHeight: 16,
-            numberOfFrame: 4
+            frameHeight: 32,
+            numberOfFrame: 1
         },
         "Boss": {
             name: this.RESOURCE_PATH + "Boss.png",
