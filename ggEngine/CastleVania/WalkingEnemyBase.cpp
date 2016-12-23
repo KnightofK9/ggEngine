@@ -1,7 +1,8 @@
 #include "WalkingEnemyBase.h"
 
 
-WalkingEnemyBase::WalkingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo,int frameWidth,int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) : EnemyBase(cvGame,spriteInfo, frameWidth, frameHeight, defaultFrame,numberOfFrame,msPerFrame)
+WalkingEnemyBase::WalkingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo,int frameWidth,int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) 
+	: EnemyBase(cvGame,spriteInfo, frameWidth, frameHeight, defaultFrame,numberOfFrame,msPerFrame)
 {
 	
 }

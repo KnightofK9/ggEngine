@@ -13,7 +13,7 @@ AI7::AI7(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spri
 	SetMoveY(GetHeight());
 	SetSpeed(0.5);
 	this->isRunning = true;
-	this->tag = ObjectType_AI7;
+	//this->tag = ObjectType_AI7;
 }
 
 AI7::~AI7()

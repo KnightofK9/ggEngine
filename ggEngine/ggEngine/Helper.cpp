@@ -41,5 +41,9 @@ namespace ggEngine {
 	{
 		return floor(rand()*(max + 1 - min) + min);
 	}
+	double Helper::GetRamdomDoubleNumber(double min, double max)
+	{
+		return (rand()*(max + 1 - min) + min);
+	}
 }
 
