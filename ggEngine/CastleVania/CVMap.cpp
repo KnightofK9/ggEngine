@@ -131,7 +131,14 @@ void CVMap::Draw()
 	this->enemyGroup->Draw();
 	this->simonGroup->Draw();
 	this->projectileGroup->Draw();
-	auto bodyList = this->simonGroup->GetBodyList();
+
+	Physics::RenderGroupBodyList(this->quadTreeGroup);
+	Physics::RenderGroupBodyList(this->enemyGroup);
+	Physics::RenderGroupBodyList(this->projectileGroup);
+	Physics::RenderGroupBodyList(this->simonGroup);
+
+
+	/*auto bodyList = this->simonGroup->GetBodyList();
 	for (auto body : bodyList) {
 		body->Render();
 	}
@@ -139,10 +146,9 @@ void CVMap::Draw()
 	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
 		(*it)->body->Render();
 	}
-	drawList = enemyGroup->GetDrawList();
-	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
-		if((*it)->body!=nullptr && (*it)->body->IsActive() && (*it)->body->IsEnable())(*it)->body->Render();
-	}
+	for (auto go : enemyGroup->GetDrawList()) {
+		if((go)->body!=nullptr && (go)->body->IsActive())(go)->body->Render();
+	}*/
 	CheckIfSimonOutOfBlock();
 }
 
@@ -150,17 +156,9 @@ void CVMap::Draw()
 
 void CVMap::UpdatePhysics()
 {
-	//this->quadTreeGroup->UpdatePhysics();
-	//this->cameraActiveGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
-	//this->cameraActiveGroup->UpdatePhysics();
-
-	//this->enemyGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->enemyGroup->UpdatePhysics();
 
 	this->projectileGroup->UpdatePhysics();
-	//this->simonGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
-	//this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
-	//this->simon->weaponWhip->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->simonGroup->UpdatePhysics();
 }
 

@@ -55,6 +55,9 @@
     <Filter Include="Header Files\Object\Breakable Objects">
       <UniqueIdentifier>{f9d79d63-86fe-4cb7-8682-2337b2dbb41d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemy\Skill">
+      <UniqueIdentifier>{4c4399d8-4d36-4ea1-8675-3057f3b23993}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -297,6 +300,12 @@
     <ClInclude Include="BonePillar.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="EnemySkillBase.h">
+      <Filter>Header Files\Enemy\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySkillFire.h">
+      <Filter>Header Files\Enemy\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -533,6 +542,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BonePillar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySkillBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySkillFire.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

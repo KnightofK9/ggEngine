@@ -163,6 +163,8 @@
     <ClInclude Include="BonePillar.h" />
     <ClInclude Include="CVDebugDefine.h" />
     <ClInclude Include="DropObjectBase.h" />
+    <ClInclude Include="EnemySkillBase.h" />
+    <ClInclude Include="EnemySkillFire.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="MedusaHead.h" />
     <ClInclude Include="BreakableTileBrick.h" />
@@ -251,6 +253,8 @@
     <ClCompile Include="BatEnemy.cpp" />
     <ClCompile Include="BonePillar.cpp" />
     <ClCompile Include="DropObjectBase.cpp" />
+    <ClCompile Include="EnemySkillBase.cpp" />
+    <ClCompile Include="EnemySkillFire.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="MedusaHead.cpp" />
     <ClCompile Include="BreakableTileBrick.cpp" />

@@ -18,6 +18,13 @@ void EnemyManager::PreloadAll()
 	this->preload->Texture(TextureConstant::BOSS_TEXTURE, TextureConstant::BOSS_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::AI6_TEXTURE, TextureConstant::AI6_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::AI7_TEXTURE, TextureConstant::AI7_TEXTURE_PATH);
+
+	//Enemy skill
+
+	this->preload->Texture(TextureConstant::SKILL_FIRE_AI_TEXTURE, TextureConstant::SKILL_FIRE_AI_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::SKILL_AI_TEXTURE, TextureConstant::SKILL_AI_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::SKILL_BOSS_2_TEXTURE, TextureConstant::SKILL_BOSS_2_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::SKILL_BOSS_3_TEXTURE, TextureConstant::SKILL_BOSS_3_TEXTURE_PATH);
 }
 
 AxeKnight* EnemyManager::AddAxeKnight(double x, double y, Group * group)
@@ -85,6 +92,18 @@ AI7 * EnemyManager::AddAI7(double x, double y,  Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::AI7_TEXTURE);
 	AI7 *go = new AI7(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
+
+BonePillar * EnemyManager::AddBonePillar(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::BONE_PILLAR_TEXTURE);
+	BonePillar *go = new BonePillar(this->cvGame, inf);
 	go->SetPosition(Vector(x, y));
 	go->Active();
 	if (group != nullptr) {

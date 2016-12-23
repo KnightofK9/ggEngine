@@ -1,2 +1,3 @@
 #pragma once
 //#define DEBUG_CONTACT_WITH_ENEMY
+#define DEBUG_AI_SKILL_CONTACT_WITH_SIMON

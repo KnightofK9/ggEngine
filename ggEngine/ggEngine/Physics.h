@@ -25,6 +25,7 @@ namespace ggEngine {
 		void Reset() override;
 		void AddTileMap(TileMap* tileMap);
 		void RemoveTileMap(TileMap *tileMap);
+		static void RenderGroupBodyList(Group* group, bool isRenderDisabled = false);
 		//std::list<Body*> GetBodyList() { return this->bodyList; }
 		static Rect CreateSweptBroadPhaseRect(Box b);
 		static bool AABBCheck(Rect b1, Rect b2);

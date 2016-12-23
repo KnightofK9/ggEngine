@@ -26,7 +26,8 @@ ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame, image)
 	};
 	this->tag = ObjectType_Item;
 	this->visible = false;
-	this->body->SetActive(false);
+	//Doi tat ca qua set enable, active van cho kiem tra collider
+	this->body->SetEnable(false);
 }
 
 
@@ -34,6 +35,7 @@ ItemBase::ItemBase(CVGame * cvGame, SpriteInfo * image) :CVSprite(cvGame, image)
 ItemBase::~ItemBase()
 {
 	if (cvGame->simon != nullptr) {
+		//Phuong nho bo cai nay di, add vao group projectile no se tu kiem tra
 		cvGame->simon->body->RemoveCheckCollisionWith(this);
 	}
 	if (timeEvent != nullptr) timeEvent->Stop();
@@ -58,7 +60,7 @@ void ItemBase::OnSimonContact(Simon * simon, ColliderArg e)
 void ItemBase::Active()
 {
 	this->visible = true;
-	this->body->SetActive(true);
+	this->body->SetEnable(true);
 	if (this->liveTime != -1) {
 		this->timeEvent = this->cvGame->add->TimeOut(this->liveTime, [this]() {
 			Destroy();

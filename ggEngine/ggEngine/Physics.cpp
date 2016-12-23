@@ -66,6 +66,16 @@ namespace ggEngine {
 			}
 		}
 	}
+	void Physics::RenderGroupBodyList(Group * group, bool isRenderDisabled)
+	{
+		for (auto go : group->GetDrawList()) {
+			if (go->IsAlive() && go->body != nullptr) {
+				if (go->body->IsEnable() || isRenderDisabled) {
+					go->body->Render();
+				}
+			}
+		}
+	}
 	Rect Physics::CreateSweptBroadPhaseRect(Box b)
 	{
 		double top, left, right, bottom;
