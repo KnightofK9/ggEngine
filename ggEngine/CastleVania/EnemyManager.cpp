@@ -32,10 +32,10 @@ AxeKnight* EnemyManager::AddAxeKnight(double x, double y, Group * group)
 	return go;
 }
 
-Medusa * EnemyManager::AddMedusa(double x, double y, Group * group)
+MedusaHead * EnemyManager::AddMedusaHead(double x, double y, Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::MEDUSA_HEAD_TEXTURE);
-	Medusa *go = new Medusa(this->cvGame, inf);
+	MedusaHead *go = new MedusaHead(this->cvGame, inf);
 	go->SetPosition(Vector(x, y));
 	go->Active();
 	if (group != nullptr) {

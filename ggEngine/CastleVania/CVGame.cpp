@@ -46,7 +46,7 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		return go;
 	}
 	if (type == "MedusaHead") {
-		go = this->enemyManager->AddMedusa(x, y, group);
+		go = this->enemyManager->AddMedusaHead(x, y, group);
 		return go;
 	}
 	if (type == "AxeKnight") {

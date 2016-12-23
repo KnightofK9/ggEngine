@@ -2,7 +2,7 @@
 #include <ggEngine.h>
 #include "ManagerBase.h"
 #include "AxeKnight.h"
-#include "Medusa.h"
+#include "MedusaHead.h"
 #include "BatEnemy.h"
 #include "AI6.h"
 #include "AI7.h"
@@ -16,7 +16,7 @@ public:
 
 	void PreloadAll();
 	AxeKnight* AddAxeKnight(double x, double y, Group *group);
-	Medusa* AddMedusa(double x, double y, Group *group);
+	MedusaHead* AddMedusaHead(double x, double y, Group *group);
 	BatEnemy* AddBatEnemy(double x, double y, Group* group);
 	Ghost* AddGhost(double x, double y, Group* group);
 	AI6* AddAI6(double x, double y, double moveWidth, Group* group);
