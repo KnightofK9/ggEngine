@@ -27,6 +27,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->CreateAnimation("idle", 0, 0, true);
 	this->CreateAnimation("move", 1, 2, true);
 	this->CreateAnimation("kneel", 4, 4, true);
+	this->CreateAnimation("longKneel", { 4, 4 }, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "";
+		this->incompleteAction = {};
+		this->allowControl = true;
+	});
 	this->CreateAnimation("jump", 4, 4, true);
 	/*->SetOnBegin([this](Animator*) {
 		this->body->SetHeight(12);
@@ -120,6 +125,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onCollide = [this](GameObject *object, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
+
 		switch (type) {
 		case ObjectType_AI6:
 		{
@@ -132,7 +138,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			}
 
 			if (e.blockDirection.down) {
-				//this->ladderState = LadderNone;
 				this->grounding = SimonGrounding_Brick;
 			}
 		}
@@ -166,6 +171,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			break;
 		}
 
+		if (this->grounding != SimonGrounding_None) {
+			
+		}
 	};
 	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
@@ -196,6 +204,12 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		if (e.blockDirection.down) {
 			this->grounding = SimonGrounding_Brick;
+			if (this->isFalling) {
+				this->PlayAnimation("longKneel");
+				this->incompleteAnim = "longKneel";
+				this->body->velocity = { 0, 0 };
+				this->isFalling = false;
+			}
 		}
 	};
 
@@ -334,6 +348,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		switch (this->grounding) {
 			case SimonGrounding_Brick:
 				this->body->allowGravity = true;
+
 				if (CheckKeyValid(e) == false)
 					this->Idle();
 				else {
@@ -528,21 +543,18 @@ void Simon::ClimbIdle()
 void Simon::Hurt()
 {
 	this->PlayAnimation("hurt");
-	this->FlickeringAnimation(100, 2000)->Start();
-	this->body->allowGravity = true;
+	this->FlickeringAnimation(20, 2000)->Start();
+	this->allowControl = false;
 	//this->body->SetEnable(false);
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 
-	Vector direction(-1, -1);
-	if (!this->isLeft)
+	Vector direction(-1, -2.3);
+	if (this->isLeft)
 		direction.x = 1;
-	this->body->AddForce(hurtForce, direction);
-
-	this->cvGame->add->TimeOut(500, [this] {
-		//this->body->SetEnable(true);
-		//this->cvGame->eventManager->EnableKeyBoardInput(this);
-	})->Start();
-
+	this->body->velocity = { 0, 0 };
+	this->body->AddForce(CharacterConstant::SIMON_HURT_FORCE, direction);
+	this->isFalling = true;
+	this->grounding = SimonGrounding_None;
 }
 
 void Simon::Death()
@@ -711,6 +723,9 @@ void Simon::SetShot(int shot)
 		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::TRIPLESHOT_TEXTURE);
 
 	this->infoPanel->itemShot->SetImage(inf);
+	this->cvGame->add->Loop(100, 30, [this] {
+		this->infoPanel->itemShot->SetVisible(!this->IsVisible());
+	})->Start();
 
 }
 
@@ -718,13 +733,14 @@ void Simon::UpgradeWhip()
 {
 	this->weaponWhip->UpgradeWhip();
 
-	this->FlickeringAnimation(100, 2000)->Start();
+	this->FlickeringChangeColorAnimation(30, 2000)->Start();
 	// Will be changed to stopTime
-	this->cvGame->eventManager->DisableKeyBoardInput(this);
+	this->allowControl = false;
 	this->body->velocity.x = 0;
 	this->Idle();
 	this->cvGame->add->TimeOut(2000, [this] {
-		this->cvGame->eventManager->EnableKeyBoardInput(this);
+		this->allowControl = true;
+
 	})->Start();
 }
 
@@ -939,16 +955,18 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 
 
 	if (e.isPress(controlKey[SimonControl_Num1])) {
-		this->shot = 1;
-		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
+		//this->shot = 1;
 		//this->SetShot(1);
+		//inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
 		this->Hurt();
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num2])) {
-		this->shot = 2;
-		inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
-		this->SetShot(2);
+		//this->shot = 2;
+		//inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
+		//this->SetShot(2);
+		this->UpgradeWhip();
+		this->weaponWhip->SetWhipVersion(1);
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num3])) {
@@ -1014,7 +1032,7 @@ void Simon::CheckKeyPressNormal(KeyBoardEventArg e)
 
 	if (e.isPress(controlKey[SimonControl_A])) {
 		this->Jump();
-		this->grounding = SimonGrounding_None;
+		//this->grounding = SimonGrounding_None;
 		return;
 	}
 
@@ -1044,7 +1062,6 @@ void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
 {
 	
 	if (e.isPress(controlKey[SimonControl_B])) {
-//		this->StandAttack();
 		this->PlayAnimation("standAttack");
 		this->incompleteAnim = "standAttack";
 		this->incompleteAction = ([this] {
@@ -1052,7 +1069,6 @@ void Simon::CheckKeyPressJumping(KeyBoardEventArg e)
 				this->body->velocity.x = 0;
 		});
 		this->weaponWhip->StandAttack(isLeft);
-//		groundingBefore = SimonGrounding_None;
 	}
 
 	if (e.isPress(controlKey[SimonControl_TurboB]))
