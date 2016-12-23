@@ -3,6 +3,7 @@
 #include "Simon.h"
 Medusa::Medusa(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame,spriteInfo,16,16,0,2,400)
 {
+	this->name = "MedusaHead";
 	this->CreateAnimation("move", { 0,1,1 }, true);
 	this->CreateAnimation("idle", 0, 0, false);
 	SetMoveY(10);

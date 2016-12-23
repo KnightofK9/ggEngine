@@ -3,6 +3,7 @@
 #include "Simon.h"
 BatEnemy::BatEnemy(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame,spriteInfo,16,16,0,4,400)
 {
+	this->name = "BatEnemy";
 	this->CreateAnimation("move", { 1,2,3,2 }, true);
 	this->CreateAnimation("idle", 0, 0, false);
 	SetMoveX(40);

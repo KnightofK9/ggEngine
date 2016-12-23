@@ -1,7 +1,8 @@
 #include "AI7.h"
-
+#include "TypeEnum.h"
 AI7::AI7(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spriteInfo, 32, 64)
 {
+	this->name = "AI7";
 	SetAnchor(0, 0);
 	this->rigidBodyHeight = 10;
 	this->body->SetHeight(this->rigidBodyHeight);
@@ -12,6 +13,7 @@ AI7::AI7(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spri
 	SetMoveY(GetHeight());
 	SetSpeed(0.5);
 	this->isRunning = true;
+	this->tag = ObjectType_AI7;
 }
 
 AI7::~AI7()

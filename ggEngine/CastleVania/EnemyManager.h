@@ -7,6 +7,7 @@
 #include "AI6.h"
 #include "AI7.h"
 #include "Ghost.h"
+#include "EnemyBase.h"
 using namespace ggEngine;
 class EnemyManager : ManagerBase {
 public:

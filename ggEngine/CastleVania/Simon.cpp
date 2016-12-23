@@ -6,8 +6,8 @@
 #include "WeaponManager.h"
 #include "TileLadder.h"
 #include "CVMap.h"
-#include "EnemyManager.h"
 #include "StaticTIleManager.h"
+#include "CVDebugDefine.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
 	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -171,6 +171,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
 		switch (type) {
+		case ObjectType_Enemy:
+			OnEnemyContact(dynamic_cast<EnemyBase*>(otherObject), e);
+			break;
 		case ObjectType_Door:
 				if(this->grounding == SimonGrounding_Brick)
 					currentMap->OnEnterDoor(dynamic_cast<Door*>(otherObject));
@@ -724,6 +727,14 @@ void Simon::UpgradeWhip()
 	this->cvGame->add->TimeOut(2000, [this] {
 		this->cvGame->eventManager->EnableKeyBoardInput(this);
 	})->Start();
+}
+
+void Simon::OnEnemyContact(EnemyBase * enemy, ColliderArg e)
+{
+#ifdef DEBUG_CONTACT_WITH_ENEMY
+	g_debug.Log("Contact with enemy " + enemy->name);
+#endif // DEBUG_CONTACT_WITH_ENEMY
+
 }
 
 void Simon::StartClimbingLadder(bool isLeft, bool isUp)

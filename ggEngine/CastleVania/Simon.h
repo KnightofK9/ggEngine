@@ -4,6 +4,7 @@
 #include "CharacterConstant.h"
 #include "InfoPanel.h"
 #include "GameOverScreen.h"
+#include "EnemyManager.h"
 using namespace ggEngine;
 class CVGame;
 class ItemBase;
@@ -91,6 +92,7 @@ public:
 	TweenBase* currentLadderTween = nullptr;
 	CVMap* currentMap = nullptr;
 	bool isSwitchingState = false;
+	void OnEnemyContact(EnemyBase* enemy, ColliderArg e);
 private:
 	const bool enableChangeLadderAnchor = false;
 	const Vector originalAnchor = Vector(0.5, 20 / 25.0);

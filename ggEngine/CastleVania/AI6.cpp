@@ -2,6 +2,7 @@
 #include "TypeEnum.h"
 AI6::AI6(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame,spriteInfo,32,8)
 {
+	this->name = "AI6";
 	SetSpeed(0.5);
 	SetAnchor(0, 0);
 	this->body->rigidBody->SetAnchor(0, 0);
