@@ -86,8 +86,6 @@ public:
 	static constexpr const char* WHIP_UPGRADE_TEXTURE = "WhipUpgradeTexture";
 	static constexpr const char* WHIP_UPGRADE_TEXTURE_PATH = "Resource/Resources/WhipUpgrade.png"; 
 
-	static constexpr const char* HIT_TEXTURE = "HitTexture";
-	static constexpr const char* HIT_TEXTURE_PATH = "Resource/Resources/hit.png";
 
 	static constexpr const char* DOUBLESHOT_ITEM_TEXTURE = "DoubleShotItemTexture";
 	static constexpr const char* DOUBLESHOT_ITEM_TEXTURE_PATH = "Resource/Resources/ItemDoubleShot.png";
@@ -154,6 +152,37 @@ public:
 
 	static constexpr const char* TILE_LADDER_UP_LEFT = "NoneTexture";
 	static constexpr const char* TILE_LADDER_UP_LEFT_PATH = "Resource/Resources/TileObject/TileLadderUpLeft.png";
+	/**
+	* Animation
+	**/
+	static constexpr const char* POINT_100_TEXTURE = "100";
+	static constexpr const char* POINT_100_TEXTURE_PATH = "Resource/Resources/Point/100.png";
+
+	static constexpr const char* POINT_400_TEXTURE = "400";
+	static constexpr const char* POINT_400_TEXTURE_PATH = "Resource/Resources/Point/400.png";
+
+	static constexpr const char* POINT_700_TEXTURE = "700";
+	static constexpr const char* POINT_700_TEXTURE_PATH = "Resource/Resources/Point/700.png";
+
+	static constexpr const char* POINT_1000_TEXTURE = "1000";
+	static constexpr const char* POINT_1000_TEXTURE_PATH = "Resource/Resources/Point/1000.png";
+
+	static constexpr const char* POINT_2000_TEXTURE = "2000";
+	static constexpr const char* POINT_2000_TEXTURE_PATH = "Resource/Resources/Point/2000.png";
+
+	static constexpr const char* POINT_4000_TEXTURE = "4000";
+	static constexpr const char* POINT_4000_TEXTURE_PATH = "Resource/Resources/Point/4000.png";
+
+
+	static constexpr const char* BREAKING_WALL_TEXTURE = "BreakingWall";
+	static constexpr const char* BREAKING_WALL_TEXTURE_PATH = "Resource/Resources/BreakingWall.png";
+
+	static constexpr const char* BOSS_DEAD_TEXTURE = "Bossdead";
+	static constexpr const char* BOSS_DEAD_TEXTURE_PATH = "Resource/Resources/Bossdead.png";
+
+	static constexpr const char* HIT_TEXTURE = "hit";
+	static constexpr const char* HIT_TEXTURE_PATH = "Resource/Resources/hit.png";
+
 
 	/**
 	* Enemy
@@ -182,5 +211,19 @@ public:
 
 	static constexpr const char* BOSS_TEXTURE = "Boss";
 	static constexpr const char* BOSS_TEXTURE_PATH = "Resource/Resources/Boss.png";
+	/**
+	* Skill AI
+	**/
+	static constexpr const char* SKILL_FIRE_AI_TEXTURE = "SkillFireAI";
+	static constexpr const char* SKILL_FIRE_AI_TEXTURE_PATH = "Resource/Resources/SkillFireAI.png";
+
+	static constexpr const char* SKILL_AI_TEXTURE = "SkillAI";
+	static constexpr const char* SKILL_AI_TEXTURE_PATH = "Resource/Resources/SkillAI.png";
+
+	static constexpr const char* SKILL_BOSS_2_TEXTURE = "SkillBoss2";
+	static constexpr const char* SKILL_BOSS_2_TEXTURE_PATH = "Resource/Resources/SkillBoss2.png";
+
+	static constexpr const char* SKILL_BOSS_3_TEXTURE = "skillboss3";
+	static constexpr const char* SKILL_BOSS_3_TEXTURE_PATH = "Resource/Resources/skillboss3.png";
 
 };
