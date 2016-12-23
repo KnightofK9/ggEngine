@@ -46,6 +46,12 @@ void BatEnemy::Update()
 	}*/
 }
 
+void BatEnemy::OnSimonEnterRange(Simon * simon, bool isLeft)
+{
+	EnemyBase::OnSimonEnterRange(simon, isLeft);
+	this->allowToDetectSimon = false;
+}
+
 
 
 void BatEnemy::AddTween(bool isLeft)

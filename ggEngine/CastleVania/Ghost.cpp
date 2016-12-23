@@ -35,6 +35,12 @@ void Ghost::Update()
 	EnemyBase::Update();
 }
 
+void Ghost::OnSimonEnterRange(Simon * simon, bool isLeft)
+{
+	EnemyBase::OnSimonEnterRange(simon, isLeft);
+	this->allowToDetectSimon = false;
+}
+
 
 
 void Ghost::AddTween(bool isLeft)

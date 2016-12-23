@@ -16,6 +16,7 @@ public:
 	virtual void RunLeft();
 	virtual void RunRight();
 	virtual void OnSimonEnterRange(Simon* simon,bool isLeft);
+	virtual void OnSimonOutOfRange(Simon* simon, bool isLeft);
 	virtual void OnBrickContact(TileBrick *tileBrick, ColliderArg e);
 protected:
 	bool isLeft;

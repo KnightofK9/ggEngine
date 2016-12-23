@@ -7,6 +7,8 @@ public:
 	void RunLeft() override;
 	void RunRight() override;
 	void Update() override;
+
+	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
 private:
 	void AddTween(bool isLeft);
 };
