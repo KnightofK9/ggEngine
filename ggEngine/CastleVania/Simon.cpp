@@ -547,7 +547,7 @@ void Simon::ClimbIdle()
 void Simon::Hurt()
 {
 	this->PlayAnimation("hurt");
-	this->FlickeringAnimation(100, 2000)->Start();
+	this->FlickeringAnimation(20, 2000)->Start();
 	this->allowControl = false;
 	//this->body->SetEnable(false);
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
