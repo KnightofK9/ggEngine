@@ -4,4 +4,6 @@ class BonePillar : public EnemyBase {
 public:
 	BonePillar(CVGame *cvGame, SpriteInfo *spriteInfo);
 	virtual ~BonePillar();
+
+	void Update() override;
 };

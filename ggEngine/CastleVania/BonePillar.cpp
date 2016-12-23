@@ -8,3 +8,7 @@ BonePillar::BonePillar(CVGame * cvGame, SpriteInfo * spriteInfo) : EnemyBase(cvG
 BonePillar::~BonePillar()
 {
 }
+
+void BonePillar::Update()
+{
+}
