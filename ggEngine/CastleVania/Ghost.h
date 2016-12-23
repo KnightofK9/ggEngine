@@ -13,5 +13,5 @@ private:
 	void AddTween(bool isLeft);
 	TweenBase* currentTween = nullptr;
 	double minX = 10;
-	double minY = 10;
+	double minY = -10;
 };

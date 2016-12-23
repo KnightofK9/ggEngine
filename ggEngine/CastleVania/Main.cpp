@@ -5,7 +5,6 @@
 #include "IntroState.h"
 //#include "GameOverState.h"
 #include "StoryState.h"
-
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 using namespace ggEngine;
 //Field
@@ -20,6 +19,7 @@ void initGame();
 void onExit();
 LRESULT CALLBACK messageHandler(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 int main() {
+	srand(static_cast <unsigned> (time(0)));
 	try {
 		window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT, GameMode_Windowed);
 		//window = new Window(messageHandler, TEXT("The Greatest Game Engine"), CW_USEDEFAULT, CW_USEDEFAULT, GAME_WIDTH, GAME_HEIGHT, GameMode_Windowed);

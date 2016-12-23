@@ -60,10 +60,11 @@ void EnemyBase::Update()
 		bool isInX = abs(simon.x - this->position.x) < this->simonDetectRange;
 		bool isInY = abs(simon.y - this->position.y) < this->simonDetectRange;
 		bool isInDetectXRange = this->position.y < simon.y && this->position.y + GetHeight() > simon.y;
+		bool isInDetectYRange = this->position.x < simon.x && this->position.x + GetWidth() > simon.x;
 		bool isSimonRight = simon.x > this->position.x;
 		if ((detectX && detectY && isInX && isInY)		
 			|| (detectX && !detectY && isInDetectXRange && isInX )
-			|| (detectY && !detectX && isInY)
+			|| (detectY && !detectX && isInDetectYRange && isInY)
 			){
 			OnSimonEnterRange(this->cvGame->simon, !isSimonRight);
 		}
