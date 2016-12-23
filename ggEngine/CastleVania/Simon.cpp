@@ -172,7 +172,12 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		}
 
 		if (this->grounding != SimonGrounding_None) {
-			
+			if (this->isFalling) {
+				this->PlayAnimation("longKneel");
+				this->incompleteAnim = "longKneel";
+				this->body->velocity = { 0, 0 };
+				this->isFalling = false;
+			}
 		}
 	};
 	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
@@ -204,12 +209,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onWorldBounds = [this](GameObject *go, ColliderArg e) {
 		if (e.blockDirection.down) {
 			this->grounding = SimonGrounding_Brick;
-			if (this->isFalling) {
-				this->PlayAnimation("longKneel");
-				this->incompleteAnim = "longKneel";
-				this->body->velocity = { 0, 0 };
-				this->isFalling = false;
-			}
 		}
 	};
 
