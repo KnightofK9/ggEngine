@@ -6,6 +6,7 @@ AI6::AI6(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame,sprit
 	SetSpeed(0.5);
 	SetAnchor(0, 0);
 	this->body->rigidBody->SetAnchor(0, 0);
+	this->body->SetActive(false);
 	this->body->immoveable = true;
 	this->body->allowGravity = false;
 	this->body->SetPhysicsMode(PhysicsMode_AABB);

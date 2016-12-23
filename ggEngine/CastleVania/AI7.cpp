@@ -6,6 +6,7 @@ AI7::AI7(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spri
 	SetAnchor(0, 0);
 	this->rigidBodyHeight = 10;
 	this->body->SetHeight(this->rigidBodyHeight);
+	this->body->SetActive(false);
 	this->body->rigidBody->SetAnchor(0, -6);
 	this->body->immoveable = false;
 	this->body->allowGravity = false;

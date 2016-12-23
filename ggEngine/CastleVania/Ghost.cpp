@@ -6,6 +6,7 @@ Ghost::Ghost(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, 
 	this->name = "Ghost";
 	this->CreateAnimation("move", { 0,1}, true);
 	this->CreateAnimation("idle", 0, 0, false);
+	this->body->SetActive(false);
 	this->body->immoveable = true;
 	SetMoveX(40);
 	SetMoveY(20);

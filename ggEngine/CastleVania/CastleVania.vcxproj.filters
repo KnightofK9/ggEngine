@@ -294,6 +294,9 @@
     <ClInclude Include="MedusaHead.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="BonePillar.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -527,6 +530,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MedusaHead.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BonePillar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

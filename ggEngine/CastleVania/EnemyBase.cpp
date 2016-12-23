@@ -30,7 +30,7 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 	};
 
 	this->SetAlive(false);
-	this->body->SetActive(false);
+	this->body->SetEnable(false);
 }
 
 EnemyBase::~EnemyBase()
@@ -46,7 +46,7 @@ void EnemyBase::Active()
 {
 
 	this->SetAlive(true);
-	this->body->SetActive(true);
+	this->body->SetEnable(true);
 }
 
 bool EnemyBase::OnCheckingCollide(ColliderArg e)

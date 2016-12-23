@@ -94,7 +94,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Class.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Class.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/Class.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="389">
@@ -128,11 +128,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Constant.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Constant.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/Constant.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+                <state relative-caret-position="298">
+                  <caret line="90" column="19" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
@@ -173,9 +173,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/StageBlock.js" />
         <option value="$PROJECT_DIR$/js/ObjectInfo.js" />
-        <option value="$PROJECT_DIR$/js/Constant.js" />
         <option value="$PROJECT_DIR$/js/Class.js" />
         <option value="$PROJECT_DIR$/js/State/EditState.js" />
+        <option value="$PROJECT_DIR$/js/Constant.js" />
       </list>
     </option>
   </component>
@@ -189,8 +189,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1054" />
-    <option name="y" value="33" />
+    <option name="x" value="-5" />
+    <option name="y" value="-5" />
     <option name="width" value="1930" />
     <option name="height" value="1050" />
   </component>
@@ -710,15 +710,15 @@
       <workItem from="1482309907165" duration="4912000" />
       <workItem from="1482372519046" duration="1930000" />
       <workItem from="1482474251414" duration="84000" />
-      <workItem from="1482482334075" duration="594000" />
+      <workItem from="1482482334075" duration="654000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50759000" />
+    <option name="totallyTimeSpent" value="50819000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1054" y="33" width="1930" height="1050" extended-state="1" />
+    <frame x="-5" y="-5" width="1930" height="1050" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1184,14 +1184,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Constant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/Class.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="389">
@@ -1206,6 +1198,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="994" column="21" selection-start-line="994" selection-start-column="21" selection-end-line="994" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Constant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="90" column="19" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="19" />
           <folding />
         </state>
       </provider>
