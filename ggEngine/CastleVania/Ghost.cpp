@@ -1,9 +1,9 @@
 #include "Ghost.h"
 #include "CVGame.h"
 #include "Simon.h"
-Ghost::Ghost(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spriteInfo, 16, 16, 0, 4, 400)
+Ghost::Ghost(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spriteInfo, 16, 16, 0, 2, 400)
 {
-	this->CreateAnimation("move", { 1,2,3,2 }, true);
+	this->CreateAnimation("move", { 0,1,2}, true);
 	this->CreateAnimation("idle", 0, 0, false);
 	SetMoveX(40);
 	SetSpeed(0.5);

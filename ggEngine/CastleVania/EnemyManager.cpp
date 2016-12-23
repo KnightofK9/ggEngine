@@ -56,6 +56,18 @@ BatEnemy * EnemyManager::AddBatEnemy(double x, double y, Group * group)
 	return go;
 }
 
+Ghost * EnemyManager::AddGhost(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::GHOST_TEXTURE);
+	Ghost *go = new Ghost(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
+
 AI6 * EnemyManager::AddAI6(double x, double y, double moveWidth, Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::AI6_TEXTURE);
