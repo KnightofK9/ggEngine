@@ -8,7 +8,7 @@ public:
 	static constexpr const double SIMON_CLIMB_FORCE = 1.0f;// 200.0f;
 	static constexpr const double SIMON_JUMP_TIME = 500;
 
-	static constexpr const double SIMON_HURT_FORCE = 1.0f;
+	static constexpr const double SIMON_HURT_FORCE = 2.0f;
 	static constexpr const double SIMON_HURT_TIME = 500;
 
 	static constexpr const double SIMON_MAX_HEALTH = 16;

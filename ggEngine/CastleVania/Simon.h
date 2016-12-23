@@ -122,6 +122,7 @@ private:
 	int numberWeaponCanFire;
 	bool isReadyToFireWeapon;
 	bool isAlive;
+	bool isFalling = false;
 
 	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
 	SimonGroundingType groundingBefore = SimonGrounding_Brick;
