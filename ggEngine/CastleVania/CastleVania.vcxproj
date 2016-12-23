@@ -162,6 +162,7 @@
     <ClInclude Include="BatEnemy.h" />
     <ClInclude Include="CVDebugDefine.h" />
     <ClInclude Include="DropObjectBase.h" />
+    <ClInclude Include="Ghost.h" />
     <ClInclude Include="Medusa.h" />
     <ClInclude Include="BreakableTileBrick.h" />
     <ClInclude Include="CVBlock.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="AxeKnight.cpp" />
     <ClCompile Include="BatEnemy.cpp" />
     <ClCompile Include="DropObjectBase.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Medusa.cpp" />
     <ClCompile Include="BreakableTileBrick.cpp" />
     <ClCompile Include="CVBlock.cpp" />

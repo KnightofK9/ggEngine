@@ -39,6 +39,7 @@ void WalkingEnemyBase::RunRight()
 
 void WalkingEnemyBase::Update()
 {
+	EnemyBase::Update();
 	if (this->steppingTile != nullptr) {
 		if (this->position.x < this->steppingTile->position.x + 8) {
 			RunRight();

@@ -8,6 +8,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame
 	SetMoveY(10);
 	SetMoveX(0.5);
 	SetSpeed(0.25);
+	this->allowToDetectSimon = true;
 }
 
 Medusa::~Medusa()
@@ -28,18 +29,6 @@ void Medusa::RunRight()
 
 void Medusa::Update()
 {
-	if (!this->isMoving) {
-		Vector simon = this->cvGame->simon->position;
-		if (abs(simon.x - this->position.x) < this->simonDetectRange && abs(simon.y - this->position.y) < this->simonDetectRange) {
-			if (simon.x > this->position.x) {
-				RunRight();
-			}
-			else {
-				RunLeft();
-			}
-		}
-	}
-	else {
-		TweenEnemyBase::Update();
-	}
+	TweenEnemyBase::Update();
 }
+

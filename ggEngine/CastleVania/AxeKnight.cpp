@@ -4,6 +4,8 @@ AxeKnight::AxeKnight(CVGame * cvGame, SpriteInfo * spriteInfo) : WalkingEnemyBas
 {
 	this->CreateAnimation("Move", { 0,1,2,1 }, true);
 	SetMoveForce(0.25);
+	this->allowToDetectSimon = true;
+	this->detectY = false;
 }
 
 AxeKnight::~AxeKnight()

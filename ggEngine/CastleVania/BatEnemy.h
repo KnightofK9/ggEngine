@@ -9,5 +9,4 @@ public:
 	void Update() override;
 private:
 	void AddTween(bool isLeft);
-	double simonDetectRange = 50.0f;
 };

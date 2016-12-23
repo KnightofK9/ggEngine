@@ -1,7 +1,7 @@
-#include "BatEnemy.h"
+#include "Ghost.h"
 #include "CVGame.h"
 #include "Simon.h"
-BatEnemy::BatEnemy(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame,spriteInfo,16,16,0,4,400)
+Ghost::Ghost(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spriteInfo, 16, 16, 0, 4, 400)
 {
 	this->CreateAnimation("move", { 1,2,3,2 }, true);
 	this->CreateAnimation("idle", 0, 0, false);
@@ -10,11 +10,11 @@ BatEnemy::BatEnemy(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cv
 	this->allowToDetectSimon = true;
 }
 
-BatEnemy::~BatEnemy()
+Ghost::~Ghost()
 {
 }
 
-void BatEnemy::RunLeft()
+void Ghost::RunLeft()
 {
 	TweenEnemyBase::RunLeft();
 	this->PlayAnimation("move");
@@ -22,7 +22,7 @@ void BatEnemy::RunLeft()
 	this->isMoving = true;
 }
 
-void BatEnemy::RunRight()
+void Ghost::RunRight()
 {
 	TweenEnemyBase::RunRight();
 	this->PlayAnimation("move");
@@ -30,25 +30,14 @@ void BatEnemy::RunRight()
 	this->isMoving = true;
 }
 
-void BatEnemy::Update()
+void Ghost::Update()
 {
 	EnemyBase::Update();
-	/*if (!this->isMoving) {
-		Vector simon = this->cvGame->simon->position;
-		if (abs(simon.x - this->position.x) < this->simonDetectRange && abs(simon.y - this->position.y) < this->simonDetectRange) {
-			if (simon.x > this->position.x) {
-				RunRight();
-			}
-			else {
-				RunLeft();
-			}
-		}
-	}*/
 }
 
 
 
-void BatEnemy::AddTween(bool isLeft)
+void Ghost::AddTween(bool isLeft)
 {
 	Vector simon = this->cvGame->simon->position;
 	Vector moveTo = simon;

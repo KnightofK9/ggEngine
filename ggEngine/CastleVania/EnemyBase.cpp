@@ -55,6 +55,38 @@ bool EnemyBase::OnCheckingCollide(ColliderArg e)
 }
 void EnemyBase::Update()
 {
+	if (allowToDetectSimon) {
+		Vector simon = this->cvGame->simon->position;
+		bool isInX = abs(simon.x - this->position.x) < this->simonDetectRange;
+		bool isInY = abs(simon.y - this->position.y) < this->simonDetectRange;
+		if ((detectX && detectY && isInX && isInY)		
+			|| (detectX && !detectY && isInX)
+			|| (detectY && !detectX && isInY)
+			){
+			if (simon.x > this->position.x) {
+				OnSimonEnterRange(this->cvGame->simon,false);
+			}
+			else {
+				OnSimonEnterRange(this->cvGame->simon, true);
+			}
+		}
+	}
+}
+void EnemyBase::RunLeft()
+{
+}
+void EnemyBase::RunRight()
+{
+}
+void EnemyBase::OnSimonEnterRange(Simon * simon,bool isLeft)
+{
+	if (isLeft) {
+		RunLeft();
+	}
+	else {
+		RunRight();
+	}
+	//this->allowToDetectSimon = false;
 }
 void EnemyBase::OnBrickContact(TileBrick *tileBrick, ColliderArg e)
 {
