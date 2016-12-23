@@ -1,2 +1,2 @@
 #pragma once
-#define DEBUG_CONTACT_WITH_ENEMY
+//#define DEBUG_CONTACT_WITH_ENEMY
