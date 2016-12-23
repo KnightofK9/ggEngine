@@ -22,6 +22,7 @@ namespace ggEngine {
 	}
 	QuadTree::~QuadTree()
 	{
+		delete rootNode;
 	}
 	void QuadTree::Update()
 	{

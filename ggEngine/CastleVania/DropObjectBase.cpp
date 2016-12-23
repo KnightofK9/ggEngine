@@ -1,6 +1,8 @@
 #include "DropObjectBase.h"
 #include "CVGame.h"
 #include "Simon.h"
+#include "CVMap.h"
+#include "EnemyGroup.h"
 DropObjectBase::DropObjectBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: BreakableObjectBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
@@ -17,7 +19,7 @@ void DropObjectBase::SetDropItem(std::string itemJson)
 void DropObjectBase::DropItem()
 {
 	if (this->itemJson == "") return;
-	auto go = this->cvGame->GetObjectInstance(this->itemJson.c_str(), this->cvGame->simon->GetGroupToCheckCollision());
+	auto go = this->cvGame->GetObjectInstance(this->itemJson.c_str(), this->cvGame->simon->currentMap->enemyGroup);
 	if (go->body != nullptr) {
 		go->body->PreUpdate();
 	}

@@ -24,6 +24,7 @@ public:
 	QuadTree *quadTreeGroup;
 	//CameraActiveGroup* cameraActiveGroup;
 	SimonGroup *simonGroup;
+	Group* projectileGroup;
 	Simon* simon;
 	EnemyGroup *enemyGroup;
 	void SetStage(int stageNumber, int blockNumber = 0, bool isRestartState = false);

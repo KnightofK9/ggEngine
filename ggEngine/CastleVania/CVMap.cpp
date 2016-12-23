@@ -24,6 +24,8 @@ CVMap::~CVMap()
 {
 	delete this->tileMapGroup;
 	delete this->quadTreeGroup;
+	delete this->simonGroup;
+	delete this->projectileGroup;
 	//delete this->cameraActiveGroup;
 	for (auto stage : this->stageList) {
 		delete stage;
@@ -41,8 +43,30 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 		this->stageList.push_back(stage);
 	}
 
-	this->simonGroup = this->cvAdd->AddSimonGroup();
-	this->AddGroup(this->simonGroup);
+	this->quadTreeGroup = new QuadTree(this->game); //The background tile
+	this->quadTreeGroup->SetParentObject(this);
+	
+	this->enemyGroup = new EnemyGroup(this->cvGame); //The enemy group
+	this->enemyGroup->SetParentObject(this);
+	
+	this->projectileGroup = new Group(this->cvGame); //The projectile group, where all simon sub weapon and enemy skill in
+	this->projectileGroup->SetParentObject(this);
+	
+	this->simonGroup = this->cvAdd->AddSimonGroup(); //The simon group
+	this->simonGroup->SetParentObject(this);
+
+
+	//
+	//Collision logic
+	//
+	this->enemyGroup->AddGroupToCheckCollision(this->quadTreeGroup);
+
+	this->simonGroup->AddGroupToCheckCollision(this->quadTreeGroup);
+	this->simonGroup->AddGroupToCheckCollision(this->enemyGroup);
+
+	this->projectileGroup->AddGroupToCheckCollision(this->quadTreeGroup);
+	this->projectileGroup->AddGroupToCheckCollision(this->enemyGroup);
+	this->projectileGroup->AddGroupToCheckCollision(this->simonGroup);
 
 	//cameraActiveGroup = new CameraActiveGroup(this->cvGame);
 	//this->cameraActiveGroup->SetParentObject(this);
@@ -58,15 +82,11 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 			continue;
 		}
 		if (type == "QuadTree") {
-			this->quadTreeGroup = new QuadTree(this->game);
-			this->quadTreeGroup->SetParentObject(this);
 			this->quadTreeGroup->BuildTree(value);
 			this->quadTreeGroup->SetTopModifier(Constant::UI_INFO_PANEL_BACKGROUND_HEIGHT / (this->camera->GetScale().y));
 			continue;
 		}
 		if (type == "CameraActiveGroup") {
-			this->enemyGroup = new EnemyGroup(this->cvGame);
-			this->enemyGroup->SetParentObject(this);
 			for (auto & obj : it["itemList"].GetArray()) {
 				GameObject* go = game->GetObjectInstance(Json::GetCharArrayFromValue(obj).c_str(), enemyGroup);
 				if (go != nullptr) {
@@ -99,6 +119,7 @@ void CVMap::Update()
 	//this->cameraActiveGroup->Update();
 	this->enemyGroup->Update();
 	this->simonGroup->Update();
+	this->projectileGroup->Update();
 	this->simon->Update();
 
 }
@@ -109,6 +130,7 @@ void CVMap::Draw()
 	//this->cameraActiveGroup->Draw();
 	this->enemyGroup->Draw();
 	this->simonGroup->Draw();
+	this->projectileGroup->Draw();
 	auto bodyList = this->simonGroup->GetBodyList();
 	for (auto body : bodyList) {
 		body->Render();
@@ -132,10 +154,11 @@ void CVMap::UpdatePhysics()
 	//this->cameraActiveGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	//this->cameraActiveGroup->UpdatePhysics();
 
-	this->enemyGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
+	//this->enemyGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->enemyGroup->UpdatePhysics();
 
-	this->simonGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
+	this->projectileGroup->UpdatePhysics();
+	//this->simonGroup->CheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	//this->simon->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	//this->simon->weaponWhip->body->AddListCheckCollisionTo(this->quadTreeGroup->GetDrawList());
 	this->simonGroup->UpdatePhysics();
@@ -158,7 +181,8 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	}
 	this->infoPanel = infoPanel;
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
-	this->simon->SetGroupToCheckCollision(enemyGroup);
+	//this->simon->body->ResetGroupCheckCollisionTo();
+	//this->simon->body->AddGroupCheckCollisionTo(enemyGroup);
 	this->simon->body->allowWorldBlock = false;
 	this->simon->body->allowWorldBound = false;
 	this->simon->body->allowWorldBounciness = false;

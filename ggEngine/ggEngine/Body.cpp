@@ -58,15 +58,24 @@ namespace ggEngine {
 	{
 		this->staticGoList = staticGoList;
 	}
+	void Body::ResetGroupCheckCollisionTo()
+	{
+		checkingCollisionGroup.clear();
+	}
 	void Body::AddGroupCheckCollisionTo(Group * group)
 	{
-		this->collisionObjectList.clear();
-		this->groupCollision = group;
-		for (auto go : this->groupCollision->GetDrawList()) {
-			if (go->body != nullptr) {
-				this->collisionObjectList.push_back(go);
-			}
-		}
+		checkingCollisionGroup.push_back(group);
+		//this->collisionObjectList.clear();
+		//this->groupCollision = group;
+		//for (auto go : this->groupCollision->GetDrawList()) {
+		//	if (go->body != nullptr) {
+		//		this->collisionObjectList.push_back(go);
+		//	}
+		//}
+	}
+	void Body::RemoveGroupCheckCollisionTo(Group * group)
+	{
+		checkingCollisionGroup.remove(group);
 	}
 	void Body::CheckCollisionTo(GameObject * staticGo)
 	{
@@ -421,16 +430,28 @@ namespace ggEngine {
 				}
 			}
 		}
-		for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
-			if ((*it)->IsAlive() && (*it)->body->IsEnable()) {
-				(*it)->body->PreUpdate();
-				Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
-				Rect result;
-				if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
-					possibleCollidedBoxList.push_back(b2.gameObject);
+		for (auto group : this->checkingCollisionGroup) {
+			for (auto go : group->GetDrawList()) {
+				if ((go)->IsAlive() && go->body != nullptr && (go)->body->IsEnable()) {
+					(go)->body->PreUpdate();
+					Box b2 = Physics::CreateBoxFromObject(go, Vector::Zero());
+					Rect result;
+					if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
+						possibleCollidedBoxList.push_back(b2.gameObject);
+					}
 				}
 			}
 		}
+		//for (auto it = collisionObjectList.begin(); it != collisionObjectList.end(); ++it) {
+		//	if ((*it)->IsAlive() && (*it)->body->IsEnable()) {
+		//		(*it)->body->PreUpdate();
+		//		Box b2 = Physics::CreateBoxFromObject(*it, Vector::Zero());
+		//		Rect result;
+		//		if (Rect::intersect(result, broadPhaseRect, b2.GetRect())) {
+		//			possibleCollidedBoxList.push_back(b2.gameObject);
+		//		}
+		//	}
+		//}
 		return possibleCollidedBoxList;
 	}
 

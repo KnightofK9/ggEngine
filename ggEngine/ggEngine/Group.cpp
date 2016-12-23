@@ -84,6 +84,7 @@ namespace ggEngine{
 	
 		drawObject->SetParentObject(this);
 		drawList.push_back(drawObject);
+		RefreshCurrentCheckCollisionGroup(drawObject);
 	}
 	std::list<Body*> Group::GetBodyList()
 	{
@@ -144,16 +145,56 @@ namespace ggEngine{
 	void Group::AddGameObjectToDrawList(GameObject * go)
 	{
 		this->drawList.push_back(go);
+		RefreshCurrentCheckCollisionGroup(go);
+
 	}
 
 	void Group::RemoveGameObjectFromDrawList(GameObject * go)
 	{
 		this->drawList.remove(go);
+		if (go->body != nullptr) {
+			go->body->ResetGroupCheckCollisionTo();
+		}
 	}
 
 	void Group::RemoveBodyFromList(Body * body)
 	{
 		this->bodyList.remove(body);
+	}
+
+	void Group::AddGroupToCheckCollision(Group * group)
+	{
+		this->checkingCollisionGroup.push_back(group);
+	}
+
+	void Group::RemoveGroupToCheckCollision(Group * group)
+	{
+		this->checkingCollisionGroup.remove(group);
+	}
+
+	void Group::ResetGroupToCheckCollision()
+	{
+		this->checkingCollisionGroup.clear();
+	}
+
+	void Group::RefreshGroupToCheckCollision()
+	{
+		for (auto go : this->drawList) {
+			go->body->ResetGroupCheckCollisionTo();
+			for (auto group : this->checkingCollisionGroup) {
+				go->body->AddGroupCheckCollisionTo(group);
+			}
+		}
+	}
+
+	void Group::RefreshCurrentCheckCollisionGroup(GameObject * go)
+	{
+		if (go->body != nullptr) {
+			go->body->ResetGroupCheckCollisionTo();
+			for (auto group : this->checkingCollisionGroup) {
+				go->body->AddGroupCheckCollisionTo(group);
+			}
+		}
 	}
 
 	

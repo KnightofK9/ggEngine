@@ -39,14 +39,6 @@ namespace ggEngine {
 			}
 		}
 	}
-	void CameraActiveGroup::CheckCollisionTo(std::list<GameObject*> staticGoList)
-	{
-		for (auto go : this->drawList) {
-			if (go->body != nullptr) {
-				go->body->AddListCheckCollisionTo(staticGoList);
-			}
-		}
-	}
 	void CameraActiveGroup::Draw()
 	{
 		this->UpdateWorldPosition();

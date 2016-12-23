@@ -89,7 +89,11 @@ namespace ggEngine {
 		void SetEnable(bool enable) { this->enable = enable; }
 		bool IsEnable() { return this->enable; }
 		void AddListCheckCollisionTo(std::list<GameObject*> staticGoList);
+
+		void ResetGroupCheckCollisionTo();
 		void AddGroupCheckCollisionTo(Group* group);
+		void RemoveGroupCheckCollisionTo(Group *group);
+
 		void CheckCollisionTo(GameObject *staticGo);
 		void RemoveCheckCollisionWith(GameObject *staticGo);
 		void PreUpdate();
@@ -118,6 +122,7 @@ namespace ggEngine {
 		void CheckCollisionAABB(std::list<GameObject*> *gameObjectList);
 		Game* game;
 		bool CheckWorldBounds();
+		std::list<Group*> checkingCollisionGroup;
 		Vector temp;
 		Group* groupCollision = nullptr;
 		std::list<GameObject*> staticGoList;

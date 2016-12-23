@@ -11,7 +11,6 @@ namespace ggEngine {
 		virtual void Update() override;
 		virtual void UpdatePhysics() override;
 
-		virtual void CheckCollisionTo(std::list<GameObject*> staticGoList);
 		virtual void Draw() override;
 		std::list<GameObject*> GetDrawList() override;
 	protected:

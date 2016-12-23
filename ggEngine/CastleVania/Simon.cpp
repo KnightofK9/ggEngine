@@ -432,7 +432,6 @@ void Simon::Attack()
 
 void Simon::Update()
 {
-	this->body->AddGroupCheckCollisionTo(this->checkingCollisionGroup);
 }
 
 void Simon::AddWhip()

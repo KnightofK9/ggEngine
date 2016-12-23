@@ -32,12 +32,19 @@ namespace ggEngine{
 
 		void RemoveBodyFromList(Body *body);
 
+		void AddGroupToCheckCollision(Group *group);
+		void RemoveGroupToCheckCollision(Group *group);
+		void ResetGroupToCheckCollision();
+		void RefreshGroupToCheckCollision();
+
 	protected:
+		void RefreshCurrentCheckCollisionGroup(GameObject *go);
 		RECT mask;
 		bool isUsedMask = false;
 		std::list<Group*> groupList;
 		std::list<GameObject*> drawList;
 		std::list<Body*> bodyList;
+		std::list<Group*> checkingCollisionGroup;
 	private:
 	};
 }
