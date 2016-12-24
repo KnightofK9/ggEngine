@@ -83,6 +83,10 @@ void EnemyBase::Update()
 		}
 	}
 }
+double EnemyBase::GetDamage()
+{
+	return this->damage;
+}
 void EnemyBase::RunLeft()
 {
 }
