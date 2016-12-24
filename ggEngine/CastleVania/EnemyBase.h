@@ -21,6 +21,7 @@ protected:
 	virtual void OnSimonEnterRange(Simon* simon, bool isLeft);
 	virtual void OnSimonOutOfRange(Simon* simon, bool isLeft);
 	virtual void OnBrickContact(TileBrick *tileBrick, ColliderArg e);
+
 	bool isLeft;
 	void ChangeFacingDirection(bool isLeft);
 	unsigned int health;
@@ -30,6 +31,6 @@ protected:
 	bool detectX = true;
 	bool detectY = true;
 
-private:
+	int point;
 	int damage = 0;
 };

@@ -15,7 +15,7 @@ private:
 	double minX = 10;
 	double minY = -10;
 
-	const int damage = 2;
-	const int health = 2;
-	const int point = 300;
+	//const int damage = 2;
+	//const int health = 2;
+	//const int point = 300;
 };

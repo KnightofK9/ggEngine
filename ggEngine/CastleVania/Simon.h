@@ -57,7 +57,7 @@ public:
 	void ClimbDownLeft();
 	void ClimbDownRight();
 	void ClimbIdle();
-	void Hurt(bool isAttackedBehind = true);
+	void Hurt(bool isAttackedFromLeft = true);
 	void Death();
 	void StandAttack();
 	void KneelAttack();
@@ -79,6 +79,8 @@ public:
 	void UpgradeWhip();
 
 	bool isClimbingLadder = false;
+	bool canContactWithEnemy;
+
 	SimonSubWeaponType subWeapon;
 	WeaponWhip *weaponWhip = nullptr;
 	//void ThrowWeapon();

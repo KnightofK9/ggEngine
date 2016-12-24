@@ -7,6 +7,10 @@ AxeKnight::AxeKnight(CVGame * cvGame, SpriteInfo * spriteInfo) : WalkingEnemyBas
 	SetMoveForce(0.25);
 	this->allowToDetectSimon = true;
 	this->detectY = false;
+
+	this->maxHealth = 2;
+	this->damage = 2;
+	this->point = 400;
 }
 
 AxeKnight::~AxeKnight()

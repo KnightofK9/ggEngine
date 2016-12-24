@@ -10,6 +10,10 @@ MedusaHead::MedusaHead(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBas
 	SetMoveX(0.05);
 	SetSpeed(1);
 	this->allowToDetectSimon = true;
+
+	this->maxHealth = 1;
+	this->damage = 2;
+	this->point = 300;
 }
 
 MedusaHead::~MedusaHead()

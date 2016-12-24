@@ -9,6 +9,10 @@ BonePillar::BonePillar(CVGame * cvGame, SpriteInfo * spriteInfo)
 	this->SetBullet(new EnemySkillFire(this->cvGame, 
 		this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_FIRE_AI_TEXTURE)));
 	this->body->SetActive(false);
+
+	this->maxHealth = 6;
+	this->damage = 2;
+	this->point = 400;
 }
 
 BonePillar::~BonePillar()

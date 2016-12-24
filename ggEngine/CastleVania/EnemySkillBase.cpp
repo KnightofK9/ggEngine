@@ -1,6 +1,7 @@
 #include "EnemySkillBase.h"
 #include "CVGame.h"
 #include "TypeEnum.h"
+#include "Simon.h"
 #include "CVDebugDefine.h"
 EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame , int numberOfFrame , DWORD msPerFrame ) 
 	: CVSpriteAnimation(cvGame,image,frameWidth,frameHeight,defaultFrame,numberOfFrame,msPerFrame)
@@ -19,7 +20,8 @@ EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWid
 		Tag tag = otherObject->tag;
 		switch (tag) {
 		case ObjectType_Simon:
-			OnSimonContact(e);
+			if (this->cvGame->simon->canContactWithEnemy)
+				OnSimonContact(e);
 			break;
 		}
 	};
@@ -41,7 +43,6 @@ void EnemySkillBase::Active()
 {
 	this->visible = true;
 	this->body->SetEnable(true);
-
 	this->cvGame->eventManager->EnableCameraEvent(this);
 }
 
@@ -61,6 +62,8 @@ void EnemySkillBase::OnSimonContact(ColliderArg e)
 #ifdef DEBUG_AI_SKILL_CONTACT_WITH_SIMON
 	g_debug.Log(this->name + " contact with simon!");
 #endif // DEBUG_AI_SKILL_CONTACT_WITH_SIMON
+
+	this->cvGame->simon->Hurt(e.blockDirection.right);
 
 }
 

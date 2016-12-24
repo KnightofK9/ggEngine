@@ -11,7 +11,7 @@ public:
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
 private:
 	void AddTween(bool isLeft);
-	const int damage = 2;
-	const int health = 1;
-	const int point = 200;
+	//const int damage = 2;
+	//const int health = 1;
+	//const int point = 200;
 };
