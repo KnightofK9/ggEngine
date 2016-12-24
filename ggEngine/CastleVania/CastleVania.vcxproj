@@ -213,6 +213,7 @@
     <ClInclude Include="MoneyBag1000.h" />
     <ClInclude Include="MoneyBag400.h" />
     <ClInclude Include="MoneyBag700.h" />
+    <ClInclude Include="Raven.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ShootingEnemyBase.h" />
     <ClInclude Include="Simon.h" />
@@ -311,6 +312,7 @@
     <ClCompile Include="MoneyBag400.cpp" />
     <ClCompile Include="MoneyBag700.cpp" />
     <ClCompile Include="PotRoast.cpp" />
+    <ClCompile Include="Raven.cpp" />
     <ClCompile Include="ShootingEnemyBase.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SimonGroup.cpp" />
