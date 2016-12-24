@@ -73,7 +73,6 @@ void Medusa::Active()
 	this->SetAlive(true);
 	this->isMoving = false;
 	this->isAwake = false;
-	this->simon = this->cvGame->simon;
 	this->isPausingMoving = false;
 }
 

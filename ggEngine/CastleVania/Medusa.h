@@ -16,7 +16,6 @@ private:
 	bool isMoving;
 	void Awake();
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
-	Simon *simon = nullptr;
 	TweenBase *currentTween = nullptr;
 	double moveX;
 	double moveY;

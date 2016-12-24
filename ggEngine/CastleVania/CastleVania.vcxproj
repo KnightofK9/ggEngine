@@ -215,6 +215,7 @@
     <ClInclude Include="ShootingEnemyBase.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="SimonGroup.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="StateConstant.h" />
     <ClInclude Include="StaticTile.h" />
     <ClInclude Include="StaticTIleManager.h" />
@@ -308,6 +309,7 @@
     <ClCompile Include="ShootingEnemyBase.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SimonGroup.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="StaticTile.cpp" />
     <ClCompile Include="StaticTIleManager.cpp" />
     <ClCompile Include="StopWatch.cpp" />

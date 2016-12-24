@@ -129,3 +129,15 @@ Medusa * EnemyManager::AddMedusa(double x, double y, Group * group)
 	}
 	return go;
 }
+
+Skeleton * EnemyManager::AddSkeleton(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SKELETON_TEXTURE);
+	Skeleton *go = new Skeleton(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}

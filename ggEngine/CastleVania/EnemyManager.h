@@ -10,6 +10,7 @@
 #include "EnemyBase.h"
 #include "BonePillar.h"
 #include "Medusa.h"
+#include "Skeleton.h"
 using namespace ggEngine;
 class EnemyManager : ManagerBase {
 public:
@@ -25,6 +26,7 @@ public:
 	AI7* AddAI7(double x, double y, Group* group);
 	BonePillar* AddBonePillar(double x, double y, Group* group);
 	Medusa* AddMedusa(double x, double y, Group* group);
+	Skeleton* AddSkeleton(double x, double y, Group* group);
 
 private:
 };

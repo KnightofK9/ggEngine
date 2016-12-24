@@ -4,7 +4,7 @@
 #include "TileBrick.h"
 EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
-
+	this->simon = this->cvGame->simon;
 	simonDetectRange = 50.0f;
 
 	this->tag = ObjectType_Enemy;
