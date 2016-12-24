@@ -4,6 +4,7 @@
 #include "Simon.h"
 #include "TypeEnum.h"
 #include "CVDebugDefine.h"
+#include "CVMap.h"
 EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame , int numberOfFrame , DWORD msPerFrame ) 
 	: CVSpriteAnimation(cvGame,image,frameWidth,frameHeight,defaultFrame,numberOfFrame,msPerFrame)
 {
@@ -54,6 +55,15 @@ void EnemySkillBase::SetParentObject(EnemyBase * enemyBase)
 
 void EnemySkillBase::Fire(bool isLeft, Vector position)
 {
+	int modifier = 1;
+	if (isLeft) modifier = -1;
+	EnemySkillBase* go = GetBulletInstance();
+	go->SetPosition(position);
+	go->UpdateWorldPosition();
+	go->body->PreUpdate();
+	go->ChangeFacingDirection(isLeft);
+	go->body->velocity.x = modifier*this->fireSpeed;
+	go->Active();
 }
 
 
@@ -82,4 +92,14 @@ void EnemySkillBase::ChangeFacingDirection(bool isLeft)
 	else {
 		SetScale(-1, 1);
 	}
+}
+
+void EnemySkillBase::AddBulletToGroup(EnemySkillBase * bullet)
+{
+	this->cvGame->simon->currentMap->projectileGroup->AddDrawObjectToList(bullet);
+}
+
+EnemySkillBase * EnemySkillBase::GetBulletInstance()
+{
+	return nullptr;
 }

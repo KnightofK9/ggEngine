@@ -3,6 +3,8 @@
 #include "Simon.h"
 #include "CVMap.h"
 #include "CVBlock.h"
+#include "MedusaSkill.h"
+#include "TextureConstant.h"
 Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,image,32,32,0,4,200)
 {
 
@@ -13,7 +15,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	maxRandomPause = 1200;
 	timeOutToAwake = 2000;
 
-
+	SetBullet(new MedusaSkill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_BOSS_2_TEXTURE)));
 	this->body->SetActive(false);
 	this->CreateAnimation("move", 0, 3, true);
 	this->SetVisible(false);
@@ -89,14 +91,15 @@ void Medusa::MoveToNextPosition()
 		}
 	}
 	auto block = this->simon->currentMap->GetCurrentBlock();
-	if (this->lastSimonPosition.x - this->simon->GetWidth()/2 < block->left) {
-		this->lastSimonPosition.x = block->left + this->simon->GetWidth() / 2;
+	if (this->lastSimonPosition.x - this->GetWidth()/2 < block->left) {
+		this->lastSimonPosition.x = block->left + this->GetWidth() / 2;
 	}
 	else {
-		if (this->lastSimonPosition.x + this->simon->GetWidth() / 2 > block->right) {
-			this->lastSimonPosition.x = block->right - this->simon->GetWidth() / 2;
+		if (this->lastSimonPosition.x + this->GetWidth() / 2 > block->right) {
+			this->lastSimonPosition.x = block->right - this->GetWidth() / 2;
 		}
 	}
+	this->bullet->Fire(isSimonLeft, this->position);
 
 	MoveTo(this->lastSimonPosition);
 }

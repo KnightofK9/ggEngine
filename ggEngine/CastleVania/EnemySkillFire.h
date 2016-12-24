@@ -4,7 +4,7 @@ class EnemySkillFire : public EnemySkillBase {
 public:
 	EnemySkillFire(CVGame *cvGame, SpriteInfo * image);
 	virtual ~EnemySkillFire();
+private:
 	// Inherited via EnemySkillBase
-	void Fire(bool isLeft, Vector position) override;
-protected:
+	EnemySkillBase* GetBulletInstance() override;
 };

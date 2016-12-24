@@ -9,7 +9,9 @@ ShootingEnemyBase::ShootingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo, i
 
 ShootingEnemyBase::~ShootingEnemyBase()
 {
-	delete this->bullet;
+	if (this->bullet != nullptr) {
+		delete this->bullet;
+	}
 }
 
 void ShootingEnemyBase::Active()
