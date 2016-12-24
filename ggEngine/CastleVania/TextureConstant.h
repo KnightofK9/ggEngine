@@ -211,6 +211,20 @@ public:
 
 	static constexpr const char* BOSS_TEXTURE = "Boss";
 	static constexpr const char* BOSS_TEXTURE_PATH = "Resource/Resources/Boss.png";
+
+
+	static constexpr const char* MONKEY_TEXTURE = "AI_Monkey";
+	static constexpr const char* MONKEY_TEXTURE_PATH = "Resource/Resources/AI_Monkey.png";
+
+	static constexpr const char* RAVEN_TEXTURE = "AI_Raven";
+	static constexpr const char* RAVEN_TEXTURE_PATH = "Resource/Resources/AI_Raven.png";
+
+	static constexpr const char* SKELETON_TEXTURE = "AI_Skeleton";
+	static constexpr const char* SKELETON_TEXTURE_PATH = "Resource/Resources/AI_Skeleton.png";
+
+	static constexpr const char* BOSS_3_TEXTURE = "Boss3";
+	static constexpr const char* BOSS_3_TEXTURE_PATH = "Resource/Resources/Boss3.png";
+
 	/**
 	* Skill AI
 	**/
@@ -223,7 +237,8 @@ public:
 	static constexpr const char* SKILL_BOSS_2_TEXTURE = "SkillBoss2";
 	static constexpr const char* SKILL_BOSS_2_TEXTURE_PATH = "Resource/Resources/SkillBoss2.png";
 
-	static constexpr const char* SKILL_BOSS_3_TEXTURE = "skillboss3";
-	static constexpr const char* SKILL_BOSS_3_TEXTURE_PATH = "Resource/Resources/skillboss3.png";
+	static constexpr const char* SKILL_BOSS_3_TEXTURE = "SkillBoss3";
+	static constexpr const char* SKILL_BOSS_3_TEXTURE_PATH = "Resource/Resources/SkillBoss3.png";
+
 
 };

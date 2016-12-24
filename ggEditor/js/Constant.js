@@ -124,6 +124,31 @@ var Constant = new function () {
             frameHeight: 64,
             numberOfFrame: 1
         },
+        "Monkey": {
+            name: this.RESOURCE_PATH + "AI_Monkey.png",
+            frameWidth: 16,
+            frameHeight: 16,
+            numberOfFrame: 2
+        },
+        "Raven": {
+            name: this.RESOURCE_PATH + "AI_Raven.png",
+            frameWidth: 16,
+            frameHeight: 16,
+            numberOfFrame: 4
+        },
+        "Skeleton": {
+            name: this.RESOURCE_PATH + "AI_Skeleton.png",
+            frameWidth: 16,
+            frameHeight: 32,
+            numberOfFrame: 2
+        },
+        "Boss3": {
+            name: this.RESOURCE_PATH + "Boss3.png",
+            frameWidth: 16,
+            frameHeight: 40,
+            numberOfFrame: 3
+        },
+
         "Simon": {
             name: this.RESOURCE_PATH + "Character/simon.png",
             frameWidth: 45,
