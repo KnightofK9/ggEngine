@@ -30,6 +30,16 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 			break;
 		}
 	};
+	this->events->onCollide = [this](GameObject* go, ColliderArg e) {
+		auto otherObject = e.colliderObject;
+		Tag tag = otherObject->tag;
+
+		switch (tag) {
+		case ObjectType_LevelTwoBrick:
+			OnBrickContact(dynamic_cast<TileBrick*>(otherObject), e);
+			break;
+		}
+	};
 	this->cvGame->eventManager->EnableEventUpdate(this, false);
 	this->events->onUpdate = [this](GameObject*) {
 		Update();

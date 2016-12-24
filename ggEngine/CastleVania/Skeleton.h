@@ -7,6 +7,7 @@ public:
 	void Active() override;
 	void Update() override;
 private:
+	void OnBrickContact(TileBrick *tileBrick, ColliderArg e) override;
 	bool OnCheckingCollide(ColliderArg e) override;
 	void OnSimonEnterRange(Simon* simon, bool isLeft);
 	Timer movingTimer;
@@ -15,6 +16,7 @@ private:
 	void ResetMovingTime();
 
 	double moveSpeed;
+	double jumpForce;
 	double simonKeepingDistance;
 	int randomFireIntevalMin;
 	int randomFireIntevalMax;

@@ -7,4 +7,5 @@ class TileBrick : public StaticTile {
 public:
 	TileBrick(CVGame *cvGame, SpriteInfo *info);
 	~TileBrick();
+	bool IsOnEdge(GameObject* movingObject);
 };
