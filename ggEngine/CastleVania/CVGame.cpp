@@ -29,6 +29,10 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 	type = json["type"].GetString();
 	x = json["x"].GetDouble();
 	y = json["y"].GetDouble();
+	if (type == "Skeleton") {
+		go = this->enemyManager->AddSkeleton(x, y, group);
+		return go;
+	}
 	if (type == "Boss") {
 		go = this->enemyManager->AddMedusa(x, y, group);
 		return go;

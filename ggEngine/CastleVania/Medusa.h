@@ -1,7 +1,7 @@
 #pragma once
-#include "TweenEnemyBase.h"
+#include "ShootingEnemyBase.h"
 class Simon;
-class Medusa : public TweenEnemyBase {
+class Medusa : public ShootingEnemyBase {
 public:
 	Medusa(CVGame *cvGame, SpriteInfo *image);
 	virtual ~Medusa();
@@ -11,10 +11,25 @@ public:
 
 
 private:
+	void MoveToNextPosition();
+	void MoveTo(Vector position);
+	bool isMoving;
 	void Awake();
-	void RunLeft() override;
-	void RunRight() override;
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
-	Simon *simon = nullptr;
-	const int timeOutToAwake = 2000;
+	TweenBase *currentTween = nullptr;
+	double moveX;
+	double moveY;
+	double moveSpeed;
+	Timer moveTimer;
+	bool isAwake;
+
+	double pauseTimer;
+	bool isPausingMoving;
+	Vector lastSimonPosition;
+	int moveInterval;
+	double randomMinX;
+	double randomMaxX;
+	int minRandomPause;
+	int maxRandomPause;
+	int timeOutToAwake;
 };

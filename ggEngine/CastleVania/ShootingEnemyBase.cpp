@@ -1,14 +1,17 @@
 #include "ShootingEnemyBase.h"
 
-ShootingEnemyBase::ShootingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo, int frameWidth, int frameHeight) 
-	: EnemyBase(cvGame,spriteInfo,frameWidth,frameHeight)
+ShootingEnemyBase::ShootingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: EnemyBase(cvGame,spriteInfo,frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
-
+	fireInterval = 1000;
+	this->body->SetPhysicsMode(PhysicsMode_AABB);
 }
 
 ShootingEnemyBase::~ShootingEnemyBase()
 {
-	delete this->bullet;
+	if (this->bullet != nullptr) {
+		delete this->bullet;
+	}
 }
 
 void ShootingEnemyBase::Active()

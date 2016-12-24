@@ -39,3 +39,4 @@
 #include "MultiTween.h"
 #include "TweenManager.h"
 #include "MemoryManager.h"
+#include "DebugDefine.h"

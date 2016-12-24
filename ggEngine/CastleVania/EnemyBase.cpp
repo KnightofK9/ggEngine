@@ -1,10 +1,12 @@
 #include "EnemyBase.h"
-#include "CVDebugDefine.h"
 #include "Simon.h"
 #include "CVGame.h"
 #include "TileBrick.h"
 EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
+	this->simon = this->cvGame->simon;
+	simonDetectRange = 50.0f;
+
 	this->tag = ObjectType_Enemy;
 	cvGame->physics->AttachBodyTo(this);
 	this->SetAnchor(0.5, 0);
@@ -44,13 +46,11 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::OnSimonContact(ColliderArg e)
 {
-#ifdef DEBUG_CONTACT_WITH_SIMON
+#ifndef DEBUG_CONTACT_WITH_SIMON
 	g_debug.Log("Enemy contacted simon");
-#endif // DEBUG_CONTACT_WITH_SIMON
-
+#endif //DEBUG_CONTACT_WITH_SIMON
 	//this->cvGame->simon->Hurt(e.blockDirection.left);
 	//this->cvGame->simon->LoseHealth(damage);
-
 }
 
 void EnemyBase::Active()
@@ -83,6 +83,11 @@ void EnemyBase::Update()
 			OnSimonOutOfRange(this->cvGame->simon, !isSimonRight);
 		}
 	}
+}
+void EnemyBase::SetPosition(Vector position)
+{
+	GameObject::SetPosition(position);
+	this->startPosition = position;
 }
 double EnemyBase::GetDamage()
 {

@@ -19,6 +19,12 @@ void EnemyManager::PreloadAll()
 	this->preload->Texture(TextureConstant::AI6_TEXTURE, TextureConstant::AI6_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::AI7_TEXTURE, TextureConstant::AI7_TEXTURE_PATH);
 
+
+	this->preload->Texture(TextureConstant::MONKEY_TEXTURE, TextureConstant::MONKEY_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::RAVEN_TEXTURE, TextureConstant::RAVEN_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::SKELETON_TEXTURE, TextureConstant::SKELETON_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::BOSS_3_TEXTURE, TextureConstant::BOSS_3_TEXTURE_PATH);
+
 	//Enemy skill
 
 	this->preload->Texture(TextureConstant::SKILL_FIRE_AI_TEXTURE, TextureConstant::SKILL_FIRE_AI_TEXTURE_PATH);
@@ -116,6 +122,18 @@ Medusa * EnemyManager::AddMedusa(double x, double y, Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::BOSS_TEXTURE);
 	Medusa *go = new Medusa(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
+
+Skeleton * EnemyManager::AddSkeleton(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SKELETON_TEXTURE);
+	Skeleton *go = new Skeleton(this->cvGame, inf);
 	go->SetPosition(Vector(x, y));
 	go->Active();
 	if (group != nullptr) {

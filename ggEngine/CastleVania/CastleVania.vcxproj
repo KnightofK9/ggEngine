@@ -208,6 +208,7 @@
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="CVMap.h" />
     <ClInclude Include="ManagerBase.h" />
+    <ClInclude Include="MedusaSkill.h" />
     <ClInclude Include="MoneyBag100.h" />
     <ClInclude Include="MoneyBag1000.h" />
     <ClInclude Include="MoneyBag400.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="ShootingEnemyBase.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="SimonGroup.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="StateConstant.h" />
     <ClInclude Include="StaticTile.h" />
     <ClInclude Include="StaticTIleManager.h" />
@@ -302,6 +304,7 @@
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ManagerBase.cpp" />
+    <ClCompile Include="MedusaSkill.cpp" />
     <ClCompile Include="MoneyBag100.cpp" />
     <ClCompile Include="MoneyBag1000.cpp" />
     <ClCompile Include="MoneyBag400.cpp" />
@@ -310,6 +313,7 @@
     <ClCompile Include="ShootingEnemyBase.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SimonGroup.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="StaticTile.cpp" />
     <ClCompile Include="StaticTIleManager.cpp" />
     <ClCompile Include="StopWatch.cpp" />
