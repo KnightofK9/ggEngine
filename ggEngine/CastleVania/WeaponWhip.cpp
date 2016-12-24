@@ -23,7 +23,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		switch (tag)
 		{
 		case ObjectType_Enemy:
-			otherObject->Destroy();
+			//otherObject->Destroy();
 			break;
 
 		case ObjectType_BreakableTileBrick:
