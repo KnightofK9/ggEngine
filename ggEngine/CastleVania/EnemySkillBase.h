@@ -1,5 +1,6 @@
 #pragma once
 #include "CVSpriteAnimation.h"
+#include "TypeEnum.h"
 class EnemyBase;
 class CVGame;
 class EnemySkillBase : public CVSpriteAnimation {
@@ -10,10 +11,10 @@ public:
 	void Active();
 	void SetParentObject(EnemyBase *enemyBase);
 	virtual void Fire(bool isLeft, Vector position);
-	template <class T>
-	inline T* AddSkill(Vector position);
 	virtual void ChangeFacingDirection(bool isLeft);
 protected:
+	template <class T>
+	inline T* AddSkill(Vector position);
 	virtual void OnSimonContact(ColliderArg e);
 	virtual bool OnCheckingCollide(ColliderArg e);
 	EnemyBase *enemyBase;

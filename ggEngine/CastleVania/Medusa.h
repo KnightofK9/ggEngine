@@ -11,20 +11,26 @@ public:
 
 
 private:
+	void MoveToNextPosition();
 	void MoveTo(Vector position);
 	bool isMoving;
 	void Awake();
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
 	Simon *simon = nullptr;
-	const int timeOutToAwake = 2000;
 	TweenBase *currentTween = nullptr;
 	double moveX;
 	double moveY;
 	double moveSpeed;
 	Timer moveTimer;
 	bool isAwake;
-	int moveInterval = 1000;
+
+	double pauseTimer;
+	bool isPausingMoving;
 	Vector lastSimonPosition;
-	const double randomMinX = 10;
-	const double randomMaxX = 60;
+	int moveInterval;
+	double randomMinX;
+	double randomMaxX;
+	int minRandomPause;
+	int maxRandomPause;
+	int timeOutToAwake;
 };

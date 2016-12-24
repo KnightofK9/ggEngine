@@ -28,7 +28,7 @@ protected:
 	void ChangeFacingDirection(bool isLeft);
 	unsigned int health;
 	unsigned int maxHealth;
-	double simonDetectRange = 50.0f;
+	double simonDetectRange;
 	bool allowToDetectSimon = false;
 	bool detectX = true;
 	bool detectY = true;

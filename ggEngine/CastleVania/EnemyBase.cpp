@@ -4,6 +4,9 @@
 #include "TileBrick.h"
 EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
+
+	simonDetectRange = 50.0f;
+
 	this->tag = ObjectType_Enemy;
 	cvGame->physics->AttachBodyTo(this);
 	this->SetAnchor(0.5, 0);

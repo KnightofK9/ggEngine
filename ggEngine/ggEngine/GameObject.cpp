@@ -173,11 +173,49 @@ namespace ggEngine {
 		this->basePositionObject = basePositionObject;
 	}
 
+
+
+
+
 	void GameObject::UpdateWorldPosition(){
 		this->worldScale = Vector(this->scale.x*this->parentGroup->worldScale.x, this->scale.y*this->parentGroup->worldScale.y);
 		this->worldPosition = Vector(this->position.x*this->parentGroup->worldScale.x, this->position.y*this->parentGroup->worldScale.y) + this->basePositionObject->worldPosition;
 		if (this->IsOpacityAffectByParent()) {
 			this->opacity = this->parentGroup->GetOpacity();
 		}
+	}
+	double GameObject::GetLeft()
+	{
+		return this->position.x + (-this->anchor.x)*((GetWidth()));
+	}
+	void GameObject::SetLeft(double left)
+	{
+		double delta = GetLeft() - this->position.x;
+		this->position.x = left + delta;
+	}
+	double GameObject::GetTop()
+	{
+		return this->position.y + (-this->anchor.y)*((GetHeight()));
+	}
+	void GameObject::SetTop(double top)
+	{
+		double delta = GetTop() - this->position.y;
+		this->position.y = top + delta;
+	}
+	double GameObject::GetRight()
+	{
+		return GetLeft() + (1 - anchor.x)*GetWidth();
+	}
+	void GameObject::SetRight(double right)
+	{
+		SetWidth(right - GetLeft());
+	}
+	double GameObject::GetBottom()
+	{
+		return  GetTop() + (1 - anchor.y)*GetHeight();
+	}
+	void GameObject::SetBottom(double bottom)
+	{
+		SetHeight(bottom - GetTop());
 	}
 }

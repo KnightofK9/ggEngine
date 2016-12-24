@@ -4,6 +4,7 @@ ShootingEnemyBase::ShootingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo, i
 	: EnemyBase(cvGame,spriteInfo,frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 
+	fireInterval = 1000;
 }
 
 ShootingEnemyBase::~ShootingEnemyBase()

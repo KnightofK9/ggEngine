@@ -69,6 +69,17 @@ namespace ggEngine {
 		Tag tag = 0;
 		Rect GetRect(bool isGetWorldRect = false);
 		void SetTransformBasedOn(GameObject *basePositionObject);
+
+
+		double GetLeft();
+		void SetLeft(double left);
+		double GetTop();
+		void SetTop(double top);
+		double GetRight();
+		void SetRight(double right);
+		double GetBottom();
+		void SetBottom(double bottom);
+
 	protected:
 		Game *game;
 		bool opacityAffectByParent = true;

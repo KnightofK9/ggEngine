@@ -2,6 +2,7 @@
 #include "CVGame.h"
 #include "TypeEnum.h"
 #include "Simon.h"
+#include "TypeEnum.h"
 #include "CVDebugDefine.h"
 EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame , int numberOfFrame , DWORD msPerFrame ) 
 	: CVSpriteAnimation(cvGame,image,frameWidth,frameHeight,defaultFrame,numberOfFrame,msPerFrame)

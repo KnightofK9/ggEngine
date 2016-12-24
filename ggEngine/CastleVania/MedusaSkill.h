@@ -5,4 +5,5 @@ public:
 	MedusaSkill(CVGame* cvGame, SpriteInfo* image);
 	virtual ~MedusaSkill();
 private:
+	bool OnCheckingCollide(ColliderArg e) override;
 };

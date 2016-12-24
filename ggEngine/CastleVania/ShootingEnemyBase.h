@@ -14,6 +14,6 @@ protected:
 	virtual void FireRight();
 
 	EnemySkillBase* bullet = nullptr;
-	int fireInterval = 1000;
+	int fireInterval;
 	Timer fireTimer;
 };

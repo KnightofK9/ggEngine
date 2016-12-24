@@ -5,6 +5,15 @@
 #include "CVBlock.h"
 Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,image,32,32,0,4,200)
 {
+
+	moveInterval = 1000;
+	randomMinX = 40;
+	randomMaxX = 200;
+	minRandomPause = 400;
+	maxRandomPause = 1200;
+	timeOutToAwake = 2000;
+
+
 	this->body->SetActive(false);
 	this->CreateAnimation("move", 0, 3, true);
 	this->SetVisible(false);
@@ -15,6 +24,9 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	moveX = 0.05;
 	moveSpeed = 1;
 	this->isAwake = false;
+
+
+
 }
 
 Medusa::~Medusa()
@@ -38,28 +50,19 @@ void Medusa::Update()
 		this->position.y = this->startPosition.y + increaseY;
 	}
 	else {
-		int randomMin = Helper::GetRamdomIntNumber(randomMinX, randomMaxX);
-		bool distance = this->position.x - this->lastSimonPosition.x;
-		bool isSimonLeft = distance > 0;
-		if (abs(distance) < randomMin) {
-			if (isSimonLeft) {
-				this->lastSimonPosition.x = this->position.x - randomMin;
-			}
-			else {
-				this->lastSimonPosition.x = this->position.x + randomMin;
-			}
-		}
-		auto block = this->simon->currentMap->GetCurrentBlock();
-		if (this->lastSimonPosition.x < block->left) {
-			this->lastSimonPosition.x = block->left;
-		}
-		else {
-			if (this->lastSimonPosition.x > block->right) {
-				this->lastSimonPosition.x = block->right;
+		if (this->isPausingMoving) {
+#ifdef DEBUG_FRAME
+			this->pauseTimer -= DEFAULT_MS_PER_FRAME_FOR_ANIMATION;
+#else // DEBUG_FRAME
+			this->pauseTimer -= this->cvGame->logicTimer.getDeltaTimeInMilisecond();
+#endif
+			
+			if (this->pauseTimer < 0) {
+				this->pauseTimer = Helper::GetRamdomIntNumber(this->minRandomPause, this->maxRandomPause);
+				this->isPausingMoving = false;
+				MoveToNextPosition();
 			}
 		}
-
-		MoveTo(this->lastSimonPosition);
 	}
 }
 
@@ -69,6 +72,33 @@ void Medusa::Active()
 	this->isMoving = false;
 	this->isAwake = false;
 	this->simon = this->cvGame->simon;
+	this->isPausingMoving = false;
+}
+
+void Medusa::MoveToNextPosition()
+{
+	int randomMin = Helper::GetRamdomIntNumber(randomMinX, randomMaxX);
+	double distance = this->position.x - this->lastSimonPosition.x;
+	bool isSimonLeft = distance > 0;
+	if (abs(distance) < randomMin) {
+		if (isSimonLeft) {
+			this->lastSimonPosition.x = this->position.x - randomMin;
+		}
+		else {
+			this->lastSimonPosition.x = this->position.x + randomMin;
+		}
+	}
+	auto block = this->simon->currentMap->GetCurrentBlock();
+	if (this->lastSimonPosition.x - this->simon->GetWidth()/2 < block->left) {
+		this->lastSimonPosition.x = block->left + this->simon->GetWidth() / 2;
+	}
+	else {
+		if (this->lastSimonPosition.x + this->simon->GetWidth() / 2 > block->right) {
+			this->lastSimonPosition.x = block->right - this->simon->GetWidth() / 2;
+		}
+	}
+
+	MoveTo(this->lastSimonPosition);
 }
 
 void Medusa::MoveTo(Vector moveToPosition)
@@ -80,6 +110,7 @@ void Medusa::MoveTo(Vector moveToPosition)
 			->SetOnFinish([this]() {
 			this->currentTween = nullptr;
 			this->isMoving = false;
+			this->isPausingMoving = true;
 		})->Start();
 	}
 }
