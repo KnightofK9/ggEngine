@@ -1,5 +1,4 @@
 #include "EnemyBase.h"
-#include "CVDebugDefine.h"
 #include "Simon.h"
 #include "CVGame.h"
 #include "TileBrick.h"
@@ -44,12 +43,15 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::OnSimonContact(ColliderArg e)
 {
-#ifdef DEBUG_CONTACT_WITH_SIMON
 	g_debug.Log("Enemy contacted simon");
-#endif // DEBUG_CONTACT_WITH_SIMON
+	Simon *simon = this->cvGame->simon;
+	if (e.blockDirection.left && simon->isLeft
+		|| e.blockDirection.right && !simon->isLeft)
+		simon->Hurt(false);
+	else
+		simon->Hurt(true);
 
-	this->cvGame->simon->Hurt(e.blockDirection.left);
-	this->cvGame->simon->LoseHealth(damage);
+	simon->LoseHealth(damage);
 }
 
 void EnemyBase::Active()
@@ -82,6 +84,11 @@ void EnemyBase::Update()
 			OnSimonOutOfRange(this->cvGame->simon, !isSimonRight);
 		}
 	}
+}
+void EnemyBase::SetPosition(Vector position)
+{
+	this->startPosition = position;
+	GameObject::SetPosition(position);
 }
 double EnemyBase::GetDamage()
 {

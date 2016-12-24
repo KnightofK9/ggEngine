@@ -10,11 +10,9 @@ public:
 	void SetMoveX(double moveX);
 	void SetSpeed(double speed);
 	double GetSpeed();
-	virtual void SetPosition(Vector position) override;
 protected:
 	virtual void RunLeft();
 	virtual void RunRight();
-	Vector startPosition;
 	double moveY = 50;
 	double moveX = 0;
 	double speed = 0.25;

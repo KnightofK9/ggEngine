@@ -13,7 +13,9 @@ public:
 	virtual void Update();
 
 	double GetDamage();
+	virtual void SetPosition(Vector position) override;
 protected:
+	Vector startPosition;
 	virtual void OnSimonContact( ColliderArg e);
 	virtual bool OnCheckingCollide(ColliderArg e);
 	virtual void RunLeft();

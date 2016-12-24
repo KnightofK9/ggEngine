@@ -57,8 +57,4 @@ double TweenEnemyBase::GetSpeed()
 	return this->speed;
 }
 
-void TweenEnemyBase::SetPosition(Vector position)
-{
-	this->startPosition = position;
-	GameObject::SetPosition(position);
-}
+
