@@ -3,6 +3,7 @@
 #include "Debug.h"
 #include "AudioInfo.h"
 
+
 namespace ggEngine{
 	class Game;
 	class Audio : public GGObject{
@@ -12,7 +13,7 @@ namespace ggEngine{
 
 		void Play();
 		void Stop();
-		void Loop(bool isLoop);
+		void PlayLoop();
 		void Repeat(int numberOfRepeat);
 		void Pause();
 		void Resume();

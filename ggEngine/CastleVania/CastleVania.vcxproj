@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="AI6.h" />
     <ClInclude Include="AI7.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="AxeKnight.h" />
     <ClInclude Include="BatEnemy.h" />
     <ClInclude Include="BonePillar.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="EnemySkillBase.h" />
     <ClInclude Include="EnemySkillFire.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="AudioConstant.h" />
     <ClInclude Include="Medusa.h" />
     <ClInclude Include="MedusaHead.h" />
     <ClInclude Include="BreakableTileBrick.h" />
@@ -242,6 +244,7 @@
     <ClInclude Include="WeaponStopWatch.h" />
     <ClInclude Include="WeaponWhip.h" />
     <ClInclude Include="WhipUpgradeItem.h" />
+    <ClInclude Include="CVAudio.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ggEngine\ggEngine.vcxproj">
@@ -254,6 +257,7 @@
   <ItemGroup>
     <ClCompile Include="AI6.cpp" />
     <ClCompile Include="AI7.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AxeKnight.cpp" />
     <ClCompile Include="BatEnemy.cpp" />
     <ClCompile Include="BonePillar.cpp" />
@@ -325,7 +329,6 @@
     <ClCompile Include="TileLadder.cpp" />
     <ClCompile Include="TripleShot.cpp" />
     <ClCompile Include="TweenEnemyBase.cpp" />
-    <ClCompile Include="VAudio.cpp" />
     <ClCompile Include="WalkingEnemyBase.cpp" />
     <ClCompile Include="WeaponAxe.cpp" />
     <ClCompile Include="WEAPONBASE.CPP" />
@@ -336,6 +339,7 @@
     <ClCompile Include="WeaponStopWatch.cpp" />
     <ClCompile Include="WeaponWhip.cpp" />
     <ClCompile Include="WhipUpgradeItem.cpp" />
+    <ClCompile Include="CVAudio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

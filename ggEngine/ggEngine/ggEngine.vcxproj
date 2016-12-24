@@ -189,7 +189,9 @@
     <ClInclude Include="DebugDefine.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="DrawManager.h" />
+    <ClInclude Include="dsutil.h" />
     <ClInclude Include="DXInput.h" />
+    <ClInclude Include="dxutil.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="EventArg.h" />
     <ClInclude Include="EventManager.h" />
@@ -269,7 +271,9 @@
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DrawManager.cpp" />
+    <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="DXInput.cpp" />
+    <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Events.cpp" />

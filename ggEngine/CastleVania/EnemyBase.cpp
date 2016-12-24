@@ -56,15 +56,11 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::OnSimonContact(ColliderArg e)
 {
+#ifndef DEBUG_CONTACT_WITH_SIMON
 	g_debug.Log("Enemy contacted simon");
-	Simon *simon = this->cvGame->simon;
-	if (e.blockDirection.left && simon->isLeft
-		|| e.blockDirection.right && !simon->isLeft)
-		simon->Hurt(false);
-	else
-		simon->Hurt(true);
-
-	simon->LoseHealth(damage);
+#endif //DEBUG_CONTACT_WITH_SIMON
+	//this->cvGame->simon->Hurt(e.blockDirection.left);
+	//this->cvGame->simon->LoseHealth(damage);
 }
 
 void EnemyBase::Active()

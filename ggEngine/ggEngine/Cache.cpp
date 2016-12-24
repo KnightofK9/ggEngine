@@ -82,7 +82,7 @@ namespace ggEngine {
 		Texture* defaultTexture = new Texture(this->device, "default.bmp");
 		defaultSpriteInfo = new SpriteInfo(defaultTexture);
 		defaultFont = new Font(game->GetDrawManager(), "Arial", 25, false);
-		defaultAudioInfo = new AudioInfo("defaultAudio.wav");
+		defaultAudioInfo = new AudioInfo(game, "defaultAudio.wav");
 	}
 	Cache::~Cache()
 	{
@@ -196,11 +196,7 @@ namespace ggEngine {
 			g_debug.Warning("Audio " + audioKey + "has been loaded already!");
 			return false;
 		}
-		AudioInfo *audioInfo = new AudioInfo(audioPath);
-		/*if (audioInfo->GetXAudio2Engine() == NULL){
-			g_debug.Warning("Initialize audioInfo " + audioKey + " failed.");
-			return false;
-		}*/
+		AudioInfo *audioInfo = new AudioInfo(this->game, audioPath);
 		audioInfoMap[audioKey] = audioInfo;
 		return true;
 	}

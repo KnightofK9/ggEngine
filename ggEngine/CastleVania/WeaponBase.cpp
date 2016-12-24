@@ -64,9 +64,9 @@ void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 	g_debug.Log("Weapon contacted enemy!!!");
 #endif
 
-	if (dynamic_cast<AI7*>(enemyBase) != nullptr)
-		return;
-	enemyBase->Destroy();
+	//if (dynamic_cast<AI7*>(enemyBase) != nullptr)
+	//	return;
+	//enemyBase->Destroy();
 }
 
 void WeaponBase::OnOutOfCamera(EventArg e)
