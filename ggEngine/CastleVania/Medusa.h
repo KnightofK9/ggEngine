@@ -1,7 +1,7 @@
 #pragma once
-#include "TweenEnemyBase.h"
+#include "ShootingEnemyBase.h"
 class Simon;
-class Medusa : public TweenEnemyBase {
+class Medusa : public ShootingEnemyBase {
 public:
 	Medusa(CVGame *cvGame, SpriteInfo *image);
 	virtual ~Medusa();

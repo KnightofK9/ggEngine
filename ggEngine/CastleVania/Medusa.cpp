@@ -1,11 +1,12 @@
 #include "Medusa.h"
 #include "CVGame.h"
-Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : TweenEnemyBase(cvGame,image,32,32,0,4,200)
+Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,image,32,32,0,4,200)
 {
 	this->body->SetActive(false);
 	this->CreateAnimation("move", 0, 3, true);
 	this->SetVisible(false);
 	this->allowToDetectSimon = true;
+	this->fireInterval = 1000;
 }
 
 Medusa::~Medusa()
@@ -14,7 +15,7 @@ Medusa::~Medusa()
 
 void Medusa::Update()
 {
-	EnemyBase::Update();
+	//ShootingEnemyBase::Update();
 }
 
 void Medusa::Active()

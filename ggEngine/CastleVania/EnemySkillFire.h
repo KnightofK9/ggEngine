@@ -7,5 +7,4 @@ public:
 	// Inherited via EnemySkillBase
 	void Fire(bool isLeft, Vector position) override;
 protected:
-	const double fireSpeed = 0.25;
 };

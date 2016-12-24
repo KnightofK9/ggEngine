@@ -1,6 +1,7 @@
 #pragma once
 #include "CVSpriteAnimation.h"
 class EnemyBase;
+class CVGame;
 class EnemySkillBase : public CVSpriteAnimation {
 public:
 	EnemySkillBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
@@ -8,13 +9,16 @@ public:
 
 	void Active();
 	void SetParentObject(EnemyBase *enemyBase);
-	virtual void Fire(bool isLeft, Vector position) = 0;
+	virtual void Fire(bool isLeft, Vector position);
 	template <class T>
 	inline T* AddSkill(Vector position);
+	virtual void ChangeFacingDirection(bool isLeft);
 protected:
 	virtual void OnSimonContact(ColliderArg e);
 	virtual bool OnCheckingCollide(ColliderArg e);
 	EnemyBase *enemyBase;
+	bool isLeft;
+	double fireSpeed = 0.25;
 };
 
 template<class T>

@@ -7,6 +7,8 @@ EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWid
 {
 	this->cvGame->physics->AttachBodyTo(this);
 	this->body->CreateRectangleRigidBody(frameWidth, frameHeight);
+	this->SetAnchor(0.5, 0);
+	this->body->rigidBody->SetAnchor(0.5, 0);
 	this->body->allowGravity = false;
 	this->body->SetPhysicsMode(PhysicsMode_AABB);
 	this->events->onCheckingCollide = [this](GameObject *go, ColliderArg e) {
@@ -28,6 +30,7 @@ EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWid
 
 	this->visible = false;
 	this->body->SetEnable(false);
+	this->isLeft = true;
 }
 
 EnemySkillBase::~EnemySkillBase()
@@ -47,6 +50,10 @@ void EnemySkillBase::SetParentObject(EnemyBase * enemyBase)
 	this->enemyBase = enemyBase;
 }
 
+void EnemySkillBase::Fire(bool isLeft, Vector position)
+{
+}
+
 
 
 void EnemySkillBase::OnSimonContact(ColliderArg e)
@@ -60,4 +67,15 @@ void EnemySkillBase::OnSimonContact(ColliderArg e)
 bool EnemySkillBase::OnCheckingCollide(ColliderArg e)
 {
 	return false;
+}
+
+void EnemySkillBase::ChangeFacingDirection(bool isLeft)
+{
+	this->isLeft = isLeft;
+	if (isLeft) {
+		SetScale(1, 1);
+	}
+	else {
+		SetScale(-1, 1);
+	}
 }

@@ -3,7 +3,7 @@
 #include "EnemySkillBase.h"
 class ShootingEnemyBase : public EnemyBase {
 public:
-	ShootingEnemyBase(CVGame *cvGame, SpriteInfo *spriteInfo, int frameWidth, int frameHeight);
+	ShootingEnemyBase(CVGame *cvGame, SpriteInfo *spriteInfo, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~ShootingEnemyBase();
 
 	virtual void Active() override;
@@ -14,7 +14,6 @@ protected:
 	virtual void FireRight();
 
 	EnemySkillBase* bullet = nullptr;
-	double fireSpeed = 0.25;
 	int fireInterval = 1000;
 	Timer fireTimer;
 };

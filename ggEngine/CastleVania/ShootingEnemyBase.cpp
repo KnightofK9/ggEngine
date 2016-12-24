@@ -1,7 +1,7 @@
 #include "ShootingEnemyBase.h"
 
-ShootingEnemyBase::ShootingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo, int frameWidth, int frameHeight) 
-	: EnemyBase(cvGame,spriteInfo,frameWidth,frameHeight)
+ShootingEnemyBase::ShootingEnemyBase(CVGame * cvGame, SpriteInfo * spriteInfo, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
+	: EnemyBase(cvGame,spriteInfo,frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 
 }
