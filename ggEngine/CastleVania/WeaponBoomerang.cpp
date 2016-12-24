@@ -33,16 +33,13 @@ void WeaponBoomerang::FireWeapon(bool isLeft)
 
 }
 
-void WeaponBoomerang::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
+void WeaponBoomerang::OnSimonContact(ColliderArg e)
 {
-}
-
-void WeaponBoomerang::OnSimonContact(Simon * simon, ColliderArg e)
-{
-	this->tweenOut->Stop();
-	if (this->tweenReturn != nullptr)
+	//this->tweenOut->Stop();
+	if (this->tweenReturn != nullptr) {
 		this->tweenReturn->Stop();
-	this->Destroy();
+		this->Destroy();
+	}
 }
 
 void WeaponBoomerang::OnOutOfCamera(EventArg e)

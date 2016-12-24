@@ -16,16 +16,17 @@ public:
 	virtual void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e);
 	virtual void OnOutOfCamera(EventArg e);
 	virtual void OnStaticContact(GameObject *staticObject, ColliderArg e);
-	virtual void OnSimonContact(Simon *simon, ColliderArg e);
+	virtual void OnSimonContact(ColliderArg e);
 	virtual void OnBrickContact(GameObject *brick, ColliderArg e);
 	virtual void Destroy();
-	virtual void CheckCollisionToSimon(Simon *simon);
 
 	virtual void Active();
 	virtual int GetHeartConsumtion() { return 0; }
 	
 
 protected:
+	virtual bool OnCheckingCollide(ColliderArg e);
+
 	Vector GetHorizontalDirection(bool isLeft);
 	Vector GetThrowDirection(bool isLeft);
 	virtual void FireHorizontal(bool isLeft, double throwForce);

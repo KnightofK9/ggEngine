@@ -16,11 +16,14 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 	this->events->onOverlap = [this](GameObject* go, ColliderArg e) {
 		auto otherObject = e.colliderObject;
 		Tag tag = otherObject->tag;
+
 		switch (tag) {
 		case ObjectType_LevelTwoBrick:
 			OnBrickContact(dynamic_cast<TileBrick*>(otherObject), e);
+			break;
+
 		case ObjectType_Simon:
-			OnSimonContact(dynamic_cast<Simon*>(otherObject), e);
+			OnSimonContact(e);
 			break;
 		}
 	};
@@ -38,8 +41,17 @@ EnemyBase::~EnemyBase()
 }
 
 
-void EnemyBase::OnSimonContact(Simon * simon, ColliderArg e)
+void EnemyBase::OnSimonContact(ColliderArg e)
 {
+	g_debug.Log("Enemy contacted simon");
+	Simon *simon = this->cvGame->simon;
+	if (e.blockDirection.left && simon->isLeft
+		|| e.blockDirection.right && !simon->isLeft)
+		simon->Hurt(false);
+	else
+		simon->Hurt(true);
+
+	simon->LoseHealth(damage);
 }
 
 void EnemyBase::Active()
@@ -72,6 +84,10 @@ void EnemyBase::Update()
 			OnSimonOutOfRange(this->cvGame->simon, !isSimonRight);
 		}
 	}
+}
+double EnemyBase::GetDamage()
+{
+	return this->damage;
 }
 void EnemyBase::RunLeft()
 {

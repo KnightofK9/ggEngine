@@ -165,8 +165,11 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 				this->grounding = SimonGrounding_Brick;
 			break;
 		case ObjectType_Static:
-		
 			break;
+
+		case ObjectType_Enemy:
+			break;
+
 		default:
 			break;
 		}
@@ -352,7 +355,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 					this->Idle();
 				else {
 					CheckKeyPressNormal(e);
-#ifdef _DEBUG
+#ifdef DEBUG_SIMON_KEY_CONTROL
 					CheckKeyWhenDebug(e);
 #endif // _DEBUG
 
@@ -427,7 +430,7 @@ void Simon::Attack()
 		return;
 
 	this->isReadyToFireWeapon = false;
-	this->weaponManager->AddWeapon(this, position.x, position.y, isLeft, this->parentGroup);
+	this->weaponManager->AddWeapon(this, position.x, position.y, isLeft, this->currentMap->projectileGroup);
 	this->numberWeaponCanFire--;
 
 
@@ -539,7 +542,7 @@ void Simon::ClimbIdle()
 		PlayAnimation("climbDownIdle");
 }
 
-void Simon::Hurt()
+void Simon::Hurt(bool isAttackedBehind)
 {
 	this->PlayAnimation("hurt");
 	this->FlickeringAnimation(20, 2000)->Start();
@@ -548,7 +551,7 @@ void Simon::Hurt()
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 
 	Vector direction(-1, -2.3);
-	if (this->isLeft)
+	if (isAttackedBehind)
 		direction.x = 1;
 	this->body->velocity = { 0, 0 };
 	this->body->AddForce(CharacterConstant::SIMON_HURT_FORCE, direction);
@@ -559,8 +562,7 @@ void Simon::Hurt()
 void Simon::Death()
 {
 	this->PlayAnimation("death");
-	this->body->velocity.x = 0;
-	this->body->velocity.y = 0;
+	this->body->velocity = { 0, 0 };
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 }
 

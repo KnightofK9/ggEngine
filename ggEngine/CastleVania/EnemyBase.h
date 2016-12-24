@@ -11,8 +11,10 @@ public:
 
 	virtual void Active();
 	virtual void Update();
+
+	double GetDamage();
 protected:
-	virtual void OnSimonContact(Simon *simon, ColliderArg e);
+	virtual void OnSimonContact( ColliderArg e);
 	virtual bool OnCheckingCollide(ColliderArg e);
 	virtual void RunLeft();
 	virtual void RunRight();
@@ -27,4 +29,7 @@ protected:
 	bool allowToDetectSimon = false;
 	bool detectX = true;
 	bool detectY = true;
+
+private:
+	int damage = 0;
 };
