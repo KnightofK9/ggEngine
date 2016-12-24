@@ -35,6 +35,7 @@ public:
 	void OnNextStage(int stageIndex, int blockIndex = 0);
 	void OnFallOutOfMap();
 	void OnEnterDoor(Door *door);
+	CVBlock* GetCurrentBlock() { return this->currentBlock; }
 private:
 	void CheckIfSimonOutOfBlock();
 	void StartSwitchingState();

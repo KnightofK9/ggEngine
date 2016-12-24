@@ -87,8 +87,8 @@ void EnemyBase::Update()
 }
 void EnemyBase::SetPosition(Vector position)
 {
-	this->startPosition = position;
 	GameObject::SetPosition(position);
+	this->startPosition = position;
 }
 double EnemyBase::GetDamage()
 {
