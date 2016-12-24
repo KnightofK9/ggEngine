@@ -9,8 +9,7 @@ public:
 	virtual ~WeaponBoomerang();
 
 	void FireWeapon(bool isLeft) override;
-	void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e) override;
-	void OnSimonContact(Simon *simon, ColliderArg e) override;
+	void OnSimonContact(ColliderArg e) override;
 	void OnOutOfCamera(EventArg e) override;
 	int GetHeartConsumtion() override { return this->heartConsumtion; }
 

@@ -48,11 +48,10 @@ TimeBasedEventInfo* CVSpriteAnimation::FlickeringChangeColorAnimation(int delay,
 			break;
 		}
 
-		if (this->flickeringChangeColorAnim->isFinished == true) {
+		if (this->flickeringChangeColorAnim->numberOfLoops <= 1) {
 			this->SetColorTint(255, 255, 255);
 		}
 	});
-
 	return this->flickeringChangeColorAnim;
 }
 

@@ -19,10 +19,6 @@ void WeaponHolyWater::FireWeapon(bool isLeft)
 	FireAsThrow(isLeft, this->throwForce);
 }
 
-void WeaponHolyWater::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
-{
-}
-
 void WeaponHolyWater::OnBrickContact(GameObject * go, ColliderArg e)
 {
 	g_debug.Log("Contacting Brick");

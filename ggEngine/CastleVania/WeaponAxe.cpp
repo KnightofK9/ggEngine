@@ -19,7 +19,3 @@ void WeaponAxe::FireWeapon(bool isLeft)
 {
 	FireAsThrow(isLeft , this->throwForce);
 }
-
-void WeaponAxe::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
-{
-}

@@ -1,5 +1,6 @@
 #include "WeaponBase.h"
 #include "CVGame.h"
+#include "CVDebugDefine.h"
 #include "EnemyBase.h"
 #include "Simon.h"
 WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
@@ -7,57 +8,37 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int 
 {
 	this->SetAnchor(0.5, 0.5);
 	this->cvGame = cvGame;
-	this->cvGame->physics->EnablePhysics(this);
+	//this->cvGame->physics->EnablePhysics(this);
+	this->cvGame->physics->AttachBodyTo(this);
+	this->body->SetPhysicsMode(PhysicsMode_AABB);
 	this->body->CreateRectangleRigidBody(frameWidth, frameHeight);
 	this->body->allowGravity = true;
 	this->body->syncBounds = false;
 	this->body->rigidBody->SetAnchor(0.5, 0.5);
 	this->tag = ObjectType_Weapon;
-	this->events->onCollide = [this](GameObject *go, ColliderArg e) {
-		switch (go->tag) {
+
+	this->events->onCheckingCollide = [this](GameObject *go, ColliderArg e) {
+		return OnCheckingCollide(e);
+	};
+	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
+		auto otherObject = e.colliderObject;
+		Tag tag = otherObject->tag;
+		switch (tag) {
 		case ObjectType_Enemy:
-		{	EnemyBase *enemy = dynamic_cast<EnemyBase*>(go);
-			if (enemy != nullptr) {
-				OnEnemyContact(enemy, e);
-				return;
-			}
-		}
-		break;
+			OnEnemyContact(dynamic_cast<EnemyBase*>(otherObject), e);
+			break;
 
 		case ObjectType_Static:
-			OnStaticContact(go,e);
+			OnStaticContact(otherObject,e);
 			break;
 
 		case ObjectType_LevelTwoBrick:
-			OnBrickContact(go, e);
+			OnBrickContact(otherObject, e);
 			break;
 
 		case ObjectType_Simon:
-		{	Simon *simon = dynamic_cast<Simon*>(go);
-			if (simon != nullptr) {
-				OnSimonContact(simon, e);
-				return;
-			}
-		}
-		break;
-
-		default:
+			OnSimonContact(e);
 			break;
-		}
-	};
-
-	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
-		GameObject *otherObject = e.colliderObject;
-		Tag type = otherObject->tag;
-		switch (type) {
-		case ObjectType_Enemy:
-		{	EnemyBase *enemy = dynamic_cast<EnemyBase*>(go);
-			if (enemy != nullptr) {
-				OnEnemyContact(enemy, e);
-				return;
-			}
-		}
-		break;
 
 		default:
 			break;
@@ -79,25 +60,32 @@ void WeaponBase::FireWeapon(bool isLeft)
 
 void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 {
-	g_debug.Log("Contact enemy!");
-	//Destroy();
+#ifdef DEBUG_WEAPON_CONTACT_WITH_ENEMY
+	g_debug.Log("Weapon contacted enemy!!!");
+#endif
+
+	if (dynamic_cast<AI7*>(enemyBase) != nullptr)
+		return;
+	enemyBase->Destroy();
 }
 
 void WeaponBase::OnOutOfCamera(EventArg e)
 {
 	//g_debug.Log("Out of camera!");
-	Destroy();
+	this->Destroy();
 }
 
-void WeaponBase::OnSimonContact(Simon * simon, ColliderArg e)
+void WeaponBase::OnSimonContact(ColliderArg e)
 {
+#ifdef DEBUG_WEAPON_CONTACT_WITH_ENEMY
+	g_debug.Log("Contact simon!");
+#endif
+
 }
-
-
 
 void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
 {
-	Destroy();
+	this->Destroy();
 }
 
 void WeaponBase::OnBrickContact(GameObject * brick, ColliderArg e)
@@ -110,9 +98,9 @@ void WeaponBase::Destroy()
 	GameObject::Destroy();
 }
 
-void WeaponBase::CheckCollisionToSimon(Simon * simon)
+bool WeaponBase::OnCheckingCollide(ColliderArg e)
 {
-	simon->body->CheckCollisionTo(this);
+	return false;
 }
 
 void WeaponBase::Active()

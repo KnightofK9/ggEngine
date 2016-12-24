@@ -57,7 +57,7 @@ public:
 	void ClimbDownLeft();
 	void ClimbDownRight();
 	void ClimbIdle();
-	void Hurt();
+	void Hurt(bool isAttackedBehind = true);
 	void Death();
 	void StandAttack();
 	void KneelAttack();

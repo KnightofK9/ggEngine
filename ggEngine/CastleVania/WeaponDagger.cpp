@@ -19,6 +19,3 @@ void WeaponDagger::FireWeapon(bool isLeft)
 	FireHorizontal(isLeft, this->throwForce);
 }
 
-void WeaponDagger::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
-{
-}

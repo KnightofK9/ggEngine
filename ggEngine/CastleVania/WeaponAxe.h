@@ -8,7 +8,6 @@ public:
 	virtual ~WeaponAxe();
 
 	void FireWeapon(bool isLeft) override;
-	void OnEnemyContact(EnemyBase *enemyBase, ColliderArg e) override;
 	int GetHeartConsumtion() override { return this->heartConsumtion; }
 
 

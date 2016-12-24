@@ -20,4 +20,8 @@ private:
 	const Vector fireRightPosition = Vector(0, 24);
 	const int fireInterval = 1000;
 	Timer fireTimer;
+
+	const int damage = 2;
+	const int health = 6;
+	const int point = 400;
 };
