@@ -12,7 +12,6 @@ private:
 	void OnSimonEnterRange(Simon* simon, bool isLeft);
 	Timer movingTimer;
 	Timer stopTimer;
-	void ResetStoppingTime();
 	void ResetMovingTime();
 
 	double moveSpeed;
@@ -22,11 +21,7 @@ private:
 	int randomFireIntevalMax;
 	int randomMoveTimeMin;
 	int randomMoveTimeMax;
-	int randomStopMoveTimeMin;
-	int randomStopMoveTimeMax;
 	int movingTimerInterval;
-	int stoppingTimerInterval;
-	bool isPausing;
 	bool isMoving;
 	int globalModifier;
 };

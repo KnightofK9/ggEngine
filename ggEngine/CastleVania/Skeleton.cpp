@@ -1,6 +1,8 @@
 #include "Skeleton.h"
 #include "Simon.h"
 #include "TileBrick.h"
+#include "SkeletonSkill.h"
+#include "TextureConstant.h"
 Skeleton::Skeleton(CVGame * cvGame, SpriteInfo * image)
 	: ShootingEnemyBase(cvGame,image,16,32,0,2,200)
 {
@@ -11,8 +13,6 @@ Skeleton::Skeleton(CVGame * cvGame, SpriteInfo * image)
 	this->randomFireIntevalMax = 1000;
 	this->randomMoveTimeMin = 1200;
 	this->randomMoveTimeMax = 2000;
-	this->randomStopMoveTimeMin = 1000;
-	this->randomStopMoveTimeMax = 1200;
 
 	this->CreateAnimation("move", 0, 1, true);
 	this->CreateAnimation("idle", 0, 0, false);
@@ -22,7 +22,7 @@ Skeleton::Skeleton(CVGame * cvGame, SpriteInfo * image)
 	this->body->immoveable = false;
 	this->body->SetActive(true);
 	this->allowToDetectSimon = false;
-
+	SetBullet(new SkeletonSkill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_AI_TEXTURE)));
 }
 
 Skeleton::~Skeleton()
@@ -36,10 +36,8 @@ void Skeleton::Active()
 	this->stopTimer.reset();
 	this->isMoving = true;
 
-	this->isPausing = false;
 	this->globalModifier = 1;
 	this->PlayAnimation("move");
-	ResetStoppingTime();
 	ResetMovingTime();
 }
 
@@ -67,35 +65,15 @@ void Skeleton::Update()
 	if (fireTimer.stopwatch(fireInterval)) {
 		fireInterval = Helper::GetRamdomIntNumber(this->randomFireIntevalMin, this->randomFireIntevalMax);	
 		if (isSimonLeft) {
-			//FireLeft();
+			FireLeft();
 		}
 		else {
-			//FireRight();
+			FireRight();
 		}
 	}
 	if (this->isMoving) {
 		this->body->velocity.x = modifier*this->moveSpeed;
-		/*if (!this->isPausing) {
-			this->body->velocity.x = modifier*this->moveSpeed;
-			this->isMoving = true;
-			this->PlayAnimation("move");
-		}
-		else {
-			if (stopTimer.stopwatch(stoppingTimerInterval)) {
-				this->isPausing = false;
-				this->body->velocity.x = 0;
-				ResetStoppingTime();
-			}
-		}*/
 	}
-	//else {
-	//	if (movingTimer.stopwatch(movingTimerInterval)) {
-	//		this->isMoving = false;
-	//		this->isPausing = true;
-	//		this->PlayAnimation("idle");
-	//		ResetMovingTime();
-	//	}
-	//}
 }
 
 void Skeleton::OnBrickContact(TileBrick * tileBrick, ColliderArg e)
@@ -133,12 +111,6 @@ bool Skeleton::OnCheckingCollide(ColliderArg e)
 
 void Skeleton::OnSimonEnterRange(Simon * simon, bool isLeft)
 {
-}
-
-void Skeleton::ResetStoppingTime()
-{
-	this->stoppingTimerInterval = Helper::GetRamdomIntNumber(this->randomStopMoveTimeMin, this->randomStopMoveTimeMax);
-
 }
 
 void Skeleton::ResetMovingTime()

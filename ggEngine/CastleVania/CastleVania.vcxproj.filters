@@ -318,6 +318,9 @@
     <ClInclude Include="Skeleton.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="SkeletonSkill.h">
+      <Filter>Header Files\Enemy\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -572,6 +575,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonSkill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
