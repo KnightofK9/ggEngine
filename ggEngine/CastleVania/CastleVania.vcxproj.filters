@@ -306,6 +306,9 @@
     <ClInclude Include="EnemySkillFire.h">
       <Filter>Header Files\Enemy\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="ShootingEnemyBase.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -548,6 +551,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemySkillFire.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootingEnemyBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
