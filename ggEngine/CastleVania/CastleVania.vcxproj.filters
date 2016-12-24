@@ -312,6 +312,15 @@
     <ClInclude Include="Medusa.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioConstant.h">
+      <Filter>Header Files\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="CVAudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -332,9 +341,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TripleShot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VAudio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WhipUpgradeItem.cpp">
@@ -560,6 +566,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Medusa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVAudio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
