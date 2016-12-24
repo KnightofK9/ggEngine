@@ -397,6 +397,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->SetUpKeyControl();
 	this->SetUpTestKeyControl();
 	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
+	this->canContactWithEnemy = true;
 	this->shot = 1;
 	this->numberWeaponCanFire = this->shot;
 	this->isReadyToFireWeapon = true;
@@ -542,21 +543,29 @@ void Simon::ClimbIdle()
 		PlayAnimation("climbDownIdle");
 }
 
-void Simon::Hurt(bool isAttackedBehind)
+void Simon::Hurt(bool isAttackedFromLeft)
 {
 	this->PlayAnimation("hurt");
-	this->FlickeringAnimation(20, 2000)->Start();
 	this->allowControl = false;
-	//this->body->SetEnable(false);
-	//this->cvGame->eventManager->DisableKeyBoardInput(this);
-
-	Vector direction(-1, -2.3);
-	if (isAttackedBehind)
-		direction.x = 1;
-	this->body->velocity = { 0, 0 };
-	this->body->AddForce(CharacterConstant::SIMON_HURT_FORCE, direction);
+	this->canContactWithEnemy = false;
 	this->isFalling = true;
 	this->grounding = SimonGrounding_None;
+
+	this->FlickeringAnimation(20, 2000, [this]{
+		this->canContactWithEnemy = true;
+	})->Start();
+
+	Vector direction(-1, -2.3);
+	if (isAttackedFromLeft)
+		direction.x = 1;
+
+	if (!isAttackedFromLeft && this->isLeft
+		|| isAttackedFromLeft && !this->isLeft)
+		ChangeFacingDirection(!this->isLeft);
+
+	this->body->velocity = { 0, 0 };
+	this->body->AddForce(CharacterConstant::SIMON_HURT_FORCE, direction);
+	
 }
 
 void Simon::Death()
@@ -734,7 +743,9 @@ void Simon::UpgradeWhip()
 {
 	this->weaponWhip->UpgradeWhip();
 
-	this->FlickeringChangeColorAnimation(30, 2000)->Start();
+	this->FlickeringChangeColorAnimation(30, 2000, [this] {
+		this->canContactWithEnemy = true;
+	})->Start();
 	// Will be changed to stopTime
 	this->allowControl = false;
 	this->body->velocity.x = 0;

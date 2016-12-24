@@ -8,8 +8,8 @@ public:
 	CVSpriteAnimation(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame = 0, int numberOfFrame = 0, DWORD msPerFrame = DEFAULT_MS_PER_FRAME_FOR_ANIMATION);
 	virtual ~CVSpriteAnimation();
 
-	virtual TimeBasedEventInfo* FlickeringAnimation(int delay, int duration);	//visible and invisible
-	virtual TimeBasedEventInfo* FlickeringChangeColorAnimation(int delay, int duration);
+	virtual TimeBasedEventInfo* FlickeringAnimation(int delay, int duration, std::function<void()> onFinish = {});	//visible and invisible
+	virtual TimeBasedEventInfo* FlickeringChangeColorAnimation(int delay, int duration, std::function<void()> onFinish = {});
 	virtual TimeBasedEventInfo* FlickeringChangeColorAnimationInfinity(int delay);
 
 protected:
@@ -18,4 +18,7 @@ protected:
 private:
 	int rgbKey = 1;	//1: r, 2: g, 3:b, 4: v
 	TimeBasedEventInfo* flickeringChangeColorAnim = nullptr;
+	TimeBasedEventInfo* flickeringAnim = nullptr;
+	std::function<void()> onFinishFlicker;
+	std::function<void()> onFinishFlickerChangeColor;
 };

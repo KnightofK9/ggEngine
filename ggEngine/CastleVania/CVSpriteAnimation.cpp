@@ -9,16 +9,21 @@ CVSpriteAnimation::~CVSpriteAnimation()
 {
 }
 
-TimeBasedEventInfo* CVSpriteAnimation::FlickeringAnimation(int delay, int duration)
+TimeBasedEventInfo* CVSpriteAnimation::FlickeringAnimation(int delay, int duration, std::function<void()> onFinish)
 {
+	this->onFinishFlicker = onFinish;
 	int numberOfLoop = duration / delay;
-	return this->cvGame->add->Loop(delay, numberOfLoop, [this] {
+	this->flickeringAnim = this->cvGame->add->Loop(delay, numberOfLoop, [this] {
 		this->SetVisible(!this->IsVisible());
+		if (this->flickeringAnim->numberOfLoops <= 1)
+			this->onFinishFlicker();
 	});
+	return this->flickeringAnim;
 }
 
-TimeBasedEventInfo* CVSpriteAnimation::FlickeringChangeColorAnimation(int delay, int duration)
+TimeBasedEventInfo* CVSpriteAnimation::FlickeringChangeColorAnimation(int delay, int duration, std::function<void()> onFinish)
 {
+	this->onFinishFlickerChangeColor = onFinish;
 	int numberOfLoop = duration / delay;
 	this->flickeringChangeColorAnim = this->cvGame->add->Loop(delay, numberOfLoop, [this] {
 		switch (this->rgbKey) {
@@ -50,6 +55,7 @@ TimeBasedEventInfo* CVSpriteAnimation::FlickeringChangeColorAnimation(int delay,
 
 		if (this->flickeringChangeColorAnim->numberOfLoops <= 1) {
 			this->SetColorTint(255, 255, 255);
+			this->onFinishFlickerChangeColor();
 		}
 	});
 	return this->flickeringChangeColorAnim;

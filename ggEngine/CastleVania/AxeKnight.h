@@ -7,8 +7,9 @@ public:
 
 	void RunLeft();
 	void RunRight();
+
 private:
-	const int damage = 2;
-	const int health = 2;
-	const int point = 400;
+	//const int damage = 2;
+	//const int health = 2;
+	//const int point = 400;
 };

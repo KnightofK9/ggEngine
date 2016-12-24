@@ -13,7 +13,7 @@ private:
 	const Vector fireLeftPosition = Vector(0, 8);
 	const Vector fireRightPosition = Vector(0, 24);
 
-	const int damage = 2;
-	const int health = 6;
-	const int point = 400;
+	//const int damage = 2;
+	//const int health = 6;
+	//const int point = 400;
 };

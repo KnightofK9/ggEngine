@@ -9,6 +9,10 @@ BatEnemy::BatEnemy(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cv
 	SetMoveX(40);
 	SetSpeed(0.5);
 	this->allowToDetectSimon = true;
+
+	this->maxHealth = 1;
+	this->damage = 2;
+	this->point = 200;
 }
 
 BatEnemy::~BatEnemy()

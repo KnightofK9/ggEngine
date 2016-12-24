@@ -14,6 +14,10 @@ Ghost::Ghost(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, 
 	this->simonDetectRange = 200;
 	this->allowToDetectSimon = true;
 	this->PlayAnimation("move");
+
+	this->maxHealth = 2;
+	this->damage = 2;
+	this->point = 300;
 }
 
 Ghost::~Ghost()
