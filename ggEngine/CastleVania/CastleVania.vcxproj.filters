@@ -333,6 +333,9 @@
     <ClInclude Include="Raven.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Monkey.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -596,6 +599,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Raven.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Monkey.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

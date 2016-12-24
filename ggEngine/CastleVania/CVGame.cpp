@@ -234,6 +234,11 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		go->name = type;
 		return go;
 	}
+	if (type == "Monkey") {
+		go = this->enemyManager->AddMonkey(x, y, group);
+		go->name = type;
+		return go;
+	}
 }
 
 void CVGame::LoadComponent()

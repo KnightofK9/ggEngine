@@ -12,6 +12,7 @@
 #include "Medusa.h"
 #include "Skeleton.h"
 #include "Raven.h"
+#include "Monkey.h"
 using namespace ggEngine;
 class EnemyManager : ManagerBase {
 public:
@@ -29,6 +30,7 @@ public:
 	Medusa* AddMedusa(double x, double y, Group* group);
 	Skeleton* AddSkeleton(double x, double y, Group* group);
 	Raven* AddRaven(double x, double y, Group* group);
+	Monkey* AddMonkey(double x, double y, Group* group);
 
 private:
 };
