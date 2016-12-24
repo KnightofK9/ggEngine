@@ -21,11 +21,10 @@ EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWid
 			break;
 		}
 	};
-	this->cvGame->eventManager->EnableCameraEvent(this);
+
 	this->events->onOutOfCamera = [this](GameObject* go, EventArg e) {
 		this->Destroy();
 	};
-
 
 	this->visible = false;
 	this->body->SetEnable(false);
@@ -39,7 +38,16 @@ void EnemySkillBase::Active()
 {
 	this->visible = true;
 	this->body->SetEnable(true);
+
+	this->cvGame->eventManager->EnableCameraEvent(this);
 }
+
+void EnemySkillBase::SetParentObject(EnemyBase * enemyBase)
+{
+	this->enemyBase = enemyBase;
+}
+
+
 
 void EnemySkillBase::OnSimonContact(ColliderArg e)
 {
