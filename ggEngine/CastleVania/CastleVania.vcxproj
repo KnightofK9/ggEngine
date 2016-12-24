@@ -166,6 +166,7 @@
     <ClInclude Include="EnemySkillBase.h" />
     <ClInclude Include="EnemySkillFire.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Medusa.h" />
     <ClInclude Include="MedusaHead.h" />
     <ClInclude Include="BreakableTileBrick.h" />
     <ClInclude Include="CVBlock.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="EnemySkillBase.cpp" />
     <ClCompile Include="EnemySkillFire.cpp" />
     <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Medusa.cpp" />
     <ClCompile Include="MedusaHead.cpp" />
     <ClCompile Include="BreakableTileBrick.cpp" />
     <ClCompile Include="CVBlock.cpp" />

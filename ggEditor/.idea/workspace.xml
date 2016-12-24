@@ -131,7 +131,7 @@
           <file leaf-file-name="Constant.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/Constant.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
+                <state relative-caret-position="323">
                   <caret line="93" column="28" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
                   <folding />
                 </state>
@@ -712,12 +712,12 @@
       <workItem from="1482474251414" duration="84000" />
       <workItem from="1482482334075" duration="1674000" />
       <workItem from="1482497876882" duration="1208000" />
-      <workItem from="1482546649948" duration="140000" />
+      <workItem from="1482546649948" duration="1196000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53187000" />
+    <option name="totallyTimeSpent" value="54243000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="-5" width="1930" height="1050" extended-state="6" />
@@ -1198,7 +1198,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/Constant.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="323">
           <caret line="93" column="28" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
           <folding />
         </state>
