@@ -1,13 +1,16 @@
 #include "Skeleton.h"
 #include "Simon.h"
-Skeleton::Skeleton(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,image,16,32,0,2,200)
+#include "TileBrick.h"
+Skeleton::Skeleton(CVGame * cvGame, SpriteInfo * image)
+	: ShootingEnemyBase(cvGame,image,16,32,0,2,200)
 {
 	this->moveSpeed = 0.25;
+	this->jumpForce = 3;
 	this->simonKeepingDistance = 50;
 	this->randomFireIntevalMin = 200;
 	this->randomFireIntevalMax = 1000;
-	this->randomMoveTimeMin = 400;
-	this->randomMoveTimeMax = 1200;
+	this->randomMoveTimeMin = 1200;
+	this->randomMoveTimeMax = 2000;
 	this->randomStopMoveTimeMin = 1000;
 	this->randomStopMoveTimeMax = 1200;
 
@@ -54,8 +57,12 @@ void Skeleton::Update()
 	modifier *= globalModifier;
 	this->ChangeFacingDirection(isSimonLeft);
 	if (abs(distance) < this->simonKeepingDistance) {
+		movingTimerInterval = 0;
 		if (isSimonLeft) modifier = 1;
 		else modifier = -1;
+	}
+	else {
+		movingTimerInterval += Helper::GetRamdomIntNumber(-5, 10);
 	}
 	if (fireTimer.stopwatch(fireInterval)) {
 		fireInterval = Helper::GetRamdomIntNumber(this->randomFireIntevalMin, this->randomFireIntevalMax);	
@@ -89,6 +96,19 @@ void Skeleton::Update()
 	//		ResetMovingTime();
 	//	}
 	//}
+}
+
+void Skeleton::OnBrickContact(TileBrick * tileBrick, ColliderArg e)
+{
+	if (e.blockDirection.down) {
+		if (tileBrick->IsOnEdge(this)) {
+			bool isLeft = this->body->velocity.x < 0;
+			int modifier = 1;
+			if (isLeft) modifier = -1;
+			this->body->SetForce(this->jumpForce, Vector(modifier/2.0, -1));
+			//this->body->velocity.y = -this->jumpForce;
+		}
+	}
 }
 
 bool Skeleton::OnCheckingCollide(ColliderArg e)

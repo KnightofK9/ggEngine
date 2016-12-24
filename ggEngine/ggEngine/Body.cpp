@@ -30,7 +30,8 @@ namespace ggEngine {
 	}
 	Body::~Body()
 	{
-		this->sprite->GetParentObject()->RemoveBodyFromList(this);
+		auto parentGroup = this->sprite->GetParentObject();
+		if(parentGroup != nullptr) parentGroup->RemoveBodyFromList(this);
 		if (this->rigidBody != nullptr) {
 			delete this->rigidBody;
 			this->rigidBody = nullptr;
