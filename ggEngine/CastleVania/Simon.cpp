@@ -574,6 +574,7 @@ void Simon::Death()
 {
 	this->PlayAnimation("death");
 	this->body->velocity = { 0, 0 };
+	this->audioManager->PauseAllMusic();
 	this->audioManager->lifeLoseMusic->Play();
 	this->allowControl = false;
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
@@ -586,6 +587,7 @@ void Simon::StandAttack()
 	this->incompleteAnim = "standAttack";
 	//this->WhipAttack();
 	this->weaponWhip->StandAttack(isLeft);
+
 }
 
 void Simon::KneelAttack()

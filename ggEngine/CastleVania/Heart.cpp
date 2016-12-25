@@ -1,5 +1,6 @@
 #include "Heart.h"
 #include "Simon.h"
+#include "AudioManager.h"
 #include "CVGame.h"
 Heart::Heart(CVGame *cvgame, SpriteInfo * image): ItemBase(cvgame,image)
 {
@@ -13,5 +14,6 @@ Heart::~Heart()
 void Heart::OnSimonContact(Simon * simon, ColliderArg e)
 {
 	simon->IncreaseHeartPoint(this->point);
+	simon->audioManager->collectHeartSound->Play();
 	Destroy();
 }

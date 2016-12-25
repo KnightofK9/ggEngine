@@ -10,6 +10,7 @@ public:
 	static constexpr const char* LIFE_LOST_MUSIC_PATH = "Resource/Resources/Sounds/Music/Life_Lost.wav";
 
 	static constexpr const char* COLLECT_HEART_SOUND_PATH = "Resource/Resources/Sounds/Sound/collectheart.wav";
+	static constexpr const char* COLLECT_MONEY_SOUND_PATH = "Resource/Resources/Sounds/Sound/collectheart.wav";
 	static constexpr const char* COLLECT_WEAPON_SOUND_PATH = "Resource/Resources/Sounds/Sound/collectweapon.wav";
 	static constexpr const char* DECREASE_WEAPON_POINT_SOUND_PATH = "Resource/Resources/Sounds/Sound/decreaseweaponusepoint.wav";
 	static constexpr const char* FALL_CASTLE_SOUND_PATH = "Resource/Resources/Sounds/Sound/fallcastle.wav";
@@ -19,7 +20,7 @@ public:
 	static constexpr const char* HIT_CANNON_SOUND_PATH = "Resource/Resources/Sounds/Sound/hitcannon.wav";
 	static constexpr const char* HOLY_CROSS_SOUND_PATH = "Resource/Resources/Sounds/Sound/holycross.wav";
 	static constexpr const char* HOLY_WATER_SOUND_PATH = "Resource/Resources/Sounds/Sound/holywater.wav";
-	static constexpr const char* ON_WEAPON_CONTACT_SOUND_PATH = "Resource/Resources/Sounds/Sound/onweaponcontact.wav";
+	static constexpr const char* ON_CONTACT_SOUND_PATH = "Resource/Resources/Sounds/Sound/oncontact.wav";
 	static constexpr const char* OPEN_DOOR_SOUND_PATH = "Resource/Resources/Sounds/Sound/opendoor.wav";
 	static constexpr const char* PAUSE_SOUND_PATH = "Resource/Resources/Sounds/Sound/pause.wav";
 	static constexpr const char* SELECT_SOUND_PATH = "Resource/Resources/Sounds/Sound/select.wav";

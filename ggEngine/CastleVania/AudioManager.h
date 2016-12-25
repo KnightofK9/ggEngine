@@ -2,7 +2,7 @@
 #include <ggEngine.h>
 #include "CVAudio.h"
 #include "ManagerBase.h"
-#define SAFE_RELEASE(p) if(p){ delete p; p = nullptr;}
+//#define SAFE_RELEASE(p) if(p){ delete p; p = nullptr;}
 
 using namespace ggEngine;
 class CVGame;
@@ -25,6 +25,7 @@ public:
 	CVAudio *lifeLoseMusic;
 
 	CVAudio *collectHeartSound;
+	CVAudio *collectMoneySound;
 	CVAudio *collectWeaponSound;
 	CVAudio *decreaseWeaponPointSound;
 	CVAudio *fallCastleSound;
@@ -34,14 +35,14 @@ public:
 	CVAudio *hitCannonSound;
 	CVAudio *holyCrossSound;
 	CVAudio *holyWaterSound;
-	CVAudio *onWeaponContactSound;
+	CVAudio *onContactSound;
 	CVAudio *openDoorSound;
 	CVAudio *pauseSound;
 	CVAudio *selectSound;
 	CVAudio *usingWhipSound;
 	
 private:
-	list<CVAudio*> listMusic;
-	list<CVAudio*> listSound;
+	vector<CVAudio*> listMusic;
+	vector<CVAudio*> listSound;
 };
 

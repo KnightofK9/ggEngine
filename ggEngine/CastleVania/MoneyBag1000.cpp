@@ -1,4 +1,5 @@
 #include "MoneyBag1000.h"
+#include "AudioManager.h"
 #include "Simon.h"
 
 MoneyBag1000::MoneyBag1000(CVGame * cvgame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
@@ -14,5 +15,6 @@ MoneyBag1000::~MoneyBag1000()
 void MoneyBag1000::OnSimonContact(Simon * simon, ColliderArg e)
 {
 	simon->IncreaseScore(this->money);
+	simon->audioManager->collectMoneySound->Play();
 	Destroy();
 }

@@ -2,6 +2,7 @@
 #include "CVGame.h"
 #include "CVDebugDefine.h"
 #include "Simon.h"
+#include "AudioManager.h"
 
 
 WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
@@ -26,6 +27,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		case ObjectType_Enemy:
 #ifndef DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
 			otherObject->Destroy();
+			this->cvGame->audioManager->onContactSound->Play();
 #endif // DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
 			break;
 
@@ -35,6 +37,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 			{
 				ColliderArg	o = Physics::CreateOppositeColliderArg(e, this);
 				otherObject->events->onCollide(otherObject, o);
+				this->cvGame->audioManager->onContactSound->Play();
 			}	
 			break;
 		default:
@@ -144,6 +147,7 @@ void WeaponWhip::Attack(bool isLeft)
 		this->timeInfoFlicker->Start();
 
 	auto anim = this->PlayAnimation(std::to_string(this->whipVersion));
+	this->cvGame->audioManager->usingWhipSound->Play();
 	this->SetVisible(true);
 }
 
