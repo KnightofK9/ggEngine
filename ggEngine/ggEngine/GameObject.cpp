@@ -55,9 +55,15 @@ namespace ggEngine {
 	{
 		return &this->position;
 	}
-	void GameObject::SetPosition(Vector vector)
+	void GameObject::SetPosition(Vector vector, bool isRefresh)
 	{
 		this->position = vector;
+		if (isRefresh) {
+			this->UpdateWorldPosition();
+			if (this->body != nullptr) {
+				this->body->PreUpdate();
+			}
+		}
 	}
 	void GameObject::SetPosition(double x, double y)
 	{
@@ -171,6 +177,22 @@ namespace ggEngine {
 	void GameObject::SetTransformBasedOn(GameObject * basePositionObject)
 	{
 		this->basePositionObject = basePositionObject;
+	}
+
+	void GameObject::Kill()
+	{
+		this->alive = false;
+		if (this->body != nullptr) {
+			this->body->SetEnable(false);
+		}
+	}
+
+	void GameObject::Revive()
+	{
+		this->alive = true;
+		if (this->body != nullptr) {
+			this->body->SetEnable(true);
+		}
 	}
 
 

@@ -9,7 +9,7 @@ public:
 	void RunRight() override;
 	void Update() override;
 	void Active() override;
-	void SetPosition(Vector position) override;
+	void SetPosition(Vector position, bool isRefresh = false) override;
 	void Draw() override;
 private:
 	bool isRunning;

@@ -11,6 +11,7 @@ public:
 
 
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
+	void Active() override;
 private:
 	//const int damage = 2;
 	//const int health = 1;

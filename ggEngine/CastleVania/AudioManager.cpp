@@ -60,3 +60,7 @@ void AudioManager::PreloadAll()
 	this->selectSound = new CVAudio(this->cvGame, AudioConstant::SELECT_SOUND_PATH);
 	this->usingWhipSound = new CVAudio(this->cvGame, AudioConstant::USING_WHIP_SOUND_PATH);
 }
+
+void AudioManager::PauseAllSound()
+{
+}

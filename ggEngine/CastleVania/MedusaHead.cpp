@@ -9,7 +9,6 @@ MedusaHead::MedusaHead(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBas
 	SetMoveY(30);
 	SetMoveX(0.05);
 	SetSpeed(1);
-	this->allowToDetectSimon = true;
 
 	this->maxHealth = 1;
 	this->damage = 2;
@@ -41,5 +40,11 @@ void MedusaHead::OnSimonEnterRange(Simon * simon, bool isLeft)
 {
 	TweenEnemyBase::OnSimonEnterRange(simon, isLeft);
 	this->allowToDetectSimon = false;
+}
+
+void MedusaHead::Active()
+{
+	TweenEnemyBase::Active();
+	this->allowToDetectSimon = true;
 }
 
