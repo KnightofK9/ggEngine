@@ -13,16 +13,6 @@ BreakableTileBrick::~BreakableTileBrick()
 {
 }
 
-void BreakableTileBrick::OnWeaponWhipContact(WeaponWhip * whip, ColliderArg e)
-{
-	DropItem();
-	Destroy();
-}
-
-void BreakableTileBrick::OnSubWeaponContact(WeaponBase * weapon, ColliderArg e)
-{
-	Destroy();
-}
 
 
 

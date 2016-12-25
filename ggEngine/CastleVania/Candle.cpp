@@ -19,16 +19,6 @@ Candle::~Candle()
 {
 }
 
-void Candle::OnWeaponWhipContact(WeaponWhip * whip, ColliderArg e)
-{
-	DropItem();
-	Destroy();
-}
-
-void Candle::OnSubWeaponContact(WeaponBase * weapon, ColliderArg e)
-{
-	Destroy();
-}
 
 
 void Candle::Active()

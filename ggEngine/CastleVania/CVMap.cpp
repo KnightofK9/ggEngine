@@ -68,8 +68,6 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 	this->projectileGroup->AddGroupToCheckCollision(this->enemyGroup);
 	this->projectileGroup->AddGroupToCheckCollision(this->simonGroup);
 
-	//cameraActiveGroup = new CameraActiveGroup(this->cvGame);
-	//this->cameraActiveGroup->SetParentObject(this);
 
 	for (auto& it : state["groupList"].GetArray())
 	{
@@ -92,12 +90,6 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 				if (go != nullptr) {
 					go->UpdateWorldPosition();
 					if (go->body != nullptr) go->body->PreUpdate();
-					/*enemyGroup->AddDrawObjectToList(go);
-					go->UpdateWorldPosition();
-					auto enemy = dynamic_cast<EnemyBase*>(go);
-					if (enemy != nullptr) {
-						enemy->Active();
-					}*/
 				}
 				else {
 					std::string type = obj["type"].GetString();
@@ -116,7 +108,6 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 void CVMap::Update()
 {
 	this->quadTreeGroup->Update();
-	//this->cameraActiveGroup->Update();
 	this->enemyGroup->Update();
 	this->simonGroup->Update();
 	this->projectileGroup->Update();
@@ -127,7 +118,6 @@ void CVMap::Draw()
 {
 	this->tileMapGroup->Draw();
 	this->quadTreeGroup->Draw();
-	//this->cameraActiveGroup->Draw();
 	this->enemyGroup->Draw();
 	this->simonGroup->Draw();
 	this->projectileGroup->Draw();
@@ -138,17 +128,6 @@ void CVMap::Draw()
 	Physics::RenderGroupBodyList(this->simonGroup);
 
 
-	/*auto bodyList = this->simonGroup->GetBodyList();
-	for (auto body : bodyList) {
-		body->Render();
-	}
-	auto drawList = this->quadTreeGroup->GetDrawList();
-	for (auto it = drawList.begin(); it != drawList.end(); ++it) {
-		(*it)->body->Render();
-	}
-	for (auto go : enemyGroup->GetDrawList()) {
-		if((go)->body!=nullptr && (go)->body->IsActive())(go)->body->Render();
-	}*/
 	CheckIfSimonOutOfBlock();
 }
 
@@ -179,8 +158,6 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	}
 	this->infoPanel = infoPanel;
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
-	//this->simon->body->ResetGroupCheckCollisionTo();
-	//this->simon->body->AddGroupCheckCollisionTo(enemyGroup);
 	this->simon->body->allowWorldBlock = false;
 	this->simon->body->allowWorldBound = false;
 	this->simon->body->allowWorldBounciness = false;
@@ -195,6 +172,9 @@ void CVMap::SetStage(int stageNumber, int blockNumber,bool isRestartState)
 
 void CVMap::SetBlock(int blockNumber,bool isRestartState)
 {
+	if (this->currentBlock != nullptr) {
+		this->currentBlock->Reset();
+	}
 	this->currentBlock = this->currentStage->blockList[blockNumber];
 	if (isRestartState && blockNumber == 0) {
 		this->simon->ResetState();
@@ -208,36 +188,12 @@ void CVMap::SetBlock(int blockNumber,bool isRestartState)
 		if (this->simon->currentLadderTween != nullptr) {
 			this->simon->currentLadderTween->CallFinish()->Stop();
 			this->simon->currentLadderTween = nullptr;
-			/*this->simon->currentLadderTween->SetOnFinish([this]() {
-				this->SetSimonPositionOnChangeBlock();
-				this->simon->currentLadderTween = nullptr;
-			});*/
 		}
 		if(simon->isClimbingLadder) this->SetSimonPositionOnChangeBlock();
-		/*switch (this->levelNumber) {
-		case -1:
-			switch (blockNumber) {
-			case 0:
-				this->simon->position.x += 32;
-				this->simon->position.y += 16;
-				break;
-			case 1:
-				this->simon->position.x -= 32;
-				this->simon->position.y -= 16;
-				break;
-			}
-
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		}*/
 	}
 	this->simon->body->PreUpdate();
 
 	this->camera->SetBlock(this->currentBlock);
-	//this->camera->SetPoint(this->currentBlock->cameraSpawnPosition);
 	this->camera->Follow(this->simon);
 
 

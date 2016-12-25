@@ -2,7 +2,7 @@
 #include "CVAdd.h"
 #include "WeaponWhip.h"
 #include "WeaponBase.h"
-
+#include "CVBlock.h"
 
 BreakableObjectBase::BreakableObjectBase(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CVSpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -47,17 +47,23 @@ BreakableObjectBase::~BreakableObjectBase()
 
 void BreakableObjectBase::OnWeaponWhipContact(WeaponWhip * whip, ColliderArg e)
 {
-	Destroy();
+	Kill();
 }
 
 
 void BreakableObjectBase::OnSubWeaponContact(WeaponBase * weapon, ColliderArg e)
 {
-	Destroy();
+	Kill();
 }
 
 void BreakableObjectBase::Active()
 {
 	this->visible = true;
 	this->body->SetActive(true);
+}
+
+void BreakableObjectBase::Kill()
+{
+	this->cvGame->simon->currentMap->GetCurrentBlock()->AddObjectToRevivedList(this);
+	GameObject::Kill();
 }
