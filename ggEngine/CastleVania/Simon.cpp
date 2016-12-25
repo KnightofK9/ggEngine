@@ -357,7 +357,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 					this->Idle();
 				else {
 					CheckKeyPressNormal(e);
-#ifdef DEBUG_SIMON_KEY_CONTROL
+#ifdef DEBUG_USE_SIMON_TEST_KEY_CONTROL
 					CheckKeyWhenDebug(e);
 #endif // _DEBUG
 

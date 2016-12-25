@@ -1,5 +1,6 @@
 #include "EnemyBase.h"
 #include "Simon.h"
+#include "CVDebugDefine.h"
 #include "CVGame.h"
 #include "TileBrick.h"
 EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -56,12 +57,14 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::OnSimonContact(ColliderArg e)
 {
-#ifndef DEBUG_CONTACT_WITH_SIMON
+#ifdef DEBUG_SHOW_LOG_WHEN_SIMON_CONTACT_ENEMY
 	g_debug.Log("Enemy contacted simon");
-#else
+#endif //DEBUG_SHOW_LOG_WHEN_SIMON_CONTACT_ENEMY
+
+#ifndef DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
 	this->cvGame->simon->Hurt(e.blockDirection.left);
 	this->cvGame->simon->LoseHealth(damage);
-#endif //DEBUG_CONTACT_WITH_SIMON
+#endif //DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
 }
 
 void EnemyBase::Active()

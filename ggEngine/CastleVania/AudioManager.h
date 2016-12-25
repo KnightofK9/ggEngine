@@ -14,6 +14,7 @@ public:
 	virtual ~AudioManager();
 	void PreloadAll();
 	void PauseAllSound();
+	void PauseAllMusic();
 
 
 	CVAudio *level3Music;
@@ -40,5 +41,7 @@ public:
 	CVAudio *usingWhipSound;
 	
 private:
+	list<CVAudio*> listMusic;
+	list<CVAudio*> listSound;
 };
 

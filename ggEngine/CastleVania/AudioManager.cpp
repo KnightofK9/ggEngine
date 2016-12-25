@@ -5,7 +5,6 @@
 
 AudioManager::AudioManager(CVGame *cvGame) : ManagerBase(cvGame)
 {
-
 }
 
 
@@ -37,7 +36,7 @@ AudioManager::~AudioManager()
 
 void AudioManager::PreloadAll()
 {
-	this->level3Music = new CVAudio(this->cvGame, AudioConstant::LEVEL_3_MUSIC_PATH);
+	 this->level3Music = new CVAudio(this->cvGame, AudioConstant::LEVEL_3_MUSIC_PATH);
 	this->level4Music = new CVAudio(this->cvGame, AudioConstant::LEVEL_4_MUSIC_PATH);
 	this->bossBattleMusic = new CVAudio(this->cvGame, AudioConstant::BOSS_BATTLE_MUSIC_PATH);
 	this->gameOverMusic = new CVAudio(this->cvGame, AudioConstant::GAME_OVER_MUSIC_PATH);
@@ -62,5 +61,9 @@ void AudioManager::PreloadAll()
 }
 
 void AudioManager::PauseAllSound()
+{
+}
+
+void AudioManager::PauseAllMusic()
 {
 }

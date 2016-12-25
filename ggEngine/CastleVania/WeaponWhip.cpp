@@ -1,5 +1,6 @@
 #include "WeaponWhip.h"
 #include "CVGame.h"
+#include "CVDebugDefine.h"
 #include "Simon.h"
 
 
@@ -23,7 +24,9 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		switch (tag)
 		{
 		case ObjectType_Enemy:
-			//otherObject->Destroy();
+#ifndef DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
+			otherObject->Destroy();
+#endif // DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
 			break;
 
 		case ObjectType_BreakableTileBrick:

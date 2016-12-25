@@ -60,13 +60,15 @@ void WeaponBase::FireWeapon(bool isLeft)
 
 void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 {
-#ifdef DEBUG_WEAPON_CONTACT_WITH_ENEMY
+#ifdef DEBUG_SHOW_LOG_WHEN_WEAPON_CONTACT_ENEMY
 	g_debug.Log("Weapon contacted enemy!!!");
-#else
+#endif //DEBUG_SHOW_LOG_WHEN_WEAPON_CONTACT_ENEMY
+	
+#ifndef DEBUG_SUBWEAPON_NOT_HURT_ENEMY_WHEN_CONTACT
 	if (dynamic_cast<AI7*>(enemyBase) != nullptr)
 		return;
 	enemyBase->Destroy();
-#endif //DEBUG_WEAPON_CONTACT_WITH_ENEMY
+#endif // DEBUG_SUBWEAPON_NOT_HURT_ENEMY_WHEN_CONTACT
 }
 
 void WeaponBase::OnOutOfCamera(EventArg e)
@@ -77,11 +79,9 @@ void WeaponBase::OnOutOfCamera(EventArg e)
 
 void WeaponBase::OnSimonContact(ColliderArg e)
 {
-#ifdef DEBUG_WEAPON_CONTACT_WITH_SIMON
+#ifdef DEBUG_SHOW_LOG_WHEN_WEAPON_CONTACT_SIMON
 	g_debug.Log("Contact simon!");
-#else
-
-#endif //DEBUG_WEAPON_CONTACT_WITH_SIMON
+#endif //DEBUG_SHOW_LOG_WHEN_WEAPON_CONTACT_SIMON
 
 }
 

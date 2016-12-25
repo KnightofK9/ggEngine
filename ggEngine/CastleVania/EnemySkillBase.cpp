@@ -70,12 +70,13 @@ void EnemySkillBase::Fire(bool isLeft, Vector position)
 
 void EnemySkillBase::OnSimonContact(ColliderArg e)
 {
-#ifdef DEBUG_AI_SKILL_CONTACT_WITH_SIMON
+#ifdef DEBUG_SHOW_LOG_WHEN_ENEMY_SKILL_CONTACT_SIMON
 	g_debug.Log(this->name + " contact with simon!");
-#else
-	this->cvGame->simon->Hurt(e.blockDirection.right);
+#endif // DEBUG_SHOW_LOG_WHEN_ENEMY_SKILL_CONTACT_SIMON
 
-#endif // DEBUG_AI_SKILL_CONTACT_WITH_SIMON
+#ifndef DEBUG_ENEMY_SKILL_NOT_HURT_SIMON_WHEN_CONTACT
+	this->cvGame->simon->Hurt(e.blockDirection.right);
+#endif // DEBUG_ENEMY_SKILL_NOT_HURT_SIMON_WHEN_CONTACT
 }
 
 bool EnemySkillBase::OnCheckingCollide(ColliderArg e)
