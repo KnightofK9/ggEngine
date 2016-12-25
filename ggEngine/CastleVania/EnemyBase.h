@@ -13,7 +13,8 @@ public:
 	virtual void Update();
 
 	double GetDamage();
-	virtual void SetPosition(Vector position) override;
+	virtual void SetPosition(Vector position , bool isRefresh = false) override;
+	void Kill() override;
 protected:
 	Vector startPosition;
 	virtual void OnSimonContact( ColliderArg e);

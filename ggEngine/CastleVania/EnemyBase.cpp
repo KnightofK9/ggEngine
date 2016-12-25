@@ -65,7 +65,7 @@ void EnemyBase::OnSimonContact(ColliderArg e)
 
 void EnemyBase::Active()
 {
-
+	this->body->velocity = Vector::Zero();
 	this->SetAlive(true);
 	this->body->SetEnable(true);
 }
@@ -94,11 +94,18 @@ void EnemyBase::Update()
 		}
 	}
 }
-void EnemyBase::SetPosition(Vector position)
+void EnemyBase::SetPosition(Vector position , bool isRefresh)
 {
-	GameObject::SetPosition(position);
+	GameObject::SetPosition(position, isRefresh);
 	this->startPosition = position;
 }
+void EnemyBase::Kill()
+{
+	Active();
+	GameObject::SetPosition(this->startPosition);
+	GameObject::Kill();
+}
+
 double EnemyBase::GetDamage()
 {
 	return this->damage;

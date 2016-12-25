@@ -61,6 +61,8 @@ void WalkingEnemyBase::Update()
 void WalkingEnemyBase::Active()
 {
 	EnemyBase::Active();
+	this->steppingTile = nullptr;
+	this->isRunning = false;
 }
 
 void WalkingEnemyBase::SetMoveForce(double moveForce)

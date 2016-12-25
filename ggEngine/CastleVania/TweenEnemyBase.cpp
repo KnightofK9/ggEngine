@@ -57,4 +57,12 @@ double TweenEnemyBase::GetSpeed()
 	return this->speed;
 }
 
+void TweenEnemyBase::Active()
+{
+	EnemyBase::Active();
+	this->isMoving = false;
+	this->body->immoveable = false;
+	this->body->allowGravity = false;
+}
+
 

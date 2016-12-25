@@ -54,6 +54,16 @@ void Ghost::OnSimonEnterRange(Simon * simon, bool isLeft)
 	EnemyBase::OnSimonEnterRange(simon, isLeft);
 }
 
+void Ghost::Active()
+{
+	TweenEnemyBase::Active();
+	this->allowToDetectSimon = true;
+	if (this->currentTween != nullptr) {
+		this->currentTween->Stop();
+		this->currentTween = nullptr;
+	}
+}
+
 
 
 void Ghost::AddTween(bool isLeft)

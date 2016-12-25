@@ -9,8 +9,10 @@ public:
 	void Update() override;
 
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
+	void Active() override;
 private:
 	void AddTween(bool isLeft);
+	TweenBase * currentTween = nullptr;
 	//const int damage = 2;
 	//const int health = 1;
 	//const int point = 200;

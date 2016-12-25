@@ -9,6 +9,7 @@ public:
 	void Update() override;
 
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
+	void Active() override;
 private:
 	void AddTween(bool isLeft);
 	TweenBase* currentTween = nullptr;

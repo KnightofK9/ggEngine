@@ -7,6 +7,7 @@ public:
 
 	void Update() override;
 	double GetSpeed();
+	void Active() override;
 protected:
 	void SetMoveY(double moveY);
 	void SetMoveX(double moveX);

@@ -57,9 +57,9 @@ void AI7::Active()
 	EnemyBase::Active();
 }
 
-void AI7::SetPosition(Vector position)
+void AI7::SetPosition(Vector position, bool isRefresh)
 {
-	GameObject::SetPosition(position);
+	GameObject::SetPosition(position, isRefresh);
 	this->spawnPosition = position;
 	this->upLimitPosition = spawnPosition;
 	this->upLimitPosition.y -= this->moveY;

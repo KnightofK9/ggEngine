@@ -24,7 +24,7 @@ namespace ggEngine {
 		virtual void DrawRect();
 		Vector GetPosition();
 		Vector* GetPositionAsRef();
-		virtual void SetPosition(Vector vector);
+		virtual void SetPosition(Vector vector, bool isRefresh = false);
 		virtual void SetPosition(double x, double y);
 		virtual void SetX(double x) { this->position.x = x; }
 		virtual void SetY(double y) { this->position.y = y; }
@@ -69,6 +69,8 @@ namespace ggEngine {
 		Tag tag = 0;
 		Rect GetRect(bool isGetWorldRect = false);
 		void SetTransformBasedOn(GameObject *basePositionObject);
+		virtual void Kill();
+		virtual void Revive();
 
 
 		double GetLeft();

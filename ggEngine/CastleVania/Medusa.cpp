@@ -18,8 +18,6 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	SetBullet(new MedusaSkill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_BOSS_2_TEXTURE)));
 	this->body->SetActive(false);
 	this->CreateAnimation("move", 0, 3, true);
-	this->SetVisible(false);
-	this->allowToDetectSimon = true;
 	this->fireInterval = 1000;
 	this->simonDetectRange = 500;
 	moveY = 30;
@@ -70,10 +68,13 @@ void Medusa::Update()
 
 void Medusa::Active()
 {
+	ShootingEnemyBase::Active();
+	this->SetVisible(false);
 	this->SetAlive(true);
 	this->isMoving = false;
 	this->isAwake = false;
 	this->isPausingMoving = false;
+	this->allowToDetectSimon = true;
 }
 
 void Medusa::MoveToNextPosition()
