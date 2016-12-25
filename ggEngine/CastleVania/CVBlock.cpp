@@ -20,3 +20,20 @@ CVBlock::CVBlock(std::string json)
 CVBlock::~CVBlock()
 {
 }
+
+void CVBlock::AddObjectToRevivedList(GameObject * go)
+{
+	this->revivedList.push_back(go);
+}
+
+void CVBlock::ClearRevivedList()
+{
+	this->revivedList.clear();
+}
+
+void CVBlock::Reset()
+{
+	for (auto go : this->revivedList) {
+		go->Revive();
+	}
+}

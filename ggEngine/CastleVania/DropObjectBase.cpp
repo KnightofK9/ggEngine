@@ -12,6 +12,18 @@ DropObjectBase::~DropObjectBase()
 {
 }
 
+void DropObjectBase::OnWeaponWhipContact(WeaponWhip * whip, ColliderArg e)
+{
+	DropItem();
+	BreakableObjectBase::OnWeaponWhipContact(whip, e);
+}
+
+void DropObjectBase::OnSubWeaponContact(WeaponBase * weapon, ColliderArg e)
+{
+	DropItem();
+	BreakableObjectBase::OnSubWeaponContact(weapon, e);
+}
+
 void DropObjectBase::SetDropItem(std::string itemJson)
 {
 	this->itemJson = itemJson;

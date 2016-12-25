@@ -10,8 +10,12 @@ public:
 	Vector cameraSpawnPosition;
 	int stageIndex;
 	int blockIndex;
+	void AddObjectToRevivedList(GameObject* go);
+	void ClearRevivedList();
+	void Reset();
 private:
 	std::string name;
+	std::list<GameObject*> revivedList;
 	SimonGroundingType simonGroundingType;
 	SimonLadderType simonLadderType;
 };

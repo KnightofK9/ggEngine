@@ -18,5 +18,6 @@ public:
 	virtual void OnSubWeaponContact(WeaponBase *weapon, ColliderArg e);
 
 	virtual void Active();
+	virtual void Kill() override;
 };
 
