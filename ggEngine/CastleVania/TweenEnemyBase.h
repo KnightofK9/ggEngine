@@ -6,11 +6,11 @@ public:
 	virtual ~TweenEnemyBase();
 
 	void Update() override;
+	double GetSpeed();
+protected:
 	void SetMoveY(double moveY);
 	void SetMoveX(double moveX);
 	void SetSpeed(double speed);
-	double GetSpeed();
-protected:
 	virtual void RunLeft();
 	virtual void RunRight();
 	double moveY = 50;

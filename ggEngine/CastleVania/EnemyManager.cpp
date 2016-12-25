@@ -141,3 +141,27 @@ Skeleton * EnemyManager::AddSkeleton(double x, double y, Group * group)
 	}
 	return go;
 }
+
+Raven * EnemyManager::AddRaven(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::RAVEN_TEXTURE);
+	Raven *go = new Raven(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
+
+Monkey * EnemyManager::AddMonkey(double x, double y, Group * group)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::MONKEY_TEXTURE);
+	Monkey *go = new Monkey(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
