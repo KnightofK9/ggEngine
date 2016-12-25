@@ -72,7 +72,9 @@ void EnemySkillBase::OnSimonContact(ColliderArg e)
 {
 #ifdef DEBUG_AI_SKILL_CONTACT_WITH_SIMON
 	g_debug.Log(this->name + " contact with simon!");
+#else
 	this->cvGame->simon->Hurt(e.blockDirection.right);
+
 #endif // DEBUG_AI_SKILL_CONTACT_WITH_SIMON
 }
 

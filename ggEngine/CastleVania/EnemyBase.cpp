@@ -58,9 +58,10 @@ void EnemyBase::OnSimonContact(ColliderArg e)
 {
 #ifndef DEBUG_CONTACT_WITH_SIMON
 	g_debug.Log("Enemy contacted simon");
+#else
+	this->cvGame->simon->Hurt(e.blockDirection.left);
+	this->cvGame->simon->LoseHealth(damage);
 #endif //DEBUG_CONTACT_WITH_SIMON
-	//this->cvGame->simon->Hurt(e.blockDirection.left);
-	//this->cvGame->simon->LoseHealth(damage);
 }
 
 void EnemyBase::Active()

@@ -16,6 +16,7 @@ AudioManager::~AudioManager()
 	SAFE_RELEASE(this->bossBattleMusic);
 	SAFE_RELEASE(this->gameOverMusic);
 	SAFE_RELEASE(this->levelClearMusic);
+	SAFE_RELEASE(this->lifeLoseMusic);
 
 	SAFE_RELEASE(this->collectHeartSound);
 	SAFE_RELEASE(this->collectWeaponSound);
@@ -41,6 +42,7 @@ void AudioManager::PreloadAll()
 	this->bossBattleMusic = new CVAudio(this->cvGame, AudioConstant::BOSS_BATTLE_MUSIC_PATH);
 	this->gameOverMusic = new CVAudio(this->cvGame, AudioConstant::GAME_OVER_MUSIC_PATH);
 	this->levelClearMusic = new CVAudio(this->cvGame, AudioConstant::LEVEL_CLEAR_MUSIC_PATH);
+	this->lifeLoseMusic = new CVAudio(this->cvGame, AudioConstant::LIFE_LOST_MUSIC_PATH);
 
 	this->collectHeartSound = new CVAudio(this->cvGame, AudioConstant::COLLECT_HEART_SOUND_PATH);
 	this->collectWeaponSound = new CVAudio(this->cvGame, AudioConstant::COLLECT_WEAPON_SOUND_PATH);

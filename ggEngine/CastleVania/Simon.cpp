@@ -4,6 +4,7 @@
 #include "TextureConstant.h"
 #include "ItemManager.h"
 #include "WeaponManager.h"
+#include "AudioManager.h"
 #include "TileLadder.h"
 #include "CVMap.h"
 #include "StaticTIleManager.h"
@@ -13,6 +14,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->weaponManager = cvGame->weaponManager;
+	this->audioManager = cvGame->audioManager;
 
 	this->tag = ObjectType_Simon;
 	this->health = 16;
@@ -572,6 +574,8 @@ void Simon::Death()
 {
 	this->PlayAnimation("death");
 	this->body->velocity = { 0, 0 };
+	this->audioManager->lifeLoseMusic->Play();
+	this->allowControl = false;
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 }
 
@@ -760,6 +764,8 @@ void Simon::OnEnemyContact(EnemyBase * enemy, ColliderArg e)
 {
 #ifdef DEBUG_CONTACT_WITH_ENEMY
 	g_debug.Log("Contact with enemy " + enemy->name);
+#else
+	
 #endif // DEBUG_CONTACT_WITH_ENEMY
 
 }

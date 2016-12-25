@@ -88,6 +88,7 @@ public:
 	void *HealthDown(int health) { this->health -= health; }
 
 	InfoPanel *infoPanel = nullptr;
+	AudioManager *audioManager = nullptr;
 	GameOverScreen *goScreen = nullptr;
 	bool allowControl = true;
 	bool isClimbingUp = false;

@@ -13,6 +13,7 @@ public:
 	AudioManager(CVGame *game);
 	virtual ~AudioManager();
 	void PreloadAll();
+	void PauseAllSound();
 
 
 	CVAudio *level3Music;
@@ -20,6 +21,7 @@ public:
 	CVAudio *bossBattleMusic;
 	CVAudio *gameOverMusic;
 	CVAudio *levelClearMusic;
+	CVAudio *lifeLoseMusic;
 
 	CVAudio *collectHeartSound;
 	CVAudio *collectWeaponSound;
