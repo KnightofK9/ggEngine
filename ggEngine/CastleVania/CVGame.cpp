@@ -6,6 +6,7 @@
 #include "Factory.h"
 #include "StaticTileManager.h"
 #include "AnimationManager.h"
+#include "AudioManager.h"
 #include "CVCamera.h"
 #include "EnemyManager.h"
 CVGame::CVGame(HWND hWnd, int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor) :Game(hWnd, width, height, mode, physicsMode, gameColor)
@@ -15,6 +16,10 @@ CVGame::CVGame(HWND hWnd, int width, int height, GameMode mode, PhysicsMode phys
 
 CVGame::~CVGame()
 {
+	if (this->audioManager) {
+		delete this->audioManager;
+		this->audioManager = NULL;
+	}
 }
 
 GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
@@ -242,6 +247,7 @@ void CVGame::LoadComponent()
 		this->staticTileManager = new StaticTileManager(this);
 		this->animationManager = new AnimationManager(this);
 		this->enemyManager = new EnemyManager(this);
+		this->audioManager = new AudioManager(this);
 
 
 	}

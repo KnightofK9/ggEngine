@@ -1,5 +1,6 @@
 #include "TestStateCastleVania.h"
 #include "StaticTIleManager.h"
+#include "AudioManager.h"
 #include "EnemyManager.h"
 TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
@@ -34,6 +35,7 @@ void TestStateCastleVania::Preload() {
 	this->itemManager->PreloadAllItem();
 	this->cvgame->staticTileManager->PreloadAll();
 	this->cvgame->enemyManager->PreloadAll();
+	this->cvgame->audioManager->PreloadAll();
 }
 void TestStateCastleVania::Create()
 {
@@ -56,6 +58,7 @@ void TestStateCastleVania::Create()
 	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
 	this->simon->AddWhip();
 	this->cvgame->simon = this->simon;
+	this->cvgame->audioManager->level4Music->Play();
 
 	{
 		Json state("State/TestState.json", true);

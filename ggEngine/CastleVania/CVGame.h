@@ -9,6 +9,7 @@ class StaticTileManager;
 class WeaponManager;
 class AnimationManager;
 class EnemyManager;
+class AudioManager;
 class CVGame : public Game {
 public:
 	CVGame(HWND hWnd, int width, int height, GameMode mode = GameMode_Windowed, PhysicsMode physicsMode = PhysicsMode_AABB, D3DCOLOR gameColor = D3DCOLOR_XRGB(0, 255, 255));
@@ -22,6 +23,7 @@ public:
 	AnimationManager *animationManager;
 	GameObject* GetObjectInstance(const char* objectJson, Group *group = nullptr) override;
 	EnemyManager* enemyManager;
+	AudioManager *audioManager;
 	void LoadComponent() override;
 private:
 };

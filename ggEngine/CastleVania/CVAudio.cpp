@@ -1,10 +1,12 @@
 #include "CVAudio.h"
+#include "CVGame.h"
 CVAudio::CVAudio(CVGame *cvGame, std::string filePath)
 {
 	this->cvGame = cvGame;
+	dSound = new CSoundManager();
 
 	HRESULT hr;
-	if (FAILED(hr = dSound->Initialize(game->hWnd, DSSCL_PRIORITY))) {
+	if (FAILED(hr = dSound->Initialize(cvGame->hWnd, DSSCL_PRIORITY))) {
 		g_debug.Log("Failed to initialize Sound Manager");
 		return;
 	}
@@ -22,10 +24,6 @@ CVAudio::~CVAudio()
 	if (dSound != NULL) {
 		delete dSound;
 		dSound = NULL;
-	}
-	if (wave != NULL) {
-		delete wave;
-		wave = NULL;
 	}
 }
 
