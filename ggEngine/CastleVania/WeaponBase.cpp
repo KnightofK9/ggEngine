@@ -1,6 +1,8 @@
 #include "WeaponBase.h"
 #include "CVGame.h"
 #include "CVDebugDefine.h"
+#include "AudioManager.h"
+#include "AnimationManager.h"
 #include "EnemyBase.h"
 #include "Simon.h"
 WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
@@ -25,7 +27,8 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int 
 		Tag tag = otherObject->tag;
 		switch (tag) {
 		case ObjectType_Enemy:
-			OnEnemyContact(dynamic_cast<EnemyBase*>(otherObject), e);
+			if (otherObject)
+				OnEnemyContact(dynamic_cast<EnemyBase*>(otherObject), e);
 			break;
 
 		case ObjectType_Static:
@@ -34,6 +37,11 @@ WeaponBase::WeaponBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int 
 
 		case ObjectType_LevelTwoBrick:
 			OnBrickContact(otherObject, e);
+			break;
+
+		case ObjectType_Candle:
+			if (otherObject)
+				OnCandleContact(otherObject, e);
 			break;
 
 		case ObjectType_Simon:
@@ -67,7 +75,9 @@ void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 #ifndef DEBUG_SUBWEAPON_NOT_HURT_ENEMY_WHEN_CONTACT
 	if (dynamic_cast<AI7*>(enemyBase) != nullptr)
 		return;
-	enemyBase->Destroy();
+	enemyBase->LoseHealth(this->damage);
+	this->cvGame->audioManager->onContactSound->Play();
+	this->cvGame->animationManager->AddHitAnimation(enemyBase->position.x, enemyBase->position.y);
 #endif // DEBUG_SUBWEAPON_NOT_HURT_ENEMY_WHEN_CONTACT
 }
 
@@ -93,6 +103,15 @@ void WeaponBase::OnStaticContact(GameObject * staticObject, ColliderArg e)
 void WeaponBase::OnBrickContact(GameObject * brick, ColliderArg e)
 {
 
+}
+
+void WeaponBase::OnCandleContact(GameObject * candle, ColliderArg e)
+{
+	ColliderArg	o = Physics::CreateOppositeColliderArg(e, this);
+	candle->events->onCollide(candle, o);
+	this->cvGame->audioManager->onContactSound->Play();
+	this->cvGame->animationManager->AddEnemyDeathAnimation(candle->position.x, candle->position.y);
+	this->cvGame->animationManager->AddHitAnimation(candle->position.x, candle->position.y);
 }
 
 void WeaponBase::Destroy()

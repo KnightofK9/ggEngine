@@ -11,10 +11,16 @@ public:
 
 	virtual void Active();
 	virtual void Update();
+	virtual int LoseHealth(int health);
+	virtual void Destroy();
 
 	double GetDamage();
+	double GetPoint();
 	virtual void SetPosition(Vector position , bool isRefresh = false) override;
 	void Kill() override;
+
+	bool canContact = true;
+
 protected:
 	Vector startPosition;
 	virtual void OnSimonContact( ColliderArg e);
@@ -27,8 +33,8 @@ protected:
 
 	bool isLeft;
 	void ChangeFacingDirection(bool isLeft);
-	unsigned int health;
-	unsigned int maxHealth;
+	double health = 0.0f;
+	double maxHealth;
 	double simonDetectRange;
 	bool allowToDetectSimon = false;
 	bool detectX = true;

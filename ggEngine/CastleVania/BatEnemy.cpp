@@ -50,6 +50,14 @@ void BatEnemy::Update()
 	}*/
 }
 
+void BatEnemy::Destroy()
+{
+	if (this->currentTween) {
+		this->currentTween->Stop();
+	}
+	EnemyBase::Destroy();
+}
+
 void BatEnemy::OnSimonEnterRange(Simon * simon, bool isLeft)
 {
 	EnemyBase::OnSimonEnterRange(simon, isLeft);

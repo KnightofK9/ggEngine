@@ -40,6 +40,7 @@ public:
 	CVAudio *pauseSound;
 	CVAudio *selectSound;
 	CVAudio *usingWhipSound;
+	CVAudio *contactBreakableBrick;
 	
 private:
 	vector<CVAudio*> listMusic;

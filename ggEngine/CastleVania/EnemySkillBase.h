@@ -10,6 +10,8 @@ public:
 	void SetParentObject(EnemyBase *enemyBase);
 	virtual void Fire(bool isLeft, Vector position);
 	virtual void ChangeFacingDirection(bool isLeft);
+	virtual double GetDamage() { return damage; }
+
 protected:
 	void AddBulletToGroup(EnemySkillBase * bullet);
 	virtual EnemySkillBase * GetBulletInstance();
@@ -18,6 +20,7 @@ protected:
 	EnemyBase *enemyBase;
 	bool isLeft;
 	double fireSpeed = 0.25;
+	double damage;
 };
 
 

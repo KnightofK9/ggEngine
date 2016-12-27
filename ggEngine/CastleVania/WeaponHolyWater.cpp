@@ -1,4 +1,5 @@
 #include "WeaponHolyWater.h"
+#include "AudioManager.h"
 #include "CVAdd.h"
 
 WeaponHolyWater::WeaponHolyWater(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
@@ -21,7 +22,10 @@ void WeaponHolyWater::FireWeapon(bool isLeft)
 
 void WeaponHolyWater::OnBrickContact(GameObject * go, ColliderArg e)
 {
-	g_debug.Log("Contacting Brick");
-	//this->PlayAnimation("brickContact");
+	//g_debug.Log("Contacting Brick");
+	this->PlayAnimation("brickContact");
+	this->body->allowGravity = false;
+	this->body->velocity = { 0, 0 };
+	this->cvGame->audioManager->holyWaterSound->Play();
 }
 

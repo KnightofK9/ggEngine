@@ -14,7 +14,7 @@ WeaponManager::~WeaponManager()
 WeaponWhip * WeaponManager::AddWeaponWhip(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::MAIN_WEAPON_TEXTURE);
-	WeaponWhip *weaponWhip = new WeaponWhip(this->cvGame, inf, 76, 27, 0, 9, 120);
+	WeaponWhip *weaponWhip = new WeaponWhip(this->cvGame, inf, 76, 27, 0, 9, 100);
 	weaponWhip->SetPosition(x, y);
 	if (group != nullptr) {
 		weaponWhip->SetParentObject(group);
@@ -96,7 +96,7 @@ WeaponAxe* WeaponManager::AddWeaponAxe(double x, double y, bool isLeft, Group * 
 WeaponHolyWater* WeaponManager::AddWeaponHolyWater(double x, double y, bool isLeft, Group * group)
 {
 	SpriteInfo *inf = this->cache->GetSpriteInfo(TextureConstant::HOLY_WATER_WEAPON_TEXTURE);
-	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf, 16, 13, 0, 3, 70);
+	WeaponHolyWater *weaponHolyWater = new WeaponHolyWater(this->cvGame, inf, 16, 13, 0, 3, 150);
 	weaponHolyWater->SetPosition(x, y);
 	weaponHolyWater->SetParentObject(group);
 	weaponHolyWater->Active();

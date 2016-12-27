@@ -16,7 +16,7 @@ CVAdd::~CVAdd()
 Simon* CVAdd::CharSimon(double x, double y, int health, InfoPanel *infoPanel, GameOverScreen *goScreen, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::SIMON_TEXTURE);
-	Simon *simon = new Simon(this->cvGame, inf,infoPanel, goScreen, 45, 40, 0,0, 130);
+	Simon *simon = new Simon(this->cvGame, inf,infoPanel, goScreen, 45, 40, 0,0, 100);
 	simon->SetPosition(x, y);
 	simon->SetOpacityAffectByParent(false);
 	

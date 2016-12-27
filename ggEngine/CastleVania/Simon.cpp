@@ -6,6 +6,7 @@
 #include "WeaponManager.h"
 #include "AudioManager.h"
 #include "TileLadder.h"
+#include "AnimationManager.h"
 #include "CVMap.h"
 #include "StaticTIleManager.h"
 #include "CVDebugDefine.h"
@@ -34,6 +35,19 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		this->incompleteAction = {};
 		this->allowControl = true;
 	});
+
+	this->CreateAnimation("longClimbUpIdle", { 7, 7 }, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "";
+		this->incompleteAction = {};
+		this->allowControl = true;
+	});
+
+	this->CreateAnimation("longClimbDownIdle", { 5, 5 }, false)->SetOnCompleted([this](Animator*) {
+		this->incompleteAnim = "";
+		this->incompleteAction = {};
+		this->allowControl = true;
+	});
+
 	this->CreateAnimation("jump", 4, 4, true);
 	/*->SetOnBegin([this](Animator*) {
 		this->body->SetHeight(12);
@@ -547,7 +561,19 @@ void Simon::ClimbIdle()
 
 void Simon::Hurt(bool isAttackedFromLeft)
 {
-	this->PlayAnimation("hurt");
+	if (isClimbingLadder) {
+		/*if (isClimbingUp)
+			this->PlayAnimation("longClimbUpIdle");
+		else
+			this->PlayAnimation("longClimbDownIdle");*/
+		this->cvGame->add->TimeOut(200, [this] {
+			this->incompleteAnim = "";
+			this->incompleteAction = {};
+			this->allowControl = true;
+		})->Start();
+	}
+	else
+		this->PlayAnimation("hurt");
 	this->allowControl = false;
 	this->canContactWithEnemy = false;
 	this->isFalling = true;
@@ -750,7 +776,7 @@ void Simon::UpgradeWhip()
 	this->weaponWhip->UpgradeWhip();
 
 	this->FlickeringChangeColorAnimation(30, 2000, [this] {
-		this->canContactWithEnemy = true;
+		//this->canContactWithEnemy = true;
 	})->Start();
 	// Will be changed to stopTime
 	this->allowControl = false;
@@ -764,12 +790,16 @@ void Simon::UpgradeWhip()
 
 void Simon::OnEnemyContact(EnemyBase * enemy, ColliderArg e)
 {
-#ifdef DEBUG_CONTACT_WITH_ENEMY
-	g_debug.Log("Contact with enemy " + enemy->name);
-#else
-	
-#endif // DEBUG_CONTACT_WITH_ENEMY
+#ifdef DEBUG_SHOW_LOG_WHEN_SIMON_CONTACT_ENEMY
+	g_debug.Log("Contact with enemy " + enemy->name);	
+#endif // DEBUG_SHOW_LOG_WHEN_SIMON_CONTACT_ENEMY
 
+#ifndef DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
+	if (this->cvGame->simon->canContactWithEnemy) {
+		this->Hurt(e.blockDirection.right);
+		this->cvGame->simon->LoseHealth(enemy->GetDamage());
+	}
+#endif //DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
 }
 
 void Simon::StartClimbingLadder(bool isLeft, bool isUp)

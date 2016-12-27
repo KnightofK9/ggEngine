@@ -23,6 +23,10 @@ Skeleton::Skeleton(CVGame * cvGame, SpriteInfo * image)
 	this->body->SetActive(true);
 	this->allowToDetectSimon = false;
 	SetBullet(new SkeletonSkill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_AI_TEXTURE)));
+
+	this->maxHealth = 1;
+	this->damage = 3;
+	this->point = 300;
 }
 
 Skeleton::~Skeleton()

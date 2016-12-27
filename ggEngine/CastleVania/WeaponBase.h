@@ -18,6 +18,7 @@ public:
 	virtual void OnStaticContact(GameObject *staticObject, ColliderArg e);
 	virtual void OnSimonContact(ColliderArg e);
 	virtual void OnBrickContact(GameObject *brick, ColliderArg e);
+	virtual void OnCandleContact(GameObject *brick, ColliderArg e);
 	virtual void Destroy();
 
 	virtual void Active();
@@ -33,4 +34,5 @@ protected:
 	virtual void FireAsThrow(bool isLeft, double throwForce);
 	CVGame *cvGame;
 	//const double throwForce = 1.0;
+	const int damage = 1;
 };

@@ -3,7 +3,10 @@
 #include "Simon.h"
 #include "CVMap.h"
 #include "CVBlock.h"
+#include "ItemManager.h"
+#include "AnimationManager.h"
 #include "MedusaSkill.h"
+#include "CVSpriteAnimation.h"
 #include "TextureConstant.h"
 Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,image,32,32,0,4,200)
 {
@@ -75,6 +78,13 @@ void Medusa::Active()
 	this->isAwake = false;
 	this->isPausingMoving = false;
 	this->allowToDetectSimon = true;
+}
+
+void Medusa::Destroy()
+{
+	this->cvGame->animationManager->AddBossDeathAnimation(this->position.x, this->position.y);
+	this->cvGame->itemManager->AddStuff(this->position.x, this->position.y, (Group*)this->cvGame->simon->currentMap->enemyGroup);
+	CVSpriteAnimation::Destroy();
 }
 
 void Medusa::MoveToNextPosition()

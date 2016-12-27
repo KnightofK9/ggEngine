@@ -165,6 +165,7 @@
     <ClInclude Include="Chest.h" />
     <ClInclude Include="CVDebugDefine.h" />
     <ClInclude Include="DropObjectBase.h" />
+    <ClInclude Include="EffectBase.h" />
     <ClInclude Include="EnemySkillBase.h" />
     <ClInclude Include="EnemySkillFire.h" />
     <ClInclude Include="Ghost.h" />
@@ -266,6 +267,7 @@
     <ClCompile Include="BonePillar.cpp" />
     <ClCompile Include="Chest.cpp" />
     <ClCompile Include="DropObjectBase.cpp" />
+    <ClCompile Include="EffectBase.cpp" />
     <ClCompile Include="EnemySkillBase.cpp" />
     <ClCompile Include="EnemySkillFire.cpp" />
     <ClCompile Include="Ghost.cpp" />

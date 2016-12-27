@@ -1,6 +1,8 @@
 #include "EnemyBase.h"
 #include "Simon.h"
 #include "CVDebugDefine.h"
+#include "AnimationManager.h"
+#include "CVSpriteAnimation.h"
 #include "CVGame.h"
 #include "TileBrick.h"
 EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -57,13 +59,15 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::OnSimonContact(ColliderArg e)
 {
-#ifdef DEBUG_SHOW_LOG_WHEN_SIMON_CONTACT_ENEMY
+#ifdef DEBUG_SHOW_LOG_WHEN_ENEMY_CONTACT_SIMON
 	g_debug.Log("Enemy contacted simon");
-#endif //DEBUG_SHOW_LOG_WHEN_SIMON_CONTACT_ENEMY
+#endif //DEBUG_SHOW_LOG_WHEN_ENEMY_CONTACT_SIMON
 
 #ifndef DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
-	this->cvGame->simon->Hurt(e.blockDirection.left);
-	this->cvGame->simon->LoseHealth(damage);
+	//if (this->cvGame->simon->canContactWithEnemy) {
+	//	this->cvGame->simon->Hurt(e.blockDirection.left);
+	//	this->cvGame->simon->LoseHealth(damage);
+	//}
 #endif //DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
 }
 
@@ -114,6 +118,10 @@ double EnemyBase::GetDamage()
 {
 	return this->damage;
 }
+double EnemyBase::GetPoint()
+{
+	return this->point;
+}
 void EnemyBase::RunLeft()
 {
 }
@@ -135,6 +143,29 @@ void EnemyBase::OnSimonOutOfRange(Simon * simon, bool isLeft)
 }
 void EnemyBase::OnBrickContact(TileBrick *tileBrick, ColliderArg e)
 {
+
+}
+int EnemyBase::LoseHealth(int health)
+{
+	if (!this->canContact)
+		return 0;
+
+	this->maxHealth -= health;
+	if (this->maxHealth <= 0) {
+		this->Destroy();
+		return this->GetPoint();
+	}
+
+	this->canContact = false;
+	this->cvGame->add->TimeOut(300, [this] {
+		this->canContact = true;
+	})->Start();
+	return 0;
+}
+void EnemyBase::Destroy()
+{
+	this->cvGame->animationManager->AddEnemyDeathAnimation(this->position.x, this->position.y);
+	CVSpriteAnimation::Destroy();
 }
 void EnemyBase::ChangeFacingDirection(bool isLeft)
 {

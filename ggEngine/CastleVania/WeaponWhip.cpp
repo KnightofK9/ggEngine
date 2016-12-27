@@ -3,6 +3,7 @@
 #include "CVDebugDefine.h"
 #include "Simon.h"
 #include "AudioManager.h"
+#include "AnimationManager.h"
 
 
 WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
@@ -26,18 +27,32 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		{
 		case ObjectType_Enemy:
 #ifndef DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
-			otherObject->Destroy();
-			this->cvGame->audioManager->onContactSound->Play();
+			if (otherObject) {
+				EnemyBase *enemyBase = dynamic_cast<EnemyBase*>(otherObject);
+				if (enemyBase->canContact)
+					this->cvGame->animationManager->AddHitAnimation(otherObject->GetPosition().x, otherObject->GetPosition().y);
+				enemyBase->LoseHealth(this->damage);
+				this->cvGame->audioManager->onContactSound->Play();
+			}
 #endif // DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
+
 			break;
 
 		case ObjectType_BreakableTileBrick:
+		{
+			ColliderArg	o = Physics::CreateOppositeColliderArg(e, this);
+			otherObject->events->onCollide(otherObject, o);
+			this->cvGame->audioManager->contactBreakableBrick->Play();
+			this->cvGame->animationManager->AddBreakingWallAnimation(otherObject->position.x, otherObject->position.y);
+		}
+		break;
 		case ObjectType_Candle:
-			//g_debug.Log("Whip collider with candle!");
-			{
+			if (otherObject) {
 				ColliderArg	o = Physics::CreateOppositeColliderArg(e, this);
 				otherObject->events->onCollide(otherObject, o);
 				this->cvGame->audioManager->onContactSound->Play();
+				this->cvGame->animationManager->AddEnemyDeathAnimation(otherObject->position.x, otherObject->position.y);
+				this->cvGame->animationManager->AddHitAnimation(otherObject->position.x, otherObject->position.y);
 			}	
 			break;
 		default:
@@ -104,21 +119,22 @@ WeaponWhip::~WeaponWhip()
 void WeaponWhip::SetWhipVersion(int version)
 {
 	this->whipVersion = version;
-	if (this->whipVersion < 1)
-		this->whipVersion = 1;
-	if (this->whipVersion > 3)
-		this->whipVersion = 3;
+	this->damage = 1.0f;
 	switch (this->whipVersion)
 	{
-	case 1:
 	case 2:
 		this->body->rigidBody->width = 30;
 		this->body->rigidBody->height = 12;
+		break;
 	case 3:
 		this->body->rigidBody->width = 36;
 		this->body->rigidBody->height = 12;
 		break;
-	default:
+	default: //version 1
+		this->whipVersion = 1;
+		this->damage = 0.7f;
+		this->body->rigidBody->width = 30;
+		this->body->rigidBody->height = 12;
 		break;
 	}
 }

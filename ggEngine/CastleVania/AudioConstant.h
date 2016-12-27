@@ -26,4 +26,5 @@ public:
 	static constexpr const char* SELECT_SOUND_PATH = "Resource/Resources/Sounds/Sound/select.wav";
 	static constexpr const char* TIME_OUT_SOUND_PATH = "Resource/Resources/Sounds/Sound/stoptimer.wav";
 	static constexpr const char* USING_WHIP_SOUND_PATH = "Resource/Resources/Sounds/Sound/usingwhip.wav";
+	static constexpr const char* BREAKABLE_BRICK_CONTACT_SOUND_PATH = "Resource/Resources/Sounds/Sound/breakablebrickcontact.wav";
 };

@@ -173,17 +173,6 @@ public:
 	static constexpr const char* POINT_4000_TEXTURE = "4000";
 	static constexpr const char* POINT_4000_TEXTURE_PATH = "Resource/Resources/Point/4000.png";
 
-
-	static constexpr const char* BREAKING_WALL_TEXTURE = "BreakingWall";
-	static constexpr const char* BREAKING_WALL_TEXTURE_PATH = "Resource/Resources/BreakingWall.png";
-
-	static constexpr const char* BOSS_DEAD_TEXTURE = "Bossdead";
-	static constexpr const char* BOSS_DEAD_TEXTURE_PATH = "Resource/Resources/Bossdead.png";
-
-	static constexpr const char* HIT_TEXTURE = "hit";
-	static constexpr const char* HIT_TEXTURE_PATH = "Resource/Resources/hit.png";
-
-
 	/**
 	* Enemy
 	**/
@@ -240,5 +229,18 @@ public:
 	static constexpr const char* SKILL_BOSS_3_TEXTURE = "SkillBoss3";
 	static constexpr const char* SKILL_BOSS_3_TEXTURE_PATH = "Resource/Resources/SkillBoss3.png";
 
+	/**
+	* Animation
+	**/
+	static constexpr const char* ANIMATION_ENEMY_DEATH_TEXTURE = "enemyDead";
+	static constexpr const char* ANIMATION_ENEMY_DEATH_TEXTURE_PATH = "Resource/Resources/dead.png";
 
+	static constexpr const char* ANIMATION_BOSS_DEATH_TEXTURE = "bossDeath";
+	static constexpr const char* ANIMATION_BOSS_DEATH_TEXTURE_PATH = "Resource/Resources/Bossdead.png";
+
+	static constexpr const char* ANIMATION_HIT_TEXTURE = "hit";
+	static constexpr const char* ANIMATION_HIT_TEXTURE_PATH = "Resource/Resources/hit.png";
+
+	static constexpr const char* ANIMATION_BREAKING_WALL_TEXTURE = "BreakingWall";
+	static constexpr const char* ANIMATION_BREAKING_WALL_TEXTURE_PATH = "Resource/Resources/BreakingWall.png";
 };

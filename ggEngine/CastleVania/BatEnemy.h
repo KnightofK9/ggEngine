@@ -7,6 +7,7 @@ public:
 	void RunLeft() override;
 	void RunRight() override;
 	void Update() override;
+	void Destroy() override;
 
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
 	void Active() override;

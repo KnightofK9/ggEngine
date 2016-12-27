@@ -2,6 +2,7 @@
 #include "StaticTIleManager.h"
 #include "AudioManager.h"
 #include "EnemyManager.h"
+#include "AnimationManager.h"
 TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
 }
@@ -35,6 +36,7 @@ void TestStateCastleVania::Preload() {
 	this->itemManager->PreloadAllItem();
 	this->cvgame->staticTileManager->PreloadAll();
 	this->cvgame->enemyManager->PreloadAll();
+	this->cvgame->animationManager->PreloadAll();
 	this->cvgame->audioManager->PreloadAll();
 }
 void TestStateCastleVania::Create()
@@ -71,6 +73,7 @@ void TestStateCastleVania::Create()
 	
 	}
 	//cvMap = cvMap1;
+	this->cvgame->animationManager->animationGroup = cvMap1->animationGroup;
 	cvMap1->LoadSimon(infoPanel, goScreen, this->simon);
 	//infoPanel->CountDown(infoPanel->GetTime(), [this] {
 	//	simon->Death();

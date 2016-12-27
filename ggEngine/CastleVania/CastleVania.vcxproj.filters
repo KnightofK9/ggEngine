@@ -58,6 +58,9 @@
     <Filter Include="Header Files\Enemy\Skill">
       <UniqueIdentifier>{4c4399d8-4d36-4ea1-8675-3057f3b23993}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Audio">
+      <UniqueIdentifier>{d267893b-2282-4ec2-bf3b-eb2832508d53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -312,32 +315,35 @@
     <ClInclude Include="Medusa.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="AudioManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AudioConstant.h">
       <Filter>Header Files\Constant</Filter>
-    </ClInclude>
-    <ClInclude Include="CVAudio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MedusaSkill.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Monkey.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Raven.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
+    <ClInclude Include="EffectBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SkeletonSkill.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="CVAudio.h">
+      <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="Chest.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonSkill.h">
+      <Filter>Header Files\Enemy\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="MedusaSkill.h">
+      <Filter>Header Files\Enemy\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Monkey.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,6 +614,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Chest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
