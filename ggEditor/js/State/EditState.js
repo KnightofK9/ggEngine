@@ -992,6 +992,7 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 sprite.anchor = {x: 0.5, y: 0.7};
                 break;
             case "Door":
+            case "AI6":
             case "AI7":
                 sprite.anchor = {x: 0, y: 0};
                 break;
