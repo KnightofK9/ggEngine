@@ -6,10 +6,10 @@ Monkey::Monkey(CVGame * cvGame, SpriteInfo * image) : EnemyBase(cvGame, image, 1
 	this->body->SetActive(true);
 	this->body->allowGravity = true;
 
-	this->jumpForce  = 3.5;
-	this->highJumpForce = 3.5;
+	this->jumpForce  = 3;
+	this->highJumpForce = 3;
 	this->jumpDirection = Vector(1,-1);
-	this->highJumpDirection = Vector(0.5,-1);
+	this->highJumpDirection = Vector(0.3,-1);
 	this->isGrounding = false;
 	this->distanceUntilToJumpHigh = 25;
 
