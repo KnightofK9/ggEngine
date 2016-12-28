@@ -18,6 +18,12 @@ CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 	this->add = cvGame->add;
 	this->cvAdd = cvGame->cvAdd;
 	this->camera = dynamic_cast<CVCamera*>(cvGame->camera);
+#ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
+	debugStageKey[KeyControlSetStageBlock::PreviousBlock] = DIK_F1;
+	debugStageKey[KeyControlSetStageBlock::NextBlock] = DIK_F2;
+	debugStageKey[KeyControlSetStageBlock::PreviousStage] = DIK_F3;
+	debugStageKey[KeyControlSetStageBlock::NextStage] = DIK_F4;
+#endif // DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 }
 
 CVMap::~CVMap()
@@ -116,6 +122,7 @@ void CVMap::Update()
 	this->projectileGroup->Update();
 	this->simon->Update();
 	this->animationGroup->Update();
+	DebugUpdate();
 	
 }
 void CVMap::Draw()
@@ -181,6 +188,9 @@ void CVMap::SetBlock(int blockNumber,bool isRestartState)
 {
 	if (this->currentBlock != nullptr) {
 		this->currentBlock->Reset();
+	}
+	if (blockNumber == -1) {
+		blockNumber = this->currentStage->blockList.size() - 1;
 	}
 	this->currentBlock = this->currentStage->blockList[blockNumber];
 	if (isRestartState && blockNumber == 0) {
@@ -276,6 +286,48 @@ void CVMap::OnEnterDoor(Door *door)
 	OnOutOfBlock(r);
 }
 
+void CVMap::DebugUpdate()
+{
+#ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
+	SAFE_BREAK_BEGIN
+		if (this->currentTimeOutPressKey != nullptr) SAFE_BREAK
+		auto input = this->cvGame->GetInput();
+		if (input->KeyDown(this->debugStageKey[KeyControlSetStageBlock::PreviousBlock])) {
+			this->currentTimeOutPressKey = this->add->TimeOut(150, [this]() {
+				GoTo(true, false);
+				this->currentTimeOutPressKey = nullptr;
+			})->Start();
+			SAFE_BREAK
+		}
+
+		if (input->KeyDown(this->debugStageKey[KeyControlSetStageBlock::NextBlock])) {
+			this->currentTimeOutPressKey = this->add->TimeOut(150, [this]() {
+				GoTo(true, true);
+				this->currentTimeOutPressKey = nullptr;
+			})->Start();
+			SAFE_BREAK
+		}
+
+		if (input->KeyDown(this->debugStageKey[KeyControlSetStageBlock::PreviousStage])) {
+			this->currentTimeOutPressKey = this->add->TimeOut(150, [this]() {
+				GoTo(false, false);
+				this->currentTimeOutPressKey = nullptr;
+			})->Start();
+			SAFE_BREAK
+		}
+
+		if (input->KeyDown(this->debugStageKey[KeyControlSetStageBlock::NextStage])) {
+			this->currentTimeOutPressKey = this->add->TimeOut(150, [this]() {
+				GoTo(false, true);
+				this->currentTimeOutPressKey = nullptr;
+			})->Start();
+			SAFE_BREAK
+		}
+	SAFE_BREAK_END
+#endif // DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
+
+}
+
 void CVMap::CheckIfSimonOutOfBlock()
 {
 	if (isSwitchingStage) return;
@@ -364,5 +416,52 @@ void CVMap::SetSimonPositionOnChangeBlock()
 	else {
 		this->simon->position.y += 16;
 	}
+}
+
+void CVMap::GoTo(bool isBlock, bool isNext)
+{
+	int modifier = isNext ? 1 : -1;
+	int index = isBlock ? this->currentBlock->blockIndex : this->currentStage->stageIndex;
+	index += modifier;
+	int tempBlockIndex = 0;
+	if (isBlock) {
+		if (index >= (int)this->currentStage->blockList.size()) {
+			isBlock = false;
+			index = this->currentStage->stageIndex + 1;
+		}
+		else {
+			if (index < 0) {
+				index = this->currentStage->stageIndex - 1;
+				if (index < 0) {
+					index = 0;
+				}
+				isBlock = false;
+				tempBlockIndex = -1;
+				if (index == this->currentStage->stageIndex) {
+					tempBlockIndex = 0;
+				}
+			}
+		}
+	}
+	if (!isBlock) {
+		if (index >= (int)this->stageList.size()) {
+			index = 0;
+		}
+		if (index < 0) {
+			index = 0;
+		}
+		SetStage(index, tempBlockIndex, false);
+	}
+	else {
+		OnNextBlock(index);
+	}
+	ResetSimonPositionTo(this->currentBlock->simonSpawnPosition);
+}
+
+void CVMap::ResetSimonPositionTo(Vector position)
+{
+	this->simon->ResetState();
+	this->simon->SetPosition(position, true);
+
 }
 

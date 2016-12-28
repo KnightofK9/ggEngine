@@ -1,6 +1,7 @@
 #pragma once
 #include <ggEngine.h>
 #include "Simon.h"
+#include "CVDebugDefine.h"
 using namespace ggEngine;
 class CVGame;
 class CVAdd;
@@ -11,6 +12,9 @@ class CVCamera;
 class CVBlock;
 class EnemyGroup;
 class Door;
+#ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
+	enum KeyControlSetStageBlock { PreviousStage = 0, NextStage, PreviousBlock, NextBlock};
+#endif // DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 class CVMap : public Group {
 public:
 	CVMap(CVGame *cvGame);
@@ -38,13 +42,20 @@ public:
 	void OnEnterDoor(Door *door);
 	CVBlock* GetCurrentBlock() { return this->currentBlock; }
 private:
+#ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
+	TimeBasedEventInfo* currentTimeOutPressKey = nullptr;
+	DWORD debugStageKey[4];
+#endif // DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
+	void DebugUpdate();
 	void CheckIfSimonOutOfBlock();
 	void StartSwitchingState();
 	int levelNumber;
 	CVStage* currentStage = nullptr;
 	void SetSimonPositionOnChangeBlock();
+	void GoTo(bool isBlock, bool isNext);
 	CVBlock* currentBlock = nullptr;
 	InfoPanel *infoPanel;
+	void ResetSimonPositionTo(Vector position);
 	Add* add;
 	CVAdd* cvAdd;
 	CVGame* cvGame;
