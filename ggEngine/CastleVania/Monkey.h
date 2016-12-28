@@ -1,11 +1,20 @@
 #pragma once
-#include "TweenEnemyBase.h"
-class Monkey : public TweenEnemyBase {
+#include "WalkingEnemyBase.h"
+class Monkey : public EnemyBase {
 public:
 	Monkey(CVGame *cvGame, SpriteInfo *image);
 	virtual ~Monkey();
 
-	virtual void Active() override;
-	virtual void Update() override;
+	void Active() override;
+	void Update() override;
 private:
+	bool OnCheckingCollide(ColliderArg e) override;
+	void Jump(bool isLeft, bool isHighJump);
+
+	double jumpForce;
+	double highJumpForce;
+	Vector jumpDirection;
+	Vector highJumpDirection;
+	bool isGrounding;
+	double distanceUntilToJumpHigh;
 };
