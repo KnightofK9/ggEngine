@@ -31,6 +31,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	this->isAwake = false;
 
 
+	this->body->SetEnable(false);
 
 }
 
@@ -74,6 +75,7 @@ void Medusa::Update()
 void Medusa::Active()
 {
 	ShootingEnemyBase::Active();
+	this->body->SetEnable(false);
 	this->SetVisible(false);
 	this->SetAlive(true);
 	this->isMoving = false;
