@@ -400,6 +400,11 @@ void CVMap::StartSwitchingState()
 	})->Start();
 }
 
+void CVMap::OnEnterBossBlock()
+{
+	this->cvGame->camera->UnFollow();
+}
+
 void CVMap::SetSimonPositionOnChangeBlock()
 {
 	if (this->simon->isLeft) {

@@ -18,6 +18,8 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	maxRandomPause = 1200;
 	timeOutToAwake = 2000;
 
+	this->simonDetectRange = 10;
+
 	SetBullet(new MedusaSkill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_BOSS_2_TEXTURE)));
 	this->body->SetActive(false);
 	this->CreateAnimation("move", 0, 3, true);
@@ -136,6 +138,7 @@ void Medusa::Awake()
 	this->moveTimer.reset();
 	this->isAwake = true;
 	MoveTo(this->simon->position);
+	this->simon->currentMap->OnEnterBossBlock();
 }
 
 

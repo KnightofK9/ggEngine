@@ -13,5 +13,5 @@
 //#define DEBUG_SUBWEAPON_NOT_HURT_ENEMY_WHEN_CONTACT
 
 #define SAFE_BREAK_BEGIN for(int x7dawx = 0; x7dawx < 1; x7dawx++){
-#define SAFE_BREAK_END }
 #define SAFE_BREAK break;
+#define SAFE_BREAK_END }

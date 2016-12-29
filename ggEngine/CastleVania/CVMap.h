@@ -41,6 +41,7 @@ public:
 	void OnFallOutOfMap();
 	void OnEnterDoor(Door *door);
 	CVBlock* GetCurrentBlock() { return this->currentBlock; }
+	void OnEnterBossBlock();
 private:
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 	TimeBasedEventInfo* currentTimeOutPressKey = nullptr;
