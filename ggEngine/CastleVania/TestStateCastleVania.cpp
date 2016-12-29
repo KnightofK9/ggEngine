@@ -3,6 +3,7 @@
 #include "AudioManager.h"
 #include "EnemyManager.h"
 #include "AnimationManager.h"
+#include "CVDebugDefine.h"
 TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
 }
@@ -63,9 +64,10 @@ void TestStateCastleVania::Create()
 	this->cvgame->audioManager->level4Music->Play();
 
 	{
-		//Json state("State/TestState.json", true);
+		Json state0("State/TestState.json", true);
 		Json state("State/level2-tilemap.json", true);
 		Json state2("State/level3-tilemap.json", true);
+		cvMap = this->cvAdd->LoadMap("State", state0.GetCharArray().c_str(), nullptr);
 		cvMap1 = this->cvAdd->LoadMap("level-2",state.GetCharArray().c_str(),  nullptr);
 		cvMap2 = this->cvAdd->LoadMap("level-3", state2.GetCharArray().c_str(), nullptr);
 	}
@@ -85,7 +87,24 @@ void TestStateCastleVania::Create()
 }
 void TestStateCastleVania::Update()
 {
+#ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
+	SAFE_BREAK_BEGIN
+	auto input = this->cvgame->GetInput();
+	if (input->KeyDown(DIK_F5)) {
+		SwitchToMap(cvMap1);
+		SAFE_BREAK
+	}
+	if (input->KeyDown(DIK_F6)) {
+		SwitchToMap(cvMap2);
+		SAFE_BREAK
+	}
 
+	if (input->KeyDown(DIK_F7)) {
+		SwitchToMap(cvMap);
+		SAFE_BREAK
+	}
+	SAFE_BREAK_END
+#endif // DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 }
 void TestStateCastleVania::PreRender()
 {
