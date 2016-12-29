@@ -39,7 +39,7 @@ CVMap::~CVMap()
 	}
 }
 
-void CVMap::BuildMap(const char * jsonChar, int level)
+void CVMap::BuildMap(std::string name, const char * jsonChar, int level)
 {
 	this->levelNumber = level;
 	Json state(jsonChar);
@@ -85,7 +85,7 @@ void CVMap::BuildMap(const char * jsonChar, int level)
 		const char* value = v.c_str();
 		if (type == "TileMap") {
 		
-			this->tileMapGroup = this->add->TileMap(value,this);
+			this->tileMapGroup = this->add->TileMap(name, value,this);
 			continue;
 		}
 		if (type == "QuadTree") {
@@ -211,6 +211,7 @@ void CVMap::SetBlock(int blockNumber,bool isRestartState)
 	this->simon->body->PreUpdate();
 
 	this->camera->SetBlock(this->currentBlock);
+	this->simon->SetBlock((*this->currentBlock));
 	this->camera->Follow(this->simon);
 
 
@@ -380,6 +381,7 @@ void CVMap::StartSwitchingState()
 		this->door = nullptr;
 		this->camera->Follow(this->simon);
 		this->camera->SetBlock(this->currentBlock);
+		this->simon->SetBlock((*this->currentBlock));
 	})->Start();
 
 	Vector moveFrom = this->simon->position;
@@ -403,6 +405,17 @@ void CVMap::StartSwitchingState()
 void CVMap::OnEnterBossBlock()
 {
 	this->cvGame->camera->UnFollow();
+	this->simon->SetBlock(this->cvGame->camera->GetNormalRect());
+}
+
+void CVMap::Active()
+{
+	this->cvGame->world->AddGroup(this);
+}
+
+void CVMap::DeActive()
+{
+	this->cvGame->world->RemoveGroup(this);
 }
 
 void CVMap::SetSimonPositionOnChangeBlock()

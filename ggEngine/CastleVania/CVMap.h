@@ -19,7 +19,7 @@ class CVMap : public Group {
 public:
 	CVMap(CVGame *cvGame);
 	virtual ~CVMap();
-	void BuildMap(const char* jsonChar, int level = -1);
+	void BuildMap(std::string name, const char* jsonChar, int level = -1);
 	void Draw() override;
 	void Update() override;
 	void UpdatePhysics() override;
@@ -42,6 +42,8 @@ public:
 	void OnEnterDoor(Door *door);
 	CVBlock* GetCurrentBlock() { return this->currentBlock; }
 	void OnEnterBossBlock();
+	void Active();
+	void DeActive();
 private:
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 	TimeBasedEventInfo* currentTimeOutPressKey = nullptr;

@@ -18,7 +18,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	maxRandomPause = 1200;
 	timeOutToAwake = 2000;
 
-	this->simonDetectRange = 10;
+	this->simonDetectRange = 1;
 
 	SetBullet(new MedusaSkill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_BOSS_2_TEXTURE)));
 	this->body->SetActive(false);

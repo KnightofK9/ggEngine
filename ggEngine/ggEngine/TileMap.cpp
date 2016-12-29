@@ -30,7 +30,7 @@ namespace ggEngine {
 	{
 		Json json(jsonChar);
 
-		this->name = json["name"].GetString();
+		//this->name = json["name"].GetString();
 		this->width = json["width"].GetDouble();
 		this->height = json["height"].GetDouble();
 		this->tileWidth = json["tileWidth"].GetDouble();

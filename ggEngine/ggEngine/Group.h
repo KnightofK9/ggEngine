@@ -12,7 +12,9 @@ namespace ggEngine{
 	public:
 		Group(Game *game);
 		virtual ~Group();
+
 		void AddGroup(Group* group);
+		void RemoveGroup(Group* group);
 		virtual void Update();
 		std::function<void(void)> update;
 		virtual void AddDrawObjectToList(GameObject* drawObject);

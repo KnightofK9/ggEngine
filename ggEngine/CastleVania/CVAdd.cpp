@@ -211,11 +211,11 @@ HealthBar * CVAdd::UIEnemyHealthBar(double x, double y, ggEngine::Group* group)
 	return bar;
 }
 
-CVMap * CVAdd::LoadMap(const char * json, ggEngine::Group * group)
+CVMap * CVAdd::LoadMap(std::string name, const char * json, ggEngine::Group * group)
 {
 	CVMap *cvMap = new CVMap(this->cvGame);
-	cvMap->BuildMap(json);
-	group->AddGroup(cvMap);
+	cvMap->BuildMap(name,json);
+	if(group!=nullptr) group->AddGroup(cvMap);
 	return cvMap;
 }
 

@@ -53,8 +53,8 @@ void TestStateCastleVania::Create()
 	Group* group = this->add->Group();
 	group->name = "StupidGroup";
 
-	GameOverScreen *goScreen = this->cvAdd->UIGameOverScreen(group);
-	InfoPanel *infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);	
+	goScreen = this->cvAdd->UIGameOverScreen(group);
+	infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);	
 
 
 	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
@@ -65,16 +65,18 @@ void TestStateCastleVania::Create()
 	{
 		//Json state("State/TestState.json", true);
 		Json state("State/level2-tilemap.json", true);
-		//Json state("State/level3-tilemap.json", true);
-		cvMap1 = this->cvAdd->LoadMap(state.GetCharArray().c_str(),  this->cvgame->world);
-		//Json state2("State/level3-tilemap.json", true);
-		//cvMap1 = this->cvAdd->LoadMap(state.GetCharArray().c_str(), this->cvgame->world);
-
-	
+		Json state2("State/level3-tilemap.json", true);
+		cvMap1 = this->cvAdd->LoadMap("level-2",state.GetCharArray().c_str(),  nullptr);
+		cvMap2 = this->cvAdd->LoadMap("level-3", state2.GetCharArray().c_str(), nullptr);
 	}
+
+
+	SwitchToMap(cvMap1);
+	//SwitchToMap(cvMap2);
+
+
 	//cvMap = cvMap1;
-	this->cvgame->animationManager->animationGroup = cvMap1->animationGroup;
-	cvMap1->LoadSimon(infoPanel, goScreen, this->simon);
+
 	//infoPanel->CountDown(infoPanel->GetTime(), [this] {
 	//	simon->Death();
 	//})->Start();
@@ -104,5 +106,13 @@ void TestStateCastleVania::Resume()
 void TestStateCastleVania::ShutDown()
 {
 
+}
+
+void TestStateCastleVania::SwitchToMap(CVMap * cvMap)
+{
+	if (this->cvgame->simon->currentMap != nullptr) this->cvgame->simon->currentMap->DeActive();
+	this->cvgame->animationManager->animationGroup = cvMap->animationGroup;
+	cvMap->LoadSimon(infoPanel, goScreen, this->simon);
+	cvMap->Active();
 }
 

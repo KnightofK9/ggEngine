@@ -32,6 +32,11 @@ namespace ggEngine{
 		groupList.push_back(group);
 		group->SetParentObject(this);
 	}
+	void Group::RemoveGroup(Group * group)
+	{
+		groupList.remove(group);
+		group->SetParentObject(nullptr);
+	}
 	void Group::Update()
 	{
 		if (this->parentGroup != nullptr) {

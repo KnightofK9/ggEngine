@@ -16,7 +16,7 @@ public:
 	InfoPanel* UIInfoPanel(GameOverScreen *goScreen , ggEngine::Group *group);
 	HealthBar *UIPlayerHealthBar(double x, double y, ggEngine::Group* group);
 	HealthBar *UIEnemyHealthBar(double x, double y, ggEngine::Group* group);
-	CVMap *LoadMap(const char* json, ggEngine::Group* group);
+	CVMap *LoadMap(std::string name, const char* json, ggEngine::Group* group);
 	GameOverScreen *UIGameOverScreen(ggEngine::Group* group);
 	SimonGroup *AddSimonGroup();
 

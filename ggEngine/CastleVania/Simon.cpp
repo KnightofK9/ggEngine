@@ -10,6 +10,7 @@
 #include "CVMap.h"
 #include "StaticTIleManager.h"
 #include "CVDebugDefine.h"
+#include "CVBlock.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
 	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -800,6 +801,13 @@ void Simon::OnEnemyContact(EnemyBase * enemy, ColliderArg e)
 		this->cvGame->simon->LoseHealth(enemy->GetDamage());
 	}
 #endif //DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
+}
+
+void Simon::SetBlock(Rect rect)
+{
+	this->body->SetWorldRect(rect);
+	this->body->allowWorldBlock = true;
+	this->body->allowWorldBound = true;
 }
 
 void Simon::StartClimbingLadder(bool isLeft, bool isUp)

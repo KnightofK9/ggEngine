@@ -84,9 +84,10 @@ namespace ggEngine{
 		world->AddGroup(gr);
 		return gr;
 	}
-	TileMap * Add::TileMap(const char* jsonChar,ggEngine::Group *group)
+	TileMap * Add::TileMap(std::string tileMapName, const char* jsonChar,ggEngine::Group *group)
 	{
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->game);
+		tileMap->name = tileMapName;
 		tileMap->BuildTileMap(jsonChar);
 		group->AddGroup(tileMap);
 		return tileMap;

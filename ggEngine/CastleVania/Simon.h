@@ -12,6 +12,7 @@ class WeaponManager;
 class TileLadder;
 class WeaponWhip;
 class CVMap;
+class CVBlock;
 
 enum SimonControl {
 	SimonControl_Left = 0, SimonControl_Right, SimonControl_Up, SimonControl_Down,
@@ -96,6 +97,7 @@ public:
 	CVMap* currentMap = nullptr;
 	bool isSwitchingState = false;
 	void OnEnemyContact(EnemyBase* enemy, ColliderArg e);
+	void SetBlock(Rect rec);
 private:
 	const bool enableChangeLadderAnchor = false;
 	const Vector originalAnchor = Vector(0.5, 20 / 25.0);
@@ -119,7 +121,7 @@ private:
 	int stagePoint;
 	bool isSteppingOnLadder = false;
 	TileLadder *steppingTileLadder = nullptr;
-	
+	CVBlock* currentBlock = nullptr;
 	
 	int heartPoint;
 	int pPoint;

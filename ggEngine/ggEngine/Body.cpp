@@ -26,6 +26,7 @@ namespace ggEngine {
 		this->rigidBody = nullptr;
 		this->colliderDirection.resize(4);
 		this->worldRect = this->game->world->GetRect();
+		SetWorldRect(Rect(0, 0, GAME_WIDTH, GAME_HEIGHT));
 		SetPhysicsMode(PhysicsMode_AABBSwept);
 	}
 	Body::~Body()
@@ -318,6 +319,11 @@ namespace ggEngine {
 		if (this->rigidBody != nullptr) {
 			this->rigidBody->height = height;
 		}
+	}
+
+	void Body::SetWorldRect(Rect worldRect)
+	{
+		this->worldRect = worldRect;
 	}
 
 	bool Body::PerformCollisionCheck(Vector currentVelocity, bool isReCheckWithAABB, std::list<GameObject*> *possibleCollidedList)
@@ -664,25 +670,25 @@ namespace ggEngine {
 						acceleration.y = 0;
 					}
 				}
-				this->rigidBody->Translate(Vector(0, GAME_HEIGHT - this->rigidBody->GetDown()));
+				this->rigidBody->Translate(Vector(0, this->worldRect.bottom - this->rigidBody->GetDown()));
 			}
 			if (worldBlocked.up) {
 				if (velocity.y < 0) {
 					if (allowWorldBounciness) velocity.y *= -bounciness;
 				}
-				this->rigidBody->Translate(Vector(0,0 - this->rigidBody->GetUp()));
+				this->rigidBody->Translate(Vector(0, this->worldRect.top - this->rigidBody->GetUp()));
 			}
 			if (worldBlocked.left) {
 				if (velocity.x < 0) {
 					if (allowWorldBounciness) velocity.x *= -bounciness;
 				}
-				this->rigidBody->Translate(Vector(0 - this->rigidBody->GetLeft(), 0));
+				this->rigidBody->Translate(Vector(this->worldRect.left - this->rigidBody->GetLeft(), 0));
 			}
 			if (worldBlocked.right) {
 				if (velocity.x > 0) {
 					if (allowWorldBounciness) velocity.x *= -bounciness;
 				}
-				this->rigidBody->Translate(Vector(GAME_WIDTH - this->rigidBody->GetRight(), 0));
+				this->rigidBody->Translate(Vector(this->worldRect.right - this->rigidBody->GetRight(), 0));
 			}
 			if (this->sprite->events->onWorldBounds != nullptr)
 			{

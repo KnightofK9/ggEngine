@@ -18,10 +18,13 @@ public:
 	void Resume();//Called when the scene is resumed
 	void ShutDown();//Called when start a new scene
 private:
+	void SwitchToMap(CVMap* cvMap);
 	TileMap *tileMap;
 	Simon *simon;
 	ItemManager *itemManager = nullptr;
 	CVMap *cvMap = nullptr;
 	CVMap *cvMap1 = nullptr;
 	CVMap *cvMap2 = nullptr;
+	GameOverScreen *goScreen = nullptr;
+	InfoPanel *infoPanel = nullptr;
 };
