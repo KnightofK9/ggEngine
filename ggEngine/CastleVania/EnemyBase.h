@@ -20,8 +20,10 @@ public:
 	void Kill() override;
 
 	bool canContact = true;
-
+	bool IsInRect(Rect r);
+	double simonMinRespawnDistance;
 protected:
+	virtual void Death();
 	Vector startPosition;
 	virtual void OnSimonContact( ColliderArg e);
 	virtual bool OnCheckingCollide(ColliderArg e);
@@ -35,10 +37,12 @@ protected:
 	void ChangeFacingDirection(bool isLeft);
 	double health = 0.0f;
 	double maxHealth;
+	double currentHealth;
 	double simonDetectRange;
 	bool allowToDetectSimon = false;
 	bool detectX = true;
 	bool detectY = true;
+
 
 	int point;
 	int damage = 0;

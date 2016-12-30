@@ -29,7 +29,7 @@ namespace ggEngine {
 		std::function<void(GameObject*, EventArg)> onDestroy;
 
 
-
+		bool wasInCamera;
 		bool enable;
 	private:
 		Game *game;

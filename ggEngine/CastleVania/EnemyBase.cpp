@@ -4,11 +4,13 @@
 #include "AnimationManager.h"
 #include "CVSpriteAnimation.h"
 #include "CVGame.h"
+#include "EnemyGroup.h"
 #include "TileBrick.h"
 EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame):CVSpriteAnimation(cvGame,image, frameWidth,frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->simon = this->cvGame->simon;
-	simonDetectRange = 50.0f;
+	this->simonDetectRange = 50.0;
+	this->simonMinRespawnDistance = 50.0;
 
 	this->tag = ObjectType_Enemy;
 	cvGame->physics->AttachBodyTo(this);
@@ -47,7 +49,9 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 	this->events->onUpdate = [this](GameObject*) {
 		Update();
 	};
-
+	this->events->onOutOfCamera = [this](GameObject*, EventArg) {
+		if (this - IsAlive()) Kill();
+	};
 	this->SetAlive(false);
 	this->body->SetEnable(false);
 }
@@ -56,6 +60,20 @@ EnemyBase::~EnemyBase()
 {
 }
 
+
+bool EnemyBase::IsInRect(Rect r)
+{
+	Rect o = this->body->GetRect();
+	Rect i;
+	return Rect::intersect(i,o,r);
+}
+
+void EnemyBase::Death()
+{
+	this->cvGame->animationManager->AddEnemyDeathAnimation(this->position.x, this->position.y);
+	Kill();
+	GameObject::SetPosition(this->startPosition, true);
+}
 
 void EnemyBase::OnSimonContact(ColliderArg e)
 {
@@ -71,19 +89,23 @@ void EnemyBase::OnSimonContact(ColliderArg e)
 #endif //DEBUG_ENEMY_NOT_HURT_SIMON_WHEN_CONTACT
 }
 
-void EnemyBase::Active()
-{
-	this->body->velocity = Vector::Zero();
-	this->SetAlive(true);
-	this->body->SetEnable(true);
-}
 
 bool EnemyBase::OnCheckingCollide(ColliderArg e)
 {
 	return false;
 }
+
+void EnemyBase::Active()
+{
+	this->body->velocity = Vector::Zero();
+	this->PlayAnimation("default");
+	this->SetAlive(true);
+	this->body->SetEnable(true);
+	this->currentHealth = maxHealth;
+}
 void EnemyBase::Update()
 {
+	if (!this->IsAlive()) return;
 	if (allowToDetectSimon) {
 		Vector simon = this->cvGame->simon->position;
 		bool isInX = abs(simon.x - this->position.x) < this->simonDetectRange;
@@ -106,12 +128,16 @@ void EnemyBase::SetPosition(Vector position , bool isRefresh)
 {
 	GameObject::SetPosition(position, isRefresh);
 	this->startPosition = position;
+	//g_debug.Log("Setting start position for " + this->name + this->startPosition.ToString());
 }
 void EnemyBase::Kill()
 {
+	this->events->wasInCamera = false;
 	Active();
-	GameObject::SetPosition(this->startPosition);
+	GameObject::SetPosition(this->startPosition,true);
 	GameObject::Kill();
+	auto enemyGroup = dynamic_cast<EnemyGroup*>(this->parentGroup);
+	enemyGroup->AddEnemyToRetriveList(this);
 }
 
 double EnemyBase::GetDamage()
@@ -150,9 +176,9 @@ int EnemyBase::LoseHealth(int health)
 	if (!this->canContact)
 		return 0;
 
-	this->maxHealth -= health;
-	if (this->maxHealth <= 0) {
-		this->Destroy();
+	this->currentHealth -= health;
+	if (this->currentHealth <= 0) {
+		this->Death();
 		return this->GetPoint();
 	}
 
@@ -164,7 +190,6 @@ int EnemyBase::LoseHealth(int health)
 }
 void EnemyBase::Destroy()
 {
-	this->cvGame->animationManager->AddEnemyDeathAnimation(this->position.x, this->position.y);
 	CVSpriteAnimation::Destroy();
 }
 void EnemyBase::ChangeFacingDirection(bool isLeft)

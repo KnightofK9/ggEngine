@@ -98,6 +98,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->cvGame->physics->EnablePhysics(this);
 	this->body->SetPhysicsMode(PhysicsMode_AABBSweptMix);
 	this->body->CreateRectangleRigidBody(14, 25);
+	this->body->allowCheckingWorldDirection.down = false;
 	this->body->syncBounds = false;
 	this->body->rigidBody->SetAnchor(originalAnchor.x, originalAnchor.y - 0.1);
 	this->body->allowGravity = true;

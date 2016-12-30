@@ -26,6 +26,7 @@ namespace ggEngine {
 		this->rigidBody = nullptr;
 		this->colliderDirection.resize(4);
 		this->worldRect = this->game->world->GetRect();
+		this->allowCheckingWorldDirection.down = this->allowCheckingWorldDirection.up = this->allowCheckingWorldDirection.left = this->allowCheckingWorldDirection.right = true;
 		SetWorldRect(Rect(0, 0, GAME_WIDTH, GAME_HEIGHT));
 		SetPhysicsMode(PhysicsMode_AABBSwept);
 	}
@@ -729,16 +730,16 @@ namespace ggEngine {
 			isBlocked = true;
 		}
 		if (isBlocked) return isBlocked;*/
-		if (this->rigidBody->GetLeft() <= this->worldRect.left) {
+		if (this->allowCheckingWorldDirection.left && this->rigidBody->GetLeft() <= this->worldRect.left) {
 			worldBlocked.left = true;
 		}
-		if (this->rigidBody->GetRight() >= this->worldRect.right ) {
+		if (this->allowCheckingWorldDirection.right && this->rigidBody->GetRight() >= this->worldRect.right ) {
 			worldBlocked.right = true;
 		}
-		if (this->rigidBody->GetDown() >= this->worldRect.bottom ) {
+		if (this->allowCheckingWorldDirection.down && this->rigidBody->GetDown() >= this->worldRect.bottom ) {
 			worldBlocked.down = true;
 		}
-		if (this->rigidBody->GetUp() <= this->worldRect.top ) {
+		if (this->allowCheckingWorldDirection.up && this->rigidBody->GetUp() <= this->worldRect.top ) {
 			worldBlocked.up = true;
 		}
 		return worldBlocked.Any();

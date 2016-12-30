@@ -106,6 +106,7 @@ namespace ggEngine {
 		void SetHeight(double height);
 		Vector acceleration;
 		void SetWorldRect(Rect worldRect);
+		Direction allowCheckingWorldDirection;
 	private:
 		bool isReady = false;
 		bool isActive = true;
@@ -134,11 +135,13 @@ namespace ggEngine {
 		double CalculateArea();
 		double PerformCollisionSweptAABB(GameObject *staticGo,Vector currentVelocity);
 		double PerformCollisionAABB(GameObject *staticGo, Vector currentVelocity);
-		void UpdateBounds();
 		Rect worldRect;
 		void CheckCollisionAndUpdateMovement();
 		void PostUpdate();
 		bool isAlive;
 		Vector localPosition;
+
+
+		void UpdateBounds();
 	};
 }
