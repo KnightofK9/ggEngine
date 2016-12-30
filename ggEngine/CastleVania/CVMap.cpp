@@ -365,6 +365,7 @@ void CVMap::StartSwitchingState()
 		point.y -= r.bottom - block->bottom;
 
 	this->simon->ResetState();
+	this->simon->body->allowWorldBound = false;
 	this->simon->PlayAnimation("move");
 	this->simon->body->velocity = Vector::Zero();
 
@@ -379,6 +380,7 @@ void CVMap::StartSwitchingState()
 	this->add->Tween(this->camera->point.x, point.x, 3000)->SetOnFinish([this]() {
 		this->isSwitchingStage = false;
 		this->simon->allowControl = true;
+		this->simon->body->allowWorldBound = true;
 		this->simon->body->immoveable = false;
 		this->door->body->SetEnable(true);
 		this->simon->body->allowGravity = true;

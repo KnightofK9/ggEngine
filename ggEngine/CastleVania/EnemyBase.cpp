@@ -50,7 +50,7 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 		Update();
 	};
 	this->events->onOutOfCamera = [this](GameObject*, EventArg) {
-		if(this-IsAlive()) Kill();
+		if (this - IsAlive()) Kill();
 	};
 	this->SetAlive(false);
 	this->body->SetEnable(false);
