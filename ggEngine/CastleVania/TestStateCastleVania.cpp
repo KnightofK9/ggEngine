@@ -64,10 +64,10 @@ void TestStateCastleVania::Create()
 	this->cvgame->audioManager->level4Music->Play();
 
 	{
-		Json state0("State/TestState.json", true);
+		//Json state0("State/TestState.json", true);
 		Json state("State/level2-tilemap.json", true);
 		Json state2("State/level3-tilemap.json", true);
-		cvMap = this->cvAdd->LoadMap("State", state0.GetCharArray().c_str(), nullptr);
+		//cvMap = this->cvAdd->LoadMap("State", state0.GetCharArray().c_str(), nullptr);
 		cvMap1 = this->cvAdd->LoadMap("level-2",state.GetCharArray().c_str(),  nullptr);
 		cvMap2 = this->cvAdd->LoadMap("level-3", state2.GetCharArray().c_str(), nullptr);
 	}

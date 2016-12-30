@@ -37,7 +37,7 @@ void BatEnemy::RunRight()
 void BatEnemy::Update()
 {
 	EnemyBase::Update();
-	//g_debug.Log("Bat position " + this->position.ToString());
+	g_debug.Log("Bat position " + this->position.ToString());
 	/*if (!this->isMoving) {
 		Vector simon = this->cvGame->simon->position;
 		if (abs(simon.x - this->position.x) < this->simonDetectRange && abs(simon.y - this->position.y) < this->simonDetectRange) {

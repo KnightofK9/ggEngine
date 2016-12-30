@@ -49,7 +49,9 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 	this->events->onUpdate = [this](GameObject*) {
 		Update();
 	};
-
+	//this->events->onOutOfCamera = [this](GameObject*, EventArg) {
+	//	Kill();
+	//};
 	this->SetAlive(false);
 	this->body->SetEnable(false);
 }
@@ -105,6 +107,7 @@ void EnemyBase::Active()
 }
 void EnemyBase::Update()
 {
+	if (!this->IsAlive()) return;
 	if (allowToDetectSimon) {
 		Vector simon = this->cvGame->simon->position;
 		bool isInX = abs(simon.x - this->position.x) < this->simonDetectRange;
@@ -131,6 +134,7 @@ void EnemyBase::SetPosition(Vector position , bool isRefresh)
 }
 void EnemyBase::Kill()
 {
+	this->events->wasInCamera = false;
 	Active();
 	GameObject::SetPosition(this->startPosition);
 	GameObject::Kill();
