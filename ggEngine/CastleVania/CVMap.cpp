@@ -233,7 +233,9 @@ void CVMap::OnOutOfBlock(Rect r)
 		}
 		if (nextBlock != -1) break;
 	}
-	if (nextBlock == -1) {
+	if (nextBlock == -1 
+		//||(!this->simon->isClimbingLadder && this->simon->isGro)
+		) {
 		OnFallOutOfMap();
 		return;
 	}
