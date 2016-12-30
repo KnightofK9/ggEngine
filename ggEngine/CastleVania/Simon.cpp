@@ -448,7 +448,7 @@ void Simon::Attack()
 		return;
 
 	this->isReadyToFireWeapon = false;
-	this->weaponManager->AddWeapon(this, position.x, position.y, isLeft, this->currentMap->projectileGroup);
+	this->weaponManager->AddWeapon(this, position.x, position.y - 8, isLeft, this->currentMap->projectileGroup);
 	this->numberWeaponCanFire--;
 
 

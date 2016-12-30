@@ -123,18 +123,18 @@ void WeaponWhip::SetWhipVersion(int version)
 	switch (this->whipVersion)
 	{
 	case 2:
-		this->body->rigidBody->width = 30;
-		this->body->rigidBody->height = 12;
+		this->body->rigidBody->width = 23;
+		this->body->rigidBody->height = 5;
 		break;
 	case 3:
-		this->body->rigidBody->width = 36;
-		this->body->rigidBody->height = 12;
+		this->body->rigidBody->width = 40;
+		this->body->rigidBody->height = 5;
 		break;
-	default: //version 1
+	default: //version 1 
 		this->whipVersion = 1;
 		this->damage = 0.7f;
-		this->body->rigidBody->width = 30;
-		this->body->rigidBody->height = 12;
+		this->body->rigidBody->width = 23;
+		this->body->rigidBody->height = 8;
 		break;
 	}
 }
@@ -169,7 +169,7 @@ void WeaponWhip::Attack(bool isLeft)
 
 void WeaponWhip::StandAttack(bool isLeft)
 {
-	this->SetAnchor(0.64, 0.9);
+	this->SetAnchor(0.64, 1);
 	this->Attack(isLeft);
 }
 
