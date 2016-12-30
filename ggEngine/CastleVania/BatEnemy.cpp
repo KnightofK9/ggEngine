@@ -12,6 +12,8 @@ BatEnemy::BatEnemy(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cv
 	this->maxHealth = 1;
 	this->damage = 2;
 	this->point = 200;
+
+
 }
 
 BatEnemy::~BatEnemy()

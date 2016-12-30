@@ -49,9 +49,9 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 	this->events->onUpdate = [this](GameObject*) {
 		Update();
 	};
-	//this->events->onOutOfCamera = [this](GameObject*, EventArg) {
-	//	Kill();
-	//};
+	this->events->onOutOfCamera = [this](GameObject*, EventArg) {
+		if(this-IsAlive()) Kill();
+	};
 	this->SetAlive(false);
 	this->body->SetEnable(false);
 }
@@ -73,8 +73,6 @@ void EnemyBase::Death()
 	this->cvGame->animationManager->AddEnemyDeathAnimation(this->position.x, this->position.y);
 	Kill();
 	GameObject::SetPosition(this->startPosition, true);
-	auto enemyGroup = dynamic_cast<EnemyGroup*>(this->parentGroup);
-	enemyGroup->AddEnemyToRetriveList(this);
 }
 
 void EnemyBase::OnSimonContact(ColliderArg e)
@@ -136,8 +134,10 @@ void EnemyBase::Kill()
 {
 	this->events->wasInCamera = false;
 	Active();
-	GameObject::SetPosition(this->startPosition);
+	GameObject::SetPosition(this->startPosition,true);
 	GameObject::Kill();
+	auto enemyGroup = dynamic_cast<EnemyGroup*>(this->parentGroup);
+	enemyGroup->AddEnemyToRetriveList(this);
 }
 
 double EnemyBase::GetDamage()
