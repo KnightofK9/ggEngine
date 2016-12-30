@@ -158,6 +158,8 @@ void CVMap::UpdatePhysics()
 void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * simon)
 {
 
+	this->enemyGroup->LoadSimon(simon);
+
 	this->simon = simon;	
 	this->simon->infoPanel = infoPanel;
 	this->simon->goScreen = goScreen;

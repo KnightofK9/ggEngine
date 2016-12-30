@@ -3,6 +3,7 @@
 CVSpriteAnimation::CVSpriteAnimation(CVGame *cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame) :SpriteAnimation(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
 	this->cvGame = cvGame;
+	CreateAnimation("default", 0, 0, false);
 }
 
 CVSpriteAnimation::~CVSpriteAnimation()

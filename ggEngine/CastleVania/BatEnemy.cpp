@@ -37,6 +37,7 @@ void BatEnemy::RunRight()
 void BatEnemy::Update()
 {
 	EnemyBase::Update();
+	//g_debug.Log("Bat position " + this->position.ToString());
 	/*if (!this->isMoving) {
 		Vector simon = this->cvGame->simon->position;
 		if (abs(simon.x - this->position.x) < this->simonDetectRange && abs(simon.y - this->position.y) < this->simonDetectRange) {
@@ -84,6 +85,7 @@ void BatEnemy::AddTween(bool isLeft)
 	if (isLeft) modifier = -1;
 	moveTo.x = this->position.x + modifier*moveX;
 	this->currentTween = this->cvGame->add->MoveTo(this, moveTo, round(moveX / speed) * DEFAULT_MS_PER_FRAME_FOR_ANIMATION, Easing::easeInQuad, Easing::easeOutQuad)->SetOnFinish([=]() {
+		this->currentTween = nullptr;
 		this->body->immoveable = false;
 		this->body->velocity.x = modifier*speed;
 	})->Start();
