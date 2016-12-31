@@ -79,9 +79,9 @@ void TestStateCastleVania::Create()
 
 	//cvMap = cvMap1;
 
-	//infoPanel->CountDown(infoPanel->GetTime(), [this] {
-	//	simon->Death();
-	//})->Start();
+	infoPanel->CountDown(30, [this] {
+		//simon->Death();
+	})->Start();
 
 
 }
@@ -130,7 +130,7 @@ void TestStateCastleVania::ShutDown()
 void TestStateCastleVania::SwitchToMap(CVMap * cvMap)
 {
 	if (this->cvgame->simon->currentMap != nullptr) this->cvgame->simon->currentMap->DeActive();
-	this->cvgame->animationManager->animationGroup = cvMap->animationGroup;
+	this->cvgame->animationManager->simonGroup = cvMap->simonGroup;
 	cvMap->LoadSimon(infoPanel, goScreen, this->simon);
 	cvMap->Active();
 }

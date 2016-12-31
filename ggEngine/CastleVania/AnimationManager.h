@@ -16,6 +16,6 @@ public:
 	CVSpriteAnimation* AddHitAnimation(double x, double y);
 	CVSprite** AddBreakingWallAnimation(double x, double y);
 
-	Group* animationGroup = nullptr;
+	Group* simonGroup = nullptr;
 private:
 };

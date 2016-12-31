@@ -1,5 +1,6 @@
 #include "Door.h"
 #include "TypeEnum.h"
+#include "AudioManager.h"
 #include "CVGame.h"
 Door::Door(CVGame * cvGame, SpriteInfo * image) : CVSpriteAnimation(cvGame, image, 22, 48, 0, 3)
 {
@@ -19,6 +20,7 @@ Door::~Door()
 void Door::OpenDoor(bool isLeft)
 {
 	SetFacingDirection(isLeft);
+	this->cvGame->audioManager->openDoorSound->Play();
 	this->PlayAnimation("OpenDoor");
 }
 

@@ -1,6 +1,8 @@
 #include "InfoPanel.h"
 #include "CVGame.h"
 #include "Constant.h"
+#include "AudioManager.h"
+
 InfoPanel::InfoPanel(CVGame *cvGame) : ScreenGroup(cvGame)
 {
 	this->cvGame = cvGame;
@@ -53,19 +55,21 @@ void InfoPanel::SetItemImage(SpriteInfo *spriteInfo)
 	this->item->SetImage(spriteInfo);
 }
 
-TimeBasedEventInfo* InfoPanel::CountDown(int timeBegin, std::function<void(void)> onTimeUp)
+TimeBasedEventInfo* InfoPanel::CountDown(int maxTime, std::function<void(void)> onTimeOut)
 {
-	this->onTimeUp = onTimeUp;
-	this->curTime = timeBegin;
-	return this->timeInfo = this->cvGame->add->LoopInfinity(1000, [this] {
-		if (this->curTime <= 0) {
+	this->onTimeUp = onTimeOut;
+	this->maxTime = maxTime;
+	return this->timeInfo = this->cvGame->add->Loop(1000, this->maxTime, [this] {
+		if (this->timeInfo->numberOfLoops <= 0) {
 			this->StopTime();
 			this->onTimeUp();
 		}
-		else {
-			this->SetTime(this->curTime - 1);
-			this->timePoint->SetText(ggEngine::Helper::IntToString(this->curTime, 4));
+
+		if (this->timeInfo->numberOfLoops <= 30
+			&& this->timeInfo->numberOfLoops > 0) {
+			this->cvGame->audioManager->clockTickSound->Play();
 		}
+		this->timePoint->SetText(ggEngine::Helper::IntToString(this->timeInfo->numberOfLoops, 4));
 	});
 }
 
@@ -77,11 +81,11 @@ void InfoPanel::StopTime()
 
 void InfoPanel::StartTime()
 {
-	if (timeInfo != NULL && curTime > 0)
+	if (timeInfo != NULL && maxTime > 0)
 		this->timeInfo->Start();
 }
 
 void InfoPanel::SetTime(const int & time)
 {
-	this->curTime = time;
+	this->maxTime = time;
 }

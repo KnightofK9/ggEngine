@@ -17,12 +17,12 @@ public:
 	void SetStatePoint(const int& state);
 	void SetScore(const int& score);
 	void SetItemImage(SpriteInfo *spriteInfo);
-	TimeBasedEventInfo* CountDown(int timeBegin, std::function<void(void)> onTimeUp);
+	TimeBasedEventInfo* CountDown(int duration, std::function<void(void)> onTimeUp);
 
 	void StopTime();
 	void StartTime();
 	void SetTime(const int& time);
-	int GetTime() { return curTime; }
+	int GetTime() { return maxTime; }
 
 	Text *score = nullptr;
 	Text *scorePoint = nullptr;
@@ -54,7 +54,7 @@ public:
 	Sprite *itemShot = nullptr;
 
 private:
-	int curTime = StateConstant::MAX_TIME_IN_LEVEL_1;
+	int maxTime = StateConstant::MAX_TIME_IN_LEVEL_1;
 	CVGame *cvGame = nullptr;
 	std::function<void(void)> onTimeUp;
 	TimeBasedEventInfo* timeInfo = nullptr;

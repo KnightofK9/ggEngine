@@ -42,7 +42,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		{
 			ColliderArg	o = Physics::CreateOppositeColliderArg(e, this);
 			otherObject->events->onCollide(otherObject, o);
-			this->cvGame->audioManager->contactBreakableBrick->Play();
+			this->cvGame->audioManager->contactBreakableBrickSound->Play();
 			this->cvGame->animationManager->AddBreakingWallAnimation(otherObject->position.x, otherObject->position.y);
 		}
 		break;
