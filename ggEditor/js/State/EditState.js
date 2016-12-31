@@ -984,6 +984,13 @@ var EditState = function (name, game, tileWidth, tileHeight, quadTreeMaxObject, 
                 sprite.extraInfo = {};
                 sprite.extraInfo.dropType = {};
                 sprite.extraInfo.dropType.type = "";
+            }else{
+                switch(type){
+                    case "Boss3":
+                        sprite.extraInfo = {};
+                        sprite.extraInfo.info = 0;
+                        break;
+                }
             }
         }
 

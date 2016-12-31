@@ -345,6 +345,9 @@
     <ClInclude Include="Monkey.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Boss3.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -617,6 +620,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EffectBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

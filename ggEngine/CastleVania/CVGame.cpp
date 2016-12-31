@@ -205,6 +205,10 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		go = this->enemyManager->AddMonkey(x, y, group);
 		SAFE_BREAK
 	}
+	if (type == "Boss3") {
+		go = this->enemyManager->AddBoss3(x, y, group, json["extraInfo"]["info"].GetInt());
+		SAFE_BREAK
+	}
 	SAFE_BREAK_END
 	go->name = type;
 	return go;

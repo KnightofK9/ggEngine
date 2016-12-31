@@ -17,14 +17,3 @@ AxeKnight::~AxeKnight()
 {
 }
 
-void AxeKnight::RunLeft()
-{
-	WalkingEnemyBase::RunLeft();
-	this->PlayAnimation("Move");
-}
-
-void AxeKnight::RunRight()
-{
-	WalkingEnemyBase::RunRight();
-	this->PlayAnimation("Move");
-}

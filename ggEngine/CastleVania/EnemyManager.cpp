@@ -50,7 +50,8 @@ MedusaHead * EnemyManager::AddMedusaHead(double x, double y, Group * group)
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::MEDUSA_HEAD_TEXTURE);
 	MedusaHead *go = new MedusaHead(this->cvGame, inf);
 	go->SetPosition(Vector(x, y));
-	go->Active();
+	go->SetBullet(false);
+	//go->Active();
 	if (group != nullptr) {
 		group->AddDrawObjectToList(go);
 	}
@@ -158,6 +159,18 @@ Monkey * EnemyManager::AddMonkey(double x, double y, Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::MONKEY_TEXTURE);
 	Monkey *go = new Monkey(this->cvGame, inf);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}
+
+Boss3 * EnemyManager::AddBoss3(double x, double y, Group * group,bool isPrimary)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::BOSS_3_TEXTURE);
+	Boss3 *go = new Boss3(this->cvGame, inf, isPrimary);
 	go->SetPosition(Vector(x, y));
 	go->Active();
 	if (group != nullptr) {

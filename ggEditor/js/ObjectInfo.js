@@ -120,6 +120,9 @@ function ObjectInfo(){
         if(isNotNull(hObject._item.extraInfo)){
             if(isNotNull(hObject._item.extraInfo.dropType))
                 createInputField("dropType",hObject._item.extraInfo.dropType.type,true);
+            else{
+                createInputField("info",hObject._item.extraInfo.info,true);
+            }
         }
         that.setShow(true);
     };

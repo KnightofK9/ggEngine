@@ -433,11 +433,15 @@ function Group() {
                 sprite.width = item._item.width;
                 sprite.height = item._item.height;
             }
+            if(isNotNull(item._item.extraInfo)){
+                sprite.extraInfo = item._item.extraInfo;
+            }
             if(Constant.BREAKABLE_DROP_DICT.hasOwnProperty(sprite.type)){
-                sprite.extraInfo.dropType.name = sprite.extraInfo.dropType.type;
+                sprite.extraInfo.dropType.name = item._item.extraInfo.dropType.type;
                 sprite.extraInfo.dropType.x = sprite.x;
                 sprite.extraInfo.dropType.y = sprite.y;
             }
+
             // if(useQuadTree){
             //     if(Constant.ENEMY_DICT.hasOwnProperty(sprite.type) && !my.isPutEnemyToQuadTree ){
             //         sprite.quadTreeId = -1;
