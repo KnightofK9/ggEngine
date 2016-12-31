@@ -15,7 +15,7 @@ void EnemyGroup::Update()
 	CameraActiveGroup::Update();
 	UpdateRetriveEnemy();
 	for (auto go : this->activeGameObjectList) {
-		if (go->events != nullptr && go->events->onUpdate != nullptr) {
+		if (go->IsAlive() && go->events != nullptr && go->events->onUpdate != nullptr) {
 			go->events->onUpdate(go);
 		}
 	}
