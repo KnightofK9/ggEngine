@@ -28,12 +28,14 @@ bool WalkingEnemyBase::OnCheckingCollide(ColliderArg e)
 
 void WalkingEnemyBase::RunLeft()
 {
+	this->PlayAnimation("Move");
 	ChangeFacingDirection(true);
 	this->body->velocity.x = -moveForce;
 }
 
 void WalkingEnemyBase::RunRight()
 {
+	this->PlayAnimation("Move");
 	ChangeFacingDirection(false);
 	this->body->velocity.x = moveForce;
 }

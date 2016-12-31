@@ -166,3 +166,15 @@ Monkey * EnemyManager::AddMonkey(double x, double y, Group * group)
 	}
 	return go;
 }
+
+Boss3 * EnemyManager::AddBoss3(double x, double y, Group * group,bool isPrimary)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::BOSS_3_TEXTURE);
+	Boss3 *go = new Boss3(this->cvGame, inf, isPrimary);
+	go->SetPosition(Vector(x, y));
+	go->Active();
+	if (group != nullptr) {
+		group->AddDrawObjectToList(go);
+	}
+	return go;
+}

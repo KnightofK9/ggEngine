@@ -13,6 +13,7 @@
 #include "Skeleton.h"
 #include "Raven.h"
 #include "Monkey.h"
+#include "Boss3.h"
 using namespace ggEngine;
 class EnemyManager : ManagerBase {
 public:
@@ -31,6 +32,7 @@ public:
 	Skeleton* AddSkeleton(double x, double y, Group* group);
 	Raven* AddRaven(double x, double y, Group* group);
 	Monkey* AddMonkey(double x, double y, Group* group);
+	Boss3* AddBoss3(double x, double y, Group* group, bool isPrimary);
 
 private:
 };

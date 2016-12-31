@@ -5,8 +5,7 @@ public:
 	AxeKnight(CVGame *cvGame, SpriteInfo *spriteInfo);
 	virtual ~AxeKnight();
 
-	void RunLeft();
-	void RunRight();
+
 
 private:
 	//const int damage = 2;
