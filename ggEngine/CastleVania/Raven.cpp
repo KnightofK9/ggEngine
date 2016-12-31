@@ -17,9 +17,17 @@ void Raven::Active()
 	EnemyBase::Active();
 }
 
-void Raven::Update()
+void 
+::Update()
 {
 	EnemyBase::Update();
+}
+void Raven::OnSimonEnterRange(Simon * simon, bool isLeft)
+{
+
+}
+void Raven::CheckAndFly()
+{
 }
 void Raven::AddTween(bool isLeft)
 {

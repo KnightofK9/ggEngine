@@ -8,6 +8,8 @@ public:
 	virtual void Active() override;
 	virtual void Update() override;
 private:
+	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
+	void CheckAndFly();
 	void AddTween(bool isLeft);
 	TweenBase* currentTween = nullptr;
 };
