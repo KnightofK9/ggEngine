@@ -8,4 +8,5 @@ public:
 	virtual void Active() override;
 	virtual void Update() override;
 private:
+	void AddTween(bool isLeft);
 };
