@@ -9,4 +9,5 @@ public:
 	virtual void Update() override;
 private:
 	void AddTween(bool isLeft);
+	TweenBase* currentTween = nullptr;
 };

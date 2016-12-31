@@ -1,5 +1,6 @@
 #include "Raven.h"
-
+#include "CVGame.h"
+#include "Simon.h"
 Raven::Raven(CVGame * cvGame, SpriteInfo * image) : TweenEnemyBase(cvGame,image,16,16,0,4,200)
 {
 	CreateAnimation("idle",0,0,false);
