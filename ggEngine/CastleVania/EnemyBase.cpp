@@ -114,7 +114,7 @@ void EnemyBase::Update()
 		bool isInDetectYRange = this->position.x < simon.x && this->position.x + GetWidth() > simon.x;
 		bool isSimonRight = simon.x > this->position.x;
 		if ((detectX && detectY && isInX && isInY)		
-			|| (detectX && !detectY && isInDetectXRange && isInX )
+			|| (detectX && !detectY && isInDetectXRange && isInX)
 			|| (detectY && !detectX && isInDetectYRange && isInY)
 			){
 			OnSimonEnterRange(this->cvGame->simon, !isSimonRight);
