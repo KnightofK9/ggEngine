@@ -16,9 +16,7 @@ void Raven::Active()
 {
 	EnemyBase::Active();
 }
-
-void 
-::Update()
+void Raven::Update()
 {
 	EnemyBase::Update();
 }
