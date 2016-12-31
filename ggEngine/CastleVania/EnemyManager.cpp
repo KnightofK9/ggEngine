@@ -50,7 +50,8 @@ MedusaHead * EnemyManager::AddMedusaHead(double x, double y, Group * group)
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::MEDUSA_HEAD_TEXTURE);
 	MedusaHead *go = new MedusaHead(this->cvGame, inf);
 	go->SetPosition(Vector(x, y));
-	go->Active();
+	go->SetBullet(false);
+	//go->Active();
 	if (group != nullptr) {
 		group->AddDrawObjectToList(go);
 	}
