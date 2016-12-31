@@ -165,6 +165,7 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	}
 	this->infoPanel = infoPanel;
 	this->simonGroup->AddDrawObjectToList(this->infoPanel);
+	this->simonGroup->AddDrawObjectToList(goScreen);
 	this->simon->body->allowWorldBlock = false;
 	this->simon->body->allowWorldBound = false;
 	this->simon->body->allowWorldBounciness = false;

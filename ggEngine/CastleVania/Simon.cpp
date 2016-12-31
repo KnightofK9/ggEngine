@@ -11,6 +11,8 @@
 #include "StaticTIleManager.h"
 #include "CVDebugDefine.h"
 #include "CVBlock.h"
+#include "EnemyGroup.h"
+
 Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
 	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -61,8 +63,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->CreateAnimation("climbUpIdle", 7, 7, true);
 	this->CreateAnimation("behind", 9, 9, true);
 	this->CreateAnimation("hurt", 10, 10, true);
-	this->CreateAnimation("death", { 11, 11, 11 }, false)->SetOnCompleted([this](Animator*) {
+	this->CreateAnimation("death", { 11, 11, 11, 11, 11, 11, 11, 11, 11 }, false)->SetOnCompleted([this](Animator*) {
 		this->DescreasePPoint(1);
+		this->isDied = false;
 		//this->SetHealth(CharacterConstant::SIMON_MAX_HEALTH);
 	});
 	this->PlayAnimation("climbUp");
@@ -237,8 +240,10 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 
 	this->cvGame->eventManager->EnableKeyBoardInput(this);
 	this->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
-		if (this->health <= 0)
+		if (this->isDied) {
+			this->Death();
 			return;
+		}
 		if (!allowControl) return;
 		if (currentAutoLadderTweenAuto != nullptr) return;
 		if (this->incompleteAnim != "") {
@@ -700,7 +705,7 @@ void Simon::LoseHealth(int health)
 	this->health -= health;
 	if (this->health <= 0) {
 		this->health = 0;
-		this->Death();
+		this->isDied = true;
 	}
 	if (infoPanel != nullptr) {
 		infoPanel->SetPlayerHealth(this->health);
@@ -745,6 +750,8 @@ void Simon::DescreasePPoint(int point)
 	if (this->pPoint < 0) {
 		this->pPoint = 0;
 		this->goScreen->SetEnable(true);
+		this->currentMap->projectileGroup->SetVisible(false);
+		this->currentMap->enemyGroup->SetVisible(false);
 	}
 
 	if (infoPanel != nullptr) this->infoPanel->SetPPoint(this->pPoint);

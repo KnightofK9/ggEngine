@@ -58,18 +58,18 @@ void InfoPanel::SetItemImage(SpriteInfo *spriteInfo)
 TimeBasedEventInfo* InfoPanel::CountDown(int maxTime, std::function<void(void)> onTimeOut)
 {
 	this->onTimeUp = onTimeOut;
-	this->maxTime = maxTime;
+	this->maxTime = maxTime + 1;
 	return this->timeInfo = this->cvGame->add->Loop(1000, this->maxTime, [this] {
-		if (this->timeInfo->numberOfLoops <= 0) {
+		if (this->timeInfo->numberOfLoops <= 1) {
 			this->StopTime();
 			this->onTimeUp();
 		}
 
 		if (this->timeInfo->numberOfLoops <= 30
-			&& this->timeInfo->numberOfLoops > 0) {
+			&& this->timeInfo->numberOfLoops > 1) {
 			this->cvGame->audioManager->clockTickSound->Play();
 		}
-		this->timePoint->SetText(ggEngine::Helper::IntToString(this->timeInfo->numberOfLoops, 4));
+		this->timePoint->SetText(ggEngine::Helper::IntToString(this->timeInfo->numberOfLoops - 1, 4));
 	});
 }
 
@@ -87,5 +87,5 @@ void InfoPanel::StartTime()
 
 void InfoPanel::SetTime(const int & time)
 {
-	this->maxTime = time;
+	this->maxTime = time + 1;
 }

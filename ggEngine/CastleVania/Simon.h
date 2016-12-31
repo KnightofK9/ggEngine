@@ -81,6 +81,7 @@ public:
 
 	bool isClimbingLadder = false;
 	bool canContactWithEnemy;
+	bool isDied = false;
 
 	SimonSubWeaponType subWeapon;
 	WeaponWhip *weaponWhip = nullptr;

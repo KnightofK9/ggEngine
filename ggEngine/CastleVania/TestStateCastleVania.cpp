@@ -79,8 +79,8 @@ void TestStateCastleVania::Create()
 
 	//cvMap = cvMap1;
 
-	infoPanel->CountDown(30, [this] {
-		//simon->Death();
+	infoPanel->CountDown(3, [this] {
+		simon->isDied = true;
 	})->Start();
 
 
