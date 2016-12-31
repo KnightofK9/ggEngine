@@ -32,7 +32,6 @@ CVMap::~CVMap()
 	delete this->quadTreeGroup;
 	delete this->simonGroup;
 	delete this->projectileGroup;
-	delete this->animationGroup;
 	//delete this->cameraActiveGroup;
 	for (auto stage : this->stageList) {
 		delete stage;
@@ -61,10 +60,6 @@ void CVMap::BuildMap(std::string name, const char * jsonChar, int level)
 	
 	this->simonGroup = this->cvAdd->AddSimonGroup(); //The simon group
 	this->simonGroup->SetParentObject(this);
-
-	this->animationGroup = new Group(this->cvGame); // The animation group, where all animation like boss death's fire in
-	this->animationGroup->SetParentObject(this);
-
 	//
 	//Collision logic
 	//
@@ -121,7 +116,6 @@ void CVMap::Update()
 	this->simonGroup->Update();
 	this->projectileGroup->Update();
 	this->simon->Update();
-	this->animationGroup->Update();
 	DebugUpdate();
 	
 }
@@ -132,7 +126,6 @@ void CVMap::Draw()
 	this->enemyGroup->Draw();
 	this->simonGroup->Draw();
 	this->projectileGroup->Draw();
-	this->animationGroup->Draw();
 
 
 	Physics::RenderGroupBodyList(this->quadTreeGroup);
@@ -149,10 +142,8 @@ void CVMap::Draw()
 void CVMap::UpdatePhysics()
 {
 	this->enemyGroup->UpdatePhysics();
-
 	this->projectileGroup->UpdatePhysics();
 	this->simonGroup->UpdatePhysics();
-	this->animationGroup->UpdatePhysics();
 }
 
 void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * simon)

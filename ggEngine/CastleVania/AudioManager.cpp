@@ -52,7 +52,8 @@ void AudioManager::PreloadAll()
 	listSound.push_back(this->pauseSound = new CVAudio(this->cvGame, AudioConstant::PAUSE_SOUND_PATH));
 	listSound.push_back(this->selectSound = new CVAudio(this->cvGame, AudioConstant::SELECT_SOUND_PATH));
 	listSound.push_back(this->usingWhipSound = new CVAudio(this->cvGame, AudioConstant::USING_WHIP_SOUND_PATH));
-	listSound.push_back(this->contactBreakableBrick = new CVAudio(this->cvGame, AudioConstant::BREAKABLE_BRICK_CONTACT_SOUND_PATH));
+	listSound.push_back(this->contactBreakableBrickSound = new CVAudio(this->cvGame, AudioConstant::BREAKABLE_BRICK_CONTACT_SOUND_PATH));
+	listSound.push_back(this->clockTickSound = new CVAudio(this->cvGame, AudioConstant::CLOCK_TICK_SOUND_PATH));
 }
 
 void AudioManager::PauseAllSound()

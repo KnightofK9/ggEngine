@@ -29,8 +29,8 @@ CVSpriteAnimation * AnimationManager::AddEnemyDeathAnimation(double x, double y)
 		anim->Destroy();
 	});
 	anim->SetPosition(Vector(x, y));
-	if (this->animationGroup != nullptr) {
-		animationGroup->AddDrawObjectToList(anim);
+	if (this->simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
 	}
 	anim->PlayAnimation("enemyDeath");
 	return anim;
@@ -44,9 +44,10 @@ CVSpriteAnimation * AnimationManager::AddBossDeathAnimation(double x, double y)
 		anim->Destroy();
 	});
 	anim->SetPosition(Vector(x, y));
-	if (animationGroup != nullptr) {
-		animationGroup->AddDrawObjectToList(anim);
+	if (simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
 	}
+
 	anim->PlayAnimation("bossDeath");
 	return anim;
 }
@@ -59,11 +60,17 @@ CVSpriteAnimation * AnimationManager::AddHitAnimation(double x, double y)
 		anim->Destroy();
 	});
 	anim->SetPosition(Vector(x, y));
-	if (animationGroup != nullptr) {
-		animationGroup->AddDrawObjectToList(anim);
+	if (simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
 	}
 	anim->SetAnchor(0.8, 0.8);
 	anim->PlayAnimation("hit");
+
+	//this->cvGame->physics->EnablePhysics(anim);
+	//anim->body->CreateRectangleRigidBody(anim->GetWidth(), anim->GetHeight());
+	//anim->body->allowGravity = false;
+	//anim->body->SetActive(false);
+
 	return anim;
 }
 
@@ -80,19 +87,21 @@ CVSprite ** AnimationManager::AddBreakingWallAnimation(double x, double y)
 		br->body->SetEnable(false);
 		br->body->allowGravity = true;
 		br->SetPosition(Vector(x, y));
-		this->cvGame->eventManager->EnableCameraEvent(br);
+		br->body->rigidBody->SetAnchor(0.5, 0.5);
+		br->body->SetActive(false);
+		//this->cvGame->eventManager->EnableCameraEvent(br);
 
 		//br->events->onOutOfCamera = [br](GameObject *go, EventArg e){
 		//	br->Destroy();
 		//};
 
-		if (animationGroup != nullptr) {
-			animationGroup->AddDrawObjectToList(br);
+		if (simonGroup != nullptr) {
+			simonGroup->AddDrawObjectToList(br);
 		}
 	}
-	bricks[0]->body->AddForce(1, Vector(1, 2));
-	bricks[1]->body->AddForce(1, Vector(-1, 1.5));
-	bricks[2]->body->AddForce(1, Vector(1, 0.5));
-	bricks[3]->body->AddForce(1, Vector(-1, 0.5));
+	bricks[0]->body->AddForce(12, Vector(1, 2));
+	bricks[1]->body->AddForce(15, Vector(-1, 1.5));
+	bricks[2]->body->AddForce(17, Vector(1, 0.5));
+	bricks[3]->body->AddForce(13, Vector(-1, 0.5));
 	return bricks;
 }

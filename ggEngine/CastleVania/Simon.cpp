@@ -107,11 +107,12 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->events->onCheckingCollide = [this](GameObject *object, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
 		Tag type = otherObject->tag;
+
+		if (e.blockDirection.up) return false;
 		switch (type) {
 		case ObjectType_AI6:
 			return true;
 		case ObjectType_BreakableTileBrick:
-			if (e.blockDirection.up) return false;
 			return true;
 		case ObjectType_LadderDownLeft:
 			//this->ladderState = LadderDownLeft;
@@ -127,7 +128,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		case ObjectType_Static:
 			return true;
 		case ObjectType_LevelTwoBrick:
-			if (e.blockDirection.up) return false;
 			return true;
 		default:
 			return false;
@@ -189,6 +189,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			break;
 
 		default:
+			g_debug.Log("other");
 			break;
 		}
 
@@ -200,6 +201,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 				this->isFalling = false;
 			}
 		}
+
 	};
 	this->events->onOverlap = [this](GameObject *go, ColliderArg e) {
 		GameObject *otherObject = e.colliderObject;
