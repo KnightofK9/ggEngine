@@ -686,20 +686,25 @@ void Simon::CollectScoreFromTimeAndHeart()
 {
 	//Collect score from time
 	int time = infoPanel->GetTime();
-	this->countDownTimeInfo = this->cvGame->add->Loop(10, time + 2, [this] {
-		//Collect score from Heart
-		if (this->countDownTimeInfo->numberOfLoops <= 1) {
-			this->countDownTimeInfo = this->cvGame->add->Loop(300, this->GetHeartPoint() + 1, [this] {
-				this->DecreaseHeartPoint(1);
-				this->IncreaseScore(100);
-				this->cvGame->audioManager->getScoreTimerSound->Play();
-			})->Start();
+	this->countDownTimeInfo = this->cvGame->add->Loop(10, time + 3, [this] {
+		if (this->countDownTimeInfo->numberOfLoops >= 2) {
+			this->infoPanel->SetTime(this->countDownTimeInfo->numberOfLoops - 2);
+			this->IncreaseScore(1);
+			this->cvGame->audioManager->decreaseWeaponPointSound->Play();
 			return;
 		}
 
-		this->infoPanel->SetTime(this->countDownTimeInfo->numberOfLoops - 1);
-		this->IncreaseScore(1);
-		this->cvGame->audioManager->decreaseWeaponPointSound->Play();
+		//Collect score from Heart
+		this->countDownTimeInfo = this->cvGame->add->Loop(100, this->GetHeartPoint() + 3, [this] {
+			if (this->countDownTimeInfo->numberOfLoops > 1) {
+				this->DecreaseHeartPoint(1);
+				this->IncreaseScore(100);
+				this->cvGame->audioManager->getScoreTimerSound->Play();
+				return;
+			}
+			//Load new level
+			this->IncreaseState();
+		})->Start();
 	})->Start();
 }
 
@@ -768,7 +773,9 @@ void Simon::IncreaseScore(int score)
 
 void Simon::IncreaseState()
 {
-	if(infoPanel!=nullptr) this->infoPanel->SetStatePoint(++this->stagePoint);
+	if (infoPanel != nullptr) {
+		this->infoPanel->SetStatePoint(++this->stagePoint);
+	}
 }
 
 void Simon::IncreaseHeartPoint(int point)
