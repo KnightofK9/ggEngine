@@ -11,7 +11,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 {
 	this->tag = ObjectType_Weapon;
 	this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
-	this->SetAnchor(0.65, 0.5);
+	this->SetAnchor(0.64, 0.45);
 	this->SetScale(1, 1);
 	this->SetVisible(false);
 	this->cvGame->physics->EnablePhysics(this);
@@ -81,7 +81,6 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	this->CreateAnimation("3", { 6,7,8,8 }, false)->SetOnCompleted([this](Animator*) {
 		body->SetEnable(false);
 		this->SetVisible(false);
-		//this->timeInfoFlicker->Pause();
 	});
 	this->events->onAnimationCallBack = [this](GameObject*, AnimationArg e) {
 		if ((e.frameIndex + 1) % 3 == 0) {
@@ -106,9 +105,10 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	//	//this->body->SetEnable(false);
 	//	//this->ResetAnimation(e.animationName);
 	//};
-	this->SetWhipVersion(3);
-	this->timeInfoFlicker = this->FlickeringChangeColorAnimationInfinity(5);
 
+	this->timeInfoFlicker = this->FlickeringChangeColorAnimationInfinity(5);
+	this->SetWhipVersion(3);
+	//this->timeInfoFlicker->Start();
 }
 
 
@@ -120,6 +120,9 @@ void WeaponWhip::SetWhipVersion(int version)
 {
 	this->whipVersion = version;
 	this->damage = 1.0f;
+	this->timeInfoFlicker->Pause();
+	this->SetColorTint(255, 255, 255);
+
 	switch (this->whipVersion)
 	{
 	case 2:
@@ -129,10 +132,11 @@ void WeaponWhip::SetWhipVersion(int version)
 	case 3:
 		this->body->rigidBody->width = 40;
 		this->body->rigidBody->height = 5;
+		this->timeInfoFlicker->Resume();
 		break;
 	default: //version 1 
 		this->whipVersion = 1;
-		this->damage = 0.7f;
+		this->damage = 1.0f;
 		this->body->rigidBody->width = 23;
 		this->body->rigidBody->height = 8;
 		break;
@@ -144,6 +148,8 @@ void WeaponWhip::UpgradeWhip()
 	this->whipVersion++;
 	if (this->whipVersion > 3)
 		this->whipVersion = 1;
+
+	SetWhipVersion(this->whipVersion);
 }
 
 void WeaponWhip::Attack(bool isLeft)
@@ -159,8 +165,8 @@ void WeaponWhip::Attack(bool isLeft)
 	}
 	
 	//this->body->SetEnable(true);
-	if (this->whipVersion == 3)
-		this->timeInfoFlicker->Start();
+	//if (this->whipVersion == 3)
+	//	this->timeInfoFlicker->Resume();
 
 	auto anim = this->PlayAnimation(std::to_string(this->whipVersion));
 	this->cvGame->audioManager->usingWhipSound->Play();
@@ -175,7 +181,7 @@ void WeaponWhip::StandAttack(bool isLeft)
 
 void WeaponWhip::ClimbUpAttack(bool isLeft)
 {
-	this->SetAnchor(0.62, 0.9);
+	this->SetAnchor(0.62, 0.98);
 	this->Attack(isLeft);
 }
 

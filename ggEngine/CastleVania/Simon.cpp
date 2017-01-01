@@ -612,6 +612,8 @@ void Simon::Death()
 	this->audioManager->PauseAllMusic();
 	this->audioManager->lifeLoseMusic->Play();
 	this->allowControl = false;
+	this->grounding = SimonGrounding_Brick;
+	this->body->gravity = true; 
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 }
 
@@ -1026,7 +1028,9 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 		//this->shot = 1;
 		//this->SetShot(1);
 		//inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
-		this->Hurt();
+		this->UpgradeWhip();
+		this->weaponWhip->SetWhipVersion(3);
+		//this->weaponWhip->timeInfoFlicker->Resume();
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num2])) {
