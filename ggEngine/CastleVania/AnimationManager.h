@@ -11,6 +11,11 @@ public:
 
 	void PreloadAll();
 
+	CVSpriteAnimation* AddText100(double x, double y);
+	CVSpriteAnimation* AddText400(double x, double y);
+	CVSpriteAnimation* AddText700(double x, double y);
+	CVSpriteAnimation* AddText1000(double x, double y);
+	CVSpriteAnimation* AddText2000(double x, double y);
 	CVSpriteAnimation* AddEnemyDeathAnimation(double x, double y);
 	CVSpriteAnimation* AddBossDeathAnimation(double x, double y);
 	CVSpriteAnimation* AddHitAnimation(double x, double y);

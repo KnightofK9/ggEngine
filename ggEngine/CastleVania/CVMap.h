@@ -43,6 +43,7 @@ public:
 	void OnEnterBossBlock();
 	void Active();
 	void DeActive();
+	void OnLevelCompleted();
 private:
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 	TimeBasedEventInfo* currentTimeOutPressKey = nullptr;

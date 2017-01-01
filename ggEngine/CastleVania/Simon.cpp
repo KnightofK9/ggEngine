@@ -703,12 +703,13 @@ void Simon::CollectScoreFromTimeAndHeart()
 				return;
 			}
 			//Load new level
+			this->currentMap->OnLevelCompleted();
 			this->IncreaseState();
 		})->Start();
 	})->Start();
 }
 
-void Simon::CompleteLevel()
+void Simon::OnLevelCompleted()
 {
 	this->allowControl = false;
 	this->cvGame->audioManager->PauseAllMusic();

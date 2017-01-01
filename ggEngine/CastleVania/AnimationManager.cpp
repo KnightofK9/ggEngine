@@ -18,7 +18,94 @@ void AnimationManager::PreloadAll()
 	this->preload->Texture(TextureConstant::ANIMATION_ENEMY_DEATH_TEXTURE, TextureConstant::ANIMATION_ENEMY_DEATH_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::ANIMATION_HIT_TEXTURE, TextureConstant::ANIMATION_HIT_TEXTURE_PATH);
 	this->preload->Texture(TextureConstant::ANIMATION_BREAKING_WALL_TEXTURE, TextureConstant::ANIMATION_BREAKING_WALL_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::ANIMATION_TEXT_100_TEXTURE, TextureConstant::ANIMATION_TEXT_100_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::ANIMATION_TEXT_400_TEXTURE, TextureConstant::ANIMATION_TEXT_400_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::ANIMATION_TEXT_700_TEXTURE, TextureConstant::ANIMATION_TEXT_700_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::ANIMATION_TEXT_1000_TEXTURE, TextureConstant::ANIMATION_TEXT_1000_TEXTURE_PATH);
+	this->preload->Texture(TextureConstant::ANIMATION_TEXT_2000_TEXTURE, TextureConstant::ANIMATION_TEXT_2000_TEXTURE_PATH);
 
+}
+
+CVSpriteAnimation * AnimationManager::AddText100(double x, double y)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::ANIMATION_TEXT_100_TEXTURE);
+	CVSpriteAnimation *anim = new CVSpriteAnimation(this->cvGame, inf, 13, 9, 0, 1, 100);
+	anim->CreateAnimation("text100", { 0, 0 , 0 , 0 , 0 }, false)->SetOnCompleted([anim](Animator*) {
+		anim->Destroy();
+	});
+	anim->SetPosition(Vector(x, y));
+	if (this->simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
+	}
+	anim->SetAnchor(-0.8, 0.5);
+	anim->PlayAnimation("text100");
+	return anim;
+}
+
+CVSpriteAnimation * AnimationManager::AddText400(double x, double y)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::ANIMATION_TEXT_400_TEXTURE);
+	CVSpriteAnimation *anim = new CVSpriteAnimation(this->cvGame, inf, 14, 9, 0, 1, 100);
+	anim->CreateAnimation("text400", { 0, 0 , 0 , 0 , 0 }, false)->SetOnCompleted([anim](Animator*) {
+		anim->Destroy();
+	});
+	anim->SetPosition(Vector(x, y));
+	if (this->simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
+	}
+	anim->SetAnchor(-0.8, 0.5);
+	anim->PlayAnimation("text400");
+	return anim;
+}
+
+CVSpriteAnimation * AnimationManager::AddText700(double x, double y)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::ANIMATION_TEXT_700_TEXTURE);
+	CVSpriteAnimation *anim = new CVSpriteAnimation(this->cvGame, inf, 14, 8, 0, 1, 100);
+	anim->CreateAnimation("text700", { 0, 0 , 0 , 0 , 0 }, false)->SetOnCompleted([anim](Animator*) {
+		anim->Destroy();
+	});
+	anim->SetPosition(Vector(x, y));
+	if (this->simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
+	}
+	anim->SetAnchor(-0.8, 0.5);
+	anim->PlayAnimation("text700");
+	return anim;
+}
+
+CVSpriteAnimation * AnimationManager::AddText1000(double x, double y)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::ANIMATION_TEXT_1000_TEXTURE);
+	CVSpriteAnimation *anim = new CVSpriteAnimation(this->cvGame, inf, 17, 9, 0, 1, 100);
+	anim->CreateAnimation("text1000", { 0, 0 , 0 , 0 , 0 }, false)->SetOnCompleted([anim](Animator*) {
+		anim->Destroy();
+	});
+	anim->SetPosition(Vector(x, y));
+	if (this->simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
+	}
+	anim->SetAnchor(-0.8, 0.5);
+	anim->PlayAnimation("text1000");
+	anim->FlickeringChangeColorAnimationInfinity(500)->Start();
+	return anim;
+}
+
+CVSpriteAnimation * AnimationManager::AddText2000(double x, double y)
+{
+	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::ANIMATION_TEXT_2000_TEXTURE);
+	CVSpriteAnimation *anim = new CVSpriteAnimation(this->cvGame, inf, 18, 9, 0, 1, 100);
+	anim->CreateAnimation("text2000", { 0, 0 , 0 , 0 , 0 }, false)->SetOnCompleted([anim](Animator*) {
+		anim->Destroy();
+	});
+	anim->SetPosition(Vector(x, y));
+	if (this->simonGroup != nullptr) {
+		simonGroup->AddDrawObjectToList(anim);
+	}
+	anim->SetAnchor(-0.8, 0.5);
+	anim->PlayAnimation("text2000");
+	anim->FlickeringChangeColorAnimationInfinity(500)->Start();
+	return anim;
 }
 
 CVSpriteAnimation * AnimationManager::AddEnemyDeathAnimation(double x, double y)

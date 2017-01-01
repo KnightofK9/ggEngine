@@ -14,6 +14,6 @@ Stuff::~Stuff()
 
 void Stuff::OnSimonContact(Simon * simon, ColliderArg e)
 {
-	simon->CompleteLevel();
+	simon->OnLevelCompleted();
 	Destroy();
 }

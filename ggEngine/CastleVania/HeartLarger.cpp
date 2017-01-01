@@ -1,6 +1,7 @@
 #include "HeartLarger.h"
 #include "Simon.h"
 #include "AudioManager.h"
+#include "AnimationManager.h"
 
 HeartLarger::HeartLarger(CVGame * cvgame, SpriteInfo * image) : ItemBase(cvgame, image)
 {

@@ -65,7 +65,7 @@ public:
 	void ClimbAttack();
 	void ResetState();
 	void CollectScoreFromTimeAndHeart();
-	void CompleteLevel();
+	void OnLevelCompleted();
 
 
 	void JumpLeft();

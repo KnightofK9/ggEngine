@@ -11,5 +11,6 @@ public:
 
 	void OnSimonContact(Simon *simon, ColliderArg e) override;
 private:
+	const int money = 2000;
 };
 

@@ -243,4 +243,20 @@ public:
 
 	static constexpr const char* ANIMATION_BREAKING_WALL_TEXTURE = "BreakingWall";
 	static constexpr const char* ANIMATION_BREAKING_WALL_TEXTURE_PATH = "Resource/Resources/BreakingWall.png";
+
+	static constexpr const char* ANIMATION_TEXT_100_TEXTURE = "text100";
+	static constexpr const char* ANIMATION_TEXT_100_TEXTURE_PATH = "Resource/Resources/text100.png";
+
+	static constexpr const char* ANIMATION_TEXT_400_TEXTURE = "text400";
+	static constexpr const char* ANIMATION_TEXT_400_TEXTURE_PATH = "Resource/Resources/text400.png";
+
+	static constexpr const char* ANIMATION_TEXT_700_TEXTURE = "text700";
+	static constexpr const char* ANIMATION_TEXT_700_TEXTURE_PATH = "Resource/Resources/text700.png";
+
+	static constexpr const char* ANIMATION_TEXT_1000_TEXTURE = "text1000";
+	static constexpr const char* ANIMATION_TEXT_1000_TEXTURE_PATH = "Resource/Resources/text1000.png";
+
+	static constexpr const char* ANIMATION_TEXT_2000_TEXTURE = "text2000";
+	static constexpr const char* ANIMATION_TEXT_2000_TEXTURE_PATH = "Resource/Resources/text2000.png";
+
 };

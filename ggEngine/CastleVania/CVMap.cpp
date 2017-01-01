@@ -416,6 +416,11 @@ void CVMap::DeActive()
 	this->cvGame->world->RemoveGroup(this);
 }
 
+void CVMap::OnLevelCompleted()
+{
+	g_debug.Log("Level is completed!");
+}
+
 void CVMap::SetSimonPositionOnChangeBlock()
 {
 	if (this->simon->isLeft) {

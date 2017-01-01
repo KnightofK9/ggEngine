@@ -90,7 +90,7 @@ void Medusa::Active()
 void Medusa::Kill()
 {
 	this->cvGame->animationManager->AddBossDeathAnimation(this->position.x, this->position.y);
-	this->cvGame->itemManager->AddStuff(GAME_WIDTH/2, GAME_HEIGHT/2, this->cvGame->simon->currentMap->enemyGroup);
+	//this->cvGame->itemManager->AddStuff(GAME_WIDTH/2, GAME_HEIGHT/2, this->cvGame->simon->currentMap->enemyGroup);
 	Destroy();
 }
 
