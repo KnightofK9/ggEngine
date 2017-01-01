@@ -19,8 +19,8 @@ public:
 	void SetItemImage(SpriteInfo *spriteInfo);
 	TimeBasedEventInfo* CountDown(int duration, std::function<void(void)> onTimeUp);
 
-	void StopTime();
-	void StartTime();
+	void StopCountDownTime();
+	void StartCountDownTime();
 	void SetTime(const int& time);
 	int GetTime() { return maxTime; }
 

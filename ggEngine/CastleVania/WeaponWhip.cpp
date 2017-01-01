@@ -27,6 +27,8 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		{
 		case ObjectType_Enemy:
 #ifndef DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
+			if (dynamic_cast<AI7*>(otherObject) != nullptr)
+				return;
 			if (otherObject) {
 				EnemyBase *enemyBase = dynamic_cast<EnemyBase*>(otherObject);
 				if (enemyBase->canContact)
@@ -89,22 +91,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		else {
 			body->SetEnable(false);
 		}
-		//g_debug.Log(e.animationName + "-" + std::to_string(e.frameIndex));
 	};
-	//this->cvGame->physics->EnablePhysics(this);
-	//this->body->CreateRectangleRigidBody(50, 50);//
-	//this->body->allowGravity = false;
-	//this->body->allowWorldBound = false;
-	//this->body->rigidBody->SetAnchor(0.5, 0.5);
-	//this->body->SetActive(false);
-
-	//this->cvGame->eventManager->EnableSpriteAnimationEvent(this);
-	//this->events->onAnimationCompleted = [this](GameObject *go, AnimationArg e) {
-	//	//this->Destroy();
-	//	this->SetVisible(false);
-	//	//this->body->SetEnable(false);
-	//	//this->ResetAnimation(e.animationName);
-	//};
 
 	this->timeInfoFlicker = this->FlickeringChangeColorAnimationInfinity(5);
 	this->SetWhipVersion(3);

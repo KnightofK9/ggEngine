@@ -288,6 +288,7 @@ MoneyBag700 * ItemManager::AddMoneyBag700(double x, double y, ggEngine::Group * 
 	 stuff->SetPosition(x, y);
 	 stuff->PlayAnimation("stuff");
 	 stuff->Active();
+	 stuff->body->allowGravity = true;
 	 //stuff->CheckCollisionToSimon(this->cvGame->simon);
 	 if (group != nullptr) {
 		 stuff->SetParentObject(group);

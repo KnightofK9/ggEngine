@@ -682,6 +682,43 @@ void Simon::ResetState()
 	//this->body->velocity = Vector::Zero();
 }
 
+void Simon::CollectScoreFromTimeAndHeart()
+{
+	//Collect score from time
+	int time = infoPanel->GetTime();
+	this->countDownTimeInfo = this->cvGame->add->Loop(10, time + 2, [this] {
+		//Collect score from Heart
+		if (this->countDownTimeInfo->numberOfLoops <= 1) {
+			this->countDownTimeInfo = this->cvGame->add->Loop(300, this->GetHeartPoint() + 1, [this] {
+				this->DecreaseHeartPoint(1);
+				this->IncreaseScore(100);
+				this->cvGame->audioManager->getScoreTimerSound->Play();
+			})->Start();
+			return;
+		}
+
+		this->infoPanel->SetTime(this->countDownTimeInfo->numberOfLoops - 1);
+		this->IncreaseScore(1);
+		this->cvGame->audioManager->decreaseWeaponPointSound->Play();
+	})->Start();
+}
+
+void Simon::CompleteLevel()
+{
+	this->allowControl = false;
+	this->cvGame->audioManager->PauseAllMusic();
+	this->cvGame->audioManager->PauseAllSound();
+	this->cvGame->audioManager->levelClearMusic->Play();
+
+	this->infoPanel->StopCountDownTime();
+	this->cvGame->simon->body->velocity = { 0, 0 };
+	this->cvGame->simon->PlayAnimation("idle");
+
+	this->cvGame->add->TimeOut(3000, [this] {
+		this->CollectScoreFromTimeAndHeart();
+	})->Start();
+}
+
 void Simon::JumpLeft()
 {
 	if (grounding == SimonGrounding_Brick)
@@ -1025,18 +1062,9 @@ void Simon::CheckKeyWhenDebug(KeyBoardEventArg e)
 
 
 	if (e.isPress(controlKey[SimonControl_Num1])) {
-		//this->shot = 1;
-		//this->SetShot(1);
-		//inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::NONE_TEXTURE);
-		this->UpgradeWhip();
-		this->weaponWhip->SetWhipVersion(3);
-		//this->weaponWhip->timeInfoFlicker->Resume();
 		return;
 	}
 	if (e.isPress(controlKey[SimonControl_Num2])) {
-		//this->shot = 2;
-		//inf = this->cvGame->cache->GetSpriteInfo(TextureConstant::DOUBLESHOT_TEXTURE);
-		//this->SetShot(2);
 		this->UpgradeWhip();
 		this->weaponWhip->SetWhipVersion(1);
 		return;

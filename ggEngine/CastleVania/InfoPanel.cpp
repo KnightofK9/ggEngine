@@ -59,27 +59,28 @@ TimeBasedEventInfo* InfoPanel::CountDown(int maxTime, std::function<void(void)> 
 {
 	this->onTimeUp = onTimeOut;
 	this->maxTime = maxTime + 1;
-	return this->timeInfo = this->cvGame->add->Loop(1000, this->maxTime, [this] {
-		if (this->timeInfo->numberOfLoops <= 1) {
-			this->StopTime();
+	return this->timeInfo = this->cvGame->add->Loop(1000, this->maxTime + 1, [this] {
+		this->maxTime = this->timeInfo->numberOfLoops - 1;
+		if (this->maxTime <= 0) {
+			this->StopCountDownTime();
 			this->onTimeUp();
 		}
 
-		if (this->timeInfo->numberOfLoops <= 30
-			&& this->timeInfo->numberOfLoops > 1) {
+		if (this->maxTime <= 30
+			&& this->maxTime > 0) {
 			this->cvGame->audioManager->clockTickSound->Play();
 		}
-		this->timePoint->SetText(ggEngine::Helper::IntToString(this->timeInfo->numberOfLoops - 1, 4));
+		this->timePoint->SetText(ggEngine::Helper::IntToString(this->maxTime, 4));
 	});
 }
 
-void InfoPanel::StopTime()
+void InfoPanel::StopCountDownTime()
 {
 	if (this->timeInfo != NULL)
 		this->timeInfo->Stop();
 }
 
-void InfoPanel::StartTime()
+void InfoPanel::StartCountDownTime()
 {
 	if (timeInfo != NULL && maxTime > 0)
 		this->timeInfo->Start();
@@ -87,5 +88,6 @@ void InfoPanel::StartTime()
 
 void InfoPanel::SetTime(const int & time)
 {
-	this->maxTime = time + 1;
+	this->maxTime = time;
+	this->timePoint->SetText(ggEngine::Helper::IntToString(this->maxTime, 4));
 }

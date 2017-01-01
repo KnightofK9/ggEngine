@@ -61,7 +61,7 @@ void TestStateCastleVania::Create()
 	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
 	this->simon->AddWhip();
 	this->cvgame->simon = this->simon;
-	this->cvgame->audioManager->level4Music->Play();
+	this->cvgame->audioManager->level4Music->PlayLoop();
 
 	{
 		Json state0("State/TestState.json", true);
@@ -79,7 +79,7 @@ void TestStateCastleVania::Create()
 
 	//cvMap = cvMap1;
 
-	infoPanel->CountDown(30, [this] {
+	infoPanel->CountDown(300, [this] {
 		simon->isDied = true;
 	})->Start();
 

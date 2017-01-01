@@ -140,7 +140,6 @@ GameObject * CVGame::GetObjectInstance(const char * objectJson,Group *group)
 		SAFE_BREAK
 	}
 
-
 	///Contans.js is missing some items in below:
 	if (type == "FireCandle") {
 		std::string dropType = Json::GetCharArrayFromValue(json["extraInfo"]["dropType"]);

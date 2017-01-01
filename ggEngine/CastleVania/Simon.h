@@ -64,6 +64,9 @@ public:
 	void KneelAttack();
 	void ClimbAttack();
 	void ResetState();
+	void CollectScoreFromTimeAndHeart();
+	void CompleteLevel();
+
 
 	void JumpLeft();
 	void JumpRight();
@@ -131,6 +134,7 @@ private:
 	bool isReadyToFireWeapon;
 	bool isAlive;
 	bool isFalling = false;
+	TimeBasedEventInfo *countDownTimeInfo = nullptr;
 
 	SimonGroundingType grounding = SimonGrounding_Brick;	//for jump or for fall down or for hurt
 	SimonGroundingType groundingBefore = SimonGrounding_Brick;
@@ -154,5 +158,6 @@ private:
 	void CheckKeyPressLadderDownRight(KeyBoardEventArg e);
 	void CheckKeyPressLadderUpLeft(KeyBoardEventArg e);
 	void CheckKeyPressLadderUpRight(KeyBoardEventArg e);
+
 
 };

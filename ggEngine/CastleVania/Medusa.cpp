@@ -6,8 +6,11 @@
 #include "ItemManager.h"
 #include "AnimationManager.h"
 #include "MedusaSkill.h"
+#include "EnemyGroup.h"
 #include "CVSpriteAnimation.h"
 #include "TextureConstant.h"
+#include "AudioManager.h"
+
 Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,image,32,32,0,4,200)
 {
 
@@ -84,12 +87,13 @@ void Medusa::Active()
 	this->allowToDetectSimon = true;
 }
 
-void Medusa::Destroy()
+void Medusa::Kill()
 {
 	this->cvGame->animationManager->AddBossDeathAnimation(this->position.x, this->position.y);
-	this->cvGame->itemManager->AddStuff(this->position.x, this->position.y, (Group*)this->cvGame->simon->currentMap->enemyGroup);
-	CVSpriteAnimation::Destroy();
+	this->cvGame->itemManager->AddStuff(GAME_WIDTH/2, GAME_HEIGHT/2, this->cvGame->simon->currentMap->enemyGroup);
+	Destroy();
 }
+
 
 void Medusa::MoveToNextPosition()
 {
@@ -141,6 +145,8 @@ void Medusa::Awake()
 	this->isAwake = true;
 	MoveTo(this->simon->position);
 	this->simon->currentMap->OnEnterBossBlock();
+	this->cvGame->audioManager->PauseAllMusic();
+	this->cvGame->audioManager->bossBattleMusic->PlayLoop();
 }
 
 

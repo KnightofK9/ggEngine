@@ -8,7 +8,8 @@ public:
 
 	void Update() override;
 	void Active() override;
-	void Destroy() override;
+	//void Destroy() override;
+	void Kill() override;
 
 
 private:
