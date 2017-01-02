@@ -36,9 +36,15 @@ void DropObjectBase::DropItem()
 	if (go->body != nullptr) {
 		go->body->PreUpdate();
 	}
-	/*this->game->add->TimeOut(Constant::LIVE_TIME_ITEM, [=]() {
+	if (go->events == nullptr) {
+		go->events = new Events(this->cvGame,go);
+	}
+	auto timeOutEvent = this->game->add->TimeOut(Constant::LIVE_TIME_ITEM, [=]() {
 		go->Destroy();
-	})->Start();*/
+	})->Start();
+	go->events->onDestroy = [=](GameObject*,EventArg) {
+		timeOutEvent->Stop();
+	};
 	//auto itemBase = dynamic_cast<ItemBase*>(go);
 	//itemBase->CheckCollisionToSimon(this->cvGame->simon);
 }
