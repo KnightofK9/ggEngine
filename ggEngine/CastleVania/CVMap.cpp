@@ -426,7 +426,7 @@ void CVMap::Reset()
 void CVMap::OnLevelCompleted()
 {
 	if (this->name == "level-2") {
-		this->cvGame->cvMapManager->StartMap("level-3");
+		this->cvGame->cvMapManager->StartMap("level-3",this->simon);
 	}
 }
 

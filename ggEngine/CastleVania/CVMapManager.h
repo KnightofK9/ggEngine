@@ -11,7 +11,7 @@ public:
 
 	void PreloadAll();
 	CVMap* PreloadMap(std::string mapName, std::string jsonPath, bool isStart = false);
-	CVMap* StartMap(std::string mapName);
+	CVMap* StartMap(std::string mapName, Simon *simon);
 	void LoadUI(GameOverScreen  *goScreen, InfoPanel *infoPanel);
 private:
 	GameOverScreen *goScreen = nullptr;

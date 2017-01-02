@@ -26,9 +26,10 @@ void CVMapManager::PreloadAll()
 	}
 }
 
-CVMap* CVMapManager::StartMap(std::string mapName)
+CVMap* CVMapManager::StartMap(std::string mapName,Simon *simon)
 {
 	 CVMap* cvMap = nullptr;
+	 this->cvGame->simon = simon;
 	 auto it = this->mapDict.find(mapName);
 	 if (it == this->mapDict.end()) {
 		 g_debug.Error("Error, no map found with name " + mapName);
@@ -59,8 +60,8 @@ CVMap* CVMapManager::PreloadMap(std::string mapName, std::string jsonPath, bool 
 	Json state(jsonPath, true);
 	auto cvMap = this->cvGame->cvAdd->LoadMap(mapName, state.GetCharArray().c_str(), nullptr);
 	this->mapDict[mapName] = cvMap;
-	if (isStart) {
-		return StartMap(mapName);
-	}
+	//if (isStart) {
+		//return StartMap(mapName);
+	//}
 	return cvMap;
 }

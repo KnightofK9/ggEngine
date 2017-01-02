@@ -41,6 +41,9 @@ void TestStateCastleVania::Preload() {
 	this->cvgame->enemyManager->PreloadAll();
 	this->cvgame->animationManager->PreloadAll();
 	this->cvgame->audioManager->PreloadAll();
+	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
+	this->simon->AddWhip();
+	this->cvgame->simon = this->simon;
 	this->cvMapManager->PreloadAll();
 }
 void TestStateCastleVania::Create()
@@ -61,9 +64,7 @@ void TestStateCastleVania::Create()
 	infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);	
 
 
-	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
-	this->simon->AddWhip();
-	this->cvgame->simon = this->simon;
+
 	this->cvgame->audioManager->level4Music->PlayLoop();
 
 	
@@ -76,7 +77,7 @@ void TestStateCastleVania::Create()
 		cvMap2 = this->cvAdd->LoadMap("level-3", state2.GetCharArray().c_str(), nullptr);
 	}*/
 	this->cvMapManager->LoadUI(goScreen, infoPanel);
-	this->cvMapManager->StartMap("level-2");
+	this->cvMapManager->StartMap("level-2",simon);
 	//SwitchToMap(cvMap);
 	//SwitchToMap(cvMap2);
 
@@ -95,16 +96,16 @@ void TestStateCastleVania::Update()
 	SAFE_BREAK_BEGIN
 	auto input = this->cvgame->GetInput();
 	if (input->KeyDown(DIK_F5)) {
-		this->cvMapManager->StartMap("level-2");
+		this->cvMapManager->StartMap("level-2",this->simon);
 		SAFE_BREAK
 	}
 	if (input->KeyDown(DIK_F6)) {
-		this->cvMapManager->StartMap("level-3");
+		this->cvMapManager->StartMap("level-3",this->simon);
 		SAFE_BREAK
 	}
 
 	if (input->KeyDown(DIK_F7)) {
-		this->cvMapManager->StartMap("test-stage");
+		this->cvMapManager->StartMap("test-stage", this->simon);
 		SAFE_BREAK
 	}
 	SAFE_BREAK_END
