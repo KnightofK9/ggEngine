@@ -10,9 +10,10 @@ public:
 	void Active() override;
 	//void Destroy() override;
 	void Kill() override;
-
+	int LoseHealth(int health) override;
 
 private:
+	TimeBasedEventInfo *awakingTimeOut;
 	void MoveToNextPosition();
 	void MoveTo(Vector position);
 	bool isMoving;

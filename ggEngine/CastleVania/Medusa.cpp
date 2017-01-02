@@ -35,8 +35,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 
 	this->allowToDetectSimon = false;
 	this->body->SetEnable(false);
-
-	this->tag = ObjectType_Boss;
+	this->awakingTimeOut = nullptr;
 
 }
 
@@ -80,6 +79,10 @@ void Medusa::Update()
 void Medusa::Active()
 {
 	ShootingEnemyBase::Active();
+	if (this->awakingTimeOut != nullptr) {
+		this->awakingTimeOut->Stop();
+		this->awakingTimeOut = nullptr;
+	}
 	this->body->SetEnable(true);
 	this->SetVisible(false);
 	this->SetAlive(true);
@@ -93,6 +96,20 @@ void Medusa::Kill()
 	this->cvGame->animationManager->AddBossDeathAnimation(this->position.x, this->position.y);
 	//this->cvGame->itemManager->AddStuff(GAME_WIDTH/2, GAME_HEIGHT/2, this->cvGame->simon->currentMap->enemyGroup);
 	ShootingEnemyBase::Kill();
+}
+
+int Medusa::LoseHealth(int health)
+{
+	if (this->awakingTimeOut == nullptr && !this->isAwake) {
+		this->awakingTimeOut = this->cvGame->add->TimeOut(this->timeOutToAwake, [=]() {
+			Awake();
+			this->awakingTimeOut = nullptr;
+		})->Start();
+	}
+	if (!this->isAwake) {
+		return 0;
+	}
+	return ShootingEnemyBase::LoseHealth(health);
 }
 
 
