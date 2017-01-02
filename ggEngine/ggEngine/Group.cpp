@@ -113,11 +113,19 @@ namespace ggEngine{
 	}
 	void Group::Reset(){
 
-		for (std::list<GameObject*>::const_iterator it = drawList.begin(); it != drawList.end(); it++)
+		auto cloneGroup = std::list<Group*>(this->groupList);
+		for (auto it = cloneGroup.begin(); it != cloneGroup.end(); ++it)
+		{
+			delete *it;
+		}
+		groupList.clear();
+		auto cloneGame = std::list<GameObject*>(this->drawList);
+		for (auto it = cloneGame.begin(); it != cloneGame.end(); ++it)
 		{
 			delete *it;
 		}
 		drawList.clear();
+		bodyList.clear();
 	}
 
 

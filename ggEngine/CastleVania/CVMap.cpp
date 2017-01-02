@@ -134,7 +134,7 @@ void CVMap::Draw()
 	Physics::RenderGroupBodyList(this->projectileGroup);
 	Physics::RenderGroupBodyList(this->simonGroup);
 
-
+	//g_debug.Log("Number of projectile " + std::to_string( this->projectileGroup->GetDrawList().size()));
 	CheckIfSimonOutOfBlock();
 }
 
@@ -150,6 +150,7 @@ void CVMap::UpdatePhysics()
 void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * simon)
 {
 
+	infoPanel->Reset();
 	this->enemyGroup->LoadSimon(simon);
 
 	this->simon = simon;	
@@ -171,6 +172,11 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->simon->body->allowWorldBound = false;
 	this->simon->body->allowWorldBounciness = false;
 	SetStage(0, 0, true);
+}
+
+void CVMap::OnSimonDeath()
+{
+
 }
 
 void CVMap::SetStage(int stageNumber, int blockNumber,bool isRestartState)
@@ -406,10 +412,11 @@ void CVMap::StartSwitchingState()
 	})->Start();
 }
 
-void CVMap::OnEnterBossBlock()
+void CVMap::OnEnterBossBlock(EnemyBase *enemy)
 {
 	this->cvGame->camera->UnFollow();
 	this->simon->SetBlock(this->cvGame->camera->GetNormalRect());
+	this->infoPanel->SetEnemy(enemy);
 }
 
 void CVMap::Active()
@@ -426,6 +433,8 @@ void CVMap::Reset()
 {
 	this->currentBlock->Reset();
 	this->enemyGroup->ResetRetriveList();
+	this->projectileGroup->Reset();
+	this->simonGroup->Reset();
 }
 
 void CVMap::OnLevelCompleted()

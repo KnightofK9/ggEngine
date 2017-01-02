@@ -22,6 +22,7 @@ public:
 	bool canContact = true;
 	bool IsInRect(Rect r);
 	double simonMinRespawnDistance;
+	int GetHealth();
 protected:
 	virtual void Death();
 	Vector startPosition;
@@ -46,5 +47,5 @@ protected:
 
 	int point;
 	int damage = 0;
-	const Simon* simon;
+	Simon* simon;
 };

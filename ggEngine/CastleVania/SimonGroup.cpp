@@ -16,3 +16,8 @@ void SimonGroup::CheckCollisionTo(std::list<GameObject*> staticGoList)
 	//	}
 	//}
 }
+
+void SimonGroup::Reset()
+{
+	this->drawList.clear();
+}

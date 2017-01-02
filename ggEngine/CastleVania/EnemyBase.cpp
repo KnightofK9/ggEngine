@@ -68,6 +68,11 @@ bool EnemyBase::IsInRect(Rect r)
 	return Rect::intersect(i,o,r);
 }
 
+int EnemyBase::GetHealth()
+{
+	return this->currentHealth;
+}
+
 void EnemyBase::Death()
 {
 	this->cvGame->animationManager->AddEnemyDeathAnimation(this->position.x, this->position.y);

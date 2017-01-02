@@ -8,5 +8,6 @@ public:
 	~SimonGroup();
 
 	void CheckCollisionTo(std::list<GameObject*> staticGoList);
+	void Reset() override;
 private:
 };

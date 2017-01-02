@@ -4,6 +4,7 @@
 #include "StateConstant.h"
 
 class CVGame;
+class EnemyBase;
 using namespace ggEngine;
 class InfoPanel : public ScreenGroup {
 public:
@@ -23,7 +24,8 @@ public:
 	void StartCountDownTime();
 	void SetTime(const int& time);
 	int GetTime() { return maxTime; }
-
+	void SetEnemy(EnemyBase *enemyBase);
+	void Reset();
 	Text *score = nullptr;
 	Text *scorePoint = nullptr;
 
@@ -54,6 +56,7 @@ public:
 	Sprite *itemShot = nullptr;
 
 private:
+	EnemyBase* enemyBase = nullptr;
 	int maxTime = StateConstant::MAX_TIME_IN_LEVEL_1;
 	CVGame *cvGame = nullptr;
 	std::function<void(void)> onTimeUp;

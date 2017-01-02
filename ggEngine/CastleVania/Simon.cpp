@@ -66,6 +66,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->CreateAnimation("death", { 11, 11, 11, 11, 11, 11, 11, 11, 11 }, false)->SetOnCompleted([this](Animator*) {
 		this->DescreasePPoint(1);
 		this->isDied = false;
+
+		this->currentMap->OnSimonDeath();
 		//this->SetHealth(CharacterConstant::SIMON_MAX_HEALTH);
 	});
 	this->PlayAnimation("climbUp");

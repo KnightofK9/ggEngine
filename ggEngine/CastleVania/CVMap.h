@@ -31,6 +31,7 @@ public:
 	Group* projectileGroup;
 	Simon* simon;
 	EnemyGroup *enemyGroup;
+	void OnSimonDeath();
 	void SetStage(int stageNumber, int blockNumber = 0, bool isRestartState = false);
 	void SetBlock(int blockNumber, bool isRestartState = false);
 	void OnOutOfBlock(Rect r = Rect(-1,-1,-1,-1));
@@ -40,7 +41,7 @@ public:
 	void OnFallOutOfMap();
 	void OnEnterDoor(Door *door);
 	CVBlock* GetCurrentBlock() { return this->currentBlock; }
-	void OnEnterBossBlock();
+	void OnEnterBossBlock(EnemyBase *enemy);
 	void Active();
 	void DeActive();
 	void Reset();
