@@ -35,7 +35,12 @@ CVMap* CVMapManager::StartMap(std::string mapName)
 		 return cvMap;
 	 }
 	 cvMap = (*it).second;
-	 if (this->cvGame->simon->currentMap != nullptr) this->cvGame->simon->currentMap->DeActive();
+	 auto oldMap = this->cvGame->simon->currentMap;
+
+	 if (oldMap != nullptr) {
+		 oldMap->Reset();
+		 oldMap->DeActive();
+	 }
 	 this->cvGame->animationManager->simonGroup = cvMap->simonGroup;
 	 cvMap->LoadSimon(this->infoPanel, this->goScreen, this->cvGame->simon);
 	 cvMap->Active();

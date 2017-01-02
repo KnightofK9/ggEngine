@@ -417,6 +417,12 @@ void CVMap::DeActive()
 	this->cvGame->world->RemoveGroup(this);
 }
 
+void CVMap::Reset()
+{
+	this->currentBlock->Reset();
+	this->enemyGroup->ResetRetriveList();
+}
+
 void CVMap::OnLevelCompleted()
 {
 	if (this->name == "level-2") {
