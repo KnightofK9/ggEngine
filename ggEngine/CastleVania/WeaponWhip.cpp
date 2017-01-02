@@ -27,14 +27,16 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 		{
 		case ObjectType_Enemy:
 #ifndef DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
-			if (dynamic_cast<AI7*>(otherObject) != nullptr)
-				return;
+			//if (dynamic_cast<AI7*>(otherObject) != nullptr)
+			//	return;
 			if (otherObject) {
 				EnemyBase *enemyBase = dynamic_cast<EnemyBase*>(otherObject);
-				if (enemyBase->canContact)
-					this->cvGame->animationManager->AddHitAnimation(otherObject->GetPosition().x, otherObject->GetPosition().y);
-				enemyBase->LoseHealth(this->damage);
-				this->cvGame->audioManager->onContactSound->Play();
+				if (enemyBase->canContact) {
+					if (enemyBase->LoseHealth(this->damage) != 0) {
+						this->cvGame->animationManager->AddHitAnimation(otherObject->GetPosition().x, otherObject->GetPosition().y);
+						this->cvGame->audioManager->onContactSound->Play();
+					}
+				}
 			}
 #endif // DEBUG_WHIP_NOT_HURT_ENEMY_WHEN_CONTACT
 

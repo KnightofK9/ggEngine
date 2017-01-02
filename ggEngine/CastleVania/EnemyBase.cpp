@@ -179,14 +179,14 @@ int EnemyBase::LoseHealth(int health)
 	this->currentHealth -= health;
 	if (this->currentHealth <= 0) {
 		this->Death();
-		return this->GetPoint();
+		return health;
 	}
 
 	this->canContact = false;
 	this->cvGame->add->TimeOut(300, [this] {
 		this->canContact = true;
 	})->Start();
-	return 0;
+	return health;
 }
 void EnemyBase::Destroy()
 {

@@ -16,6 +16,8 @@ TestStateCastleVania::~TestStateCastleVania()
 void TestStateCastleVania::Init() {
 
 	this->itemManager = this->cvgame->itemManager;
+	this->cvgame->camera->SetScale(3, 3);
+	this->cvgame->camera->SetPoint(0, 65);
 }
 void TestStateCastleVania::Preload() {
 	//Json jsonFile("State/TestState.json", true);
@@ -48,8 +50,6 @@ void TestStateCastleVania::Preload() {
 }
 void TestStateCastleVania::Create()
 {
-	this->cvgame->camera->SetScale(3, 3);
-	this->cvgame->camera->SetPoint(0, 65);
 
 	Group* group = this->add->Group();
 	group->name = "StupidGroup";

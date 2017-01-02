@@ -44,6 +44,7 @@ CVMap* CVMapManager::StartMap(std::string mapName,Simon *simon)
 	 }
 	 this->cvGame->animationManager->simonGroup = cvMap->simonGroup;
 	 cvMap->LoadSimon(this->infoPanel, this->goScreen, this->cvGame->simon);
+	 this->cvGame->camera->SetPoint(this->cvGame->simon->position);
 	 cvMap->Active();
 	 return cvMap;
 
