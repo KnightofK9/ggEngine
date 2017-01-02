@@ -351,6 +351,9 @@
     <ClInclude Include="CVMapManager.h">
       <Filter>Header Files\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Boss3Skill.h">
+      <Filter>Header Files\Enemy\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CastleVania.rc">
@@ -629,6 +632,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CVMapManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss3Skill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
