@@ -163,8 +163,10 @@
     <ClInclude Include="BatEnemy.h" />
     <ClInclude Include="BonePillar.h" />
     <ClInclude Include="Boss3.h" />
+    <ClInclude Include="Boss3Skill.h" />
     <ClInclude Include="Chest.h" />
     <ClInclude Include="CVDebugDefine.h" />
+    <ClInclude Include="CVMapManager.h" />
     <ClInclude Include="DropObjectBase.h" />
     <ClInclude Include="EffectBase.h" />
     <ClInclude Include="EnemySkillBase.h" />
@@ -267,7 +269,9 @@
     <ClCompile Include="BatEnemy.cpp" />
     <ClCompile Include="BonePillar.cpp" />
     <ClCompile Include="Boss3.cpp" />
+    <ClCompile Include="Boss3Skill.cpp" />
     <ClCompile Include="Chest.cpp" />
+    <ClCompile Include="CVMapManager.cpp" />
     <ClCompile Include="DropObjectBase.cpp" />
     <ClCompile Include="EffectBase.cpp" />
     <ClCompile Include="EnemySkillBase.cpp" />

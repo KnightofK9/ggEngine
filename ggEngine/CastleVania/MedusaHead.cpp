@@ -16,6 +16,7 @@ MedusaHead::MedusaHead(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBas
 	this->damage = 2;
 	this->point = 300;
 	this->fireTimer = 2000;
+	this->simonDetectRange = GAME_WIDTH / (2.0*this->cvGame->camera->GetScale().x);
 	this->body->SetEnable(false);
 	this->body->SetActive(true);
 	SetBullet(false);

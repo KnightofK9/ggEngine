@@ -16,6 +16,7 @@ AI7::AI7(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, spri
 	this->isRunning = true;
 
 	this->events->onOutOfCamera = nullptr;
+	this->canContact = false;
 	//this->tag = ObjectType_AI7;
 }
 

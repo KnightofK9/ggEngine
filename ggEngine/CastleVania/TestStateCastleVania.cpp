@@ -4,8 +4,10 @@
 #include "EnemyManager.h"
 #include "AnimationManager.h"
 #include "CVDebugDefine.h"
+#include "CVMapManager.h"
 TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
+	this->cvMapManager = this->cvgame->cvMapManager;
 }
 TestStateCastleVania::~TestStateCastleVania()
 {
@@ -14,6 +16,8 @@ TestStateCastleVania::~TestStateCastleVania()
 void TestStateCastleVania::Init() {
 
 	this->itemManager = this->cvgame->itemManager;
+	this->cvgame->camera->SetScale(3, 3);
+	this->cvgame->camera->SetPoint(0, 65);
 }
 void TestStateCastleVania::Preload() {
 	//Json jsonFile("State/TestState.json", true);
@@ -39,18 +43,14 @@ void TestStateCastleVania::Preload() {
 	this->cvgame->enemyManager->PreloadAll();
 	this->cvgame->animationManager->PreloadAll();
 	this->cvgame->audioManager->PreloadAll();
+	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
+	this->simon->AddWhip();
+	this->cvgame->simon = this->simon;
+	this->cvMapManager->PreloadAll();
 }
 void TestStateCastleVania::Create()
 {
-	//this->cvgame->camera->SetWidth(256);
-	//this->cvgame->camera->SetHeight(176);
-	this->cvgame->camera->SetScale(3, 3);
-	this->cvgame->camera->SetPoint(0, 65);
 
-	//std::string tileMapJson = "";
-	
-	/*tileMap = this->add->TileMap(tileMapJson.c_str(),this->game->world);
-	tileMap->name = "StupidTileMap";*/
 	Group* group = this->add->Group();
 	group->name = "StupidGroup";
 
@@ -58,26 +58,11 @@ void TestStateCastleVania::Create()
 	infoPanel = this->cvAdd->UIInfoPanel(goScreen, group);	
 
 
-	this->simon = this->cvAdd->CharSimon(0, 0, 12, nullptr, nullptr, nullptr);
-	this->simon->AddWhip();
-	this->cvgame->simon = this->simon;
+
 	this->cvgame->audioManager->level4Music->PlayLoop();
 
-	{
-		Json state0("State/TestState.json", true);
-		Json state("State/level2-tilemap.json", true);
-		Json state2("State/level3-tilemap.json", true);
-		cvMap = this->cvAdd->LoadMap("State", state0.GetCharArray().c_str(), nullptr);
-		cvMap1 = this->cvAdd->LoadMap("level-2",state.GetCharArray().c_str(),  nullptr);
-		cvMap2 = this->cvAdd->LoadMap("level-3", state2.GetCharArray().c_str(), nullptr);
-	}
-
-
-	SwitchToMap(cvMap);
-	//SwitchToMap(cvMap2);
-
-
-	//cvMap = cvMap1;
+	this->cvMapManager->LoadUI(goScreen, infoPanel);
+	this->cvMapManager->StartMap("level-2",simon);
 
 	infoPanel->CountDown(300, [this] {
 		simon->isDied = true;
@@ -91,16 +76,16 @@ void TestStateCastleVania::Update()
 	SAFE_BREAK_BEGIN
 	auto input = this->cvgame->GetInput();
 	if (input->KeyDown(DIK_F5)) {
-		SwitchToMap(cvMap1);
+		this->cvMapManager->StartMap("level-2",this->simon);
 		SAFE_BREAK
 	}
 	if (input->KeyDown(DIK_F6)) {
-		SwitchToMap(cvMap2);
+		this->cvMapManager->StartMap("level-3",this->simon);
 		SAFE_BREAK
 	}
 
 	if (input->KeyDown(DIK_F7)) {
-		SwitchToMap(cvMap);
+		this->cvMapManager->StartMap("test-stage", this->simon);
 		SAFE_BREAK
 	}
 	SAFE_BREAK_END

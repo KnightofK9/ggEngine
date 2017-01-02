@@ -12,6 +12,7 @@
 #include "EnemyGroup.h"
 #include "StaticTIleManager.h"
 #include "EnemyManager.h"
+#include "CVMapManager.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
@@ -230,7 +231,7 @@ void CVMap::OnOutOfBlock(Rect r)
 	if (nextBlock == -1 
 		//||(!this->simon->isClimbingLadder && this->simon->isGro)
 		) {
-		OnFallOutOfMap();
+		//OnFallOutOfMap();
 		return;
 	}
 	
@@ -267,6 +268,7 @@ void CVMap::OnNextStage(int stageIndex, int blockIndex)
 
 void CVMap::OnFallOutOfMap()
 {
+	g_debug.Log("Simon fall out of map!");
 }
 
 void CVMap::OnEnterDoor(Door *door)
@@ -328,11 +330,15 @@ void CVMap::DebugUpdate()
 void CVMap::CheckIfSimonOutOfBlock()
 {
 	if (isSwitchingStage) return;
-	if (!simon->isClimbingLadder) return;
+	//if (!simon->isClimbingLadder) return;
+	if (this->currentBlock == nullptr) return;
 	Rect r = simon->body->GetRect();
 	Rect i;
 	if (!Rect::intersect(i, r, (*currentBlock))) {
-		OnOutOfBlock();
+		if (this->simon->GetBottom() > this->currentBlock->bottom) {
+			OnFallOutOfMap();
+		}
+		else OnOutOfBlock();
 	}
 
 }
@@ -416,9 +422,17 @@ void CVMap::DeActive()
 	this->cvGame->world->RemoveGroup(this);
 }
 
+void CVMap::Reset()
+{
+	this->currentBlock->Reset();
+	this->enemyGroup->ResetRetriveList();
+}
+
 void CVMap::OnLevelCompleted()
 {
-	g_debug.Log("Level is completed!");
+	if (this->name == "level-2") {
+		this->cvGame->cvMapManager->StartMap("level-3",this->simon);
+	}
 }
 
 void CVMap::SetSimonPositionOnChangeBlock()

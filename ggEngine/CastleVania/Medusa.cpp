@@ -27,14 +27,15 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	this->body->SetActive(false);
 	this->CreateAnimation("move", 0, 3, true);
 	this->fireInterval = 1000;
-	this->simonDetectRange = 500;
+	this->simonDetectRange = 100;
 	moveY = 30;
 	moveX = 0.05;
 	moveSpeed = 1;
 	this->isAwake = false;
 
-
+	this->allowToDetectSimon = false;
 	this->body->SetEnable(false);
+	this->awakingTimeOut = nullptr;
 
 }
 
@@ -78,20 +79,37 @@ void Medusa::Update()
 void Medusa::Active()
 {
 	ShootingEnemyBase::Active();
-	this->body->SetEnable(false);
+	if (this->awakingTimeOut != nullptr) {
+		this->awakingTimeOut->Stop();
+		this->awakingTimeOut = nullptr;
+	}
+	this->body->SetEnable(true);
 	this->SetVisible(false);
 	this->SetAlive(true);
 	this->isMoving = false;
 	this->isAwake = false;
 	this->isPausingMoving = false;
-	this->allowToDetectSimon = true;
 }
 
 void Medusa::Kill()
 {
 	this->cvGame->animationManager->AddBossDeathAnimation(this->position.x, this->position.y);
 	//this->cvGame->itemManager->AddStuff(GAME_WIDTH/2, GAME_HEIGHT/2, this->cvGame->simon->currentMap->enemyGroup);
-	Destroy();
+	ShootingEnemyBase::Kill();
+}
+
+int Medusa::LoseHealth(int health)
+{
+	if (this->awakingTimeOut == nullptr && !this->isAwake) {
+		this->awakingTimeOut = this->cvGame->add->TimeOut(this->timeOutToAwake, [=]() {
+			Awake();
+			this->awakingTimeOut = nullptr;
+		})->Start();
+	}
+	if (!this->isAwake) {
+		return 0;
+	}
+	return ShootingEnemyBase::LoseHealth(health);
 }
 
 
@@ -139,7 +157,6 @@ void Medusa::MoveTo(Vector moveToPosition)
 void Medusa::Awake()
 {
 	this->SetVisible(true);
-	this->body->SetEnable(true);
 	this->PlayAnimation("move");
 	this->moveTimer.reset();
 	this->isAwake = true;
@@ -154,10 +171,10 @@ void Medusa::Awake()
 void Medusa::OnSimonEnterRange(Simon * simon, bool isLeft)
 {
 	this->allowToDetectSimon = false;
-	if (!this->isAwake) {
-		this->cvGame->add->TimeOut(this->timeOutToAwake, [=]() {
-			Awake();
-		})->Start();
+	//if (!this->isAwake) {
+	//	this->cvGame->add->TimeOut(this->timeOutToAwake, [=]() {
+	//		Awake();
+	//	})->Start();
 
-	}
+	//}
 }

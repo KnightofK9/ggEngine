@@ -33,6 +33,9 @@ void EnemyGroup::RemoveEnemyFromRetriveList(EnemyBase * enemy)
 
 void EnemyGroup::ResetRetriveList()
 {
+	for (auto enemyBase : this->retriveEnemyList) {
+		enemyBase->Revive();
+	}
 	this->retriveEnemyList.clear();
 }
 

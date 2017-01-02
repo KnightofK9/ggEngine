@@ -21,6 +21,7 @@ private:
 	void SwitchToMap(CVMap* cvMap);
 	TileMap *tileMap;
 	Simon *simon;
+	CVMapManager *cvMapManager = nullptr;
 	ItemManager *itemManager = nullptr;
 	CVMap *cvMap = nullptr;
 	CVMap *cvMap1 = nullptr;

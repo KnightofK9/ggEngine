@@ -46,5 +46,5 @@ protected:
 
 	int point;
 	int damage = 0;
-	Simon* simon;
+	const Simon* simon;
 };

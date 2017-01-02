@@ -3,6 +3,7 @@
 #include "Simon.h"
 #include "CVMap.h"
 #include "EnemyGroup.h"
+#include "Constant.h"
 DropObjectBase::DropObjectBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: BreakableObjectBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
 {
@@ -35,6 +36,15 @@ void DropObjectBase::DropItem()
 	if (go->body != nullptr) {
 		go->body->PreUpdate();
 	}
+	if (go->events == nullptr) {
+		go->events = new Events(this->cvGame,go);
+	}
+	auto timeOutEvent = this->game->add->TimeOut(Constant::LIVE_TIME_ITEM, [=]() {
+		go->Destroy();
+	})->Start();
+	go->events->onDestroy = [=](GameObject*,EventArg) {
+		timeOutEvent->Stop();
+	};
 	//auto itemBase = dynamic_cast<ItemBase*>(go);
 	//itemBase->CheckCollisionToSimon(this->cvGame->simon);
 }

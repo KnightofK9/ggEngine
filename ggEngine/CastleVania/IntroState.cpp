@@ -34,6 +34,7 @@ void IntroState::Create()
 
 	this->cvgame->camera->SetPoint(128, 112);
 	this->cvgame->camera->SetScale(3, 3);
+	this->cvgame->camera->DisableManualMove();
 
 
 	this->menu_anim = this->add->SpriteAnimation(220, 125, "menu_anim", 72, 58, group, 0, 15, 100);
@@ -91,7 +92,9 @@ void IntroState::PreRender()
 }
 void IntroState::Render()
 {
-
+	int i;
+	int b = 4;
+	i = 4;
 }
 void IntroState::Pause()
 {
