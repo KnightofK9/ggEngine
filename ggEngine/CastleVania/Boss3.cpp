@@ -12,6 +12,10 @@ Boss3::Boss3(CVGame * cvGame, SpriteInfo * image, bool isPrimaryBoss) : WalkingE
 	fireInterval = 1000;
 	this->allowToDetectSimon = true;
 	SetBullet(new Boss3Skill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::BOSS_3_TEXTURE)));
+
+	this->maxHealth = 16;
+	this->damage = 0.5f;
+	this->point = 3000;
 }
 
 Boss3::~Boss3()

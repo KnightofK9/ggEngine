@@ -26,6 +26,9 @@ MedusaHead::MedusaHead(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBas
 			Destroy();
 		}
 	};
+	this->maxHealth = 1;
+	this->damage = 2;
+	this->point = 300;
 }
 
 MedusaHead::~MedusaHead()

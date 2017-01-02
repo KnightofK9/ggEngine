@@ -37,6 +37,10 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	this->body->SetEnable(false);
 	this->awakingTimeOut = nullptr;
 
+	this->maxHealth = 16;
+	this->damage = 1f;
+	this->point = 3000;
+
 }
 
 Medusa::~Medusa()

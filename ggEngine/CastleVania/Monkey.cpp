@@ -13,6 +13,10 @@ Monkey::Monkey(CVGame * cvGame, SpriteInfo * image) : EnemyBase(cvGame, image, 1
 	this->isGrounding = false;
 	this->distanceUntilToJumpHigh = 25;
 
+	this->maxHealth = 1;
+	this->damage = 3;
+	this->point = 500;
+
 }
 
 Monkey::~Monkey()
