@@ -59,7 +59,7 @@ void TestStateCastleVania::Create()
 
 
 
-	this->cvgame->audioManager->level4Music->PlayLoop();
+	
 
 	this->cvMapManager->LoadUI(goScreen, infoPanel);
 	this->cvMapManager->StartMap("level-2",simon);

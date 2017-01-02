@@ -3,6 +3,7 @@
 #include "GameOverScreen.h"
 #include "InfoPanel.h"
 #include "AnimationManager.h"
+#include "AudioManager.h"
 CVMapManager::CVMapManager(CVGame * cvGame) : ManagerBase(cvGame)
 {
 }
@@ -34,6 +35,14 @@ CVMap* CVMapManager::StartMap(std::string mapName,Simon *simon)
 	 if (it == this->mapDict.end()) {
 		 g_debug.Error("Error, no map found with name " + mapName);
 		 return cvMap;
+	 }
+	 if (mapName == "level-2") {
+		 this->cvGame->audioManager->level4Music->PlayLoop();
+		 this->cvGame->audioManager->level3Music->Stop();
+	 }
+	 else {
+		 this->cvGame->audioManager->level3Music->PlayLoop();
+		 this->cvGame->audioManager->level4Music->Stop();
 	 }
 	 cvMap = (*it).second;
 	 auto oldMap = this->cvGame->simon->currentMap;

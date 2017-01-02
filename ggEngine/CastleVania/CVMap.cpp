@@ -41,6 +41,7 @@ CVMap::~CVMap()
 
 void CVMap::BuildMap(std::string name, const char * jsonChar, int level)
 {
+	this->name = name;
 	this->levelNumber = level;
 	Json state(jsonChar);
 
@@ -441,6 +442,9 @@ void CVMap::OnLevelCompleted()
 {
 	if (this->name == "level-2") {
 		this->cvGame->cvMapManager->StartMap("level-3",this->simon);
+	}
+	else {
+		g_debug.Error("No next level for " + this->name);
 	}
 }
 
