@@ -65,15 +65,24 @@ namespace ggEngine
 		return keyStates[keyCode] & 0x80;
 	}
 
-	void Input::PollKeyboard()
+	bool Input::PollKeyboard()
 	{
 		HRESULT result;
 		result = diKeyboard->GetDeviceState(sizeof(keyStates), (LPVOID)& keyStates);
 		if (FAILED(result))
 		{
-			diKeyboard->Acquire();
-			diKeyboard->GetDeviceState(sizeof(keyStates), (LPVOID)& keyStates);
+			// If the keyboard lost focus or was not acquired then try to get control back.
+			if ((result == DIERR_INPUTLOST) || (result == DIERR_NOTACQUIRED))
+			{
+				diKeyboard->Acquire();
+				return false;
+			}
+			else
+			{
+				return false;
+			}
 		}
+		return true;
 	}
 
 #pragma endregion Keyboard

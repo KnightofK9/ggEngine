@@ -23,7 +23,7 @@ namespace ggEngine
 		virtual ~Input();
 		/// Keyboard
 		int InitKeyboard();
-		void PollKeyboard();
+		bool PollKeyboard();
 		int KeyDown(int keyCode);
 
 		/// Mouse

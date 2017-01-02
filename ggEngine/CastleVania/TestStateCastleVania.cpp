@@ -48,15 +48,9 @@ void TestStateCastleVania::Preload() {
 }
 void TestStateCastleVania::Create()
 {
-	//this->cvgame->camera->SetWidth(256);
-	//this->cvgame->camera->SetHeight(176);
 	this->cvgame->camera->SetScale(3, 3);
 	this->cvgame->camera->SetPoint(0, 65);
 
-	//std::string tileMapJson = "";
-	
-	/*tileMap = this->add->TileMap(tileMapJson.c_str(),this->game->world);
-	tileMap->name = "StupidTileMap";*/
 	Group* group = this->add->Group();
 	group->name = "StupidGroup";
 
@@ -67,22 +61,8 @@ void TestStateCastleVania::Create()
 
 	this->cvgame->audioManager->level4Music->PlayLoop();
 
-	
-	/*{
-		Json state0("State/TestState.json", true);
-		Json state("State/level2-tilemap.json", true);
-		Json state2("State/level3-tilemap.json", true);
-		cvMap = this->cvAdd->LoadMap("State", state0.GetCharArray().c_str(), nullptr);
-		cvMap1 = this->cvAdd->LoadMap("level-2",state.GetCharArray().c_str(),  nullptr);
-		cvMap2 = this->cvAdd->LoadMap("level-3", state2.GetCharArray().c_str(), nullptr);
-	}*/
 	this->cvMapManager->LoadUI(goScreen, infoPanel);
 	this->cvMapManager->StartMap("level-2",simon);
-	//SwitchToMap(cvMap);
-	//SwitchToMap(cvMap2);
-
-
-	//cvMap = cvMap1;
 
 	infoPanel->CountDown(300, [this] {
 		simon->isDied = true;

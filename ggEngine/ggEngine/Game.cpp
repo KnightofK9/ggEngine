@@ -195,8 +195,9 @@ namespace ggEngine {
 		if (isRunning) {
 			double dt = logicTimer.getDeltaTimeInMilisecond();
 			/*Handle input*/
-			input->PollKeyboard();
-			eventManager->DispatchKeyBoardEvent(input->keyStates);
+			if (input->PollKeyboard()) {
+				eventManager->DispatchKeyBoardEvent(input->keyStates);
+			}
 			eventManager->Update();
 			timeBasedEventManager->Update(dt);
 			/*State update*/
