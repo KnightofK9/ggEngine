@@ -10,6 +10,7 @@
 #include "CVCamera.h"
 #include "EnemyManager.h"
 #include "CVDebugDefine.h"
+#include "CVMapManager.h"
 CVGame::CVGame(HWND hWnd, int width, int height, GameMode mode, PhysicsMode physicsMode, D3DCOLOR gameColor) :Game(hWnd, width, height, mode, physicsMode, gameColor)
 {
 	
@@ -264,7 +265,7 @@ void CVGame::LoadComponent()
 		this->animationManager = new AnimationManager(this);
 		this->enemyManager = new EnemyManager(this);
 		this->audioManager = new AudioManager(this);
-
+		this->cvMapManager = new CVMapManager(this);
 
 	}
 	catch (int errorCode) {

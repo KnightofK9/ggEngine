@@ -9,6 +9,7 @@ class StaticTileManager;
 class WeaponManager;
 class AnimationManager;
 class EnemyManager;
+class CVMapManager;
 class AudioManager;
 class CVGame : public Game {
 public:
@@ -24,6 +25,7 @@ public:
 	GameObject* GetObjectInstance(const char* objectJson, Group *group = nullptr) override;
 	EnemyManager* enemyManager;
 	AudioManager *audioManager;
+	CVMapManager *cvMapManager;
 	void LoadComponent() override;
 private:
 };

@@ -4,8 +4,10 @@
 #include "EnemyManager.h"
 #include "AnimationManager.h"
 #include "CVDebugDefine.h"
+#include "CVMapManager.h"
 TestStateCastleVania::TestStateCastleVania(CVGame *game) :CVState(game)
 {
+	this->cvMapManager = this->cvgame->cvMapManager;
 }
 TestStateCastleVania::~TestStateCastleVania()
 {
@@ -39,6 +41,7 @@ void TestStateCastleVania::Preload() {
 	this->cvgame->enemyManager->PreloadAll();
 	this->cvgame->animationManager->PreloadAll();
 	this->cvgame->audioManager->PreloadAll();
+	this->cvMapManager->PreloadAll();
 }
 void TestStateCastleVania::Create()
 {
@@ -63,17 +66,18 @@ void TestStateCastleVania::Create()
 	this->cvgame->simon = this->simon;
 	this->cvgame->audioManager->level4Music->PlayLoop();
 
-	{
+	
+	/*{
 		Json state0("State/TestState.json", true);
 		Json state("State/level2-tilemap.json", true);
 		Json state2("State/level3-tilemap.json", true);
 		cvMap = this->cvAdd->LoadMap("State", state0.GetCharArray().c_str(), nullptr);
 		cvMap1 = this->cvAdd->LoadMap("level-2",state.GetCharArray().c_str(),  nullptr);
 		cvMap2 = this->cvAdd->LoadMap("level-3", state2.GetCharArray().c_str(), nullptr);
-	}
-
-
-	SwitchToMap(cvMap);
+	}*/
+	this->cvMapManager->LoadUI(goScreen, infoPanel);
+	this->cvMapManager->StartMap("level-2");
+	//SwitchToMap(cvMap);
 	//SwitchToMap(cvMap2);
 
 
@@ -91,16 +95,16 @@ void TestStateCastleVania::Update()
 	SAFE_BREAK_BEGIN
 	auto input = this->cvgame->GetInput();
 	if (input->KeyDown(DIK_F5)) {
-		SwitchToMap(cvMap1);
+		this->cvMapManager->StartMap("level-2");
 		SAFE_BREAK
 	}
 	if (input->KeyDown(DIK_F6)) {
-		SwitchToMap(cvMap2);
+		this->cvMapManager->StartMap("level-3");
 		SAFE_BREAK
 	}
 
 	if (input->KeyDown(DIK_F7)) {
-		SwitchToMap(cvMap);
+		this->cvMapManager->StartMap("test-stage");
 		SAFE_BREAK
 	}
 	SAFE_BREAK_END

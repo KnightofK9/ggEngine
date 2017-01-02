@@ -12,6 +12,7 @@
 #include "EnemyGroup.h"
 #include "StaticTIleManager.h"
 #include "EnemyManager.h"
+#include "CVMapManager.h"
 CVMap::CVMap(CVGame * cvGame) : Group(cvGame)
 {
 	this->cvGame = cvGame;
@@ -418,7 +419,9 @@ void CVMap::DeActive()
 
 void CVMap::OnLevelCompleted()
 {
-	g_debug.Log("Level is completed!");
+	if (this->name == "level-2") {
+		this->cvGame->cvMapManager->StartMap("level-3");
+	}
 }
 
 void CVMap::SetSimonPositionOnChangeBlock()
