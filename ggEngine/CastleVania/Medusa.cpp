@@ -27,7 +27,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	this->body->SetActive(false);
 	this->CreateAnimation("move", 0, 3, true);
 	this->fireInterval = 1000;
-	this->simonDetectRange = 500;
+	this->simonDetectRange = 100;
 	moveY = 30;
 	moveX = 0.05;
 	moveSpeed = 1;

@@ -231,7 +231,7 @@ void CVMap::OnOutOfBlock(Rect r)
 	if (nextBlock == -1 
 		//||(!this->simon->isClimbingLadder && this->simon->isGro)
 		) {
-		OnFallOutOfMap();
+		//OnFallOutOfMap();
 		return;
 	}
 	
@@ -268,6 +268,7 @@ void CVMap::OnNextStage(int stageIndex, int blockIndex)
 
 void CVMap::OnFallOutOfMap()
 {
+	g_debug.Log("Simon fall out of map!");
 }
 
 void CVMap::OnEnterDoor(Door *door)
@@ -329,11 +330,15 @@ void CVMap::DebugUpdate()
 void CVMap::CheckIfSimonOutOfBlock()
 {
 	if (isSwitchingStage) return;
-	if (!simon->isClimbingLadder) return;
+	//if (!simon->isClimbingLadder) return;
+	if (this->currentBlock == nullptr) return;
 	Rect r = simon->body->GetRect();
 	Rect i;
 	if (!Rect::intersect(i, r, (*currentBlock))) {
-		OnOutOfBlock();
+		if (this->simon->GetBottom() > this->currentBlock->bottom) {
+			OnFallOutOfMap();
+		}
+		else OnOutOfBlock();
 	}
 
 }
