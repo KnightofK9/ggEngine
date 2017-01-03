@@ -65,9 +65,14 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", { 11, 11, 11, 11, 11, 11, 11, 11, 11 }, false)->SetOnCompleted([this](Animator*) {
 		this->DescreasePPoint(1);
-		this->isDied = false;
-
-		this->currentMap->OnSimonDeath();
+		if (this->pPoint < 0) {
+			this->DescreasePPoint(1);
+		}
+		else {
+			this->ResetAffterDie();
+			this->currentMap->ResetSimonToCurrentLevel();
+		}
+		//this->currentMap->OnSimonDeath();
 		//this->SetHealth(CharacterConstant::SIMON_MAX_HEALTH);
 	});
 	this->PlayAnimation("climbUp");
@@ -421,7 +426,6 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 				break;
 			}
 	};
-	
 	this->SetUpKeyControl();
 	this->SetUpTestKeyControl();
 	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
@@ -432,7 +436,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->isAlive = true;
 	this->score = 0;
 	this->stagePoint = 1;
-	this->heartPoint = 50;
+	this->heartPoint = 5;
 	this->pPoint = 3;
 }
 
@@ -616,7 +620,7 @@ void Simon::Death()
 	this->audioManager->lifeLoseMusic->Play();
 	this->allowControl = false;
 	this->grounding = SimonGrounding_Brick;
-	this->body->gravity = true; 
+	this->body->allowGravity = true; 
 	//this->cvGame->eventManager->DisableKeyBoardInput(this);
 }
 
@@ -677,6 +681,7 @@ void Simon::ResetState()
 	this->steppingTileLadder = nullptr;
 	this->isClimbingLadder = false;
 	this->incompleteAnim = "";
+	this->incompleteAction = {};
 	this->grounding = SimonGrounding_Brick;
 	this->ladderState = SimonLadderType::SimonLadder_None;
 	this->PlayAnimation("idle");
@@ -807,6 +812,12 @@ void Simon::DescreasePPoint(int point)
 	if (infoPanel != nullptr) this->infoPanel->SetPPoint(this->pPoint);
 }
 
+void Simon::SetPPoint(int point)
+{
+	this->pPoint = point;
+	if (infoPanel != nullptr) this->infoPanel->SetPPoint(this->pPoint);
+}
+
 void Simon::SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo * image)
 {
 	this->subWeapon = weaponType;
@@ -847,6 +858,26 @@ void Simon::UpgradeWhip()
 		this->allowControl = true;
 
 	})->Start();
+}
+
+void Simon::ResetAffterDie()
+{
+	this->weaponWhip->SetWhipVersion(1);
+	this->allowControl = true;
+	this->isDied = false;
+	this->body->allowGravity = true;
+	this->score = 0;
+	this->heartPoint = 5;
+	this->SetHealth(CharacterConstant::SIMON_MAX_HEALTH);
+	this->subWeapon = SimonSubWeaponType::SubWeapon_None;
+	this->canContactWithEnemy = true;
+	this->shot = 1;
+	this->numberWeaponCanFire = this->shot;
+	this->isReadyToFireWeapon = true;
+	this->isAlive = true;
+
+	this->currentMap->projectileGroup->SetVisible(true);
+	this->currentMap->enemyGroup->SetVisible(true);
 }
 
 void Simon::OnEnemyContact(EnemyBase * enemy, ColliderArg e)

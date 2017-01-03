@@ -78,9 +78,11 @@ public:
 	void IncreaseHeartPoint(int point);
 	void DecreaseHeartPoint(int point);
 	void DescreasePPoint(int point);
+	void SetPPoint(int point);
 	void SetSubWeapon(SimonSubWeaponType weaponType, SpriteInfo *image);
 	void SetShot(int shot);
 	void UpgradeWhip();
+	void ResetAffterDie();
 
 	bool isClimbingLadder = false;
 	bool canContactWithEnemy;

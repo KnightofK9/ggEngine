@@ -41,6 +41,7 @@ public:
 	void OnFallOutOfMap();
 	void OnEnterDoor(Door *door);
 	void ResetSimonToCurrentStage();
+	void ResetSimonToCurrentLevel();
 	CVBlock* GetCurrentBlock() { return this->currentBlock; }
 	void OnEnterBossBlock(EnemyBase *enemy);
 	void Active();

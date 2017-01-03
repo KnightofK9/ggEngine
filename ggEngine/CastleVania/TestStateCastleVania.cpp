@@ -64,7 +64,7 @@ void TestStateCastleVania::Create()
 	this->cvMapManager->LoadUI(goScreen, infoPanel);
 	this->cvMapManager->StartMap("level-2",simon);
 
-	infoPanel->CountDown(300, [this] {
+	infoPanel->CountDown(400, [this] {
 		simon->isDied = true;
 	})->Start();
 

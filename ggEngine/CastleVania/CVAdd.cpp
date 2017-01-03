@@ -240,9 +240,11 @@ GameOverScreen * CVAdd::UIGameOverScreen(ggEngine::Group * group)
 	goScreen->end = this->add->Text(384 - fontSize * 3, 483, TextureConstant::GAME_FONT_TEXTURE, 50, 50, "END", style, goScreen);
 
 	goScreen->SetEventToggleHeart([this] {
-
+		this->cvGame->simon->SetPPoint(3);
+		this->cvGame->simon->currentMap->ResetSimonToCurrentStage();
 	}, [this]{
-
+		//if (this->cvGame->stateManager->GetCurrentState() )
+			//this->cvGame->stateManager->Start("IntroState", true, true);
 	});
 	goScreen->SetEnable(false);
 

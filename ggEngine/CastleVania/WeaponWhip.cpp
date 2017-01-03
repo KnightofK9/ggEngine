@@ -96,7 +96,7 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 	};
 
 	this->timeInfoFlicker = this->FlickeringChangeColorAnimationInfinity(5);
-	this->SetWhipVersion(3);
+	this->SetWhipVersion(1);
 	//this->timeInfoFlicker->Start();
 }
 

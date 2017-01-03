@@ -2,6 +2,6 @@
 #include <string>
 class StateConstant {
 public:
-	static constexpr const int MAX_TIME_IN_LEVEL_1 = 3;
+	static constexpr const int MAX_TIME_IN_LEVEL_1 = 400;
 
 };

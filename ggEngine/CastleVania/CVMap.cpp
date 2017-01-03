@@ -177,7 +177,7 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 
 void CVMap::OnSimonDeath()
 {
-
+	this->simon->Death();
 }
 
 void CVMap::SetStage(int stageNumber, int blockNumber,bool isRestartState)
@@ -276,6 +276,8 @@ void CVMap::OnNextStage(int stageIndex, int blockIndex)
 void CVMap::OnFallOutOfMap()
 {
 	g_debug.Log("Simon fall out of map!");
+	if (!this->simon->isDied)
+		this->simon->isDied = true;
 }
 
 void CVMap::OnEnterDoor(Door *door)
