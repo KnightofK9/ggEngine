@@ -65,10 +65,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", { 11, 11, 11, 11, 11, 11, 11, 11, 11 }, false)->SetOnCompleted([this](Animator*) {
 		this->DescreasePPoint(1);
-		if (this->pPoint < 0) {
-			this->DescreasePPoint(1);
-		}
-		else {
+		if (this->pPoint > 0) {
 			this->ResetAffterDie();
 			this->currentMap->ResetSimonToCurrentLevel();
 		}

@@ -299,6 +299,12 @@ void CVMap::ResetSimonToCurrentStage()
 	SetBlock(0);
 }
 
+void CVMap::ResetSimonToCurrentLevel()
+{
+
+}
+
+
 void CVMap::DebugUpdate()
 {
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
