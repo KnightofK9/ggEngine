@@ -301,7 +301,7 @@ void CVMap::ResetSimonToCurrentStage()
 
 void CVMap::ResetSimonToCurrentLevel()
 {
-
+	SetStage(0, 0);
 }
 
 
