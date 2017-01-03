@@ -2,7 +2,8 @@
 #include "CVGame.h"
 #include "Constant.h"
 #include "AudioManager.h"
-
+#include "CharacterConstant.h"
+#include "EnemyBase.h"
 InfoPanel::InfoPanel(CVGame *cvGame) : ScreenGroup(cvGame)
 {
 	this->cvGame = cvGame;
@@ -16,7 +17,10 @@ void InfoPanel::Draw()
 {
 	//this->drawManager->DrawRectangleToWorld(0, 0, GAME_WIDTH, GAME_HEIGHT / 5.0f - GAME_HEIGHT / 40.0f, D3DCOLOR_RGBA(0, 0, 0, 255));
 	this->drawManager->DrawRectangleToWorld(0, 0, Constant::UI_INFO_PANEL_BACKGROUND_WIDTH, Constant::UI_INFO_PANEL_BACKGROUND_HEIGHT, D3DCOLOR_RGBA(0, 0, 0, 255));
-
+	if (this->enemyBase != nullptr) {
+		auto health = this->enemyBase->GetHealth();
+		SetEnemyHealth(health);
+	}
 	ScreenGroup::Draw();
 }
 
@@ -90,4 +94,15 @@ void InfoPanel::SetTime(const int & time)
 {
 	this->maxTime = time;
 	this->timePoint->SetText(ggEngine::Helper::IntToString(this->maxTime, 4));
+}
+
+void InfoPanel::SetEnemy(EnemyBase * enemyBase)
+{
+	this->enemyBase = enemyBase;
+}
+
+void InfoPanel::Reset()
+{
+	enemyBase = nullptr;
+	SetEnemyHealth(CharacterConstant::SIMON_MAX_HEALTH);
 }

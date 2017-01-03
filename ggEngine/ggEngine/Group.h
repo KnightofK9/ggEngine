@@ -22,7 +22,7 @@ namespace ggEngine{
 		virtual std::list<Group*> *GetGroupList() { return &this->groupList; }
 		virtual std::list<Body*> GetBodyList();
 		virtual void Draw() override;
-		void Reset();
+		virtual void Reset();
 		void SetMask(bool isUsedMask) { this->isUsedMask = isUsedMask; }
 		bool IsUsedMask() { return this->isUsedMask; }
 		void RemoveMask();

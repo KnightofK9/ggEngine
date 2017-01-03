@@ -41,6 +41,7 @@ CVMap::~CVMap()
 
 void CVMap::BuildMap(std::string name, const char * jsonChar, int level)
 {
+	this->name = name;
 	this->levelNumber = level;
 	Json state(jsonChar);
 
@@ -134,7 +135,7 @@ void CVMap::Draw()
 	Physics::RenderGroupBodyList(this->projectileGroup);
 	Physics::RenderGroupBodyList(this->simonGroup);
 
-
+	//g_debug.Log("Number of projectile " + std::to_string( this->projectileGroup->GetDrawList().size()));
 	CheckIfSimonOutOfBlock();
 }
 
@@ -150,6 +151,7 @@ void CVMap::UpdatePhysics()
 void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * simon)
 {
 
+	infoPanel->Reset();
 	this->enemyGroup->LoadSimon(simon);
 
 	this->simon = simon;	
@@ -171,6 +173,11 @@ void CVMap::LoadSimon(InfoPanel * infoPanel, GameOverScreen *goScreen, Simon * s
 	this->simon->body->allowWorldBound = false;
 	this->simon->body->allowWorldBounciness = false;
 	SetStage(0, 0, true);
+}
+
+void CVMap::OnSimonDeath()
+{
+
 }
 
 void CVMap::SetStage(int stageNumber, int blockNumber,bool isRestartState)
@@ -285,6 +292,11 @@ void CVMap::OnEnterDoor(Door *door)
 	OnOutOfBlock(r);
 }
 
+void CVMap::ResetSimonToCurrentStage()
+{
+	SetBlock(0);
+}
+
 void CVMap::DebugUpdate()
 {
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
@@ -335,7 +347,7 @@ void CVMap::CheckIfSimonOutOfBlock()
 	Rect r = simon->body->GetRect();
 	Rect i;
 	if (!Rect::intersect(i, r, (*currentBlock))) {
-		if (this->simon->GetBottom() > this->currentBlock->bottom) {
+		if (!this->simon->isClimbingLadder && this->simon->GetBottom() > this->currentBlock->top) {
 			OnFallOutOfMap();
 		}
 		else OnOutOfBlock();
@@ -406,10 +418,12 @@ void CVMap::StartSwitchingState()
 	})->Start();
 }
 
-void CVMap::OnEnterBossBlock()
+void CVMap::OnEnterBossBlock(EnemyBase *enemy)
 {
 	this->cvGame->camera->UnFollow();
 	this->simon->SetBlock(this->cvGame->camera->GetNormalRect());
+	this->infoPanel->SetEnemy(enemy);
+	this->currentBoss = enemy;
 }
 
 void CVMap::Active()
@@ -426,12 +440,17 @@ void CVMap::Reset()
 {
 	this->currentBlock->Reset();
 	this->enemyGroup->ResetRetriveList();
+	this->projectileGroup->Reset();
+	this->simonGroup->Reset();
 }
 
 void CVMap::OnLevelCompleted()
 {
 	if (this->name == "level-2") {
 		this->cvGame->cvMapManager->StartMap("level-3",this->simon);
+	}
+	else {
+		g_debug.Error("No next level for " + this->name);
 	}
 }
 

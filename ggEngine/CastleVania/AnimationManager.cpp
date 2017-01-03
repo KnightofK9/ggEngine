@@ -171,24 +171,25 @@ CVSprite ** AnimationManager::AddBreakingWallAnimation(double x, double y)
 
 		this->cvGame->physics->EnablePhysics(br);
 		br->body->CreateRectangleRigidBody(br->GetWidth(), br->GetHeight());
-		br->body->SetEnable(false);
+		br->body->SetEnable(true);
 		br->body->allowGravity = true;
-		br->SetPosition(Vector(x, y));
-		br->body->rigidBody->SetAnchor(0.5, 0.5);
-		br->body->SetActive(false);
-		//this->cvGame->eventManager->EnableCameraEvent(br);
+		br->body->rigidBody->SetAnchor(0, 0);
+		br->body->SetActive(true);
+		this->cvGame->eventManager->EnableCameraEvent(br);
 
-		//br->events->onOutOfCamera = [br](GameObject *go, EventArg e){
-		//	br->Destroy();
-		//};
+		br->events->onOutOfCamera = [br](GameObject *go, EventArg e){
+			br->Destroy();
+		};
 
 		if (simonGroup != nullptr) {
 			simonGroup->AddDrawObjectToList(br);
 		}
+		br->SetAlive(true);
+		br->SetPosition(Vector(x, y),true);
 	}
-	bricks[0]->body->AddForce(12, Vector(1, 2));
-	bricks[1]->body->AddForce(15, Vector(-1, 1.5));
-	bricks[2]->body->AddForce(17, Vector(1, 0.5));
-	bricks[3]->body->AddForce(13, Vector(-1, 0.5));
+	bricks[0]->body->AddForce(1.5, Vector(1, -2));
+	bricks[1]->body->AddForce(2.0, Vector(-1, -1.5));
+	bricks[2]->body->AddForce(1.3, Vector(1, -0.5));
+	bricks[3]->body->AddForce(1.7, Vector(-1, -0.5));
 	return bricks;
 }

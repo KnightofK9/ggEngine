@@ -31,6 +31,7 @@ public:
 	Group* projectileGroup;
 	Simon* simon;
 	EnemyGroup *enemyGroup;
+	void OnSimonDeath();
 	void SetStage(int stageNumber, int blockNumber = 0, bool isRestartState = false);
 	void SetBlock(int blockNumber, bool isRestartState = false);
 	void OnOutOfBlock(Rect r = Rect(-1,-1,-1,-1));
@@ -39,12 +40,15 @@ public:
 	void OnNextStage(int stageIndex, int blockIndex = 0);
 	void OnFallOutOfMap();
 	void OnEnterDoor(Door *door);
+	void ResetSimonToCurrentStage();
 	CVBlock* GetCurrentBlock() { return this->currentBlock; }
-	void OnEnterBossBlock();
+	void OnEnterBossBlock(EnemyBase *enemy);
 	void Active();
 	void DeActive();
 	void Reset();
 	void OnLevelCompleted();
+
+	EnemyBase * currentBoss = nullptr;
 private:
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 	TimeBasedEventInfo* currentTimeOutPressKey = nullptr;

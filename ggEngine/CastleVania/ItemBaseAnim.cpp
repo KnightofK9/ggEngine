@@ -16,6 +16,14 @@ ItemBaseAnim::ItemBaseAnim(CVGame * cvGame, SpriteInfo * image, int frameWidth, 
 			OnSimonContact(simon, e);
 		}
 	};
+	this->events->onCheckingCollide = [this](GameObject* go, ColliderArg e) {
+		Tag tag = e.colliderObject->tag;
+		switch (tag) {
+		case ObjectType_LevelTwoBrick:
+			return true;
+		}
+		return false;
+	};
 	this->tag = ObjectType_Item;
 	this->visible = false;
 	this->body->SetActive(false);

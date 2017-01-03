@@ -7,6 +7,9 @@ public:
 	~Boss3();
 
 	void Update() override;
+	void Active() override;
+
+	int LoseHealth(int health) override;
 private:
 	void Fire(bool isLeft, Vector position);
 	void SetBullet(EnemySkillBase * bullet);
@@ -14,4 +17,11 @@ private:
 	int fireInterval;
 	Timer fireTimer;
 	bool isPrimaryBoss;
+
+	void Awake();
+	bool isAwake;
+	TimeBasedEventInfo *awakingTimeOut = nullptr;
+	int timeOutToAwake;
+	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
+
 };

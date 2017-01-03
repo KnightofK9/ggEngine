@@ -7,7 +7,7 @@ BatEnemy::BatEnemy(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cv
 	this->CreateAnimation("move", { 1,2,3,2 }, true);
 	this->CreateAnimation("idle", 0, 0, false);
 	SetMoveX(40);
-	SetSpeed(0.5);
+	SetSpeed(1);
 
 	this->maxHealth = 1;
 	this->damage = 2;

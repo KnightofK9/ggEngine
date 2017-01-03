@@ -10,7 +10,7 @@
 #include "CVSpriteAnimation.h"
 #include "TextureConstant.h"
 #include "AudioManager.h"
-
+#include "Simon.h"
 Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,image,32,32,0,4,200)
 {
 
@@ -38,7 +38,7 @@ Medusa::Medusa(CVGame * cvGame, SpriteInfo * image) : ShootingEnemyBase(cvGame,i
 	this->awakingTimeOut = nullptr;
 
 	this->maxHealth = 16;
-	this->damage = 1f;
+	this->damage = 1.0f;
 	this->point = 3000;
 
 }
@@ -116,6 +116,13 @@ int Medusa::LoseHealth(int health)
 	return ShootingEnemyBase::LoseHealth(health);
 }
 
+void Medusa::Death()
+{
+	ShootingEnemyBase::Death();
+	auto go = this->cvGame->itemManager->AddStuff(this->position.x, this->position.y, this->parentGroup);
+	go->Active();
+}
+
 
 void Medusa::MoveToNextPosition()
 {
@@ -130,15 +137,16 @@ void Medusa::MoveToNextPosition()
 			this->lastSimonPosition.x = this->position.x + randomMin;
 		}
 	}
-	auto block = this->simon->currentMap->GetCurrentBlock();
-	if (this->lastSimonPosition.x - this->GetWidth()/2 < block->left) {
-		this->lastSimonPosition.x = block->left + this->GetWidth() / 2;
+	Rect r = this->cvGame->camera->GetNormalRect();
+	if (this->lastSimonPosition.x <= r.left) {
+		this->lastSimonPosition.x = r.left + this->GetWidth();
 	}
 	else {
-		if (this->lastSimonPosition.x + this->GetWidth() / 2 > block->right) {
-			this->lastSimonPosition.x = block->right - this->GetWidth() / 2;
+		if (this->lastSimonPosition.x >= r.right) {
+			this->lastSimonPosition.x = r.right - this->GetWidth() ;
 		}
 	}
+	g_debug.Log("Simon last position " + std::to_string(lastSimonPosition.x));
 	this->bullet->Fire(isSimonLeft, this->position);
 
 	MoveTo(this->lastSimonPosition);
@@ -165,7 +173,7 @@ void Medusa::Awake()
 	this->moveTimer.reset();
 	this->isAwake = true;
 	MoveTo(this->simon->position);
-	this->simon->currentMap->OnEnterBossBlock();
+	this->simon->currentMap->OnEnterBossBlock(this);
 	this->cvGame->audioManager->PauseAllMusic();
 	this->cvGame->audioManager->bossBattleMusic->PlayLoop();
 }

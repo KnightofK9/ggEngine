@@ -11,7 +11,7 @@ public:
 	//void Destroy() override;
 	void Kill() override;
 	int LoseHealth(int health) override;
-
+	void Death() override;
 private:
 	TimeBasedEventInfo *awakingTimeOut;
 	void MoveToNextPosition();

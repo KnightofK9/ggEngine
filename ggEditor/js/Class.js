@@ -424,6 +424,7 @@ function Group() {
             sprite.name = item.name;
             sprite.x = item._item.x;
             sprite.y = item._item.y;
+            if(isNotNull(item._item.extraInfo)) sprite.extraInfo = item._item.extraInfo;
             if(Constant.exportWidthHeightForSprite)
             {
                 sprite.width = item._item.width;
