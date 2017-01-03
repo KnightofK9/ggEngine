@@ -10,7 +10,7 @@ Ghost::Ghost(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, 
 	this->body->immoveable = true;
 	SetMoveX(40);
 	SetMoveY(20);
-	SetSpeed(7.5);
+	SetSpeed(2.5);
 	this->simonDetectRange = 200;
 	this->allowToDetectSimon = true;
 	this->PlayAnimation("move");
@@ -73,7 +73,7 @@ void Ghost::AddTween(bool isLeft)
 	if (isLeft) modifier = -1;
 	moveTo.x += modifier*Helper::GetRamdomIntNumber(minX, moveX);
 	moveTo.y -= Helper::GetRamdomIntNumber(minY, moveY);
-	this->currentTween = this->cvGame->add->MoveTo(this, moveTo, round(moveTo.x / speed) * DEFAULT_MS_PER_FRAME_FOR_ANIMATION)->SetOnFinish([=]() {
+	this->currentTween = this->cvGame->add->MoveTo(this, moveTo, round(abs(moveTo.x - this->position.x) / speed) * DEFAULT_MS_PER_FRAME_FOR_ANIMATION)->SetOnFinish([=]() {
 		this->currentTween = nullptr;
 		this->isMoving = false;
 	})->Start();

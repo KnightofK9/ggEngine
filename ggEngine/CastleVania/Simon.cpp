@@ -1018,7 +1018,7 @@ void Simon::MoveLadderUp(bool isLeft,double force)
 				isSteppingOnLadder2 = true;
 			}
 		}
-		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 2)->SetOnFinish([=]() {
+		this->currentLadderTween = this->cvGame->add->MoveBy(this, distance, this->msPerFrame * 3)->SetOnFinish([=]() {
 			if (isSteppingOnLadder2) {
 				OnLadderCompleted();
 			}

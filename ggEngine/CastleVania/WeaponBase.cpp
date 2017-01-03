@@ -73,11 +73,20 @@ void WeaponBase::OnEnemyContact(EnemyBase * enemyBase, ColliderArg e)
 #endif //DEBUG_SHOW_LOG_WHEN_WEAPON_CONTACT_ENEMY
 	
 #ifndef DEBUG_SUBWEAPON_NOT_HURT_ENEMY_WHEN_CONTACT
-	if (dynamic_cast<AI7*>(enemyBase) != nullptr)
-		return;
-	enemyBase->LoseHealth(this->damage);
-	this->cvGame->audioManager->onContactSound->Play();
-	this->cvGame->animationManager->AddHitAnimation(enemyBase->position.x, enemyBase->position.y);
+	//if (dynamic_cast<AI7*>(enemyBase) != nullptr)
+	//	return;
+	if (enemyBase->canContact) {
+		if (enemyBase->LoseHealth(this->damage) != 0) {
+			this->cvGame->animationManager->AddHitAnimation(enemyBase->GetPosition().x, enemyBase->GetPosition().y);
+			this->cvGame->audioManager->onContactSound->Play();
+			if (enemyBase->IsDied()) {
+				this->cvGame->simon->IncreaseScore(enemyBase->GetPoint());
+			}
+		}
+	}
+	//enemyBase->LoseHealth(this->damage);
+	//this->cvGame->audioManager->onContactSound->Play();
+	//this->cvGame->animationManager->AddHitAnimation(enemyBase->position.x, enemyBase->position.y);
 #endif // DEBUG_SUBWEAPON_NOT_HURT_ENEMY_WHEN_CONTACT
 }
 

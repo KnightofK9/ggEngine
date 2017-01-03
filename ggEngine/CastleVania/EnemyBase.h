@@ -13,7 +13,7 @@ public:
 	virtual void Update();
 	virtual int LoseHealth(int health);
 	virtual void Destroy();
-
+	bool IsDied();
 	double GetDamage();
 	double GetPoint();
 	virtual void SetPosition(Vector position , bool isRefresh = false) override;
@@ -24,6 +24,7 @@ public:
 	double simonMinRespawnDistance;
 	int GetHealth();
 protected:
+	bool isDied;
 	virtual void Death();
 	Vector startPosition;
 	virtual void OnSimonContact( ColliderArg e);

@@ -35,6 +35,9 @@ WeaponWhip::WeaponWhip(CVGame *cvGame, SpriteInfo *image, int frameWidth, int fr
 					if (enemyBase->LoseHealth(this->damage) != 0) {
 						this->cvGame->animationManager->AddHitAnimation(otherObject->GetPosition().x, otherObject->GetPosition().y);
 						this->cvGame->audioManager->onContactSound->Play();
+						if (enemyBase->IsDied()) {
+							this->cvGame->simon->IncreaseScore(enemyBase->GetPoint());
+						}
 					}
 				}
 			}
