@@ -278,7 +278,9 @@ void CVMap::OnFallOutOfMap()
 {
 	g_debug.Log("Simon fall out of map!");
 	if (!this->simon->isDied)
+	{
 		this->simon->isDied = true;
+	}
 }
 
 void CVMap::OnEnterDoor(Door *door)
@@ -297,12 +299,16 @@ void CVMap::OnEnterDoor(Door *door)
 
 void CVMap::ResetSimonToCurrentStage()
 {
+	this->simon->ResetState();
 	SetBlock(0);
+	simon->SetPosition(this->currentBlock->simonSpawnPosition, true);
 }
 
 void CVMap::ResetSimonToCurrentLevel()
 {
+	this->simon->ResetState();
 	SetStage(0, 0);
+	simon->SetPosition(this->currentBlock->simonSpawnPosition, true);
 }
 
 

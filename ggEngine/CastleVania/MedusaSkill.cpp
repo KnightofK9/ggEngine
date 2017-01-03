@@ -1,12 +1,27 @@
 #include "MedusaSkill.h"
 #include "TypeEnum.h"
+#include "Simon.h"
 MedusaSkill::MedusaSkill(CVGame * cvGame, SpriteInfo * image) : EnemySkillBase(cvGame,image,17,10,0,2,200)
 {
 	CreateAnimation("move", 0, 1,true);
 	this->body->allowGravity = true;
 	this->body->immoveable = false;
-	this->body->SetPhysicsMode(PhysicsMode_AABBSwept);
+	this->body->SetPhysicsMode(PhysicsMode_AABBSweptMix);
 	this->body->SetActive(true);
+	//this->events->onCollide = [this](GameObject* go, ColliderArg e) {
+	//	auto otherObject = e.colliderObject;
+	//	Tag tag = otherObject->tag;
+	//	switch (tag) {
+	//	case ObjectType_Simon:
+	//		//if (this->cvGame->simon->canContactWithEnemy)
+	//			OnSimonContact(e);
+	//		break;
+	//	case ObjectType_Weapon:
+	//	case ObjectType_SubWeapon:
+	//		this->Destroy();
+	//		break;
+	//	}
+	//};
 }
 
 MedusaSkill::~MedusaSkill()

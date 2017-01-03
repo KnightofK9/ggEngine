@@ -7,6 +7,7 @@ GameOverScreen::GameOverScreen(CVGame *game) : ScreenGroup(game)
 {
 	this->cvGame = game;
 	this->isEnableKey = false;
+	this->isToggleUp = true;
 }
 
 GameOverScreen::~GameOverScreen()
@@ -98,7 +99,7 @@ void GameOverScreen::SetEnableEventToggleHeart()
 				if (this->isToggleUp) {
 					//this->onToggleUp();
 					this->cvGame->simon->SetPPoint(3);
-					this->cvGame->simon->currentMap->ResetSimonToCurrentStage();
+					this->cvGame->simon->currentMap->ResetSimonToCurrentLevel();
 					this->cvGame->simon->ResetAffterDie();
 				}
 				else {

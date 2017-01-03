@@ -10,7 +10,7 @@ Ghost::Ghost(CVGame * cvGame, SpriteInfo * spriteInfo) : TweenEnemyBase(cvGame, 
 	this->body->immoveable = true;
 	SetMoveX(40);
 	SetMoveY(20);
-	SetSpeed(2.5);
+	SetSpeed(1.25);
 	this->simonDetectRange = 200;
 	this->allowToDetectSimon = true;
 	this->PlayAnimation("move");

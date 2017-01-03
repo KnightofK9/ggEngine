@@ -12,7 +12,7 @@
 #include "CVDebugDefine.h"
 #include "CVBlock.h"
 #include "EnemyGroup.h"
-
+#include "EnemyManager.h"
 Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverScreen *goScreen,
 	int frameWidth, int frameHeight, int defaultFrame, int numberOfFrame, DWORD msPerFrame)
 	: CharacterBase(cvGame, image, frameWidth, frameHeight, defaultFrame, numberOfFrame, msPerFrame)
@@ -74,7 +74,7 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 		}
 		else {
 			this->ResetAffterDie();
-			this->currentMap->ResetSimonToCurrentLevel();
+			this->currentMap->ResetSimonToCurrentStage();
 		}
 
 		//this->currentMap->OnSimonDeath();
@@ -145,6 +145,14 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			return true;
 		case ObjectType_LevelTwoBrick:
 			return true;
+		case ObjectType_Enemy:
+		{
+			auto ai7 = dynamic_cast<AI7*>(otherObject);
+			if (ai7 != nullptr) {
+				if (e.blockDirection.down) return true;
+				return false;
+			}
+		}
 		default:
 			return false;
 		}

@@ -59,13 +59,14 @@ Heart * ItemManager::AddHeart(double x, double y, ggEngine::Group * group)
 {
 	SpriteInfo* inf = this->cache->GetSpriteInfo(TextureConstant::HEART_MINI_TEXTURE);
 	Heart * heart = new Heart(this->cvGame, inf);
-	heart->SetPosition(x, y);
-	heart->Active();
 	//heart->CheckCollisionToSimon(this->cvGame->simon);
 	if (group != nullptr) {
 		heart->SetParentObject(group);
 		group->AddDrawObjectToList(heart);
 	}
+
+	heart->SetPosition(x, y);
+	heart->Active();
 	return heart;
 }
 
