@@ -17,6 +17,7 @@ EnemyBase::EnemyBase(CVGame * cvGame, SpriteInfo * image, int frameWidth, int fr
 	this->SetAnchor(0.5, 0);
 	this->body->SetPhysicsMode(PhysicsMode_AABBSwept);
 	this->body->CreateRectangleRigidBody(GetWidth(), GetHeight());
+	this->body->rigidBody->SetAnchor(0.5, 0);
 	//this->body->immoveable = false;
 	this->events->onCheckingCollide = [this](GameObject* go, ColliderArg e) {
 		return OnCheckingCollide(e);
