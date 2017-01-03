@@ -65,10 +65,16 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 	this->CreateAnimation("hurt", 10, 10, true);
 	this->CreateAnimation("death", { 11, 11, 11, 11, 11, 11, 11, 11, 11 }, false)->SetOnCompleted([this](Animator*) {
 		this->DescreasePPoint(1);
-		if (this->pPoint > 0) {
+		if (this->pPoint < 0) {
+			this->goScreen->SetEnable(true);
+			this->currentMap->projectileGroup->SetVisible(false);
+			this->currentMap->enemyGroup->SetVisible(false);
+		}
+		else {
 			this->ResetAffterDie();
 			this->currentMap->ResetSimonToCurrentLevel();
 		}
+
 		//this->currentMap->OnSimonDeath();
 		//this->SetHealth(CharacterConstant::SIMON_MAX_HEALTH);
 	});
@@ -800,10 +806,8 @@ void Simon::DescreasePPoint(int point)
 {
 	this->pPoint = pPoint - point;
 	if (this->pPoint < 0) {
-		this->pPoint = 0;
-		this->goScreen->SetEnable(true);
-		this->currentMap->projectileGroup->SetVisible(false);
-		this->currentMap->enemyGroup->SetVisible(false);
+		if (infoPanel != nullptr) this->infoPanel->SetPPoint(this->pPoint);
+		return;
 	}
 
 	if (infoPanel != nullptr) this->infoPanel->SetPPoint(this->pPoint);

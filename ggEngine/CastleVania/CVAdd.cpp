@@ -242,6 +242,8 @@ GameOverScreen * CVAdd::UIGameOverScreen(ggEngine::Group * group)
 	goScreen->SetEventToggleHeart([this] {
 		this->cvGame->simon->SetPPoint(3);
 		this->cvGame->simon->currentMap->ResetSimonToCurrentStage();
+		this->cvGame->simon->ResetAffterDie();
+
 	}, [this]{
 		//if (this->cvGame->stateManager->GetCurrentState() )
 			//this->cvGame->stateManager->Start("IntroState", true, true);
