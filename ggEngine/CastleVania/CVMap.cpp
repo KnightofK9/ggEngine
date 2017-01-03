@@ -292,6 +292,11 @@ void CVMap::OnEnterDoor(Door *door)
 	OnOutOfBlock(r);
 }
 
+void CVMap::ResetSimonToCurrentStage()
+{
+	SetBlock(0);
+}
+
 void CVMap::DebugUpdate()
 {
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
@@ -342,7 +347,7 @@ void CVMap::CheckIfSimonOutOfBlock()
 	Rect r = simon->body->GetRect();
 	Rect i;
 	if (!Rect::intersect(i, r, (*currentBlock))) {
-		if (this->simon->GetBottom() > this->currentBlock->bottom) {
+		if (!this->simon->isClimbingLadder && this->simon->GetBottom() > this->currentBlock->top) {
 			OnFallOutOfMap();
 		}
 		else OnOutOfBlock();

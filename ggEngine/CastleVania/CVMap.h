@@ -40,6 +40,7 @@ public:
 	void OnNextStage(int stageIndex, int blockIndex = 0);
 	void OnFallOutOfMap();
 	void OnEnterDoor(Door *door);
+	void ResetSimonToCurrentStage();
 	CVBlock* GetCurrentBlock() { return this->currentBlock; }
 	void OnEnterBossBlock(EnemyBase *enemy);
 	void Active();
