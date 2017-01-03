@@ -194,6 +194,8 @@ int EnemyBase::LoseHealth(int health)
 	this->cvGame->add->TimeOut(300, [this] {
 		this->canContact = true;
 	})->Start();
+
+	this->FlickeringChangeColorAnimationInfinity(300)->Start();
 	return health;
 }
 void EnemyBase::Destroy()
