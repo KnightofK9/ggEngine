@@ -906,18 +906,18 @@ void Simon::StartClimbingLadder(bool isLeft, bool isUp)
 {
 	SetStateGoToLadder(true);
 	if (this->currentMoveToLadderTween == nullptr) {
-		if (this->enableChangeLadderAnchor) {
-			if (isLeft) {
-				this->SetAnchor(this->leftLadderAnchor);
-			}
-			else {
-				this->SetAnchor(this->rightLadderAnchor);
-			}
+		Vector moveToPosition = this->tileLadder->position + Vector(8, 8);
+		int d = 4;
+		if (isLeft) {
+			moveToPosition.x += d;
+		}
+		else {
+			moveToPosition.x -= d;
 		}
 	
 		this->currentMoveToLadderTween = this->cvGame->add->MoveTo(
 			this, 
-			this->tileLadder->position+Vector(8,8),
+			moveToPosition,
 			max(abs((this->tileLadder->position.x - this->position.x) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame, abs((this->tileLadder->position.y - this->position.y) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame),
 			//10000,
 			Easing::linearTween,
@@ -940,17 +940,17 @@ void Simon::StartClimbingLadderAuto(bool isLeft, bool isUp)
 	SetStateGoToLadder(true);
 	if (this->currentAutoLadderTweenAuto == nullptr) {
 		this->PlayAnimation("climbDown");
-		if (this->enableChangeLadderAnchor) {
-			if (isLeft) {
-				this->SetAnchor(this->leftLadderAnchor);
-			}
-			else {
-				this->SetAnchor(this->rightLadderAnchor);
-			}
+
+		Vector moveToPosition = this->tileLadder->position + Vector(8, 8);
+		if (isLeft) {
+			moveToPosition.x -= 12;
+		}
+		else {
+			moveToPosition.x -= 12;
 		}
 		this->currentAutoLadderTweenAuto = this->cvGame->add->MoveTo(
 			this,
-			this->tileLadder->position + Vector(8, 8),
+			moveToPosition,
 			//max(abs((this->tileLadder->position.x - this->position.x) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame, abs((this->tileLadder->position.y - this->position.y) / CharacterConstant::SIMON_MOVE_FORCE)*msPerFrame),
 			this->msPerFrame*2,
 			Easing::linearTween,
