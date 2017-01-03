@@ -6,9 +6,10 @@ Raven::Raven(CVGame * cvGame, SpriteInfo * image) : TweenEnemyBase(cvGame,image,
 	CreateAnimation("idle",0,0,false);
 	CreateAnimation("move", 1, 3, true);
 	SetMoveX(40);
-	SetSpeed(0.5);
+	SetSpeed(1.5);
 	this->body->SetActive(false);
 	this->timeOutBetweenCheck = 1000;
+	this->simonDetectRange = 150;
 }
 
 Raven::~Raven()

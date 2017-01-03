@@ -78,6 +78,7 @@ void EnemyBase::Death()
 {
 	this->cvGame->animationManager->AddEnemyDeathAnimation(this->position.x, this->position.y);
 	Kill();
+	this->isDied = true;
 	GameObject::SetPosition(this->startPosition, true);
 }
 
@@ -103,6 +104,7 @@ bool EnemyBase::OnCheckingCollide(ColliderArg e)
 
 void EnemyBase::Active()
 {
+	this->isDied = false;
 	this->body->velocity = Vector::Zero();
 	this->PlayAnimation("default");
 	this->SetAlive(true);
@@ -197,6 +199,10 @@ int EnemyBase::LoseHealth(int health)
 void EnemyBase::Destroy()
 {
 	CVSpriteAnimation::Destroy();
+}
+bool EnemyBase::IsDied()
+{
+	return isDied;
 }
 void EnemyBase::ChangeFacingDirection(bool isLeft)
 {
