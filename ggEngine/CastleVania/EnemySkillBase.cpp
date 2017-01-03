@@ -25,6 +25,10 @@ EnemySkillBase::EnemySkillBase(CVGame * cvGame, SpriteInfo * image, int frameWid
 			if (this->cvGame->simon->canContactWithEnemy)
 				OnSimonContact(e);
 			break;
+		case ObjectType_Weapon:
+		case ObjectType_SubWeapon:
+			this->Destroy();
+			break;
 		}
 	};
 
