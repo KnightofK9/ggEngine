@@ -8,6 +8,8 @@ public:
 
 	void Update() override;
 	void Active() override;
+
+	int LoseHealth(int health) override;
 private:
 	void Fire(bool isLeft, Vector position);
 	void SetBullet(EnemySkillBase * bullet);
@@ -21,4 +23,5 @@ private:
 	TimeBasedEventInfo *awakingTimeOut = nullptr;
 	int timeOutToAwake;
 	void OnSimonEnterRange(Simon* simon, bool isLeft) override;
+
 };

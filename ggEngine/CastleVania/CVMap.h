@@ -46,6 +46,8 @@ public:
 	void DeActive();
 	void Reset();
 	void OnLevelCompleted();
+
+	EnemyBase * currentBoss = nullptr;
 private:
 #ifdef DEBUG_ENABLE_SET_STAGE_BLOCK_KEY_CONTROL
 	TimeBasedEventInfo* currentTimeOutPressKey = nullptr;

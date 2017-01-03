@@ -418,6 +418,7 @@ void CVMap::OnEnterBossBlock(EnemyBase *enemy)
 	this->cvGame->camera->UnFollow();
 	this->simon->SetBlock(this->cvGame->camera->GetNormalRect());
 	this->infoPanel->SetEnemy(enemy);
+	this->currentBoss = enemy;
 }
 
 void CVMap::Active()

@@ -13,7 +13,6 @@ Boss3::Boss3(CVGame * cvGame, SpriteInfo * image, bool isPrimaryBoss) : WalkingE
 	fireInterval = 1000;
 	this->allowToDetectSimon = false;
 	SetBullet(new Boss3Skill(this->cvGame, this->cvGame->cache->GetSpriteInfo(TextureConstant::SKILL_BOSS_3_TEXTURE)));
-
 	this->maxHealth = 16;
 	this->damage = 0.5f;
 	this->point = 3000;
@@ -48,6 +47,12 @@ void Boss3::Active()
 	WalkingEnemyBase::Active();
 	this->isAwake = false;
 	this->allowToDetectSimon = true;
+}
+
+int Boss3::LoseHealth(int health)
+{
+	if (!isPrimaryBoss) return 0;
+	return WalkingEnemyBase::LoseHealth(health);
 }
 
 void Boss3::Fire(bool isLeft, Vector position)

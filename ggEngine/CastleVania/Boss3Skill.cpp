@@ -4,6 +4,7 @@ Boss3Skill::Boss3Skill(CVGame * cvGame, SpriteInfo * image) : EnemySkillBase(cvG
 {
 	CreateAnimation("move", 0, 1, true);
 	PlayAnimation("move");
+	this->fireSpeed = 3.5;
 }
 
 Boss3Skill::~Boss3Skill()
