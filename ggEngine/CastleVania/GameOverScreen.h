@@ -10,7 +10,7 @@ public:
 	virtual void Draw() override;
 	void ToggleHeart(bool isUp);
 	void SetEnable(bool isEnable);
-	void SetEventToggleHeart(std::function<void(void)> onToggleUp, std::function<void(void)> onToggleDown);
+	void SetEnableEventToggleHeart();
 
 	Text *gameOver;
 	Text *cont;
@@ -20,8 +20,8 @@ public:
 	bool isKeyPressed = false;
 	bool isToggleUp = false;
 
-	std::function<void(void)> onToggleUp;
-	std::function<void(void)> onToggleDown;
+	//std::function<void(void)> onToggleUp;
+	//std::function<void(void)> onToggleDown;
 
 private:
 	CVGame *cvGame = nullptr;

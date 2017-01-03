@@ -12,6 +12,8 @@ ggEngine::TileSet::TileSet(Game * game, Texture * texture)
 ggEngine::TileSet::~TileSet()
 {
 	for (auto it = this->tileInfoList.begin(); it != this->tileInfoList.end(); ++it) {
+		auto tile = (*it);
+		tile->texture = NULL;
 		delete (*it);
 	}
 	if (this->texture != nullptr) {

@@ -13,7 +13,7 @@ namespace ggEngine{
 		Group(Game *game);
 		virtual ~Group();
 
-		void AddGroup(Group* group);
+		virtual void AddGroup(Group* group);
 		void RemoveGroup(Group* group);
 		virtual void Update();
 		std::function<void(void)> update;

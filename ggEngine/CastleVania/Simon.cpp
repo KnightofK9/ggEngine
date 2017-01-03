@@ -69,6 +69,8 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 			this->goScreen->SetEnable(true);
 			this->currentMap->projectileGroup->SetVisible(false);
 			this->currentMap->enemyGroup->SetVisible(false);
+			this->isDied = false;
+			this->allowControl = false;
 		}
 		else {
 			this->ResetAffterDie();
@@ -445,9 +447,9 @@ Simon::Simon(CVGame *cvGame, SpriteInfo * image, InfoPanel *infoPanel, GameOverS
 
 Simon::~Simon()
 {
-	if (this->weaponWhip != nullptr) {
-		delete this->weaponWhip;
-	}
+	//if (this->weaponWhip != nullptr) {
+	//	delete this->weaponWhip;
+	//}
 }
 
 void Simon::SetHealth(int heath)

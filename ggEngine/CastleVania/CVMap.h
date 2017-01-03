@@ -48,6 +48,7 @@ public:
 	void DeActive();
 	void Reset();
 	void OnLevelCompleted();
+	void AddGroup(Group* group) override;
 
 	EnemyBase * currentBoss = nullptr;
 private:

@@ -1,5 +1,7 @@
 #include "GameOverScreen.h"
 #include "CVGame.h"
+#include "Simon.h"
+#include "CVMap.h"
 
 GameOverScreen::GameOverScreen(CVGame *game) : ScreenGroup(game)
 {
@@ -77,12 +79,12 @@ void GameOverScreen::SetEnable(bool isEnable)
 	this->isEnableKey = isEnable;
 }
 
-void GameOverScreen::SetEventToggleHeart(std::function<void(void)> onToggleUp, std::function<void(void)> onToggleDown)
+void GameOverScreen::SetEnableEventToggleHeart()
 {
 	if (this->heart == NULL)
 		return;
-	this->onToggleUp = onToggleUp;
-	this->onToggleDown = onToggleDown;
+	//this->onToggleUp = onToggleUp;
+	//this->onToggleDown = onToggleDown;
 
 	this->cvGame->eventManager->EnableKeyBoardInput(this->heart);
 	this->heart->events->onKeyPress = [this](GameObject *go, KeyBoardEventArg e) {
@@ -94,10 +96,14 @@ void GameOverScreen::SetEventToggleHeart(std::function<void(void)> onToggleUp, s
 		{
 			if (e.isPress(DIK_RETURN)) {
 				if (this->isToggleUp) {
-					this->onToggleUp();
+					//this->onToggleUp();
+					this->cvGame->simon->SetPPoint(3);
+					this->cvGame->simon->currentMap->ResetSimonToCurrentStage();
+					this->cvGame->simon->ResetAffterDie();
 				}
 				else {
-					this->onToggleDown();
+					//this->onToggleDown();
+					this->cvGame->stateManager->Start("IntroState", true, true);
 				}
 				this->SetEnable(false);
 			}

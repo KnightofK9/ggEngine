@@ -82,7 +82,8 @@ void CVMap::BuildMap(std::string name, const char * jsonChar, int level)
 		const char* value = v.c_str();
 		if (type == "TileMap") {
 		
-			this->tileMapGroup = this->add->TileMap(name, value,this);
+			this->tileMapGroup = this->add->TileMap(name, value,nullptr);
+			this->tileMapGroup->SetParentObject(this);
 			continue;
 		}
 		if (type == "QuadTree") {
@@ -460,6 +461,11 @@ void CVMap::OnLevelCompleted()
 	else {
 		g_debug.Error("No next level for " + this->name);
 	}
+}
+
+void CVMap::AddGroup(Group * group)
+{
+	Group::AddGroup(group);
 }
 
 void CVMap::SetSimonPositionOnChangeBlock()

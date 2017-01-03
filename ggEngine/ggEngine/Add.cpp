@@ -89,7 +89,9 @@ namespace ggEngine{
 		ggEngine::TileMap *tileMap = new ggEngine::TileMap(this->game);
 		tileMap->name = tileMapName;
 		tileMap->BuildTileMap(jsonChar);
-		group->AddGroup(tileMap);
+		if (group != nullptr) {
+			group->AddGroup(tileMap);
+		}
 		return tileMap;
 	}
 	Text* Add::Text(double x, double y, std::string fontKey, double width, double height, std::string text, Style style, ggEngine::Group  *group)
