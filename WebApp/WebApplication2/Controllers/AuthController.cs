@@ -5,25 +5,30 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication2.Data;
 using WebApplication2.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace WebApplication2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         private UserManager<UserModel> _userManager;
+        public IConfiguration Configuration { get; set; }
 
-        public AuthController(UserManager<UserModel> userManager)
+        public AuthController(IConfiguration configuration, UserManager<UserModel> userManager)
         {
+            Configuration = configuration;
             _userManager = userManager;
         }
-
+        
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto)
@@ -37,7 +42,7 @@ namespace WebApplication2.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
-                var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecurityKey_1234567890"));
+                var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]));
 
                 var token = new JwtSecurityToken(
                     issuer: "http://abc.com",
@@ -55,11 +60,6 @@ namespace WebApplication2.Controllers
             }
 
             return Unauthorized();
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }

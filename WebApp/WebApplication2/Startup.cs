@@ -22,12 +22,12 @@ namespace WebApplication2
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,7 +35,7 @@ namespace WebApplication2
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration["ConnectionStrings"]));
 
             services.AddIdentity<UserModel, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -57,7 +57,7 @@ namespace WebApplication2
                     ValidateAudience = true,
                     ValidAudience = "http://abc.com",
                     ValidIssuer = "http://abc.com",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecurityKey_1234567890"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
                 };
             });
         }
