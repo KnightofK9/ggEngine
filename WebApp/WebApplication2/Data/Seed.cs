@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,22 +14,39 @@ namespace WebApplication2.Data
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
-            var userManager = serviceProvider.GetRequiredService<UserManager<UserModel>>();
+            var applicationContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
-            context.Database.EnsureCreated();
-            if (!context.Users.Any())
+            if (!applicationContext.Users.Any())
             {
-                UserModel user = new UserModel()
+                var user = new UserModel
                 {
                     Email = "email_user@com",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "user_admin",                    
+                    UserName = "user_admin"
                 };
-                //context.Users.Add(user);
-                //context.SaveChanges();
-                userManager.CreateAsync(user, "Password_abc123");
+
+                var password = new PasswordHasher<UserModel>();
+                var hashed = password.HashPassword(user, "Password_123");
+                user.PasswordHash = hashed;
+
+                //var userManager = new UserManager<UserModel>(new UserStore<UserModel>(applicationContext));
+                //var userManager = serviceProvider.GetRequiredService<UserManager<UserModel>>();
+                var userStore = new UserStore<UserModel>(applicationContext);
+                userStore.CreateAsync(user);
             }
+
+            if (!applicationContext.Students.Any())
+            {
+                applicationContext.Students.Add(new StudentModel
+                {
+                    StudentID = "123456789",
+                    FirstName = "First",
+                    LastName = "Last"
+                });
+            }
+
+            applicationContext.SaveChanges();
+            applicationContext.SaveChangesAsync();
         }
     }
 }
