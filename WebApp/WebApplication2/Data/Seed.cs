@@ -35,15 +35,28 @@ namespace WebApplication2.Data
                 userStore.CreateAsync(user);
             }
 
-            if (!applicationContext.Students.Any())
-            {
-                applicationContext.Students.Add(new StudentModel
-                {
-                    StudentID = "123456789",
-                    FirstName = "First",
-                    LastName = "Last"
-                });
-            }
+            //// Lecturer
+            //if (!applicationContext.Lecturers.Any())
+            //{
+            //    applicationContext.Lecturers.Add(new LecturerModel
+            //    {
+            //        LectureCode = "LT_001",
+            //        FirstName = "John",
+            //        LastName = "Quick"
+            //    });
+            //}
+
+            //// Student
+            //if (!applicationContext.Students.Any())
+            //{
+            //    applicationContext.Students.Add(new StudentModel
+            //    {
+            //        Id = 1,
+            //        StudentCode = "ST_001"
+            //        //FirstName = "Harry",
+            //        //LastName = "Poster"
+            //    });
+            //}
 
             applicationContext.SaveChanges();
             applicationContext.SaveChangesAsync();

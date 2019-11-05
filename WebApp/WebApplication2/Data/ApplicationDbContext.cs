@@ -11,6 +11,8 @@ namespace WebApplication2.Data
     public class ApplicationDbContext : IdentityDbContext<UserModel>
     {
         public DbSet<StudentModel> Students { get; set; }
+        public DbSet<LecturerModel> Lecturers { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

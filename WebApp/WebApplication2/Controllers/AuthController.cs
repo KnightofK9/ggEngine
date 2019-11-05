@@ -15,9 +15,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace WebApplication2.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class AuthController : Controller
     {
         private UserManager<UserModel> _userManager;
