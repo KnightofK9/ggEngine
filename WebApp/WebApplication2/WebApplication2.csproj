@@ -7,24 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20191024072950_Initial.cs" />
-    <Compile Remove="Migrations\20191024072950_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191024075201_Initial.cs" />
-    <Compile Remove="Migrations\20191024075201_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191031043939_Initial.cs" />
-    <Compile Remove="Migrations\20191031043939_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191031045449_Initial.cs" />
-    <Compile Remove="Migrations\20191031045449_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191031052547_Initial.cs" />
-    <Compile Remove="Migrations\20191031052547_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191031052836_Initial.cs" />
-    <Compile Remove="Migrations\20191031052836_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191031053502_Initial.cs" />
-    <Compile Remove="Migrations\20191031053502_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191031110001_Initial.cs" />
-    <Compile Remove="Migrations\20191031110001_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191105173654_Initial.cs" />
-    <Compile Remove="Migrations\20191105173654_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20191121021027_Initial.cs" />
+    <Compile Remove="Migrations\20191121021027_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,47 +16,62 @@ namespace WebApplication2.Data
         {
             var applicationContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
+            var passwordHasher = new PasswordHasher<UserModel>();
+            var userStore = new UserStore<UserModel>(applicationContext);
+
             if (!applicationContext.Users.Any())
             {
-                var user = new UserModel
+                var adminUser = new UserModel
                 {
-                    Email = "email_user@com",
+                    Email = "admin@com",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "user_admin"
+                    UserName = "admin"
                 };
-
-                var password = new PasswordHasher<UserModel>();
-                var hashed = password.HashPassword(user, "Password_123");
-                user.PasswordHash = hashed;
-
-                //var userManager = new UserManager<UserModel>(new UserStore<UserModel>(applicationContext));
-                //var userManager = serviceProvider.GetRequiredService<UserManager<UserModel>>();
-                var userStore = new UserStore<UserModel>(applicationContext);
-                userStore.CreateAsync(user);
+                adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "pwadmin");
+                userStore.CreateAsync(adminUser);
             }
 
-            //// Lecturer
-            //if (!applicationContext.Lecturers.Any())
-            //{
-            //    applicationContext.Lecturers.Add(new LecturerModel
-            //    {
-            //        LectureCode = "LT_001",
-            //        FirstName = "John",
-            //        LastName = "Quick"
-            //    });
-            //}
+            // Lecturer
+            if (!applicationContext.Lecturers.Any())
+            {
+                var lecturerUser = new UserModel
+                {
+                    Email = "lt001@com",
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = "lt001"
+                };
+                lecturerUser.PasswordHash = passwordHasher.HashPassword(lecturerUser, "pwlt001");
+                userStore.CreateAsync(lecturerUser);
 
-            //// Student
-            //if (!applicationContext.Students.Any())
-            //{
-            //    applicationContext.Students.Add(new StudentModel
-            //    {
-            //        Id = 1,
-            //        StudentCode = "ST_001"
-            //        //FirstName = "Harry",
-            //        //LastName = "Poster"
-            //    });
-            //}
+                applicationContext.Lecturers.Add(new LecturerModel
+                {
+                    LecturerCode = "LT001",
+                    FirstName = "Join",
+                    LastName = "Quick",
+                    User = lecturerUser
+                });
+            }
+
+            // Student
+            if (!applicationContext.Students.Any())
+            {
+                var studentUser = new UserModel
+                {
+                    Email = "st001@com",
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = "st001"
+                };
+                studentUser.PasswordHash = passwordHasher.HashPassword(studentUser, "pwst001");
+                userStore.CreateAsync(studentUser);
+
+                applicationContext.Students.Add(new StudentModel
+                {
+                    StudentCode = "ST001",
+                    FirstName = "Harry",
+                    LastName = "Poster",
+                    User = studentUser
+                });
+            }
 
             applicationContext.SaveChanges();
             applicationContext.SaveChangesAsync();

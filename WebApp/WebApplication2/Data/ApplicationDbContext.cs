@@ -13,7 +13,6 @@ namespace WebApplication2.Data
         public DbSet<StudentModel> Students { get; set; }
         public DbSet<LecturerModel> Lecturers { get; set; }
 
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)

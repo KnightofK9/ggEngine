@@ -12,11 +12,11 @@ namespace WebApplication2.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private ApplicationDbContext _context;
 
-        public ValuesController(ApplicationDbContext context)
+        public UsersController(ApplicationDbContext context)
         {
             _context = context;
         }
