@@ -37,7 +37,7 @@ namespace WebApplication2
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings"]));
             
-            services.AddIdentity<UserModel, IdentityRole>(options =>
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 4;

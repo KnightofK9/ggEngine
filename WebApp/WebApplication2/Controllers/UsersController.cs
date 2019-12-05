@@ -26,7 +26,6 @@ namespace WebApplication2.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
             return _context.Users.Select(u => u.UserName).ToArray();
-            //return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

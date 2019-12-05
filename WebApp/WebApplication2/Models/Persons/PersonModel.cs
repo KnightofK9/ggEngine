@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,6 +23,8 @@ namespace WebApplication2.Models
 
         public bool IsMale { get; set; }
 
-        public UserModel User { get; set; }
+        // Composition
+
+        public IdentityUser User { get; set; }
     }
 }

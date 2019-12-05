@@ -12,5 +12,7 @@ namespace WebApplication2.Models
         public string StudentCode { get; set; }
 
         public string NickName { get; set; }
+
+        public bool Anonymous { get; set; }
     }
 }

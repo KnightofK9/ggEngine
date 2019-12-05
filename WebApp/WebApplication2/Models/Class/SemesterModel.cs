@@ -8,8 +8,11 @@ namespace WebApplication2.Models
 {
     public class SemesterModel
     {
+        [Key]
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:yyyy}")]
         [DataType(DataType.Date)]
         public DateTime Year { get; set; }

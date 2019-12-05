@@ -16,9 +16,10 @@ namespace WebApplication2.Data
         {
             var applicationContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
-            var passwordHasher = new PasswordHasher<UserModel>();
-            var userStore = new UserStore<UserModel>(applicationContext);
+            var passwordHasher = new PasswordHasher<IdentityUser>();
+            var userStore = new UserStore<IdentityUser>(applicationContext);
 
+            /*
             if (!applicationContext.Users.Any())
             {
                 var adminUser = new UserModel
@@ -48,7 +49,7 @@ namespace WebApplication2.Data
                     LecturerCode = "LT001",
                     FirstName = "Join",
                     LastName = "Quick",
-                    User = lecturerUser
+                    //User = lecturerUser
                 });
             }
 
@@ -68,10 +69,11 @@ namespace WebApplication2.Data
                 {
                     StudentCode = "ST001",
                     FirstName = "Harry",
-                    LastName = "Poster",
-                    User = studentUser
+                    LastName = "Poster",                    
+                    //User = studentUser
                 });
             }
+            */
 
             applicationContext.SaveChanges();
             applicationContext.SaveChangesAsync();

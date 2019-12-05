@@ -17,14 +17,6 @@ namespace WebApplication2.Data
             Professor           = 1 << 5
         };
 
-        public enum Faculty
-        {
-            SoftwareEngineering,
-            ComputerScience,
-            InformationSystem,
-            ComputerNetworking
-        }
-
         public enum Rate
         {
             Terrible        = 1,
