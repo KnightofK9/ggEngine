@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,21 +13,56 @@ namespace WebApplication2.Data
 {
     public class Seed
     {
+        //public static bool CreatRoleAsync(IServiceProvider serviceProvider, string roleName)
+        //{
+        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        //    var roleExist = RoleManager.RoleExistsAsync(roleName);
+        //    if (roleExist.Result)
+        //    {
+        //        var result = RoleManager.CreateAsync(new IdentityRole(roleName));
+        //        return result.Result.Succeeded;
+        //    }
+        //    else
+        //        return false;
+        //}
+
+        //public static void AsignUserRoleAsync(IServiceProvider serviceProvider, string userName, string roleName)​
+        //{
+        //serviceProvider.
+        //            var _user = UserManager.F
+        //            (Configuration.GetSection("UserSettings")["UserEmail"]);
+        //​
+        //            if (_user == null)
+        //                {
+        //                    var createPowerUser = await UserManager.CreateAsync(poweruser, UserPassword);
+        //                    if (createPowerUser.Succeeded)
+        //                    {
+        //                        //here we tie the new user to the "Admin" role 
+        //                        await UserManager.AddToRoleAsync(poweruser, "Admin");
+        //​
+        //                    }
+        //                }
+        //            }
+        //}
+        
+
         public static void Initialize(IServiceProvider serviceProvider)
         {
             var applicationContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            
+            // Users
 
             var passwordHasher = new PasswordHasher<IdentityUser>();
             var userStore = new UserStore<IdentityUser>(applicationContext);
 
-            /*
             if (!applicationContext.Users.Any())
             {
-                var adminUser = new UserModel
+                var adminUser = new IdentityUser
                 {
                     Email = "admin@com",
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "admin"
+                    UserName = "admin",
                 };
                 adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "pwadmin");
                 userStore.CreateAsync(adminUser);
@@ -35,10 +71,9 @@ namespace WebApplication2.Data
             // Lecturer
             if (!applicationContext.Lecturers.Any())
             {
-                var lecturerUser = new UserModel
+                var lecturerUser = new IdentityUser
                 {
                     Email = "lt001@com",
-                    SecurityStamp = Guid.NewGuid().ToString(),
                     UserName = "lt001"
                 };
                 lecturerUser.PasswordHash = passwordHasher.HashPassword(lecturerUser, "pwlt001");
@@ -49,17 +84,16 @@ namespace WebApplication2.Data
                     LecturerCode = "LT001",
                     FirstName = "Join",
                     LastName = "Quick",
-                    //User = lecturerUser
+                    User = lecturerUser
                 });
             }
 
             // Student
             if (!applicationContext.Students.Any())
             {
-                var studentUser = new UserModel
+                var studentUser = new IdentityUser
                 {
                     Email = "st001@com",
-                    SecurityStamp = Guid.NewGuid().ToString(),
                     UserName = "st001"
                 };
                 studentUser.PasswordHash = passwordHasher.HashPassword(studentUser, "pwst001");
@@ -70,10 +104,9 @@ namespace WebApplication2.Data
                     StudentCode = "ST001",
                     FirstName = "Harry",
                     LastName = "Poster",                    
-                    //User = studentUser
+                    User = studentUser
                 });
             }
-            */
 
             applicationContext.SaveChanges();
             applicationContext.SaveChangesAsync();

@@ -36,7 +36,12 @@ namespace WebApplication2
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings"]));
-            
+
+            services.AddAuthorization(options =>
+            {
+                //options.AddPolicy()
+            });
+
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
                 {
                     options.Password.RequireDigit = false;
