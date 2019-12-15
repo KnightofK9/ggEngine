@@ -25,6 +25,6 @@ namespace WebApplication2.Models
 
         // Composition
 
-        public IdentityUser User { get; set; }
+        public UserModel User { get; set; }
     }
 }

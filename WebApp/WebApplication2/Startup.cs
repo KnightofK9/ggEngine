@@ -36,6 +36,14 @@ namespace WebApplication2
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Smart Class API", Version = "v1" });
+                //c.AddSecurityDefinition("oauth2", new OAuth2Scheme
+                //{
+                //    Flow = "implicit",
+                //    AuthorizationUrl = "http://localhost:5000/connect/authorize",
+                //    Scopes = new Dictionary<string, string> {
+                //        { "demo_api", "Demo API - full access" }
+                //    }
+                //});
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -48,7 +56,7 @@ namespace WebApplication2
                 //options.AddPolicy()
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<UserModel, IdentityRole>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 4;

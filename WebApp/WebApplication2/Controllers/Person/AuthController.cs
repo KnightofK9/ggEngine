@@ -20,10 +20,10 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class AuthController : Controller
     {
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<UserModel> _userManager;
         public IConfiguration Configuration { get; set; }
 
-        public AuthController(IConfiguration configuration, UserManager<IdentityUser> userManager)
+        public AuthController(IConfiguration configuration, UserManager<UserModel> userManager)
         {
             Configuration = configuration;
             _userManager = userManager;

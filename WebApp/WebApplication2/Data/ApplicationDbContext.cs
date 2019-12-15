@@ -9,7 +9,7 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<UserModel>
     {
         public DbSet<StudentModel> Students { get; set; }
         public DbSet<LecturerModel> Lecturers { get; set; }

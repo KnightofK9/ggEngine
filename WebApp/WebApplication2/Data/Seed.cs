@@ -54,12 +54,12 @@ namespace WebApplication2.Data
 
             // Users
 
-            var passwordHasher = new PasswordHasher<IdentityUser>();
-            var userStore = new UserStore<IdentityUser>(applicationContext);
+            var passwordHasher = new PasswordHasher<UserModel>();
+            var userStore = new UserStore<UserModel>(applicationContext);
             
             if (!applicationContext.Users.Any())
             {
-                var adminUser = new IdentityUser
+                var adminUser = new UserModel
                 {
                     Email = "admin@com",
                     UserName = "admin",
