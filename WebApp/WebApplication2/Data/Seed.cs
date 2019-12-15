@@ -51,12 +51,12 @@ namespace WebApplication2.Data
         public static void Initialize(IServiceProvider serviceProvider)
         {
             var applicationContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-            
+
             // Users
 
             var passwordHasher = new PasswordHasher<IdentityUser>();
             var userStore = new UserStore<IdentityUser>(applicationContext);
-
+            
             if (!applicationContext.Users.Any())
             {
                 var adminUser = new IdentityUser
@@ -69,46 +69,46 @@ namespace WebApplication2.Data
             }
 
             // Lecturer
-            if (!applicationContext.Lecturers.Any())
-            {
-                var lecturerUser = new IdentityUser
-                {
-                    Email = "lt001@com",
-                    UserName = "lt001"
-                };
-                lecturerUser.PasswordHash = passwordHasher.HashPassword(lecturerUser, "pwlt001");
-                userStore.CreateAsync(lecturerUser);
+            //if (!applicationContext.Lecturers.Any())
+            //{
+            //    var lecturerUser = new IdentityUser
+            //    {
+            //        Email = "lt001@com",
+            //        UserName = "lt001"
+            //    };
+            //    lecturerUser.PasswordHash = passwordHasher.HashPassword(lecturerUser, "pwlt001");
+            //    userStore.CreateAsync(lecturerUser);
 
-                applicationContext.Lecturers.Add(new LecturerModel
-                {
-                    LecturerCode = "LT001",
-                    FirstName = "Join",
-                    LastName = "Quick",
-                    User = lecturerUser
-                });
-            }
+            //    applicationContext.Lecturers.Add(new LecturerModel
+            //    {
+            //        LecturerCode = "LT001",
+            //        FirstName = "Join",
+            //        LastName = "Quick",
+            //        User = lecturerUser
+            //    });
+            //}
 
-            // Student
-            if (!applicationContext.Students.Any())
-            {
-                var studentUser = new IdentityUser
-                {
-                    Email = "st001@com",
-                    UserName = "st001"
-                };
-                studentUser.PasswordHash = passwordHasher.HashPassword(studentUser, "pwst001");
-                userStore.CreateAsync(studentUser);
+            //// Student
+            //if (!applicationContext.Students.Any())
+            //{
+            //    var studentUser = new IdentityUser
+            //    {
+            //        Email = "st001@com",
+            //        UserName = "st001"
+            //    };
+            //    studentUser.PasswordHash = passwordHasher.HashPassword(studentUser, "pwst001");
+            //    userStore.CreateAsync(studentUser);
 
-                applicationContext.Students.Add(new StudentModel
-                {
-                    StudentCode = "ST001",
-                    FirstName = "Harry",
-                    LastName = "Poster",                    
-                    User = studentUser
-                });
-            }
+            //    applicationContext.Students.Add(new StudentModel
+            //    {
+            //        StudentCode = "ST001",
+            //        FirstName = "Harry",
+            //        LastName = "Poster",                    
+            //        User = studentUser
+            //    });
+            //}
 
-            applicationContext.SaveChanges();
+            applicationContext.SaveChangesAsync();
             applicationContext.SaveChangesAsync();
         }
     }
