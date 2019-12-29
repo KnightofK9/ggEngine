@@ -51,18 +51,15 @@ namespace WebApplication2
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings"]));
 
-            services.AddAuthorization(options =>
-            {
-                //options.AddPolicy()
-            });
-
-            services.AddIdentity<UserModel, IdentityRole>(options =>
+            services.AddAuthorization(options => {});
+            services.AddIdentity<UserModel, RoleModel>(options =>
                 {
                     options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 4;
+                    options.Password.RequiredLength = 1;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
+                    options.Password.RequiredUniqueChars = 1;
                 }
                 )            
                 .AddEntityFrameworkStores<ApplicationDbContext>()

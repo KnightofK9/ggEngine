@@ -9,28 +9,41 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<UserModel>
+    public class ApplicationDbContext : DbContext // : IdentityDbContext<UserModel>
     {
-        public DbSet<StudentModel> Students { get; set; }
-        public DbSet<LecturerModel> Lecturers { get; set; }
+        // Bridge
+        public DbSet<CourseLecturer> CourseLecturers { get; set; }
+        public DbSet<CourseStudent> CourseStudents { get; set; }
+        public DbSet<MessageLecturer> MessageLecturers { get; set; }
+        public DbSet<MessageStudent> MessageStudents { get; set; }
 
-        public DbSet<ClassModel> Classes { get; set; }
-        public DbSet<LessionModel> Lessions { get; set; }
-        public DbSet<SemesterModel> Semesters { get; set; }
 
-        public DbSet<AttendanceModel> Attendances { get; set; }
-        public DbSet<DiscussionModel> Discussions { get; set; }
-        public DbSet<DocumentModel> Documents { get; set; }
-        public DbSet<LecturerMessageModel> LecturerMessages { get; set; }
-        public DbSet<StudentMessageModel> StudentMessages { get; set; }
-        public DbSet<RateModel> Rates { get; set; }
-        public DbSet<ReportModel> Reports { get; set; }
+        // Course
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Lession> Lessions { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
 
-        public DbSet<AnswerModel> Answers { get; set; }
-        public DbSet<OptionModel> Options { get; set; }
-        public DbSet<QuestionModel> Questions { get; set; }
-        public DbSet<SubmissionModel> Submissions { get; set; }
-        public DbSet<TestModel> Tests { get; set; }
+        // Identity
+        public DbSet<RoleModel> Roles { get; set; }
+        public DbSet<UserModel> Users { get; set; }
+
+        // Interaction
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Discussion> Discussions { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<Rate> Rates { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        
+        // Person
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Lecturer> Lecturers { get; set; }
+      
+        // QA
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Submission> Submissions { get; set; }
+        public DbSet<Test> Tests { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

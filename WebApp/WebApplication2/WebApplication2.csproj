@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>e3146de1-0b54-4933-a025-f2e0c91efb27</UserSecretsId>
+    <StartupObject>WebApplication2.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +13,15 @@
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Course\" />
+    <Folder Include="Controllers\Identity\" />
+    <Folder Include="Controllers\Interaction\" />
+    <Folder Include="Controllers\Bridge\" />
+    <Folder Include="Controllers\Person\" />
+    <Folder Include="Controllers\QA\" />
   </ItemGroup>
 
 </Project>

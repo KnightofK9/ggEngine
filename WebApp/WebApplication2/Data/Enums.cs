@@ -17,7 +17,13 @@ namespace WebApplication2.Data
             Professor           = 1 << 5
         };
 
-        public enum Rate
+        public enum TeachingType
+        {
+            Theoretical     = 1 << 0,
+            Practical       = 1 << 1
+        }
+
+        public enum RateLevel
         {
             Terrible        = 1,
             Poor            = 2,

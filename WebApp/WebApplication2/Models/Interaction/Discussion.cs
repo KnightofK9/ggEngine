@@ -7,28 +7,24 @@ using WebApplication2.Data;
 
 namespace WebApplication2.Models
 {
-    public class Test
+    public class Discussion
     {
         [Key]
         public int Id { get; set; }
-
-        public string Title { get; set; }
-
-        public DateTime Deadline { get; set; }
-
+        
         public Enums.DiscusstionStatus Status { get; set; }
 
-        #region Relationship
+        #region Relationships
 
-        public ICollection<Question> Questions { get; set; }
-        public ICollection<Submission> Submissions { get; set; }
+        public ICollection<MessageLecturer> MessageLecturers { get; set; }
+        public ICollection<MessageStudent> StudentMessages { get; set; }
 
         #endregion
 
         #region References
 
         public Lession Lession { get; set; }
-        
+
         #endregion
     }
 }
