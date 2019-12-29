@@ -11,6 +11,8 @@ namespace WebApplication2.Models
         [Key]
         public int Id { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm:ss}")]
+        [DataType(DataType.DateTime)]
         public DateTime Time { get; set; }
 
         public string Content { get; set; }

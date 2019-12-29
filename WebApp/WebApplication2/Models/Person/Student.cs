@@ -24,7 +24,6 @@ namespace WebApplication2.Models
         public ICollection<Report> Reports { get; set; }
         public ICollection<Submission> Submissions { get; set; }
 
-
         #endregion
     }
 }

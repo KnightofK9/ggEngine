@@ -14,6 +14,8 @@ namespace WebApplication2.Models
 
         public string Title { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm:ss}")]
+        [DataType(DataType.DateTime)]
         public DateTime Deadline { get; set; }
 
         public Enums.DiscusstionStatus Status { get; set; }

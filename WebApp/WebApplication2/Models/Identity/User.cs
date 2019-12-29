@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication2.Models
 {
-    public class UserModel : IdentityUser
+    public class User : IdentityUser
     {
     }
 }

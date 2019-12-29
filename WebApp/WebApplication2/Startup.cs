@@ -52,7 +52,7 @@ namespace WebApplication2
                 options.UseSqlServer(Configuration["ConnectionStrings"]));
 
             services.AddAuthorization(options => {});
-            services.AddIdentity<UserModel, RoleModel>(options =>
+            services.AddIdentity<User, RoleModel>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 1;

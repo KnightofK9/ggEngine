@@ -16,15 +16,15 @@ namespace WebApplication2.Models
         
         public string Name { get; set; }
   
-        [DisplayFormat(DataFormatString = "{0:dd MM yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd MM yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        public int StudentNumber { get; set; }
+        public int StudentNumber { get; }
 
         #region Relationships
 

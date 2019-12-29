@@ -30,11 +30,11 @@ namespace WebApplication2.Data
 
 
             // Users
-            var passwordHasher = new PasswordHasher<UserModel>();
-            var userStore = new UserStore<UserModel>(applicationContext);            
+            var passwordHasher = new PasswordHasher<User>();
+            var userStore = new UserStore<User>(applicationContext);            
             if (!userStore.Users.Any())
             {
-                var adminUser = new UserModel
+                var adminUser = new User
                 {
                     Email = "admin@com",
                     UserName = "admin",

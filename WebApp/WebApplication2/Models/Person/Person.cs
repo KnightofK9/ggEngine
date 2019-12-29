@@ -19,10 +19,12 @@ namespace WebApplication2.Models
 
         public string LastName { get; set; }
 
-        public string FullName { get { return FirstName + ' ' + LastName; } }
-
         public bool IsMale { get; set; }
 
-        public UserModel User { get; set; }
+        #region References
+
+        public User User { get; set; }
+
+        #endregion
     }
 }
