@@ -16,12 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Course\" />
     <Folder Include="Controllers\Identity\" />
-    <Folder Include="Controllers\Interaction\" />
-    <Folder Include="Controllers\Bridge\" />
-    <Folder Include="Controllers\Person\" />
-    <Folder Include="Controllers\QA\" />
   </ItemGroup>
 
 </Project>

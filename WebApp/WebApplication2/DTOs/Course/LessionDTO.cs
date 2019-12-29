@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication2.DTO
+namespace WebApplication2.DTOs
 {
     public class LessionDTO
     {
