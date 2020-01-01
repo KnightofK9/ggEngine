@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/Documents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetDocumentDTO()
+        public async Task<ActionResult<IEnumerable<Document>>> GetDocuments()
         {
-            return await _context.DocumentDTO.ToListAsync();
+            return await _context.Documents.ToListAsync();
         }
 
         // GET: api/Documents/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DocumentDTO>> GetDocumentDTO(int id)
+        public async Task<ActionResult<Document>> GetDocument(int id)
         {
-            var documentDTO = await _context.DocumentDTO.FindAsync(id);
+            var document = await _context.Documents.FindAsync(id);
 
-            if (documentDTO == null)
+            if (document == null)
             {
                 return NotFound();
             }
 
-            return documentDTO;
+            return document;
         }
 
         // PUT: api/Documents/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDocumentDTO(int id, DocumentDTO documentDTO)
+        public async Task<IActionResult> PutDocument(int id, Document document)
         {
-            if (id != documentDTO.Id)
+            if (id != document.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(documentDTO).State = EntityState.Modified;
+            _context.Entry(document).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DocumentDTOExists(id))
+                if (!DocumentExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/Documents
         [HttpPost]
-        public async Task<ActionResult<DocumentDTO>> PostDocumentDTO(DocumentDTO documentDTO)
+        public async Task<ActionResult<Document>> PostDocument(Document document)
         {
-            _context.DocumentDTO.Add(documentDTO);
+            _context.Documents.Add(document);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDocumentDTO", new { id = documentDTO.Id }, documentDTO);
+            return CreatedAtAction("GetDocument", new { id = document.Id }, document);
         }
 
         // DELETE: api/Documents/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<DocumentDTO>> DeleteDocumentDTO(int id)
+        public async Task<ActionResult<Document>> DeleteDocument(int id)
         {
-            var documentDTO = await _context.DocumentDTO.FindAsync(id);
-            if (documentDTO == null)
+            var document = await _context.Documents.FindAsync(id);
+            if (document == null)
             {
                 return NotFound();
             }
 
-            _context.DocumentDTO.Remove(documentDTO);
+            _context.Documents.Remove(document);
             await _context.SaveChangesAsync();
 
-            return documentDTO;
+            return document;
         }
 
-        private bool DocumentDTOExists(int id)
+        private bool DocumentExists(int id)
         {
-            return _context.DocumentDTO.Any(e => e.Id == id);
+            return _context.Documents.Any(e => e.Id == id);
         }
     }
 }

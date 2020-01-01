@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/Discussions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DiscussionDTO>>> GetDiscussionDTO()
+        public async Task<ActionResult<IEnumerable<Discussion>>> GetDiscussions()
         {
-            return await _context.DiscussionDTO.ToListAsync();
+            return await _context.Discussions.ToListAsync();
         }
 
         // GET: api/Discussions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DiscussionDTO>> GetDiscussionDTO(int id)
+        public async Task<ActionResult<Discussion>> GetDiscussion(int id)
         {
-            var discussionDTO = await _context.DiscussionDTO.FindAsync(id);
+            var discussion = await _context.Discussions.FindAsync(id);
 
-            if (discussionDTO == null)
+            if (discussion == null)
             {
                 return NotFound();
             }
 
-            return discussionDTO;
+            return discussion;
         }
 
         // PUT: api/Discussions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDiscussionDTO(int id, DiscussionDTO discussionDTO)
+        public async Task<IActionResult> PutDiscussion(int id, Discussion discussion)
         {
-            if (id != discussionDTO.Id)
+            if (id != discussion.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(discussionDTO).State = EntityState.Modified;
+            _context.Entry(discussion).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DiscussionDTOExists(id))
+                if (!DiscussionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/Discussions
         [HttpPost]
-        public async Task<ActionResult<DiscussionDTO>> PostDiscussionDTO(DiscussionDTO discussionDTO)
+        public async Task<ActionResult<Discussion>> PostDiscussion(Discussion discussion)
         {
-            _context.DiscussionDTO.Add(discussionDTO);
+            _context.Discussions.Add(discussion);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscussionDTO", new { id = discussionDTO.Id }, discussionDTO);
+            return CreatedAtAction("GetDiscussion", new { id = discussion.Id }, discussion);
         }
 
         // DELETE: api/Discussions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<DiscussionDTO>> DeleteDiscussionDTO(int id)
+        public async Task<ActionResult<Discussion>> DeleteDiscussion(int id)
         {
-            var discussionDTO = await _context.DiscussionDTO.FindAsync(id);
-            if (discussionDTO == null)
+            var discussion = await _context.Discussions.FindAsync(id);
+            if (discussion == null)
             {
                 return NotFound();
             }
 
-            _context.DiscussionDTO.Remove(discussionDTO);
+            _context.Discussions.Remove(discussion);
             await _context.SaveChangesAsync();
 
-            return discussionDTO;
+            return discussion;
         }
 
-        private bool DiscussionDTOExists(int id)
+        private bool DiscussionExists(int id)
         {
-            return _context.DiscussionDTO.Any(e => e.Id == id);
+            return _context.Discussions.Any(e => e.Id == id);
         }
     }
 }

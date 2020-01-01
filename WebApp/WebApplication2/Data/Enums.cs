@@ -32,6 +32,11 @@ namespace WebApplication2.Data
             Excellent       = 5
         }
 
+        public static explicit operator Enums(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         public enum AttendanceStatus
         {
             Absent,

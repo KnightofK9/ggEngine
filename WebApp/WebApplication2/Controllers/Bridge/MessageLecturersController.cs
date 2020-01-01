@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/MessageLecturers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageLecturerDTO>>> GetMessageLecturerDTO()
+        public async Task<ActionResult<IEnumerable<MessageLecturer>>> GetMessageLecturers()
         {
-            return await _context.MessageLecturerDTO.ToListAsync();
+            return await _context.MessageLecturers.ToListAsync();
         }
 
         // GET: api/MessageLecturers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MessageLecturerDTO>> GetMessageLecturerDTO(int id)
+        public async Task<ActionResult<MessageLecturer>> GetMessageLecturer(int id)
         {
-            var messageLecturerDTO = await _context.MessageLecturerDTO.FindAsync(id);
+            var messageLecturer = await _context.MessageLecturers.FindAsync(id);
 
-            if (messageLecturerDTO == null)
+            if (messageLecturer == null)
             {
                 return NotFound();
             }
 
-            return messageLecturerDTO;
+            return messageLecturer;
         }
 
         // PUT: api/MessageLecturers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessageLecturerDTO(int id, MessageLecturerDTO messageLecturerDTO)
+        public async Task<IActionResult> PutMessageLecturer(int id, MessageLecturer messageLecturer)
         {
-            if (id != messageLecturerDTO.Id)
+            if (id != messageLecturer.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(messageLecturerDTO).State = EntityState.Modified;
+            _context.Entry(messageLecturer).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MessageLecturerDTOExists(id))
+                if (!MessageLecturerExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/MessageLecturers
         [HttpPost]
-        public async Task<ActionResult<MessageLecturerDTO>> PostMessageLecturerDTO(MessageLecturerDTO messageLecturerDTO)
+        public async Task<ActionResult<MessageLecturer>> PostMessageLecturer(MessageLecturer messageLecturer)
         {
-            _context.MessageLecturerDTO.Add(messageLecturerDTO);
+            _context.MessageLecturers.Add(messageLecturer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMessageLecturerDTO", new { id = messageLecturerDTO.Id }, messageLecturerDTO);
+            return CreatedAtAction("GetMessageLecturer", new { id = messageLecturer.Id }, messageLecturer);
         }
 
         // DELETE: api/MessageLecturers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MessageLecturerDTO>> DeleteMessageLecturerDTO(int id)
+        public async Task<ActionResult<MessageLecturer>> DeleteMessageLecturer(int id)
         {
-            var messageLecturerDTO = await _context.MessageLecturerDTO.FindAsync(id);
-            if (messageLecturerDTO == null)
+            var messageLecturer = await _context.MessageLecturers.FindAsync(id);
+            if (messageLecturer == null)
             {
                 return NotFound();
             }
 
-            _context.MessageLecturerDTO.Remove(messageLecturerDTO);
+            _context.MessageLecturers.Remove(messageLecturer);
             await _context.SaveChangesAsync();
 
-            return messageLecturerDTO;
+            return messageLecturer;
         }
 
-        private bool MessageLecturerDTOExists(int id)
+        private bool MessageLecturerExists(int id)
         {
-            return _context.MessageLecturerDTO.Any(e => e.Id == id);
+            return _context.MessageLecturers.Any(e => e.Id == id);
         }
     }
 }

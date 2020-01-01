@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +24,44 @@ namespace WebApplication2.Controllers
 
         // GET: api/Students
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudentDTO()
+        public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
         {
-            return await _context.StudentDTO.ToListAsync();
+            var studentList = await _context.Students.ToListAsync();
+            var studentDTOList = new List<StudentDTO>();
+
+            foreach (var student in studentList)
+                studentDTOList.Add(StudentDTO.ToDTO(student));
+
+            return studentDTOList;
         }
 
         // GET: api/Students/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<StudentDTO>> GetStudentDTO(int id)
+        public async Task<ActionResult<StudentDTO>> GetStudent(int id)
         {
-            var studentDTO = await _context.StudentDTO.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
 
-            if (studentDTO == null)
+            if (student == null)
             {
                 return NotFound();
             }
 
+            var studentDTO = StudentDTO.ToDTO(student);
             return studentDTO;
         }
 
         // PUT: api/Students/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudentDTO(int id, StudentDTO studentDTO)
+        public async Task<IActionResult> PutStudent(int id, StudentDTO studentDTO)
         {
-            if (id != studentDTO.Id)
+            var student = StudentDTO.ToModel(studentDTO, _context);
+
+            if (id != student.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(studentDTO).State = EntityState.Modified;
+            _context.Entry(student).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +69,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentDTOExists(id))
+                if (!StudentExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +84,36 @@ namespace WebApplication2.Controllers
 
         // POST: api/Students
         [HttpPost]
-        public async Task<ActionResult<StudentDTO>> PostStudentDTO(StudentDTO studentDTO)
+        public async Task<ActionResult<StudentDTO>> PostStudent(StudentDTO studentDTO)
         {
-            _context.StudentDTO.Add(studentDTO);
+            var student = StudentDTO.ToModel(studentDTO, _context);
+
+            _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudentDTO", new { id = studentDTO.Id }, studentDTO);
+            return CreatedAtAction("GetStudent", new { id = student.Id }, student);
         }
 
         // DELETE: api/Students/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<StudentDTO>> DeleteStudentDTO(int id)
+        public async Task<ActionResult<StudentDTO>> DeleteStudent(int id)
         {
-            var studentDTO = await _context.StudentDTO.FindAsync(id);
-            if (studentDTO == null)
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
             {
                 return NotFound();
             }
 
-            _context.StudentDTO.Remove(studentDTO);
+            _context.Students.Remove(student);
             await _context.SaveChangesAsync();
 
+            var studentDTO = StudentDTO.ToDTO(student);
             return studentDTO;
         }
 
-        private bool StudentDTOExists(int id)
+        private bool StudentExists(int id)
         {
-            return _context.StudentDTO.Any(e => e.Id == id);
+            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +24,44 @@ namespace WebApplication2.Controllers
 
         // GET: api/Attendances
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AttendanceDTO>>> GetAttendanceDTO()
+        public async Task<ActionResult<IEnumerable<AttendanceDTO>>> GetAttendances()
         {
-            return await _context.AttendanceDTO.ToListAsync();
+            var attendanceList = await _context.Attendances.ToListAsync();
+            var attendanceDTOList = new List<AttendanceDTO>();
+
+            foreach (var attendance in attendanceList)
+                attendanceDTOList.Add(AttendanceDTO.ToDTO(attendance));
+
+            return attendanceDTOList;
         }
 
         // GET: api/Attendances/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AttendanceDTO>> GetAttendanceDTO(int id)
+        public async Task<ActionResult<AttendanceDTO>> GetAttendance(int id)
         {
-            var attendanceDTO = await _context.AttendanceDTO.FindAsync(id);
+            var attendance = await _context.Attendances.FindAsync(id);
 
-            if (attendanceDTO == null)
+            if (attendance == null)
             {
                 return NotFound();
             }
 
+            var attendanceDTO = AttendanceDTO.ToDTO(attendance);
             return attendanceDTO;
         }
 
         // PUT: api/Attendances/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAttendanceDTO(int id, AttendanceDTO attendanceDTO)
+        public async Task<IActionResult> PutAttendance(int id, AttendanceDTO attendanceDTO)
         {
-            if (id != attendanceDTO.Id)
+            var attendance = AttendanceDTO.ToModel(attendanceDTO, _context);
+
+            if (id != attendance.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(attendanceDTO).State = EntityState.Modified;
+            _context.Entry(attendance).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +69,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AttendanceDTOExists(id))
+                if (!AttendanceExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +84,36 @@ namespace WebApplication2.Controllers
 
         // POST: api/Attendances
         [HttpPost]
-        public async Task<ActionResult<AttendanceDTO>> PostAttendanceDTO(AttendanceDTO attendanceDTO)
+        public async Task<ActionResult<AttendanceDTO>> PostAttendance(AttendanceDTO attendanceDTO)
         {
-            _context.AttendanceDTO.Add(attendanceDTO);
+            var attendance = AttendanceDTO.ToModel(attendanceDTO, _context);
+
+            _context.Attendances.Add(attendance);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAttendanceDTO", new { id = attendanceDTO.Id }, attendanceDTO);
+            return CreatedAtAction("GetAttendance", new { id = attendance.Id }, attendance);
         }
 
         // DELETE: api/Attendances/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AttendanceDTO>> DeleteAttendanceDTO(int id)
+        public async Task<ActionResult<AttendanceDTO>> DeleteAttendance(int id)
         {
-            var attendanceDTO = await _context.AttendanceDTO.FindAsync(id);
-            if (attendanceDTO == null)
+            var attendance = await _context.Attendances.FindAsync(id);
+            if (attendance == null)
             {
                 return NotFound();
             }
 
-            _context.AttendanceDTO.Remove(attendanceDTO);
+            _context.Attendances.Remove(attendance);
             await _context.SaveChangesAsync();
 
+            var attendanceDTO = AttendanceDTO.ToDTO(attendance);
             return attendanceDTO;
         }
 
-        private bool AttendanceDTOExists(int id)
+        private bool AttendanceExists(int id)
         {
-            return _context.AttendanceDTO.Any(e => e.Id == id);
+            return _context.Attendances.Any(e => e.Id == id);
         }
     }
 }

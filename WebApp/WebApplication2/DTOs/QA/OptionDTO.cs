@@ -13,7 +13,7 @@ namespace WebApplication2.DTOs
 
         #region References
 
-        public int QuestionDTO { get; set; }
+        public int QuestionId { get; set; }
 
         #endregion
     }

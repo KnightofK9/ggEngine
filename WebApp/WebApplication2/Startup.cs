@@ -49,7 +49,8 @@ namespace WebApplication2
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings"]));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
 
             services.AddAuthorization(options => {});
             services.AddIdentity<User, RoleModel>(options =>

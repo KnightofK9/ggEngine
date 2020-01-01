@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +24,44 @@ namespace WebApplication2.Controllers
 
         // GET: api/Courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourseDTO()
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
-            return await _context.CourseDTO.ToListAsync();
+            var courseList = await _context.Courses.ToListAsync();
+            var courseDTOList = new List<CourseDTO>();
+
+            foreach (var course in courseList)
+                courseDTOList.Add(CourseDTO.ToDTO(course));
+
+            return courseDTOList;
         }
 
         // GET: api/Courses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CourseDTO>> GetCourseDTO(int id)
+        public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
-            var courseDTO = await _context.CourseDTO.FindAsync(id);
+            var course = await _context.Courses.FindAsync(id);
 
-            if (courseDTO == null)
+            if (course == null)
             {
                 return NotFound();
             }
 
+            var courseDTO = CourseDTO.ToDTO(course);
             return courseDTO;
         }
 
         // PUT: api/Courses/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourseDTO(int id, CourseDTO courseDTO)
+        public async Task<IActionResult> PutCourse(int id, CourseDTO courseDTO)
         {
-            if (id != courseDTO.Id)
+            var course = CourseDTO.ToModel(courseDTO, _context);
+
+            if (id != course.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(courseDTO).State = EntityState.Modified;
+            _context.Entry(course).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +69,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CourseDTOExists(id))
+                if (!CourseExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +84,36 @@ namespace WebApplication2.Controllers
 
         // POST: api/Courses
         [HttpPost]
-        public async Task<ActionResult<CourseDTO>> PostCourseDTO(CourseDTO courseDTO)
+        public async Task<ActionResult<CourseDTO>> PostCourse(CourseDTO courseDTO)
         {
-            _context.CourseDTO.Add(courseDTO);
+            var course = CourseDTO.ToModel(courseDTO, _context);
+
+            _context.Courses.Add(course);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCourseDTO", new { id = courseDTO.Id }, courseDTO);
+            return CreatedAtAction("GetCourse", new { id = course.Id }, course);
         }
 
         // DELETE: api/Courses/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CourseDTO>> DeleteCourseDTO(int id)
+        public async Task<ActionResult<CourseDTO>> DeleteCourse(int id)
         {
-            var courseDTO = await _context.CourseDTO.FindAsync(id);
-            if (courseDTO == null)
+            var course = await _context.Courses.FindAsync(id);
+            if (course == null)
             {
                 return NotFound();
             }
 
-            _context.CourseDTO.Remove(courseDTO);
+            _context.Courses.Remove(course);
             await _context.SaveChangesAsync();
 
+            var courseDTO = CourseDTO.ToDTO(course);
             return courseDTO;
         }
 
-        private bool CourseDTOExists(int id)
+        private bool CourseExists(int id)
         {
-            return _context.CourseDTO.Any(e => e.Id == id);
+            return _context.Courses.Any(e => e.Id == id);
         }
     }
 }

@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +24,44 @@ namespace WebApplication2.Controllers
 
         // GET: api/Lessions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LessionDTO>>> GetLessionDTO()
+        public async Task<ActionResult<IEnumerable<LessionDTO>>> GetLessions()
         {
-            return await _context.LessionDTO.ToListAsync();
+            var lessionList = await _context.Lessions.ToListAsync();
+            var lessionDTOList = new List<LessionDTO>();
+
+            foreach (var lession in lessionList)
+                lessionDTOList.Add(LessionDTO.ToDTO(lession));
+
+            return lessionDTOList;
         }
 
         // GET: api/Lessions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LessionDTO>> GetLessionDTO(int id)
+        public async Task<ActionResult<LessionDTO>> GetLession(int id)
         {
-            var lessionDTO = await _context.LessionDTO.FindAsync(id);
+            var lession = await _context.Lessions.FindAsync(id);
 
-            if (lessionDTO == null)
+            if (lession == null)
             {
                 return NotFound();
             }
 
+            var lessionDTO = LessionDTO.ToDTO(lession);
             return lessionDTO;
         }
 
         // PUT: api/Lessions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLessionDTO(int id, LessionDTO lessionDTO)
+        public async Task<IActionResult> PutLession(int id, LessionDTO lessionDTO)
         {
-            if (id != lessionDTO.Id)
+            var lession = LessionDTO.ToModel(lessionDTO, _context);
+
+            if (id != lession.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(lessionDTO).State = EntityState.Modified;
+            _context.Entry(lession).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +69,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LessionDTOExists(id))
+                if (!LessionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +84,36 @@ namespace WebApplication2.Controllers
 
         // POST: api/Lessions
         [HttpPost]
-        public async Task<ActionResult<LessionDTO>> PostLessionDTO(LessionDTO lessionDTO)
+        public async Task<ActionResult<LessionDTO>> PostLession(LessionDTO lessionDTO)
         {
-            _context.LessionDTO.Add(lessionDTO);
+            var lession = LessionDTO.ToModel(lessionDTO, _context);
+
+            _context.Lessions.Add(lession);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLessionDTO", new { id = lessionDTO.Id }, lessionDTO);
+            return CreatedAtAction("GetLession", new { id = lession.Id }, lession);
         }
 
         // DELETE: api/Lessions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<LessionDTO>> DeleteLessionDTO(int id)
+        public async Task<ActionResult<LessionDTO>> DeleteLession(int id)
         {
-            var lessionDTO = await _context.LessionDTO.FindAsync(id);
-            if (lessionDTO == null)
+            var lession = await _context.Lessions.FindAsync(id);
+            if (lession == null)
             {
                 return NotFound();
             }
 
-            _context.LessionDTO.Remove(lessionDTO);
+            _context.Lessions.Remove(lession);
             await _context.SaveChangesAsync();
 
+            var lessionDTO = LessionDTO.ToDTO(lession);
             return lessionDTO;
         }
 
-        private bool LessionDTOExists(int id)
+        private bool LessionExists(int id)
         {
-            return _context.LessionDTO.Any(e => e.Id == id);
+            return _context.Lessions.Any(e => e.Id == id);
         }
     }
 }

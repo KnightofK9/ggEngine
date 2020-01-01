@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestionDTO()
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
         {
-            return await _context.QuestionDTO.ToListAsync();
+            return await _context.Questions.ToListAsync();
         }
 
         // GET: api/Questions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<QuestionDTO>> GetQuestionDTO(int id)
+        public async Task<ActionResult<Question>> GetQuestion(int id)
         {
-            var questionDTO = await _context.QuestionDTO.FindAsync(id);
+            var question = await _context.Questions.FindAsync(id);
 
-            if (questionDTO == null)
+            if (question == null)
             {
                 return NotFound();
             }
 
-            return questionDTO;
+            return question;
         }
 
         // PUT: api/Questions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestionDTO(int id, QuestionDTO questionDTO)
+        public async Task<IActionResult> PutQuestion(int id, Question question)
         {
-            if (id != questionDTO.Id)
+            if (id != question.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(questionDTO).State = EntityState.Modified;
+            _context.Entry(question).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!QuestionDTOExists(id))
+                if (!QuestionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/Questions
         [HttpPost]
-        public async Task<ActionResult<QuestionDTO>> PostQuestionDTO(QuestionDTO questionDTO)
+        public async Task<ActionResult<Question>> PostQuestion(Question question)
         {
-            _context.QuestionDTO.Add(questionDTO);
+            _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuestionDTO", new { id = questionDTO.Id }, questionDTO);
+            return CreatedAtAction("GetQuestion", new { id = question.Id }, question);
         }
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<QuestionDTO>> DeleteQuestionDTO(int id)
+        public async Task<ActionResult<Question>> DeleteQuestion(int id)
         {
-            var questionDTO = await _context.QuestionDTO.FindAsync(id);
-            if (questionDTO == null)
+            var question = await _context.Questions.FindAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
 
-            _context.QuestionDTO.Remove(questionDTO);
+            _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return questionDTO;
+            return question;
         }
 
-        private bool QuestionDTOExists(int id)
+        private bool QuestionExists(int id)
         {
-            return _context.QuestionDTO.Any(e => e.Id == id);
+            return _context.Questions.Any(e => e.Id == id);
         }
     }
 }

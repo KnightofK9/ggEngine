@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +24,44 @@ namespace WebApplication2.Controllers
 
         // GET: api/Semesters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SemesterDTO>>> GetSemesterDTO()
+        public async Task<ActionResult<IEnumerable<SemesterDTO>>> GetSemesters()
         {
-            return await _context.SemesterDTO.ToListAsync();
+            var semesterList = await _context.Semesters.ToListAsync();
+            var semesterDTOList = new List<SemesterDTO>();
+
+            foreach (var semester in semesterList)
+                semesterDTOList.Add(SemesterDTO.ToDTO(semester));
+
+            return semesterDTOList;
         }
 
         // GET: api/Semesters/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SemesterDTO>> GetSemesterDTO(int id)
+        public async Task<ActionResult<SemesterDTO>> GetSemester(int id)
         {
-            var semesterDTO = await _context.SemesterDTO.FindAsync(id);
+            var semester = await _context.Semesters.FindAsync(id);
 
-            if (semesterDTO == null)
+            if (semester == null)
             {
                 return NotFound();
             }
 
+            var semesterDTO = SemesterDTO.ToDTO(semester);
             return semesterDTO;
         }
 
         // PUT: api/Semesters/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSemesterDTO(int id, SemesterDTO semesterDTO)
+        public async Task<IActionResult> PutSemester(int id, SemesterDTO semesterDTO)
         {
-            if (id != semesterDTO.Id)
+            var semester = SemesterDTO.ToModel(semesterDTO, _context);
+
+            if (id != semester.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(semesterDTO).State = EntityState.Modified;
+            _context.Entry(semester).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +69,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SemesterDTOExists(id))
+                if (!SemesterExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +84,36 @@ namespace WebApplication2.Controllers
 
         // POST: api/Semesters
         [HttpPost]
-        public async Task<ActionResult<SemesterDTO>> PostSemesterDTO(SemesterDTO semesterDTO)
+        public async Task<ActionResult<SemesterDTO>> PostSemester(SemesterDTO semesterDTO)
         {
-            _context.SemesterDTO.Add(semesterDTO);
+            var semester = SemesterDTO.ToModel(semesterDTO, _context);
+
+            _context.Semesters.Add(semester);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSemesterDTO", new { id = semesterDTO.Id }, semesterDTO);
+            return CreatedAtAction("GetSemester", new { id = semester.Id }, semester);
         }
 
         // DELETE: api/Semesters/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SemesterDTO>> DeleteSemesterDTO(int id)
+        public async Task<ActionResult<SemesterDTO>> DeleteSemester(int id)
         {
-            var semesterDTO = await _context.SemesterDTO.FindAsync(id);
-            if (semesterDTO == null)
+            var semester = await _context.Semesters.FindAsync(id);
+            if (semester == null)
             {
                 return NotFound();
             }
 
-            _context.SemesterDTO.Remove(semesterDTO);
+            _context.Semesters.Remove(semester);
             await _context.SaveChangesAsync();
 
+            var semesterDTO = SemesterDTO.ToDTO(semester);
             return semesterDTO;
         }
 
-        private bool SemesterDTOExists(int id)
+        private bool SemesterExists(int id)
         {
-            return _context.SemesterDTO.Any(e => e.Id == id);
+            return _context.Semesters.Any(e => e.Id == id);
         }
     }
 }

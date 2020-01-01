@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/Tests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TestDTO>>> GetTestDTO()
+        public async Task<ActionResult<IEnumerable<Test>>> GetTests()
         {
-            return await _context.TestDTO.ToListAsync();
+            return await _context.Tests.ToListAsync();
         }
 
         // GET: api/Tests/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TestDTO>> GetTestDTO(int id)
+        public async Task<ActionResult<Test>> GetTest(int id)
         {
-            var testDTO = await _context.TestDTO.FindAsync(id);
+            var test = await _context.Tests.FindAsync(id);
 
-            if (testDTO == null)
+            if (test == null)
             {
                 return NotFound();
             }
 
-            return testDTO;
+            return test;
         }
 
         // PUT: api/Tests/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTestDTO(int id, TestDTO testDTO)
+        public async Task<IActionResult> PutTest(int id, Test test)
         {
-            if (id != testDTO.Id)
+            if (id != test.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(testDTO).State = EntityState.Modified;
+            _context.Entry(test).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TestDTOExists(id))
+                if (!TestExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/Tests
         [HttpPost]
-        public async Task<ActionResult<TestDTO>> PostTestDTO(TestDTO testDTO)
+        public async Task<ActionResult<Test>> PostTest(Test test)
         {
-            _context.TestDTO.Add(testDTO);
+            _context.Tests.Add(test);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTestDTO", new { id = testDTO.Id }, testDTO);
+            return CreatedAtAction("GetTest", new { id = test.Id }, test);
         }
 
         // DELETE: api/Tests/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TestDTO>> DeleteTestDTO(int id)
+        public async Task<ActionResult<Test>> DeleteTest(int id)
         {
-            var testDTO = await _context.TestDTO.FindAsync(id);
-            if (testDTO == null)
+            var test = await _context.Tests.FindAsync(id);
+            if (test == null)
             {
                 return NotFound();
             }
 
-            _context.TestDTO.Remove(testDTO);
+            _context.Tests.Remove(test);
             await _context.SaveChangesAsync();
 
-            return testDTO;
+            return test;
         }
 
-        private bool TestDTOExists(int id)
+        private bool TestExists(int id)
         {
-            return _context.TestDTO.Any(e => e.Id == id);
+            return _context.Tests.Any(e => e.Id == id);
         }
     }
 }

@@ -24,8 +24,6 @@ namespace WebApplication2.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        public int StudentNumber { get; }
-
         #region Relationships
 
         public ICollection<CourseLecturer> CourseLecturers { get; set; }

@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +24,44 @@ namespace WebApplication2.Controllers
 
         // GET: api/Lecturers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LecturerDTO>>> GetLecturerDTO()
+        public async Task<ActionResult<IEnumerable<LecturerDTO>>> GetLecturers()
         {
-            return await _context.LecturerDTO.ToListAsync();
+            var lecturerList = await _context.Lecturers.ToListAsync();
+            var lecturerDTOList = new List<LecturerDTO>();
+
+            foreach (var lecturer in lecturerList)
+                lecturerDTOList.Add(LecturerDTO.ToDTO(lecturer));
+
+            return lecturerDTOList;
         }
 
         // GET: api/Lecturers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LecturerDTO>> GetLecturerDTO(int id)
+        public async Task<ActionResult<LecturerDTO>> GetLecturer(int id)
         {
-            var lecturerDTO = await _context.LecturerDTO.FindAsync(id);
+            var lecturer = await _context.Lecturers.FindAsync(id);
 
-            if (lecturerDTO == null)
+            if (lecturer == null)
             {
                 return NotFound();
             }
 
+            var lecturerDTO = LecturerDTO.ToDTO(lecturer);
             return lecturerDTO;
         }
 
         // PUT: api/Lecturers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLecturerDTO(int id, LecturerDTO lecturerDTO)
+        public async Task<IActionResult> PutLecturer(int id, LecturerDTO lecturerDTO)
         {
-            if (id != lecturerDTO.Id)
+            var lecturer = LecturerDTO.ToModel(lecturerDTO, _context);
+
+            if (id != lecturer.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(lecturerDTO).State = EntityState.Modified;
+            _context.Entry(lecturer).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +69,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LecturerDTOExists(id))
+                if (!LecturerExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +84,36 @@ namespace WebApplication2.Controllers
 
         // POST: api/Lecturers
         [HttpPost]
-        public async Task<ActionResult<LecturerDTO>> PostLecturerDTO(LecturerDTO lecturerDTO)
+        public async Task<ActionResult<LecturerDTO>> PostLecturer(LecturerDTO lecturerDTO)
         {
-            _context.LecturerDTO.Add(lecturerDTO);
+            var lecturer = LecturerDTO.ToModel(lecturerDTO, _context);
+
+            _context.Lecturers.Add(lecturer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLecturerDTO", new { id = lecturerDTO.Id }, lecturerDTO);
+            return CreatedAtAction("GetLecturer", new { id = lecturer.Id }, lecturer);
         }
 
         // DELETE: api/Lecturers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<LecturerDTO>> DeleteLecturerDTO(int id)
+        public async Task<ActionResult<LecturerDTO>> DeleteLecturer(int id)
         {
-            var lecturerDTO = await _context.LecturerDTO.FindAsync(id);
-            if (lecturerDTO == null)
+            var lecturer = await _context.Lecturers.FindAsync(id);
+            if (lecturer == null)
             {
                 return NotFound();
             }
 
-            _context.LecturerDTO.Remove(lecturerDTO);
+            _context.Lecturers.Remove(lecturer);
             await _context.SaveChangesAsync();
 
+            var lecturerDTO = LecturerDTO.ToDTO(lecturer);
             return lecturerDTO;
         }
 
-        private bool LecturerDTOExists(int id)
+        private bool LecturerExists(int id)
         {
-            return _context.LecturerDTO.Any(e => e.Id == id);
+            return _context.Lecturers.Any(e => e.Id == id);
         }
     }
 }

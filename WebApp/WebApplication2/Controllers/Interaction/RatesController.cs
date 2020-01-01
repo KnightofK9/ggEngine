@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/Rates
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RateDTO>>> GetRateDTO()
+        public async Task<ActionResult<IEnumerable<Rate>>> GetRates()
         {
-            return await _context.RateDTO.ToListAsync();
+            return await _context.Rates.ToListAsync();
         }
 
         // GET: api/Rates/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RateDTO>> GetRateDTO(int id)
+        public async Task<ActionResult<Rate>> GetRate(int id)
         {
-            var rateDTO = await _context.RateDTO.FindAsync(id);
+            var rate = await _context.Rates.FindAsync(id);
 
-            if (rateDTO == null)
+            if (rate == null)
             {
                 return NotFound();
             }
 
-            return rateDTO;
+            return rate;
         }
 
         // PUT: api/Rates/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRateDTO(int id, RateDTO rateDTO)
+        public async Task<IActionResult> PutRate(int id, Rate rate)
         {
-            if (id != rateDTO.Id)
+            if (id != rate.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(rateDTO).State = EntityState.Modified;
+            _context.Entry(rate).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RateDTOExists(id))
+                if (!RateExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/Rates
         [HttpPost]
-        public async Task<ActionResult<RateDTO>> PostRateDTO(RateDTO rateDTO)
+        public async Task<ActionResult<Rate>> PostRate(Rate rate)
         {
-            _context.RateDTO.Add(rateDTO);
+            _context.Rates.Add(rate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRateDTO", new { id = rateDTO.Id }, rateDTO);
+            return CreatedAtAction("GetRate", new { id = rate.Id }, rate);
         }
 
         // DELETE: api/Rates/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RateDTO>> DeleteRateDTO(int id)
+        public async Task<ActionResult<Rate>> DeleteRate(int id)
         {
-            var rateDTO = await _context.RateDTO.FindAsync(id);
-            if (rateDTO == null)
+            var rate = await _context.Rates.FindAsync(id);
+            if (rate == null)
             {
                 return NotFound();
             }
 
-            _context.RateDTO.Remove(rateDTO);
+            _context.Rates.Remove(rate);
             await _context.SaveChangesAsync();
 
-            return rateDTO;
+            return rate;
         }
 
-        private bool RateDTOExists(int id)
+        private bool RateExists(int id)
         {
-            return _context.RateDTO.Any(e => e.Id == id);
+            return _context.Rates.Any(e => e.Id == id);
         }
     }
 }

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/Options
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OptionDTO>>> GetOptionDTO()
+        public async Task<ActionResult<IEnumerable<Option>>> GetOptions()
         {
-            return await _context.OptionDTO.ToListAsync();
+            return await _context.Options.ToListAsync();
         }
 
         // GET: api/Options/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<OptionDTO>> GetOptionDTO(int id)
+        public async Task<ActionResult<Option>> GetOption(int id)
         {
-            var optionDTO = await _context.OptionDTO.FindAsync(id);
+            var option = await _context.Options.FindAsync(id);
 
-            if (optionDTO == null)
+            if (option == null)
             {
                 return NotFound();
             }
 
-            return optionDTO;
+            return option;
         }
 
         // PUT: api/Options/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOptionDTO(int id, OptionDTO optionDTO)
+        public async Task<IActionResult> PutOption(int id, Option option)
         {
-            if (id != optionDTO.Id)
+            if (id != option.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(optionDTO).State = EntityState.Modified;
+            _context.Entry(option).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OptionDTOExists(id))
+                if (!OptionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/Options
         [HttpPost]
-        public async Task<ActionResult<OptionDTO>> PostOptionDTO(OptionDTO optionDTO)
+        public async Task<ActionResult<Option>> PostOption(Option option)
         {
-            _context.OptionDTO.Add(optionDTO);
+            _context.Options.Add(option);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOptionDTO", new { id = optionDTO.Id }, optionDTO);
+            return CreatedAtAction("GetOption", new { id = option.Id }, option);
         }
 
         // DELETE: api/Options/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<OptionDTO>> DeleteOptionDTO(int id)
+        public async Task<ActionResult<Option>> DeleteOption(int id)
         {
-            var optionDTO = await _context.OptionDTO.FindAsync(id);
-            if (optionDTO == null)
+            var option = await _context.Options.FindAsync(id);
+            if (option == null)
             {
                 return NotFound();
             }
 
-            _context.OptionDTO.Remove(optionDTO);
+            _context.Options.Remove(option);
             await _context.SaveChangesAsync();
 
-            return optionDTO;
+            return option;
         }
 
-        private bool OptionDTOExists(int id)
+        private bool OptionExists(int id)
         {
-            return _context.OptionDTO.Any(e => e.Id == id);
+            return _context.Options.Any(e => e.Id == id);
         }
     }
 }

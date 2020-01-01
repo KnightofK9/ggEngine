@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.DTOs;
 using WebApplication2.Data;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
@@ -23,35 +23,35 @@ namespace WebApplication2.Controllers
 
         // GET: api/Reports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReportDTO>>> GetReportDTO()
+        public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
-            return await _context.ReportDTO.ToListAsync();
+            return await _context.Reports.ToListAsync();
         }
 
         // GET: api/Reports/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReportDTO>> GetReportDTO(int id)
+        public async Task<ActionResult<Report>> GetReport(int id)
         {
-            var reportDTO = await _context.ReportDTO.FindAsync(id);
+            var report = await _context.Reports.FindAsync(id);
 
-            if (reportDTO == null)
+            if (report == null)
             {
                 return NotFound();
             }
 
-            return reportDTO;
+            return report;
         }
 
         // PUT: api/Reports/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReportDTO(int id, ReportDTO reportDTO)
+        public async Task<IActionResult> PutReport(int id, Report report)
         {
-            if (id != reportDTO.Id)
+            if (id != report.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(reportDTO).State = EntityState.Modified;
+            _context.Entry(report).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReportDTOExists(id))
+                if (!ReportExists(id))
                 {
                     return NotFound();
                 }
@@ -74,33 +74,33 @@ namespace WebApplication2.Controllers
 
         // POST: api/Reports
         [HttpPost]
-        public async Task<ActionResult<ReportDTO>> PostReportDTO(ReportDTO reportDTO)
+        public async Task<ActionResult<Report>> PostReport(Report report)
         {
-            _context.ReportDTO.Add(reportDTO);
+            _context.Reports.Add(report);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReportDTO", new { id = reportDTO.Id }, reportDTO);
+            return CreatedAtAction("GetReport", new { id = report.Id }, report);
         }
 
         // DELETE: api/Reports/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ReportDTO>> DeleteReportDTO(int id)
+        public async Task<ActionResult<Report>> DeleteReport(int id)
         {
-            var reportDTO = await _context.ReportDTO.FindAsync(id);
-            if (reportDTO == null)
+            var report = await _context.Reports.FindAsync(id);
+            if (report == null)
             {
                 return NotFound();
             }
 
-            _context.ReportDTO.Remove(reportDTO);
+            _context.Reports.Remove(report);
             await _context.SaveChangesAsync();
 
-            return reportDTO;
+            return report;
         }
 
-        private bool ReportDTOExists(int id)
+        private bool ReportExists(int id)
         {
-            return _context.ReportDTO.Any(e => e.Id == id);
+            return _context.Reports.Any(e => e.Id == id);
         }
     }
 }
