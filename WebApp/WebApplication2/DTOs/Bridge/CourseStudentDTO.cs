@@ -21,16 +21,12 @@ namespace WebApplication2.DTOs
 
         public static CourseStudent ToModel(CourseStudentDTO courseStudentDTO, ApplicationDbContext context)
         {
-            var course = context.Courses.Find(courseStudentDTO.CourseId);
-
-            var student = context.Students.Find(courseStudentDTO.StudentId);
-
             return new CourseStudent
             {
                 Id = courseStudentDTO.Id,
                 
-                CourseId = course.Id,
-                StudentId = student.Id
+                CourseId = courseStudentDTO.CourseId,
+                StudentId = courseStudentDTO.StudentId
             };
         }
 

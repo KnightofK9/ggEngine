@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/Rates
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rate>>> GetRates()
+        public async Task<ActionResult<IEnumerable<RateDTO>>> GetRates()
         {
-            return await _context.Rates.ToListAsync();
+            var rateList = await _context.Rates.ToListAsync();
+            var rateDTOList = new List<RateDTO>();
+
+            foreach (var rate in rateList)
+                rateDTOList.Add(RateDTO.ToDTO(rate));
+
+            return rateDTOList;
         }
 
         // GET: api/Rates/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Rate>> GetRate(int id)
+        public async Task<ActionResult<RateDTO>> GetRate(int id)
         {
             var rate = await _context.Rates.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return rate;
+            var rateDTO = RateDTO.ToDTO(rate);
+            return rateDTO;
         }
 
         // PUT: api/Rates/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRate(int id, Rate rate)
+        public async Task<IActionResult> PutRate(int id, RateDTO rateDTO)
         {
+            var rate = RateDTO.ToModel(rateDTO, _context);
+
             if (id != rate.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/Rates
         [HttpPost]
-        public async Task<ActionResult<Rate>> PostRate(Rate rate)
+        public async Task<ActionResult<RateDTO>> PostRate(RateDTO rateDTO)
         {
+            var rate = RateDTO.ToModel(rateDTO, _context);
+
             _context.Rates.Add(rate);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/Rates/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Rate>> DeleteRate(int id)
+        public async Task<ActionResult<RateDTO>> DeleteRate(int id)
         {
             var rate = await _context.Rates.FindAsync(id);
             if (rate == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.Rates.Remove(rate);
             await _context.SaveChangesAsync();
 
-            return rate;
+            var rateDTO = RateDTO.ToDTO(rate);
+            return rateDTO;
         }
 
         private bool RateExists(int id)

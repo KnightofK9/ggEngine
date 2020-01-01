@@ -23,7 +23,7 @@ namespace WebApplication2.Models
 
         #region Reference
 
-        public Test Test { get; set; }
+        public int TestId { get; set; }
 
         #endregion
     }

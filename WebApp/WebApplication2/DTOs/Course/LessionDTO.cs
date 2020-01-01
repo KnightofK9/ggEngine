@@ -48,10 +48,6 @@ namespace WebApplication2.DTOs
                 if (test.LessionId == lessionDTO.Id)
                     testList.Add(test);
 
-            var lecturer = context.Lecturers.Find(lessionDTO.LecturerId);
-
-            var course = context.Courses.Find(lessionDTO.CourseId);
-
             return new Lession
             {
                 Id = lessionDTO.Id,
@@ -63,8 +59,8 @@ namespace WebApplication2.DTOs
                 Attendances = attendanceList,
                 Tests = testList,
 
-                LecturerId = lecturer.Id,
-                CourseId = course.Id
+                LecturerId = lessionDTO.LecturerId,
+                CourseId = lessionDTO.CourseId
             };
         }
 

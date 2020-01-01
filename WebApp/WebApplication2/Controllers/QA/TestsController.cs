@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/Tests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Test>>> GetTests()
+        public async Task<ActionResult<IEnumerable<TestDTO>>> GetTests()
         {
-            return await _context.Tests.ToListAsync();
+            var testList = await _context.Tests.ToListAsync();
+            var testDTOList = new List<TestDTO>();
+
+            foreach (var test in testList)
+                testDTOList.Add(TestDTO.ToDTO(test));
+
+            return testDTOList;
         }
 
         // GET: api/Tests/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Test>> GetTest(int id)
+        public async Task<ActionResult<TestDTO>> GetTest(int id)
         {
             var test = await _context.Tests.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return test;
+            var testDTO = TestDTO.ToDTO(test);
+            return testDTO;
         }
 
         // PUT: api/Tests/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTest(int id, Test test)
+        public async Task<IActionResult> PutTest(int id, TestDTO testDTO)
         {
+            var test = TestDTO.ToModel(testDTO, _context);
+
             if (id != test.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/Tests
         [HttpPost]
-        public async Task<ActionResult<Test>> PostTest(Test test)
+        public async Task<ActionResult<TestDTO>> PostTest(TestDTO testDTO)
         {
+            var test = TestDTO.ToModel(testDTO, _context);
+
             _context.Tests.Add(test);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/Tests/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Test>> DeleteTest(int id)
+        public async Task<ActionResult<TestDTO>> DeleteTest(int id)
         {
             var test = await _context.Tests.FindAsync(id);
             if (test == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.Tests.Remove(test);
             await _context.SaveChangesAsync();
 
-            return test;
+            var testDTO = TestDTO.ToDTO(test);
+            return testDTO;
         }
 
         private bool TestExists(int id)

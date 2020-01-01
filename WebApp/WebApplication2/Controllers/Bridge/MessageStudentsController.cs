@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/MessageStudents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageStudent>>> GetMessageStudents()
+        public async Task<ActionResult<IEnumerable<MessageStudentDTO>>> GetMessageStudents()
         {
-            return await _context.MessageStudents.ToListAsync();
+            var messageStudentList = await _context.MessageStudents.ToListAsync();
+            var messageStudentDTOList = new List<MessageStudentDTO>();
+
+            foreach (var messageStudent in messageStudentList)
+                messageStudentDTOList.Add(MessageStudentDTO.ToDTO(messageStudent));
+
+            return messageStudentDTOList;
         }
 
         // GET: api/MessageStudents/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MessageStudent>> GetMessageStudent(int id)
+        public async Task<ActionResult<MessageStudentDTO>> GetMessageStudent(int id)
         {
             var messageStudent = await _context.MessageStudents.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return messageStudent;
+            var messageStudentDTO = MessageStudentDTO.ToDTO(messageStudent);
+            return messageStudentDTO;
         }
 
         // PUT: api/MessageStudents/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessageStudent(int id, MessageStudent messageStudent)
+        public async Task<IActionResult> PutMessageStudent(int id, MessageStudentDTO messageStudentDTO)
         {
+            var messageStudent = MessageStudentDTO.ToModel(messageStudentDTO, _context);
+
             if (id != messageStudent.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/MessageStudents
         [HttpPost]
-        public async Task<ActionResult<MessageStudent>> PostMessageStudent(MessageStudent messageStudent)
+        public async Task<ActionResult<MessageStudentDTO>> PostMessageStudent(MessageStudentDTO messageStudentDTO)
         {
+            var messageStudent = MessageStudentDTO.ToModel(messageStudentDTO, _context);
+            
             _context.MessageStudents.Add(messageStudent);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/MessageStudents/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MessageStudent>> DeleteMessageStudent(int id)
+        public async Task<ActionResult<MessageStudentDTO>> DeleteMessageStudent(int id)
         {
             var messageStudent = await _context.MessageStudents.FindAsync(id);
             if (messageStudent == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.MessageStudents.Remove(messageStudent);
             await _context.SaveChangesAsync();
 
-            return messageStudent;
+            var messageStudentDTO = MessageStudentDTO.ToDTO(messageStudent);
+            return messageStudentDTO;
         }
 
         private bool MessageStudentExists(int id)

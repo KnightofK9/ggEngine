@@ -47,8 +47,6 @@ namespace WebApplication2.DTOs
                 if (submisstion.StudentId == studentDTO.Id)
                     submisstionList.Add(submisstion);
 
-            var user = context.Users.Find(studentDTO.UserId);
-
             return new Student
             {
                 Id = studentDTO.Id,
@@ -67,7 +65,7 @@ namespace WebApplication2.DTOs
                 Reports = reportList,
                 Submissions = submisstionList,         
 
-                UserId = user.Id,
+                UserId = studentDTO.UserId,
             };
         }
 

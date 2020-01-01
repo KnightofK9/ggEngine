@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/MessageLecturers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageLecturer>>> GetMessageLecturers()
+        public async Task<ActionResult<IEnumerable<MessageLecturerDTO>>> GetMessageLecturers()
         {
-            return await _context.MessageLecturers.ToListAsync();
+            var messageLecturerList = await _context.MessageLecturers.ToListAsync();
+            var messageLecturerDTOList = new List<MessageLecturerDTO>();
+
+            foreach (var messageLecturer in messageLecturerList)
+                messageLecturerDTOList.Add(MessageLecturerDTO.ToDTO(messageLecturer));
+
+            return messageLecturerDTOList;
         }
 
         // GET: api/MessageLecturers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MessageLecturer>> GetMessageLecturer(int id)
+        public async Task<ActionResult<MessageLecturerDTO>> GetMessageLecturer(int id)
         {
             var messageLecturer = await _context.MessageLecturers.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return messageLecturer;
+            var messageLecturerDTO = MessageLecturerDTO.ToDTO(messageLecturer);
+            return messageLecturerDTO;
         }
 
         // PUT: api/MessageLecturers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessageLecturer(int id, MessageLecturer messageLecturer)
+        public async Task<IActionResult> PutMessageLecturer(int id, MessageLecturerDTO messageLecturerDTO)
         {
+            var messageLecturer = MessageLecturerDTO.ToModel(messageLecturerDTO, _context);
+
             if (id != messageLecturer.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/MessageLecturers
         [HttpPost]
-        public async Task<ActionResult<MessageLecturer>> PostMessageLecturer(MessageLecturer messageLecturer)
+        public async Task<ActionResult<MessageLecturerDTO>> PostMessageLecturer(MessageLecturerDTO messageLecturerDTO)
         {
+            var messageLecturer = MessageLecturerDTO.ToModel(messageLecturerDTO, _context);
+
             _context.MessageLecturers.Add(messageLecturer);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/MessageLecturers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MessageLecturer>> DeleteMessageLecturer(int id)
+        public async Task<ActionResult<MessageLecturerDTO>> DeleteMessageLecturer(int id)
         {
             var messageLecturer = await _context.MessageLecturers.FindAsync(id);
             if (messageLecturer == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.MessageLecturers.Remove(messageLecturer);
             await _context.SaveChangesAsync();
 
-            return messageLecturer;
+            var messageLecturerDTO = MessageLecturerDTO.ToDTO(messageLecturer);
+            return messageLecturerDTO;
         }
 
         private bool MessageLecturerExists(int id)

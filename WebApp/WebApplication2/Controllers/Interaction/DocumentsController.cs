@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/Documents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Document>>> GetDocuments()
+        public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetDocuments()
         {
-            return await _context.Documents.ToListAsync();
+            var documentList = await _context.Documents.ToListAsync();
+            var documentDTOList = new List<DocumentDTO>();
+
+            foreach (var document in documentList)
+                documentDTOList.Add(DocumentDTO.ToDTO(document));
+
+            return documentDTOList;
         }
 
         // GET: api/Documents/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Document>> GetDocument(int id)
+        public async Task<ActionResult<DocumentDTO>> GetDocument(int id)
         {
             var document = await _context.Documents.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return document;
+            var documentDTO = DocumentDTO.ToDTO(document);
+            return documentDTO;
         }
 
         // PUT: api/Documents/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDocument(int id, Document document)
+        public async Task<IActionResult> PutDocument(int id, DocumentDTO documentDTO)
         {
+            var document = DocumentDTO.ToModel(documentDTO, _context);
+
             if (id != document.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/Documents
         [HttpPost]
-        public async Task<ActionResult<Document>> PostDocument(Document document)
+        public async Task<ActionResult<DocumentDTO>> PostDocument(DocumentDTO documentDTO)
         {
+            var document = DocumentDTO.ToModel(documentDTO, _context);
+
             _context.Documents.Add(document);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/Documents/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Document>> DeleteDocument(int id)
+        public async Task<ActionResult<DocumentDTO>> DeleteDocument(int id)
         {
             var document = await _context.Documents.FindAsync(id);
             if (document == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.Documents.Remove(document);
             await _context.SaveChangesAsync();
 
-            return document;
+            var documentDTO = DocumentDTO.ToDTO(document);
+            return documentDTO;
         }
 
         private bool DocumentExists(int id)

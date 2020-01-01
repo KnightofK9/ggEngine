@@ -30,8 +30,6 @@ namespace WebApplication2.DTOs
                 if (messageLecturer.LecturerId == lecturerDTO.Id)
                     messageLecturerList.Add(messageLecturer);
 
-            var user = context.Users.Find(lecturerDTO.UserId);
-
             return new Lecturer
             {
                 Id = lecturerDTO.Id,
@@ -46,7 +44,7 @@ namespace WebApplication2.DTOs
                 Lessions = lessionList,
                 MessageLecturers = messageLecturerList,
 
-                UserId = user.Id,
+                UserId = lecturerDTO.UserId
             };
         }
 

@@ -38,8 +38,6 @@ namespace WebApplication2.DTOs
                 if (lession.CourseId == courseDTO.Id)
                     lessionList.Add(lession);
 
-            var semester = context.Semesters.Find(courseDTO.SemesterId);
-
             return new Course
             {
                 Id = courseDTO.Id,
@@ -51,7 +49,7 @@ namespace WebApplication2.DTOs
                 CourseLecturers = courseLecturerList,
                 Lessions = lessionList,
 
-                SemesterId = semester.Id
+                SemesterId = courseDTO.SemesterId
             };
         }
 

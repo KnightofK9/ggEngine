@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/Submissions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Submission>>> GetSubmissions()
+        public async Task<ActionResult<IEnumerable<SubmissionDTO>>> GetSubmissions()
         {
-            return await _context.Submissions.ToListAsync();
+            var submissionList = await _context.Submissions.ToListAsync();
+            var submissionDTOList = new List<SubmissionDTO>();
+
+            foreach (var submission in submissionList)
+                submissionDTOList.Add(SubmissionDTO.ToDTO(submission));
+
+            return submissionDTOList;
         }
 
         // GET: api/Submissions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Submission>> GetSubmission(int id)
+        public async Task<ActionResult<SubmissionDTO>> GetSubmission(int id)
         {
             var submission = await _context.Submissions.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return submission;
+            var submissionDTO = SubmissionDTO.ToDTO(submission);
+            return submissionDTO;
         }
 
         // PUT: api/Submissions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSubmission(int id, Submission submission)
+        public async Task<IActionResult> PutSubmission(int id, SubmissionDTO submissionDTO)
         {
+            var submission = SubmissionDTO.ToModel(submissionDTO, _context);
+
             if (id != submission.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/Submissions
         [HttpPost]
-        public async Task<ActionResult<Submission>> PostSubmission(Submission submission)
+        public async Task<ActionResult<SubmissionDTO>> PostSubmission(SubmissionDTO submissionDTO)
         {
+            var submission = SubmissionDTO.ToModel(submissionDTO, _context);
+
             _context.Submissions.Add(submission);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/Submissions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Submission>> DeleteSubmission(int id)
+        public async Task<ActionResult<SubmissionDTO>> DeleteSubmission(int id)
         {
             var submission = await _context.Submissions.FindAsync(id);
             if (submission == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.Submissions.Remove(submission);
             await _context.SaveChangesAsync();
 
-            return submission;
+            var submissionDTO = SubmissionDTO.ToDTO(submission);
+            return submissionDTO;
         }
 
         private bool SubmissionExists(int id)

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
+        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
         {
-            return await _context.Questions.ToListAsync();
+            var questionList = await _context.Questions.ToListAsync();
+            var questionDTOList = new List<QuestionDTO>();
+
+            foreach (var question in questionList)
+                questionDTOList.Add(QuestionDTO.ToDTO(question));
+
+            return questionDTOList;
         }
 
         // GET: api/Questions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Question>> GetQuestion(int id)
+        public async Task<ActionResult<QuestionDTO>> GetQuestion(int id)
         {
             var question = await _context.Questions.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return question;
+            var questionDTO = QuestionDTO.ToDTO(question);
+            return questionDTO;
         }
 
         // PUT: api/Questions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion(int id, Question question)
+        public async Task<IActionResult> PutQuestion(int id, QuestionDTO questionDTO)
         {
+            var question = QuestionDTO.ToModel(questionDTO, _context);
+
             if (id != question.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/Questions
         [HttpPost]
-        public async Task<ActionResult<Question>> PostQuestion(Question question)
+        public async Task<ActionResult<QuestionDTO>> PostQuestion(QuestionDTO questionDTO)
         {
+            var question = QuestionDTO.ToModel(questionDTO, _context);
+
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Question>> DeleteQuestion(int id)
+        public async Task<ActionResult<QuestionDTO>> DeleteQuestion(int id)
         {
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
 
-            return question;
+            var questionDTO = QuestionDTO.ToDTO(question);
+            return questionDTO;
         }
 
         private bool QuestionExists(int id)

@@ -22,16 +22,12 @@ namespace WebApplication2.DTOs
 
         public static Attendance ToModel(AttendanceDTO attendanceDTO, ApplicationDbContext context)
         {
-            var student = context.Students.Find(attendanceDTO.StudentId);
-
-            var lession = context.Lessions.Find(attendanceDTO.LessionId);
-
             return new Attendance
             {
                Id = attendanceDTO.Id,
                AttendanceStatus = (Enums.AttendanceStatus)attendanceDTO.AttendanceStatus,
-               StudentId = student.Id,
-               LessionId = lession.Id
+               StudentId = attendanceDTO.StudentId,
+               LessionId = attendanceDTO.LessionId
             };
         }
 

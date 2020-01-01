@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/Reports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Report>>> GetReports()
+        public async Task<ActionResult<IEnumerable<ReportDTO>>> GetReports()
         {
-            return await _context.Reports.ToListAsync();
+            var reportList = await _context.Reports.ToListAsync();
+            var reportDTOList = new List<ReportDTO>();
+
+            foreach (var report in reportList)
+                reportDTOList.Add(ReportDTO.ToDTO(report));
+
+            return reportDTOList;
         }
 
         // GET: api/Reports/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Report>> GetReport(int id)
+        public async Task<ActionResult<ReportDTO>> GetReport(int id)
         {
             var report = await _context.Reports.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return report;
+            var reportDTO = ReportDTO.ToDTO(report);
+            return reportDTO;
         }
 
         // PUT: api/Reports/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReport(int id, Report report)
+        public async Task<IActionResult> PutReport(int id, ReportDTO reportDTO)
         {
+            var report = ReportDTO.ToModel(reportDTO, _context);
+
             if (id != report.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/Reports
         [HttpPost]
-        public async Task<ActionResult<Report>> PostReport(Report report)
+        public async Task<ActionResult<ReportDTO>> PostReport(ReportDTO reportDTO)
         {
+            var report = ReportDTO.ToModel(reportDTO, _context);
+
             _context.Reports.Add(report);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/Reports/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Report>> DeleteReport(int id)
+        public async Task<ActionResult<ReportDTO>> DeleteReport(int id)
         {
             var report = await _context.Reports.FindAsync(id);
             if (report == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.Reports.Remove(report);
             await _context.SaveChangesAsync();
 
-            return report;
+            var reportDTO = ReportDTO.ToDTO(report);
+            return reportDTO;
         }
 
         private bool ReportExists(int id)

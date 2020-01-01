@@ -23,17 +23,13 @@ namespace WebApplication2.DTOs
 
         public static CourseLecturer ToModel(CourseLecturerDTO courseLecturerDTO, ApplicationDbContext context)
         {
-            var course = context.Courses.Find(courseLecturerDTO.CourseId);
-
-            var lecturer = context.Lecturers.Find(courseLecturerDTO.LecturerId);
-
             return new CourseLecturer
             {
                 Id = courseLecturerDTO.Id,
                 Type = (Enums.TeachingType)courseLecturerDTO.Type,
 
-                CourseId = course.Id,
-                LecturerId = lecturer.Id
+                CourseId = courseLecturerDTO.CourseId,
+                LecturerId = courseLecturerDTO.LecturerId
             };
         }
 
