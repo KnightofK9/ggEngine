@@ -29,7 +29,7 @@ namespace WebApplication2.Models
 
         #region References
 
-        public Lession Lession { get; set; }
+        public int LessionId { get; set; }
         
         #endregion
     }

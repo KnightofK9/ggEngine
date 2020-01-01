@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using WebApplication2.Data;
 
 namespace WebApplication2.DTOs
 {
@@ -18,5 +20,13 @@ namespace WebApplication2.DTOs
         public int LessionId { get; set; }
 
         #endregion
+
+        public static Document ToModel(DocumentDTO documentDTO, ApplicationDbContext context)
+        {
+            return new Document
+            {
+
+            };
+        }
     }
 }

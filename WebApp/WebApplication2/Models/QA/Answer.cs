@@ -17,7 +17,7 @@ namespace WebApplication2.Models
 
         #region References
 
-        public Submission Submission { get; set; }
+        public int SubmissionId { get; set; }
 
         #endregion
     }

@@ -30,8 +30,8 @@ namespace WebApplication2.DTOs
             {
                Id = attendanceDTO.Id,
                AttendanceStatus = (Enums.AttendanceStatus)attendanceDTO.AttendanceStatus,
-               Student = student,
-               Lession = lession
+               StudentId = student.Id,
+               LessionId = lession.Id
             };
         }
 
@@ -41,8 +41,8 @@ namespace WebApplication2.DTOs
             {
                 Id = attendance.Id,
                 AttendanceStatus = (int)attendance.AttendanceStatus,
-                StudentId = attendance.Student.Id,
-                LessionId = attendance.Lession.Id
+                StudentId = attendance.StudentId,
+                LessionId = attendance.LessionId
             };
         }
     }

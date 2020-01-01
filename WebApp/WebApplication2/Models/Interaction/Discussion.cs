@@ -17,13 +17,13 @@ namespace WebApplication2.Models
         #region Relationships
 
         public ICollection<MessageLecturer> MessageLecturers { get; set; }
-        public ICollection<MessageStudent> StudentMessages { get; set; }
+        public ICollection<MessageStudent> MessageStudents { get; set; }
 
         #endregion
 
         #region References
 
-        public Lession Lession { get; set; }
+        public int LessionId { get; set; }
 
         #endregion
     }

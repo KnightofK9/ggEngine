@@ -32,8 +32,8 @@ namespace WebApplication2.DTOs
                 Id = courseLecturerDTO.Id,
                 Type = (Enums.TeachingType)courseLecturerDTO.Type,
 
-                Course = course,
-                Lecturer = lecturer
+                CourseId = course.Id,
+                LecturerId = lecturer.Id
             };
         }
 
@@ -44,8 +44,8 @@ namespace WebApplication2.DTOs
                 Id = courseLecturer.Id,
                 Type = (int)courseLecturer.Type,
 
-                CourseId = courseLecturer.Course.Id,
-                LecturerId = courseLecturer.Lecturer.Id
+                CourseId = courseLecturer.CourseId,
+                LecturerId = courseLecturer.LecturerId
             };
         }
     }

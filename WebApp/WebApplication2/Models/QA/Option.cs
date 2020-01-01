@@ -15,7 +15,7 @@ namespace WebApplication2.Models
 
         #region References
 
-        public Question Question { get; set; }
+        public int QuestionId { get; set; }
 
         #endregion
     }

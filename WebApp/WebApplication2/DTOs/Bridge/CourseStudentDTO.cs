@@ -29,8 +29,8 @@ namespace WebApplication2.DTOs
             {
                 Id = courseStudentDTO.Id,
                 
-                Course = course,
-                Student = student
+                CourseId = course.Id,
+                StudentId = student.Id
             };
         }
 
@@ -39,8 +39,8 @@ namespace WebApplication2.DTOs
             return new CourseStudentDTO
             {
                 Id = courseStudent.Id,
-                CourseId = courseStudent.Course.Id,
-                StudentId = courseStudent.Student.Id
+                CourseId = courseStudent.CourseId,
+                StudentId = courseStudent.StudentId
             };
         }
     }

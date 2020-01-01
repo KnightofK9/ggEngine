@@ -30,12 +30,12 @@ namespace WebApplication2.DTOs
         {
             var courseLecturerList = new List<CourseLecturer>();
             foreach (var courseLecturer in context.CourseLecturers)
-                if (courseLecturer.Course.Id == courseDTO.Id)
+                if (courseLecturer.CourseId == courseDTO.Id)
                     courseLecturerList.Add(courseLecturer);
 
             var lessionList = new List<Lession>();
             foreach (var lession in context.Lessions)
-                if (lession.Course.Id == courseDTO.Id)
+                if (lession.CourseId == courseDTO.Id)
                     lessionList.Add(lession);
 
             var semester = context.Semesters.Find(courseDTO.SemesterId);
@@ -51,7 +51,7 @@ namespace WebApplication2.DTOs
                 CourseLecturers = courseLecturerList,
                 Lessions = lessionList,
 
-                Semester = semester
+                SemesterId = semester.Id
             };
         }
 
@@ -64,7 +64,7 @@ namespace WebApplication2.DTOs
                 Name = course.Name,
                 StartDate = course.StartDate.ToString(),
                 EndDate = course.EndDate.ToString(),
-                SemesterId = course.Semester.Id
+                SemesterId = course.SemesterId
             };
         }
     }

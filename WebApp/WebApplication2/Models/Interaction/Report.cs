@@ -15,7 +15,7 @@ namespace WebApplication2.Models
 
         #region References
 
-        public Student Student { get; set; }
+        public int StudentId { get; set; }
 
         #endregion
     }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
+using WebApplication2.DTOs;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -23,14 +24,20 @@ namespace WebApplication2.Controllers
 
         // GET: api/Discussions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Discussion>>> GetDiscussions()
+        public async Task<ActionResult<IEnumerable<DiscussionDTO>>> GetDiscussions()
         {
-            return await _context.Discussions.ToListAsync();
+            var discussionList = await _context.Discussions.ToListAsync();
+            var discussionDTOList = new List<DiscussionDTO>();
+
+            foreach (var discussion in discussionList)
+                discussionDTOList.Add(DiscussionDTO.ToDTO(discussion));
+
+            return discussionDTOList;
         }
 
         // GET: api/Discussions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Discussion>> GetDiscussion(int id)
+        public async Task<ActionResult<DiscussionDTO>> GetDiscussion(int id)
         {
             var discussion = await _context.Discussions.FindAsync(id);
 
@@ -39,13 +46,16 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            return discussion;
+            var discussionDTO = DiscussionDTO.ToDTO(discussion);
+            return discussionDTO;
         }
 
         // PUT: api/Discussions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDiscussion(int id, Discussion discussion)
+        public async Task<IActionResult> PutDiscussion(int id, DiscussionDTO discussionDTO)
         {
+            var discussion = DiscussionDTO.ToModel(discussionDTO, _context);
+
             if (id != discussion.Id)
             {
                 return BadRequest();
@@ -74,8 +84,10 @@ namespace WebApplication2.Controllers
 
         // POST: api/Discussions
         [HttpPost]
-        public async Task<ActionResult<Discussion>> PostDiscussion(Discussion discussion)
+        public async Task<ActionResult<DiscussionDTO>> PostDiscussion(DiscussionDTO discussionDTO)
         {
+            var discussion = DiscussionDTO.ToModel(discussionDTO, _context);
+
             _context.Discussions.Add(discussion);
             await _context.SaveChangesAsync();
 
@@ -84,7 +96,7 @@ namespace WebApplication2.Controllers
 
         // DELETE: api/Discussions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Discussion>> DeleteDiscussion(int id)
+        public async Task<ActionResult<DiscussionDTO>> DeleteDiscussion(int id)
         {
             var discussion = await _context.Discussions.FindAsync(id);
             if (discussion == null)
@@ -95,7 +107,8 @@ namespace WebApplication2.Controllers
             _context.Discussions.Remove(discussion);
             await _context.SaveChangesAsync();
 
-            return discussion;
+            var discussionDTO = DiscussionDTO.ToDTO(discussion);
+            return discussionDTO;
         }
 
         private bool DiscussionExists(int id)

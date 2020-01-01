@@ -25,27 +25,27 @@ namespace WebApplication2.DTOs
         {
             var discussionList = new List<Discussion>();
             foreach (var discussion in context.Discussions)
-                if (discussion.Lession.Id == lessionDTO.Id)
+                if (discussion.LessionId == lessionDTO.Id)
                     discussionList.Add(discussion);
 
             var rateList = new List<Rate>();
             foreach (var rate in context.Rates)
-                if (rate.Lession.Id == lessionDTO.Id)
+                if (rate.LessionId == lessionDTO.Id)
                     rateList.Add(rate);
 
             var documentList = new List<Document>();
             foreach (var document in context.Documents)
-                if (document.Lession.Id == lessionDTO.Id)
+                if (document.LessionId == lessionDTO.Id)
                     documentList.Add(document);
 
             var attendanceList = new List<Attendance>();
             foreach (var attendance in attendanceList)
-                if (attendance.Lession.Id == lessionDTO.Id)
+                if (attendance.LessionId == lessionDTO.Id)
                     attendanceList.Add(attendance);
 
             var testList = new List<Test>();
             foreach (var test in context.Tests)
-                if (test.Lession.Id == lessionDTO.Id)
+                if (test.LessionId == lessionDTO.Id)
                     testList.Add(test);
 
             var lecturer = context.Lecturers.Find(lessionDTO.LecturerId);
@@ -63,8 +63,8 @@ namespace WebApplication2.DTOs
                 Attendances = attendanceList,
                 Tests = testList,
 
-                Lecturer = lecturer,
-                Course = course
+                LecturerId = lecturer.Id,
+                CourseId = course.Id
             };
         }
 
@@ -74,8 +74,8 @@ namespace WebApplication2.DTOs
             {
                 Id = lession.Id,
                 Time = lession.Time.ToString(),
-                LecturerId = lession.Lecturer.Id,
-                CourseId = lession.Course.Id
+                LecturerId = lession.LecturerId,
+                CourseId = lession.CourseId
             };
         }
     }

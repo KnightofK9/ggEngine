@@ -19,32 +19,32 @@ namespace WebApplication2.DTOs
         {
             var attendanceList = new List<Attendance>();
             foreach (var attendance in context.Attendances)
-                if (attendance.Student.Id == studentDTO.Id)
+                if (attendance.StudentId == studentDTO.Id)
                     attendanceList.Add(attendance);
 
             var courseStudentList = new List<CourseStudent>();
             foreach (var courseStudent in context.CourseStudents)
-                if (courseStudent.Student.Id == studentDTO.Id)
+                if (courseStudent.StudentId == studentDTO.Id)
                     courseStudentList.Add(courseStudent);
 
             var messageStudentList = new List<MessageStudent>();
             foreach (var messageStudent in context.MessageStudents)
-                if (messageStudent.Student.Id == studentDTO.Id)
+                if (messageStudent.StudentId == studentDTO.Id)
                     messageStudentList.Add(messageStudent);
 
             var rateList = new List<Rate>();
             foreach (var rate in context.Rates)
-                if (rate.Student.Id == studentDTO.Id)
+                if (rate.StudentId == studentDTO.Id)
                     rateList.Add(rate);
 
             var reportList = new List<Report>();
             foreach (var report in context.Reports)
-                if (report.Student.Id == studentDTO.Id)
+                if (report.StudentId == studentDTO.Id)
                     reportList.Add(report);
 
             var submisstionList = new List<Submission>();
             foreach (var submisstion in submisstionList)
-                if (submisstion.Student.Id == studentDTO.Id)
+                if (submisstion.StudentId == studentDTO.Id)
                     submisstionList.Add(submisstion);
 
             var user = context.Users.Find(studentDTO.UserId);
@@ -67,7 +67,7 @@ namespace WebApplication2.DTOs
                 Reports = reportList,
                 Submissions = submisstionList,         
 
-                User = user,
+                UserId = user.Id,
             };
         }
 
@@ -84,7 +84,7 @@ namespace WebApplication2.DTOs
                 NickName = student.NickName,
                 Anonymous = student.Anonymous,
 
-                UserId = student.User.Id,
+                UserId = student.UserId,
             };
         }
     }

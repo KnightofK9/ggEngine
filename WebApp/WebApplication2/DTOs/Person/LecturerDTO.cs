@@ -17,17 +17,17 @@ namespace WebApplication2.DTOs
         {
             var courseLecturerList = new List<CourseLecturer>();
             foreach (var courseLecturer in context.CourseLecturers)
-                if (courseLecturer.Lecturer.Id == lecturerDTO.Id)
+                if (courseLecturer.LecturerId == lecturerDTO.Id)
                     courseLecturerList.Add(courseLecturer);
 
             var lessionList = new List<Lession>();
             foreach (var lession in context.Lessions)
-                if (lession.Lecturer.Id == lecturerDTO.Id)
+                if (lession.LecturerId == lecturerDTO.Id)
                     lessionList.Add(lession);
 
             var messageLecturerList = new List<MessageLecturer>();
             foreach (var messageLecturer in context.MessageLecturers)
-                if (messageLecturer.Lecturer.Id == lecturerDTO.Id)
+                if (messageLecturer.LecturerId == lecturerDTO.Id)
                     messageLecturerList.Add(messageLecturer);
 
             var user = context.Users.Find(lecturerDTO.UserId);
@@ -46,7 +46,7 @@ namespace WebApplication2.DTOs
                 Lessions = lessionList,
                 MessageLecturers = messageLecturerList,
 
-                User = user,
+                UserId = user.Id,
             };
         }
 
@@ -62,7 +62,7 @@ namespace WebApplication2.DTOs
                 Code = lecturer.Code,
                 AcademicRank = (int)lecturer.AcademicRank,
 
-                UserId = lecturer.User.Id,
+                UserId = lecturer.UserId,
             };
         }
     }

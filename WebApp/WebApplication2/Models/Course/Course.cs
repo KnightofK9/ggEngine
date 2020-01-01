@@ -34,7 +34,7 @@ namespace WebApplication2.Models
 
         #region References
 
-        public Semester Semester { get; set; }
+        public int SemesterId { get; set; }
 
         #endregion
     }

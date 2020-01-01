@@ -17,7 +17,7 @@ namespace WebApplication2.DTOs
         {
             var courseList = new List<Course>();
             foreach (var course in context.Courses)
-                if (course.Semester.Id == semesterDTO.Id)
+                if (course.SemesterId == semesterDTO.Id)
                     courseList.Add(course);
 
             return new Semester

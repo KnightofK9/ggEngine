@@ -10,9 +10,9 @@ namespace WebApplication2.Models
     {
         #region References
 
-        public Lecturer Lecturer { get; set; }
+        public int LecturerId { get; set; }
 
-        public Discussion Discussion { get; set; }
+        public int DiscussionId { get; set; }
 
         #endregion
     }
