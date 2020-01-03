@@ -115,5 +115,19 @@ namespace WebApplication2.Controllers
         {
             return _context.Tests.Any(e => e.Id == id);
         }
+
+        // GET:
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TestDTO>>> GetTestOfLession(int lessionId)
+        {
+            var testList = _context.Tests.ToList().FindAll(x => x.LessionId == lessionId);
+            var testDTOList = new List<TestDTO>();
+
+            foreach (var test in testList)
+                testDTOList.Add(TestDTO.ToDTO(test));
+
+            return testDTOList;
+        }
+
     }
 }
