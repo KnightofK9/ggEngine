@@ -49,5 +49,6 @@ namespace WebApplication2.DTOs
                 DiscussionId = messageLecturer.DiscussionId ?? 0
             };
         }
+
     }
 }

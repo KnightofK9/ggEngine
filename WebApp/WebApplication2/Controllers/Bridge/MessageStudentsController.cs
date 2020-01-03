@@ -115,5 +115,19 @@ namespace WebApplication2.Controllers
         {
             return _context.MessageStudents.Any(e => e.Id == id);
         }
+
+        // GET:
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageStudentDTO>>> GetMessageOfLession(int dicussionId)
+        {
+            var messageList = _context.MessageStudents.ToList().FindAll(x => x.DiscussionId == dicussionId);
+            var messageDTOList = new List<MessageStudentDTO>();
+
+            foreach (var test in messageList)
+                messageDTOList.Add(MessageStudentDTO.ToDTO(test));
+
+            return messageDTOList;
+        }
+
     }
 }
