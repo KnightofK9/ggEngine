@@ -120,13 +120,10 @@ namespace WebApplication2.Controllers
         [HttpGet("OfLession/{lessionId}")]
         public async Task<ActionResult<IEnumerable<TestDTO>>> GetTestsOfLession(int lessionId)
         {
-            var testList = _context.Tests.ToList().FindAll(x => x.LessionId == lessionId);
-            var testDTOList = new List<TestDTO>();
-
-            foreach (var test in testList)
-                testDTOList.Add(TestDTO.ToDTO(test));
-
-            return testDTOList;
+            return _context.Tests.ToList()
+                .FindAll(test => test.LessionId == lessionId)
+                .Select(test => TestDTO.ToDTO(test))
+                .ToList();
         }
     }
 }

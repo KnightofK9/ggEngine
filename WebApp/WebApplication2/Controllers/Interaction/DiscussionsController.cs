@@ -120,13 +120,10 @@ namespace WebApplication2.Controllers
         [HttpGet("OfLession/{lessionId}")]
         public async Task<ActionResult<IEnumerable<DiscussionDTO>>> GetDiscussionsOfLession(int lessionId)
         {
-            var discussionList = _context.Discussions.ToList().FindAll(x => x.LessionId == lessionId);
-            var discussionDTOList = new List<DiscussionDTO>();
-
-            foreach (var dicussion in discussionList)
-                discussionDTOList.Add(DiscussionDTO.ToDTO(dicussion));
-
-            return discussionDTOList;
+            return _context.Discussions.ToList()
+                .FindAll(discussion => discussion.LessionId == lessionId)
+                .Select(discussion => DiscussionDTO.ToDTO(discussion))
+                .ToList();
         }
     }
 }
