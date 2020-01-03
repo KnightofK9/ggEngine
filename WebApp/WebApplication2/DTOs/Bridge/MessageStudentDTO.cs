@@ -46,8 +46,8 @@ namespace WebApplication2.DTOs
                 Time = messageStudent.Time.ToString(),
                 Content = messageStudent.Content,
 
-                StudentId = messageStudent.StudentId,
-                DiscussionId = messageStudent.DiscussionId
+                StudentId = messageStudent.StudentId ?? 0,
+                DiscussionId = messageStudent.DiscussionId ?? 0
             };
         }
     }

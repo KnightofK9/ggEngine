@@ -9,9 +9,9 @@ namespace WebApplication2.Models
     {
         #region References
 
-        public int StudentId { get; set; }
+        public int? StudentId { get; set; }
 
-        public int DiscussionId { get; set; }
+        public int? DiscussionId { get; set; }
 
         #endregion
     }

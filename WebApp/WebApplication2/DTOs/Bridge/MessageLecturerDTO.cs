@@ -45,8 +45,8 @@ namespace WebApplication2.DTOs
                 Time = messageLecturer.Time.ToString(),
                 Content = messageLecturer.Content,
 
-                LecturerId = messageLecturer.LecturerId,
-                DiscussionId = messageLecturer.DiscussionId
+                LecturerId = messageLecturer.LecturerId ?? 0,
+                DiscussionId = messageLecturer.DiscussionId ?? 0
             };
         }
     }
