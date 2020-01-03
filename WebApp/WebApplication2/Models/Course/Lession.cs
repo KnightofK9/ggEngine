@@ -19,7 +19,6 @@ namespace WebApplication2.Models
 
         public ICollection<Discussion> Discussions { get; set; }
         public ICollection<Rate> Rates { get; set; }
-        public ICollection<Document> Documents { get; set; }
         public ICollection<Attendance> Attendances { get; set; }
         public ICollection<Test> Tests { get; set; }
 

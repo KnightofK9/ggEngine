@@ -33,6 +33,11 @@ namespace WebApplication2.DTOs
                 if (courseLecturer.CourseId == courseDTO.Id)
                     courseLecturerList.Add(courseLecturer);
 
+            var documentList = new List<Document>();
+            foreach (var document in context.Documents)
+                if (document.CourseId == courseDTO.Id)
+                    documentList.Add(document);
+
             var lessionList = new List<Lession>();
             foreach (var lession in context.Lessions)
                 if (lession.CourseId == courseDTO.Id)
@@ -47,6 +52,7 @@ namespace WebApplication2.DTOs
                 EndDate = DateTime.Parse(courseDTO.EndDate),
                 
                 CourseLecturers = courseLecturerList,
+                Documents = documentList,
                 Lessions = lessionList,
 
                 SemesterId = courseDTO.SemesterId

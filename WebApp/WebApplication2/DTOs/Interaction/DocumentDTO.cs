@@ -19,7 +19,7 @@ namespace WebApplication2.DTOs
 
         #region References
 
-        public int LessionId { get; set; }
+        public int CourseId { get; set; }
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace WebApplication2.DTOs
                 Name = documentDTO.Name,
                 Link = documentDTO.Link,
 
-                LessionId = documentDTO.LessionId
+                CourseId = documentDTO.CourseId
             };
         }
 
@@ -43,7 +43,7 @@ namespace WebApplication2.DTOs
                 Name = document.Name,
                 Link = document.Link,
 
-                LessionId = document.LessionId
+                CourseId = document.CourseId
             };
         }
     }

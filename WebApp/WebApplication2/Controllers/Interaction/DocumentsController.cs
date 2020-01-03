@@ -115,5 +115,18 @@ namespace WebApplication2.Controllers
         {
             return _context.Documents.Any(e => e.Id == id);
         }
+
+        // GET:
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetDocumentsOfCourse(int courseId)
+        {
+            var documentList = _context.Documents.ToList().FindAll(x => x.CourseId == courseId);
+            var documentDTOList = new List<DocumentDTO>();
+
+            foreach (var document in documentList)
+                documentDTOList.Add(DocumentDTO.ToDTO(document));
+            
+            return documentDTOList;
+        }
     }
 }

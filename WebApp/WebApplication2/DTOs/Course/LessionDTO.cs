@@ -33,11 +33,6 @@ namespace WebApplication2.DTOs
                 if (rate.LessionId == lessionDTO.Id)
                     rateList.Add(rate);
 
-            var documentList = new List<Document>();
-            foreach (var document in context.Documents)
-                if (document.LessionId == lessionDTO.Id)
-                    documentList.Add(document);
-
             var attendanceList = new List<Attendance>();
             foreach (var attendance in attendanceList)
                 if (attendance.LessionId == lessionDTO.Id)
@@ -55,7 +50,6 @@ namespace WebApplication2.DTOs
                 
                 Discussions = discussionList,
                 Rates = rateList,
-                Documents = documentList,
                 Attendances = attendanceList,
                 Tests = testList,
 
