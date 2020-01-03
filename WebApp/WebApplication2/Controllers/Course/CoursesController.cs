@@ -117,18 +117,18 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfStudent(int studentId)
-        {
-            var courseStudentList = _context.CourseStudents.ToList().FindAll(x => x.StudentId == studentId);
-            var courseDTOList = new List<CourseDTO>();
-            foreach (var courseStudent in courseStudentList)
-            {
-                var course = _context.Courses.Find(courseStudent.CourseId);
-                courseDTOList.Add(CourseDTO.ToDTO(course));
-            }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfStudent(int studentId)
+        //{
+        //    var courseStudentList = _context.CourseStudents.ToList().FindAll(x => x.StudentId == studentId);
+        //    var courseDTOList = new List<CourseDTO>();
+        //    foreach (var courseStudent in courseStudentList)
+        //    {
+        //        var course = _context.Courses.Find(courseStudent.CourseId);
+        //        courseDTOList.Add(CourseDTO.ToDTO(course));
+        //    }
 
-            return courseDTOList;
-        }
+        //    return courseDTOList;
+        //}
     }
 }
