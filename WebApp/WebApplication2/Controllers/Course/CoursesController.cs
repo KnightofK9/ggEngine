@@ -117,18 +117,32 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfStudent(int studentId)
-        //{
-        //    var courseStudentList = _context.CourseStudents.ToList().FindAll(x => x.StudentId == studentId);
-        //    var courseDTOList = new List<CourseDTO>();
-        //    foreach (var courseStudent in courseStudentList)
-        //    {
-        //        var course = _context.Courses.Find(courseStudent.CourseId);
-        //        courseDTOList.Add(CourseDTO.ToDTO(course));
-        //    }
+        [HttpGet("OfStudent/{studentId}")]
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfStudent(int studentId)
+        {
+            var courseStudentList = _context.CourseStudents.ToList().FindAll(x => x.StudentId == studentId);
+            var courseDTOList = new List<CourseDTO>();
+            foreach (var courseStudent in courseStudentList)
+            {
+                var course = _context.Courses.Find(courseStudent.CourseId);
+                courseDTOList.Add(CourseDTO.ToDTO(course));
+            }
 
-        //    return courseDTOList;
-        //}
+            return courseDTOList;
+        }
+
+        [HttpGet("OfLecturer/{lecturerId}")]
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfLecturer(int lecturerId)
+        {
+            var courseLecturerList = _context.CourseLecturers.ToList().FindAll(x => x.LecturerId == lecturerId);
+            var courseDTOList = new List<CourseDTO>();
+            foreach (var courseLecturer in courseLecturerList)
+            {
+                var course = _context.Courses.Find(courseLecturer.CourseId);
+                courseDTOList.Add(CourseDTO.ToDTO(course));
+            }
+
+            return courseDTOList;
+        }
     }
 }

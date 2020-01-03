@@ -117,17 +117,16 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<DiscussionDTO>>> GetDiscussionOfLession(int lessionId)
-        //{
-        //    var discussionList = _context.Discussions.ToList().FindAll(x => x.LessionId == lessionId);
-        //    var discussionDTOList = new List<DiscussionDTO>();
+        [HttpGet("OfLession/{lessionId}")]
+        public async Task<ActionResult<IEnumerable<DiscussionDTO>>> GetDiscussionsOfLession(int lessionId)
+        {
+            var discussionList = _context.Discussions.ToList().FindAll(x => x.LessionId == lessionId);
+            var discussionDTOList = new List<DiscussionDTO>();
 
-        //    foreach (var dicussion in discussionList)
-        //        discussionDTOList.Add(DiscussionDTO.ToDTO(dicussion));
+            foreach (var dicussion in discussionList)
+                discussionDTOList.Add(DiscussionDTO.ToDTO(dicussion));
 
-        //    return discussionDTOList;
-        //}
-
+            return discussionDTOList;
+        }
     }
 }
