@@ -123,8 +123,8 @@ namespace WebApplication2.Controllers
             var messegeList = _context.MessageLecturers.ToList().FindAll(x => x.DiscussionId == dicussionId);
             var messegeDTOList = new List<MessageLecturerDTO>();
 
-            foreach (var test in messegeList)
-                messegeDTOList.Add(MessageLecturerDTO.ToDTO(test));
+            foreach (var message in messegeList)
+                messegeDTOList.Add(MessageLecturerDTO.ToDTO(message));
 
             return messegeDTOList;
         }
