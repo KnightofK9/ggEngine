@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Attendances.Add(attendance);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAttendance", new { id = attendance.Id }, attendance);
+            return CreatedAtAction("GetAttendance", new { id = attendance.Id }, attendanceDTO);
         }
 
         // DELETE: api/Attendances/5

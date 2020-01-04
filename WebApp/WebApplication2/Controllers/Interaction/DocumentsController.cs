@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Documents.Add(document);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDocument", new { id = document.Id }, document);
+            return CreatedAtAction("GetDocument", new { id = document.Id }, documentDTO);
         }
 
         // DELETE: api/Documents/5

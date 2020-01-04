@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Submissions.Add(submission);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSubmission", new { id = submission.Id }, submission);
+            return CreatedAtAction("GetSubmission", new { id = submission.Id }, submissionDTO);
         }
 
         // DELETE: api/Submissions/5

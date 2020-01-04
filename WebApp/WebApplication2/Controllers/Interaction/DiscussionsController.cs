@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Discussions.Add(discussion);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscussion", new { id = discussion.Id }, discussion);
+            return CreatedAtAction("GetDiscussion", new { id = discussion.Id }, discussionDTO);
         }
 
         // DELETE: api/Discussions/5

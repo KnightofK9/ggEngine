@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Options.Add(option);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOption", new { id = option.Id }, option);
+            return CreatedAtAction("GetOption", new { id = option.Id }, optionDTO);
         }
 
         // DELETE: api/Options/5

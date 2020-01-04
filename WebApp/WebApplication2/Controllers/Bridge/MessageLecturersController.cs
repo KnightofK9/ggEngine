@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.MessageLecturers.Add(messageLecturer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMessageLecturer", new { id = messageLecturer.Id }, messageLecturer);
+            return CreatedAtAction("GetMessageLecturer", new { id = messageLecturer.Id }, messageLecturerDTO);
         }
 
         // DELETE: api/MessageLecturers/5

@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.MessageStudents.Add(messageStudent);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMessageStudent", new { id = messageStudent.Id }, messageStudent);
+            return CreatedAtAction("GetMessageStudent", new { id = messageStudent.Id }, messageStudentDTO);
         }
 
         // DELETE: api/MessageStudents/5

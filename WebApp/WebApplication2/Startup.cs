@@ -53,6 +53,15 @@ namespace WebApplication2
 
 
             services.AddAuthorization(options => {});
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            });
             //services.AddIdentity<User, RoleModel>(options =>
             //    {
             //        options.Password.RequireDigit = false;
@@ -94,7 +103,6 @@ namespace WebApplication2
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Class API V1");
-                //c.RoutePrefix = string.Empty;
             });
 
             if (env.IsDevelopment())

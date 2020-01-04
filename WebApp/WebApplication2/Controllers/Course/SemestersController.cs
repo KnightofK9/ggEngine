@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Semesters.Add(semester);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSemester", new { id = semester.Id }, semester);
+            return CreatedAtAction("GetSemester", new { id = semester.Id }, semesterDTO);
         }
 
         // DELETE: api/Semesters/5

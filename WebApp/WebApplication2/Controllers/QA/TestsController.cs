@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Tests.Add(test);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTest", new { id = test.Id }, test);
+            return CreatedAtAction("GetTest", new { id = test.Id }, testDTO);
         }
 
         // DELETE: api/Tests/5
