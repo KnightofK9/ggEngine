@@ -341,3 +341,5 @@ healthchecksdb
 packages-microsoft-prod\.deb
 
 \.vscode/
+
+WebApp/WebApplication2/Migrations/
