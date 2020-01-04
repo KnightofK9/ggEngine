@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCourse", new { id = course.Id }, course);
+            return CreatedAtAction("GetCourse", new { id = course.Id }, courseDTO);
         }
 
         // DELETE: api/Courses/5
@@ -117,18 +117,35 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfStudent(int studentId)
-        //{
-        //    var courseStudentList = _context.CourseStudents.ToList().FindAll(x => x.StudentId == studentId);
-        //    var courseDTOList = new List<CourseDTO>();
-        //    foreach (var courseStudent in courseStudentList)
-        //    {
-        //        var course = _context.Courses.Find(courseStudent.CourseId);
-        //        courseDTOList.Add(CourseDTO.ToDTO(course));
-        //    }
+        [HttpGet("OfSemester/{semesterId}")]
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfSemester(int semesterId)
+        {
+            return _context.Courses.ToList()
+                .FindAll(course => course.SemesterId == semesterId)
+                .Select(course => CourseDTO.ToDTO(course))
+                .ToList();
+        }
 
-        //    return courseDTOList;
-        //}
+        // GET:
+        [HttpGet("OfStudent/{studentId}")]
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfStudent(int studentId)
+        {
+            return _context.CourseStudents.ToList()
+                .FindAll(courseStudent => courseStudent.StudentId == studentId)
+                .Select(courseStudent => _context.Courses.Find(courseStudent.CourseId))
+                .Select(course => CourseDTO.ToDTO(course))
+                .ToList();
+        }
+
+        // GET:
+        [HttpGet("OfLecturer/{lecturerId}")]
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCoursesOfLecturer(int lecturerId)
+        {
+            return _context.CourseLecturers.ToList()
+                .FindAll(x => x.LecturerId == lecturerId)
+                .Select(courseLecturer => _context.Courses.Find(courseLecturer.CourseId))
+                .Select(course => CourseDTO.ToDTO(course))
+                .ToList();
+        }
     }
 }

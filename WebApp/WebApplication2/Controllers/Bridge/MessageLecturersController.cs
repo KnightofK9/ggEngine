@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.MessageLecturers.Add(messageLecturer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMessageLecturer", new { id = messageLecturer.Id }, messageLecturer);
+            return CreatedAtAction("GetMessageLecturer", new { id = messageLecturer.Id }, messageLecturerDTO);
         }
 
         // DELETE: api/MessageLecturers/5
@@ -117,16 +117,13 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<MessageLecturerDTO>>> GetMesagesOfLecturerDiscussion(int dicussionId)
-        //{
-        //    var messegeList = _context.MessageLecturers.ToList().FindAll(x => x.DiscussionId == dicussionId);
-        //    var messegeDTOList = new List<MessageLecturerDTO>();
-
-        //    foreach (var message in messegeList)
-        //        messegeDTOList.Add(MessageLecturerDTO.ToDTO(message));
-
-        //    return messegeDTOList;
-        //}
+        [HttpGet("OfDiscussion/{dicussionId}")]
+        public async Task<ActionResult<IEnumerable<MessageLecturerDTO>>> GetMessageLecturersOfDiscussion(int dicussionId)
+        {
+            return _context.MessageLecturers.ToList()
+                .FindAll(message => message.DiscussionId == dicussionId)
+                .Select(message => MessageLecturerDTO.ToDTO(message))
+                .ToList();
+        }
     }
 }

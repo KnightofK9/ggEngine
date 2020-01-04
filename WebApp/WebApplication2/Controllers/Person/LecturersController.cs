@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Lecturers.Add(lecturer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLecturer", new { id = lecturer.Id }, lecturer);
+            return CreatedAtAction("GetLecturer", new { id = lecturer.Id }, lecturerDTO);
         }
 
         // DELETE: api/Lecturers/5

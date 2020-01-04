@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Documents.Add(document);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDocument", new { id = document.Id }, document);
+            return CreatedAtAction("GetDocument", new { id = document.Id }, documentDTO);
         }
 
         // DELETE: api/Documents/5
@@ -117,16 +117,13 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetDocumentsOfCourse(int courseId)
-        //{
-        //    var documentList = _context.Documents.ToList().FindAll(x => x.CourseId == courseId);
-        //    var documentDTOList = new List<DocumentDTO>();
-
-        //    foreach (var document in documentList)
-        //        documentDTOList.Add(DocumentDTO.ToDTO(document));
-            
-        //    return documentDTOList;
-        //}
+        [HttpGet("OfCourse/{courseId}")]
+        public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetDocumentsOfCourse(int courseId)
+        {
+            return _context.Documents.ToList()
+                .FindAll(document => document.CourseId == courseId)
+                .Select(document => DocumentDTO.ToDTO(document))
+                .ToList();
+        }
     }
 }

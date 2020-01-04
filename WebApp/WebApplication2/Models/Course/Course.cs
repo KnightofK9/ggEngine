@@ -27,6 +27,7 @@ namespace WebApplication2.Models
         #region Relationships
 
         public ICollection<CourseLecturer> CourseLecturers { get; set; }
+        public ICollection<CourseStudent> CourseStudents { get; set; }
         public ICollection<Document> Documents { get; set; }
         public ICollection<Lession> Lessions { get; set; }
 

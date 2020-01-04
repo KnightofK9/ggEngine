@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Rates.Add(rate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRate", new { id = rate.Id }, rate);
+            return CreatedAtAction("GetRate", new { id = rate.Id }, rateDTO);
         }
 
         // DELETE: api/Rates/5

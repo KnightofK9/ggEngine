@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Answers.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAnswer", new { id = answer.Id }, answer);
+            return CreatedAtAction("GetAnswer", new { id = answer.Id }, answerDTO);
         }
 
         // DELETE: api/Answers/5

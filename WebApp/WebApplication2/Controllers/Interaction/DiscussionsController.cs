@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Discussions.Add(discussion);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscussion", new { id = discussion.Id }, discussion);
+            return CreatedAtAction("GetDiscussion", new { id = discussion.Id }, discussionDTO);
         }
 
         // DELETE: api/Discussions/5
@@ -117,17 +117,13 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<DiscussionDTO>>> GetDiscussionOfLession(int lessionId)
-        //{
-        //    var discussionList = _context.Discussions.ToList().FindAll(x => x.LessionId == lessionId);
-        //    var discussionDTOList = new List<DiscussionDTO>();
-
-        //    foreach (var dicussion in discussionList)
-        //        discussionDTOList.Add(DiscussionDTO.ToDTO(dicussion));
-
-        //    return discussionDTOList;
-        //}
-
+        [HttpGet("OfLession/{lessionId}")]
+        public async Task<ActionResult<IEnumerable<DiscussionDTO>>> GetDiscussionsOfLession(int lessionId)
+        {
+            return _context.Discussions.ToList()
+                .FindAll(discussion => discussion.LessionId == lessionId)
+                .Select(discussion => DiscussionDTO.ToDTO(discussion))
+                .ToList();
+        }
     }
 }

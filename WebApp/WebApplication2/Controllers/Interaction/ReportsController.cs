@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Reports.Add(report);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReport", new { id = report.Id }, report);
+            return CreatedAtAction("GetReport", new { id = report.Id }, reportDTO);
         }
 
         // DELETE: api/Reports/5

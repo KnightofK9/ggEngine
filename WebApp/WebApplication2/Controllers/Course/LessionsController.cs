@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
             _context.Lessions.Add(lession);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLession", new { id = lession.Id }, lession);
+            return CreatedAtAction("GetLession", new { id = lession.Id }, lessionDTO);
         }
 
         // DELETE: api/Lessions/5
@@ -117,16 +117,13 @@ namespace WebApplication2.Controllers
         }
 
         // GET:
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<LessionDTO>>> GetLessionsOfCourse(int courseId)
-        //{
-        //    var lessionList = _context.Lessions.ToList().FindAll(x => x.CourseId == courseId);
-        //    var lessionDTOList = new List<LessionDTO>();
-
-        //    foreach (var lession in lessionList)
-        //        lessionDTOList.Add(LessionDTO.ToDTO(lession));
-
-        //    return lessionDTOList;
-        //}      
+        [HttpGet("OfCourse/{courseId}")]
+        public async Task<ActionResult<IEnumerable<LessionDTO>>> GetLessionsOfCourse(int courseId)
+        {
+            return _context.Lessions.ToList()
+                .FindAll(lession => lession.CourseId == courseId)
+                .Select(lession => LessionDTO.ToDTO(lession))
+                .ToList();
+        }
     }
 }
